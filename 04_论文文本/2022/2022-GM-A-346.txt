@@ -1,0 +1,626 @@
+Problem A
+The University Physics Competition, Team 346
+1
+Deflecting an Asteroid
+Team 346, Problem A
+November 6, 2022
+Abstract
+In this paper, we find the minimum time before impact with the Earth at
+which an asteroid with a 100 meter diameter can be deflected by a 20 000
+kg spacecraft. We investigate the feasibility and effectiveness of several differ-
+ent deflection methods through theoretical physical approaches to determine
+the shortest distance from the Earth, and thus the shortest time, achievable.
+We show, using conservation of energy, conservation of momentum, the Ideal
+Rocket Equation, and Newton’s Law of Universal Gravitation, that deflection
+through kinetic impact is achievable only at large distance from the Earth and
+time frame of several years, even with a high momentum transfer efficiency. For
+a C-type asteroid of average density, liquid hydrogen fuel, and a momentum
+transfer efficiency of unity, the distance required would be about 3.8 · 109 km,
+with a corresponding time of 4.8 years. Therefore, we also consider the approach
+of splitting the asteroid through impact with the spacecraft. The scenario of
+symmetrical fragmentation into two pieces yields a much smaller distance from
+Earth and time frame of approximately 1.3 · 106 km and 15 hours, respectively.
+Though this approach allows for deflection within a shorter time frame, we
+risk some fragments hitting the Earth rather than being deflected, with that
+probability increasing as the collision occurs closer to the Earth.
+
+Problem A
+The University Physics Competition, Team 346
+2
+Contents
+1
+Introduction and Problem Restatement
+2
+2
+Assumptions
+2
+3
+Two Failed Approaches for Asteroid Deflection
+3
+4
+Theoretical Analysis of Kinetic Impact Deflection
+4
+5
+Theoretical Analysis of Deflection through Kinetic Impact with As-
+teroid Fragmentation
+9
+6
+Discussion
+13
+7
+Conclusion
+14
+1
+Introduction and Problem Restatement
+Asteroid impacts may one day threaten the survival of humanity. Recently, organ-
+isations such as NASA have started testing planetary defense capabilities against
+asteroids, such as through the DART mission [1]. Within this paper, we aim to find
+the minimum time before impact with Earth at which the asteroid can still be de-
+flected by a spacecraft. This paper follows an engineering design process: first we
+frame the problem through restating and listing assumptions, then we devise several
+possible deflection approaches, and finally assess each for feasibility, and if feasible, for
+how much time before Earth impact is required in order to determine the minimum
+amount of time at which an asteroid can still be deflected.
+2
+Assumptions
+Assumptions are acknowledged when they are made throughout the paper, but a list
+of key assumptions is also provided here.
+
+Problem A
+The University Physics Competition, Team 346
+3
+1. The asteroid is a sphere for the purpose of estimating mass. In reality, the aster-
+oid can take a myriad of shapes which would give it a large range of masses. This
+assumption is also made again when we consider the gravitational energy for splitting
+a uniform sphere.
+2. The asteroid has a uniform density, which we take to be that of an average density
+for a C-type asteroid (see Section 4, ”Solving for Collision Distance from Earth and
+Time before Earth Impact”). Once again, this assumption is made only for calcu-
+lating mass and gravitational energy of splitting, and does not effect the collision
+mechanism beyond these.
+3. Though we first develop a general formula, we assume that the asteroid is initially
+heading directly towards the center of the Earth for later calculations.
+4. Though we also simulate other types of fragmentation, our calculations for frag-
+mentation consider the highly idealized case of symmetric separation into two parts.
+3
+Two Failed Approaches for Asteroid Deflection
+We continue to develop our solution through an engineering design processes by con-
+sidering and evaluating the feasibility of several different approaches. In this section,
+we will demonstrate why certain approaches are not feasible, before we move onto
+optimizing and evaluating successful approaches.
+Landing on the Asteroid
+Landing on the asteroid and then burning fuel while
+on the asteroid to move the it may be a more efficient use of fuel than colliding with
+the asteroid. However, in order to land, we must bring the spacecraft to the speed of
+the asteroid. Letting v∞represent the initial velocity of the asteroid and ve represent
+the effective exhaust velocity, the Ideal Rocket Equation yields
+v∞= ve ln
+m(t0)
+m(t)
+
+⇒m(t) = m(t0) exp
+
+−v∞
+ve
+
+(1)
+Substituting a value of 4.5 km/s for ve, as is typical for liquid hydrogen fuel (see Sec-
+tion 4, ”Solving for Collision Distance from Earth and Time before Earth Impact”),
+we get that the mass on landing is only about 40 kg, or that 99% of the mass has
+
+Problem A
+The University Physics Competition, Team 346
+4
+been lost. Therefore, there would not be enough fuel left to divert the asteroid.
+Tethering
+We can try to eliminate the expenditure of fuel in bringing the spacecraft
+to the speed of the asteroid by launching a cable to connect the spacecraft to the
+asteroid. A cursory calculation,
+mcable = ρcableLA = ρcable(1
+2at2)(ma
+σ ) = mρcable
+2σ
+a2t2 = mρcable
+2σ
+v2
+asteroid
+(2)
+where L is the length of the cable, A is the cross sectional area of the cable, a is the
+acceleration acting on the spacecraft, ρcable is the cable density, m is the spacecraft
+mass, and σ is the ultimate yield strength of the cable material, shows the flaw in this
+approach. Substituting for the known mass of the craft and speed of the asteroid, as
+well as σ = 420 MPa (ultimate) and ρ = 7800
+kg
+m3, which are typical values for steel,
+we obtain a cable mass of approximately 1 · 108 kg, or 5000 times the mass of the
+spacecraft!
+4
+Theoretical Analysis of Kinetic Impact Deflec-
+tion
+The most straightforward approach is to collide the spacecraft with the asteroid in
+order to change its course.
+Momentum Required for Deflection
+Figure 1. shows key parameters of the
+problem, where D represents the distance from the asteroid to the axis passing though
+the Earth’s centre in the direction of the asteroid’s initial velocity.
+The initial angular momentum of the asteroid is L = Mav∞D, where Ma is the
+mass of the asteroid. Due to the conservation of energy (K1 + U1 = K2 + U2),
+Mav2
+∞
+2
+=
+L2
+2R2Ma
+−GMaMEarth
+R
+(3)
+as the asteroid approaches but does not hit the Earth, where R is the closest distance
+
+Problem A
+The University Physics Competition, Team 346
+5
+Figure 1: A schematic of the asteroid’s path. The red line represents the path taken
+when there is no collision with the spacecraft, while the green line represents the path
+taken when there is collision with the spacecraft.
+
+Problem A
+The University Physics Competition, Team 346
+6
+from the path of the asteroid to the centre of Earth. Rearranging this equation yields
+L2 = (MaRv∞)2 + 2GM 2
+aRMEarth
+(4)
+For impact with the Earth, R = REarth, so to avoid impact we need
+L2
+c > (MaREarthv∞)2 + 2GM 2
+aREarthMEarth
+(5)
+where Lc is the asteroid’s angular momentum after impact.
+We therefore aim to
+maximize Lc through the spacecraft collision.
+Following the inelastic collision between the spacecraft and the asteroid, the as-
+teroid’s angular momentum is
+Lc = Mav∞D +⃗r ·⃗psat = Mav∞D + psatr sin ϕ
+(6)
+where⃗r is the radius vector from the Earth to the point of collision,⃗psat is the
+momentum vector of the spacecraft, and ϕ is the angle between these vectors, with
+an optimal value of 90◦.
+The worst case scenario is when the asteroid impacts Earth head on, or, D = 0, as
+all the angular momentum required to miss the Earth must come from the spacecraft.
+Within this scenario we need
+p2
+satr2 > (MaREv∞)2 + 2GM 2
+aREarthMEarth
+(7)
+Maximizing Spacecraft Momentum prior to Impact
+The spacecraft may by
+accelerated prior to impact with the asteroid to maximize momentum. According to
+the ideal or Tsiolkovsky rocket equation,
+usat(t) = usat(t0) + ve ln
+m(t0)
+m(t)
+
+(8)
+where ve, usat(t), m, and t0 are the effective exhaust velocity, spacecraft velocity,
+spacecraft mass, and time when the acceleration commences, respectively.
+Substituting Eq.
+(9) into the equation for momentum, psat = m(t)usat(t), and
+
+Problem A
+The University Physics Competition, Team 346
+7
+differentiation with respect to m(t) yields
+dpsat(t)
+dm(t) = (usat(t0) + ve ln
+m(t0)
+m(t)
+
+) −ve
+(9)
+Setting this to zero and substituting for usat yields that maximum momentum is
+achieved when usat(t) = ve. This has an intuitive physical explanation. When the
+velocity of the spacecraft exceeds the exhaust velocity the ejected gases move in the
+direction of the spacecraft respect to the stationary frame, hence, reducing the mo-
+mentum of the spacecraft due the momentum conservation. When the spacecraft
+moves slower than the exhaust speed the jet engine adds the momentum of the space-
+craft as the exhaust gasses move backwards with respect to the stationary frame.
+Therefore, the maximum spacecraft momentum that can be obtained using a jet
+engine is
+popt = vem = vem(t0) exp(u(t0)/ve −1)
+(10)
+where the initial velocity is given by the equation for centripetal acceleration
+u(t0)2 = GMEarth
+r
+(11)
+where r is the orbital radius.
+Time to Impact with Earth
+Rearranging Eq. (4) yields
+v(r) =
+r
+v2
+∞+ 2GMEarth
+r
+(12)
+where we ignore atmospheric drag as the asteroid approaches Earth due to the aster-
+oid’s large size. Therefore, the before impact with Earth is
+Timpact =
+r
+Z
+REarth
+ds
+v(s)
+(13)
+
+Problem A
+The University Physics Competition, Team 346
+8
+where r is the distance from Earth at the moment of spacecraft-asteroid collision.
+The integration can be carried out explicitly using change of variable
+sinh2(ζ) =
+v2
+∞
+2GMEarth
+(14)
+The integration then yields
+Timpact = 1
+v∞
+(
+√
+s2 + 2as −a ln(a + s +
+√
+2as + s) |r
+REarth
+(15)
+where
+a = GM
+v2
+∞
+(16)
+Solving for Collision Distance from Earth and Time before Earth Impact
+According to equation (10) we conclude the effective exhaust velocity of the jet en-
+gine is one of the most critical parameters that influence the efficacy of the asteroid
+deflection. NASA typically uses liquid hydrogen, which can have a specific impulse
+in a vacuum of 460 [s] on the higher end [2], which we multiply by a specific gravity
+of 9.8 [ m
+s2] to get an effective exhaust velocity of 4.5 [km
+s ].
+Another critical parameter is to consider is the density of the asteroid. For the
+three types of asteroid composition, C, S, and M, the average densities are 1380 [ kg
+m3],
+2710 [ kg
+m3], and 5320 [ kg
+m3], respectively [3]. C type asteroids are the most common [4],
+so they are the type we will consider when we solve the problem numerically.
+As per the problem statement, we wish to minimize the distance from the Earth to
+the collision, or in other words consider the case for equality in Eq. (7) when we use
+the optimal momentum from Eq. (10). We thus obtain a distance of about 3.8 · 109
+km – an order of magnitude greater than the distance to Mars and a corresponding
+time of 4.8 years. This large result is not completely unexpected, as previous studies
+suggest that asteroids should be deflected years before they reach earth [7, 6, 8]. We
+could gain a better result by including the effect of ejecta, parts of the asteroid that
+are sent in the opposite direction after collision. These ejecta would increase our
+momentum transfer efficiency from the case of β = 1, to possibly β ≈3. [5]. The
+
+Problem A
+The University Physics Competition, Team 346
+9
+revised equation for momentum would be
+popt = βvem = βvem(t0) exp(u(t0)/ve −1)
+(17)
+However, this is not enough, as r is only inversely proportional to β, so the distance
+would not decrease by the several factors of 10 required to deflect at low Earth orbit.
+5
+Theoretical Analysis of Deflection through Ki-
+netic Impact with Asteroid Fragmentation
+To be able to deflect an asteroid at a closer distance, a more explosive approach must
+be taken, as spacecraft momentum is too small to deflect asteroids unless they are
+sent several years before impact [7, 6, 8].
+Before we move forward we establish the following result:
+Ugravitational,asteroid = 3
+5
+GM 2
+asteroid
+radius
+= 4.2 · 105J
+(18)
+Meanwhile, the kinetic energy of the spacecraft impact is
+Kcollision = 1
+2msatv2
+∞= 6.0 · 1012J
+(19)
+Since the energy of the impact is several orders of magnitude greater than the gravi-
+tation energy within the asteroid, we do not not expect gravitational forces between
+asteroid fragments to play a role in its subsequent dynamics.
+Unlike momentum, the kinetic energy of the impact provides favorable square
+root scaling of the ratio of asteroid to spacecraft masses, which may allow for the
+explosive separation of the asteroid. We consider symmetric fragmentation which
+results in two objects being deflected in opposite direction with velocity U. For small
+mass spacecrafts the kinetic energy balance in the reference frame of the centre of
+mass is written as
+1
+2m
+
+(u∥
+sat + v∞)2 + (u⊥
+sat)2
+= 1
+2MU 2
+(20)
+
+Problem A
+The University Physics Competition, Team 346
+10
+where
+U =
+r m
+M
+q
+(u∥
+sat + v∞)2 + (u⊥
+sat)2
+(21)
+and u∥
+sat and u⊥
+sat are parallel and perpendicular components of the spacecraft velocity
+with respect to the asteroid.
+Maximizing the resulting velocity U with respect to the incoming velocity and
+mass of the spacecraft using the ideal rocket equation gives the following constraint
+on the relative velocity
+usat + v∞= 2ve
+(22)
+As v∞is far larger than the effective exhaust velocity it is disadvantageous to accel-
+erate the spacecraft towards the asteroid.
+The division of the mass into fragments then transforms condition (7) into
+U 2r2 > (REarthv∞)2 + 2GREarth
+⇒r2 > M
+msat
+(REarthv∞)2 + 2GREarthMEarth
+(usat + v∞)2
+(23)
+Though we will use Eq. (23) for calculations, we may also drop low order terms to
+get the simplified equation
+r >
+r
+M
+msat
+REarth
+(24)
+Evaluation of the Eq.
+(23) gives value rimpact = 208REarth.
+Substituting the lim-
+its REarth and rimpact into Eq. (15) using integration gives a time before impact of
+Timpact = 5.26 · 104[s] ≈14.6[hours].
+A Simulation of Asteroid Fragmentation
+The impact of a collision on the
+structure of an asteroid has many complexities [9], with results varying due to the
+size and composition of an asteroid. We investigate the outcome of a collision that
+results in the fragmentation of an asteroid into a large number of fragments that move
+as a spherical front from the impact point. In the frame of reference of the asteroid,
+the fragments have the same velocity given by Eq. (20). We model the distribution
+of the orthogonal components of the asteroid fragments. In Fig. 2 the distribution
+of the velocity in the direction orthogonal to the asteroid velocity is shown. Notably,
+
+Problem A
+The University Physics Competition, Team 346
+11
+Figure 2: u⊥distribution of the asteroid fragments. We imposed that the asteroid
+is split into 200 fragments and all the kinetic energy of the satellite impact has been
+redistributed into kinetic energy of the fragments.
+
+Problem A
+The University Physics Competition, Team 346
+12
+Figure 3: Probability of the asteroid fragments to impact Earth as a function of the
+satellite strike distance.
+
+Problem A
+The University Physics Competition, Team 346
+13
+the velocities are clustered towards the edge of the distribution. This is explained
+by the fact the main contribution to the area of a sphere comes from its sides rather
+than the visible front area.
+We counted the number of fragments that satisfy the inequality (23) for different
+distances of the satellite strike.
+At the distance that exceeds the minimal strike
+distance by 50% the number of fragments that impacted Earth was 30%. Doubling
+the distance again decreased the number of impacting fragments to 7%. The results
+of our simulation show that when we move away from the ideal case of symmetrical
+fragmentation into two pieces, we expose ourselves to the risk of asteroid fragments
+striking the Earth. Therefore, deflection through asteroid fragmentation should only
+be used when there is not enough time before collision left to achieve kinetic impact
+deflection.
+6
+Discussion
+Model Strengths
+1.
+The model considers multiple approaches to deflecting an asteroid in order to
+compare the minimum times and distances at which deflection is still possible.
+2. The model is relatively simple and uses concepts known by students that have
+completed a year of physics.
+3.
+The model can be solved explicitly at most stages, which avoids the need for
+numerical approaches.
+Model Shortcomings
+1. The impact of ejecta, which typically increases the momentum transfer efficiency,
+is not analyzed in detail due to its complexity and the uncertainties involved. In fact,
+it is possible that the ejacta could in some cases slightly decrease the momentum
+transfer efficiency if they are released in the forward direction [5].
+2. The approach of fragmenting an asteroid is highly chaotic, with complete deflection
+achievable only in highly idealized scenarios, as is shown by our simple simulation.
+3. For the analysis of deflection purely through kinetic impact, we do not consider
+the effect of celestial bodies apart from the Earth, which would have some effect given
+
+Problem A
+The University Physics Competition, Team 346
+14
+the large distance between the Earth and the point of collision.
+7
+Conclusion
+We conclude that the shortest time before Earth impact required to reflect an asteroid
+with a kinetic impact approach is 4.8 years. When using a fragmentation approach,
+an ideal symmetrical fragmentation allows deflection at a time to impact of 15 hours.
+However, in reality, the second approach is difficult to predict and may lead to asteroid
+chunks hitting the Earth.
+The other two possible approaches of landing and the
+tethering are shown to be impossible for the given spaceship mass. The results of this
+paper emphasize the need for early detection systems as a significant amount of time
+before Earth impact is needed to ensure safe deflection.
+References
+[1] Josh Handal, Justyna Surowiec, Michael Buckley (2022) NASA’s DART Mission
+Hits Asteroid in First-Ever Planetary Defense Test, NASA.
+[2] Masahiro Kanazaki, Kazuhisa Chiba (2014) Study of Low-Cost 100kg-spacecraft
+Launcher Using Hybrid Rocket Engines, Space Propulsion Conference.
+[3] G. Krasinskya, E. PitjevabM, V.V asilyevb, E. Yagudinab (2002) Hidden Mass in
+the Asteroid Belt , Icarus.
+[4] NASA Solar System Exploration (2021) Asteroids, NASA.
+[5] A. Cheng, P. Michel, M. Jutzi, A. Rivkin, A. Stickle, O. Barnouin, C. Ernst, J.
+Atchison, P. Pravec, D. Richardson, AIDA team, AIM team (2015) Asteroid Im-
+pact and Deflection Assessment Mission: Kinetic Impactor, Planetary and Space
+Science.
+[6] T.J. Ahrens and A.W. Harris. Deflection and fragmentation of near-earth aster-
+oids. Nature, 360(6403):429–433, 1992.
+
+Problem A
+The University Physics Competition, Team 346
+15
+[7] A. Carusi, G.B. Valsecchi, G. DAbramo, and A. Boattini. Deflecting neos in route
+of collision with the earth. Icarus, 159(2):417–422, 2002.
+[8] G. Vardaxis and B. Wie. Near-earth object intercept trajectory design for plane-
+tary defense. Acta Astronautica, 101(1):1–15, 2014.
+[9] N. Murdoch, M. Drilleau, C. Sunday, F. Thuillet, A. Wilhelm, G. Nguyen, and
+Y. Gourinat. Low-velocity impacts into granular material: Application to small-
+body landing. Monthly Notices of the Royal Astronomical Society, 503(3):3460–
+3471, 2021.
+
+Problem A
+The University Physics Competition, Team 346
+16
+Appendices
+Maple Calculations for Distance and Time
+(5)
+(5)
+(1)
+(1)
+(3)
+(3)
+> 
+> 
+> 
+> 
+(9)
+(9)
+(2)
+(2)
+> 
+> 
+> 
+> 
+(8)
+(8)
+(7)
+(7)
+> 
+> 
+> 
+> 
+> 
+> 
+(6)
+(6)
+(4)
+(4)
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+SI
+Asteroid mass
+Orbital velocity
+Rocket equation 
+
+Problem A
+The University Physics Competition, Team 346
+17
+(16)
+(16)
+(18)
+(18)
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+(13)
+(13)
+> 
+> 
+(17)
+(17)
+> 
+> 
+(14)
+(14)
+(12)
+(12)
+(10)
+(10)
+(11)
+(11)
+> 
+> 
+(15)
+(15)
+> 
+> 
+> 
+> 
+> 
+> 
+0.00002767912054
+190.0744999
+Satellite velocity
+
+Problem A
+The University Physics Competition, Team 346
+18
+> 
+> 
+> 
+> 
+> 
+> 
+(20)
+(20)
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+(19)
+(19)
+(21)
+(21)
+> 
+> 
+> 
+> 
+> 
+> 
+Collision time
+
+FragmentationSimulation.R
+19

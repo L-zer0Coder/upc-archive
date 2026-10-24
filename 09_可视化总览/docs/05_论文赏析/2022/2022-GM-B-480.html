@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analysis of the optimal initial velocities and spins of soccer in Penalty Kicks（2022 题B 队伍480） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg:#0a0f1e;--panel:#111a2e;--ink:#e8eef8;--mut:#94a5c0;--line:#22304c;--acc:#4f7dd9;--acc2:#39c2b0;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
+ font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar a:hover{border-color:var(--acc);color:#fff}
+.crumb{color:var(--mut);font-size:13px}
+.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
+h3{font-size:17px;color:#cfe0ff}
+a{color:#7fb0ff} a:hover{text-decoration:underline}
+code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
+pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1em 0;padding:8px 16px;border-left:4px solid var(--acc2);background:rgba(57,194,176,.07);color:#c9d6ea;border-radius:0 10px 10px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#16233c;color:#a9bcda;white-space:nowrap}
+tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
+@media(max-width:700px){.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html">🏆 总览首页</a>
+  <span class="crumb">05_论文赏析/2022</span>
+  <span style="flex:1"></span>
+  <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2022/Problem%20B/2022-GM-B-480.pdf">📄 论文 PDF</a>
+  <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2022/2022-GM-B-480.md">原文 .md</a>
+</div></div>
+<div class="wrap"><div class="card">
+<h1 id="analysis-of-the-optimal-initial-velocities-and-spins-of-soccer-in-penalty-kicks2022-b-480">Analysis of the optimal initial velocities and spins of soccer in Penalty Kicks（2022 题B 队伍480）</h1>
+<p><strong>页数</strong>: 约 15 页 ｜ <strong>对应题目</strong>: Problem B — FIFA Penalty Kicks（点球最优策略）</p>
+<h2 id="1">1. 论文速览</h2>
+<p>本文最大的特色是把"旋转轴"解放出来：不作"只绕竖直轴旋转"的常见简化，令 $\vec\omega = (\omega_{0x},\omega_{0y},\omega_{0z})e^{-\mu t}$ 任意方向且随时间指数衰减，导出含衰减 Magnus 项的全三维非线性 ODE 组 (7)，数值枚举后得到 600 多组能命中上角的 $(\vec v_0, \vec\omega_0)$ 组合，并用"点大小=速度、点颜色=偏角、框颜色=仰角"的六维数据三维可视化呈现（Figure 5–6、Table 1 给出各速度档的参数上下界）。第二问在"守门员总能正确判断且即时反应"的最坏假设下只考虑防守面积，用蹬地-斜抛模型求最大控制域（$s_{max} = 13.34$ m²，$\alpha = 57.52°$），随后用一个漂亮的反转论证（鲁棒性 + 2002–2018 世界杯统计）主张<strong>射下角优于上角</strong>，最终给出最优踢法 $v_0 = 21.245$ m/s、仰角 0.2057 rad、方位角 1.4182 rad、自转 15.255 rad/s（Table 3）。</p>
+<h2 id="2">2. 建模体系逐层拆解</h2>
+<p><strong>第一层：球的多轴旋转动力学。</strong> Magnus 力直接采用矢量叉乘形式 (1) $f = \frac{8}{3}\pi\rho r^3\,\vec\omega\times\vec V$；阻力取 $\vec R = -kV^2\hat V = -kV\vec V$（式 6），$k = \frac{\pi}{2}c\rho r^2$（$c=0.5$）。关键一步是自转衰减模型：假设空气阻力矩正比于角速度（假设 3），写出道具方程 (2) $\vec M = I\frac{d\vec\omega}{dt} = -\eta\vec\omega$，分量式 (3)，解得 (4) $\vec\omega = \vec\omega_0 e^{-\mu t}$，$\mu = \eta/I$——与 358 的"量级论证后忽略"、471 的"后期修正"都不同，480 是<strong>从一开始就把衰减放进方程</strong>，代入式 (5) 使 Magnus 项带 $e^{-\mu t}$ 因子。最终动力学方程组 (7) 是含时变系数的三个二阶 ODE（注：式 (7) 第三行左端误印为 $mx&#x27;&#x27;$，应为 $mz&#x27;&#x27;$）。</p>
+<p><strong>第二层：解空间枚举与约束设定。</strong> 声明式 (7) 无解析解，按人体能力限 $v_0 \le 31$ m/s；分量初速取 $x: 0\sim11$、$y: 20\sim30$、$z: 0\sim10$ m/s，角速度 $x: -8\sim8$、$y: -5\sim5$、$z: 0\sim15$ rad/s（称参考了大量弧线球论文与比赛视频）；"上角"定义为距横梁-立柱角点 1–2 倍球半径的环带（附录代码 <code>range = [a, 2*a]</code>，判据为过门线平面 $y\in[10.9, 11.1]$ 时的 $x, z$ 落带内）。整数网格枚举得 600+ 组成功解，Table 1 按 $v_0$ 分档给出 $\theta_v, \varphi_v, w_0, \theta_w, \varphi_w$ 的 max/min。</p>
+<p><strong>第三层：守门员最大防守域。</strong> 明确列出影响扑救的三因素（判断方向、防守面积、起动时机）后，取最坏情形——判断全对、反应为零，只剩面积问题。人体参数：身高 185 cm、臂展≈身高、头长为身高 1/8 → 臂长 69.5 cm；起跳 $V_0 = \sqrt{2gh} = 4.43$ m/s（式 8，$h=1$ m），蹬地距离 $S_a = 40$ cm 解出 $a = 34.33$ m/s²、$t_a = 0.181$ s（式 9–10），与 358 的数字完全一致（两队用了同一类蹬地模型）。斜蹬角 $\alpha$ 下由 $\tan\beta = \frac{a\sin\alpha - g}{a\cos\alpha}$（式 11）与位移式 (14)(15)（先匀加速后自由体）积分得可达面积 $s$，对 $\alpha$ 求极值：$s_{max} = 13.34$ m²、$V_x = 3.34$ m/s、$V_y = 3.47$ m/s、$\alpha = 57.52°$。控制域合成"椭球状"三维防守区（Figure 8），结论指向四个角。</p>
+<p><strong>第四层：上角 vs 下角的策略反转（本文亮点）。</strong> 三条独立证据：其一，鲁棒性检验——以上角区域中心解为初值，上下扰动 2 m/s 或 2 rad/s，统计仍能命中的比例，下角容差显著更大（Figure 9）；其二，世界杯 2002–2018 实测数据（Table 2）：下左角进球率 82.95%、射失率仅 2.79%，上左角进球率虽 83.53% 但射失/中框合计 16.3%；其三，上角对体力与心理要求更高。据此把第二问的目标区改设为下角，重解得最优踢法 Table 3，并展示射向下左角的轨迹（Figure 10，另一侧对称）。</p>
+<h2 id="3">3. 数学方法与算法</h2>
+<p>纯数值路线：MATLAB 显式 Euler 积分（$dt = 0.0001$ s，$t\in[0,1]$ s），六重循环整数网格枚举（附录代码），成功判据为穿越 $y\in[10.9,11.1]$ 平面时落点处于角点环带。数据呈现方法是全文最出彩之处：把 $(w_0, \theta_w, \varphi_w)$ 放入三维坐标系，用点大小编码 $v_0$、点颜色编码速度偏角、外框颜色编码速度仰角，实现<strong>六维数据在三维图中的可视化</strong>（Figure 5–6），作者在 Strengths 中也自评此点。灵敏度方面做了扰动 ±2 单位的鲁棒性计数（Figure 9），但未做系统灵敏度分析；$\mu$ 在代码中硬编码为 0.1（注释 $\mu = \eta/I$，按 $\eta = 18.1\times10^{-6}$、$I = \frac{2}{5}ma^2$ 计算实际约 0.009，不一致——不确定作者是否有意放大衰减效应）；附录主程序空气密度用 1.29 而绘图函数用 1.205，两处不一致；式 (6) 要求阻力恒与速度反向，但代码 $z$ 方向阻力项按 $v_z$ 正负切换符号，与式 (6) 不符（疑似笔误，好在数值影响有限）。</p>
+<h2 id="4">4. 排版与图表赏析</h2>
+<p>首页（p1.png）为 Word 风格：加粗衬线大标题、居中的 "Problem B / Team 480 / November 6, 2022"，摘要带 Key words，页眉 "Team 480"。正文带点线目录，标题层级为 "4. Physical Analysis of Model / 4.1 Moving Motion of the Ball" 式的数字编号，公式用 Word 公式编辑器排版、编号 (1)–(15)。fig.png 所示第 4 节开篇配有 Figure 2（Magnus 效应流线示意图）与 Figure 3（三维受力分析图），均为简洁自绘图。全文 10 幅图 + 3 张表：流程图（Figure 1）、机理图（2–3）、仿真轨迹（4）、统计散点（5）、六维可视化（6）、守门员加速分析（7）与控制域（8）、上下角对比（9）、最优踢法（10）；Table 1 的"分档参数上下界"长表是别家没有的呈现方式。整体观感朴实、信息密度高，但排版精细度低于 358/471 的 LaTeX 版式（如摘要 "bootom"、式 (7) 下标误印、单位 $m/s^2$ 误标速度等小错多处）。</p>
+<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<ol>
+<li><strong>多轴旋转 + 自转衰减一步到位</strong>：$\vec\omega(t) = \vec\omega_0 e^{-\mu t}$ 的任意轴建模（式 4–5）比"只绕 z 轴"的简化更接近真实香蕉球，作者在 Strengths 中明确把这一点与"common theory"对标。</li>
+<li><strong>六维数据可视化</strong>：用点尺寸/点色/框色把 $(v_0,\theta_v,\varphi_v,w_0,\theta_w,\varphi_w)$ 压缩进一张三维图，解决了"参数太多讲不清"的呈现难题，是评委容易记住的独创性工作。</li>
+<li><strong>结论敢于反转题目预设</strong>：题目引导射上角，本文用鲁棒性检验 + 世界杯 16 年真实数据（Table 2）+ 风险论证三条证据主张下角更优——把"最优策略"答成了超越题面的决策建议，体现物理建模的判断力。</li>
+<li><strong>最坏情形假设的清晰逻辑</strong>：第二问开头即声明"三因素中假设判断与反应完美，只剩面积"，把难以量化的人类因素隔离掉，建模边界干净。</li>
+<li><strong>守门员优化有完整推导链</strong>：蹬地模型 (8)–(10) → 斜抛几何 (11)–(15) → 面积积分求极值（$\alpha = 57.52°$、$s = 13.34$ m²），与 358 的 $\alpha$ 优化异曲同工且给出面积目标函数。</li>
+</ol>
+<h2 id="6">6. 可借鉴清单</h2>
+<ol>
+<li>旋转球建模保留 $\vec\omega$ 的三分量与叉乘形式，并直接写入衰减因子 $e^{-\mu t}$，代码只需多三个状态量即可支持任意旋转轴。</li>
+<li>参数结果多时，学习其<strong>六维→三维映射可视化</strong>（大小、颜色、边框各编码一维），一张图讲清整个解空间。</li>
+<li>给"命中区域"下操作性定义（本文：角点外 1–2 倍球半径环带），比模糊的"上角"更可计算，也方便做容差分析。</li>
+<li>用<strong>扰动重采样</strong>（±2 m/s、±2 rad/s 数命中数）代替复杂的误差传播，快速评估策略鲁棒性。</li>
+<li>用真实赛事统计表（进球/射失/被扑/中框分列）为模型结论背书，体育类赛题尤其有效。</li>
+<li>写清"哪几个因素被假设掉、为什么"（三因素保留一个），再最强的对手模型也讲得通——这是处理含人的系统时的通用套路。</li>
+</ol>
+</div></div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+});
+</script>
+</body>
+</html>

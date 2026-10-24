@@ -1,0 +1,2147 @@
+Artillery Firing Model and Manual Calculation Methods
+Team 392
+Problem B:Artillery
+Abstract
+This study tackles the ballistic challenges of 19th-century artillery by developing a method
+to determine the muzzle velocity and firing angle for spherical projectiles (5 kg mass, 11 cm di-
+ameter) under variable conditions. A high-fidelity ballistic model was established, incorporating
+air resistance which depend on altitude-varying air density and Mach number. Gravity changes
+is also included. For the core scenario—a target at 1200m horizontal distance with both cannon
+and target at 500m altitude—a bidirectional search algorithm (initial velocity range: 100–450
+m/s) identified multiple valid parameter sets. Results show the minimum energy solution as
+141.0 m/s at 39.6°, while an optimal balanced solution (considering economy and eﬀiciency) is
+165.0 m/s at 21.8°.
+The model was extended to ranges of 1000–1500m, varying altitudes, and wind conditions.
+A logarithmic wind profile simulated altitude-dependent wind speed, and a hierarchical opti-
+mization algorithm minimized impact errors. This yielded a practical calculator that inputs
+wind speed/direction, distance, altitudes, and muzzle velocity to output elevation and azimuth
+angles (e.g., input: 20 m/s wind, 60° direction, 1000m distance, 500m cannon altitude, 600m
+target altitude, 450 m/s velocity; output: 8.02° elevation, 0.90° azimuth).
+For the last practical problem, in order to enable artillery oﬀicers who have received math-
+ematical training but do not have access to computers or calculators to quickly estimate the
+successful muzzle velocity and firing angle, we have designed two simple methods: the function
+calculation method and the table lookup method. They can choose the more accurate or simpler
+method according to their needs. The function for the function calculation method is as follows:
+elevation = β0 + ∑4
+i=1 βixi + ∑4
+i=1
+∑4
+j=i βijxixj
+azimuth = γ0 + ∑4
+i=1 γixi.
+Keywords:
+Ballistics; aerodynamic drag; wind speed gradient; machine learning; rapid
+estimation
+
+Contents
+1
+Introduction
+3
+1.1
+Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+1.2
+Problem Restatement
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+2
+Assumptions and Notations
+4
+2.1
+Assumptions
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2.2
+Notations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+3
+Model and Analysis
+5
+3.1
+The solutions of ballistic calculation when the target distance is 1200 meters
+. .
+5
+3.1.1
+Ideal parabolic motion and Linearized model of air resistance . . . . . . .
+5
+3.1.2
+Consider the impact of altitude on air resistance
+. . . . . . . . . . . . . .
+5
+3.1.3
+Using Python code to solve the problem . . . . . . . . . . . . . . . . . . .
+6
+3.1.4
+Result . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+3.2
+Ballistic Analysis Under Multi-Target Distances and Environmental Factors . . .
+10
+3.2.1
+Effects of horizontal range and elevation variations between gun muzzle
+and target . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10
+3.2.2
+Influence of wind conditions
+. . . . . . . . . . . . . . . . . . . . . . . . .
+11
+3.2.3
+Presentation of Results and Trend Analysis . . . . . . . . . . . . . . . . .
+12
+3.3
+Design of rapid estimation method . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+3.3.1
+Method 1: Function fitting method . . . . . . . . . . . . . . . . . . . . . .
+13
+3.3.2
+Method 2: Table lookup method . . . . . . . . . . . . . . . . . . . . . . .
+15
+4
+Model Evaluation
+16
+4.1
+Strengths
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+16
+4.2
+Weaknesses . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+17
+5
+Conclusions
+18
+Appendix A
+Python source code
+19
+2
+
+1
+Introduction
+1.1
+Background
+Ballistics, the physics of projectile motion, has been of paramount importance in military history.
+The cannons of the 19th century fired spherical solid shot, whose range and accuracy were
+affected by a complex interplay of factors including muzzle velocity, firing angle, air resistance,
+altitude, and wind. Hitting a distant target accurately required rapid estimation of appropriate
+firing parameters. Lacking modern computational tools, artillery oﬀicers of the era relied on
+experience, pre-computed firing tables, and simplified mathematical models based on classical
+mechanics.
+This problem simulates this historical context, requiring the establishment of a
+ballistic model for a given cannon system and the development of a rapid estimation method
+suitable for the technological constraints of the time.
+Figure 1: Ancient artillery
+1.2
+Problem Restatement
+Our task is to solve a targeting problem for a historical artillery piece. The specific goals are:
+1. Core Calculation: For a cannon firing a spherical projectile of mass 5 kg and diameter 11
+cm, with a target at a horizontal distance of 1200 meters and both the cannon and target at an
+altitude of 500 meters above sea level, determine the required muzzle velocity (up to 450 m/s)
+and firing angle above the horizontal to successfully hit the target.
+2. Extended Analysis: Extend the analysis to targets at horizontal distances between 1000
+and 1500 meters, at various altitudes, and account for different wind conditions.
+3. Method Development: The central challenge is to develop a rapid estimation method. This
+method must be usable by an artillery oﬀicer trained in mathematics but lacking computers
+or calculators, enabling quick estimation of successful firing parameters under field conditions.
+The final solution must be grounded in physical principles while maintaining practicality and
+usability consistent with the historical context.
+3
+
+2
+Assumptions and Notations
+2.1
+Assumptions
+Our assumptions are as follows:
+1.We employ the International Standard Atmosphere model (ISA).Assuming atmospheric
+conditions are at standard state, disregarding actual meteorological variations. Neglecting di-
+urnal and seasonal variations in temperature, humidity, and air pressure, whilst assuming ho-
+mogeneous atmospheric composition and disregarding pollutant effects.
+2.The speed of sound is solely dependent on temperature.
+Using the simplified formula
+vsound = √γ · R · T which neglects the negligible effect of humidity on the speed of sound, is
+acceptable within engineering accuracy limits.
+3.The drag coeﬀicient of spherical projectiles relates solely to Mach number, disregarding
+rotation. The projectile is assumed smooth, rigid, and non-rotating. We take a piecewise linear
+function to approximate the actual drag curve. Actual drag coeﬀicients are further influenced
+by surface roughness, rotation, and other factors. Drag coeﬀicient variations across transonic
+regions exhibit greater complexity than the model implies, while the secondary influence of
+Reynolds number on drag coeﬀicients is neglected.
+4.The trajectory lies within the vertical plane. Neglecting Coriolis forces and the effects
+of Earth’s rotation, the curvature of the Earth is negligible within the range specified in the
+problem. The deflection caused by Coriolis forces is approximately 0.5–1.0 metres, which also
+falls within the range of engineering error.
+5. In the first question, the atmosphere is assumed to be stationary relative to the ground:
+the influence of wind speed and direction is neglected.
+6. Initial Conditions: The projectile instantaneously achieves the specified muzzle velocity at
+the cannon’s muzzle, and the firing angle is known precisely.
+2.2
+Notations
+Table 1: Notations
+Symbol Definition
+Value
+d
+The diameter of the shell
+0.11(m)
+m
+The weight of the shell
+5.0(kg)
+g
+Gravitational acceleration
+9.80665(m/s2)
+h
+Altitude
+500(m)
+A
+The cross-section area of the shell
+0.0095(m2)
+T0
+Standard temperature at sea level
+288.15(K)
+P0
+Standard pressure at sea level
+101325(Pa)
+ρ0
+Standard air density at sea level
+1.225(kg/m2)
+L
+Temperature lapse rate
+0.0065(K/m)
+M
+Dry air molar mass
+0.0289644(kg/mol)
+R∗
+Universal Gas Constant
+8.21432(J/(mol·K))
+R
+Air gas constant
+287.05J/(kg·K)
+γ
+Specific heat capacity of air
+1.4
+4
+
+3
+Model and Analysis
+3.1
+The solutions of ballistic calculation when the target distance is
+1200 meters
+3.1.1
+Ideal parabolic motion and Linearized model of air resistance
+Neglecting air resistance, analytical solution:
+R = v2
+0 sin(2θ)
+g
+,
+T = 2v0 sin θ
+g
+Take air resistance into account,using the Siacci approximation method, the motion is decom-
+posed into tangential and normal components:
+dv
+dt = −g sin θ −k
+mv2,
+v dθ
+dt = −g cos θ
+Figure 2: Motion of a Cannonball Projectile
+3.1.2
+Consider the impact of altitude on air resistance
+·Temperature distribution: Within the troposphere (0-11,000 m), temperature decreases lin-
+early with increasing altitude ￿
+T(h) = T0 −L · h
+·Pressure distribution:
+P(h) = P0 ·
+(T(h)
+T0
+) g·M
+R∗·L
+·Density distribution:
+P = ρ · T · R∗
+5
+
+Simplified formula (for code implementation):
+ρ = ρ0 ×
+(
+1 −L × h
+T0
+) g·M
+R∗·L −1
+·Sound speed calculation
+The speed of sound is a function of temperature, and its calculation formula is￿
+vsound =
+√
+γ · R · T
+·The drag coeﬀicient Cd is a piecewise function that varies with the Mach number M =
+v
+vsound
+Cd(M) =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+0.45,
+M < 0.3
+0.45 + 0.1 × (M −0.3),
+0.3 ≤M < 0.8
+0.5 + 0.2 × (M −0.8),
+0.8 ≤M < 1.0
+0.7 −0.1 × (M −1.0),
+1.0 ≤M < 1.2
+0.6,
+M ≥1.2
+·Air resistance formula:
+Fdrag = 1
+2ρ · Cd · Av2
+Figure 3: Force analysis of cannonballs
+3.1.3
+Using Python code to solve the problem
+To precisely calculate the ballistic trajectory of a cannonball under the influence of air resis-
+tance and altitude, and to determine the launch parameters (initial velocity and launch angle)
+required to hit a target 1200 meters away, we developed a Python program. Based on a physical
+model, the program solves the motion equations through a search algorithm based on iterative
+method to find the optimal solution. The following provides a detailed description of the code
+implementation.[2]
+·Trajectory Simulation and Impact Point Calculation
+The ballistic trajectory is simulated by numerically integrating the equations of motion.
+The program uses Euler’s method with a time step ∆t = 0.01 s and a maximum simulation time
+tmax = 30 s. The equations of motion are:
+dvx
+dt = ax = −Fdrag
+m
+· vx
+v ,
+dvy
+dt = ay = −g −Fdrag
+m
+· vy
+v
+where v =
+√
+v2x + v2y. The initial conditions are x = 0, y = 0, vx = v0 cos θ, vy = v0 sin θ, with θ
+6
+
+being the launch angle in degrees. The impact point calculation is implemented in the function
+calculate-range(v0, theta-deg). The program simulates the trajectory until the projectile hits
+the ground (y ≤0), then uses linear interpolation to precisely calculate the impact x-coordinate:
+ximpact = x1 +
+−y1
+y2 −y1
+(x2 −x1)
+where (x1, y1) and (x2, y2) are the last point above ground and the first point below ground,
+respectively. This ensures accurate range calculation.
+·Search algorithm based on iterative method
+To find the launch parameters that achieve the target range (≥1200 m), the program employs
+two search strategies: low-to-high search and high-to-low search. This avoids local optima and
+improves eﬀiciency.
+Low-to-high search: Initial velocity v0 increases from 100 m/s to 450 m/s (step size 1
+m/s). For each v0, the launch angle θ increases from 0° to 90° (step size 0.1°). Once the range
+exceeds 1200 m, the (v0, θ) pair is recorded, and the inner loop breaks.
+High-to-low search: Initial velocity v0 decreases from 450 m/s to 100 m/s (step size -1
+m/s). For each v0, the launch angle θ decreases from 90° to 0° (step size -0.1°). Similarly, once
+the range exceeds 1200 m, the result is recorded.
+Both searches call the calculate-range function to compute the range for each parameter set.
+After completing both searches, we arrival at a conclusion and draw the graphs of all solutions
+of the system of equations separately.
+3.1.4
+Result
+The program detected that the initial velocity starts to fall within the target range when it is
+141.0 m/s, and it is evident that for every initial velocity greater than 140, there are two launch
+angles that meet the requirements. Therefore, the results of the search from low to high angles
+are the smaller initial launch angles, ranges, and flight times corresponding to each speed in the
+range of 141-450 m/s (with a step size of 1 m/s). Correspondingly, the results of the search from
+high to low angles are the larger initial launch angles, ranges, and flight times corresponding to
+each speed in the range of 450-141 m/s. The results are shown in Figures 4 and 5.
+Figure 4: Result from low angle to high angle
+Therefore, for the first question, we draw the following conclusions:
+1.We calculated the minimum initial velocity (which saves the most energy) and the corre-
+sponding muzzle angle required to hit the target. The minimum initial velocity is 141.0 m/s,
+and the muzzle angle is 39.6°, located at the leftmost end of the curve shown in the figure 6
+below.
+7
+
+Figure 5: Result from high angle to low angle
+2. We calculated the shortest time solution, the minimum angle solution, and the highest
+trajectory (safest) muzzle velocity when the target can be hit. The muzzle velocities are all
+450m/s, with the highest muzzle angle being 75.8° and the lowest muzzle angle being 3.1°.
+When the lowest muzzle angle is 3.1°, the shortest time is 4.0s.
+3. In response to the requirements of the problem, under real artillery firing conditions,
+while considering the energy loss (economic loss) caused by increased speed and the eﬀiciency
+loss caused by extended time, we designed a normalized scoring function:
+Seco = (vmax −vself)/(vmax −vmin) ∗100
+Stime = (tmax −tself)/(tmax −tmin) ∗100
+Sfinal = 0.5 ∗Seco + 0.5 ∗Stime
+Where Seco denotes Economic score at a given projectile muzzle velocity, vmax denotes the
+minimum value in the overall projectile muzzle velocity, vmin denotes the maximum value in the
+overall projectile muzzle velocity, vself denotes current projectile muzzle velocity, so as the Stime.
+Finally, we weighted the sum of these two scores with equal weights of 0.5 each, yielding the
+Sfinal￿and calculated the scores for all solutions within the initial velocity range of 140-450 m/s,
+as shown in the figure4. Ultimately, we selected the scheme with an initial velocity of 165.0 m/s
+and a muzzle angle of 21.8°, which requires a flight time of approximately 11.41 seconds.
+4. We can deduce from the diagram that for different muzzle velocities, two distinct muzzle
+angles can be achieved to hit the target, and the difference in muzzle angles increases with
+the increase in muzzle velocity. This provides some inspiration for our subsequent analysis to
+develop a simplified method for calculating artillery firing.
+8
+
+Figure 6: From low angle to high angle θ-v
+Figure 7: From high angle to low angle θ-v
+9
+
+Figure 8: The top scorers
+3.2
+Ballistic Analysis Under Multi-Target Distances and Environmen-
+tal Factors
+In this section, building upon the ballistic model established in Section 3.1, we extend our
+analysis to scenarios where target distances range from 1000 to 1500 meters, incorporating the
+combined effects of altitude variations and wind conditions. This expanded analysis aims to
+comprehensively evaluate the impact of these factors on ballistic trajectories and the resulting
+requirements for firing parameters. We enhance the model’s realism by introducing a model for
+wind speed variation with altitude (WindBallistics class).
+3.2.1
+Effects of horizontal range and elevation variations between gun muzzle and
+target
+To address variable target distances, we have enhanced the Python code presented in Section 3.1.
+The core motion equations remain unchanged, but when calculating target distances ranging
+from 1000 meters to 1500 meters, the search algorithm employed for each distance has been
+refined. Unlike the bidirectional search in Section 3.1, we have devised a penalty function to
+constrain elevation and azimuth angles, defined as follows:
+Ehor =
+√
+(impactx −targetdistance)2 + impact2x
+Ehei = |impactz −(targetaltitude −cannonaltitude)|
+Etotal = weightdist × Ehor + weighthei × Ehei
+penalty =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1000 × (0 −elevation)2,
+if elevation < 0
+1000 × (elevation −90)2,
+if elevation > 90
+1000 × (−180 −azimuth)2,
+if azimuth < −180
+1000 × (azimuth −180)2,
+if azimuth > 180
+0,
+otherwise
+Based on experience, the initial elevation angle is set to 45°, while the initial azimuth angle
+is determined according to wind direction. The penalty function is then converged using either
+the SLSQP optimization method or a grid search approach to obtain suitable launch elevation
+10
+
+and azimuth angles. Furthermore, we incorporate altitude effects: employing the International
+Standard Atmosphere (ISA) model to compute temperature, pressure, and air density variations
+at different elevations. This adjusts the impact of altitude changes on drag (including both initial
+elevation and altitude variations during projectile motion), using a methodology analogous to
+Section 3.1. Here, the altitude h is adjusted based on the relative positions of the cannon and
+target point. This extension enables the model to handle scenarios such as firing from hills into
+valleys.
+3.2.2
+Influence of wind conditions
+Wind conditions are a key factor affecting trajectory, though not discussed in Section 3.1. We
+treat the relative velocity between wind and projectile as a source of ”drag”:
+Fdrag,x = −Fdrag
+vrel,x
+vrel
+,
+Fdrag,y = −Fdrag
+vrel,y
+vrel
+,
+Fdrag,z = −Fdrag
+vrel,z
+vrel
+Wind speed component (based on wind direction angle θw):
+wx = w(z) cos(θw),
+wy = w(z) sin(θw)
+Where θw denotes wind direction (in degrees), with the downwind direction being 0◦.
+A logarithmic wind profile model, which accounts for wind speed variation with height, has
+been introduced. Specifically, the wind speed at absolute elevation z is calculated as follows:
+w(z) =
+
+
+
+
+
+
+
+
+
+
+
+0
+if z ≤z0
+u∗
+0.4 ln
+( z
+z0
+)
+if z0 < z ≤hc
+wc
+(
+1 + z −hc
+href
+)α
+if z > hc
+Where:
+z denotes absolute elevation (unit: m), z0 = 0.1 m represents surface roughness length, hc
+is the cannon’s elevation height, u∗is the friction velocity (wc is the wind speed at the cannon
+location), href = max(hc, 10) is the reference height, and α = 0.143 is the wind shear exponent.
+Figure 9: How different wind speeds affect projectile motion
+This innovation enhances the model’s physical realism, proving particularly effective in his-
+torical artillery scenarios with variable wind conditions. We implemented this extension via
+11
+
+Python code, simulating vertical variations in wind speed during ballistic calculations to achieve
+more accurate impact point predictions.
+3.2.3
+Presentation of Results and Trend Analysis
+Through the designed program, we can input the target distance, altitudes of the two objects,
+wind direction and speed, as well as the launch speed, and then output the launch elevation
+angle, launch azimuth angle, and ballistic trajectory image that can hit the target. The 20
+random input-output pairs are shown in Figure 10 below.
+Figure 10: Random inspection of ballistic calculators
+Meanwhile, we have provided several classic experimental examples below:
+1. The wind speed is 0m/s, the wind direction is 0, the horizontal distance is 1200m, the
+artillery elevation is 500m, the target elevation is 500m, and the muzzle velocity is 141m/s.The
+result : Elevation angle is 43.59° and Azimuth angle is -0.00°.
+2. The wind speed is 30m/s, the wind direction is 60 degrees, the horizontal distance is
+1000m, the artillery elevation is 500m, the target elevation is 500m, and the muzzle velocity is
+141m/s. The result : Elevation angle is 20.99° and Azimuth angle is -3.12° .
+3. The wind speed is 30m/s, the wind direction is 90 degrees, the horizontal distance is
+1000m, the artillery elevation is 500m, the target elevation is 500m, and the muzzle velocity is
+400m/s. The result : Elevation angle is 2.89° and Azimuth angle is -1.74° .
+4. The wind speed is 20m/s, the wind direction is 60 degrees, the horizontal distance is
+1500m, the artillery elevation is 500m, the target elevation is 600m, and the muzzle velocity is
+450m/s. The result : Elevation angle is 7.80° and Azimuth angle is -1.41° .
+5. The wind speed is 20m/s, the wind direction is -60 degrees, the horizontal distance is
+1000m, the artillery elevation is 500m, the target elevation is 600m, and the muzzle velocity is
+450m/s. The result : Elevation angle is 8.02° and Azimuth angle is 0.90° .
+12
+
+In addition, we present the three-dimensional views of Example 3 and Example 5 as shown
+in Figures 11 and 12.
+Figure 11: Trajectory TopView,SideView,FrontView of example 3
+Figure 12: Trajectory TopView,SideView,FrontView of example 5
+3.3
+Design of rapid estimation method
+3.3.1
+Method 1: Function fitting method
+The fitting function idea of this code is based on a method combining numerical optimization and
+regression analysis, aiming to establish a simplified mathematical relationship between launch
+parameters and ballistic conditions through limited sample data.
+·Training point generation
+Firstly, the precise elevation and azimuth angle of twenty randomly selected representative
+state points within the range are calculated through the ballistic physical model in Question 2.
+These state points cover the actual variation range of key variables such as wind speed, wind
+direction, target distance, and altitude. The calculation process takes into account complex
+physical factors such as air resistance, gravity changes, and wind speed profiles.
+Numerical
+integration and optimization algorithms are employed to ensure the accuracy of the results,
+providing reliable training data for fitting.
+13
+
+·Constructing a fitting model using multiple regression techniques
+For the elevation, due to its nonlinear relationship with the input parameters, a quadratic
+polynomial regression model is adopted, with target distance, altitude difference, downwind
+component, and crosswind component as feature variables. The polynomial expansion is used
+to capture the interactions and higher-order effects between variables.
+Elevation fitting formula (quadratic polynomial regression):
+Elevation = β0 +
+4
+∑
+i=1
+βixi +
+4
+∑
+i=1
+4
+∑
+j=i
+βijxixj
+Among them, the feature variable xi includes: target distance, altitude difference (target altitude
+- muzzle altitude), downwind component (wx), and crosswind component (wy).
+For the launch direction angle, due to its relatively linear variation, a linear regression model
+is adopted, with the same feature variables for fitting. The model training uses the least squares
+method to estimate parameters, aiming to minimize the sum of squared errors between the
+predicted values and the true values. Finally, a simplified calculation formula is obtained.
+Direction angle fitting formula (linear regression):
+azimuth angle = γ0 +
+4
+∑
+i=1
+γixi
+Among them, the feature variable xi is the same as the elevation fitting.
+·Error analysis of fitting formula
+The validation of the fitting model is conducted through an independent test set, with the
+evaluation metric being the mean absolute error. Here we give two combinations of datasets
+and test sets, namely: 20 datasets, 20 test sets, 100 datasets, and 100 test sets, and the results
+are shown in figure13 and 14. Obviously, the larger the dataset, the more accurate the emission
+angle given, so using the fitting result of the latter, the fitting function after substituting the
+coeﬀicients is:
+Elevation Angle Fitting Formula:
+Elevation =b0 + a0 + a1 × distance + a2 × heightdiff + a3 × wx + a4 × wy
++ a5 × distance2 + a6 × distance × heightdiff + a7 × distance × wx
++ a8 × distance × wy + a9 × height2
+diff + a10 × heightdiff × wx
++ a11 × heightdiff × wy + a12 × w2
+x + a13 × wx × wy + a14 × w2
+y
+(1)
+Where ai denotes distinct coeﬀicients, hdiff denotes the elevation difference, wx denotes the
+tailwind component, wy denotes the crosswind component, and b0 denotes intercept.
+The specific values of the parameters are as follows: a0 = 0.033391, a1 = 0.029002, a2 =
+0.299983, a3 = 0.136904, a4 = −0.000017, a5 = −0.000014, a6 = −0.000227, a7 = −0.000150,
+a8 = 0.000007, a9 = 0.000005, a10 = −0.000074, a11 = −0.000339, a12 = −0.001170, a13 =
+−0.001735, b0 = −5.556424.
+Azimuth Fitting Formula:
+Azimuth = b0 + b1 × distance + b3 × wx + b4 × wy
+(2)
+The specific values of the parameters are as follows: b0 = 0.543220, b1 = −0.000481, b3 =
+0.005298, b4 = −0.071935.
+14
+
+At this moment, the relative error of the pitch angle is approximately:ϵ=2.44/20. 1=12.2%;
+The relative error of the azimuth is approximately: ϵ=0.46/21=21.9%. The combined error of
+the two, after averaging, is: ϵ=17.1%.
+Figure 13: Error analysis 1
+Figure 14: Error analysis 2
+3.3.2
+Method 2: Table lookup method
+To enhance the speed of command for oﬀicers and soldiers, we have constructed a simple cor-
+respondence table. We have set the muzzle velocity at 450m/s, while selecting wind speeds of
+0, 10, 20, and 30, wind directions of 0, 90, 180, and 270, distances of 1000, 1200, and 1500, and
+altitudes of the artillery and the target at 500, 750, and 1000 for combination. This results in a
+15
+
+table with 4*4*3*3*3 rows, with each row corresponding to a relatively accurate elevation and
+positioning angle.Figure 12 is a partial extraction of the shooting table with a step size of 10.
+It should be noted that due to the discrete nature of the table, elevation and azimuth values for
+certain data conditions may not be explicitly listed. However, we can make rough estimations
+within specified data ranges to determine the required elevation and azimuth angles.
+Figure 15: Firing table
+4
+Model Evaluation
+4.1
+Strengths
+Our advantages are as follows:
+1.In the model used to solve the first question, we did not simply treat air resistance as a
+variable solely related to velocity. Instead, we considered the changes in atmospheric pressure
+and density due to altitude effects during the flight of the cannonball, which in turn led to
+changes in the Mach number of the cannonball. Ultimately, the resistance experienced by the
+16
+
+cannonball during flight not only varies with velocity but also with altitude. This model takes
+this into account and consistently adheres to this basic principle in subsequent models, making
+the model more practical.
+2.In the model used to solve the second question, we decomposed the impact of air volume
+in different directions, allowing the calculations from the previous model to be largely reused.
+Furthermore, we conducted a more detailed calculation of the impact of air volume, as we
+simultaneously considered changes in wind speed when altitude changes, making the overall
+model calculation more precise.
+3. The fitting function of the third question is highly operable, as it can accurately obtain
+two launch angles by inputting six known variables from the battlefield. The core advantage
+of this method lies in transforming complex ballistic calculation problems into simple algebraic
+operations, significantly enhancing computational eﬀiciency while maintaining high prediction
+accuracy, thus providing a practical solution for real-time fire control systems. The entire process
+embodies the effective integration of physical models and data-driven methods, ensuring that
+the model retains physical significance while being computationally simple.It is comprehensive
+and rigorous.
+4. Finally, we developed a function fitting method and a table lookup method, allowing
+artillery oﬀicers who have received mathematical training but do not have access to computers
+or calculators to choose between more accurate or faster estimations.
+4.2
+Weaknesses
+Our disadvantages are as follows:
+1.Regarding the model designed for the first question, our approach is relatively comprehen-
+sive. As the first question did not require consideration of airflow effects, we did not factor in
+wind speed. However, one potential imperfection in the model designed for the first question is
+its inability to precisely determine the minimum initial velocity required to hit the target. This
+is because our bidirectional search algorithm yields the first velocity that strikes the target’s
+right side, resulting in the searched minimum initial velocity being larger than the true minimum
+velocity.
+2.The model designed for the second question exhibits the following weaknesses: · Due to the
+use of a hierarchical optimisation approximation algorithm, for each given velocity we can only
+provide one corresponding angle capable of hitting the target. This angle may be either too large
+or too small. As the optimisation algorithm imposes relatively minor constraints on penalties,
+this may result in solutions of insuﬀicient precision. ·Although the drag model accounts for
+wind speed variations with altitude and the effects of atmospheric pressure and density changes
+on the drag coeﬀicient, it may still exhibit some inaccuracies compared to real-world scenarios.
+Employing the G1/G7 standard could yield a more precise drag model.
+3.The model designed for the third question exhibits the following limitations: ·Regard-
+ing the determination of an appropriate muzzle velocity mentioned in the third question, we
+have fixed this at 450 m/s within the model. This is because, in practical artillery operation,
+muzzle velocity is diﬀicult to adjust, whereas elevation angle and azimuth angle remain more
+readily controllable. Therefore, we have fixed the muzzle velocity in the model. Should data
+for different velocities be required, the ballistic calculator provided by the second model can
+be utilised for calculations. ·The mean error data for the fitted elevation angle and azimuth
+angle formulas in our model are derived from the full range of all data points. This approach
+may result in suboptimal fitting performance within specific local data regions. To improve this,
+separate fitting could be performed on different local data segments to better accommodate the
+requirements of each distinct data range.
+17
+
+5
+Conclusions
+Our solution systematically addresses the three challenges presented in Problem B. We first
+established a high-fidelity physical model, then extended it to complex conditions, and finally
+developed practical methods for manual calculation.
+1. Core Calculation for 1200m Target
+· Question: For a target at 1200m with both cannon and target at 500m altitude, find the
+muzzle velocity and firing angle.
+· Solution & Result: We developed a ballistic model incorporating air resistance (with
+altitude-dependent density and Mach-number-dependent drag coeﬀicient), and gravity varia-
+tion. Using a bidirectional search algorithm (v: 100-450 m/s, θ: θ-90°), we found that multiple
+(v, θ) pairs can hit the target. The most energy-eﬀicient solution is:
+ Minimum Muzzle Velocity :  141.0 m/s 
+ Corresponding Firing Angle :  39.6° 
+ Flight Time :  15.73 s 
+Considering a balance between energy consumption and flight time, we selected an optimal
+solution with a higher score:
+ Recommended Muzzle Velocity :  165.0 m/s 
+ Recommended Firing Angle :  21.8° 
+The relationship between muzzle velocity and the required firing angle is non-linear and
+bimodal, as clearly shown in our figure results.
+2. Extended Analysis for Variable Conditions
+· Question: Extend the analysis to ranges of 1000-1500m, various altitudes, and wind con-
+ditions.
+· Solution & Result: We enhanced our model by implementing a logarithmic wind profile to
+simulate wind speed variation with altitude and incorporating its vector into the force calcu-
+lations. A hierarchical optimization algorithm was designed to automatically find the optimal
+(elevation, azimuth) angles that minimize the impact error for any given set of conditions (wind
+speed/direction, distance, altitudes, muzzle velocity).
+ Example Output : 
+ Input : Wind Speed=20m/s, Wind Direction=60°, Distance=1000m, Cannon Alt=500m,
+Target Alt=600m, Muzzle Velocity=450m/s
+ Output : Elevation ￿ 7.80°, Azimuth ￿ -1.41° (a negative value indicates adjustment to the
+right of the target direction )
+This enhanced model serves as the core for our subsequent rapid estimation calculator.
+3. Development of Rapid Estimation Method
+· Question: Develop a method for an artillery oﬀicer to quickly estimate parameters without
+computers.
+ ·Solution & Result: We developed two distinct practical methods:
+ a) Function Calculation Method : 
+We fitted a multivariate quadratic function to the data generated by our high-fidelity model.
+The oﬀicer can compute the angles using: 
+Elevation = β0 +
+4
+∑
+i=1
+βixi +
+4
+∑
+i=1
+4
+∑
+j=i
+βijxixj
+azimuth angle = γ0 +
+4
+∑
+i=1
+γixi
+18
+
+Where variables xi represent target distance, altitude difference, downwind, and crosswind com-
+ponents. This method offers higher accuracy.
+ b) Table Lookup Method : 
+We pre-calculated a comprehensive firing table for discrete values of key parameters (e.g.,
+distance: 1000, 1200, 1500m; wind speed: 0, 10, 20, 30 m/s). The oﬀicer simply finds the closest
+match to the current conditions and reads the corresponding elevation and azimuth angles. This
+method is faster and simpler.
+Both methods are designed to be executed with only pen, paper, and basic mathematical
+knowledge, perfectly fulfilling the requirement for historical practicality.
+In summary, this project provides a complete workflow from physical modeling and numerical
+simulation to the delivery of practical tools, offering accurate and historically plausible solutions
+to the artillery targeting problems posed in the competition. 
+References
+[1] Dimitrios Gkritzapis et al. Computational Atmospheric Trajectory Simulation Analysis
+of Spin-Stabilized Projectiles and Small Bullets[J] International Journal of Computing
+Science and Mathematics, 2008.1
+[2] Jiaqi Yao et al. Ballistic Object Trajectory Separation Point Estimation Using Fourth
+Order Runge-Kutta Method and Extended Kalman Filter[J]. 17th International Congress
+on Image and Signal Processing, BioMedical Engineering and Informatic, 2024
+Appendix A
+Python source code
+1
+import numpy as np
+2
+import math
+3
+import matplotlib.pyplot as plt
+4
+import matplotlib as mpl
+5
+6
+plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu
+Sans']
+7
+plt.rcParams['axes.unicode_minus'] = False
+8
+9
+class CannonBallistics:
+10
+def __init__(self):
+11
+self.diameter = 0.11
+12
+self.mass = 5.0
+13
+self.radius = self.diameter / 2
+14
+self.g = 9.80665
+15
+self.altitude = 500
+16
+self.target_range = 1200
+17
+self.T0 = 288.15
+18
+self.P0 = 101325.0
+19
+self.rho0 = 1.225
+20
+self.L = 0.0065
+19
+
+21
+self.R = 287.05
+22
+self.gamma = 1.4
+23
+self.A = math.pi * (self.radius) ** 2
+24
+25
+def gravity_at_height(self, height):
+26
+R_earth = 6371000
+# Earth radius (m)
+27
+return self.g * (R_earth / (R_earth + self.altitude + height)) ** 2
+28
+29
+def atmosphere_at_height(self, height):
+30
+absolute_height = self.altitude + height
+31
+if absolute_height <= 11000:
+32
+T = self.T0 - self.L * absolute_height
+33
+exponent = self.g * 0.0289644 / (8.31432 * self.L)
+34
+P = self.P0 * (T / self.T0) ** exponent
+35
+rho = self.rho0 * (T / self.T0) ** (exponent - 1)
+36
+v_sound = math.sqrt(self.gamma * self.R * T)
+37
+else:
+38
+T = 216.65
+39
+P = 22632.0
+40
+rho = 0.3639
+41
+v_sound = math.sqrt(self.gamma * self.R * T)
+42
+return T, P, rho, v_sound
+43
+44
+def drag_coefficient(self, mach):
+45
+if mach < 0.3:
+46
+return 0.45
+47
+elif mach < 0.8:
+48
+return 0.45 + 0.1 * (mach - 0.3)
+49
+elif mach < 1.0:
+50
+return 0.5 + 0.2 * (mach - 0.8)
+51
+elif mach < 1.2:
+52
+return 0.7 - 0.1 * (mach - 1.0)
+53
+else:
+54
+return 0.6
+55
+56
+def air_resistance(self, velocity , height):
+57
+T, P, rho, v_sound = self.atmosphere_at_height(height)
+58
+if v_sound > 0:
+59
+mach = velocity / v_sound
+60
+else:
+61
+mach = 0
+62
+Cd = self.drag_coefficient(mach)
+63
+F_drag = 0.5 * rho * Cd * self.A * velocity ** 2
+64
+return F_drag
+65
+66
+def acceleration_components(self, vx, vy, x, y):
+67
+v = math.sqrt(vx ** 2 + vy ** 2)
+68
+69
+if v < 1e-6:
+70
+g_local = self.gravity_at_height(y)
+71
+return 0, -g_local
+72
+73
+g_local = self.gravity_at_height(y)
+74
+F_drag = self.air_resistance(v, y)
+20
+
+75
+a_drag = F_drag / self.mass
+76
+77
+ax = -a_drag * (vx / v)
+78
+ay = -g_local - a_drag * (vy / v)
+79
+80
+return ax, ay
+81
+82
+def simulate_trajectory(self, v0, theta_deg , dt=0.01, max_time=77):
+83
+theta = math.radians(theta_deg)
+84
+x, y = 0, 0
+85
+vx = v0 * math.cos(theta)
+86
+vy = v0 * math.sin(theta)
+87
+trajectory = [(x, y)]
+88
+times = [0]
+89
+t = 0
+90
+while t < max_time and y >= -0.1:
+91
+ax, ay = self.acceleration_components(vx, vy, x, y)
+92
+93
+vx += ax * dt
+94
+vy += ay * dt
+95
+96
+x += vx * dt
+97
+y += vy * dt
+98
+99
+trajectory.append((x, y))
+100
+t += dt
+101
+times.append(t)
+102
+103
+if x > self.target_range * 2 and y < -10:
+104
+break
+105
+106
+return np.array(trajectory), np.array(times)
+107
+108
+def calculate_range_and_time(self, v0, theta_deg):
+109
+trajectory , times = self.simulate_trajectory(v0, theta_deg)
+110
+if len(trajectory) < 2:
+111
+return 0, 0
+112
+for i in range(1, len(trajectory)):
+113
+if trajectory[i, 1] <= 0:
+114
+x1, y1 = trajectory[i - 1]
+115
+x2, y2 = trajectory[i]
+116
+117
+if y2 != y1:
+118
+t = -y1 / (y2 - y1)
+119
+impact_x = x1 + t * (x2 - x1)
+120
+impact_time = times[i - 1] + t * (times[i] - times[i - 1])
+121
+return impact_x , impact_time
+122
+123
+return trajectory[-1, 0], times[-1]
+# If the projectile doesn't hit the
+ground , return last position and time
+124
+125
+def search_low_to_high(self):
+126
+print("Starting search from low to high...")
+127
+print("Velocity range: 100-450 m/s, Angle range: 0-90°")
+21
+
+128
+print("=" * 50)
+129
+130
+results = []
+131
+v0 = 100.0
+132
+v_step = 1.0
+133
+theta_step = 0.1
+134
+135
+while v0 <= 450.0:
+136
+theta = 0.0
+137
+138
+while theta <= 90.0:
+139
+range_val , flight_time = self.calculate_range_and_time(v0, theta)
+140
+141
+if range_val > self.target_range:
+142
+results.append((v0, theta, range_val , flight_time))
+143
+print(f"Velocity {v0:.1f} m/s, Angle {theta:.1f}°, Range {range_val:.1f}
+m, Flight time {flight_time:.2f} s")
+144
+break
+# Found first angle that exceeds 1200m, break out of angle loop
+145
+theta += theta_step
+146
+147
+v0 += v_step
+148
+149
+return results
+150
+151
+def search_high_to_low(self):
+152
+print("\nStarting search from high to low...")
+153
+print("Velocity range: 450-100 m/s, Angle range: 90-0°")
+154
+print("=" * 50)
+155
+156
+results = []
+157
+v0 = 450.0
+158
+v_step = -1.0
+159
+theta_step = -0.1
+160
+161
+while v0 >= 100.0:
+162
+theta = 90.0
+163
+164
+while theta >= 0.0:
+165
+range_val , flight_time = self.calculate_range_and_time(v0, theta)
+166
+167
+if range_val > self.target_range:
+168
+results.append((v0, theta, range_val , flight_time))
+169
+print(f"Velocity {v0:.1f} m/s, Angle {theta:.1f}°, Range {range_val:.1f}
+m, Flight time {flight_time:.2f} s")
+170
+break
+171
+172
+theta += theta_step
+173
+174
+v0 += v_step
+175
+176
+return results
+177
+178
+def plot_angle_vs_velocity(self, results_low_high , results_high_low):
+179
+if results_low_high:
+22
+
+180
+v_low_high = [r[0] for r in results_low_high]
+181
+theta_low_high = [r[1] for r in results_low_high]
+182
+flight_time_low_high = [r[3] for r in results_low_high]
+183
+184
+plt.figure(figsize=(12, 4))
+185
+186
+plt.subplot(1, 2, 1)
+187
+plt.plot(v_low_high , theta_low_high , 'bo-', linewidth=2, markersize=4)
+188
+plt.xlabel('Speed (m/s)')
+189
+plt.ylabel('Angle (°)')
+190
+plt.title('From low angle to high angle theta-v')
+191
+plt.grid(True)
+192
+193
+plt.subplot(1, 2, 2)
+194
+plt.plot(v_low_high , flight_time_low_high , 'go-', linewidth=2, markersize
+=4)
+195
+plt.xlabel('Speed (m/s)')
+196
+plt.ylabel('Flight time (s)')
+197
+plt.title('From low angle to high angle t-v')
+198
+plt.grid(True)
+199
+200
+plt.tight_layout()
+201
+plt.show()
+202
+203
+if results_high_low:
+204
+v_high_low = [r[0] for r in results_high_low]
+205
+theta_high_low = [r[1] for r in results_high_low]
+206
+flight_time_high_low = [r[3] for r in results_high_low]
+207
+208
+plt.figure(figsize=(12, 4))
+209
+210
+plt.subplot(1, 2, 1)
+211
+plt.plot(v_high_low , theta_high_low , 'bo-', linewidth=2, markersize=4)
+212
+plt.xlabel('Speed (m/s)')
+213
+plt.ylabel('Angle (°)')
+214
+plt.title('From high angle to low angle theta-v')
+215
+plt.grid(True)
+216
+217
+plt.subplot(1, 2, 2)
+218
+plt.plot(v_high_low , flight_time_high_low , 'go-', linewidth=2, markersize
+=4)
+219
+plt.xlabel('Speed (m/s)')
+220
+plt.ylabel('Flight time (s)')
+221
+plt.title('From high angle to low angle t-v')
+222
+plt.grid(True)
+223
+224
+plt.tight_layout()
+225
+plt.show()
+226
+227
+def analyze_optimal_solution(self, results):
+228
+if not results:
+229
+print("No solution found that meets the conditions")
+230
+return
+231
+23
+
+232
+best_solution = min(results , key=lambda x: abs(x[2] - self.target_range))
+233
+v0, theta, range_val , flight_time = best_solution
+234
+235
+print("\n" + "=" * 50)
+236
+print("Optimal solution analysis:")
+237
+print(f"Velocity: {v0:.1f} m/s")
+238
+print(f"Angle: {theta:.1f}°")
+239
+print(f"Range: {range_val:.1f} m")
+240
+print(f"Flight time: {flight_time:.2f} s")
+241
+print(f"Error: {abs(range_val - self.target_range):.1f} m")
+242
+243
+trajectory , times = self.simulate_trajectory(v0, theta)
+244
+max_height = np.max(trajectory[:, 1])
+245
+246
+print(f"Maximum height: {max_height:.1f} m")
+247
+248
+vacuum_range = (v0 ** 2 * math.sin(2 * math.radians(theta))) / self.g
+249
+vacuum_time = (2 * v0 * math.sin(math.radians(theta))) / self.g
+250
+print(f"Vacuum trajectory range: {vacuum_range:.1f} m")
+251
+print(f"Vacuum trajectory flight time: {vacuum_time:.2f} s")
+252
+print(f"Range reduction due to air resistance: {vacuum_range - range_val
+:.1f} m")
+253
+print(f"Flight time increase due to air resistance: {flight_time -
+vacuum_time:.2f} s")
+254
+255
+256
+def main():
+257
+print("Cannon Ballistics Calculator - Bidirectional Search and
+Visualization")
+258
+print("=" * 60)
+259
+260
+ballistics = CannonBallistics()
+261
+262
+print(f"Target distance: {ballistics.target_range} m")
+263
+print(f"Launch altitude: {ballistics.altitude} m")
+264
+print()
+265
+266
+results_low_high = ballistics.search_low_to_high()
+267
+268
+results_high_low = ballistics.search_high_to_low()
+269
+270
+ballistics.plot_angle_vs_velocity(results_low_high , results_high_low)
+271
+272
+all_results = results_low_high + results_high_low
+273
+ballistics.analyze_optimal_solution(all_results)
+274
+275
+276
+if __name__ == "__main__":
+277
+main()
+1
+import numpy as np
+2
+import math
+3
+from scipy.optimize import minimize
+24
+
+4
+import matplotlib.pyplot as plt
+5
+import matplotlib
+6
+import numpy as np
+7
+import matplotlib.pyplot as plt
+8
+from matplotlib.widgets import TextBox
+9
+import matplotlib
+10
+matplotlib.use('TkAgg')
+11
+plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei']
+12
+plt.rcParams['axes.unicode_minus'] = False
+13
+matplotlib.use('TkAgg')
+14
+15
+16
+class WindBallistics:
+17
+def __init__(self):
+18
+self.diameter = 0.11
+19
+self.mass = 5.0
+20
+self.radius = self.diameter / 2
+21
+self.g0 = 9.80665
+22
+self.R_earth = 6371000
+23
+self.T0 = 288.15
+24
+self.P0 = 101325.0
+25
+self.rho0 = 1.225
+26
+self.L = 0.0065
+27
+self.R_air = 287.05
+28
+self.gamma = 1.4
+29
+self.A = math.pi * (self.radius) ** 2
+30
+self.wind_speed = 0.0
+31
+self.wind_direction = 0.0
+32
+self.target_distance = 1000.0
+33
+self.cannon_altitude = 0.0
+34
+self.target_altitude = 0.0
+35
+self.muzzle_velocity = 300.0
+36
+37
+def set_parameters(self, wind_speed , wind_direction , target_distance ,
+38
+cannon_altitude , target_altitude , muzzle_velocity):
+39
+self.wind_speed = wind_speed
+40
+self.wind_direction = wind_direction
+41
+self.target_distance = target_distance
+42
+self.cannon_altitude = cannon_altitude
+43
+self.target_altitude = target_altitude
+44
+self.muzzle_velocity = muzzle_velocity
+45
+46
+def gravity_at_height(self, absolute_height):
+47
+return self.g0 * (self.R_earth / (self.R_earth + absolute_height)) ** 2
+48
+49
+def atmosphere_at_height(self, absolute_height):
+50
+if absolute_height <= 11000:
+51
+T = self.T0 - self.L * absolute_height
+52
+exponent = self.g0 * 0.0289644 / (8.31432 * self.L)
+53
+P = self.P0 * (T / self.T0) ** exponent
+54
+rho = self.rho0 * (T / self.T0) ** (exponent - 1)
+55
+v_sound = math.sqrt(self.gamma * self.R_air * T)
+56
+else:
+57
+T = 216.65
+25
+
+58
+P = 22632.0
+59
+rho = 0.3639
+60
+v_sound = math.sqrt(self.gamma * self.R_air * T)
+61
+62
+return T, P, rho, v_sound
+63
+64
+def drag_coefficient(self, mach):
+65
+if mach < 0.3:
+66
+return 0.45
+67
+elif mach < 0.8:
+68
+return 0.45 + 0.1 * (mach - 0.3)
+69
+elif mach < 1.0:
+70
+return 0.5 + 0.2 * (mach - 0.8)
+71
+elif mach < 1.2:
+72
+return 0.7 - 0.1 * (mach - 1.0)
+73
+else:
+74
+return 0.6
+75
+76
+def wind_components(self):
+77
+wind_dir_rad = math.radians(self.wind_direction)
+78
+wind_x = self.wind_speed * math.cos(wind_dir_rad)
+79
+wind_y = self.wind_speed * math.sin(wind_dir_rad)
+80
+return wind_x, wind_y
+81
+82
+def air_resistance(self, vx, vy, vz, absolute_height):
+83
+T, P, rho, v_sound = self.atmosphere_at_height(absolute_height)
+84
+wind_x, wind_y = self.wind_components()
+85
+v_rel_x = vx - wind_x
+86
+v_rel_y = vy - wind_y
+87
+v_rel_z = vz
+88
+v_rel = math.sqrt(v_rel_x ** 2 + v_rel_y ** 2 + v_rel_z ** 2)
+89
+90
+if v_sound > 0:
+91
+mach = v_rel / v_sound
+92
+else:
+93
+mach = 0
+94
+95
+Cd = self.drag_coefficient(mach)
+96
+F_drag = 0.5 * rho * Cd * self.A * v_rel ** 2
+97
+98
+if v_rel > 1e-6:
+99
+F_drag_x = -F_drag * (v_rel_x / v_rel)
+100
+F_drag_y = -F_drag * (v_rel_y / v_rel)
+101
+F_drag_z = -F_drag * (v_rel_z / v_rel)
+102
+else:
+103
+F_drag_x , F_drag_y , F_drag_z = 0, 0, 0
+104
+105
+return F_drag_x , F_drag_y , F_drag_z
+106
+107
+def acceleration_components(self, vx, vy, vz, x, y, absolute_height):
+108
+g_local = self.gravity_at_height(absolute_height)
+109
+F_drag_x , F_drag_y , F_drag_z = self.air_resistance(vx, vy, vz,
+absolute_height)
+110
+ax = F_drag_x / self.mass
+26
+
+111
+ay = F_drag_y / self.mass
+112
+az = -g_local + F_drag_z / self.mass
+113
+return ax, ay, az
+114
+115
+def simulate_trajectory(self, elevation_deg , azimuth_deg , dt=0.01,
+max_time=60):
+116
+elevation = math.radians(elevation_deg)
+117
+azimuth = math.radians(azimuth_deg)
+118
+v0 = self.muzzle_velocity
+119
+120
+# ￿￿￿￿- ￿￿￿￿￿￿
+121
+x, y, z_abs = 0, 0, self.cannon_altitude
+# ￿￿￿￿￿￿￿z_abs
+122
+vx = v0 * math.cos(elevation) * math.cos(azimuth)
+123
+vy = v0 * math.cos(elevation) * math.sin(azimuth)
+124
+vz = v0 * math.sin(elevation)
+125
+126
+state = np.array([x, y, z_abs, vx, vy, vz])
+127
+trajectory = [state[:3].copy()]
+128
+velocities = [state[3:].copy()]
+129
+130
+t = 0
+131
+target_reached = False
+132
+133
+134
+while t < max_time and z_abs >= -100:
+135
+136
+if x >= self.target_distance and not target_reached:
+137
+target_reached = True
+138
+139
+if len(trajectory) > 1:
+140
+x_prev, y_prev, z_prev = trajectory[-2]
+141
+x_curr, y_curr, z_curr = trajectory[-1]
+142
+143
+if x_curr != x_prev:
+144
+t_interp = (self.target_distance - x_prev) / (x_curr - x_prev)
+145
+x_interp = self.target_distance
+146
+y_interp = y_prev + t_interp * (y_curr - y_prev)
+147
+z_interp = z_prev + t_interp * (z_curr - z_prev)
+148
+trajectory[-1] = (x_interp , y_interp , z_interp)
+149
+state[:3] = [x_interp , y_interp , z_interp]
+150
+break
+151
+152
+# ￿￿￿￿￿￿￿￿￿￿￿￿￿
+153
+ax, ay, az = self.acceleration_components(vx, vy, vz, x, y, z_abs)
+154
+155
+# ￿￿￿￿￿￿￿￿￿-
+156
+k1 = np.array([vx, vy, vz, ax, ay, az])
+157
+k2_state = state + 0.5 * dt * k1
+158
+k2_vx, k2_vy, k2_vz = k2_state[3], k2_state[4], k2_state[5]
+159
+k2_ax, k2_ay, k2_az = self.acceleration_components(k2_vx, k2_vy, k2_vz,
+k2_state[0], k2_state[1],
+160
+k2_state[2])
+161
+k2 = np.array([k2_vx, k2_vy, k2_vz, k2_ax, k2_ay, k2_az])
+162
+27
+
+163
+k3_state = state + 0.5 * dt * k2
+164
+k3_vx, k3_vy, k3_vz = k3_state[3], k3_state[4], k3_state[5]
+165
+k3_ax, k3_ay, k3_az = self.acceleration_components(k3_vx, k3_vy, k3_vz,
+k3_state[0], k3_state[1],
+166
+k3_state[2])
+167
+k3 = np.array([k3_vx, k3_vy, k3_vz, k3_ax, k3_ay, k3_az])
+168
+169
+k4_state = state + dt * k3
+170
+k4_vx, k4_vy, k4_vz = k4_state[3], k4_state[4], k4_state[5]
+171
+k4_ax, k4_ay, k4_az = self.acceleration_components(k4_vx, k4_vy, k4_vz,
+k4_state[0], k4_state[1],
+172
+k4_state[2])
+173
+k4 = np.array([k4_vx, k4_vy, k4_vz, k4_ax, k4_ay, k4_az])
+174
+175
+state += (dt / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4)
+176
+x, y, z_abs, vx, vy, vz = state
+177
+178
+trajectory.append(state[:3].copy())
+179
+velocities.append(state[3:].copy())
+180
+t += dt
+181
+182
+# ￿￿￿￿￿￿￿￿￿￿￿￿￿￿￿
+183
+if x > self.target_distance * 2 and z_abs < self.target_altitude - 100:
+184
+break
+185
+186
+# ￿￿￿￿￿￿￿￿￿￿￿￿￿￿￿￿￿￿￿￿￿
+187
+if z_abs > 10000 and x > self.target_distance:
+188
+break
+189
+190
+return np.array(trajectory), np.array(velocities)
+191
+192
+def calculate_impact_point(self, elevation_deg , azimuth_deg):
+193
+trajectory , velocities = self.simulate_trajectory(elevation_deg ,
+azimuth_deg)
+194
+195
+if len(trajectory) < 2:
+196
+return float('inf'), float('inf'), float('inf')
+197
+198
+for i in range(len(trajectory) - 1, 0, -1):
+199
+z_current = trajectory[i, 2]
+# ￿￿￿￿￿￿
+200
+z_prev = trajectory[i - 1, 2]
+201
+202
+if (z_prev >= self.target_altitude and z_current <= self.target_altitude)
+or \
+203
+(z_prev <= self.target_altitude and z_current >= self.target_altitude):
+204
+205
+if z_current != z_prev:
+206
+t = (self.target_altitude - z_prev) / (z_current - z_prev)
+207
+impact_x = trajectory[i - 1, 0] + t * (trajectory[i, 0] - trajectory[i -
+1, 0])
+208
+impact_y = trajectory[i - 1, 1] + t * (trajectory[i, 1] - trajectory[i -
+1, 1])
+209
+impact_z = self.target_altitude
+210
+return impact_x , impact_y , impact_z
+28
+
+211
+212
+return trajectory[-1, 0], trajectory[-1, 1], trajectory[-1, 2]
+213
+214
+def objective_function(self, params):
+215
+elevation , azimuth = params
+216
+penalty = 0
+217
+if elevation < 0:
+218
+penalty += 1000 * (0 - elevation) ** 2
+219
+if elevation > 90:
+220
+penalty += 1000 * (elevation - 90) ** 2
+221
+if azimuth < -180:
+222
+penalty += 1000 * (-180 - azimuth) ** 2
+223
+if azimuth > 180:
+224
+penalty += 1000 * (azimuth - 180) ** 2
+225
+226
+impact_x , impact_y , impact_z = self.calculate_impact_point(elevation ,
+azimuth)
+227
+horizontal_error = math.sqrt((impact_x - self.target_distance) ** 2 +
+impact_y ** 2)
+228
+height_error = abs(impact_z - self.target_altitude)
+229
+distance_weight = 1.0
+230
+height_weight = max(0.5, 10.0 / max(1.0, self.target_distance))
+231
+total_error = distance_weight * horizontal_error + height_weight *
+height_error
+232
+return total_error + penalty
+233
+234
+def find_optimal_angles(self):
+235
+g_effective = self.gravity_at_height(self.cannon_altitude)
+236
+R = self.target_distance
+237
+v0 = self.muzzle_velocity
+238
+height_diff = self.target_altitude - self.cannon_altitude
+239
+240
+if v0 ** 2 > g_effective * R:
+241
+sin_2theta = g_effective * R / v0 ** 2
+242
+if sin_2theta <= 1.0:
+243
+initial_elevation = 0.5 * math.asin(sin_2theta)
+244
+initial_elevation = math.degrees(initial_elevation)
+245
+else:
+246
+initial_elevation = 45.0
+247
+else:
+248
+initial_elevation = 45.0
+249
+250
+# ￿￿￿￿￿￿￿￿￿￿￿
+251
+if abs(height_diff) > 0.1:
+252
+angle_correction = math.atan(height_diff / R)
+253
+initial_elevation += math.degrees(angle_correction) * 0.3
+254
+255
+wind_x, wind_y = self.wind_components()
+256
+if abs(wind_x) > 0.1 or abs(wind_y) > 0.1:
+257
+wind_effect = math.sqrt(wind_x ** 2 + wind_y ** 2) / v0
+258
+initial_azimuth = -math.degrees(math.atan2(wind_y , wind_x)) * wind_effect
+259
+else:
+260
+initial_azimuth = 0.0
+261
+29
+
+262
+bounds = [(max(0, initial_elevation - 30), min(90, initial_elevation +
+30)),
+263
+(max(-45, initial_azimuth - 45), min(45, initial_azimuth + 45))]
+264
+265
+methods = ['SLSQP', 'L-BFGS-B']
+266
+best_result = None
+267
+268
+for method in methods:
+269
+try:
+270
+result = minimize(self.objective_function ,
+271
+[initial_elevation , initial_azimuth],
+272
+method=method,
+273
+bounds=bounds,
+274
+options={'ftol': 1e-6, 'maxiter': 200})
+275
+if result.success and (best_result is None or result.fun < best_result.
+fun):
+276
+best_result = result
+277
+except:
+278
+continue
+279
+280
+if best_result and best_result.fun < 50:
+281
+return best_result.x[0], best_result.x[1], best_result.fun
+282
+else:
+283
+return self.refined_grid_search()
+284
+285
+def refined_grid_search(self, elevation_step=2, azimuth_step=5):
+286
+best_error = float('inf')
+287
+best_elevation = 45
+288
+best_azimuth = 0
+289
+290
+for elevation in range(10, 80, elevation_step * 2):
+291
+for azimuth in range(-45, 46, azimuth_step * 2):
+292
+error = self.objective_function([elevation , azimuth])
+293
+if error < best_error:
+294
+best_error = error
+295
+best_elevation = elevation
+296
+best_azimuth = azimuth
+297
+298
+for elevation in range(max(0, best_elevation - 5), min(90, best_elevation
++ 6), elevation_step):
+299
+for azimuth in range(max(-90, best_azimuth - 10), min(91, best_azimuth +
+11), azimuth_step):
+300
+error = self.objective_function([elevation , azimuth])
+301
+if error < best_error:
+302
+best_error = error
+303
+best_elevation = elevation
+304
+best_azimuth = azimuth
+305
+306
+return best_elevation , best_azimuth , best_error
+307
+308
+def calculate_solution(self):
+309
+print("Starting calculation of firing parameters...")
+310
+print("=" * 50)
+311
+print(f"Wind speed: {self.wind_speed} m/s")
+30
+
+312
+print(
+313
+f"Wind direction: {self.wind_direction}° (0=headwind , 90=crosswind from
+left, 180=tailwind , 270=crosswind from right)")
+314
+print(f"Target distance: {self.target_distance} m")
+315
+print(f"Cannon altitude: {self.cannon_altitude} m")
+316
+print(f"Target altitude: {self.target_altitude} m")
+317
+print(f"Muzzle velocity: {self.muzzle_velocity} m/s")
+318
+print()
+319
+320
+if self.target_altitude > self.cannon_altitude:
+321
+min_elevation = math.degrees(
+322
+math.asin((self.target_altitude - self.cannon_altitude) / self.
+target_distance))
+323
+print(f"Note: Target is {self.target_altitude - self.cannon_altitude:.1f}
+m above cannon")
+324
+print(f"Theoretical minimum elevation: {min_elevation:.1f}°")
+325
+326
+elevation , azimuth , error = self.find_optimal_angles()
+327
+impact_x , impact_y , impact_z = self.calculate_impact_point(elevation ,
+azimuth)
+328
+horizontal_error = math.sqrt((impact_x - self.target_distance) ** 2 +
+impact_y ** 2)
+329
+height_error = abs(impact_z - self.target_altitude)
+330
+331
+print("\nCalculation results:")
+332
+print("=" * 50)
+333
+print(f"Elevation angle: {elevation:.2f}°")
+334
+print(f"Azimuth angle: {azimuth:.2f}° (relative to target direction)")
+335
+print(f"Predicted impact point: X={impact_x:.1f}m, Y={impact_y:.1f}m, Z={
+impact_z:.1f}m")
+336
+print(f"Horizontal error: {horizontal_error:.2f} m")
+337
+print(f"Altitude error: {height_error:.2f} m")
+338
+print(f"Total error: {error:.2f} m")
+339
+340
+trajectory , velocities = self.simulate_trajectory(elevation , azimuth)
+341
+flight_time = len(trajectory) * 0.01
+342
+max_height = np.max(trajectory[:, 2]) if len(trajectory) > 0 else 0
+343
+344
+print(f"Flight time: {flight_time:.2f} s")
+345
+print(f"Maximum altitude: {max_height:.1f} m")
+346
+347
+self.plot_trajectory(trajectory , elevation , azimuth)
+348
+return elevation , azimuth , error
+349
+350
+def plot_trajectory(self, trajectory , elevation , azimuth):
+351
+try:
+352
+plt.figure(figsize=(15, 5))
+353
+354
+# 1. ￿￿￿
+355
+plt.subplot(1, 3, 1)
+356
+plt.plot(trajectory[:, 0], trajectory[:, 1], 'b-', linewidth=2)
+357
+plt.plot([0, self.target_distance], [0, 0], 'g--', linewidth=2, label='
+Target direction')
+358
+plt.plot(self.target_distance , 0, 'ro', markersize=8, label='Target point
+31
+
+')
+359
+plt.plot(0, 0, 'go', markersize=8, label='Launch point')
+360
+plt.xlabel('East distance (m)')
+361
+plt.ylabel('North distance (m)')
+362
+plt.title('Trajectory Top View')
+363
+plt.grid(True)
+364
+plt.axis('equal')
+365
+plt.legend()
+366
+367
+# 2. ￿￿￿￿￿￿￿￿￿￿￿
+368
+plt.subplot(1, 3, 2)
+369
+plt.plot(trajectory[:, 0], trajectory[:, 2], 'b-', linewidth=2)
+370
+plt.plot([0, self.target_distance], [self.cannon_altitude , self.
+target_altitude], 'g--', linewidth=2,
+371
+label='Line of sight')
+372
+plt.plot(self.target_distance , self.target_altitude , 'ro', markersize=8,
+label='Target point')
+373
+plt.plot(0, self.cannon_altitude , 'go', markersize=8, label='Launch point
+')
+374
+plt.xlabel('Horizontal distance (m)')
+375
+plt.ylabel('Absolute altitude (m)')
+376
+plt.title('Trajectory Side View (Absolute Altitude)')
+377
+plt.grid(True)
+378
+plt.legend()
+379
+380
+# 3. ￿￿￿
+381
+plt.subplot(1, 3, 3)
+382
+plt.plot(trajectory[:, 1], trajectory[:, 2], 'b-', linewidth=2)
+383
+plt.plot(0, self.target_altitude , 'ro', markersize=8, label='Target point
+')
+384
+plt.xlabel('Lateral offset (m)')
+385
+plt.ylabel('Absolute altitude (m)')
+386
+plt.title('Trajectory Front View')
+387
+plt.grid(True)
+388
+plt.legend()
+389
+390
+plt.tight_layout()
+391
+plt.show()
+392
+except Exception as e:
+393
+print(f"Plotting failed: {e}")
+394
+395
+396
+def main():
+397
+print("Artillery Ballistics Calculator - Wind and Altitude Effects")
+398
+print("=" * 60)
+399
+400
+ballistics = WindBallistics()
+401
+402
+print("Please enter the following parameters:")
+403
+404
+wind_speed = float(input("Wind speed (m/s): "))
+405
+wind_direction = float(
+406
+input("Wind direction (degrees , 0=headwind , 90=crosswind from left, 180=
+tailwind , 270=crosswind from right): "))
+32
+
+407
+target_distance = float(input("Target distance (m): "))
+408
+cannon_altitude = float(input("Cannon altitude (m): "))
+409
+target_altitude = float(input("Target altitude (m): "))
+410
+muzzle_velocity = float(input("Muzzle velocity (m/s): "))
+411
+412
+ballistics.set_parameters(wind_speed , wind_direction , target_distance ,
+413
+cannon_altitude , target_altitude , muzzle_velocity)
+414
+415
+elevation , azimuth , error = ballistics.calculate_solution()
+416
+417
+print("\nFiring instructions:")
+418
+print("=" * 50)
+419
+print(f"1. Set cannon elevation to: {elevation:.1f}°")
+420
+print(f"2. Set cannon azimuth to: {azimuth:.1f}° (relative to target
+direction)")
+421
+print(f"3. Fire with muzzle velocity: {muzzle_velocity} m/s")
+422
+423
+if error < 10:
+424
+print("\nPrediction accuracy: High (error < 10m)")
+425
+elif error < 50:
+426
+print("\nPrediction accuracy: Medium (error < 50m)")
+427
+else:
+428
+print(
+429
+"\nPrediction accuracy: Low (error >= 50m), consider adjusting parameters
+or using higher muzzle velocity")
+430
+431
+432
+if __name__ == "__main__":
+433
+main()
+33

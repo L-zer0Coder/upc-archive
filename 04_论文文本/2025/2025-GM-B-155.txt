@@ -1,0 +1,950 @@
+Empirical Angle Estimation for Historical
+Artillery under Aerodynamic Constraints
+Team 155
+Problem B
+Abstract
+This paper investigates the motion of a projectile during flight from an aerody-
+namic perspective, considering the effects of air resistance, gravity, and wind speed.
+The dynamic equations for the projectile were established and solved numerically.
+By analyzing the initial state of the artillery shell, all feasible solutions were deter-
+mined for stationary targets. Subsequent discussions focused on estimating wind
+speeds for non-stationary targets, establishing empirical formulas that enable ar-
+tillery units to achieve precise and rapid strikes without relying on computers or
+calculators.
+When the target is fixed, using the scenario set in the first question with a
+horizontal range difference of 1200 meters between the target and artillery at the
+same elevation, the feasible solution ranges for θ and v are (3, 77) degrees and (147,
+450) m/s, respectively. The minimum time required is 3.7 seconds, corresponding to
+v = 450 m/s and θ = 3°.Then incorporate the effect of wind speed on air resistance.
+Investigate how the selection of initial angle is influenced by varying wind speeds at
+different heights and locations, while keeping the initial velocity fixed at 250 m/s.
+An empirical formula for estimation was fitted using the least squares method. The
+R-squared values are 0.99, 0.99, and 0.687, respectively, indicating excellent model
+fit.
+After testing the empirical formula using randomly generated targets and wind
+speeds, the initial angle prediction deviated by approximately 0.05 degrees from
+the actual value under windless conditions. Under windy conditions, the initial
+angle prediction deviated by approximately 4 degrees from the actual value.
+Key Words: Ballistics; Artillery; Launch Angle Estimation; Air Resistance;
+Wind Correction; Linear Fitting
+1
+
+Team 155
+Page 2 of 20
+Contents
+1
+Introduction
+3
+1.1
+Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+1.2
+Problem Restatement . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+1.3
+Problem Analyze . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2
+Assumptions and Notations
+4
+2.1
+Assumptions
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2.2
+Notations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+3
+Modeling and Analysis
+5
+3.1
+Solving Ballistic Parameters for Fixed Targets . . . . . . . . . . . . . . .
+5
+3.1.1
+Air resistance . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+3.1.2
+Dynamic Equations . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+3.1.3
+Solution to the dynamic equation . . . . . . . . . . . . . . . . . .
+7
+3.1.4
+Result Display
+. . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+3.2
+Determination of Ballistic Parameters for Moving Targets
+. . . . . . . .
+10
+3.2.1
+Measurement under windless conditions
+. . . . . . . . . . . . . .
+10
+3.2.2
+Wind Speed Correction
+. . . . . . . . . . . . . . . . . . . . . . .
+12
+4
+Strengths and Weaknesses
+15
+4.1
+Strengths
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+4.2
+Weaknesses . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+5
+Conclusion
+16
+A Appendix A: Numerical Code
+17
+
+Team 155
+Page 3 of 20
+1
+Introduction
+1.1
+Background
+In early 19th-century warfare, artillery served as a pivotal force on the battlefield.
+Based on black powder propulsion, these cannons fired spherical iron projectiles typically
+weighing 5 kilograms with a diameter of 11 centimeters, achieving muzzle velocities up to
+450 meters per second. Widely deployed 150 to 200 years ago, artillery oﬀicers’ primary
+duty was rapidly determining firing parameters—namely muzzle velocity and elevation
+angle—based on target location and environmental factors like elevation and wind speed
+to ensure accurate projectile impact.
+Ballistics is the science of projectile motion.
+In idealized models, the trajectory
+follows a standard parabola, with range primarily determined by the projectile’s initial
+velocity and launch elevation angle. However, in real-world shooting scenarios, air resis-
+tance significantly impacts the motion of spherical projectiles. It not only causes velocity
+decay but also directly reduces range and lowers the apogee height. The magnitude of
+air resistance is primarily related to the projectile’s flight speed, external shape, and
+atmospheric density.
+This study aims to develop a practical method enabling artillery units to rapidly
+estimate the initial velocity and velocity angle of fired projectiles using empirical formu-
+las. This approach avoids solving complex differential equations in dynamics, thereby
+significantly enhancing both the accuracy and speed of target engagement.
+Figure 1. Military artillery of the Napoleonic era
+
+Team 155
+Page 4 of 20
+1.2
+Problem Restatement
+Consider a cannon from 150 or 200 years ago that fires spherical projectiles with a
+mass of 5 kg and a diameter of 11 cm, achieving an initial velocity of up to 450 m/s. If the
+target is 1,200 meters away horizontally, and both the cannon and the target are located
+500 meters above sea level, determine the initial velocity and elevation angle (relative to
+the horizontal plane) required to hit the target.
+1.3
+Problem Analyze
+Regarding the first question, when the firing point and target are at the same ele-
+vation, the distance between the projectile and the target point is calculated using the
+Euclidean distance. If the distance between the two is less than 10 meters, the target is
+deemed to have been hit.
+Regarding the second question, to enable artillery oﬀicers to rapidly estimate the
+muzzle velocity and elevation angle required to hit targets, we developed a model based
+on ballistic principles and linear approximation methods. Considering historical context,
+artillery muzzle velocity was typically controlled by charge quantity, allowing for two
+modes: half-charge (velocity approx. 250 m/s) and full-charge (velocity approx. 450
+m/s).
+Since a velocity of 450 m/s requires longer time to strike targets at different
+horizontal elevations, the half-charge mode at 250 m/s is employed. Elevation angles
+are mechanically adjusted via the gun mount within a range of 0° to 45°. While precise
+calculation of ballistic trajectories affected by air resistance is complex, we observed an
+approximate linear relationship between elevation angle and either range or elevation
+difference within a certain range. Therefore, linear fitting is used for estimation.
+2
+Assumptions and Notations
+2.1
+Assumptions
+• Assume the projectile is solid with uniform density distribution.
+• Assume the projectile is perfectly smooth.
+• Assume the air is uniform and remains at standard temperature and pressure during
+flight, as air density varies with temperature and pressure.
+• Neglect the effect of supersonic speeds on the drag coeﬀicient.
+• Neglect the projectile’s spin phenomenon.
+
+Team 155
+Page 5 of 20
+2.2
+Notations
+Table 1: Main Notations for Artillery Projectile
+Symbol
+Definition
+Numerical Value
+Unit
+h
+Altitude
+500
+m
+vmax
+Maximum projectile velocity
+450
+m/s
+ρ
+Air density
+1.1679
+kg/m³
+g
+Gravitational acceleration
+9.81
+m/s²
+m
+Projectile mass
+5
+kg
+d
+Projectile diameter
+0.11
+m
+CD
+Drag coeﬀicient
+0.47
+-
+SD
+Maximum projectile cross-sectional area
+0.0095
+m²
+θ
+Elevation angle
+[0◦, 90◦]
+°
+3
+Modeling and Analysis
+3.1
+Solving Ballistic Parameters for Fixed Targets
+3.1.1
+Air resistance
+In the dynamic analysis of this model, besides the effect of gravity, we must also
+account for the interaction between the projectile and air during flight. To systematically
+elucidate the mechanism by which air resistance influences the trajectory, we first derive
+the governing principles of air resistance, then integrate these with gravitational effects
+to perform a comprehensive ballistic analysis.
+The relationship between air resistance and flight speed can be analyzed using a
+simplified model. We consider a disk as the sphere’s maximum cross-section, with the
+disk perpendicular to the direction of flight. The schematic is as follows:
+Consider the airflow distribution on both sides of the disk. The airflow on the right
+side is not blocked by the sphere, with a relative velocity of v1 = v and gas pressure p1;
+the airflow on the left side is blocked by the sphere, with a relative velocity v2 = 0 and
+gas pressure p2. According to Bernoulli’s principle, we can derive the following equation:
+p1 + 1
+2ρv2
+1 = p2 + 1
+2ρv2
+2
+(1)
+Substituting v1 = v and v2 = 0, we get:
+
+Team 155
+Page 6 of 20
+Figure 2. Airflow on both sides of the disk
+p2 −p1 = 1
+2ρv2
+(2)
+where ρ is the air density, and v is the relative velocity of the projectile with respect
+to the air.The effective area under pressure is SD = πr2; thus, the drag force acting on
+the disk is:
+D = (p1 −p2)SD = 1
+2ρv2CDSD
+(3)
+This is a simplified expression for drag. The actual situation is more complex be-
+cause the sphere is not disc-shaped, and air friction occurs with the sphere’s surface. To
+correct the equation, we introduce the air resistance coeﬀicient CD. According to relevant
+literature [3], this coeﬀicient is set to 0.47. The final equation is expressed in vector form：⃗
+D = −0.235πr2ρ0⃗v2
+(4)
+3.1.2
+Dynamic Equations
+After determining the air resistance, we perform a force analysis on the projectile.
+Since vector equations can be directly decomposed into two independent scalar equa-
+tions in two-dimensional space, this makes their solution feasible. Therefore, the resultant
+external force is decomposed into the tangential and normal components in the Cartesian
+coordinate system.
+In the tangential direction(τ-direction), the projectile is subjected only to air re-
+sistance and the tangential component of gravity. The direction of resistance opposes
+the direction of motion, and its magnitude is proportional to the square of the velocity.
+Therefore, its equation of motion is:
+mdv
+dt = −mg sin θ −D
+(5)
+
+Team 155
+Page 7 of 20
+Figure 3. Force Analysis of Artillery Shells and Ballistic Trajectory
+Normal direction (n-direction): In the normal direction, the projectile is subject only
+to the normal component of gravitational force. Therefore, its equation of motion is:
+mv · dθ
+dt = −mg cos θ
+(6)
+The rate of displacement change for a projectile is determined by the projections of its
+velocity vector onto each coordinate axis. In a Cartesian coordinate system, the velocity
+vector v can be decomposed into a horizontal component vx = v cos θ and a vertical
+component vy = v sin θ, thereby establishing the differential equation for displacement:
+
+
+
+dx
+dt = v cos θ
+dy
+dt = v sin θ
+(7)
+Combining equations (5)(6)(7), we obtain the following system of equations, while
+simultaneously specifying the initial conditions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+dx
+dt = v cos θ,
+x(0) = 0
+dy
+dt = v sin θ,
+y(0) = 0
+dv
+dt = −g sin θ −D
+m,
+v(0) = v0
+dθ
+dt = −g cos θ
+v
+,
+θ(0) = θ0
+(8)
+3.1.3
+Solution to the dynamic equation
+The motion of the projectile is described by four coupled first-order ordinary differ-
+ential equations:
+dX
+dt = f(t, X),
+X = [x, y, θ, v]T
+(9)
+
+Team 155
+Page 8 of 20
+Due to the nonlinear nature of the air resistance term D(v) ∝v2, this equation has
+no analytical solution. Given the initial conditions X0 = [0, 0, θ0, v0]T, the complete spa-
+tiotemporal trajectory can be solved using a fourth-order Runge-Kutta (RK4) numerical
+method.
+Due to the strong nonlinear nature of the ballistic equation, the impact problem may
+yield multiple solutions (different angle-velocity combinations can all hit the target), and
+the distribution pattern of these solutions is unknown. To ensure all feasible solutions
+are found, we employ a full parameter space traversal strategy.
+Subject to the problem constraints, we will discretize the continuous parameter space:
+
+
+
+θ ∈[0◦, 90◦],
+∆θ = 1◦
+v ∈[0, 450] m/s,
+∆v = 1 m/s
+(10)
+For each parameter combination (θ, v), we simulate the trajectory until one of the
+following conditions is met.
+Hit Condition Considering the projectile’s lethal radius and measurement error,
+we define the impact zone as a circular area centered at the target coordinates (xt, yt)
+with a radius of rtol = 10 meters：
+r =
+√
+(x −xt)2 + (y −yt)2 ≤rtol
+(11)
+Termination Conditions The simulation is terminated if any of the following
+occurs before a hit.
+• Projectile hits the ground: y < 0
+• Velocity becomes non-physical: v ≤0
+• Maximum simulation time exceeded: t > 50 s
+The algorithm records all parameter sets that satisfy the hit condition for subsequent
+analysis.
+Our iteration strategy is as follows: First, fix the launch angle and iterate through
+initial velocities to observe projectile trajectories; then, fix the initial velocity and iterate
+through launch angles.
+3.1.4
+Result Display
+Figure 5 illustrates all launch angle and initial velocity combinations capable of
+hitting the target under air resistance conditions. Noticeable U-shaped distribution of
+hit parameters is observed on the launch angle-initial velocity plane. When the launch
+angle is small (less than 10°) or large (greater than 70°), the projectile requires a high
+
+Team 155
+Page 9 of 20
+Figure 4. The trajectory of a projectile when θ is fixed at 40◦
+initial velocity (approximately 350–450 m/s) to hit the target. Conversely, within the
+medium-angle range (approximately 30°–45°), a lower initial velocity (approximately
+140–160 m/s) suﬀices to reach the target, indicating the most eﬀicient energy utilization
+within this interval. Colors represent flight time, which increases significantly with greater
+launch angles—low-angle shots take approximately 3–6 seconds, while high-angle shots
+can exceed 40 seconds. Through iteration, we obtained 366 sets of feasible solutions.
+Figure 6 displays the spatial distribution of all impact trajectories. It is evident that
+as the launch angle increases, the apogee rises and the flight time extends; low-angle
+trajectories are flatter and achieve greater ranges. The overall distribution is continuous
+and smooth, indicating that the RK4 numerical integration solution is stable and reliable,
+accurately reflecting the true ballistic shape under aerodynamic drag.
+In summary, as long as the combination of launch angle and initial velocity falls
+within the feasible region shown in the figure, the projectile will hit the target. Since
+this feasible region is diﬀicult to express precisely through analytical equations or in-
+equalities, only its distribution characteristics and approximate range are provided here:
+v ∈(143, 450) m/s, θ ∈(3◦, 77◦). Specific parameter values can be obtained from the
+tables and code in the appendix.
+
+Team 155
+Page 10 of 20
+Figure 5. Hit Parameter Distribution
+3.2
+Determination of Ballistic Parameters for Moving Targets
+3.2.1
+Measurement under windless conditions
+Traversing the entire parameter space (v0, θ, R, H) significantly increases the com-
+putational complexity of the model. Considering practical conditions (where the initial
+velocity is controlled by the charge quantity) and the need for model simplification, only
+two common modes of initial velocity are considered: half charge (approximately 250
+m/s) and full charge (approximately 450 m/s). Analysis indicates that an initial velocity
+of 450 m/s cannot cover the 1000–1500 m target range, and the time taken for the pro-
+jectile to hit the target is excessively long when θ ￿(45°, 90°). Therefore, this problem
+uniformly sets the initial velocity to 250 m/s and traverses the angle θ within the range
+(0°, 45°).
+The determination of the estimation method involves two steps: First, fix the hori-
+zontal distance and observe the corresponding landing point heights for different θ values
+to establish the relationship between vertical height and angle. Second, fix the vertical
+height and observe the corresponding horizontal distances of landing points for different
+θ values to determine the relationship between horizontal position and angle. Finally,
+by integrating the results of numerical optimization, we propose a formulaic estimation
+method.
+Case1:Elevation angle θ and horizontal distance x The graph of the rela-
+tionship between θ and the horizontal distance x reveals a significant linear correlation
+between the two variables. Based on this, the least squares method is employed to fit the
+
+Team 155
+Page 11 of 20
+Figure 6. Shell Trajectory Diagram
+relationship, with the model defined as θ = k1x + b1. Subsequently, the undetermined
+coeﬀicients k1 and b1 within the model are determined.
+Case2:Elevation angle θ and vertical height y At the same time, we also observe
+that θ exhibits a strong linear relationship with vertical height H in terms of the function,
+defined as θ = k2H + b2.
+Result Analyze Through calculation, we obtain the coeﬀicients.
+
+
+
+k1 = 0.047514
+b1 = 8.834154
+
+
+
+k2 = 0.012216
+b2 = −5.826506
+At the same time, we also calculated the respective decisive coeﬀicients based on
+equation (12).
+R2 = 1 −
+∑n
+i=1
+(
+θobs
+i
+−θpred
+i
+)2
+∑n
+i=1
+(
+θobs
+i
+−¯θ
+)2
+(12)
+Calculations yield R2
+1 = 0.999 and R2
+2 = 0.996, indicating excellent curve fitting
+performance.
+The reference point for the fitting equation is set at (1200, 0). Therefore, the calcu-
+lated x and y values substituted into the equation represent the relative coordinates of
+the new target position relative to this reference point.
+Under windless conditions, the relationship between horizontal position, height, and
+initial angle nearly strictly follows a linear distribution (with a coeﬀicient of determina-
+tion R2 close to 1). Significance testing indicates the interaction term between horizontal
+position and height has negligible influence. Therefore, the x and y values can be substi-
+tuted into their respective linear fitting equations, and the results summed to complete
+the calculation.
+
+Team 155
+Page 12 of 20
+As shown in Figure 7, validation using randomly generated new targets demonstrates
+high agreement between predicted and actual values, further confirming the reliability of
+the aforementioned testing conclusions.
+(a) Angle Error
+(b) Predicted vs Actual Launch Angles
+Figure 7. Launch Angle Prediction in Calm Wind Conditions
+3.2.2
+Wind Speed Correction
+Wind conditions can be either headwind or tailwind.
+These two scenarios exert
+opposite effects on the distance to the shell’s impact point. Headwind, where the wind
+direction opposes the projectile’s trajectory, continuously impedes its forward motion,
+accelerating energy loss.
+This ultimately results in the projectile landing closer than
+it would have in calm conditions. Tailwind, where the wind direction aligns with the
+projectile’s flight path, reduces energy dissipation, enabling the projectile to travel farther
+than it would under windless conditions.
+
+Team 155
+Page 13 of 20
+The gunner adjusts the angle to compensate for range deviation, ensuring the shell
+overcomes wind effects and accurately hits the target. First, update the expression for
+air resistance.
+Figure 8. Analysis of Wind Speed Conditions
+Decompose wind speed into tangential and normal components.
+
+
+
+vfτ = vf cos θ
+vfn = vf sin θ
+(13)
+Then calculate the relative velocity of the tangent and normal vectors relative to the
+projectile.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+vrτ = v −vfτ = v −vf cos θ
+vrn = −vf sin θ⃗
+vr = vrτ ·⃗τ + vrn ·⃗n
+|⃗vr| =
+√
+v2
+rτ + v2
+rn
+(14)
+Thus, we obtain the resistance update formula:
+
+
+
+Dτ = −1
+2ρS0CD|vr| · vrτ
+Dn = −1
+2ρS0CD|vr| · vrn
+(15)
+Combining Equations (13), (14), and (15), the equation of motion is obtained as：：
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+dx
+dt = v cos θ
+dy
+dt = v sin θ
+dv
+dt = −g sin θ −Dτ
+m
+v · dθ
+dt = −g cos θ + Dn
+m
+(16)
+Set simulation benchmarks and parameter conditions：We define a wind speed axis
+where positive values represent headwinds and negative values represent tailwinds. The
+
+Team 155
+Page 14 of 20
+wind speed range is set to [-15, 15] (units: m/s). This range covers the vast majority of
+scenarios from strong tailwinds (-15 m/s, approximately 54 km/h) to strong headwinds
+(+15 m/s). Additionally, the initial angle range is [0, 45°].
+Here, we also employ linear regression to fit the relationship between the emission
+angle θ and wind speed Vf. The fitted equation is defined as θ = k3Vf + b3. Solving
+this equation yields the regression coeﬀicients: k3 = −0.049764 and the constant term
+b3 = 8.762129.
+As shown in Figure 9, the model demonstrates excellent fitting performance in the
+beamwidth prediction task, exhibiting high prediction accuracy and minimal deviation.At
+the same time, the calculated coeﬀicient of determination R2
+3 was 0.687.
+(a) Angle Error
+(b) Predicted vs Actual Launch Angles
+Figure 9. Wind Speed Correction-Based Launch Angle Prediction
+
+Team 155
+Page 15 of 20
+4
+Strengths and Weaknesses
+4.1
+Strengths
+1 We systematically addressed the issue. In developing the estimation method, we
+comprehensively considered multiple critical factors such as the target’s horizontal
+position, elevation angle, and initial velocity selection, designing solutions tailored
+to the practical operational scenarios of artillery units.
+2 Our model is highly practical. By establishing a linear empirical model linking ele-
+vation angle to horizontal range/altitude, artillery units can rapidly and effectively
+estimate firing parameters for targets within a horizontal range of 1000 to 1500
+meters and relative to the artillery position at altitudes ranging from -178 to 778
+meters—all without complex calculations on the battlefield.
+3 Our solution demonstrates high feasibility. Using the method of controlled variables
+and least-squares fitting, we derived a universal relationship based on a typical
+scenario with a horizontal position of 1200 meters and a relative height of zero.
+Its applicability within adjacent ranges was validated through linear interpolation,
+confirming the robustness of the method.
+4 Our assumptions and parameters align closely with historical context. The model
+is constructed based on given projectile parameters (mass 5kg, diameter 11cm) and
+the practicality of loading gunpowder into the cannon, specifying a typical initial
+velocity (250m/s). All assumptions conform to the technical conditions of the late
+18th and early 19th centuries.
+4.2
+Weaknesses
+1 The model’s accuracy has inherent limitations. Despite our efforts to approximate
+the true ballistic trajectory through linear fitting, the non-linear relationship be-
+tween wind speed and elevation angle, coupled with the interaction between wind
+speed and target position, results in certain model errors. The first shot may require
+a minor adjustment based on observation.
+2 Certain environmental factors have been omitted. To ensure the model remains
+suﬀiciently simplified for rapid battlefield deployment, we have disregarded fac-
+tors such as air turbulence and projectile spin. In practical applications, this may
+necessitate additional compensation by oﬀicers based on their experience.
+3 The data sources are somewhat idealized. The model construction heavily relies on
+the specified projectile parameters and initial velocity. If batch variations exist in
+
+Team 155
+Page 16 of 20
+the actual propellant charge, weight, or shape of the ammunition used, this may
+affect the accuracy of the model estimates.
+5
+Conclusion
+After analyzing the first question, we identified all feasible solutions capable of hitting
+a stationary target: θ ranges from 3 to 77 degrees, and v ranges from 143 to 450 m/s.
+We then determined the trajectory that precisely hits the target among these feasible
+solutions. The solution with the shortest duration is selected as the optimal one: t = 3.7
+s, v = 450 m/s, θ= 3°.
+Building upon the first question, we designed a rapid aiming method for artillery
+based on a linear empirical model.
+The problem was first divided into windless and
+windy conditions. Using the control variable method, we obtained extensive data for the
+reference point (1200, 0). We then employed least-squares fitting to derive an empirical
+formula. After observing the target’s relative position (x, y) relative to the reference point
+(1200, 0) and the approximate wind speed at that moment, artillery crews can substitute
+these values into the fitted empirical formula to calculate the required elevation angle for
+the gun.
+In short, if the artillery adopts our strategy, it will be highly likely to strike the
+target quickly and accurately.
+References
+[1] TONG Haibin, LI Dezeng, WANG Yu, et al. Theoretical solution to the problem
+of optimal firing angle of artillery shell[J]. Automation Application, 2023, 64(20):
+166-168+171.
+[2] Zhao Qinglan, Song Weidong, Lu Fei, et al. Research on the Ballistic Model of
+Unguided Shells under Windy Conditions [J]. Journal of Engineering Design, 2008,
+(05): 373-377.
+[3] Zhou Hong, Shen Wei, Wang Taofen, et al. Study on the Influence of Coriolis Force
+on Long-Range Artillery Projectile Launching [J]. Chinese Physics Letters, 2025,
+(06): 138–141.
+[4] A. D. Lazarov and C. N. Minchev, ”ISAR image reconstruction and autofo-
+cusing procedure over phase modulated signals,” in 2002 International Radar
+Conference (RADAR 2002), Edinburgh, UK, Oct. 2002, pp. 536 – 541. doi:
+10.1109/RADAR.2002.1174776.
+
+Team 155
+Page 17 of 20
+[5] S. Sahoo and A. Banerjee, ”Study of Coeﬀicient of Drag and Shock wave pattern for
+155mm ERFB (BT) Supersonic Artillery Shell with Recovery Plug / Fuze,” in 2019
+International Conference on Range Technology (ICORT), Balasore, India, 2019, pp.
+1–5. doi: 10.1109/ICORT46471.2019.9069600. Keywords: Plugs; Drag; Trajectory;
+Projectiles; Shock waves; Firing; Nose; Firing Tables; recovery plug; fuze; coeﬀicient
+of drag; artillery shell; shock wave.
+[6] S. Altunin, A. Bondariev and I. Maksymiv, ”Simulation of Artillery Ballistic Sta-
+tion,” in 2024 IEEE 17th International Conference on Advanced Trends in Radioelec-
+tronics, Telecommunications and Computer Engineering (TCSET), Lviv, Ukraine,
+2024, pp. 68–71. doi: 10.1109/TCSET64720.2024.10755634. Keywords: artillery;
+ballistic; doppler; detector; velocity; PLL.
+A
+Appendix A: Numerical Code
+Question 1：
+1
+clc;clear;close all;
+2
+a = pi/180;
+3
+global m g
+4
+m = 5; g = 9.81;
+5
+d = 0.11;
+6
+xm = 0; ym = 0; xt = 1200; yt = 0;
+7
+rho = 1.1679; S = pi*d^2/4; C = 0.47;
+8
+state_all = []; tout = [];
+9
+for thetam = 0:pi/180:pi/2
+10
+for vm = 0:450
+11
+state = [xm;ym;thetam;vm];
+12
+state_all = [state_all ,state];
+13
+end
+14
+end
+15
+[~,n] = size(state_all);
+16
+stateout_all = {};
+17
+for i = 1:n
+18
+xm = 0; ym = 0;
+19
+state = state_all(:,i);
+20
+vm = state(4);
+21
+stateout = state;
+22
+t0 = 0; dt = 0.01; iter = 0; t = 0;
+23
+tf = 50;
+
+Team 155
+Page 18 of 20
+24
+r = sqrt((xm-xt)^2+ym^2);
+25
+while r > 10 && t < tf
+26
+iter = iter + 1;
+27
+r = sqrt((xm-xt)^2+ym^2);
+28
+t = t0 + dt*iter;
+29
+Q = 0.5*rho*S*C*vm^2;
+30
+ke1 = statequation(state,t,Q);
+31
+ke2 = statequation(state+0.5*ke1*dt,t+0.5*dt,Q);
+32
+ke3 = statequation(state+0.5*ke2*dt,t+0.5*dt,Q);
+33
+ke4 = statequation(state+ke3*dt,t+dt,Q);
+34
+state = state + 1/6*(ke1+2*ke2+2*ke3+ke4)*dt;
+35
+stateout = [stateout ,state];
+36
+% tout = [tout,t];
+37
+vm = state(4); xm = state(1); ym = state(2);
+38
+if vm < 0 || ym < -10
+39
+break;
+40
+end
+41
+end
+42
+if r <= 10 && state(2) >=0
+43
+stateout_all{end+1} = stateout;
+44
+tout = [tout,t];
+45
+end
+46
+end
+47
+function state = statequation(state,t,Q)
+48
+global m g
+49
+x = state(1);
+50
+y = state(2);
+51
+v = state(4);
+52
+theta = state(3);
+53
+xdot = v*cos(theta);
+54
+ydot = v*sin(theta);
+55
+vdot = -g*sin(theta)-Q/m;
+56
+thetadot = -g*cos(theta)/v;
+57
+state = [xdot;ydot;thetadot;vdot];
+58
+end
+Question 2：
+1
+% clc;clear;close all;
+2
+a = pi/180;
+3
+global m g vf
+
+Team 155
+Page 19 of 20
+4
+m = 5; g = 9.81;
+5
+d = 0.11;
+6
+xm = 0; ym = 0; xt = 1200; yt = 0;
+7
+rho = 1.1679; S = pi*d^2/4; C = 0.47;
+8
+state_all = []; tout = [];
+9
+stateout_vf = {};
+10
+tout_vf = {};
+11
+12
+vm = 250;
+13
+for thetam = 0:pi/1800:pi/2
+14
+state = [xm;ym;thetam;vm];
+15
+state_all = [state_all ,state];
+16
+end
+17
+[~,n] = size(state_all);
+18
+stateout_all = {};
+19
+for vf = -15:15
+20
+stateout_all = {}; tout = [];
+21
+for i = 1:n
+22
+xm = 0; ym = 0;
+23
+state = state_all(:,i);
+24
+vm = state(4); thetam = state(3);
+25
+stateout = state;
+26
+t0 = 0; dt = 0.01; iter = 0; t = 0;
+27
+tf = 50;
+28
+r = sqrt((xm-xt)^2+ym^2);
+29
+while r > 10 && t < tf
+30
+iter = iter + 1;
+31
+r = sqrt((xm-xt)^2+ym^2);
+32
+t = t0 + dt*iter;
+33
+v_rel = sqrt((vm-vf*cos(thetam))^2 +(vf*sin(thetam))^2);
+34
+Q1 = 0.5*rho*S*C*v_rel*(vm-vf*cos(thetam));
+35
+Q2 = 0.5*rho*S*C*v_rel*(vf*sin(thetam));
+36
+ke1 = statequation1(state,t,Q1,Q2);
+37
+ke2 = statequation1(state+0.5*ke1*dt,t+0.5*dt,Q1,Q2);
+38
+ke3 = statequation1(state+0.5*ke2*dt,t+0.5*dt,Q1,Q2);
+39
+ke4 = statequation1(state+ke3*dt,t+dt,Q1,Q2);
+40
+state = state + 1/6*(ke1+2*ke2+2*ke3+ke4)*dt;
+41
+stateout = [stateout ,state];
+42
+vm = state(4); xm = state(1); ym = state(2); thetam = state
+
+Team 155
+Page 20 of 20
+(3);
+43
+if vm < 0 || ym < -10 || xm < -100
+44
+break;
+45
+end
+46
+end
+47
+if r <= 10
+48
+stateout_all{end+1} = stateout;
+49
+tout = [tout,t];
+50
+end
+51
+end
+52
+stateout_vf{end+1} = stateout_all;
+53
+tout_vf{end+1} = tout;
+54
+end
+55
+function state = statequation1(state,t,Q1,Q2)
+56
+global m g vf
+57
+x = state(1);
+58
+y = state(2);
+59
+v = state(4);
+60
+theta = state(3);
+61
+xdot = v*cos(theta);
+62
+ydot = v*sin(theta);
+63
+vdot = -g*sin(theta)-Q1/m;
+64
+thetadot = -g*cos(theta)/v + Q2/(m*v);
+65
+state = [xdot;ydot;thetadot;vdot];
+66
+end

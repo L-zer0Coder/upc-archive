@@ -1,0 +1,1278 @@
+Evolution of Martian Atmosphere under Initial
+Atmospheric Pressure of 0.2 bar
+Team 200
+Problem A
+Abstract
+In this paper, the mechanisms of thermal escape, solar wind sputtering and photochemical
+reaction are studied based on Atmospheric stratification model, and the evolution of Martian
+atmosphere is predicted. Using Monte Carlo dynamics simulation and other calculation meth-
+ods, we find that due to the strong ultraviolet radiation of the sun, the photochemical reaction in
+the upper atmosphere is the main reason for gas escape. At the initial atmospheric pressure of
+0.2bar, after 70-90 million years, the pressure dropped to 0.1bar.
+
+Contents
+1
+Nomenclature / Notations used
+2
+2
+Introduction
+3
+2.1
+Atmosphere(4) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+2.2
+Atmospheric stratification model and definition of basic length . . . . . . . . .
+4
+2.3
+Thermal escape mechanisms . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2.4
+Suprathermal particles in planetary atmospheres . . . . . . . . . . . . . . . . .
+5
+3
+Assumptions and Approximation
+5
+4
+Theoretical analysis
+7
+4.1
+Thermal escape. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+4.1.1
+Jeans escape
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+4.1.2
+Hydrodynamic escape
+. . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+4.2
+Non-thermal escape . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+4.2.1
+Sputtering escape . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+4.2.2
+Photochemical escape
+. . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+5
+Simulation
+11
+5.1
+Simulation of Jeans escape . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11
+5.2
+Simulation of Sputtering escape
+. . . . . . . . . . . . . . . . . . . . . . . . .
+12
+5.3
+Simulation of Photochemical escape . . . . . . . . . . . . . . . . . . . . . . .
+14
+5.4
+Calculation of total effect . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+16
+6
+Results
+17
+7
+Discussion / Conclusions
+17
+7.1
+Conclusion
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+17
+7.2
+Strength . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+17
+7.3
+Weakness . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+17
+8
+Outlook / Future Work
+17
+9
+Appendix
+18
+9.1
+MATLAB Code . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+18
+10 References
+29
+1
+
+Problem A
+The University Physics Competition
+Team 200
+1
+Nomenclature / Notations used
+Main parameters
+Symbols
+Description / Meaning
+Numerical Value
+Mp
+Mass of Mars
+6.42 × 1023kg
+Rp
+Radius of Mars
+3389.5km
+n
+Solar wind particle number density
+1.83×106
+* Notations not mentioned are defined alongside.
+Page 2 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+2
+Introduction
+Mars, the fourth planet in the solar system, has a lot in common with our planet, and it is
+often called the Twin Earth. They are terrestrial planets, both have polar ice caps, and both once
+had active atmosphere and liquid water on their respective surfaces. In other ways, there is a
+big difference between them. Especially in terms of their respective atmosphere and climate,
+Mars can be said to be very different from Earth. The Martian atmosphere is mainly composed
+of carbon dioxide, followed by nitrogen and argon, as well as a small amount of oxygen and
+water vapor, which is less than 1% of the density of the Earth’s atmosphere and the surface
+atmospheric pressure is 500pa.
+Recently, several studies have shown that Mars probably had a dense atmosphere during
+the Novachian period, with a surface pressure of at least 0.5bar(1). What caused Mars to lose its
+dense atmosphere? At present, the mainstream explanations include(2; 6):
+1. The heat escape caused by the thermal motion of atoms or molecules in the upper atmo-
+sphere is often called Jeans escape;
+2. Solar electromagnetic radiation heats the atmosphere and causes photochemical reac-
+tions, resulting in higher energy of gas molecules and getting rid of gravitational shackles. The
+interaction between the high-speed charged particles carried by the solar wind (mainly including
+most protons, electrons and helium nuclei at a speed of 200-800km/s and the number of ions
+ejected per second is 1.3×1036) (1) plays an important role in atmospheric erosion. There is no
+global magnetic field distribution similar to that of Earth on the surface of Mars, and the strong
+magnetic field is only within a certain range, resulting in more obvious erosion of the Martian
+atmosphere by the solar wind.
+In addition, the Martian surface atmosphere is very active, atmospheric mobility is strong,
+sand and dust are frequent, which will also have an impact on the evolution of the atmosphere.
+(3)
+With the deepening of the research, some people have put forward the idea of rebuilding the
+Martian atmosphere and creating a ”habitable planet”. Suppose we use some means to evaporate
+the polar ice caps and get a large amount of carbon dioxide into the atmosphere (instead of water,
+see the analysis in section 1), which will give Mars a thicker atmosphere and Greenhouse Effect
+of carbon dioxide will maintain a certain temperature on Mars. However, how long this man-
+made atmosphere can last in the existing Martian environment will be a key assessment criterion
+for such a program.
+This paper studies the evolution of the atmosphere during the escape of thermal and non-
+thermal gases when a large amount of carbon dioxide enters the Martian atmosphere and in-
+creases its pressure to 0.2bar.
+2.1
+Atmosphere(4)
+Planetary aeronomy problems pertain to many bodies of the Solar System that have gas
+envelopes. In most cases, the motion of gas in the envelope is restricted by the gravitational
+field of the planet or satellite, and such an envelope is referred to as an atmosphere.
+The presence or absence of a gas envelope is an important indicator that reflects significant
+features of the origin and evolution of the planet or satellite on a geological time scale.
+The chemical composition, structure, and dynamics of atmospheres highly depend on the
+mass and location of the celestial body in the Solar System (to which the initial composition
+of the atmosphere, thermal and chemical differentiation of the primordial matter, and insolation
+conditions are related) and on the parameters of orbital and rotational motion. Therefore, even
+within a small region occupied by terrestrial planets, the properties of their atmospheres are
+significantly different. It’s as if the Martian atmosphere is mostly carbon dioxide, while the
+Page 3 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+Earth’s atmosphere contains only a very small amount of carbon dioxide.
+2.2
+Atmospheric stratification model and definition of basic length
+Relatively dense layers of the lower atmosphere (troposphere) can be treated in the gas
+dynamic approximation because the mean free path l is significantly smaller than the smallest
+microscopic length scale; Under the action of gravity field, the isothermal atmosphere obeys
+Boltzmann distribution, the pressure decreases with the height index. Because the mean free
+path increases as the number density decreases, at some altitude in the atmosphere the mean
+free path becomes approximately equal to the height scale, H = (kBT)/mg, where kB is the
+Boltzmann constant, m is the average mass of particles, g is the gravity acceleration and T is
+the gas temperature. This altitude is known as the exobase, and the region above the exobase is
+defined as the exosphere. More rigorously, the exobase of a planet or satellite with radius Rp is
+defined as the altitude hexo = rexo −Rp in the atmosphere at which the probability of escape
+from the atmosphere without subsequent collisions for a molecule (or atom) moving upwards
+with a velocity exceeding the escape velocity is equal to 1/e, as shown in figure 1.
+The exobase is calculated using the formula:
+Pexo = e−
+∫∞
+rexo σn(h)dh
+(1)
+with the dimensionless parameter Kn(h) = 1/σn(h)H(h). Here, h(h) and T(h) are the number
+density and temperature of gas at an altitude h = r−Rp, σ is the elastic scattering cross section,
+m is the average mass of molecules and atoms, and g(h) = (GMp)/r2 , where Mp is the mass of
+the planet and G is the gravitational constant. In the dynamics of rarefied gases, the parameter
+Kn is referred to as the Knudsen number, which is defined as the ratio of characteristic micro-
+and macroscopic gas flow scales: Kn(h) = l(h)/H(h), where the characteristic microscopic
+scale is the free path length l(h) = (
+√
+2σn(h))
+−1/2, and the characteristic altitude-dependent
+macroscopic scale is the atmospheric height scale H(h) = kBT(h)/(mg(h)). In particular, the
+condition Kn ≪1 ensures the correctness of describing the atmosphere in the gas dynamic ap-
+proximation as a medium in which collisions dominate and which is considered as a continuous
+medium. At the exobase altitude, Kn ≈1, and the relation σnexoH ≈1 is often used for deter-
+mining the exobase. In this estimate, the exobase altitude is attained for the gas concentration
+along the line of sight is often used for determining the exobase. Under this assumption, the
+escape of atoms and molecules starts directly from the physical surface of the celestial body.
+2.3
+Thermal escape mechanisms
+The mechanism of thermal escape is that when the inherent kinetic energy of gas molecules
+is beyond the gravitational potential energy, the molecules escape the atmosphere. Thermal
+escape mainly includes two mechanisms: Jeans escape and hydrodynamic escape. The former is
+caused by the thermal motion of molecules, and the latter is because of macroscopic convection
+caused by uneven gas temperature.
+Jeans escape: The thermal motion of gas molecules obeys Maxwell’s law of velocity distri-
+bution. The parameters included in the distribution function are atomic mass and temperature
+(related to the internal energy of the gas). Since gas molecules with a smaller mass have a greater
+speed at the same temperature (internal energy), on planets, the main body of Jeans escape is
+mostly lighter elements such as H.
+Hydrodynamic escape: The hydrodynamic escape means that under the action of solar radi-
+ation, the gases in the atmosphere form convection due to uneven temperature. In this process,
+heavier molecules are collided by lighter molecules at a higher speed and taken out of the atmo-
+sphere, which contains both heavy and light molecules.
+Page 4 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+2.4
+Suprathermal particles in planetary atmospheres
+In studying the atmospheric gas flow at exosphere altitudes, we should take into account
+possible losses and the production of atoms and molecules as a result of non-thermal processes
+such as ion sputtering of neutral gas, ionization and dissociation by electrons, charge exchange
+with the solar wind, and/or magnetospheric plasma ions. The category of suprathermal (or ‘hot’)
+particles usually includes particles whose kinetic energy is higher than(5 −10)kBT, where T
+is the temperature of the background atmospheric gas. The suprathermal particles are produced
+in various physical and chemical processes, whose products have excessive kinetic energy. If
+the production rate of such particles populating the range of suprathermal energies is high com-
+pared to the rate of their thermalization in elastic collisions, a stable fraction is created that can
+significantly perturb the locally equilibrium (Maxwell) distribution of the thermal energy of the
+background atmospheric gas. The principal sources of suprathermal particles in the rarefied gas
+of planetary atmospheres includes:
+1. Charge exchange escape. Charge exchange when high-energy ions in the solar wind
+interact with neutral gases in the atmosphere;
+2. Photochemical escape. Dissociation and dissociative ionization by UV solar radiation ;
+3. Sputtering escape. Solar wind plasma sputters or hits atmospheric gases.
+4. Exothermal ion-molecular and neutral chemical reactions;
+The above mechanisms can change the gas molecular/atomic rate distribution in the atmo-
+sphere on a large scale or locally, and then affect the atmospheric escape rate.
+3
+Assumptions and Approximation
+For the assumption of the problem, there are two important factors that affect the research,
+namely, the composition of the thicker Martian atmosphere and how the temperature of Mars
+changes over time. We first estimate and judge them.
+The increase in the thickness of the atmosphere will reduce the thermal radiation power of
+Mars into space, leading to a certain increase in the temperature of Mars. The blackbody radia-
+tion formula and the greenhouse effect principle formula are now used to estimate the influence
+of atmospheric thickness on the temperature change of Mars.
+According to the single-layer greenhouse gas model(5)(shown in figure Figure.2)
+T0 =
+4
+√
+ηS0(1 −α)
+4σ
+(2)
+where S0 is the solar radiation power density, α is the Surface reflection coefficient of Mars, σ
+is the Boltzmann constant, and η is the coefficient, which characterizes Greenhouse Effect of
+the atmosphere.
+Page 5 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+Figure 1
+According to observations, Mars currently has an atmosphere with a pressure of 600Pa and
+an average temperature of 210K.If the pressure on the surface of Mars P is raised to 0.2bar, so
+the surface temperature of Mars T =
+4
+√
+η
+η0 = 257.6K.
+Now consider the composition of the Martian atmosphere. It should be noted that the satu-
+rated vapor pressure of water is about 191.5Pa at the temperature of 257.6K, that is, the maxi-
+mum partial pressure that water vapor can provide at this time is 191.5Pa, and the partial pressure
+of CO2 is not less than 19.8kPa. Therefore, for the assumption of the problem, we approximate
+It is believed that the Martian atmosphere at a pressure of 0.2 bar is composed of CO2.
+In addition, because the average temperature on the surface of Mars is now about 210K, this
+is not much different from 257.K. In other words, the thicker Martian atmosphere will not have
+a major impact on the temperature of Mars. Therefore, we ignore the changes in the temperature
+of Mars over time.
+Also, based on the basic information about the facts, we make the following assumptions:
+1. Assuming that the temperature distribution of Mars does not change with space, and
+because the pressure of 0.2 bar is not too large, the Martian atmosphere can be considered as an
+ideal gas, so in this article we use an isothermal atmosphere model.
+2. Because the time scale of the evolution of the Martian atmosphere is much longer than
+the cycle of solar activity (about 11 years), the time required for significant changes in solar
+activity is very long (billions of years), so the influence of solar activity can be ignored It is
+believed that the particle flux density and radiant energy flux density received by Mars remain
+unchanged.
+3. Similarly, because the Martian rotation period is much smaller than the time scale of
+atmospheric evolution, it is not necessary to discuss the conditions of the day and night hemi-
+spheres separately.
+4. Because the eccentricity of the orbit of Mars is small (about 0.09), the orbit of Mars is
+regarded as a circle. Because the equatorial radius (3396.2 km) of Mars is not much different
+from the polar radius (3376.2 km), Mars is regarded as an ideal sphere.
+5. Because the Martian gas is rare, the high-speed airflow in the middle and lower layers has
+limited influence on the upper atmosphere, so the influence of atmospheric macroscopic flow is
+ignored.
+Page 6 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+4
+Theoretical analysis
+The planetary atmosphere density decreases as altitude grows; starting with the exosphere
+altitude particles can run planet-size distances with a very low probability of collisions. At such
+altitudes, the atoms and molecules whose energy is higher than their gravitational energy and
+whose radial velocity is directed upward, can escape into open space. At the exobase altitude
+he, a transition occurs from the continuous-medium regime to the rarefied-gas regime, and in-
+dividual collisions are to be considered using kinetic and/or stochastic methods.
+4.1
+Thermal escape.
+4.1.1
+Jeans escape
+In this model, the velocity of gas molecules obeys Maxwell’s velocity distribution law(4):
+f(v) = 4π(
+m
+2πkT )
+3
+2exp(mv2
+2kT )v2
+(3)
+f(vx) = (
+m
+2πkT )
+1
+2exp(mv2
+2kT )
+(4)
+From this, the particle flow density can be calculated(7):
+FJeans =
+∫∞
+vesc
+fMB(v)dv
+∫π/2
+0
+2π sin θ cos θdθ
+(5)
+where v is the velocity magnitude, fMB is the Maxwellian-Boltzmann velocity distribution
+function, θ the angle between the velocity direction and the zenith direction and Vesc the escape
+velocity. The integration provides the usual Jeans formula for the escape flux:
+Fesc(rexo) = n(rexo)U
+2√π
+(( v
+U )2 + 1)e−( v
+U )2
+(6)
+Where U is the average velocity of gas molecules and v is the escape velocity of the planet.
+Use λ to express the ratio between these two speeds, as the ratio of the potential energy of the
+particle in the gravitational field of the planet to the thermal kinetic energy:
+λ(rexo) = v2
+esc
+U 2 = GMpm
+kBTrexo
+= rexo
+H
+(7)
+It follows that as λ →0, the atmosphere loses its gravitational bond to the planet and atmo-
+spheric outflow occurs in a continuous medium regime owing to the excessive kinetic energy
+of thermal motion, while in the limit of large values of λ, the atmosphere remains fully gravita-
+tionally bound, and the thermal escape is vanishingly small. Celestial bodies with small values
+of λ close to the exobase have the most extended atmospheres.
+The limit λ →0 is known as the Jeans limit, which characterizes the maximum possible
+velocity of thermal escape:
+lim
+λ→0 Fesc(rexo) = n(rexo)U
+2√π
+= 1
+4n(rexo)vth
+(8)
+4.1.2
+Hydrodynamic escape
+The radiation reflected by the surface heating the atmosphere and the temperature difference
+between day and night are two main ways to generate convection. The former forms vertical
+Page 7 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+flow, while the latter forms horizontal flow, but both of them are localized in the troposphere
+near the surface. Compared with the direct effect of electromagnetic radiation, its influence on
+the escape layer atmosphere can be neglected.
+In this part we only consider the factors of Jeans escape.
+4.2
+Non-thermal escape
+4.2.1
+Sputtering escape
+The main component of the solar wind is positively charged high-speed H+ ions. The solar
+wind’s effects on the molecules in the atmosphere mainly include photochemistry and sputter-
+ing. Sputtering is a phenomenon in which particles in the solar wind collide with atmospheric
+molecules at a high speed to change the velocity distribution of atmospheric molecules. The
+process of sputtering does not involve the transfer of charges or the change of chemical bonds,
+and can be regarded as a mechanical process. Because the speed of particles in the solar wind is
+very large, it has a positive effect on the escape of the atmosphere. Because the magnetic field
+of Mars is very small, it is difficult to deflect the charged solar wind, so the impact of the solar
+wind on Mars is more significant than that of the earth.
+4.2.2
+Photochemical escape
+In the upper atmosphere, high energy ultraviolet photons can react more readily with molecules.
+Photodissociation can break a molecule into smaller components and provide enough energy
+for those components to escape. Photoionization produces ions, which can get trapped in the
+planet’s magnetosphere or undergo dissociative recombination . In the first case, these ions may
+undergo Sputtering escape. In the second case, the ion recombines with an electron, releases
+energy, and can escape.(8) Because we ignore the magnetosphere of Mars itself, we only need
+to consider the latter case described above. That is, ions and electrons recombine into atoms
+and then escape. We believe that the photochemical process caused by ultraviolet rays mainly
+occurs in the exosphere of Mars. The reaction may generate various ions and atoms in various
+states. We consider the following main reactions:
+CO2 + hν −→CO+
+2 + e
+(9)
+CO+
+2 + e −→CO + O
+(10)
+CO + hν −→CO+ + e
+(11)
+CO+ + e −→C + O
+(12)
+As mentioned before, we only consider the escape after recombination of ions and electrons
+into atoms. The above reaction equations can be combined into(9):
+CO2 + hν −→CO + O
+(13)
+CO + hν −→C + O
+(14)
+That is, the photolysis reaction of two molecules. According to existing studies, for this type
+of reaction, The altitude dependent production rate P(r) for photodissociation of a molecular
+neutral n can be obtained by the relation:
+P(r) = ann(r)
+∫
+λ
+σpd
+n (λ)F(r, λ)dλ
+(15)
+where nn(r) is the altitude dependent neutral density, For F(r, λ) the solar flux at the altitude
+r(Take the radiant energy flux when the sun zenith angle is 60° as the average) and σpd
+n (λ) the
+Page 8 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+photodissociation cross section for the neutral at wavelength λ. The photodissociation and The
+absorption cross sections are taken from Photo Rate Coefficient Database.2(10) As shown in [],
+the solar radiation intensity spectrum is shown in [], in view of the fact that ultraviolet rays play
+a major role in photochemical escape, and the intensity of components with wavelengths shorter
+than 300nm in sunlight is very weak , So ν=300nm can be taken.a is a constant, which can be
+estimated as:a Based on this, a system of differential equations about the reactants and products
+of the photochemical reaction can be established:
+dn1
+dt = −k1n1 −αesp1
+(16)
+dn2
+dt = −k2n2 + k1n1 −αesp2
+(17)
+dn3
+dt = k2n2 −αesp3
+(18)
+Figure 2 Solar spectrum
+Figure 3 photodissociation cross section
+of carbon dioxide
+Figure 4 photodissociation cross section of carbon oxide
+Among them, n1,n2,n3represents the number density ofCO2,CO,C. In addition, for each
+component, the part lost due to Jeans escape should be subtracted separately:αesp1,αesp2,αesp3.
+According to the equation(12)and the data in the figure(3)(4), the rate constant of each reaction
+Page 9 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+can be calculated as follows:
+ki =
+a
+∫
+λ σpd
+n (λ)F(r, λ)dλ
+∫∞
+R1 4πr2e−r−R0
+H dr
+∫R1
+R0 4πr2e−r−R0
+H dr
+, i = 1, 2
+(19)
+Because the photochemical reaction mainly occurs near the exosphere, where the gas molecules
+are already relatively sparse. Therefore, the range of photochemical reaction takes the height
+corresponding to exophere to positive infinity, and the part used to calculate the increase or
+decrease of the particle number is taken below the height corresponding to exophere.
+For the part of particle energy, we calculate according to the two-body particle model:
+Figure 5 two-body particle model
+Where v is the velocity of the reactant molecules,v1,v2are the velocity of the product parti-
+cles, andm1,m2 are their masses, andv′
+1,v′
+2 are their velocity relative to the center of mass. Ac-
+cording to the law of conservation of momentum, law of conservation of energy and Koenig’s
+theorem, there are:
+v′
+1 =
+√
+2m2Ec
+m1(m1 + m2)
+(20)
+v′
+2 =
+√
+2m1Ec
+m1(m1 + m2)
+(21)
+v1 =
+√
+v
+′2
+1 + v2 −2vv
+′2
+1 cos θ
+(22)
+v2 =
+√
+v
+′2
+2 + v2 + 2vv
+′2
+2 cos θ
+(23)
+Ec = hν
+(24)
+Where θ is randomly distributed We combine the jeans escape model in section 4.1 and
+use matlab to solve the above differential equations(16)(17)(18)and equations(20)(21)(22)(23),
+we can get the velocity distribution of the resulting particles CO, C, O and the quality of each
+component under the influence of the photochemical escape effect Changes over time. See
+section 5.
+Page 10 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+5
+Simulation
+5.1
+Simulation of Jeans escape
+Because the gas in the Martian escape layer is relatively rare, it can be regarded as an ideal
+gas. From the microscopic pressure formula: (k is Boltzmann constant)
+p = nkT
+(25)
+According to eq[6], the number of gas molecules Fe passing through per unit time per unit
+area can be obtained, by
+F = dN
+dt = Veff
+dn0
+dt
+(26)
+Substitution can get:
+dn0
+dt = n(rexo)U
+2√πVeff
+(( v
+U )2 + 1)e−( v
+U )2
+(27)
+That is, the decrease rate of a certain gas molecule is related to some parameters, so the
+problem is transformed into a first-order variable coefficient ordinary differential equation prob-
+lem. The initial condition n0: p(CO2) = 0.2bar can be determined by eq[25]. Runge-Kutta
+method can be used to solve this kind of ordinary differential equation problems. Using Matlab
+to numerically simulate the jeans escape of Mars by the fourth to fifth step variable step length
+Runge-Kutta method, substituting the data of the main carbon dioxide gas in Mars, the results
+are as follows:
+Figure 6 Jeans escape of carbon dioxide
+It can be seen that in a fairly long period of time, within the range of 1e-15 solution accuracy,
+the number density of CO2 molecules hardly changes with time. This is because the average
+velocity of molecules of the same weight as CO2 is relatively small, and it is difficult to escape
+the Martian atmosphere through the Jeans escape method.
+For comparison, substituting the relevant parameters of hydrogen and selecting the same
+initial conditions as carbon dioxide, we get:
+Page 11 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+Figure 7 Jeans escape of hydrogen
+It can be found that under the same atmospheric pressure, the escape rate of carbon dioxide
+is much smaller than that of hydrogen.
+5.2
+Simulation of Sputtering escape
+Sputtering is a phenomenon in which particles in the solar wind (mainly H+ ions) collide
+with atmospheric molecules at a high speed, which changes the velocity distribution of atmo-
+spheric molecules. We first use the Monte Carlo dynamics simulation method to study the col-
+lision of two particle swarms. In order to simplify the model, we think that every particle is a
+particle, and because the gas in the Martian escape layer is very thin, we think that there is no
+interaction between the particles in each particle group, and only elasticity with the particles of
+another particle group. collision. The main process is:
+(1) Generate a certain number of random points. In order to make the result statistically signif-
+icant, the number is generally above 1e4.
+(2) Set the velocity distribution of A particle group (corresponding to gas molecules) to Maxwell’s
+velocity distribution law, and B particle group (corresponding to the solar wind) has a velocity
+in a certain direction in space.
+(3) The particles between the two particle swarms collide.
+(4) Count the velocity distribution before and after the collision.
+The results are as follows:
+Figure 8 Gas velocity distribution of gas
+before collision
+Figure 9 Gas velocity distribution of gas after collision
+Page 12 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+After several simulations with changing conditions, it can be concluded that after the gas
+is hit by high-speed solar wind particles, some of the particles are accelerated to a higher en-
+ergy state, and the percentage is related to the average number of collisions. When the average
+number of collisions is 1, the number of accelerated particles is exactly equal to the number of
+particles in the solar wind. We use computer programming methods to find the average number
+of collisions. Considering the elastic collision between solar wind particles and molecules, the
+speeds of both have changed. The changed solar wind particles continue to collide with other
+molecules until the speed of the solar wind particles is less than the escape velocity. This can be
+achieved by Matlab’s loop statement. After substituting relevant data, the maximum number of
+collisions between solar wind particles and molecules can be found to be 32 times. However,
+the effective number of collisions for the gas to escape is not equal to the maximum number
+of collisions. Only molecules with velocity components in the direction away from Mars can
+escape, so the effective number of collisions is half of the maximum number of collisions, that
+is, 16 times.
+Record the effective number of collisions as K, and consider the interaction between Mars
+and the sun:
+Figure 10 Sputtering escape
+The number of molecules that each solar wind particle can accelerate is K, so consider the
+deltat process and list the equations:
+nswπR2
+1vdt = 1
+K dN = 1
+K d(n0Veff)
+(28)
+That is the differential equation:
+nswπR2
+1vK
+1
+Veff
+= d(n0)
+dt
+(29)
+Considering that the radius of the Martian escape layer will change within the time range
+of the solution, this equation is a first-order variable coefficient ordinary differential equation.
+Using the fourth to fifth order Runge-Kutta method to solve the differential equation can be
+obtained:
+Page 13 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+Figure 11 Change of Surface Pressure Under the Sputtering of solar wind
+It can be found that even when the radius of the escape layer changes with time, the rela-
+tionship between air pressure and time is still approximately linear.
+5.3
+Simulation of Photochemical escape
+For the first-order ordinary differential equations of eq[16][17][18],the escape factor is not
+considered at first, and the fourth to fifth-order variable-step adaptive Runge-Kutta algorithm is
+used to solve the equations. Since only the photochemical effect near the exosphere is consid-
+ered, the initial carbon dioxide content is much higher than CO, O, C and other particles, so the
+initial conditions are set to n(CO2) = 0, n(CO) = 0, n(O) = 0
+Solve to obtain the molecular number density of each substance as:
+Figure 12 Evolution of Exophere Composition under Photochemical Effect
+In order to calculate the influence of this chemical reaction on molecular escape, we per-
+formed the following two-step simulation. The first is to simulate the velocity distribution of the
+product particles after the reaction. Starting from the Maxwell’s distribution law followed by
+atmospheric CO2 molecules, the velocity distribution of the product represented by the two-step
+reaction (13) (14) equations (22) (23) is obtained using Monte Lalo dynamics simulation,
+Page 14 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+The second step is to use the existing jeans escape model to study the escape rate of the
+particles generated by the photochemical reaction. It can be obtained from(22)(23)that for any
+velocity distribution(figure15-18), a differential equation about escape rate can be obtained after
+substituting the average velocity U. After obtaining the average velocity from the above veloc-
+ity distribution, substituting it into the Jeans escape model, and considering the generation of
+particles in the chemical reaction, the following equation is obtained:
+dn
+dt Veff = F + Prd
+(30)
+Among them, Prd is the generation rate. For the CO density curve that only considers
+the reaction generated in the figure (12), the finite difference method is used to numerically
+differentiate the obtained data, and the rate of change of the number density of CO over time
+can be obtained. The same method as above are used to solve ordinary differential equations.
+The results are as follows:
+Figure 13 Change Rate of CO Number
+Density
+Figure 14 CO evolution over time
+Figure 15
+Figure 16
+Page 15 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+Figure 17
+Figure 18 Final rate distribution after photochemical re-
+action
+It can be found that in a short period of time, the inventory of CO is close to 0. This is
+because the energy of CO generated by the chemical reaction is higher, so jeans’ escape rate is
+very fast. Therefore, near the escape layer of Mars, the amount of CO can be ignored.
+According to the reaction equation eq, when the CO inventory is close to 0, the rate of C
+and O formation in the second step of the reaction is close to 0. And because the jeans escape
+rate of C and O is faster than that of CO, the inventory of C and O is also close to zero in a short
+period of time. The rate of O produced in the first reaction is the same as that of CO, and the
+jeans escape rate of O is faster than that of CO, so the stock of O produced in the first reaction
+is also close to 0.
+5.4
+Calculation of total effect
+Since the main component of the Martian atmosphere is CO2, and the jeans effect of CO2
+is not significant, the photochemistry and sputtering effects are mainly considered. From the
+above analysis, we can get the function p1(t) and p2(t) of pressure and time when these two
+effects are considered independently. When considering the total effect, the pressure function
+is: psum(t) = 0.2 −(0.2 −p1(t) + 0.2 −p2(t)) Use Matlab Plot the above solution results:
+Figure 19 Change of Surface Atmospheric Pressure over Time
+Page 16 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+It is the evolution over time of the pressure generated by the Martian atmosphere on the
+surface under the conditions considered in the topic.
+From the above results, it can be concluded that the time for the pressure to decrease to 0.1
+bar is about 8.6422 × 107years.
+6
+Results
+Through our analysis and calculations, we know that among the three factors, photochemical
+escape contributes the most to the reduction of CO2 in the hypothetical Martian atmosphere.
+Sputtering escape is second, and the CO2 escape speed it causes is about one-tenth of the former.
+The Kings escape contributes the least to the reduction of CO2, almost negligible.
+Our final result is: the time for the pressure to decrease to 0.1 bar is about 8.6422×107years.
+7
+Discussion / Conclusions
+7.1
+Conclusion
+From Figure 13, it can be seen that the atmospheric pressure of 0.2bar on Mars has decreased
+to 0.1bar after about 70-90 million years, which is only the result of considering three main
+mechanisms, including thermal escape, solar windsputtering and photochemical reaction.
+7.2
+Strength
+• We have considered three main mechanisms that affect the atmosphere, and simulated
+these processes by Monte Carlo dynamics simulation and other calculation methods, and pre-
+sented the results clearly.
+• Our simplified model of atmospheric escape layer can help us to master the evolution law
+of planetary atmosphere more clearly.
+• Our calculation proves that it is difficult to maintain the way of increasing the atmospheric
+pressure of Mars on the cosmic time scale, and it may be necessary to take other measures to
+reshape the atmosphere of Mars.
+7.3
+Weakness
+•In our model, we only considered the escape of gas particles in the escape layer, ignoring
+the influence of ionosphere and troposphere.
+• Sedimentation processes such as adsorption and cooling of sand and dust may accelerate
+the reduction of atmospheric pressure, which is not considered in our model.
+•Perhaps in the actual environment where Mars is located, an asteroid impact with a certain
+probability will have a fundamental impact on the atmospheric environment.
+8
+Outlook / Future Work
+Studying the evolution of the Martian atmosphere is of great significance in many aspects.
+From a theoretical point of view, this helps us understand the meteorological laws of planets
+including the Earth and study the evolution of planets. From a practical point of view, it is
+helpful for us to study how to modify the climate on the planet, which may be of great value to
+the exploration and development of human alien habitats.
+Page 17 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+The mechanisms we studied in this article is actually very complicated, and the complexity
+of the model has a lot of room for improvement. The use of electromagnetic theory to construct
+a three-dimensional solar wind electromagnetic field and the use of three-dimensional Monte
+Carlo methods to simulate the collision and scattering of atmospheric particles are all very good
+research directions.
+9
+Appendix
+9.1
+MATLAB Code
+This code calculates the Jeans escape:
+clear;clc;close all;
+tic;
+%constants
+year=3600*24*365.25;% seconds in a year
+G=6.67259e-11;% gravitational constant
+M_mars=6.4171e23;% kg
+R_mars=3389.5e3;% m
+g=G*M_mars/(R_mars^2);% gravitational acceleration on the surface of Mars
+k=1.380649e-23;%Boltzmann constant
+R_ugc=8.31446261815324;% universal gas constant
+tmax=5e14;% time range
+% Calculate
+T_es=257;% temperature of exosphere
+t_T=linspace(0,tmax,10);
+T_es=257+0/tmax*t_T;
+T0=T_es;
+p0=0.2e5;
+n0=p0/(k*T0(1));
+% data of molecules
+M=2/1000;% molar mass of H2
+d=0.289e-9;%d=31e-12;% radius of H2
+% M=44/1000;% molar mass of CO2
+% d=233e-12;% CO2
+% M=16/1000;% molar mass of O
+% d=0.074*1e-9;% radius of O
+% M=12/1000;% molar mass of C
+% d=91*1e-12;% radius of C
+% function
+H=R_ugc*T_es/(M*g);% pressure scale height of H2
+% solve the ode
+tspan=linspace(0,tmax,10000);
+[t,n]=ode45(@(t,n) fun_ode(t,n,R_mars,M_mars,R_ugc,G,H,d,M,T_es,t_T),tspan,n0);
+p=k*n'.*interp1(t_T,T0,tspan);
+Page 18 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+% Time required to reduce to half
+[~,index]=min(abs(p-p0/2));
+t_result=t(index);
+disp('The result is (year): ');
+disp(t_result/year);
+% print the figure
+figure();hold on;
+plot(t/year,p/1e5,'LineWidth',1);
+xlabel('t / year');ylabel('Surface Pressure / bar');
+title('Change of Surface Pressure with Time');
+toc;
+function dy=fun_ode(t,y,R_mars,M_mars,R_ugc,G,H,d,M,T_es,t_T)
+T_es=interp1(t_T,T_es,t);
+H=interp1(t_T,H,t);
+R_es=R_mars+H*log(H*sqrt(2)*pi*d.^2*y);
+% solve the V_eff
+dV=@(r) 4*pi*r.^2.*exp(-(r-R_mars)./H);
+V_eff=integral(dV,R_mars,R_es);
+% parameters
+u=sqrt(8/pi*R_ugc.*T_es./M);% most probable rate
+v=sqrt(2*G.*M_mars./R_es);% escape velocity
+dy=-4*pi*R_es.^2./V_eff.*y.*exp(-(R_es-R_mars)/H).*...
+u/(2*sqrt(pi)).*exp(-(v/u).^2).*(1+(v/u).^2);
+end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This code calculates the Particle swarm collision problem:
+clear;clc;close all;
+%constants
+R_mars=3389.5e3;% m
+R_ugc=8.31446261815324;% universal gas constant
+T=257;% temperature
+% parameters
+M=44/1000;% H
+v_sw=475.8e3;
+n_sw=1.83e6;
+n_atm=5.64e22;
+% calculate
+v_crit=5.02e3;
+t=1;
+% Maxwell Distribution.
+f_dis=@(x) (M/(2*pi*R_ugc*T)).^(1/2).*exp(-M*x.^2/(2*R_ugc*T));
+m1=M;m2=1/1000;
+Page 19 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+N1=1e5;
+N2=10e3;
+vmax=1e5;
+v1(:,1)=randf(f_dis,N1,[-vmax,vmax]);% The speed vector of Martian gas molecule
+v1(:,2)=randf(f_dis,N1,[-vmax,vmax]);
+v1(:,3)=randf(f_dis,N1,[-vmax,vmax]);
+v2(:,1)=v_sw+5e3*(2*rand(N2,1)-1);% The speed of solar wind
+v2(:,2)=zeros(size(v2(:,1)));
+v2(:,3)=zeros(size(v2(:,1)));
+v1_mod=vecnorm(v1');
+FDH(v1_mod,1000,'Distribution of Velocity Scalar v_1');
+[u1,u2]=particles_collision(m1,v1,m2,v2);
+u1_mod=vecnorm(u1');
+FDH(u1_mod,1000,'Distribution of Velocity Scalar u_1');
+u2_mod=vecnorm(u2');
+FDH(u2_mod,1000,'Distribution of Velocity Scalar u_2');
+m1_crit=sum(v1_mod>v_crit);
+n1_crit=sum(u1_mod>v_crit);
+rate=(n1_crit-m1_crit)/m1_crit;
+disp(n1_crit/N1);
+% disp(rate);
+function [u1,u2]=particles_collision(m1,v1,m2,v2)
+m2=m2*ones(size(v2));m1=m1*ones(size(v1));
+m2=[m2;zeros(size(m1,1)-size(m2,1),size(m1,2))];
+v2=[v2;zeros(size(m1,1)-size(v2,1),size(m1,2))];
+[u1,u2]=elastic_collision(m1,v1,m2,v2);
+end
+function [u1,u2]=elastic_collision(m1,v1,m2,v2)
+u1=((m1-m2).*v1+2.*m2.*v2)./(m1+m2);
+u2=((m2-m1).*v2+2.*m1.*v1)./(m1+m2);
+end
+function X = randf(f,N,b)
+% Generate N samples distributed with f on interval b
+% M is the maximum value of the distribution function on the interval
+n = 0;
+X = zeros(N,1);
+counter = 0;
+% f_oppo=@(x) -f(x);
+% M=particleswarm(f_oppo,1,b(1),b(2));
+M=f(0);
+Page 20 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+while n < N && counter < 1000
+x = b(1) + rand(2*N,1)*diff(b);
+uM = M*rand(2*N,1);
+x = x(uM < f(x));
+if isempty(x)
+error('No Points Sampled')
+end
+X(n+1:min([n+length(x),N])) = x(1:min([length(x),N - n]));
+n = n + length(x);
+counter = counter+1;
+end
+end
+function FDH(y,tin,tit)
+% Give a frequency distribution histogram
+figure();
+histogram(y,tin,'Normalization','pdf');
+xlabel('v / m s^{-1}');ylabel('f(v)');
+title(tit);
+end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%the effect of photochemical process on Jeans escape
+clear;clc;close all;
+tic;
+year=3600*24*365.25;% seconds in a year
+M=8/1000;% molar mass of O
+d=0.074*1e-9;% radius of O
+n0=5.6366e24;%
+T=257;
+tmax=1e16;
+[t,n]=Change_in_molecules(M,d,[n0,0,0],T,tmax);
+figure();hold on;
+plot(t/year,n,'LineWidth',2);
+ylabel('n / m^{-3}');xlabel('t / year');
+legend('CO_2','CO','O & C');
+title('Evolution of Exophere Composition under Photochemical Effect');
+grid on;
+hold off;
+prd=diff(n(:,2))./diff(t);
+t_prd=t(1:end-1);
+figure();hold on;
+plot(t_prd/year,prd,'LineWidth',2);
+xlabel('t / year');ylabel('dn/dt (m^{-3}s^{-1}) (CO)');
+title('Change Rate of CO Number Density');
+% data of molecules
+% M=2/1000;% molar mass of H2
+% d=0.289e-9;%d=31e-12;% radius of H2
+% M=44/1000;% molar mass of CO2
+Page 21 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+% d=(0.35+0.51)/2*1e-9;% radius of CO2
+% M=16/1000;% molar mass of O
+% d=0.074*1e-9;% radius of O
+% M=12/1000;% molar mass of C
+% d=91*1e-12;% radius of C
+M=28/1000;% molar mass of CO
+d=113*1e-12;% radius of CO
+%constants
+year=3600*24*365.25;% seconds in a year
+G=6.67259e-11;% gravitational constant
+M_mars=6.4171e23;% kg
+R_mars=3389.5e3;% m
+g=G*M_mars/(R_mars^2);% gravitational acceleration on the surface of Mars
+k=1.380649e-23;%Boltzmann constant
+R_ugc=8.31446261815324;% universal gas constant
+tmax=1e3;
+% Calculate
+t_T=linspace(0,tmax,10);
+T_es=257;% temperature of exosphere
+T0=T_es;
+p0=0.2e5;
+n0=p0/(k*T0);% n is the number density of molecules on the surface of Mars
+n0=1e16;
+% function
+H=R_ugc*T_es/(M*g);% pressure scale height of H2
+% solve the V_eff
+R_es=R_mars+H*log(H*sqrt(2)*pi*d.^2*n0);
+dV=@(r) 4*pi*(r.^2).*exp(-(r-R_mars)./H);
+V_eff=integral(dV,R_mars,R_es);
+V_eff=real(V_eff);
+% solve the ode of changing
+% fun_ode=@(t,y) -4*pi*R_ex^2/V_eff*y*exp(-(R_ex-R_mars)/H)*u/(2*sqrt(pi)).*ex
+tspan=linspace(0,tmax,200);
+opts=odeset('RelTol',1e-3);
+[t,n]=ode45(@(t,n) fun_ode(t,n,R_mars,M_mars,R_ugc,G,H,d,M,V_eff,R_es,prd,t_prd)
+p=n*k*T_es;
+[~,index]=min(abs(p-p0/2));
+t_result=t(index);
+% disp('The result is (year): ');
+% disp(t_result/year);
+Page 22 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+% print the figure
+figure();hold on;
+plot(t,n,'LineWidth',2);
+xlabel('t / s');ylabel('n / m^{-3}');
+title('CO Evolution over Time');
+toc;
+function dy=fun_ode(t,y,R_mars,M_mars,R_ugc,G,H,d,M,V_eff,R_es,prd,t_prd)
+% R_es=R_mars+H*log(H*sqrt(2)*pi*d.^2*y);
+% parameters
+% u=sqrt(8/pi*R_ugc.*T_ex./M);% most probable rate
+u=6.7260e3;% Get from Change_in_molecules.m
+v=(2*G.*M_mars./R_es).^(1/2);% escape velocity
+prd=interp1(t_prd,prd,t);% the productivity of a gas
+dy=prd-4*pi*R_es.^2./V_eff.*y.*exp(-(R_es-R_mars)/H).*u/(2*sqrt(pi)).*exp(-(v/u)
+% disp(dy);
+end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%change of velocity distribution during photochemical reaction
+clear;clc;close all;
+tic;
+% constants
+v_es=5.027e3;
+R_ugc=8.31446261815324;% universal gas constant
+M=44/1000;% CO2
+k=3209;% CO
+% M=16/1000;
+% k=5615;% m/s O
+% premeters
+T=257;% temperature
+% Maxwell Distribution.
+f_dis=@(x) (M/(2*pi*R_ugc*T)).^(1/2).*exp(-M*x.^2/(2*R_ugc*T));
+Num=1e5;
+vmax=1e5;
+theta=2*pi*rand(Num,1)';
+v1(:,1)=randf(f_dis,Num,[-vmax,vmax]);% The speed vector of Martian gas molecul
+v1(:,2)=randf(f_dis,Num,[-vmax,vmax]);
+Page 23 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+v1(:,3)=randf(f_dis,Num,[-vmax,vmax]);
+v1_mod=vecnorm(v1');
+u=sqrt(v1_mod.^2+k^2+2*k.*cos(theta).*v1_mod);
+FDH(v1_mod,1000,'Distribution of Velocity Scalar v_1');
+FDH(u,1000,'Distribution of Velocity Scalar u');
+v1_mod=u;
+k=6144;% C
+% k=4608;% m/s O
+u=sqrt(v1_mod.^2+k^2+2*k*cos(theta).*v1_mod);
+FDH(v1_mod,1000,'Distribution of Velocity Scalar v_1');
+FDH(u,1000,'Distribution of Velocity Scalar u');
+rate_es=sum(u>=v_es)/Num;
+disp(rate_es);% the ratio of velocity to escape velocity
+disp(mean(u));% average velocity
+toc;
+function X = randf(f,N,b)
+% Generate N samples distributed with f on interval b
+% M is the maximum value of the distribution function on the interval
+n = 0;
+X = zeros(N,1);
+counter = 0;
+% f_oppo=@(x) -f(x);
+% M=particleswarm(f_oppo,1,b(1),b(2));
+M=f(0);
+while n < N && counter < 1000
+x = b(1) + rand(2*N,1)*diff(b);
+uM = M*rand(2*N,1);
+x = x(uM < f(x));
+if isempty(x)
+error('No Points Sampled')
+end
+X(n+1:min([n+length(x),N])) = x(1:min([length(x),N - n]));
+n = n + length(x);
+counter = counter+1;
+end
+end
+function FDH(y,tin,tit)
+% Give a frequency distribution histogram
+figure();
+histogram(y,tin,'Normalization','pdf');
+xlabel('v / m s^{-1}');ylabel('f(v)');
+title(tit);
+Page 24 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+% In the process of photochemistry, solve the differential
+% equation of the change of the number of particles
+function [t,n]=Change_in_molecules(M,d,n_ini,T,tmax)
+% Calculate the chemical reaction in the photochemical process
+% and the concentration of each substance by ordinary differential equation
+% M is the molar mass of atom
+% d is the diameter of atom
+% n_ini is the the initial number density of the three substances
+% T is temperature
+% tmax is the time range
+% constants
+G=6.67259e-11;% gravitational constant
+R_mars=3389.5e3;% m, radius of Mars
+M_mars=6.4171e23;% kg
+g=G*M_mars/(R_mars^2);% gravitational acceleration on the surface of Mars
+r_mars=227940000e3;% m, distance from mars to sun
+T_solar=5500+273.15;% K, temperature of the sun
+R_ugc=8.31446261815324;% universal gas constant
+sigma=5.670373e-8;% Stefan-Boltzmann constant
+%cauculate the H
+H=R_ugc*T/(M*g);
+% calculate the V_eff
+n0=n_ini(1);
+R_es=R_mars+H*log(H*sqrt(2)*pi*d.^2*n0);
+dV=@(r) 4*pi*r.^2.*exp(-(r-R_mars)./H);
+V_eff2=integral(dV,R_es,+Inf);
+dV=@(r) 4*pi*r.^2.*exp(-(r-R_mars)./H);
+V_eff1=integral(dV,R_mars,R_es);
+% Calculate the integral
+Phi_ener=0.5*sigma*T_solar^4*(pi*R_mars^2)^2/(4*pi*r_mars^2);
+inte1=1/2*1000e-10*1e-18*1e-4;
+inte2=1/2*1000e-10*1e-18*1e-4;
+% calculate the k
+k1=V_eff2*inte1*Phi_ener/V_eff1;
+k2=V_eff2*inte2*Phi_ener/V_eff1;
+k1=k1*1e13;
+k2=k2*1e13;
+% solve the ode
+opts=odeset('RelTol',1e-5);
+tspan=[0 tmax];
+Page 25 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+[t,n]=ode45(@(t,y) fun_ode_chem(t,y,k1,k2),tspan,n_ini,opts);
+% the differential equation
+function dn=fun_ode_chem(t,n,k1,k2)
+dn=zeros(3,1);
+dn(1)=-k1*n(1);
+dn(2)=k1*n(1)-k2*n(2);
+dn(3)=k2*n(2);
+end
+end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+% Calculate the sputtering process of the solar wind
+function [t,y_bar]=Sputtering()
+% constants
+year=3600*24*365.25;% seconds in a year
+bar=1e5;
+G=6.67259e-11;% gravitational constant
+k=1.380649e-23;%Boltzmann constant
+R_ugc=8.31446261815324;% universal gas constant
+T=200;% temperature
+M_mars=6.4171e23;% kg
+R_mars=3389.5e3;% m
+g=G*M_mars/(R_mars^2);% gravitational acceleration on the surface of Mars
+% parameters
+v_sw=475.8e3;% velocity of solar wind
+n_sw=1.83e6;% nmber density of solar wind
+n_atm=5.64e22;
+K=16;% Number of collisions
+tmax=1e17;% time range
+% M=44/1000;% molar mass of CO2
+% d=(0.35+0.51)/2*1e-9;% radius of CO2
+M_O=16/1000;% molar mass of O
+d_O=0.074*1e-9;% radius of O
+M=M_O;
+d=d_O;
+p0=0.2*bar;
+n0=p0/(k*T);% n is the number density of molecules on the surface of Mars
+% solve the ode
+tspan=[0 tmax];
+[t,y]=ode45(@(t,y)ode_jianshe(t,y,g,R_ugc,R_mars,d,M,T,n_sw,v_sw,K),tspan,n0);
+% Mapping and visualization
+Page 26 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+t_year=t/year;
+y_bar=y*k*T/bar;
+figure();hold on;
+plot(t_year,y_bar,'LineWidth',2);
+xlabel('t / year');ylabel('Surface pressure / bar');
+title('Change of Surface Pressure under the Sputtering of Solar Wind');
+hold off;
+function dy=ode_jianshe(t,y,g,R_ugc,R_mars,d,M,T,n_sw,v_sw,K)
+%cauculate the H
+H=R_ugc*T/(M*g);
+% calculate the V_eff
+R_es=R_mars+H*log(H*sqrt(2)*pi*d.^2*y);
+dV=@(r) 4*pi*r.^2.*exp(-(r-R_mars)./H);
+V_eff=integral(dV,R_mars,R_es);
+R_es=1.5*R_mars;
+% if imag(log(sqrt(2)*pi*d.^2.*H.*y))~=0
+dy=-n_sw.*K*pi*v_sw./real(V_eff).*(R_mars+H.*real(log(sqrt(2)*pi*d.^2.*H.*y))).^
+end
+end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Pressure change in photochemical process
+function [t,p_bar]=Photochemistry()
+year=3600*24*365.25;% seconds in a year
+k=1.380649e-23;% Boltzmann constant
+% M=16/1000;% molar mass of O
+% d=0.074*1e-9;% radius of O
+M=44/1000;% molar mass of CO2
+d=233e-12;% CO2
+n0=5.6366e24;%
+T=257;
+tmax=1e16;
+[t,n]=Change_in_molecules(M,d,[n0,0,0],T,tmax);
+p_bar=n(:,1)*k*T/1e5;
+figure();hold on;
+plot(t/year,p_bar,'LineWidth',2);
+ylabel('Surface pressure / bar');xlabel('t / year');
+legend('CO_2');
+title('Evolution of CO_2 under Photochemical Effect');
+hold off;
+Page 27 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+end
+Page 28 of 29
+
+Problem A
+The University Physics Competition
+Team 200
+10
+References
+References
+[1] Jakosky B M . Evolution of the Martian atmosphere[J]. Advances in Space Research, 1996,
+19(8):1289-1289.
+[2] Catling D C , Zahnle K J . The Planetary Air Leak[J]. Scientific American, 2009, 300(5):36-
+43.
+[3] Wu Zhaopeng, Li Jing, Li Tao, Cui Jun. Sandstorm on Mars and its interaction with atmo-
+spheric fluctuations [J]. Theoretical Review of Earth and Planets, 2021,52(04):402-415
+[4] Shematovich V I , MM Ya. Escape of planetary atmospheres: physical processes and nu-
+merical models[J]. Physics-Uspekhi, 2018, 61(3):217-246.
+[5] Wu S Y. Comparison of greenhouse effect between Earth and Venus from water phase
+diagram and positive feedback regulation mechanism of water vapor.
+[6] Feng, Tian. Atmospheric Escape[J]. Annual Review of Earth Planetary Sciences, 2014.
+[7] J.-Y. Chaufray, Departure of the thermal escape rate from the jeans escape rate for atomic
+hydrogen at Earth, Mars, and Pluto, Planetary and Space Science, Volume 198, 2021,
+105178, ISSN 0032-0633,
+[8] Shematovich, V I; Marov, M Ya (2018-03-31). ”Escape of planetary atmospheres: physical
+processes and numerical models”. Physics-Uspekhi. 61 (3): 217–246.
+[9] http://phidrates.space.swri.edu
+[10] Lundin, Rickard; Lammer, Helmut; Ribas, Ignasi (2007-08-17). ”PlanetaryMagnetic
+Fields and Solar Forcing: Implications for Atmospheric Evolution”. Space Science Re-
+views. 129 (1–3): 245–278.
+Page 29 of 29

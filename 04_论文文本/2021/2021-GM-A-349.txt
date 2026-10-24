@@ -1,0 +1,655 @@
+1
+Team number 349
+problem select：A
+Model of decreasing atmospheric pressure over time after
+evaporation of polar caps and subsurface ice
+November 7, 2021
+Abstract
+For a long time, as the solar wind and particles escape, the atmosphere is
+decreasing.Suppose we can by evaporation polar ice cap and the underground, to
+increase the air pressure on the surface of Mars to 0.2 bar.In the process, the polar ice
+cap and the underground evaporation mainly by raising the content of water vapor in
+the atmosphere of carbon dioxide and the atmospheric pressure.Due to the small
+magnetic field inside the planet and the smaller gravity, the Martian atmosphere
+continuously escapes into outer space under the action of solar wind and particle
+escape.
+Through thermodynamics and statistical physics, we establish a model of atmospheric
+pressure decreasing with time.According to the relationship between pressure and
+microscopic quantity,the law of atmospheric pressure changing with time is revealed.
+Based on the estimated polar cap and subsurface ice area, it is estimated that it will
+take about 700 million years for atmospheric pressure to decrease from 0.2bar to
+0.1bar.Based on estimates of polar caps and subsurface ice and their composition, we
+model the relationship between atmospheric pressure and atmospheric particle count
+on Mars.At the same time, the relationship between the number of atmospheric
+escaping particles and the change of atmospheric pressure is estimated, so as to
+establish a basic model for the change of atmospheric pressure over time. After
+establishing the model, we further modified the model for the change of air
+temperature and g with the increase of altitude.
+
+2
+CONTENTS
+1. Introduction................................................................................................................ 3
+1.1. Background..................................................................................................... 3
+1.2. Polar caps and underground ice.......................................................................3
+1.3. Solar wind........................................................................................................4
+1.4. The Martian magnetic field.............................................................................4
+1.5. Small gravitational binding............................................................................. 4
+2. Assumptions and Symbols......................................................................................... 4
+2.1. Assumptions....................................................................................................4
+2.2. Notations......................................................................................................... 5
+3. Model..........................................................................................................................5
+3.1. The relationship between atmospheric pressure and the number of molecules
+in the Martian atmosphere......................................................................................6
+3.2. The analysis of model building....................................................................... 6
+3.2.1. Elimination of distractions................................................................... 6
+3.2.2. Effects of solar wind on Atmospheric escape from Mars.................... 7
+3.3. Modeling......................................................................................................... 7
+4. Model solving and analysis......................................................................................10
+5. Modifications to the model.......................................................................................12
+5.1. Modification of T in the model..................................................................... 12
+5.2. Modification of g in the model......................................................................13
+6. Discussion................................................................................................................ 13
+6.1. Advantages....................................................................................................14
+6.2. Disadvantages................................................................................................14
+7. Conclusion................................................................................................................14
+8. Reference..................................................................................................................14
+9. Appendix.................................................................................................................. 15
+
+3
+1. Introduction
+1.1. Background
+Mars is believed to have lost much of its surface water 3.5 billion years ago, but the
+amounts that escaped into space and remain frozen in the crust today are not well
+known[2].Mars used to have an atmosphere rich in water and carbon dioxide, which
+made it warm and wet, according to current research. As the planet's atmosphere
+escaped into outer space, mainly due to factors such as the solar wind, the atmosphere
+became thinner and thinner, so that Mars is now cold and dry.
+1.2. Polar caps and underground ice
+The European Space Agency's Mars Express Made Observations with its OMEGA
+discovered that the Southern Ice Cap, existing all year round.Northern cap could be a
+mixture of water and carbon dioxide, while northern cap could be composed of water
+ice.The results also showed that hundreds of square kilometers of permafrost surround
+the south pole. Permafrost is water ice, mixed into the soil of Mars, which frozen to
+the hardness of solid rock due to the low Martian temperatures.[3] In addition, the
+original atmosphere of Mars is composed of 96% carbon dioxide, so if the polar cap
+and groundwater were all evaporated, the atmosphere would be composed mainly of
+carbon dioxide and water.
+Figure1：Lower boundary of icy layers covering Mars' south-polar region[4]
+
+4
+1.3. Solar wind
+The solar wind is a stream of particles, mainly protons and electrons flowing from the
+sun's atmosphere at a speed of about one million miles per hour. The magnetic field
+carried by the solar wind as it flows past Mars can generate an electric field. This
+electric field accelerates electrically charged gas atoms, called ions, in Mars' upper
+atmosphere and shoots them into space. Using data collected by MAVEN, researchers
+have determined that the current speed at which Mars's atmosphere escapes rate from
+the solar wind is about 100g/s. [5]
+1.4. The Martian magnetic field
+One method commonly thought to help protect planetary atmospheres is through an
+internally generated magnetic field, such as Earth which deflects charged particles in
+the solar wind away from the Sun, creating a protective bubble magnetosphere around
+the planet.[6]According to the comparative study between Mars and Earth, Mars is
+believed to have a metal core, and it is predicted that Mars should have a medium
+strong magnetic field (about 10%~15% of the Earth's magnetic field), but spacecraft
+only detected a weak magnetic field, its intensity is 0.1%~0.2% of the Earth's
+magnetic field, so the blocking effect of Mars magnetic field on solar wind is
+extremely weak.
+1.5. Small gravitational binding
+Martian quality is close to one-tenth of the earth, Mars is about half of the earth's
+radius radius.The low gravity affects the size of the molecules’ escape velocity, the
+Martian escape velocity of about 5.03 km/s, at the same time the solar wind of
+charged particles hit the molecules in the atmosphere, let the molecules have higher
+speed, making a lot of gas escape out of the atmosphere.
+2. Assumptions and Symbols
+2.1. Assumptions
+To advance our analysis, firstly, we stand upon some reasonable assumption of
+simplify the greater complexity of the problem：
+
+5
+1. Since the density of the Martian atmosphere is low and the density of the upper
+atmosphere is even lower, we will only discuss the lower atmosphere (the region
+where most atmospheric molecules are present) .Here, we assume that the height of
+the atmosphere does not change as the atmospheric pressure drops from 0.2bar to
+0.1bar.
+2. Due to the low content of gases such as argon, nitrogen and methane in the
+Martian atmosphere, we consider the composition of the atmosphere as a mixture of
+water and carbon dioxide.
+3. In the process of problem analysis, we take Mars as a sphere without considering
+the influence of Mars' climate, landform and other internal factors on pressure
+reduction.
+4. Ignoring the separate escape of water after decomposition into H and O and the
+complex process of various ion escape.It is simplified to the process of water directly
+escaping to outer space without deliberately distinguishing the specific escape of
+water and carbon dioxide.
+5. Since the dissipation time of Mars atmosphere is longer than that of extreme
+conditions (such as solar storm, etc.), we take the average value of atmospheric
+dissipation and ignore the interference of extreme conditions on Mars atmospheric
+dissipation.
+2.2. Notations
+Symbol
+Definition
+n
+Total molecules of water and carbon dioxide
+g
+Acceleration of gravity on Mars
+R
+The radius of Mars
+k
+Boltzmann constant
+P0
+The pressure is the atmospheric pressure right after vaporizing the
+polar cap and the underground ice
+NA
+Avogadro's constant
+MH2O
+The molar mass of water
+MCO2
+The molar mass of carbon dioxide
+T
+Surface temperature of Mars
+ω
+The ratio of the number of carbon dioxide molecules to the number
+of water molecules
+λ1
+The number of water molecules escaping per second
+λ2
+Number of carbon dioxide escapes per second
+m
+The molecular mass of the atmosphere at time t
+v
+Atmospheric mass per unit time carried away by the solar wind
+3. Model
+
+6
+3.1. The relationship between atmospheric pressure and the number
+of molecules in the Martian atmosphere
+According to thermodynamics and statistical physics, atmospheric pressure on the
+surface of Mars is caused by the gravity of Mars in the upper atmosphere. Under the
+gravity of Mars, the molecular density in the atmosphere shows a dense arrangement
+of molecules at the bottom and dense arrangement of molecules at the top, and it
+shows an exponential decline in the atmosphere as follows：
+ρ = ρ0 e
+−mgh
+kT
+Where ρ is the molecular number density per unit area of a point above Mars at a
+height of H,ρ0 is the molecular density per unit area of the surface. We assume that
+the gravitational acceleration g is a constant value in the atmospheric range studied.
+Therefore, by integrating, we can obtain the total number of molecules per unit area
+contained in the air column from the surface to the atmospheric boundary, i.e:
+0
+H ρ0
+׬
+e
+−mgh
+kT dh
+In this way, we can through the atmospheric molecular average relative molecular
+mass and Avogadro constant per unit area corresponding to the air column by gravity,
+which can get the pressure on the surface of Mars.Because the universe such as
+atmospheric molecular number by the solar wind over time and decreasing the
+influence of external conditions, it can get air internal number of molecules and the
+changes of time.And we just figured out the relationship between the pressure and the
+number of molecules, so we can figure out how the pressure changes over time.
+3.2. The analysis of model building
+3.2.1. Elimination of distractions
+By estimating the volume of polar caps and subsurface ice on Mars and estimating the
+current dissipation rate of the Martian atmosphere, it can be concluded that the
+atmospheric pressure of 0.2bar decreases to 0.1bar over a long period of time.So we
+can rule out some short-term interference factors.Changes in the planet's internal
+system, such as changes in Martian terrain, landform and climate, as well as changes
+in the cosmic external environment, such as solar storms and other celestial
+disturbances on Mars, can accelerate the escape of the Martian atmosphere to a certain
+extent. However, compared with the influence of the solar wind and other major
+factors, the impact is relatively weak. We will not make special discussions here.
+
+7
+3.2.2. Effects of solar wind on Atmospheric escape from Mars
+At Mars and the Earth solar near-UV radiation penetrates sufficiently deep into the
+atmospheres to dissociate H2O, and the resulting H and O atoms then diffuse into the
+upper atmosphere. Both H and O atoms may be lost into space, H by both Jeans’
+escape and non-thermal processes, and the heavier O mainly by non-thermal
+processes.The main processes for atmospheric evaporation from the top of the martian
+atmosphere are thermal or Jeans’ escape, non-thermal escape from photochemical
+processes, ion escape and outflow and ion sputtering.[7]
+Figure2：Illustration of the global plasma interaction between Mars and the solar wind.
+Various plasma boundaries and regions are described.[8]
+3.3. Modeling
+There are many distractions in the modeling process, but we will only take the most
+important ones.The solar wind is responsible for the erosion of the atmosphere of
+Mars, according to the data form NASA ,the solar wind takes away 100 grams of
+Martian atmosphere per second.After avoiding some unnecessary factors, the
+knowledge of thermodynamics and statistical physics is used to build the model.The
+basic parameters of Mars are as follows：
+physical quantity
+numerical value
+Mass(M)
+6.4171✕1023 kg
+Diameter(D)
+6779 km
+surface temperature(T)
+210 K
+mean radius(R)
+3389.5 km
+
+8
+We assume that the composition of 0.2bar Martian atmosphere is mainly composed of
+carbon dioxide and oxygen, and the total molecular number is N, among which the
+molecular number of water is X. The molecular number of carbon dioxide is N-X, and
+the solar wind is the main reason that affects the reduction of Martian atmosphere.
+The change relationship between the molecular number of water and carbon dioxide
+over time is linear.
+Assuming that the starting:
+ω=
+N−X
+X
+X =
+N
+ω+1
+N-X=
+Nω
+ω+1,
+The number of water molecules decays over time:
+N
+ω+1 -λ1t
+The change in the number of carbon dioxide molecules over time
+Nω
+ω+1 -λ2t
+According to Newton's law of gravity, the gravitational pull on an object of mass M1
+on the surface of Mars:
+m1g=G
+Mm1
+R2
+The gravitational acceleration of Mars is obtained as g=3.727m/s2, in which the
+gravitational constant g= 6.67259*10-11 Nm2/kg2, m is the mass of Mars,R is the
+radius of Mars,m1 is the mass of an object near Mars.We also need the distribution of
+the molecules in the Martian atmosphere to vary with height based on other pressure
+characteristics. You take a cylinder, the molecular density n at height Z, the pressure
+P(Pa).
+Figure3：Schematic diagram of differential method
+So here we have the differential equation
+(P+dp)dS+dzdSn=PdS
+
+9
+Acquire:
+P = P0e
+−mgz
+kg
+P0 is the atmospheric pressure on the surface of Mars at time t=0. Generation into the
+formula:
+P=n k T
+Acquire:
+N = n0 e
+−mgz
+kT
+We consider that the radiation absorbed by Mars in its orbit around the sun is a
+constant value, so we calculate the average temperature of Mars T=210K At the same
+height, the gas distribution is the same, and the height of the atmosphere is H. We
+adopt the element method. On the unit area of Mars, we take a column of dz at the
+height z, and the gas in the column is approximately in equilibrium if dz is small
+enough
+dn=n0 e
+−mgz
+kT dz
+At time t, I integrate with respect to height z
+0
+H n
+׬
+e
+−mgz
+kT dz =
+N−(λ1+λ2)t
+S
+get N
+P= nkT
+P =
+N−（λ1+λ2）t
+4πR2（1−e
+−mgH
+kT ）
+mg (1)
+N is the molecular density on the surface of Mars at time T, m is the molecular mass,
+k is Boltzmann constant, and S is the surface area of Mars. Where m is a function of t
+m =
+（N
+ω+1−λ1t）MH2O+（Nω
+ω+1−λ2t）MCO2
+NA [ N−（λ1+λ2）]
+(2)
+M water is the molar mass of water, M carbon dioxide is the molar mass of carbon
+dioxide, and NA is Avogadro's constant.
+We have the constant H at time t=0
+By the formula at t=0 ,
+0
+H n
+׬
+e
+−mgz
+kT dz =
+N−(λ1+λ2)t
+S
+available
+Acquire:
+0
+H n
+׬
+e
+−mgz
+kT dz =
+N
+S
+
+10
+among n=n0,m=m0
+Acquire:
+H=-
+KT
+gm0ln(1-
+gNm0
+4πR 2 P0)
+Where m0 is the molecular mass at time zero,
+The decay equation of the Martian atmosphere
+P =
+N−（λ1+λ2）t
+4πR2（1−e
+−mgH
+kT ）
+mg (1)
+m =
+（N
+ω+1−λ1t）MH2O+（Nω
+ω+1−λ2t）MCO2
+NA [ N−（λ1+λ2）]
+(2)
+Where λ1 and λ2 are related to atmospheric components and depend on the
+relationship between carbon dioxide and water in the atmosphere:
+λ1 =
+��2���A
+MH2O + MCO2ω
+λ2 =
+NωNA���2
+MH2O + MCO2ω
+Where ω is the ratio of the number of carbon dioxide molecules to the number of
+water molecules.
+4. Model solving and analysis
+According to our decay model, if we want to solve the exact time t, we have several
+values to determine: ω, the ratio of the number of carbon dioxide molecules to the
+number of water molecules; λ1, the decay coefficient of water molecules; λ2, the decay
+coefficient of carbon dioxide molecules; and N, the total number of Martian polar ice
+caps and subsurface ice.
+For λ1 and λ2, we only take the analysis of solar wind, which plays a major role in
+particle escape. At present, the escape rate of particles in the Martian atmosphere is
+v=100g/s under the atmospheric condition of 0.006bar. We temporarily assume that
+the particles dissipated in the Martian atmosphere under the action of solar wind are
+only related to the molecular density of Martian atmosphere. In addition, the formula
+p=nkT shows that atmospheric pressure is proportional to atmospheric molecular
+density (the atmosphere is only composed of atmospheric molecules), so the diffusion
+rate of atmospheric molecules at pressure P can be given.
+V=p*10^5/6
+
+11
+It can be seen that when the pressure is 0.2bar, V1 =3333g/s. And when the pressure
+drops from 0.2bar to 0.1bar, the particle escape amount per unit time changes with
+time. According to the MAVEN observation data, the polar cap and the composition
+of the underground ice, give priority to with water and carbon dioxide, but accounts
+for most of the water. So we can set the ω value at 1/9, which means 21.36% carbon
+dioxide mass and 78.64% water mass. In that case, we identified by means of
+approximate
+estimates
+of
+atmospheric
+composition.
+Due
+to
+the
+depth
+of
+underground ice cap is unknown, to determine the total number of molecules in the
+polar ice caps and groundwater according to the Plot and others guess, underground
+ice melting ice caps of Mars after 11 m we can cover the surface of Mars on the basis
+of the number of molecules roughly calculate the polar cap and groundwater at about
+4.98*10 ^ 43. So, the N and ω is roughly calculated and estimated.
+By substituting N=4.98 10^43 and ω=1/9 into the following equations,
+P = N −（λ1 + λ2）t
+4πR2（1 −e
+−mgH
+kT ）
+mg
+m =
+（
+N
+ω + 1 −λ1t）MH2O + （Nω
+ω + 1 −λ2t）MCO2
+NA [ N −（λ1 + λ2）]
+As the atmospheric particles escape, the pressure decreases as there are fewer
+particles in the atmosphere. We ignore changes in the height of the atmosphere.In this
+process, we make ω=1/9, that is, 21.36% of the mass of carbon dioxide and 78.64% of
+the mass of water as reasonable assumptions for the model.
+It has been approximately proved that we can establish the relationship between
+particle escape per unit time and atmospheric pressure by the relationship between
+atmospheric particle density and atmospheric pressure.
+v = p
+6
+We have previously deduced the relation between λ1 ,λ2 and v
+λ1 =
+vNA
+MH2O + MCO2ω
+λ2 =
+vωNA
+MH2O + MCO2ω
+Now v is substituted into the system of equations and sorted out with (1) and (2)
+P =
+N−（�1+λ2）t
+1−e
+−（N
+ω+1−λ1t）MH2O+（Nω
+ω+1−λ2t）MCO2gH
+NA [ N−（λ1+λ2）]kT
+mg
+4πR2
+
+12
+This is the implicit function equation of P and T. We used MATLAB to pick points
+for many times to describe the curve of atmospheric pressure change over time on
+Mars.
+Figure4：The prediction of time changes of Atmospheric pressure on Mars by
+MATLAB
+As can be seen from the figure,atmospheric pressure decreases at a slower rate over
+time.When atmospheric pressure drops to 0.1bar, it takes 3* 1015.863 seconds, that is,
+about 700 million years.
+5. Modifications to the model
+5.1. Modification of T in the model
+In the previous discussion, we assumed that the temperature of the Martian
+atmosphere was a constant T and evenly distributed. However, that model can only do
+some rough estimates, which had a good fitting for a shorter period of time. But there
+might be a big error in the model if we extend the length of time, and that's why we
+make corrections for temperature.
+By referring to the results that fitting data of Mars-Gram conducted by Ushijima, a
+Japanese National University ‘s researcher, in 2010:
+T=241.0-0.999(h/1000) ,h<7000m
+T=249.5-2.22(h/1000),h≥7000m
+We can correct the previous model and give 4 new formulas below:
+
+13
+�=
+����[�−(��+ ��)�]
+�[ �
+�����
+���
+�(�.�������−���)
+׬
+��+
+����
+�
+�
+���
+�(�.�������−���)
+׬
+)��
+V=p*10^5/6
+m =
+（
+N
+ω + 1 −λ1t）MH2O + （Nω
+ω + 1 −λ2t）MCO2
+NA [ N −（λ1 + λ2）]
+λ1 =
+vNA
+MH2O + MCO2ω
+λ2 =
+vωNA
+MH2O + MCO2ω
+5.2. Modification of g in the model
+In the previous model, we set g as a constant that does not change with altitude.
+However, in practical problems, g decreases with altitude, and the connection between
+g and altitude is
+g=
+MG
+R2
+Therefore, the modified g is substituted into the formula above, and we can make a
+further modification of the formulas mentioned in 5.1:
+�=
+����[�−(��+ ��)�]
+�[ �
+�����
+����
+��+���.�������−���
+׬
+��+
+����
+�
+�
+����
+��+���.�������−���
+׬
+)��]
+The v, m,λ1 ,λ2 are the same as those in 5.1.
+By establishing those two corrections, we further considered the changes of
+temperature and the vary of gravity acceleration on Mars with altitude on the initial
+model, which further fitting the real atmosphere of Mars.
+6. Discussion
+To establish the model, we establish a Martian atmosphere molecular number
+attenuation equation according to the gas dynamic theory and the thermodynamics
+theory. We make a lot of approximations so that the equation only works under ideal
+
+14
+conditions, and we can roughly estimate the variation of the Martian atmosphere, but
+this requires a lot of error.
+6.1. Advantages
+We build the model through thermodynamics and statistical physics, and establish the
+relationship between micro and macro to get the change rule of atmospheric pressure
+over time.In this process, we estimate the relationship between atmospheric pressure
+and particle escape per unit time.In addition, we have made reliable estimates on the
+composition and volume of Mars polar caps and underground ice and established a
+visual model with MATLAB to fit the rule of atmospheric pressure changing over
+time.
+6.2. Disadvantages
+Defects of the model is ignored by the factors, we set the Martian surface temperature
+equal everywhere, the height of the atmosphere of Mars is a constant value, the source
+of the gas mass loss of the solar wind and ignoring the other factors, such as
+atmospheric molecules to escape in space and a thermal process of molecules (such as
+sputtering, photochemical change),The erosion of The Martian atmosphere by solar
+wind is proportional to the number of atmospheric molecules and changes with the
+acceleration of gravity at altitude. If we take these factors into account in our model,
+our model will be further modified to better fit the changes in the Martian atmosphere.
+7. Conclusion
+Through statistical physics modeling, we found that the rate of atmospheric pressure
+loss slowly decreases over time, resulting from the thinning of the atmosphere.It took
+us about 700 million years to go from 0.2bar to 0.1bar and in addition to that, we
+corrected for the acceleration of Gravity on Mars and the effect of temperature on the
+model.
+8. Reference
+[1] Kyosuke Iwasaki, Donald C. Parker, Steve Larson and Tokuhide Akabane.
+Martian North Polar Cap 1996–1997. Icarus 138, 20–24 (1999), Article ID
+icar.1998.6061.
+
+15
+[2],[4],[7]J. T. Clarke1 , J.-L. Bertaux1,2, J.-Y. Chaufray2 , G. R. Gladstone3 , E.
+Quemerais2 , J. K. Wilson4 , and D. Bhattacharyya1. A rapid decrease of the
+hydrogen corona of Mars.
+[3] Water at Martian south pole. ESA / Science & Exploration / Space Science / Mars
+Express. 17/03/2004.
+[5] William Harwood. Solar wind is blowing away the atmosphere on Mars.
+November 5, 2015 / 4:41 PM / CBS NEWS.
+[6],[8] Leaky atmosphere linked to lightweight planet ESA / Science &
+Exploration / Space Science / Mars Express. 08/02/2018
+9. Appendix
+g=3.727;
+R=3389.5e3;
+K=1.380649e-23;
+T=210;
+p0=20000;
+NA=6.02e23;
+M_H2O=18e-3;
+M_CO2=44e-3;
+G=6.67e-11;
+M=6.4171e23;
+P_guess=20000;
+P_list=zeros(1,180);
+t_list=zeros(1,180);
+omega=1/9;
+n=4.98e43;
+%--------------------------
+tmpP=20000;
+for dt = 0.1:0.1:18
+t=3*10.^(dt-1)-3;
+t_list(int16(dt*10))=t;
+P_guess=tmpP;
+
+16
+while(1)
+%------normal------
+lambda_1=(P_guess.*M_H2O)./(M_H2O+omega.*M_CO2).*10.^23.*1.0033;
+lambda_2=(P_guess.*omega.*M_CO2)./(M_H2O+omega.*M_CO2).*10.^23.*1.0033;
+m=
+((n/(omega+1)-lambda_1*t)*M_H2O+((n*omega)/(omega+1)-lambda_2*t)*M_CO2)
+/ (NA*(n-(lambda_1+lambda_2)*t));
+Right=(n-(lambda_1+lambda_2).*t).*m.*g./ (4.*pi.*R.*R.*(1-(1-
+((omega.*M_CO2+M_H2O).*g.*n)./(4.*pi.*R.*R.*p0.*(omega+1).*NA) ).^((m.*(ome
+ga+1).*NA)./(omega.*M_CO2+M_H2O)) ));
+delta=P_guess-Right;
+%------plus 10-----
+P_guess=P_guess+1e-3;
+lambda_1=(P_guess.*M_H2O)./(M_H2O+omega.*M_CO2).*10.^23.*1.0033;
+lambda_2=(P_guess.*omega.*M_CO2)./(M_H2O+omega.*M_CO2).*10.^23.*1.0033;
+m=
+((n/(omega+1)-lambda_1*t)*M_H2O+((n*omega)/(omega+1)-lambda_2*t)*M_CO2)
+/ (NA*(n-(lambda_1+lambda_2)*t));
+Right=(n-(lambda_1+lambda_2).*t).*m.*g./ (4.*pi.*R.*R.*(1-(1-
+((omega.*M_CO2+M_H2O).*g.*n)./(4.*pi.*R.*R.*p0.*(omega+1).*NA) ).^((m.*(ome
+ga+1).*NA)./(omega.*M_CO2+M_H2O)) ));
+deltap10=P_guess-Right;
+%-----minus 10-----
+P_guess=P_guess-2e-3;
+lambda_1=(P_guess.*M_H2O)./(M_H2O+omega.*M_CO2).*10.^23.*1.0033;
+lambda_2=(P_guess.*omega.*M_CO2)./(M_H2O+omega.*M_CO2).*10.^23.*1.0033;
+m=
+((n/(omega+1)-lambda_1*t)*M_H2O+((n*omega)/(omega+1)-lambda_2*t)*M_CO2)
+/ (NA*(n-(lambda_1+lambda_2)*t));
+Right=(n-(lambda_1+lambda_2).*t).*m.*g./ (4.*pi.*R.*R.*(1-(1-
+((omega.*M_CO2+M_H2O).*g.*n)./(4.*pi.*R.*R.*p0.*(omega+1).*NA) ).^((m.*(ome
+ga+1).*NA)./(omega.*M_CO2+M_H2O)) ));
+deltam10=P_guess-Right;
+P_guess=P_guess+1e-3;
+if(abs(delta)<=1e-12 || ( abs(delta)<abs(deltap10) &&
+abs(delta)<abs(deltam10) ))
+tmpP=P_guess;
+
+17
+P_list(int16(dt*10))=P_guess;
+break;
+elseif(abs(deltap10)>abs(deltam10))
+P_guess=P_guess-1e-3;
+else
+P_guess=P_guess+1e-3;
+end
+end
+fprintf("i:%E-P:%.15f\n",t,P_guess);
+end
+hold on;
+plot(t_list/3e15,P_list/1e5,'LineWidth',3);
+line([1*10^0.863 0],[0.1 0.1],'linestyle','--', 'Color','r', 'LineWidth', 1);
+line([1*10^0.863 1*10^0.863],[0.1 0],'linestyle','--', 'Color','r', 'LineWidth', 1);
+text(1*10^0.863,0.1, '\leftarrow (1E+0.863,0.1)');
+%axis equal;
+xlabel("t(100 million years)");
+ylabel("P(Bar)")

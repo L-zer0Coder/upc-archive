@@ -1,0 +1,1553 @@
+Practical Ballistic Aiming and Manual Correction Methods
+Team No. 460
+Problem B: Artillery
+Abstract
+This study examines the external ballistics of a mid-19th-century field cannon firing a spheri-
+cal projectile (mass ≈5 kg, diameter ≈11 cm) with muzzle speeds up to 450 m/s, with the goal
+of identifying practical muzzle-velocity and elevation-angle pairs for targets in the 1000–1500 m
+range under realistic aerodynamic conditions. The modelling framework progresses from an ideal
+parabolic model to a physically realistic external-ballistics model that includes quadratic aerody-
+namic drag, Mach-dependent drag coefficient Cd(M), and altitude-dependent air density.
+For the baseline scenario R = 1200 m (launch and target altitude 500 m), numerical simu-
+lations produce a continuum of feasible (v0, θ) solutions spanning approximately 143–450 m/s.
+Consistent with historical field practice, the low-elevation band θ ∈[5◦, 8◦] is identified as partic-
+ularly practical: within this band each elevation corresponds to a unique muzzle speed .A launch
+elevation of 5◦requires a muzzle velocity of approximately 347.2 m/s, whereas an elevation of 8◦
+requires roughly 260.2 m/s. Building on the baseline analysis, the model is extended across target
+distances 1000–1500 m and a range of impact altitudes to generate a no-wind master lookup table
+that lists baseline elevation and time-of-flight for several representative muzzle velocities.
+Wind effects are then incorporated by using the relative airspeed in the drag computation and
+decomposing wind into longitudinal, crosswind and vertical components. Based on these results
+a field-feasible one-step correction procedure is proposed: starting from the no-wind baseline ta-
+ble, apply an effective-range correction for head/tail wind, convert lateral drift into an azimuth
+correction, and apply a first-order flight-time correction for significant vertical wind. Comparative
+evaluation against high-fidelity numerical simulations indicates that, under typical tactical condi-
+tions (moderate winds and short flight times), the lookup-table plus one-step correction method
+yields small relative errors—elevation-angle relative errors typically in the range 0.5%–2.5% and
+range (impact-distance) relative errors on the order of 0.2%–0.5% —demonstrating both physical
+plausibility and practical usability for pre-modern field artillery aiming without electronic fire-
+control aids.
+
+Contents
+1
+Introduction
+3
+1.1
+Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+1.2
+Problem Restatement . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+1.3
+Problem Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+2
+Assumptions
+4
+3
+Notations
+4
+4
+Model
+5
+4.1
+Ideal Projectile Motion Model
+. . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+4.2
+Air Drag Model and Force Analysis
+. . . . . . . . . . . . . . . . . . . . . . . .
+6
+4.3
+External Ballistic Model without Wind Effects . . . . . . . . . . . . . . . . . . .
+7
+4.3.1
+Physical Formulation . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+4.3.2
+Numerical Solution Method . . . . . . . . . . . . . . . . . . . . . . . .
+8
+4.4
+External Ballistic Model with Wind Effects
+. . . . . . . . . . . . . . . . . . . .
+8
+5
+Results
+9
+5.1
+muzzle velocity and elevation for R = 1200 m . . . . . . . . . . . . . . . . . . .
+9
+5.1.1
+Initial Velocity–Elevation Angle Relationship
+. . . . . . . . . . . . . .
+9
+5.1.2
+Trajectory Comparison: Low vs. High Angle Solutions . . . . . . . . . .
+9
+5.1.3
+Focus on Low-Angle Solutions in Historical Artillery Context . . . . . .
+10
+5.1.4
+The optimal combined solution based on actual combat . . . . . . . . . .
+11
+5.2
+Practical Estimation Method — Artillery Aiming without Calculators
+. . . . . .
+11
+5.2.1
+Specific method . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11
+5.2.2
+Usage Example . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+6
+Advantages and Disadvantages
+15
+6.1
+Advantages . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+6.2
+Disadvantages . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+7
+Conclusion
+16
+8
+Appendix
+17
+8.1
+Excerpt of Soldier Firing Reference Table . . . . . . . . . . . . . . . . . . . . .
+17
+8.2
+Projectile Flight Simulation with Wind . . . . . . . . . . . . . . . . . . . . . . .
+17
+References
+26
+2
+
+1. Introduction
+1.1. Background
+Projectile motion is a fundamental topic in physics and engineering, and accurately modeling
+its trajectory is important for understanding motion behavior and guiding practical applications. In
+real scenarios, the flight of a projectile is affected not only by gravity but also by air resistance and
+environmental conditions, which can significantly alter its path. Studying projectile motion under
+realistic physical constraints provides valuable insight into external ballistics and contributes to
+the development of practical prediction and correction methods.
+1.2. Problem Restatement
+The objectives are summarized as follows:
+1. For a target located 1200 m away and at an altitude of 500 m, feasible combinations of
+muzzle velocity v0 and elevation angle θ should be determined to ensure accurate impact
+while accounting for aerodynamic drag.
+2. The model should be extended to targets at different horizontal ranges and altitudes to ana-
+lyze how these parameters influence the required firing conditions.
+3. Wind effects should be incorporated, and a simplified manual correction method can be
+developed to enable trained operators to estimate firing solutions without computational
+devices.
+1.3. Problem Analysis
+To address the above objectives, the problem may be analyzed from the following perspectives:
+1. A two-dimensional projectile model with quadratic drag and Mach-dependent drag coeffi-
+cient should be established. Since analytical solutions are generally unavailable, the trajec-
+tory can be computed through numerical integration, and the firing angle θ corresponding to
+a given v0 and target position can be obtained using a bisection search.
+2. By varying the horizontal distance and target altitude, simulations can be used to reveal how
+the optimal firing angle varies with terrain and range.The simulation results may be compiled
+into a master lookup table showing, for each muzzle velocity, the required elevation angle
+and flight time under different ranges and target altitudes, which can later be used as a
+practical reference.
+3. Wind effects should be introduced through the relative airspeed in the drag computation.
+A stepwise correction method may then be formulated, allowing field personnel to adjust
+elevation and azimuth manually using precomputed tables, thereby ensuring usability under
+non-computational field conditions.
+To connect the chosen projectile parameters to historical practice, the mass 5 kg, diameter
+11 cm and muzzle-velocity range ,which is up to 450 m/s used in this study are taken to be rep-
+resentative of mid-19th-century 12-pound class field guns. This choice ensures that the modeling
+3
+
+and numerical results are physically plausible and interpretable in the context of historical field
+artillery rather than being purely hypothetical. Figure 1 provides a visual reference of a typical
+19th-century field gun to help readers appreciate the scale and operational setting considered in
+this work.
+Figure 1: Typical mid-19th-century field gun
+2. Assumptions
+• The projectile is treated as a rigid sphere with constant mass, and spin-induced Magnus lift
+is neglected (i.e., no lift force is considered).
+• The launch point and the impact point are assumed to be located at approximately the same
+altitude (about 500 m above sea level). The gravitational acceleration is taken as a constant
+value of g = 9.80665 m/s2.
+• Air resistance is modeled using the quadratic drag model, which is suitable for projectiles
+with muzzle velocities within the range of 100–800 m/s. The drag force always acts in the
+direction opposite to the velocity vector.
+• Secondary environmental effects such as the Coriolis force, Earth’s curvature, humidity, and
+temperature variations along the trajectory are not considered, as their influence is relatively
+small for firing ranges within 1–2 km.
+• A steady and horizontally uniform wind field is assumed. The wind velocity measured prior
+to firing is taken to remain constant in magnitude and direction throughout the projectile’s
+flight, with no temporal or spatial variation along the trajectory.
+3. Notations
+4
+
+Table 1: Physical quantities and definitions used in the projectile model.
+Symbol
+Description
+Unit
+m
+Mass of the projectile
+kg
+d
+Projectile diameter
+m
+A
+Reference cross-sectional area
+m2
+Cd
+Drag coefficient
+–
+ρ
+Air density
+kg/m3
+T
+Absolute air temperature
+K
+a
+Local speed of sound
+m/s
+M
+Mach number
+–
+vx, vy
+Velocity components in horizontal and
+vertical directions
+m/s
+R
+Horizontal range
+m
+v0
+Initial muzzle speed
+m/s
+v
+Instantaneous speed
+m/s
+θ
+Launch angle above horizontal
+rad or ◦
+Fd
+Aerodynamic drag force magnitude
+N
+Fdx, Fdy
+Drag force components in x and y
+directions
+N
+k
+Drag parameter
+–
+tf
+Flight time to impact
+s
+4. Model
+4.1. Ideal Projectile Motion Model
+Before establishing a realistic ballistic model that considers air resistance and various envi-
+ronmental factors, it is necessary to first introduce the ideal projectile motion model as a theo-
+retical benchmark. The ideal model assumes that the projectile is only subjected to gravitational
+force during its flight, while air resistance, wind, variations in air density, the Earth’s rotation,
+and curvature effects are neglected. Under these assumptions, the projectile follows a standard
+two-dimensional projectile motion.
+Let the launch point be the origin of the coordinate system, where the horizontal direction is
+defined as the x-axis and the vertical upward direction as the y-axis. If the projectile is launched
+with an initial speed v0 and a launch angle θ, the initial velocity can be decomposed into horizontal
+and vertical components as follows:
+v0x = v0 cos θ,
+(1)
+v0y = v0 sin θ.
+(2)
+5
+
+Under ideal conditions, the horizontal motion is uniform since it is not affected by external
+forces, while the vertical motion is uniformly accelerated under gravity. The position of the pro-
+jectile at time t can be expressed as:
+x(t) = v0 cos θ t,
+(3)
+y(t) = v0 sin θ t −1
+2gt2,
+(4)
+where g denotes the acceleration due to gravity.
+When the launch and landing points are at the same height, the total flight time can be obtained
+by setting y(T) = 0, yielding:
+T = 2v0 sin θ
+g
+.
+(5)
+Substituting the flight time into the horizontal displacement equation yields the theoretical
+range of the projectile:
+R = v2
+0
+g sin 2θ.
+(6)
+The ideal projectile model reveals the basic relationship between launch speed, launch angle,
+and range, and serves as a theoretical reference for initial estimation. However, in real firing
+conditions, air resistance slows the projectile and causes the trajectory to deviate from a parabola,
+reducing the actual range. Hence, aerodynamic effects must be included to obtain a more accurate
+and realistic ballistic model.
+4.2. Air Drag Model and Force Analysis
+In external ballistics, the projectile is primarily subjected to gravity and aerodynamic drag
+throughout its flight. Because the typical muzzle velocities considered here are high (on the order
+of 102−103 m/s), aerodynamic drag cannot be neglected. In this study, we adopt the quadratic drag
+model while accounting for the empirical dependence of the drag coefficient on the local Mach
+number. The drag force is therefore written as
+Fd = 1
+2 ρ(h)Cd(M) A v2,
+(7)
+where ρ(h) is the local air density at absolute altitude h, Cd(M) is the speed-dependent drag
+coefficient expressed as a function of the Mach number M, A = πd2/4 is the projectile reference
+cross-sectional area, and v = ∥v∥is the instantaneous speed. The drag force always acts opposite
+to the instantaneous velocity vector v.
+Decomposing the drag into Cartesian components (horizontal x and vertical y) yields
+Fdx = −1
+2 ρ(h)Cd(M) A v vx,
+(8)
+Fdy = −1
+2 ρ(h)Cd(M) A v vy,
+(9)
+6
+
+where vx and vy are the velocity components in the x- and y-directions respectively.
+The Mach number M is defined using the local speed of sound a(h):
+M =
+v
+a(h),
+a(h) =
+p
+γRT(h),
+(10)
+where T(h) is the local absolute temperature from the chosen atmospheric model , γ is the specific-
+heat ratio of air , and R is the specific gas constant for air.
+For compact notation we define the instantaneous drag parameter
+k h, M =
+1
+2m ρ(h)Cd
+ M A,
+(11)
+so that the acceleration components due to aerodynamic drag become
+˙vx = −k(h, M) v vx,
+(12)
+˙vy = −g −k(h, M) v vy.
+(13)
+4.3. External Ballistic Model without Wind Effects
+4.3.1. Physical Formulation
+Based on Newton’s second law, the projectile motion under gravitational force and quadratic
+air drag can be formulated as a nonlinear system of differential equations. Let (x(t), y(t)) denote
+the projectile’s position at time t, and (vx(t), vy(t)) the corresponding velocity components. The
+governing equations of motion are expressed as
+
+dx
+dt = vx,
+dy
+dt = vy,
+dvx
+dt = −kvvx,
+dvy
+dt = −g −kvvy
+(14)
+where v =
+q
+v2
+x + v2
+y is the instantaneous speed, and g = 9.80665 m/s2 is the gravitational acceler-
+ation. The initial launch conditions are defined as
+
+x(0) = 0,
+y(0) = 0,
+vx(0) = v0 cos θ,
+vy(0) = v0 sin θ,
+(15)
+where v0 is the muzzle velocity and θ is the launch angle measured from the horizontal axis.
+7
+
+4.3.2. Numerical Solution Method
+To solve the nonlinear system of external ballistic equations, an explicit forward Euler time-
+marching scheme with a fixed time step ∆t is employed. At each time step the drag accelerations
+are evaluated from the current velocity, and the velocity components are updated first, followed by
+the position components. Specifically, given (vn
+x, vn
+y, xn, yn) at time tn, the integrator updates
+vn+1
+x
+= vn
+x + an
+x ∆t,
+vn+1
+y
+= vn
+y + an
+y ∆t,
+(16)
+xn+1 = xn + vn+1
+x
+∆t,
+yn+1 = yn + vn+1
+y
+∆t,
+(17)
+where an
+x = −kvnvn
+x and an
+y = −g −kvnvn
+y with vn =
+q
+(vn
+x)2 + (vn
+y)2. The integration proceeds until
+the vertical coordinate changes sign; the impact point is then estimated by linear interpolation
+between the last two time steps to obtain a more accurate landing x-coordinate.
+To solve the inverse problem of determining the launch angle or muzzle velocity that produces
+a prescribed range R, a bracketing–bisection strategy is employed. A coarse scan of the control
+variable α (angle or speed) is first performed to identify sign changes of f(α) = xhit(α) −R. Each
+detected bracket [αl, αu] is then refined by bisection until the root is obtained within the required
+tolerance. This approach is simple, robust, and well-suited for the parameter ranges considered.
+4.4. External Ballistic Model with Wind Effects
+Let vx and vy denote the projectile’s velocity components in the ground-fixed coordinate sys-
+tem, and wx and wy denote the wind velocity components in the horizontal and vertical directions,
+respectively. The relative velocity of the projectile with respect to the air is then given by
+vrel,x = vx −wx,
+vrel,y = vy −wy,
+(18)
+vrel =
+q
+v2
+rel,x + v2
+rel,y.
+(19)
+A positive wx corresponds to a tailwind, while a negative value indicates a headwind. Similarly,
+wy > 0 represents an updraft and wy < 0 a downdraft.
+Wind significantly affects external ballistics by altering the relative air–projectile velocity,
+which modifies aerodynamic forces and thus the trajectory. Tailwinds increase range and reduce
+the required elevation angle, while headwinds shorten range and require a higher angle. Verti-
+cal winds affect trajectory curvature and flight time: updrafts raise the apex and extend the time
+of flight, whereas downdrafts lower the trajectory and shorten it. For mild wind conditions, lin-
+earized analytical corrections may be applied; however, accurate prediction under long-range or
+strong wind conditions requires solving the full nonlinear model.
+8
+
+5. Results
+5.1. muzzle velocity and elevation for R = 1200 m
+5.1.1. Initial Velocity–Elevation Angle Relationship
+Figure 2 illustrates that, when considering quadratic aerodynamic drag, the Mach-dependent
+drag coefficient Cd(M), and altitude-dependent air density, a fixed range of R = 1200 m does not
+yield a unique firing solution. For a given muzzle velocity v0, two feasible elevation angles may
+exist: a low-angle solution (shallow trajectory) and a high-angle solution (lofted trajectory). The
+low-angle branch decreases monotonically with increasing v0, with its slope flattening at higher
+velocities, whereas the high-angle branch remains in the high-elevation regime and exhibits rel-
+atively moderate variation. This dual-solution phenomenon confirms that realistic aerodynamic
+effects significantly deviate from the classical vacuum prediction in which 45◦maximizes range;
+the practically optimal angle is considerably lower than 45◦.
+Figure 2: Initial velocity–angle relationship for hitting R = 1200 m, showing both low and high-trajectory solutions.
+5.1.2. Trajectory Comparison: Low vs. High Angle Solutions
+Representative trajectories at selected v0 values are compared in Figure 3. The following ob-
+servations can be made: (1) Time of flight and drag accumulation: high-angle shots exhibit
+significantly longer time of flight, leading to greater cumulative drag-induced energy loss; (2)
+Sensitivity to external disturbances: due to higher apex and longer flight duration, high-angle
+trajectories are more vulnerable to wind, turbulence, and atmospheric variability; (3) Operational
+implications: low-angle trajectories offer superior accuracy, energy efficiency, and sustained fire
+capability, whereas high-angle trajectories are suitable primarily for obstacle clearance or indirect
+fire scenarios, with reduced hit reliability.
+Overall, when obstacle-overpass capability is not required, the low-angle solution is opera-
+tionally preferable.
+9
+
+Figure 3: Comparison of representative low-angle and high-angle trajectories for identical range.
+5.1.3. Focus on Low-Angle Solutions in Historical Artillery Context
+Historical records indicate that Napoleonic-era field artillery, used primarily as a direct-fire
+weapon, commonly operated at low elevations, typically in the range of 0◦–10◦, and only up to
+approximately 12◦–15◦under exceptional circumstances. Aligning this historical usage with the
+numerical findings above, restricting analysis to the low-angle regime of 0◦–15◦is both historically
+relevant and tactically meaningful.
+Figure 4 shows the low-angle branch isolated within this realistic elevation interval. Within
+this band, increasing muzzle velocity substantially reduces the firing elevation needed to achieve
+the same range. This confirms that, under aerodynamic conditions, increasing v0 is a more effec-
+tive method than increasing elevation for extending effective range while preserving hit stability.
+Figure 5 further illustrates representative low-angle projectile trajectories.
+Figure 4: Low-angle (0◦–15◦) solution branch for R =
+1200 m.
+Figure 5: Representative low-angle projectile trajecto-
+ries.
+10
+
+5.1.4. The optimal combined solution based on actual combat
+For practical firing in historical field-artillery practice, operators typically prefer low elevation
+angles. Based on our simulations for the baseline scenario (horizontal range R = 1200 m, launch
+and target altitude 500 m, quadratic drag with Mach-dependent Cd, air density evaluated at 500
+m), the low-angle corridor θ ∈[5◦, 8◦] corresponds to muzzle velocities of approximately v0 ≈
+347.2 m/s at θ = 5◦and v0 ≈260.2 m/s at θ = 8◦. In other words, for any elevation chosen
+between 5◦and 8◦there exists a corresponding single-valued muzzle speed that yields impact at
+1200 m under the model assumptions; thus this interval furnishes a practical set of one-to-one
+(v0, θ) solutions well suited for historical direct-fire operations.
+It should be emphasized that feasible solutions exist across a much wider muzzle-velocity
+range: numerically we find valid (v0, θ) pairs for initial speeds from about 143.2 m/s up to 450 m/s.
+The 5◦–8◦band is singled out because it aligns with historical operational practice (shorter time-
+of-flight, reduced wind sensitivity, and easier observation/adjustment) and therefore represents the
+practically preferred portion of the solution manifold.
+5.2. Practical Estimation Method — Artillery Aiming without Calculators
+5.2.1. Specific method
+Step 1 — Reading the Baseline
+• Consult the master table using v0 and R at the target altitude to obtain:
+– θbase (deg)
+– t f (s) — If tf is not listed in the table, it must be generated or taken from an approximate
+table.
+Step 2 — Equivalent Range Correction for Head/Tail Wind (Most Critical)
+• Approximate the longitudinal wind effect as an equivalent range shift:
+Reff = R −vw,∥tf
+(20)
+(Wind convention: vw,∥> 0 means tailwind →smaller elevation; vw,∥< 0 means headwind →
+larger elevation.)
+• From the master table, use Reff as the new effective range and read the corresponding eleva-
+tion:
+θeff = θbase(Reff)
+(21)
+• If Reff does not fall exactly on a tabulated range, perform linear interpolation:
+11
+
+θ(Reff) ≈θ(R1) + θ(R2) −θ(R1)
+R2 −R1
+(Reff −R1)
+(22)
+• Use θeff as the corrected elevation (this step accounts for the primary effect of longitudinal
+wind on trajectory and effective range).
+Step 3 — Crosswind (Azimuth) Correction
+• Approximate lateral drift due to crosswind by:
+∆z ≈vw,⊥tf
+(23)
+• Convert the lateral displacement to an azimuth correction (radians):
+∆α ≈arctan
+ ∆z
+R
+!
+(24)
+• Convert to degrees:
+∆α◦≈180
+π arctan
+vw,⊥tf
+R
+
+(25)
+Sign convention: If vw,⊥> 0 (left→right wind), the target drifts right, and the gun must be aimed
+left (or handled per tactical sign convention).
+Step 4 — Vertical Wind Correction (Secondary)
+• A first-order approximation for vertical wind effect on flight time is:
+t′
+f ≈tf −vw,y
+g tf
+(26)
+• Practical rule:
+– If |vw,y| ≤2 m/s, ignore it.
+– If |vw,y| ≥4 m/s, solve numerically or use a wind-correction table.
+Final Elevation and Azimuth
+θfinal ≈θeff
+(27)
+αfinal ≈∆α◦
+(28)
+For higher precision, recalculate t f using θfinal (if a tf table is available) and repeat Steps 1–2 once
+more.
+12
+
+5.2.2. Usage Example
+For any prescribed horizontal range R, target altitude Htarget, and wind vector vw, the solver
+enumerates feasible low-angle (v0, θ) solutions and returns the full three-dimensional trajectory
+together with its top- and side-view projections. We conduct systematic numerical experiments
+over R ∈[1000, 1500] m for various target altitudes and wind conditions to generate a reference
+dataset. This dataset quantifies how wind components and altitude differences shift the feasible
+v0−θ solution set and the spatial displacement of the trajectory, and it provides a basis for validating
+and calibrating simplified field lookup tables and one-step correction cards.
+Figure 6: Representative trajectory set for a fixed target: 3-D trajectory and its top- and side-view projections. Each
+color corresponds to one initial speed (low-angle branch shown; high-angle omitted).
+Figure 7: Velocity–elevation relation for a fixed target distance: the solver provides discrete low-angle solutions θ(v0)
+over a range of initial speeds. These data form the basis of the master lookup table used in the one-step correction
+method.
+13
+
+Table 2 compares elevation angles obtained from the proposed manual field-estimation method
+with those computed by the full numerical ballistic model. Across different wind vectors, ranges,
+and target altitudes, the relative errors are generally below 1%, indicating close agreement. These
+results demonstrate that the simplified hand-calculation procedure provides a reliable and practi-
+cally accurate approximation of the required firing angle, and thus is suitable for rapid field use
+when computational tools are unavailable.
+Table 2: Comparison of manual angle estimates and numerical results under different wind conditions
+Wind Vector
+Horizontal Range (m)
+Target Altitude (m)
+Muzzle Velocity (m/s)
+Manual Estimate (°)
+Numerical Result (°)
+Relative Error (%)
+(6, 8, 1)
+1080
+500
+300
+5.0644
+5.0859
+0.42
+(6, 8, 1)
+1200
+500
+300
+5.9138
+5.9403
+0.45
+(6, 8, 1)
+1500
+500
+300
+8.4217
+8.4669
+0.53
+(8, 6, 1)
+1260
+600
+400
+8.9960
+8.9735
+0.26
+(8, 6, 1)
+1360
+600
+400
+9.2028
+9.2165
+0.15
+(8, 6, 1)
+1500
+600
+400
+9.6255
+9.7443
+1.29
+14
+
+6. Advantages and Disadvantages
+6.1. Advantages
+• Realistic physical model: Using quadratic drag together with a Mach-dependent drag co-
+efficient Cd(M) and altitude-dependent air density ρ(h) captures projectile behavior more
+faithfully than the ideal parabolic model for muzzle velocities in the 100–800 m/s range.
+• Robust numerical approach: Time integration combined with bracketing and bisection for
+root finding is simple, numerically stable, and reliably locates low-angle and high-angle
+solutions.
+• Practical engineering output: Simulation results can be compiled into master lookup tables
+, providing direct field references for crews without computational tools.
+• Field-friendly correction rules: The effective-range correction, lateral drift →azimuth cor-
+rection, and first-order vertical-wind correction can all be performed with elementary arith-
+metic operations ,such as addition, subtraction, multiplication, and inverse trigonometric
+evaluation,on paper or a pre-prepared card, enabling rapid battlefield use and straightfor-
+ward memorization.
+• Very small deviation from numerical simulation: When the lookup table is used together
+with the one-step correction rules under typical tactical conditions (moderate winds, short
+flight times), the resulting deviations from high-fidelity numerical simulations are small.
+Angle discrepancies are typically within 0.1◦–0.5◦, azimuth corrections are minor, and range
+or impact errors are on the order of a few meters. These values confirm that the simplified
+correction scheme maintains high accuracy suitable for tactical applications.
+6.2. Disadvantages
+• Simplified wind modeling: The method assumes steady and spatially uniform wind com-
+ponents. Real wind fields often vary in both direction and magnitude with height and time.
+This simplification limits the accuracy of linear hand corrections under strong or variable
+winds and for long flight durations.
+• Table discretization and interpolation errors: The master table is sampled on a discrete grid.
+Interpolation between grid points and coarse step sizes can introduce noticeable errors. In-
+adequate table resolution or implementation flaws can degrade the reliability and usability
+of the lookup data.
+• Implementation and numerical pitfalls: Practical coding details—including time-step se-
+lection, interpolation near impact, and loop or memory indexing—can lead to repeated or
+inconsistent entries even if the underlying model is correct. Reliable table generation there-
+fore requires automated sanity checks, such as enforcing unique time-of-flight entries, en-
+suring monotonicity of range vs. angle where appropriate, and validating each table row for
+physical plausibility.
+15
+
+7. Conclusion
+This study investigated the external ballistic problem of a historical cannon firing spherical pro-
+jectiles, with the objective of determining the muzzle velocity and firing angle required to strike
+targets located at various ranges, altitudes, and wind conditions—under the practical constraint
+that the artillery operator may not have access to calculators or computing devices. A progres-
+sively refined modeling approach was developed, beginning with an idealized parabolic model
+and advancing to a realistic aerodynamic model incorporating quadratic drag, Mach-dependent
+drag coefficient, and altitude-dependent air density.
+For the baseline scenario of a 1200 m target at equal altitude, numerical simulations were em-
+ployed to identify feasible low- and high-angle firing solutions across a range of muzzle velocities
+up to 450 m/s. Subsequently, the model was extended to targets at distances between 1000 m and
+1500 m and at different elevations. The resulting solutions were compiled into a master lookup
+table that provides baseline elevation angles and flight times for key combinations of muzzle ve-
+locity, range, and target altitude.
+Wind effects were then incorporated by considering the relative airspeed in the drag force
+and decomposing wind into longitudinal, crosswind, and vertical components. Based on these
+results, a simplified field-use method was developed for artillery personnel: a one-step correction
+framework that adjusts the baseline elevation angle and azimuth using only elementary arithmetic
+and trigonometric estimates. This enables trained operators to generate sufficiently accurate firing
+solutions in the field without electronic computation.
+Overall, the modeling and correction framework successfully balances physical realism with
+practical usability. Numerical validation shows that the manual correction method yields only
+small deviations from high-fidelity simulation results under typical tactical conditions, confirming
+its effectiveness for real-world use. While the approach assumes steady and uniform wind and
+relies on discretized lookup tables, it provides an efficient, scientifically grounded and historically
+plausible solution for artillery aiming in the absence of modern fire-control systems.
+16
+
+8. Appendix
+8.1. Excerpt of Soldier Firing Reference Table
+8.2. Projectile Flight Simulation with Wind
+1
+clear; clc; close all;
+2
+3
+fprintf(’===
+Trajectory
+Solver
+Input
+Parameters
+===\n’);
+4
+5
+R_target = input(’Enter
+target
+horizontal
+distance (m) [default
+1200]: ’);
+6
+if isempty(R_target)
+7
+R_target = 1200;
+8
+end
+9
+10
+target_altitude = input(’Enter
+target
+altitude (m) [default
+500]: ’);
+11
+if isempty( target_altitude )
+12
+target_altitude = 500;
+13
+end
+14
+15
+launch_altitude = input(’Enter
+launch
+altitude (m) [default
+500]: ’);
+17
+
+16
+if isempty( launch_altitude )
+17
+launch_altitude = 500;
+18
+end
+19
+20
+fprintf(’\nEnter
+wind
+vector
+components (m/s):\n’);
+21
+fprintf(’
++East/-West , +North/-South , +Up/-Down\n’);
+22
+wx = input(’Wind wx [default
+5.0]: ’);
+23
+if isempty(wx)
+24
+wx = 5.0;
+25
+end
+26
+27
+wy = input(’Wind wy [default
+2.0]: ’);
+28
+if isempty(wy)
+29
+wy = 2.0;
+30
+end
+31
+32
+wz = input(’Wind wz [default
+0.0]: ’);
+33
+if isempty(wz)
+34
+wz = 0.0;
+35
+end
+36
+37
+relative_height = target_altitude - launch_altitude ;
+38
+39
+m = 5.0;
+40
+d = 0.11;
+41
+A = pi*(d^2) /4;
+42
+43
+g = 9.80665;
+44
+dt = 0.005;
+45
+tmax = 200;
+46
+47
+v0_min = 150;
+48
+v0_max = 450;
+49
+v0_step = 5;
+50
+51
+v0_list = v0_min:v0_step:v0_max;
+52
+53
+fprintf(’\n=== Summary of Input
+Parameters
+===\n’);
+54
+fprintf(’Target
+horizontal
+distance: %.0f m\n’, R_target);
+55
+fprintf(’Target
+altitude: %.0f m\n’, target_altitude );
+56
+fprintf(’Launch
+altitude: %.0f m\n’, launch_altitude );
+57
+fprintf(’Relative
+height: %.0f m\n’, relative_height );
+58
+fprintf(’Wind
+vector: [%.1f, %.1f, %.1f] m/s\n’, wx , wy , wz);
+59
+60
+wind.wx = wx;
+61
+wind.wy = wy;
+62
+wind.wz = wz;
+63
+64
+fprintf(’\nSolving
+trajectories ...\n’);
+65
+18
+
+66
+solutions = solve_trajectory_with_wind (v0_list , R_target , relative_height ,
+g, dt , tmax , launch_altitude , wind , m, d, A);
+67
+68
+fprintf(’\n===
+Solutions
+===\n’);
+69
+if isempty(solutions)
+70
+fprintf(’No feasible
+solution
+found .\n’);
+71
+else
+72
+fprintf(’v0(m/s)
+Elevation(deg)
+AzimuthCorr(deg)
+Type\n’);
+73
+fprintf(’----------------------------------------------------\n’);
+74
+for i = 1: size(solutions , 1)
+75
+v0 = solutions(i, 1);
+76
+elevation = solutions(i, 2);
+77
+azimuth_corr = solutions(i, 3);
+78
+type = solutions(i, 4);
+79
+if type == 1
+80
+type_str = ’Low’;
+81
+else
+82
+type_str = ’High ’;
+83
+end
+84
+fprintf(’%8.1f
+%8.2f
+%12.2f
+%s\n’, v0 , elevation ,
+azimuth_corr , type_str);
+85
+end
+86
+end
+87
+88
+fprintf(’\n===
+Detailed
+Result for v0 =400 m/s ===\n’);
+89
+v0_target = 400;
+90
+target_solution = [];
+91
+92
+if ~isempty(solutions)
+93
+v0_diff = abs(solutions (:,1) - v0_target);
+94
+[min_diff , min_idx] = min(v0_diff);
+95
+96
+if min_diff
+<= v0_step
+97
+target_solution = solutions(min_idx , :);
+98
+fprintf(’Solution
+found for v0 =%.0f m/s:\n’, v0_target);
+99
+fprintf(’
+Elevation: %.2 f
+\n’, target_solution (2));
+100
+fprintf(’
+Azimuth
+correction: %.2 f
+\n’, target_solution (3));
+101
+if target_solution (4) == 1
+102
+type_str = ’Low’;
+103
+else
+104
+type_str = ’High ’;
+105
+end
+106
+fprintf(’
+Trajectory
+type: %s\n’, type_str);
+107
+108
+fprintf(’\nAzimuth
+Correction
+Analysis :\n’);
+109
+fprintf(’
+Crosswind: %.1f m/s\n’, wy);
+110
+fprintf(’
+Target
+altitude: %.0f m (relative
+height: %.0f m)\n’,
+target_altitude , relative_height );
+111
+fprintf(’
+Initial
+velocity: %.0f m/s\n’, v0_target);
+112
+fprintf(’
+Elevation: %.2 f
+\n’, target_solution (2));
+113
+fprintf(’
+Target
+distance: %.0f m\n’, R_target);
+19
+
+114
+115
+elevation_rad = target_solution (2) * pi /180;
+116
+fprintf(’\nRecalculating
+for
+verification :\n’);
+117
+azimuth_corr_new = calculate_azimuth_correction_improved (v0_target
+, elevation_rad , R_target , relative_height , g, dt , tmax ,
+launch_altitude , wind , m, d, A);
+118
+fprintf(’
+Final
+azimuth
+correction: %.2 f
+\n’, azimuth_corr_new );
+119
+120
+if azimuth_corr_new > 0
+121
+fprintf(’
+Correct to the right\n’);
+122
+elseif
+azimuth_corr_new < 0
+123
+fprintf(’
+Correct to the left\n’);
+124
+else
+125
+fprintf(’
+No correction
+needed\n’);
+126
+end
+127
+128
+else
+129
+fprintf(’No exact
+solution
+for v0 =%.0f m/s, closest is %.0f m/s\n’
+, v0_target , solutions(min_idx ,1));
+130
+fprintf(’Closest
+elevation: %.2 f
+, azimuth
+correction: %.2 f
+\n’,
+solutions(min_idx ,2), solutions(min_idx ,3));
+131
+end
+132
+else
+133
+fprintf(’No available
+solutions .\n’);
+134
+end
+135
+136
+if ~isempty(solutions)
+137
+plot_representative_trajectories (solutions , R_target , relative_height ,
+g, dt , tmax , launch_altitude , wind , m, d, A);
+138
+plot_velocity_elevation_relation (solutions , R_target);
+139
+end
+140
+141
+function
+solutions = solve_trajectory_with_wind (v0_list , R_target ,
+relative_height , g, dt , tmax , launch_altitude , wind , m, d, A)
+142
+solutions = [];
+143
+144
+for idx = 1: length(v0_list)
+145
+v0 = v0_list(idx);
+146
+elevation_min = 0.1;
+147
+elevation_max = 85.0;
+148
+elev_samples = linspace(elevation_min , elevation_max , 60);
+149
+range_errors = zeros(size(elev_samples));
+150
+151
+for i = 1: length(elev_samples)
+152
+elevation = elev_samples(i) * pi /180;
+153
+[x_final , ~, success] = simulate_trajectory (v0 , elevation , 0,
+g, dt , tmax , relative_height , launch_altitude , wind , m, d,
+A);
+154
+if success
+155
+range_errors(i) = x_final - R_target;
+156
+else
+20
+
+157
+range_errors(i) = NaN;
+158
+end
+159
+end
+160
+161
+valid_idx = find (~ isnan(range_errors));
+162
+if length(valid_idx) < 2
+163
+continue;
+164
+end
+165
+166
+range_errors_valid = range_errors(valid_idx);
+167
+elev_samples_valid = elev_samples(valid_idx);
+168
+169
+sign_changes = [];
+170
+for i = 1: length( range_errors_valid ) -1
+171
+if range_errors_valid (i) * range_errors_valid (i+1) < 0
+172
+sign_changes = [sign_changes , i];
+173
+end
+174
+end
+175
+176
+if length(sign_changes) >= 1
+177
+iL = sign_changes (1);
+178
+elevL_low = elev_samples_valid (iL);
+179
+elevL_high = elev_samples_valid (iL+1);
+180
+elevation_low = bisect_elevation (v0 , elevL_low , elevL_high ,
+R_target , relative_height , g, dt , tmax , launch_altitude ,
+wind , m, d, A);
+181
+182
+if ~isnan(elevation_low) && elevation_low > 0 && elevation_low
+< 45
+183
+azimuth_corr = calculate_azimuth_correction_improved (v0 ,
+elevation_low*pi/180, R_target , relative_height , g, dt ,
+tmax , launch_altitude , wind , m, d, A);
+184
+solutions = [solutions; v0 , elevation_low , azimuth_corr ,
+1];
+185
+end
+186
+end
+187
+end
+188
+end
+189
+function [x_final , y_final , success , trajectory] = simulate_trajectory (v0 ,
+elevation , azimuth , g, dt , tmax , relative_height , launch_altitude ,
+wind , m, d, A)
+190
+vx0 = v0 * cos(elevation) * cos(azimuth);
+191
+vy0 = v0 * cos(elevation) * sin(azimuth);
+192
+vz0 = v0 * sin(elevation);
+193
+194
+x = 0; y = 0; z = 0;
+195
+vx = vx0; vy = vy0; vz = vz0;
+196
+197
+success = false;
+198
+trajectory = [];
+199
+21
+
+200
+for t = 0:dt:tmax
+201
+current_altitude = launch_altitude + z;
+202
+[rho , ~, a] = atmosphere_ISA ( current_altitude );
+203
+v = sqrt(vx^2 + vy^2 + vz^2);
+204
+M = v / a;
+205
+Cd = Cd_vs_Mach(M);
+206
+k = 0.5 * rho * Cd * A / m;
+207
+208
+vrel_x = vx - wind.wx;
+209
+vrel_y = vy - wind.wy;
+210
+vrel_z = vz - wind.wz;
+211
+vrel = sqrt(vrel_x ^2 + vrel_y ^2 + vrel_z ^2);
+212
+213
+ax = -k * vrel * vrel_x;
+214
+ay = -k * vrel * vrel_y;
+215
+az = -g - k * vrel * vrel_z;
+216
+217
+vx = vx + ax * dt;
+218
+vy = vy + ay * dt;
+219
+vz = vz + az * dt;
+220
+221
+x_prev = x; y_prev = y; z_prev = z;
+222
+223
+x = x + vx * dt;
+224
+y = y + vy * dt;
+225
+z = z + vz * dt;
+226
+227
+if nargout > 3
+228
+trajectory = [trajectory; x, y, z];
+229
+end
+230
+231
+if z <= relative_height && t > 0 && z_prev > relative_height
+232
+frac = ( relative_height - z_prev) / (z - z_prev);
+233
+x_final = x_prev + frac * (x - x_prev);
+234
+y_final = y_prev + frac * (y - y_prev);
+235
+success = true;
+236
+return;
+237
+end
+238
+end
+239
+240
+x_final = x;
+241
+y_final = y;
+242
+success = false;
+243
+end
+244
+245
+function
+elevation_deg = bisect_elevation (v0 , elev_low_deg , elev_high_deg ,
+R_target , relative_height , g, dt , tmax , launch_altitude , wind , m, d, A
+)
+246
+max_iter = 30;
+247
+tol = 0.1;
+248
+22
+
+249
+for iter = 1: max_iter
+250
+elev_mid_deg = 0.5 * (elev_low_deg + elev_high_deg);
+251
+[x_mid , ~, success_mid] = simulate_trajectory (v0 , elev_mid_deg*pi
+/180, 0, g, dt , tmax , relative_height , launch_altitude , wind , m
+, d, A);
+252
+253
+if ~success_mid
+254
+elev_high_deg = elev_mid_deg;
+255
+continue;
+256
+end
+257
+258
+error_mid = x_mid - R_target;
+259
+[x_low , ~, success_low] = simulate_trajectory (v0 , elev_low_deg*pi
+/180, 0, g, dt , tmax , relative_height , launch_altitude , wind , m
+, d, A);
+260
+261
+if success_low
+262
+error_low = x_low - R_target;
+263
+if error_low * error_mid
+<= 0
+264
+elev_high_deg = elev_mid_deg;
+265
+else
+266
+elev_low_deg = elev_mid_deg;
+267
+end
+268
+else
+269
+elev_low_deg = elev_mid_deg;
+270
+end
+271
+272
+if abs(error_mid) < tol
+273
+break;
+274
+end
+275
+end
+276
+277
+elevation_deg = elev_mid_deg;
+278
+end
+279
+280
+function
+azimuth_correction = calculate_azimuth_correction_improved (v0 ,
+elevation , R_target , relative_height , g, dt , tmax , launch_altitude ,
+wind , m, d, A)
+281
+max_iter = 20;
+282
+tol = 0.1;
+283
+azimuth_low =
+-15 * pi /180;
+284
+azimuth_high = 15 * pi /180;
+285
+286
+for iter = 1: max_iter
+287
+azimuth_mid = 0.5 * (azimuth_low + azimuth_high);
+288
+[x_mid , y_mid , success_mid] = simulate_trajectory (v0 , elevation ,
+azimuth_mid , g, dt , tmax , relative_height , launch_altitude ,
+wind , m, d, A);
+289
+290
+if ~success_mid
+291
+if azimuth_mid > 0
+23
+
+292
+azimuth_high = azimuth_mid;
+293
+else
+294
+azimuth_low = azimuth_mid;
+295
+end
+296
+continue;
+297
+end
+298
+299
+error_mid = y_mid;
+300
+301
+[~, y_low , success_low] = simulate_trajectory (v0 , elevation ,
+azimuth_low , g, dt , tmax , relative_height , launch_altitude ,
+wind , m, d, A);
+302
+303
+if success_low
+304
+error_low = y_low;
+305
+if error_low * error_mid
+<= 0
+306
+azimuth_high = azimuth_mid;
+307
+else
+308
+azimuth_low = azimuth_mid;
+309
+end
+310
+else
+311
+azimuth_low = azimuth_mid;
+312
+end
+313
+314
+if abs(error_mid) < tol
+315
+break;
+316
+end
+317
+end
+318
+319
+azimuth_correction = azimuth_mid * 180/ pi;
+320
+flight_time = calculate_flight_time (v0 , elevation , azimuth_mid ,
+relative_height , g, dt , tmax , launch_altitude , wind , m, d, A);
+321
+322
+fprintf(’
+Azimuth
+correction
+detailed
+analysis :\n’);
+323
+fprintf(’
+Relative
+height: %.1f m\n’, relative_height );
+324
+fprintf(’
+Estimated
+flight
+time: %.2f s\n’, flight_time);
+325
+fprintf(’
+Crosswind: %.1f m/s\n’, wind.wy);
+326
+fprintf(’
+Theoretical
+drift: %.1f m\n’, wind.wy * flight_time);
+327
+fprintf(’
+Initial
+velocity: %.0f m/s\n’, v0);
+328
+fprintf(’
+Elevation: %.1 f
+\n’, elevation * 180/ pi);
+329
+end
+330
+331
+function
+flight_time = calculate_flight_time (v0 , elevation , azimuth ,
+relative_height , g, dt , tmax , launch_altitude , wind , m, d, A)
+332
+[~, ~, success , trajectory] = simulate_trajectory (v0 , elevation ,
+azimuth , g, dt , tmax , relative_height , launch_altitude , wind , m, d,
+A);
+333
+334
+if success && ~isempty(trajectory)
+335
+flight_time = size(trajectory , 1) * dt;
+336
+else
+24
+
+337
+vz0 = v0 * sin(elevation);
+338
+if relative_height == 0
+339
+flight_time = 2 * vz0 / g;
+340
+else
+341
+flight_time = (vz0 + sqrt(vz0^2 + 2*g* relative_height )) / g;
+342
+end
+343
+end
+344
+end
+345
+346
+function [rho , T, a] = atmosphere_ISA(H_m)
+347
+p0 = 101325; T0 = 288.15; L = 0.0065; R = 287.05287; g0 = 9.80665;
+gamma = 1.4;
+348
+if H_m < 0, H_m = 0; end
+349
+if H_m < 11000
+350
+T = T0 - L*H_m;
+351
+p = p0 * (T/T0)^(g0/(R*L));
+352
+else
+353
+T = T0 - L*11000;
+354
+p = p0 * (T/T0)^(g0/(R*L)) * exp(-g0*(H_m -11000) /(R*T));
+355
+end
+356
+rho = p/(R*T);
+357
+a
+= sqrt(gamma*R*T);
+358
+end
+359
+360
+function
+Cd_eff = Cd_vs_Mach(M)
+361
+if M < 0.8
+362
+Cd_eff = 0.47;
+363
+elseif M < 1.2
+364
+Cd_eff = 0.47 + (1.10 -0.47) *(M -0.8) /(1.2 -0.8);
+365
+elseif M < 2.0
+366
+Cd_eff = 1.10 - (1.10 -0.95) *(M -1.2) /(2.0 -1.2);
+367
+elseif M < 3.0
+368
+Cd_eff = 0.95 - (0.95 -0.90) *(M -2.0) /(3.0 -2.0);
+369
+else
+370
+Cd_eff = 0.90;
+371
+end
+372
+end
+25
+
+References
+[1] Zhang, Y. Tactical Missile Flight Mechanics Design. Beijing: Yuhang Publishing House,
+1998.
+[2] Wang, Z., & Zhou, W. Exterior Ballistics Design Theory and Methods. Beijing: Science
+Press, n.d., pp. 7–8.
+[3] China Meteorological News Agency. Classification of Wind Vectors and Wind Force Levels
+[EB/OL]. (2018-07-17) [2024-11-09].
+[4] Li, H., & Ye, P. Simulation Tests on the Influence of Reentry-Phase Wind Field on Ballistic
+Missile Accuracy. Tactical Missile Control Technology, 2006(4): 46.
+[5] Zheng, X., & He, Y. Modeling and Simulation of Missile under Wind Disturbance. Tactical
+Missile Control Technology, 2013, 30(1): 48.
+[6] Zang, G., & Li, S. Aerodynamics of Ballistic Projectiles. Beijing: Ordnance Industry Press,
+1989.
+[7] Yan, J., Li, Z., & Dong, L. Meteorological Corrections for Ballistic Missile Reentry. Launch
+Vehicle Technology, 2001(2): 1–2.
+[8] Guo, X. Oblique Projectile Motion with Air Resistance Proportional to the Square of Veloc-
+ity. Physics Bulletin, 2017(6): 63–66.
+[9] Li, W., Yan, H., & Zhang, W. Ballistic Simulation of a Certain Projectile under Wind Distur-
+bance. Computer Technology and Development, 2011, 21(1): 247–248.
+26

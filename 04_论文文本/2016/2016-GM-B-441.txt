@@ -1,0 +1,637 @@
+Team # 441
+Modeling the upper limit of body size for vertebrates
+Team # 441
+Problem B
+Modeling the upper limit of body size for
+vertebrates
+November 13, 2016
+Abstract
+As suggested by recent publications on vertebrate’s maximal size [1], we have worked
+on a mathematical model based on resources and energy considerations that can be ap-
+plied in order to account for the diﬀerences in mass between dinosaurs and mammals
+and that permits to reinforce or discard hypothesis about dinosaur’s resources and
+biological nature. In this paper we analyze the model, apply it with real biological/-
+paleontological data and use it to give explanations to the maximal body size for land
+mammals and dinosaurs. Furthermore, other implications of the model are explored in
+order to give answers to other important questions about dinosaur’s nature. In partic-
+ular, we have found that dinosaurs having similar characteristics to varanids in terms
+of energy expenditure when extrapolated to larger mass successfully explains observed
+mass ratios of one order of magnitude between dinosaurs and mammals.
+1
+
+Team # 441
+Modeling the upper limit of body size for vertebrates
+Contents
+1
+Introduction
+3
+1.1
+Problem approach . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+2
+Model
+4
+2.1
+Energy expenditure model . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2.1.1
+Field energy expenditure . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2.1.2
+Maximal daily ﬁeld expenditure . . . . . . . . . . . . . . . . . . . . .
+4
+2.1.3
+Interpretation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+3
+Method and results
+7
+3.1
+Veriﬁcation of the model . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+3.2
+Applications . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9
+3.2.1
+Reptile hypothesis
+. . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9
+3.2.2
+Varanus hypothesis . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10
+3.2.3
+Comparing the goodness of reptile v.s. Varanus hypothesis . . . . . .
+12
+3.2.4
+Possible issues of low metabolic rate
+. . . . . . . . . . . . . . . . . .
+13
+4
+Conclusions
+15
+5
+Further Investigations
+15
+2
+
+Team # 441
+Modeling the upper limit of body size for vertebrates
+1
+Introduction
+1.1
+Problem approach
+The largest dinosaurs that walked the earth were approximately an order of magnitude (a
+factor of ten) more massive than the largest land mammals. It has been hypothesized that
+this may have been due to factors such as, but not limited to, the diﬀerent levels of oxygen
+in the atmosphere, the diﬀerence in the eﬀort required for giving birth to live young versus
+laying eggs, diﬀerences in metabolic rates, diﬀerences in the availability of food sources, or
+diﬀerences in ambient temperature. Develop a model to account for the diﬀerences in mass
+between the largest dinosaurs and the largest land mammals, and evaluate the eﬀectiveness
+of this model using biological/paleontological data.
+As suggested in [2] the constraints limiting body size can be split into two main categories,
+the constraints imposed by environment, such as resources availability, and the constraints
+related to the speciﬁc species, which include metabolic and structural characteristics. We
+will focus on ﬁnding which is the key or main constraint that imposes the ultimate limit body
+size.
+We think that subtle (or not that subtle but gradual) changes on environmental conditions
+such as oxygen levels or ambient temperature could be circumvented by the evolution of the
+species, of both mammals and dinosaurs, thus this factors are not the main responsible for
+body size limit.
+Given that mammals and dinosaurs species have been living during fairly long ages and even
+coexisted one could say that, at least during some time of their existence, mammals and
+dinosaurs faced similar environment conditions. Hence, there must be a key among their
+intrinsic characteristics. Another evidence for this is that most dinosaur species were larger
+than their mammal equivalent one1, which also tells us that this key diﬀerence should be a
+general diﬀerence between mammals and dinosaurs rather than speciﬁc to a single species.
+From a physicist point of view, an animal with a given size will exist only if it is viable
+energetically speaking, that is, if he is able to ﬁnd enough food to satisfy his energy needs,
+which of course increase with body size. Therefore the maximum energy available to an
+animal is what mainly2 limits his size.
+Our approach will be to use models for the dependence of energy expenditure with mass
+and study their parameters to see if one can achieve a clear distinction between mammals
+and dinosaurs which allow us to explain the order of magnitude of diﬀerence between their
+maximal masses.
+1Such as the Triceratops (up to 12 tons) against the Rhinoceros (up to h1 ton) or the Ankylosaurus (about
+6 tons) against some species of extinct giant armadillos (up to 1 ton)
+2All other factors may aﬀect the food/energy available thus limiting body size, but indirectly.
+3
+
+Team # 441
+Modeling the upper limit of body size for vertebrates
+2
+Model
+2.1
+Energy expenditure model
+The ﬁrst model we are going to work on is the one proposed by McNab in [1]. On the one hand
+the ﬁeld energy expenditure concept is introduced to account for the intrinsic characteristics
+such as metabolic rate and allometry of the energy vs mass. On the other hand we will
+have to understand the concept of maximal daily energy expenditure, that accounts for other
+intrinsic factors as well as the extrinsic ones.
+2.1.1
+Field energy expenditure
+In ﬁrst place it is supposed that the energetic cost per day 3 of any kind of individual can be
+approached as a function of its body mass by the following allometric relation:
+FEE = a Mb
+(1)
+where a is a coeﬃcient that determines the level at which energy is expended (also called
+mass-independent expenditure), M is its body mass and b is the power of mass (the eﬀect of
+the allometry). This magnitude is usually referred to as ﬁeld metabolic rate (FMR) or ﬁeld
+energy expenditure, can be measured oﬀreal individuals and has units kJ/day.
+The FEE accounts for the total energy that the living being spends in a day because of
+its intrinsic characteristics. To being with, observe that it just makes sense that a mouse
+spends less energy in a day than an elephant, because of the diﬀerence in their body masses.
+In addition, in biology is quite common to see that this kind of functions usually follow an
+allometric law. It can be seen in a number of works that this model describes well real data,
+but here we try to reproduce McNab’s results and verify that the model actually ﬁts with the
+data. To do this, it is considered the hypothesis that a set of individuals belong to a group
+with same (or similar) a and b coeﬃcients, then it is veriﬁed by simple linear regression with
+sets of data of the kind (log(M), log(FEE)) that they really have same intrinsic characteristics
+and that the diﬀerences in their energy spending is only due to their diﬀerence in mass. The
+idea behind all this, connecting with what we said in the previous section, is that we would like
+to gather mammal herbivores in a single group and allow dinosaurs to be in a diﬀerent one,
+thus giving a quantitative distinction between these two groups that we aimed to understand.
+2.1.2
+Maximal daily ﬁeld expenditure
+This model also takes into account the extrinsic characteristics of the studied group making
+use of the concept of maximal daily ﬁeld expenditure, K, which sets the upper boundary
+for the FEE of an individual in the group (the units are again kJ/day) given a particular
+environment. Understanding this magnitude can be paradoxically easy and tricky at the
+3Actually it should be said the expected value of this magnitude over time, because it may vary across
+diﬀerent days but we will treat it as independent of time
+4
+
+Team # 441
+Modeling the upper limit of body size for vertebrates
+same time. It is easy in the sense that one understands immediately that there has to be
+a limit because the energy you can get from your ﬁnite environment in a day is ﬁnite (one
+cannot spend more energy than one can get). It becomes tricky when one stops for a moment
+to think about which exactly could be this limit for a given species. The maximum is not the
+naive "the whole energy contained in the environment", it is something more interesting that
+depends both on the intrinsic characteristics of the individual (i.e. its mobility, facilities to get
+food from diﬃcult places...) and the extrinsic characteristics or the environment, namely the
+quantity and quality of the accessible food around, physical boundary conditions, ecological
+constraints, etc.
+In order to understand better the signiﬁcance of this important parameter let us consider
+two clarifying examples:
+• Consider two identical elephants (so they both have the same a and b), let us put one
+in an island with a very dense jungle, and the other elephant in lesser dense one. The
+value of K for this elephant species on the ﬁrst jungle will be larger than on the second
+one, allowing the ﬁrst elephant to grow up to a larger mass than the second.
+• Similarly, consider again two identical elephants. Let us put one in an island with a
+jungle with high quality accessible food (more energetic), and another one in a island
+with a jungle with less quality accessible resources. It is an exercise similar to the
+previous example to proof that the one surrounded by higher quality resources will
+grow bigger than the other, spending more energy eventually.
+To mathematically explain those examples consider the simple case where the ﬁrst jungle
+consists of identical trees are separated by d. The energy (usable by the elephant) contained
+on the leaves of each tree is ε. The energy needed to actually eat those leaves can be modeled
+by
+µ = µ(M) = µ0 + αMd
+(2)
+where µ0 accounts for the energy needed to eat the leaves once in front of the tree (which
+for simplicity is supposed to be constant) and where the second term accounts for the energy
+needed to go from one tree to another which in turn depends on the distance between trees
+and on the mass of the individual (linearly again for simplicity). If the elephant eats N trees
+per day his FEE will be Nµ.Then his internal energy E change will be
+∆E = Nε −Nµ = N (ε −µ)
+(3)
+where we have assumed that energy is not expended for any other activity than feeding. We
+will also assume that N is the maximum amount of trees that the elephant can eat in a day,
+since he does no other activity. If ∆E > 0 the elephant mass will increase, and if ∆E < 0 it
+will decrease. The mass at equilibrium will be achieved when ∆E = 0, which implies
+0 = ∆E = N(ε −µ) =⇒µ = ε
+(4)
+which allows us to ﬁnd the mass at equilibrium (actually the maximum mass)
+ε = µ0 + αMd =⇒Mmax = ε −µ0
+αd
+(5)
+5
+
+Team # 441
+Modeling the upper limit of body size for vertebrates
+Remember, however, that our goal here is to ﬁnd K, which is the maximal viable value for
+FEE, that in this case corresponds to
+K = FEEmax = Nµmax = Nε
+(6)
+Now, comparing two jungles with same trees, but diﬀerent distances between them, the
+number of trees the elephant can eat per day N will be diﬀerent. N will be larger in a higher
+density jungle and therefore K will increase. If the diﬀerence is not in the distance but in
+the nutrients of the trees, what will increase will be ε, also increasing K.
+The idea of the previous example in the most general case shows that diﬀerent species with
+same a and b but with diﬀerent K have diﬀerent opportunities to grow. The quantity and
+quality of the resources in the environment are important factors of K, but notice that all
+other factors aﬀecting the animals diet would also have an impact, this include animal shape,
+habits and size.
+2.1.3
+Interpretation
+The moral that can be extracted from this model is that given a restraint in total energy
+expenditure, that is, a ﬁxed K, the individual with a lower mass-independent expenditure, a,
+can attain a higher mass, m, because it happens that b is approximately constant between4
+0.67 and 0.85 over a large range in mass [11]. Therefore, the most eﬃcient species are the
+ones that can achieve the largest masses.
+4The fact that b is always less than 1 reﬂects the contrasted fact that the FEE per unit of mass decreases
+with the mass of the individual.
+6
+
+Team # 441
+Modeling the upper limit of body size for vertebrates
+3
+Method and results
+To begin with we have tried to verify the model by taking real data from [4], where there
+is a compilation of ﬁeld metabolic rates (FMR) of wild terrestrial vertebrates as determined
+by the doubly labeled water technique. The idea is to see if equation (1) describes well the
+collected data by looking at the r2 value of the data ﬁts. This will be compared to McNab’s
+results and the results of Nagy, Girard and Brown in [4] to see if there is consistency.
+After having checked the model validity, we intend to apply the model to obtain as much
+information as possible. With this purpose, we will contemplate several hypothesis concerning
+dinosaurs and test them by direct application of the model.
+3.1
+Veriﬁcation of the model
+From data in [4] we can estimate the constants a and b, for 79 species of mammals and 55 of
+reptiles using the relation given by equation (1). By taking logarithms5 we have that
+log FEE = log a + b log M
+(7)
+which is a relation of the form Y = A + B X, where a = 10A and b = B.
+As can be seen in ﬁgure 1, if we plot FEE as a function of the body mass of species in log/log
+scale, the points clearly follow linear tendency. It motivates us to do linear regressions to
+estimate the parameters a and b. In table 1 we show the results of these linear regressions
+with the considered data sets.
+Table 1: Estimated values for a and b for reptiles and mammals, number of species used to
+obtain them, adjusted r2 coeﬃcient and p-value of the F-test done for each linear regression.
+Set of individuals, i
+ai
+bi
+no species
+adjusted r2
+p-value
+Mammals, m
+4.8196
+0.7341
+79
+0.9491
+∼10−16
+Reptiles, r
+0.1965
+0.8879
+55
+0.9440
+∼10−16
+The values for r2 are relatively high (∼0.95) and the p-values very low, which supports the
+validity of equation (1). Therefore we can now consider the following allometric relations for
+mammals and reptiles with the estimated constants:
+(FEE)m = amMbm ≈4.82 M0.73
+(8)
+(FEE)r = arMbr ≈0.20 M0.89
+(9)
+These results are in accordance with the ones obtained in [4].
+5To be consistent with the cited literature we use logarithms with base 10.
+7
+
+Team # 441
+Modeling the upper limit of body size for vertebrates
+−1
+0
+1
+2
+3
+4
+5
+−1
+0
+1
+2
+3
+4
+5
+log10 (Mass (g)) 
+log10 (FMR (kJ/day))
+R2 = 0.949
+R2 = 0.944
+FMR v.s mass
+Mammals
+Reptiles
+Figure 1: Representation of the ﬁeld metabolic rates (in kJ/day) as a function of the body
+mass (in grams) of mammals (red) and reptiles (green) together with the associated linear
+regression in the log/log scale.
+8
+
+Team # 441
+Modeling the upper limit of body size for vertebrates
+3.2
+Applications
+In order to be able to compare dinosaurs and mammals we need to set some hypothesis
+concerning the values of the unknown K values for each of the groups. Concerning the K for
+mammals, we are going to argue as follows for the rest of our work:
+The largest mammal ever observed was one that had approximately achieved the maximal
+daily ﬁeld expenditure for mammals, Km.
+As for the counterpart, we will begin setting that the K value of the dinosaurs, Kd, was:
+The maximal ﬁeld expenditure of the mammals cannot be very diﬀerent from that of the
+dinosaurs. Thus:
+Kd ≈Km
+The biggest mammal herbivore known to have existed is the Paraceratherium ([6]) which
+had an estimated weight of around 15 tons and therefore, following the allometric relation
+(8) would have had a FEE of 8.94 · 105 kJ/d. Since there is no evidence of bigger mammal
+herbivores it must be that this value is close to Km. Then we will take
+Km ≈8.94 · 105 kJ/d
+(10)
+3.2.1
+Reptile hypothesis
+First let us apply the model and test the widely extended idea that dinosaurs were reptiles.
+We will set the dinosaur’s allometric constants to be that of the reptiles we obtained in table
+1 and predict the mass of the heaviest dinosaur:
+Kd = ar
+
+M(d)
+max
+br ⇒M(d)
+max =
+Kd
+ar
+1/br
+Now substituting the values of ar and br from table 1 and using Kd ≈Km we obtain:
+M(d)
+max ≈31.51 t
+Thus, the ratio dinosaurs vs mammals for the heaviest species results:
+M(d)
+max
+M(m)
+max
+≈2.1
+The result shows that at least one of the hypothesis should be wrong, given that the heaviest
+dinosaur that has been found (Seismosaurus halli) had weighted around 100t (see [2]) and
+so the expected ratio should be 6.67. Thus, we conclude from this calculations that probably
+either dinosaurs are not reptiles, or the Kd is not of the same order of Km (which would
+mean there was higher resources availability in the dinosaurs ages), or both.
+9
+
+Team # 441
+Modeling the upper limit of body size for vertebrates
+3.2.2
+Varanus hypothesis
+Given that under the hypothesis Kd ≈Km we found that dinosaurs could not be reptiles,
+we are going to ﬁt dinosaurs into a diﬀerent category. As occurred to McNab, we can see
+what happens if we put dinosaurs into a subcategory of the reptiles known as Varanus. This
+suggestion comes from the widely accepted idea that dinosaurs were more active and had
+higher temperatures than those of other reptiles, and fact that varanids are one of the biggest
+and most active living lizards, and also have higher body temperatures [5], thus making them
+more similar to dinosaurs than other reptile species. Notice that we will consider only the
+six heaviest varanids (with a weight greater than 1.3 kg) as dinosaurs are expected to have
+relatively large weights.
+Now we set the dinosaur’s allometric constants to be that of the Varanus we show in table 2
+and predict the mass of the heaviest dinosaur as we have done before for all species of reptiles
+(with available data). Substituting the values of av and bv from table 2 and using Kd ≈Km
+we obtain:
+M(d)
+max ≈158.17 t
+Thus, the ratio dinosaurs vs mammals for the heaviest species is now:
+M(d)
+max
+M(m)
+max
+≈10.54
+Observe that this ratio is in the order of 10, as it was expected. It is a bit larger than the
+supposed 6.67, nevertheless, notice that this tells us that the heaviest dinosaur could had
+weighted 158 t, while the heaviest that we have found weighted around 100t. So we can say
+that there is still a possibility that there existed heavier dinosaurs and that the hypothesis
+were right.
+Table 2: Estimated values for a and b for varinids, number of species used to obtain them,
+adjusted r2 coeﬃcient and p-value of the F-test done for the linear regression. The curve is
+compared with the mammal one in Figure 2
+Set of individuals, i
+ai
+bi
+no individuals
+adjusted r2
+p-value
+Varanus > 1.3 kg, v
+1.3605
+0.7095
+6
+0.9715
+∼2 × 10−4
+(FEE)v = avMbv ≈1.36 M0.71
+(11)
+10
+
+Team # 441
+Modeling the upper limit of body size for vertebrates
+1
+2
+3
+4
+5
+1
+2
+3
+4
+5
+log10 (Mass (g)) 
+log10 (FMR (kJ/day))
+R2 = 0.949
+R2 = 0.971
+Mammals
+Varanus >1.3 Kg
+FMR v.s mass
+Figure 2: Representation of the ﬁeld metabolic rates (in kJ/day) as a function of the body
+mass (in grams) of mammals (red) and Varanus lizards (blue) with the associated linear
+regressions in the log/log scale.
+11
+
+Team # 441
+Modeling the upper limit of body size for vertebrates
+3.2.3
+Comparing the goodness of reptile v.s. Varanus hypothesis
+Here we consider two of the heaviest and well-known mammals so as to compare them with
+their physiological/ecological equivalent dinosaurs by using the reptile hypothesis discussed
+in section 3.2.1 and the Varanus hypothesis discussed in section 3.2.2.
+As we did to estimate the value of Km for the heaviest mammal (see equation (10) and how it
+was obtained), now we can estimate the Km corresponding to mammals considered in tables
+3 and 4 (the Rhinoceros and the Giraﬀe), and use it to calculate a prediction mass for the
+(arguably) ecologically equivalent dinosaur according to each of the hypothesis considered,
+i.e, we use the relation
+Md =
+Kd
+ai
+1/bi
+where we take, as in the sections above, Kd ≈Km, and i = r for the reptile hypothesis,
+i = v for the Varanus hypothesis. In the same way we can compute the mass ratios (M.R),
+Md/Mm for both the predicted mass and the mass found in the references.
+These results are summarized in tables 3 and 4.
+Table 3: Reptile hypothesis results
+Mammal
+Mm (t)
+Dinosaur
+Md (t)
+Pred. Md (t)
+Pred. M.R
+M.R
+Rhinoceros
+1-2
+Triceratops
+6 - 12
+3.36 - 6
+2.98 - 3.36
+6
+Giraﬀe
+0.5 - 2
+Diplodocus
+10 - 15
+1.89 - 6
+2.98 - 3.79
+7.5 - 20
+Table 4: Varanus hypothesis results
+Mammal
+Mm (t)
+Dinosaur
+Md (t)
+Pred. Md (t)
+Pred. M.R
+M.R
+Rhinoceros
+1 - 2
+Triceratops
+6 - 12
+9.6 - 19.67
+9.6 - 9.83
+6
+Giraﬀe
+0.5 - 2
+Diplodocus
+10 - 15
+4.69 - 19.67
+9.37 - 9.83
+7.5 - 20
+This results conﬁrm what we already saw in previous analysis, which is the fact that the
+general reptile curve (equation (9)) cannot correctly describe the mass of the dinosaurs.
+Notice that predicted mass ranges not even overlap the observed mass ranges. The varanid
+curve (equation (11)) however, gives results a lot more in compliance with observed masses
+and mass ratios, thus reinforcing the validity of the model.
+12
+
+Team # 441
+Modeling the upper limit of body size for vertebrates
+3.2.4
+Possible issues of low metabolic rate
+The previous results rely basically on a low energy expenditure on dinosaurs to explain their
+large mass, however, there are several evidences which show that dinosaurs could not have
+metabolic rates as low as the ones showed by lizards and other reptiles.
+This evidences
+include
+• Corporal temperature of dinosaurs was signiﬁcantly larger that the ambient tempera-
+ture which suggests that they were not ectotherms ("cold-blooded"). It is speculated
+that this might be due to their large masses giving them thermal inertia but this might
+not be enough with such low metabolic rates as the ones of lizards. Actually [3] states
+that dinosaurs were not endotherms either ("warm-blooded") but instead lay somewhere
+in between.
+• The growth rate is known to be correlated with metabolic rate [3], then, if dinosaurs had
+such low metabolic rates their growth rate would also have been low. It is supposed that
+parental care was minimal for dinosaurs then young individuals would be vulnerable
+to predators until they reach a large enough size. According to [2] A high BMR thus
+emerges as a prerequisite for gigantism.
+This suggests that metabolic rates, and therefore mass-independent energy expenditure (the
+slope a), of dinosaurs has to be higher. In this direction we would like to check if dinosaurs
+following the varanid FEE curve could fall into the mesotherm category, that is, if their
+metabolism rate would allow them to maintain a higher temperature than the ambient one.
+Thermodynamics tell us that that will be possible if the dinosaur sources of heat provide
+enough to compensate the heat losses. There are a lot of heat sources and drainers [8] but
+we think that the most important ones here are on the daily FEE, on the sources side, and
+convective heat loss in contact with air, on the other one.
+Firstly, for the daily FEE, a dinosaur following the varanid curve with mass M would have
+the FEE that (11) predicts. On the other hand convective heat loss, modeled using Newton’s
+law of cooling, is
+q = hS∆T
+(12)
+where h is the heat transfer coeﬃcient, S the surface of the animal in contact with air and
+∆T the diﬀerence of temperature between the air an the animal skin.
+Typical values for this parameters are
+h = (5∼20) W/m2K
+∆T = (1∼10) K
+and the surface, taking the simple but reliable model of an spherical animal yields
+S =
+
+3
+16π2
+1/3
+V 2/3 ≈0.27M2/3
+(13)
+13
+
+Team # 441
+Modeling the upper limit of body size for vertebrates
+where we have taken the density of the ﬂesh to be approximately 1 kg/m3. All this leads to
+values of convective heat loss of
+q ≈0.27h∆TM2/3 ≈(1.35 ∼54)M2/3
+(14)
+where the mass M should be in kg.
+Finally from (11) and (14) we get, for a mass of 100 tonnes
+FEE = 6.45 · 105kJ/day
+q ≈(2908 ∼116316)W
+(15)
+converting units to easily compare
+FEE ≈7.5kJ/s
+q ≈(3 ∼116)kJ/s
+(16)
+This results show that the FEE predicted by the varanid curve might be of the same order of
+magnitude than the convective heat loss, given than the diﬀerence in temperature between the
+dinosaur and the air is small enough and that the heat transfer coeﬃcient h is not too large,
+which might be accomplished by thicker skin which isolates better corporal temperature.
+Also, we are not taking into account the heating from solar radiation, which may also be an
+important factor.
+What we want to stress here is that our simple heat model ﬁnds no relevant evidence to
+reject the varanid metabolic rate, as a valid metabolic rate to allow mesothermy on larger
+individuals. Therefore, it might be possible that the varanid curve actually describes well
+the dinosaur metabolism.
+14
+
+Team # 441
+Modeling the upper limit of body size for vertebrates
+4
+Conclusions
+Regarding to the results that we obtained by using the diﬀerent approaches and the models
+we have considered we can conclude that
+• The main model based on the allometric relation given by equation (1) behaves very
+well when describing the dependence of the ﬁeld metabolic rate with the body mass of
+species that belong to the same class, such as mammals and reptiles, with which we
+have worked during this paper.
+• The reptile hypothesis discussed in section 3.2.1 does not agree with the fact that the
+largest dinosaurs that walked the earth were approximately an order of magnitude more
+massive than the largest land mammals. On the contrary, the Varanus hypothesis, dis-
+cussed in section 3.2.2, is more in compliance with this fact, and gives good predictions
+for equivalent dinosaur masses when compared with the associated mammals ones, as
+seen in section 3.2.3.
+• The fact that dinosaur energy expenditure does not follow the general reptile curve,
+but rather the Varanus lizards one, reﬂects a higher metabolic rate for dinosaurs in
+comparison with other reptiles which might be the explanation for their so debated
+thermoregulation system, which lies between ecto and endothermy. This eﬀect however
+is only possible due to their large masses.
+5
+Further Investigations
+In this ﬁnal section we would like to sum up several ways to go on with the research
+• Try to ﬁnd more accurate values for the Kd by considering approaches diﬀerent from
+the one that consisted of approximating Kd ≈Km.
+• Evaluate the eﬀectiveness of the models considered using more biological and paleon-
+tological data.
+• Use the model to test other hypothesis about dinosaurs.
+15
+
+Team # 441
+Modeling the upper limit of body size for vertebrates
+References
+[1] Brian K. McNab (2009), Resources and energetics determined dinosaur maximal size
+Proc. Natl Acad. Sci. USA 106, 12 184 – 12 188 (doi: 10.1073/pnas.0904000106)
+[2] Sander et al. (2011), Biology of the sauropod dinosaurs: the evolution of gigantism Bi-
+ology Review. 2011 Feb;86(1):117–155 (doi: 10.1111/j.1469-185X.2010.00137.x)
+[3] John M. Grady et al. (2014), Evidence for mesothermy in dinosaurs Science 13 Jun
+2014: Vol. 344, Issue 6189, pp. 1268-1272 (doi: 10.1126/science.1253143)
+[4] Nagy KA, Girard IA, Brown TK(1999) Energetics of free-ranging mammals, reptiles,
+and birds. Ann Rev Nutr 19:247–277
+[5] McNab BK, Auﬀenberg W (1976) The eﬀect of large body size on the temperature regula-
+tion of the Komodo dragon, Varanus komodoensis. Comp Biochem Physiol A 55:345–350.
+[6] Paraceratherium, https://en.wikipedia.org/wiki/Paraceratherium
+[7] Kleiber’s law https://en.wikipedia.org/wiki/Kleiber%27s_law
+[8] Teng Fei et al. (2011) A body temperature model for lizard as estimated from the thermal
+environment Journal of Thermal Biology 37 (2012) 56–64
+[9] Dinosaur sizes, https://en.wikipedia.org/wiki/Dinosaur_size
+[10] Allometry, https://en.wikipedia.org/wiki/Allometry
+[11] Nagy KA (2005), Field metabolic rate and body size. Review. J Exp Biol 208:1621–1625
+16

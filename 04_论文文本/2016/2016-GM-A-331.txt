@@ -1,0 +1,1051 @@
+ANALYSIS OF NUCLEAR WASTE DISPOSAL INTO SPACE
+Team 331
+Problem A
+(Received November 13, 2016)
+In this report, we analyse and compare two methods of space-based nuclear waste disposal, disposal
+via solar deorbiting and disposal via asteroid belt storage.
+Disposal via solar deorbiting was performed by going sufﬁciently far out into the solar system after
+launch, and then performing a Hohmann transfer to fall into the sun. It was found that the further out the second
+burn was performed, the smaller the required change in velocity. At 10AU, it took a ∆v of 14106.2ms−1 to
+deorbit.Disposal in the asteroid belt was performed via an initial launch and a Hohmann transfer at the asteroid
+belt to enter orbit. This method was found to require a change of velocity of 10977.4ms−1 if the target orbit
+was at 2.7AU.
+Additionally, a probabilistic model was constructed. This model was used to compute the probability of
+a collision in the ﬁrst 1000 years of orbiting in the asteroid belt. It was found to be 0.0001%, so the odds of
+failure after launch were found to be negligible.
+These methods were compared with regards to their cost and efﬁciency. It was found that to dispose of the
+2.5×108 kg of nuclear waste on Earth, disposal into the sun would require around 15×105 rocket launches,
+while disposal into the asteroid belt would require 4.5×105 rocket launches. Thus, it was found that launches
+into the asteroid belt were much more efﬁcient. However, even the most efﬁcient launches would still cost over
+$500 trillion to move all of the Earth’s nuclear waste off-planet.
+
+2
+Team 331: Problem A
+I INTRODUCTION
+The disposal of nuclear waste is a long-
+term problem facing humanity.
+Since nu-
+clear waste is composed of radioactive ma-
+terials of which little to no useful energy can
+be extracted, it is stored in locations where
+the radiation will not affect human activity.
+However, most methods of storing it on Earth
+are prone to failure, and can cause long-term
+damage to the environment. And since there
+is around 2.5×108 kg of nuclear waste on
+Earth, any method to treating it needs to be
+robust and scalable. In this paper, an alter-
+nate approach was considered. The disposal
+of nuclear waste into space was analysed as a
+method.
+There are two main methods of disposal
+of nuclear waste into space. The ﬁrst is to
+send it into the sun, where it will burn up
+and stop being a problem. The other is to
+place it into the asteroid belt, thereby keep-
+ing it away form Earth, and letting it decom-
+pose with time. In this paper, these two meth-
+ods are compared, to determine which would
+be more efﬁcient at getting material off the
+Earth.
+Currently, most reactors store their spent
+fuel rods in pools at ﬁrst. The reason for this
+is because this surrounds the fuel with a lot of
+water. Water is particularly effective at isolat-
+ing radiation, especially in terms of cost.
+Every material has what is called a halv-
+ing distance, which is the thickness of that
+material that is required to absorb half of all
+the radiation passing through it. The halving
+distance of lead is 1 cm while the halving dis-
+tance of water is around 18 cm. While more
+water than lead is required, it is rather easy to
+surround something with a lot of water.
+Apart from producing a lot of radioac-
+tivity, nuclear waste produces a lot of heat.
+Due to water’s high speciﬁc heat capacity and
+low halving distance, water is ideal for both
+shielding the radioactive waste and cooling it
+as it emits heat.
+After the containers are sufﬁciently cool,
+they are moved into dry casks to be stored.
+These casks are still dangerous as a breach in
+the shielding would allow a lot more radioac-
+tivity to escape. For this reason, the accumu-
+lation of nuclear waste is becoming a prob-
+lem as storing it can cause serious damage to
+the surrounding environment. For this rea-
+son, sending the waste into space has been
+proposed as a solution.
+There are many reasons for why space
+might not be the best receptacle for nuclear
+waste. Space travel is expensive and invest-
+ing in energy that does not produce nuclear
+waste is cheaper in the long run. Rockets fail
+around 6% of the time. If a rocket ﬁlled with
+nuclear waste and tons of rocket fuel were
+to explode, the waste would be sent ﬂying
+through the atmosphere, resulting in a catas-
+trophic environmental disaster.
+Environmental worries aside, if we de-
+cided that the only solution to the radioactive
+waste problem would be to move it off-planet,
+then we can also disregard the rocket failure
+rate as it would be a constant that we could do
+nothing about. Thus, all we need to consider
+is how efﬁciently could we move all of our
+nuclear waste off planet? What trajectories
+should we choose for our craft to maximize
+this efﬁciency? Factors we will consider in
+choosing this trajectory are long-term safety,
+cost, and waste removal rate.
+II RADIOACTIVITY
+As radioactive materials decay, the rate
+at which they lose mass is proportional to the
+amount of mass they have left. This results in
+a differential equation.
+dx
+dt = −kx
+[1]
+Where:
+x = amount of particles left
+t = time (s)
+k = constant of proportionality (s)
+Solving this equation allows us to de-
+termine the amount of particles at any given
+time.
+N(t) = N0e- t
+τ
+[2]
+Where:
+N = amount of particles left at a given time
+N0 = initial amount of particles
+τ = mean lifetime of a particle
+However, in the context of nuclear waste,
+which is mostly composed of depleted ura-
+nium, the mean lifetime is on the order of bil-
+lions of years. This means that nuclear waste
+does not disappear quickly, or even diminish
+appreciably on the timescales that we are con-
+cerned about. As such, waiting for the nu-
+clear waste to decay is not an option. It has
+to be stored in a location far away, remaining
+heavily radioactive that entire time.
+
+Analysis of Nuclear Waste Disposal into Space
+3
+III SPACE TRAVEL
+When it comes to space travel, the Vis
+Viva equation determines the speed of the
+spacecraft given a point in its orbit.
+vr,a =
+s
+GM
+2
+r −1
+a
+
+[3]
+Where:
+v = the spacecraft’s speed (ms−1)
+G = gravitational constant (m3 kg−1 s−2)
+M = the Sun’s mass (kg)
+r = the spacecraft’s distance from the sun (m)
+a = the semi-major axis of the orbit (m)
+Here,
+the
+value
+of
+the
+gravita-
+tional
+constant,
+G,
+was
+taken
+to
+be
+6.67408×10−11 m3 kg−1 s−2 and the Sun’s
+mass, M, was taken to be 1.98855×1030 kg.
+Since efﬁciency is a concern, we need to
+consider trajectories that save on fuel. The
+most efﬁcient way to transfer from one or-
+bit into another is to use a Hohmann trans-
+fer, where the spacecraft only alter’s its orbit
+when it is at its apoapsis or periapsis. To ad-
+just from one orbit into another, [3] can be
+used to calculated the required difference in
+velocity.
+∆vr,a1,a2 = |v(r, a1)−v(r, a2)|
+[4]
+Where:
+∆v = the required change in speed (ms−1)
+v = the speed given by [3] (ms−1)
+a1 = the current semi-major axis (m)
+a2 = the desired semi-major axis (m)
+The Tsiolkovsky Rocket Equation was
+also used to compute the ratio of the initial
+mass of the rocket and the ﬁnal mass of the
+rocket.
+∆v = ve ln m0
+mf
+[5]
+Where:
+∆v = the required change in velocity overall (ms−1)
+ve = the effective exhaust velocity of the rocket (ms−1)
+m0 = the initial mass of a rocket (kg)
+mf = the ﬁnal mass of the rocket (kg)
+IV COMPUTATIONS
+To execute a sundive efﬁciently, the
+spacecraft needs to Hohmann transfer to an
+orbit with a large apoapsis, before transfer-
+ring to one with a periapsis so small that it
+intersects the Sun. The total ∆v required to
+execute this manoeuvre is the sum of the ∆v
+required for both manoeuvres.
+Thus, if the spacecraft is to execute a
+sundive after ﬁrst ﬂying to a distance of r
+from the Sun, the total ∆v can be determined
+using [4].
+∆vsun,r = ∆vre,ae, r+ae
+2 +∆vr, r+ae
+2 , r+R
+2
+[6]
+Where:
+r = the distance from which the spacecraft sundives (m)
+re = the distance from the Earth to the Sun (m)
+ae = the semi-major axis of Earth’s orbit (m)
+R = the radius of the sun (m)
+The
+value
+of
+re,
+ae,
+and
+R
+were
+taken
+to
+be
+1.49597871×1011 m,
+1.49597871×1011 m,
+and 6.957×108 m,
+respectively.
+This allowed the required ∆v to be calcu-
+lated as a function of the sundiving distance.
+0
+2
+4
+6
+8
+10
+d (AU)
+0
+10000
+20000
+30000
+40000
+50000
+∆v (ms−1)
+Necessary ∆v for solar deorbiting
+Fig 1. A plot showing the required ∆v to ﬂy out to a
+certain distance and then ﬂy into the Sun from there. The plot
+is shown as a function of said distance. The plot has a hori-
+zontal asymptote at the escape velocity of the Sun, which is
+12337.5 ms−1. The required ∆v becomes increasingly large
+for small values of d, and is not shown.
+Anything sent into the sun will be imme-
+diately vaporized as the temperature of the
+sun is on the order of millions of degrees
+while even the most resistant materials on
+Earth melt at few thousand degrees. Any risk
+of solar wind blowing the radioactive mate-
+rials back to Earth is mitigated by the fact
+that the materials would spread out over an
+area as they ﬂew away from the Sun.
+By
+the time they will have reached Earth, the in-
+verse square of the distance will have gotten
+so small that an immeasurably small portion
+will make it back to Earth.
+
+4
+Team 331: Problem A
+A more pressing concern is that the con-
+tainer makes it back to Earth intact and burns
+up in the atmosphere, scattering the radioac-
+tive waste into the air and over the whole
+planet. From Fig. 1 it is clear that as r in-
+creases, ∆v decreases. This means that in-
+creasing r to inﬁnity would be optimal. How-
+ever, this is equivalent to simply sending
+the spacecraft on an escape trajectory. This
+would guarantee that, barring some lucky
+and extremely improbable slingshot around a
+distant black hole, the nuclear waste would
+never return. Unfortunately, this would not
+qualify as a sundive unless the spacecraft hap-
+pens to hit a distant star, the odds of which are
+astronomical.
+On the other hand, when nuclear waste
+is sent into the asteroid belt, it remains intact
+in our solar system so the odds of a collision
+with Earth must be computed. First, the ∆v
+necessary to redirect the waste into an Earth
+crossing orbit was considered.
+If the waste is on a perfectly circular or-
+bit at 2.7 AU, then the required change in ve-
+locity can be calculated as a function of the
+angle between the waste’s initial path and its
+ﬁnal path as well as the apoapsis of the new
+orbit.
+∆vcoll,r =
+q
+(vf,r cos(φ)−vi)2 +(vf sin(φ))2
+[7]
+Where:
+vi = the initial velocity of v2.7AU,2.7AU (ms−1)
+vf = the ﬁnal velocity of v re+r
+2 ,2.7AU (ms−1)
+φ = the angle between vi and vf
+To calculate φ, we need to take the dif-
+ference between the angle of our orbit θ, and
+the angle of the new orbit. The angle of the
+new orbit can be found as the arctangent of
+the slope of the ellipse of the new orbit. For
+this, we use the polar equation for an ellipse.
+r(θ) =
+a(1−e2)
+1+ecos(θ)
+[8]
+Where:
+θ = the angle from periapsis
+e = the orbit’s eccentricity
+This means that we can use the distance
+of the spacecraft from the Sun, 2.7 AU, to
+solve for the angle by inverting the formula.
+θ = cos-1
+a(1−e2)−r
+re
+
+[9]
+So to ﬁnd φ, we need to take the differ-
+ence between the spacecraft’s path, which has
+a tangential angle of π
+2 −θ, and the desired
+path, which can be found by differentiating
+[8]. We ﬁnd θ using [9] and this gives us a
+formula for φ.
+φ =
+tan-1
+d[r(θ)sin(θ)]
+d[θ cos(θ)]
+
++ π
+2 −θ
+
+[10]
+All that remains is to ﬁnd a and e. The
+eccentricity is always equal to the ratio of the
+distance between the foci to the major-axis.
+Thus we can subtract the periapsis, which is
+1 AU, from a and divide the result by a to ob-
+tain e. Meanwhile, a is just the average of the
+periapsis, 1 AU, and the apoapsis, which we
+vary.
+Thus, the necessary imparted energy to
+put our container on an earth-crossing course
+was determined as a function of the new or-
+bit’s apoapsis.
+0
+2
+4
+6
+8
+10
+d (AU)
+0
+5000
+10000
+15000
+20000
+∆v (ms−1)
+Necessary ∆v to enter an Earth-crossing orbit
+Fig 2. A plot showing the required ∆v to send the nu-
+clear waste onto an Earth crossing path from a circular orbit
+at 2.7 AU. This is expressed as a function of the semi-major
+axis of the orbit that the waste is knocked into. The plot has
+no values for small values of a as an orbit with a sufﬁciently
+small semi-major axis cannot intersect the asteroid belt.
+V DESIGNING THE CONTAINER
+When designing the container, there
+were two considerations: It had to not dam-
+age the equipment, and it had to not harm the
+workers placing the container on the rocket.
+The latter requirement turned out to be
+harsher. 50 mSv is the yearly limit on radia-
+
+Analysis of Nuclear Waste Disposal into Space
+5
+tion that a worker can be exposed to. Mean-
+while, radioactive waste exposure within sev-
+eral meters is usually fatal. As such, let us
+suppose that radioactive waste exposure pro-
+vides 5 Sv per day. It then provides 1825 Sv
+of radiation in a single year. As a result, the
+radiation had to be halved 15 times to become
+safe.
+The container was to be made of lead,
+which has a halving distance of 1cm.
+As
+a result, the container had to have walls at
+least 15cm thick. For additional safety pre-
+cautions, the walls were extended to be 20cm
+thick.
+VI ASTEROID BELT STABILITY OF ORBIT
+Fig 3. A plot of a potential ﬂight plan and eventual
+orbit that nuclear waste could take on if launched into the
+asteroid belt to a circular orbit at 2.7 AU. The solid lines are
+the orbits of the 5 innermost planets. The dashed lines are
+the boundaries of the asteroid belt at 2.2 AU and 3.2 AU.
+Now that the necessary ∆v for a colli-
+sion that would put Earth at risk had been
+computed, the odds of such an event actu-
+ally occurring were calculated. To do this, it
+was necessary to obtain the orbital informa-
+tion of the asteroids that make up the asteroid
+belt. This was done with a simple program
+that used the curl utility to download entries
+from the NASA JPL Small Body Database.
+This utility was used to load information on
+over 50000 asteroids.
+A Python program was written to ana-
+lyze the retrieved data. The data for each as-
+teroid had the physical parameters extracted.
+These were written to a central database,
+from which readings could be taken.
+0
+10000
+20000
+30000
+40000
+50000
+60000
+70000
+n'th largest asteroid
+108
+109
+1010
+1011
+1012
+1013
+1014
+1015
+1016
+1017
+1018
+V
+Volumes of 64346 largest main-belt asteroids
+Fig 4. A plot displaying the largest asteroids in the as-
+teroid belt. The largest asteroid is plotted furthest left, while
+smaller asteroids are further to the right. The x axis indi-
+cates the ordering statistic of the asteroids, while the y axis
+indicates the size of the asteroids.
+The data was then processed by another
+program to determine the masses and vol-
+umes of the asteroids.
+First, the program
+computed an approximate volume for each
+asteroid based its the diameter.
+Asteroids
+were modeled as spheres, as not enough in-
+formation was provided to make an alter-
+nate assumption.
+Subsequently, using the
+asteroids with available masses, the average
+density of the asteroids was computed to be
+3400 kgm−3. This density and the volumes
+were used to determine the mass for the re-
+maining asteroids.
+As a model, the asteroid belt was as-
+sumed to span the range from 2.2AU to
+3.2AU. In other words, it was assumed, for
+the purpose of modeling, that all main-belt
+asteroids were between 2.2AU and 3.2AU
+away from the sun at all times. The possi-
+ble range of velocities was thus computed us-
+ing [3], by ﬁnding the minimal and maximum
+possible velocities for orbits in that range.
+These were found to be 15029.9 ms−1 and
+21861.7 ms−1, respectively.
+The velocities were assumed to be dis-
+tributed according to a normal distribution
+between the possible extremes of velocity. It
+was assumed that 3σ of asteroids had veloc-
+ities located in this range, so that nearly all
+asteroids lay in the intended range. There are
+a number of asteroids that have very eccen-
+tric orbits and that do not stay conﬁned to the
+range described above. There are very few of
+these and their presence does not change the
+resulting values, thus, the statistically signif-
+icant margin of 3σ was chosen. This is an-
+other way of stating that only 1 out of every
+1000 main belt asteroids is outside of the in-
+dicated range.
+
+6
+Team 331: Problem A
+The nuclear waste was assumed to be put
+into orbit at a distance of 2.7AU from the sun.
+Given this and the above distribution, the av-
+erage difference in speed between the waste
+and an asteroid in the main belt was com-
+puted. This was used to calculate the aver-
+age amount of energy that would be imparted
+onto the waste in case of a collision.
+To compute the probability of a collision
+occurring, the following approach was used.
+The asteroids were examined in the frame of
+reference of the waste in intervals of time ∆t.
+In that time interval, the probability of a colli-
+sion was equal to the volume newly swept out
+by each asteroid relative to the waste, divided
+by the total volume of the belt. The volume
+swept out by an asteroid was determined to
+be equal to its cross-sectional area multiplied
+by the distance it traveled in that time, which
+was in turn determined to be the speed of the
+asteroid relative to the waste, multiplied by
+∆t. This volume was calculated for each as-
+teroid for which data was known, and then ex-
+trapolated for the entire asteroid belt. In unit
+time, the probability of a collision was thus
+computed to be the above probability divided
+by ∆t. And thus, it was computed to be
+Pcoll = ∑Akvk
+V
+[11]
+Where:
+Pcoll = probability of a collision in unit time
+Ak = the cross-sectional area of the kth asteroid (m2)
+vk = velocity of the kth asteroid (ms−1)
+V = volume of the main-belt (m3)
+Thus, the probability of a collision in a
+unit time was computed. By modeling col-
+lisions as Poisson process, the probability of
+a collision in a billion years could be com-
+puted. By using an exponential distribution,
+it was found that there was a 0.0001% chance
+of a collision occurring in the ﬁrst thousand
+years.
+By combining the probability of a col-
+lision in unit time with the average speed
+difference computed above, the expected
+amount of energy imparted onto the nuclear
+waste in unit time could be computed. It was
+computed to be 5.67×10−7 Js−1. From this,
+the expected amount of energy imparted over
+a billion years could be computed. This then
+gave the expected ∆v imparted due to colli-
+sions over a billion years. This was found
+to be 2115ms−1.
+As the required ∆v to
+send it on an Earth-crossing path was at least
+4000ms−1, it was decided that the danger to
+Earth from putting the container in the aster-
+oid belt was negligible.
+VII SUN OPTIMALITY OF ORBIT
+Fig 5. A plot of a potential ﬂight plan that nuclear
+waste to be deorbited into the sun could take, reaching 10 AU
+at its peak. The solid lines are the orbits of the 5 innermost
+planets. The dashed lines are the boundaries of the asteroid
+belt at 2.2 AU and 3.2 AU.
+For the solar disposal, a different issue
+was considered: How much ∆v needed to be
+generated to land the waste in the sun? The
+more ∆v it takes, the more fuel needs to be
+packed, which makes it more expensive to
+dispose of the waste.
+The initial approach was to just burn near
+Earth, to alter the orbit of the nuclear waste
+into crossing the Sun. However, an alternate
+approach was proposed, where an initial burn
+was used to put the waste into an orbit head-
+ing to a distance d away from the sun, where
+a second burn would be performed that would
+put the waste on a sun-crossing path.
+Using [3], it was found that as d in-
+creased, the required ∆v throughout the jour-
+ney decreased. Thus, it was found to be more
+cost-effective to ﬁrst build up speed and go
+far away from the sun, where a small burn
+would allow the waste to just fall into the sun.
+This also led to the consideration of an-
+other disposal method: Another way of dis-
+posing the waste would be to put in on an es-
+cape trajectory. This was found to require less
+∆v than any solar disposal.
+
+Analysis of Nuclear Waste Disposal into Space
+7
+Fig 6. A plot of a potential ﬂight plan that nuclear
+waste to be ejected from the solar system could take. The
+solid lines are the orbits of the 5 innermost planets. The
+dashed lines are the boundaries of the asteroid belt at 2.2 AU
+and 3.2 AU.
+VIII COMPARISON
+Using the calculations in the earlier sec-
+tions, the required ∆v for each method was
+computed. The exact ∆v values needed for
+some methods are listed below.
+Method
+∆v Required
+Decelerating to fall
+directly into the sun
+26919.4 ms−1
+Decelerating to fall into
+the sun after going out
+to 10AU
+14106.2 ms−1
+Accelerating to escape
+velocity out of the Solar
+System
+12337.5 ms−1
+Entering orbit in the
+Asteroid Belt at 2.7AU
+10997.4 ms−1
+Entering orbit in the
+Asteroid Belt at 2.2AU
+9346.67 ms−1
+As can be seen in the table, the cheap-
+est method, requiring the least ∆v, is dispos-
+ing waste into the asteroid belt. This reduced
+∆v allows for a decreased amount of fuel re-
+quired, allowing for more nuclear waste to be
+disposed of in a single rocket.
+Using the above ∆v, several rockets were
+reviewed for their efﬁciency in getting the nu-
+clear waste to its goals. The Saturn V was
+used as the rocket to deliver material. By us-
+ing [5], the payload capacity to be delivered a
+given location was computed. The maximum
+amount of waste a single rocket could deliver
+to the sun, after ﬁrst heading out to 10AU was
+found to be 166kg. The maximum amount of
+waste a single rocket could deliver to the as-
+teroid belt at 2.7AU was found to be 558kg.
+The total amount of radioactive waste
+on Earth was sourced as 2.5×108 kg. Thus,
+disposal into the sun would require around
+15×105 rocket launches, while disposal into
+the asteroid belt would require 4.5×105
+rocket launches.
+As this number is much
+less for the asteroid belt, the asteroid belt was
+found to be a signiﬁcantly cheaper method of
+disposal.
+However, sending nuclear waste to the
+asteroid belt is more dangerous to Earth.
+Waste that is discarded into the sun is rapidly
+destroyed by solar heat.
+However, waste
+that is stored in the asteroid belt decomposes
+slowly.
+Although the probability of a col-
+lision was computed to be 0.0001% in the
+thousand years, that does not make it impos-
+sible.
+And in the case of a collision, this
+would leave free-ﬂoating nuclear waste in the
+asteroid belt. However, the more than 1AU
+between Earth and the asteroid belt means
+that even if there is a collision, the nuclear
+waste has low odds of returning to Earth to
+cause problems. As such, this method is suf-
+ﬁciently safe that any risks can be ignored.
+IX CONCLUSION
+Our method restricts the set of possi-
+ble solutions to solar disposal and storage in
+the asteroid belt. However, there are many
+more practical solutions. The waste could be
+ejected from the solar system, or it could have
+been gradually decelerated into the sun using
+a slow but consistent source of deceleration
+such as an ion engine.
+Additionally, this approach is that the
+fuel requirements for the rockets are on the
+high side. Calculating the exact fuel require-
+ments is not an analytically solvable prob-
+lem and would require taking into account
+loss of stages and other such mechanisms. To
+simplify the calculation, it was assumed that
+the Tsiolkovsky rocket equation entirely de-
+termined the rocket speed, and that all non-
+payload material in the rocket was discarded
+at a constant rate.
+This overestimated the
+amount of payload that could be delivered in
+a single launch, and underestimated the fuel
+needed. However, any comparisons between
+the methods still behaved the same way. If
+one method would require more fuel under
+
+8
+Team 331: Problem A
+one calculation, it would require more un-
+der the other. As such, any conclusions as
+to the efﬁciency of either method still held,
+even with the assumption to simplify the cal-
+culations.
+Lastly, the odds of a launch failure still
+outweigh the odds of a container coming back
+to Earth. Furthermore, the costs associated
+with cleaning the environmental disaster that
+would result from a failed rocket launch with
+nuclear waste on board far outweighs the cost
+of moving the waste off-planet. Thus, since
+this cost was the same in all approaches in
+terms of trajectory, it was disregarded.
+This method did not make any approxi-
+mations regarding space travel and fully cal-
+culated all the required ∆v’s for elliptical or-
+bits.
+This approach fully solved the com-
+pletely infeasible problem of moving all of
+Earth’s nuclear waste off-planet.
+The ﬁnal verdict on the issue is that it is
+far more efﬁcient to move the fuel into the as-
+teroid belt, but would still require 4.5×105
+Saturn V rockets to complete the task. Since
+in 1970, each Saturn V launch would cost
+NASA $185 million, then in today’s money,
+this would cost over $500 trillion dollars.
+This is several times more than the annual
+gross domestic product of the entire world,
+so the authors of this paper strongly urge the
+consideration of a different method.
+X SOURCES
+http://www.wired.co.uk/article/
+into-eternity-nuclear-waste-finland
+https://en.wikipedia.org/wiki/
+Sievert
+https://en.wikipedia.org/wiki/
+Saturn_V
+http://www.space.com/
+17137-how-hot-is-the-sun.html
+https://whatisnuclear.com/articles/
+waste.html http://www.astro.cornell.
+edu/~randerson/Inreach
+http://
+nssdc.gsfc.nasa.gov/planetary/
+factsheet/
+http://ssd.jpl.nasa.gov/sbdb.cgi
+
+Analysis of Nuclear Waste Disposal into Space
+9
+import
+numpy as np
+g = 9.81
+# Saturn V
+Isp = 263
+m_s = 2970000
+m_w1 = 140000
+dv_1 = 7909.3
+dv_e = 11185.4
+M = m_w1 *(np.exp(dv_1/g/Isp))
+m_w = lambda dv: M/(np.exp(dv/g/Isp))
+m_f = lambda dv: M - m_w(dv)
+p = lambda dv: 1.5* m_f(dv)/m_w(dv)
+m_str = lambda dv: "{} ,{} ,{}".format(
+m_w(dv),
+m_f(dv),
+p(dv))
+max_dv = g*Isp*np.log(M/m_s)
+print(max_dv)
+print(m_str (26919.4+ dv_e))
+print(m_str (14106.2+ dv_e))
+print(m_str (12337.5+ dv_e))
+print(m_str (11924.6))
+print(m_str (10977.4+ dv_e))
+print(m_str (9346.67+ dv_e))
+
+10
+Team 331: Problem A
+import
+numpy as np
+import
+matplotlib.pyplot as plt
+import sys
+sunm = 1.98855 E30
+sunr = 695700000
+G = 6.67408E-11
+au = 149597871000
+v = lambda a, r: np.sqrt(G*sunm *(2/r-1/a))
+dv = lambda d: (
+np.abs(v((d+au)/2, au) - v(au , au)) +
+np.abs(v((d+sunr)/2, d) - v((d+au)/2, d)))
+d = np.linspace (0.1, 20, 10000)
+plt.plot(d, dv(d*au))
+plt.axis ((0, 10, 0, 50000))
+plt.title("Necessary $\\ Delta v$ for solar
+deorbiting")
+plt.ylabel("$\\ Delta v$ (ms$ ^{-1}$)")
+plt.xlabel("$d$ (AU)")
+plt.savefig(sys.argv [1])
+plt.clf()
+# Plot[Norm@{vf Cos@ \[ Theta] - vi , vf Sin@ \[ Theta ]} /. {vi ->
+# v[2.7 au , 2.7 au],
+# vf -> v[(au + x)/2,
+# 2.7 au], \[ Theta] -> ((1/
+# 2 Abs [\[Pi] - 2 \[ Theta] -
+# 2 ArcTan [(e +
+# Cos [\[ Theta ]]) Csc [\[ Theta ]]]] /. {\[ Theta] ->
+# ArcCos@ ((a (-d + a (1 - (a - p)^2/a^2)))/(d (a - p))),
+# e -> (a - p)/p}) /. {p -> au , d -> 2.7 au ,
+#
+a -> (au + x)/2})}, {x, 2.7 au , 10 au},
+#
+PlotRange
+-> {0, 40000}]
+d = 2.7* au
+p = au
+a = lambda x: (au + x)/2
+e = lambda x: (a(x)-p)/a(x)
+th = lambda x: (np.arccos(
+(a(x)*a(x) - a(x)*d - (a(x)-p)*(a(x)-p)) /
+(d*(a(x)-p))))
+dth = lambda x: 0.5 * np.absolute(
+np.pi - 2*th(x) - 2 * np.arctan(
+(e(x) + np.cos(th(x))) / np.sin(th(x))))
+vf = lambda x: v((p+x)/2, d)
+vi = v(d, d)
+dv2 = lambda x: np.sqrt(
+(vf(x)*np.cos(dth(x))-vi) * (vf(x)*np.cos(dth(x))-vi) +
+(vf(x)*np.sin(dth(x))) * (vf(x)*np.sin(dth(x))))
+x = np.linspace (2.7, 10, 1000)
+plt.plot(x, dv2(x*au))
+plt.axis ((0, 10, 0, 20000))
+plt.title("Necessary $\\ Delta v$ to enter an Earth -crossing
+orbit")
+plt.ylabel("$\\ Delta v$ (ms$ ^{-1}$)")
+plt.xlabel("$d$ (AU)")
+plt.savefig(sys.argv [2])
+
+Analysis of Nuclear Waste Disposal into Space
+11
+#!/usr/bin/python
+import
+math
+import re
+import sys
+mass_patt = re.compile(r’(\d*) ,[^,]*,GM ,([^ ,]*) ,([^ ,]*)’)
+dia_patt = re.compile(r’(\d*) ,[^,]*, diameter ,([^ ,]*) ,([^ ,]*)’)
+# m is in km^3/s^2
+# d is in km
+# G is in m^3/kg/s^2
+G = 6.67408E-11
+aggfile = open(sys.argv [1], ’r’)
+data = {}
+for line in aggfile:
+mass_match = mass_patt.search(line)
+dia_match = dia_patt.search(line)
+if mass_match is not None:
+if mass_match.group (1) not in data:
+data[mass_match.group (1)] = {}
+data[mass_match.group (1)][’GM’] = mass_match.group (2)
+if dia_match is not None:
+if dia_match.group (1) not in data:
+data[dia_match.group (1)] = {}
+data[dia_match.group (1)][’diameter ’] = dia_match.group (2)
+n = 0
+total_rho = 0
+for
+asteroid in data:
+if ’GM’ in data[asteroid ]:
+data[asteroid ][’mass ’] = float(data[asteroid ][’GM’]) / G * 1E9
+if ’diameter ’ in data[asteroid ]:
+volume = (
+1.0/6.0 * math.pi *
+float(data[asteroid ][’diameter ’]) *
+float(data[asteroid ][’diameter ’]) *
+float(data[asteroid ][’diameter ’]))
+data[asteroid ][’volume ’] = volume * 1E9
+if ’GM’ in data[asteroid ]:
+total_rho += float(data[asteroid ][’GM’]) / G / volume
+n += 1
+rho = total_rho/n
+print(’n,m,V,{}’.format(rho))
+for
+asteroid in data:
+if ’volume ’ in data[asteroid] and ’mass ’ not in data[asteroid ]:
+data[asteroid ][’mass ’] = rho * data[asteroid ][’volume ’]
+if ’volume ’ in data[asteroid] and ’mass ’ in data[asteroid ]:
+print("{} ,{} ,{}".format(
+asteroid ,
+data[asteroid ][’mass ’],
+data[asteroid ][’volume ’]))
+
+12
+Team 331: Problem A
+import re
+import sys
+num = re.compile(r’\d+’).search(sys.argv [1]).group (0)
+htmlfile = open(sys.argv [1], ’r’)
+start_table = False
+end_table = False
+k = 0
+n = -1
+attr_pattr = re.compile(r’<font [^ >]* >([^ <]*)<’)
+results = []
+mb = False
+for line in htmlfile:
+if k > 0:
+k -= 1
+results[n]. append(attr_pattr.search(line).group (1))
+if start_table
+and "<tr >" in line:
+k = 5
+n += 1
+results.append ([])
+if start_table
+and "/table" in line:
+break
+if ’"phys_par ’ in line:
+start_table = True
+if "Main -belt" in line:
+mb = True
+if mb:
+for result in results:
+print "{},{}".format(num , ’,’.join(result))
+
+Analysis of Nuclear Waste Disposal into Space
+13
+#!/usr/bin/python
+import
+matplotlib.pyplot as plt
+import
+numpy as np
+import re
+import sys
+line_patt = re.compile(r’([0 -9.e+]*) ,([0-9.e+]*) ,([0-9.e+]*) ’)
+mvfile = open(sys.argv [1], ’r’)
+masses = []
+volumes = []
+for line in mvfile:
+line_match = line_patt.match(line)
+if line_match is not None:
+masses.append(float(line_match.group (2)))
+volumes.append(float(line_match.group (3)))
+masses.sort(reverse=True)
+plt.semilogy(np.arange(len(masses)), masses)
+plt.title("Masses of " + str(len(masses)) + " heaviest main -belt
+asteroids")
+plt.xlabel("$n$’th heaviest
+asteroid")
+plt.ylabel("$m$")
+plt.savefig("graphs/assmass.pdf")
+plt.clf()
+volumes.sort(reverse=True)
+plt.semilogy(np.arange(len(volumes)), volumes)
+plt.title("Volumes of " + str(len(volumes)) + " largest main -belt
+asteroids")
+plt.xlabel("$n$’th largest
+asteroid")
+plt.ylabel("$V$")
+plt.savefig("graphs/assvol.pdf")
+
+14
+Team 331: Problem A
+import
+numpy as np
+import
+scipy.stats as sps
+import sys
+mvfile = sys.argv [1]
+n, m, V = np.loadtxt(
+mvfile ,
+unpack=True ,
+skiprows =1,
+delimiter=’,’,
+)
+A = np.power(V / np.pi * 0.75, 2.0/3.0) * np.pi
+au = 149597871000
+r_max = 3.2* au
+r_min = 2.2* au
+V = np.pi * np.pi * (r_max -r_min)*(r_max -r_min)*( r_max+r_min) / 4
+v_max = 21861.7
+v = 18126.7
+v_min = 16650.5
+s = (v_max -v_min)/6
+m = (v_min+v_max)/2
+y = (v-m)/s
+Z1 = sps.norm.cdf(y)
+Z2 = np.exp(-y*y/2)
+D = 2*(v-m)*Z1 + 2*s/np.sqrt (2*np.pi)*Z2 - (v-m)
+N = 10000000
+P_coll = np.sum(A)*D/V*N/len(n)
+print("Collision
+Probability: {}".format(P_coll))
+print("Average
+collision
+energy: {}".format(np.mean(m*D*D/2)))
+print("Average E per unit time: {}".format(np.sum((A*D/V)*N/len(n)*(m*D
+*D/2))))
+P_s = np.sum((A*D/V)*N/len(n)*(m*D*D/2))
+# Average
+amount of energy
+impacted
+per second
+print("Average E in 1Ky: {}".format(P_s * 60 * 60 * 24 * 365 * 1E3))
+print("Average DV in 1Ky: {}".format(
+np.sqrt(P_s * 60 * 60 * 24 * 365 * 1E3 * 2 / 8000)))
+print("Probability of a collision in 1Ky: {}".format(
+1-np.exp(-P_coll *60*60*24*365*1 E3)))
+print("Average E in 1 billion y: {}".format(P_s * 60 * 60 * 24 * 365 *
+1E9))
+print("Average DV in 1 billion y: {}".format(
+np.sqrt(P_s * 60 * 60 * 24 * 365 * 1E9 * 2 / 8000)))
+print("Probability of a collision in 1by: {}".format(
+1-np.exp(-P_coll *60*60*24*365*1 E9)))
+
+Analysis of Nuclear Waste Disposal into Space
+15
+curl ’http :// ssd.jpl.nasa.gov/sbdb.cgi ’ -H ’Cookie: __utma
+=259910805.724030513.1412187546.1416961501.1419394701.7;
+__utmc
+=259910805;
+fsr.s=%7B%22v2 %22%3A -2%2C%22v1 %22%3 A1%2C%22 rid %22%3A%22
+def5438 -92974517 -7 ace -2984 -57104%22%2C%22ru %22%3A%22 https %3A%2F%2
+Fwww.facebook.com%2F%22%2C%22r%22%3A%22 www.facebook.com %22%2C%22st
+%22%3A%22%22%2C%22cp %22%3A%7B%22 delivery_src %22%3A%22 none %22%2C%22
+beta %22%3A%22N%22%7D%2C%22to %22%3 A10%2C%22c%22%3A%22 http %3A%2F%2
+Fwww.nasa.gov%2Fimage -feature %2Fthe -rich -color -variations -of -pluto
+%22%2C%22pv %22%3 A1%2C%22lc %22%3A%7B%22d4 %22%3A%7B%22v%22%3 A1%2C%22s
+%22%3 Atrue %7D%7D%2C%22cd %22%3 A4%2C%22sd %22%3 A4%2C%22f%22%3
+A1443190985889 %7D’ -H ’Origin: http :// ssd.jpl.nasa.gov ’ -H ’Accept -
+Encoding: gzip , deflate ’ -H ’Accept -Language: en -US ,en;q=0.8’ -H ’
+Upgrade -Insecure -Requests: 1’ -H ’User -Agent: Mozilla /5.0 (
+Macintosh; Intel Mac OS X 10 _11_5) AppleWebKit /537.36 (KHTML , like
+Gecko) Chrome /54.0.2840.71
+Safari /537.36 ’ -H ’Content -Type:
+multipart/form -data; boundary=----
+WebKitFormBoundary1WHqaQzVTeiUU6Yy ’ -H ’Accept: text/html ,
+application/xhtml+xml ,application/xml;q=0.9, image/webp ,*/*;q=0.8’ -
+H ’Cache -Control: max -age=0’ -H ’Referer: http :// ssd.jpl.nasa.gov/
+sbdb.cgi ’ -H ’Connection: keep -alive ’ --data -binary $’------
+WebKitFormBoundary1WHqaQzVTeiUU6Yy \r\nContent -Disposition: form -
+data; name="sstr"\r\n\r\n’$1$ ’\r\n------
+WebKitFormBoundary1WHqaQzVTeiUU6Yy --\r\n’ --compressed
+
+16
+Team 331: Problem A
+for i in ‘seq 1 $1 ‘
+do
+if [ -f data/raw/$i.html ]
+then
+python
+code/param_scrape.py data/raw/$i.html >> $2
+fi
+done

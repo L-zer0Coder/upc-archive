@@ -1,0 +1,797 @@
+Compost Pile Sizes
+Team # 240
+Problem B
+Abstract
+In this paper, we present a model for a compost pile made of kitchen waste. Our main
+objectives are ﬁnding the volume that maximizes the composting rate and analyzing its
+dependence on the ambient temperature and the input organic materials. A set of initials
+conditions and metabolic parameters are taken into account, which determine the evolution
+of the system during a period of 100 days.
+The system is described using diﬀerential
+equations from Semenov’s formulation and mass and energy conservation.
+In order to
+analyze the composting rate, the mass of reacted oxygen was used as a reference. The
+results were obtained using a numerical integration method and optimized by variation
+of the input volume and surface of the pile. Once the optimal value was determined, its
+dependence with the ambient temperature and input organic composition was analyzed.
+The simulations showed an optimal volume of 6.33m3 and 9.20m3 for a semi-sphere and
+a four-sided truncated pyramid pile, respectively. These results indicate that the oxygen
+concentration is a priority over insulation in composting. Also, the optimal volume increases
+with the ambient temperature and decreases with the input biomass concentration. Finally,
+we have compared the evolution of our system with results from other models and they
+shared a similar pattern. Thus, our model and optimal volumes are acceptable.
+
+Team 240
+Page 1 of 15
+1
+Background
+It is hard to say for how long humans have used composting. Nowadays, this process is a
+solution to many problems. Generating composting from food waste is an easy, low-cost method
+to reduce residues and green-house eﬀect. It also improves the quality of the land while it is
+transformed into fertilizer. In European countries, food waste is 45% of the municipal solid
+waste, and this percentage increases in developing countries. For this reasons, it is fundamental
+to know what aﬀects the composting process to control it and improve its quality.
+The composting process occurs when organic waste is decomposed by microorganisms under
+aerobic conditions. This combustion reaction principally generates carbon dioxide, steam and
+heat, and increases the internal temperature of the pile. In composting there are three main
+phases: mesophilic, termophilic and stationary.
+Studying composting is a complex research, not only in biology but also in physics and
+chemistry, as the pile is heterogeneous and many living things are involved; like bacteria, fungi,
+protozoa, actinomycetes and rotifers. Moreover, food waste also contains inert materials such as
+plastic or glass due to the recollection method. The factors which aﬀect composing are the C/N
+ratio, porosity, aeration, temperature, moisture and the metabolism of the microorganisms. The
+quality of the product depends on maturity and stability.
+2
+Introduction
+The main objectives of this paper are: the optimization of the size and shape of a compost
+pile and the analysis of the dependence of optimal volume with the ambient temperature and the
+input organic materials. In order to determine them, we have developed a model for a compost
+pile made of kitchen vegetable based on Semenov’s formulation.
+The method of study consists of an analysis of the four main internal characteristics of the
+compost pile: temperature, oxygen content, moisture content and input organic materials, in
+dependence on the pile size. The pile has been assumed to have uniform internal temperature
+with an ambient temperature that ranges between 5 and 20 ◦C in a 24-hour period. Due to
+the fact that all the four variables are related, we have initially focused on the temperature and
+oxygen content to optimize the pile volume as they are the primary sources of bacteria and thus
+key factors in the composting rate.
+In order to characterize the composting rate for its optimization, we have taken the mass
+of oxygen transformed to carbon dioxide as a reference due to its relation with the consumed
+biomass and metabolic rate. As the composting reference is related to the internal temperature
+and oxygen composition, the model has been used to determine the evolution of these two
+variables for a period of 100 days. The simulations of the model with diﬀerent sizes and shapes
+were performed to optimize the composting rate. Finally, we analyzed the eﬀect of the ambient
+temperature and input organic materials in the composting rate using the most eﬀective pile
+size.
+
+Team 240
+Page 2 of 15
+3
+Theory
+3.1
+Chemical Kinetics
+In composting, the main chemical reaction is an exothermic combustion carried out by the
+microorganisms of the compost.
+B
+Biomass
++
+O2
+CO2
++
+H2O
++
+∆
+Heat
+(1)
+According to Chemical Kinetics, the reaction rate of this combustion can be experimentally
+expressed using a second order approximation as the product of the kinetic constant k(T) and
+internal concentrations of both reagents,
+v = k(T)[B][O2]
+(2)
+as the reaction takes place inside the pile. The kinetic constant has been observed to follow a
+pseudo experimental Arrhenius equation given by
+k(T) =
+A1e−E1
+RT
+1 + A2e−E2
+RT
+(3)
+where T is the internal temperature, R the ideal gas constant, A1 the pre-exponential factor for
+oxidation of biomass growth, A2 the pre-exponential factor for oxidation of cellulosic material,
+E1 the activation energy for biomass growth and E2 the activation energy for inhibition of
+biomass growth.
+The reaction rate describes the variation of the internal concentration of the reactants over
+time. Thus, the consumption of oxygen and the generation of steam by the reaction, [O2]r and
+[H2O]r respectively, results in
+−d[O2]r
+dt
+, d[H2O]r
+dt
+∝
+A1e−E1
+RT
+1 + A2e−E2
+RT
+[B][O2]
+(4)
+It is important to remark that the internal concentration of oxygen [O2] is not the initial con-
+centration of oxygen less the consumed by the reaction [O2]r, because there is an exchange of
+oxygen between the pile and the atmosphere.
+3.2
+Composting
+The composting C is the result of the metabolism of the microorganisms in the pile: the higher
+the metabolism, the better the compost. Also, the metabolism can be described as the consump-
+tion of biomass or oxygen. In consequence, the composting is proportional to the concentration
+of reacted oxygen inside the pile, as
+C ∝mO2,r = VT [O2]r
+(5)
+where VT is the total volume of the pile which is approximately constant.
+Using equation (4), the composting will be determined with the expression
+C ∝
+Z ∆t
+0
+dt k(T)[O2][B] .
+(6)
+
+Team 240
+Page 3 of 15
+3.3
+Balances of Matter and Energy
+The pile of compost is an open system so there are exchanges of matter and energy with the
+environment. The balances of matter and energy are used to determine the concentration of
+each component and the temperature, in order to determine the composting rate.
+Figure 1: Scheme of the dynamic exchange of matter of the pile
+3.3.1
+Matter
+The balance of matter for O2 is
+[O2] = [O2]0 −[O2]r + [O2]e −[O2]s
+(7)
+where [O2]0 is the initial concentration, [O2]r is the concentration that has already reacted,
+[O2]e is the concentration that enters in the pile and [O2]s the concentration that goes out of
+the pile.
+Using the equation (4) deduced in subsection 3.1, the expression (7) derives to
+d[O2]
+dt
+= −Fbk(T)[B][O2] + d([O2]e −[O2]s)
+dt
+(8)
+where the adimensional coeﬃcient Fb appears to take into account the relationship between the
+amount of biomass consumed and the oxygen consumed, acting as a stoichiometric ratio.
+To study the term of entrance and exit of oxygen, it is necessary to know how the air
+circulates through the pile.
+It is assumed that the air circulates through the pores in the
+pile. The volume of each of the pores VP decreases if the total volume V increases as the pile
+becomes more compact. However, the number of pores nP also increases, so the relation (9) can
+be approximated as a constant.
+KP = VP /nP
+(9)
+The mass transfer coeﬃcient Xm can be descrived as the total air that enters the pile per unit
+of volume,
+Xm = KP vair
+V
+(10)
+where vair is the speed of the air that passes through the pile. This deﬁnition is coherent as
+the mass transfer coeﬃcient will increase with vair and will decrease with V because if a pile is
+bigger it will have a smaller volume of pores.
+From equation (10) we can express the mass transfer based on the diﬀerence of oxygen
+concentrations between the air and the pile, the Xm and the V/S ratio of the pile’s shape.
+V
+S
+d([O2]e −[O2]s)
+dt
+= Xm([O2]a −[O2])
+(11)
+
+Team 240
+Page 4 of 15
+Finally, the balance of matter can be expressed as the diﬀerential equation,
+d[O2]
+dt
+= −Fbk(T)[B][O2] + XmS
+V
+([O2]a −[O2])
+(12)
+The diﬀerential equation (12) is the ﬁrst of the two diﬀerential equations that Semenov’s
+mathematical model contemplates.
+Regarding the other components, the balance of matter is equivalent, but in the water and
+the carbon dioxide the term of reaction is positive and in the biomass the terms of entry and
+exit are zero.
+3.3.2
+Energy
+The energy balance of the system leads to the second Semenov’s equation [3]. Firstly, the pile is
+considered to have a uniform internal temperature because the cold air going through the pores
+mantain the pile in the same temperature. Therefore, the heat diﬀusion is equal in any point of
+the surface that is in contact with the air.
+The thermal energy exchange (13) can be understood in the form of heat Q dT
+dt . The tem-
+perature variation in the interior will depend on the enthalpy ∆H of the reaction and its speed,
+equation (2), since the enthalpy does not include the temporary factor. It also depends on the
+loss of temperature due to the contact with the environment, which is proportional with the
+coeﬃcient of heat transfer Xt, the surface-volume ratio of the system V/S and the ambient
+temperature Ta.
+QdT
+dt = ∆Hk(T)[B][O2] −Xt
+S
+V (T −Ta)
+(13)
+Reinterpreting Q as the product of the total density ρ for the heat capacity CV and the enthalpy
+redeﬁned as Qb for the stoichiometry ratio Fb, the Semenov’s second equation ends being
+ρCV
+dT
+dt = QbFbk(T)[B][O2] −Xt
+S
+V (T −Ta) .
+(14)
+4
+Method
+4.1
+General Assumptions
+Due to the characteristics of our system, the following assumptions can be made:
+• The compost pile has a uniform internal temperature.
+• The heat transfer to the surroundings is convective and linked with the temperature dif-
+ference only by the heat transfer coeﬃcient, Xt.
+• The concentration of oxygen inside the pile is uniform.
+• Oxygen transfer from the surroundings is convective and linked to the concentration dif-
+ference only by the mass transfer coeﬃcient, Xm.
+• The climate follows a range of temperatures between 5 and 20 degrees C in a 24-hour
+period, which can be described as a sinusoidal function.
+Ta[◦C] = 12.5 + 7.5 sin (2π t[days])
+(15)
+
+Team 240
+Page 5 of 15
+4.2
+Model
+Our model is based on the diﬀerential equations of the component’s concentrations and temper-
+ature inside the pile. The components we have analyzed are oxygen, biomass and steam as they
+are key factors in the metabolism of the microorganisms. Unlike the Semenov’s formulation, we
+have taken into account that the biomass diminishes as we are considering periods of time of
+100 days.
+The procedure to determine the composting rate of the pile starts setting up the initial
+conditions: pile’s shape S, pile’s size V , concentration of biomass [B]0, internal concentration of
+water [H2O]0, internal concentration of oxygen [O2]0 and internal temperature T0. Two diﬀerent
+forms of pile have been tested: semisphere and four-sided truncated pyramid.
+The system is described with ﬁve diﬀerential equations,
+ρCV
+dT
+dt = QbFbk(T)[B][O2] −Xt
+S
+V (T −Ta) .
+(16)
+d[O2]
+dt
+= −Fbk(T)[B][O2] + XmS
+V
+([O2]a −[O2])
+(17)
+d[H2O]
+dt
+= +Fbk(T)[B][O2] + XmS
+V
+([H2O]a −[H2O])
+(18)
+d[B]
+dt
+= −F ′
+bk(T)[B][O2]
+(19)
+C = α
+Z ∆t
+0
+dt k(T)[O2][B] .
+(20)
+where α is only a constant of proportionality between the composting rate and mass of reacted
+oxygen.
+4.3
+Simulations
+The diﬀerential equations of the model were solved by numerical integration using Python 3.5
+obtaining the evolution of the temperature and concentrations of the components, as well as the
+composting rate versus the pile’s volume.
+T(t) and [H2O](t) are the control for the model as they should be between 40-60 degrees C
+and 50-60% respectively. These variables are the ﬁrst validation of the model.
+C(V ) has been normalized as its value depends on the proportional parameter α that it
+is not known. The optimization has been done by a semisphere and by four-sided truncated
+pyramid as pile’s form.
+Once this volume is obtained, the Ta parameter is changed to observe its relation with the
+optimal volume. The same procedure is repeated for the density ρ and initial concentration of
+biomass [B]0.
+
+Team 240
+Page 6 of 15
+5
+Results
+5.1
+k(T) vs Temperature
+280
+300
+320
+340
+360
+380
+400
+T [K]
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+k/kmax
+k1
+k2
+T(k1max)
+T(k2max)
+Figure 2: Checking the model coherence
+5.2
+Temperature vs Time
+0
+20
+40
+60
+80
+100
+t [days]
+290
+300
+310
+320
+330
+T [K]
+Temperature
+Figure 3: Evolution of internal temperature through time
+
+Team 240
+Page 7 of 15
+5.3
+[H2O] vs Time
+0
+20
+40
+60
+80
+100
+t [days]
+0.50
+0.51
+0.52
+0.53
+0.54
+0.55
+[H2O] [kg/m3]
+Water concentration
+Figure 4: Evolution of internal water concentration through time
+5.4
+[B] vs Time
+0
+20
+40
+60
+80
+100
+t [days]
+150
+200
+250
+300
+350
+400
+[B] [kg/m3]
+Biomass concentration
+Figure 5: Evolution of organic matter concentration through time
+
+Team 240
+Page 8 of 15
+5.5
+[O2] vs Time
+0
+20
+40
+60
+80
+100
+t [days]
+0.23
+0.24
+0.25
+0.26
+0.27
+[O2] [kg/m3]
+Oxygen concentration
+Figure 6: Evolution of internal oxygen concentration through time
+5.6
+Optimization
+0
+10
+20
+30
+40
+50
+V [m3]
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+relative C
+T0 = 285.65 K
+[B]0 = 400 kg/m3
+Vmax = 9.20 m3
+Figure 7: Optimization of the volume of a semispherical pile to maximize composting
+
+Team 240
+Page 9 of 15
+0
+10
+20
+30
+40
+50
+V [m3]
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+relative C
+T0 = 285.65 K
+[B]0 = 400 kg/m3
+Vmax = 6.33 m3
+Figure 8: Optimization of the volume of a four-sided truncated pyramid pile to maximize composting
+5.7
+Relation between volume, composting, ambient temperature and
+input organic materials
+Table 1: Relation of composting (of the optimal volume) between [B]
+C
+[B](kg/m3)
+0.9
+50
+3.2
+100
+2.9
+200
+2.7
+400
+2.5
+600
+2.4
+800
+2.3
+1000
+Table 2: Relation between composting (of the optimal volume) and ambient temperature
+C
+Ta(K)
+2.5
+273
+2.6
+281
+2.7
+287
+2.8
+294
+2.9
+299
+3.2
+310
+3.5
+325
+3.7
+333
+
+Team 240
+Page 10 of 15
+6
+Discussion
+Value of the constants
+Before optimizing the volume of pile, the values of the constants were calculated to check
+the coherence with the data from the problem. It has been found that the factors regarding the
+kinetic constant where not suited for this problem as the eﬃcient temperature given from these
+factors was between 80 −100◦C. The kinetic was reescalated to the 40 −60◦C provided by the
+problem. This solution was also done in [4].
+Model
+The results from the model are coherent with the predicted concentrations and temperatures.
+Moreover, it has been compared with results from other articles and they showed the same
+tendency and shape [2].
+The graph T vs t showed three diﬀerent phases: (1) 0 - 20 days, the temperature increases
+due to the activity of the microorganisms to the optimal range, (2) 20 - 60 days, the temperature
+slowly decreases but is still in the optimal range, (3) 60 - 100 days, there not enough biomass
+the keep the temperature in the optimal range and it decreases until it reaches the ambient
+temperature.
+This phases are also observed in the oxygen and water concentration graph but not in the
+biomass graph as it is only consumed and it is not replaced by new one.
+Optimal volume
+Two shapes have been considered in this model: semi-sphere and four-sided truncated pyra-
+mid. Its optimal volumes are 9.2 and 6.32m3 respectively. These values are relatively small
+and thus the approximation of the uniformity of internal temperature has a small error in the
+results.
+The maximum composting rate of the pyramid is a little bit greater than the semi-sphere, so
+for this order of volumes it is more important the oxygen ﬂux through the pile than the isolation
+from the outside temperature.
+Depence of the Ta and [B] in optimal volume
+The variation of both factors in the optimal volume has been analyzed separately.
+An increase of the outside temperature showed a decrease of the optimal volume.
+This
+relation is due to the diﬀerence of the temperature from inside and outside is smaller and the
+isolation factor is less important than the oxygen income. For this reason, smaller volumes have
+better oxygen income that greater volumes but the isolation factor remains the same.
+Moreover, from the internal temperature graph it is shown that the internal temperature
+has small sinusoidal oscillations that do not aﬀect the overall variation. The model has been
+also calculated using a constant outside temperature as input and it showed the same pattern.
+The dependence of the biomass concentration in the optimal value has an unexpected relation
+as the composting rate is higher with smaller concentrations of biomass. This relation could
+be explained by the fact that the rest of the pile is better insulating than the biomass and it
+keeps higher temperatures inside, optimizing the composting rate. This leads to a higher mass
+of consumed oxygen per biomass mass, increasing our reference for the composting rate.
+
+Team 240
+Page 11 of 15
+7
+Future Work
+For a more reliable prediction it would be necessary to build a 3-D composting model.
+In [4], a 3-D compost model of a truncated cone geometry was built to ﬁnd a prediction
+of the temperature in composting processes. The energy balance was applied to the system
+solid-air with an equation that includes volumetric heat capacity (Cv) , chemical oxidation and
+biological growing (A1,E1) and inhibition (A2,E2).
+The equations used are similar to those used in 2-D. The 3-D model equation (21) used is
+obtained from a Fourier heat transfer equation. It is similar to the equations presented above
+(24) if we add a third derivative direction for T (in the equations we used the variation of
+temperature is shown only in 2 directions).
+(ρC)ef
+δT
+δt = kef ▽2 T + (1 −ϵ)QCρCACexp[−Ec
+RT ] + (1 −ϵQbρb)
+A1exp[ −E1
+RT ]
+1 + A2exp[ −E2
+RT ]
+(21)
+With:
+kef = ϵka + (1 −ϵ)kc
+(22)
+(ρC)ef = ϵρaCa + (1 −ϵ)ρCCC
+(23)
+ρcvV dT
+dt = QbV Fb
+A1e
+−E1
+RT
+1 + A2e
+−E2
+RT
+BO2 + XmS(O2,a −O2)
+(24)
+The comparison between theoretical parameters and the experimental results conduces to a
+correction of the theoretical values. This is due to not considering some conditions such as pH
+or a radiation term for heat absorption in high sunlight conditions.
+
+Team 240
+Page 12 of 15
+8
+Conclusions
+This study shows that, in a pile of kitchen waste, the oxygenation of the pile is a priority over
+its insulation in the maximization of the composting rate. For this reason the optimal volumes
+that boost the composting are relatively small.
+The evolution of component’s concentrations and internal temperature have been determined
+in order to calculate the metabolism rate in dependence of the pile’s volume. The results of
+these variables have been compared with the results from other models and they all had a
+similar pattern. In the end, the simulations showed that the optimal volume for a semi-sphere
+and four-sided truncated pyramid are 9.2 and 6.32 m3 respectively.
+The volume determines both oxygenation of the pile and insulation. An increase of volume
+leads to a more concentrated pile and the air cannot ﬂow so easily through the pores of the
+heap, resulting in a decrease of the inside concentration of oxygen as it is consumed by the
+microorganisms. A decrease of the volume diminishes the insulation as the inside temperature
+is more susceptible of outside changes due to its lower heat capacity.
+On the other hand, the volume depends on the ambient temperature and biomass concen-
+tration. Increasing the ambient temperature decreases the optimal pile size, due to the smaller
+diﬀerence of the temperature from inside and outside and so the isolation factor is less important
+than the oxygen income. On the contrary, the optimal pile size has a minimal value in function
+of the density of the biomass, which is an unexpected non-intuitive result. It could be explained
+by the fact that the rest of the pile is better insulating than the biomass and it keeps higher
+temperatures inside, optimizing the composting rate.
+To sum up, the model described in this paper is coherent with other models and the obtained
+results are acceptable and predictable with the used equations. Nevertheless, this model can be
+improved assuming that the internal temperature is not uniform and further work is needed.
+
+Team 240
+Page 13 of 15
+9
+References
+[1]Luangwilai, T.; Sidhu, H. S.; Nelson, M. I. Food Bioprod. Process. 2018, 108, 18–26.
+[2] Moraga, N. O.; Corval´an, F.; Escudey, M.; Arias, A.; Zambra, C. E. Int. J. Heat Mass
+Transf. 2009, 52 (25–26), 5841–5848.
+[3] Luangwilai, T.; Nelson, M.; Chen, X. D. 2010, No. December 2014.
+[4]Teutli; Roque; Gonzalez; Jim´enez; Lozano; Pel´aez.
+Heat Flux Predictions for a 3-D
+Compost Model.
+
+Team 240
+Page 14 of 15
+10
+Appendix
+10.1
+DATA USED
+[4]
+Datum
+Meaning
+Magnitude
+Units
+ρ
+density of the compost-
+ing pile
+547
+Kg
+m3
+Cv
+Heat capacity of the re-
+action mixture
+3.32 · 103
+J
+Kg·K
+V
+Volume of the com-
+posting pile
+Variable
+m3
+S
+Surface
+of
+the
+com-
+posting pile in contact
+with air
+Variable
+m2
+Qb
+Exothermicity of the
+biomass
+grown
+reac-
+tion
+1.32 · 104
+J
+Kg
+Fb
+Stoichiometry ratio
+0.02
+dimensionless
+[B]
+Organic
+matter
+con-
+centration in the com-
+posting pile
+Variable
+Kg
+m3
+R
+Ideal gas constant
+8.31441
+J
+mol·K
+A1
+pre-exponential factor
+for biomass growth
+2 · 102
+m3
+Kg·s
+A2
+pre-exponential factor
+for the inhibition of the
+biomass growth
+6.86 · 1030
+dimensionless
+E1
+activation energy for
+biomass growth
+2.71 · 104
+J
+mol
+E2
+activation energy for
+the inhibition of the
+biomass growth
+2 · 105
+J
+mol
+Xm
+mass
+transfer
+coeﬃ-
+cient between the com-
+post heap and its sur-
+roundings
+0.1
+m
+s
+Xt
+heat
+transfer
+coeﬃ-
+cient between the com-
+post heap and its sur-
+roundings
+50
+J
+s·m2·K
+Ta
+ambient temperature
+Variable
+K
+[O2]a
+ambient oxygen con-
+centration
+0.2726
+Kg
+m3
+
+import numpy as np
+from scipy.integrate import odeint
+#INPUT DATA
+Rini = 1E-1 #m
+Rfin = 1E1 #m
+NR = 100
+VSR = 1./3
+Tai = 12.5 + 273.15 #K
+Bi = 400 #kg/m3
+H2Oa = 0.6
+#PARAMETERS
+p = 547. #kg/m3
+Cv = 3E3 #J/kg K
+Qb = 1.32E4 #J/kg
+R = 8.31441 #J/mol K
+Xt = 50. #J/s m2 K
+Xm = 0.1 #m/s
+O2a = 0.2726 #kg/m3
+ti = 0. #s
+tf = 24*60*60*100. #s
+N = 1001
+F1 = 0.02
+F2 = 0.02
+F3 = 1./15000
+F4 = 0.02
+t = np.linspace(ti, tf, N)
+def kT(T):
+    A1 = 2E8 #m3/kg s
+    A2 = 6.86E30 
+    E2 = 2E5 #J/mol
+    return 1E-6*A1*np.exp(-E2*0.13529/(R*T))/(1 + A2*np.exp(-E2/(R*T)))
+#DIFERENTIAL EQUATIONS
+def pend(y, t):
+    O2, H2O, B, T = y
+    Ta = Tai - 7.5*np.cos(t*2*np.pi/(3600*24))    
+    kt = kT(T)
+    dydt = [ -F1*kt*O2*B + A*(O2a - O2),
+            +F2*kt*O2*B + A*(H2Oa - H2O),
+             -F3*kt*O2*B,
+             BB*F4*kt*O2*B - C*(T-Ta)]
+    return dydt
+#OPTIMIZING
+dataO2rK = []
+dataO2rD = []
+dataR = np.linspace(Rini, Rfin, NR)
+dataO2 = []
+
+#SEMI-SPHERICAL PILE
+for Ri in dataR:
+    V = 2./3*np.pi*Ri**3
+    VS = VSR * Ri
+    S = V/VS #m2
+    Xm = 20./V #m/s
+    A = Xm*S/V
+    BB = Qb/(Cv*p)
+    C = Xt*S/(V*Cv*p)
+    #INITIAL CONDITIONS
+    y0 = [O2a, H2Oa, Bi, Tai]
+    t = np.linspace(ti, tf, N)
+    #DIF EQ SOLVER
+    sol = odeint(pend, y0, t)
+    
+    O2 = sol[:,0]
+    H2O = sol[:,1]
+    B = sol[:,2]
+    T = sol[:,3]
+    
+    #O2reactive
+    dataO2 += [O2[-1]]
+    dO2r = kT(T)*O2*B
+    dataO2rK += [((t[1]-t[0])*dO2r)[-1]]

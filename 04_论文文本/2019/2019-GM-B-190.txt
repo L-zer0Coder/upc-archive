@@ -1,0 +1,1823 @@
+Team No. 190
+Problem B
+DESIGN A ROLLER COASTER
+Abstract
+In this problem, we are required to design a safe and exciting roller coaster. To solve the problem,
+we set up a design model of the trajectory with Solid-works and Planet Coaster. Then we derive the
+equations of motion based on basic dynamic laws. Next with Euler’s method, we estimate the solutions
+and simulate of the roller coaster’s motion using MATLAB. For safety and excitement judgement, we
+deﬁne several parameters related to position, velocity, and acceleration to represent the degree of safety
+and excitement. The value of these parameters and their simulation with time are also obtained with
+MATLAB. Finally we come to the conclusion that the designed roller coaster is safe and exciting.
+
+CONTENTS
+Team No. 190
+Page 2 of 29
+Contents
+1
+Introduction
+2
+2
+Model
+2
+2.1
+Problem Overview
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+2.2
+Deﬁnition . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+2.2.1
+Parameter Deﬁnition . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+2.2.2
+Safety Judgement Deﬁnition . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+2.2.3
+Excitement judgement deﬁnition . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2.3
+Assumptions and Laws . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2.3.1
+Natural axes –The G-axes
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2.3.2
+Euler’s Method[3]
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+2.3.3
+Law of Conservation of Energy
+. . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+2.3.4
+Newton’s Laws of Motion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+2.3.5
+Motion with Resistance
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+2.3.6
+Dynamics of Circular Motion
+. . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+2.4
+Basic Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+2.4.1
+The First Cant Track . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+2.4.2
+The Tri-semicircle Circle Track
+. . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+2.4.3
+The Upward Cant Track . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9
+2.4.4
+The Double Helix Track . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9
+2.4.5
+The Downward Cant and Circular Track . . . . . . . . . . . . . . . . . . . . . . .
+10
+3
+Results
+11
+3.1
+The Whole Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11
+3.2
+Detailed Model Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+3.2.1
+The First Cant Track . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+3.2.2
+The Tri-semicircle Track . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14
+3.2.3
+The Upward Cant Track . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+17
+3.2.4
+The Double Helix Track . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+18
+3.2.5
+The Downward Cant and Circular Track . . . . . . . . . . . . . . . . . . . . . . .
+19
+4
+Discussion
+20
+4.1
+Conclusion
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+20
+4.2
+Limitations and Possible Improvement . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+21
+4.2.1
+Shape of the Car Consideration
+. . . . . . . . . . . . . . . . . . . . . . . . . . .
+21
+4.2.2
+Self-rotation Consideration . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+21
+4.2.3
+Other Considerations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+22
+4.3
+Advantages . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+22
+A Plotting Figures
+24
+B
+MATLAB Codes
+27
+
+Team No. 190
+Page 3 of 29
+1
+Introduction
+Roller coaster is one of the most exciting recreation facilities in amusement park. In this article, we are
+going to design a roller coaster which is safe and exciting. We will ﬁrst give a concept diagram of our roller
+coaster’s whole trajectory, then divide it into ﬁve parts and analyse them respectively. We are going to use
+the basic kinematics laws to construct second order ODEs for the motion of the roller coaster car, and apply
+the Euler Method to obtain an approximate solution for the ODEs, from which we could obtain the velocity
+and acceleration at any instant of time.
+In Model Section, we will ﬁrst give our method of judgement of safety and excitement, then introduce
+the basic laws and methods we will use in this project. Moreover, for each part of our trajectory, we will
+give a simple model with parameters.
+In Result Section, we will ﬁrst give the overall results of our whole model, and give the proof of the
+safety and excitement. Then we will explain in details about how we obtain the results and the motion of
+the car in each part of the trajectory.
+Finally we will draw a conclusion and discuss the limitations and advantages of our model and give
+some suggestions about how to improve the model.
+2
+Model
+2.1
+Problem Overview
+In this article, we are going to design a roller coaster that is safe and exciting. We will design the trajec-
+tory of the roller coaster and clearly give the visualization of our trajectory ﬁrst. Based on the trajectory and
+the initial conditions, we derive motions of equations and then use the Euler Method to ﬁnd the distance,
+velocity, acceleration with respect to t. Using the result of acceleration, velocity, and height, we then ﬁnd
+the value of Safety and Excitement referring to our deﬁnition below, which prove that our goal of safety
+and excitement is reached.
+2.2
+Deﬁnition
+2.2.1
+Parameter Deﬁnition
+First we assume that passengers along with the car are considered as particles. Then we deﬁne the
+G-axes with three types of accelerations for human body as Figure 2.1 shows[1]:
+• Forward acceleration ax along G-x axes in the direction of the velocity,
+• Lateral acceleration ay along G-y axes in the direction of the radius of curvature,
+• Upward acceleration az along G-z axes in the direction of the normal vector.
+Based on the above deﬁnition, the related parameters representing the value of accelerations are deﬁned
+as
+Gi = ai/g
+(1)
+for i=x,y,z, where g = 9.78m/s2 is the gravity near earth’s surface.
+
+2.2
+Deﬁnition
+Team No. 190
+Page 4 of 29
+Figure 2.1: The deﬁnition of G-axes[4].
+2.2.2
+Safety Judgement Deﬁnition
+1. According to Kumar and Norﬂeet’s study[2], the inﬂuence of acceleration differs with different types
+of accelerations. For Gz, it is shown that if Gz=4.8 g, safety is satisﬁed when the maintaining time
+is less than 2.5 s. For Gy=5.5 g, safety is satisﬁed when the maintaining time is less than 2.5 s. For
+Gx, if Gx=6.0 g with passengers sitting straight 90 degree, safety is satisﬁed when the maintain time
+is less than 30 s.
+To simplify the model, in this project, it is assumed that if:
+Gz < 4.8g,
+(2)
+Gy < 5.5g,
+(3)
+Gx < 6.0g,
+(4)
+with the maintaining time < 2.5 s, the safety requirement is satisﬁed.
+Since in this project, there’s no other forward accelerating force except gravity, so
+Gx ≤g + afriction
+g
+< 5g
+is always satisﬁed since friction is relatively small with respect to gravity. In this article, we will
+calculate the concrete value of Gz and Gy to indicate they are under a safe range.
+2. Moreover, we should consider the weight capacity of the track. In order to ensure safety, we should
+make sure that the force applied on the track should not larger than certain value. According to
+Newton’s Laws, we have
+F = Maz = MGzg
+
+2.3
+Assumptions and Laws
+Team No. 190
+Page 5 of 29
+Since the weight capacity of different materials varies a lot. Typically most of the materials could
+stand weight larger than 20000N. If we choose M = 1000kg, the corresponding Gz that create such
+weight should be 20, which is much larger than the largest GZ that human body could bear. Hence
+when the acceleration is less than the limit of human endurance, both the safety of human body and
+the track structure could be ensured.
+3. Finally, we should ensure that at every point of the trajectory, the speed of the car is larger than 0m/s.
+2.2.3
+Excitement judgement deﬁnition
+It is the acceleration of the human body that can be sensed and converts to excitement. Based on the
+deﬁnition of the three types of acceleration, it is noticed that they have different effect on excitement.
+When the values Gx, Gy, Gz are the same, the lateral acceleration ax representing the orientation excites
+human bodies most, followed by the forward acceleration, while the upward acceleration has the least effect.
+Therefore, a parameter Sexcitement is deﬁned to quantify the degree of excitement:
+S = k1(4Gx + 5Gy + 3Gz)
+(5)
+Moreover, we notice that the degree of excitement also has some relation to the speed of human body.
+Generally speaking, when human body is moving at a higher speed, the human would feel much more sense
+of excitement. Hence another item relate to speed should be added.
+S = k1(4Gx + 5Gy + 3Gz + k2v)
+(6)
+Finally, when human body is in a high altitude, they will feel much more exciting. Hence we add the
+third item relate to altitude into this equation
+S = k1(4Gx + 5Gy + 3Gz + k2v + k3H)
+(7)
+Among all the factors, the acceleration inﬂuence the degree of the excitement most, while the speed
+inﬂuence the least. Since when passengers are moving at a high speed, they could hardly feel how fast they
+are. Consequently, ﬁnally we choose the coefﬁcients k1 = 1, k2 = 0.05, k3 = 0.1. The unit for H and v is
+in SI.
+S = 4Gx + 5Gy + 3Gz + 0.05v + 0.1H
+(8)
+The larger S represents higher degree of excitement. When passenger are resting on the reference point,
+S equals 0. And for a car being suddenly slammed, its acceleration is around Gx = 30m/s2 ≈3g [5] and
+S = 12 which already has relatively strong excitement on human body.
+Therefore we assume the excitement requirement is satisﬁed when:
+S > 12
+(9)
+2.3
+Assumptions and Laws
+2.3.1
+Natural axes –The G-axes
+In this article, the main focus is the passengers’ acceleration on the roller coaster. As introduced in
+section 2.2.1, our start point is to set up a natural axes referring to passengers’ motion, which is deﬁned as
+the G-axes. Our central point of solving this problem is to calculate and analysing the value of velocity and
+Gi along each axes.
+
+2.3
+Assumptions and Laws
+Team No. 190
+Page 6 of 29
+2.3.2
+Euler’s Method[3]
+To calculate and analysing the distance, velocity and acceleration, we need to solve many complex
+second-order ordinary differential equations. Mathematical methods might not working so well when solv-
+ing the complex ODEs. Euler’s method is a numerical method helping ﬁnd the unique solution of the
+second-order ordinary differential equation (ODE) in our project:
+d2r
+dt2 = F(v, r, t)
+m
+through the initial conditions v(0)=v0, r(0)=r0, we will ﬁnd the position and velocity of our particle at
+any instant of time t.
+Newton’s equation of motion can be rewritten as a pair of coupled ﬁrst-order ODEs, like this:
+dv
+dt = F(v(t), r(t), t)
+m
+rt = v(t)
+write v(t) = f(t) = rt, and further we transform
+dv
+dt = df
+dt = G(f(t), t)
+with the initial condition is given as f(0)=f0.
+Consider the Taylor expansion of a function f at time (t+∆t) and ignore the terms with order of ∆t
+higher than 1, we can get this formula:
+f(t + ∆t) ≈f(t) + f
+t ∆t = f(t) + G(f(t), t)∆t
+Using this formula, the approximate value f ∗(t+∆t) can be found if the value of f (t) is known. That
+means, through Euler’s method, we start at t0=0 where f(0)=f0 is known exactly, using the slope k of the
+curve at the left end of the interval (t0, t1), to get the approximate value f ∗of the other end, as shown in
+Figure 2.2 below
+Figure 2.2: Figure of Euler method
+In subsequent steps, the method is used continuously to obtain an approximation of the function f. Since
+the computer is a discrete machine, we need a discrete time step ∆t to represent the discrete set of points at
+the time ti= i∆t, and then the algorithm is as follows
+
+2.3
+Assumptions and Laws
+Team No. 190
+Page 7 of 29
+f ∗
+0 = f0
+k = G(f ∗(ti), ti)
+f ∗(ti+1) = f ∗(ti) + k∆t
+Given the initial value f(0)=f0, the equation can help us to get the approximate values in the required
+time interval. that is to numerically solve the ﬁrst-order ODE with that initial condition.
+2.3.3
+Law of Conservation of Energy
+In this article, we assume that all the motions are under the category of classical mechanics. Hence we
+could use the following basic laws from kinematics and dynamics.
+The energy is conserved during the whole process of motion. The total amount of energy is the grav-
+itational potential energy the roller coaster hold ﬁrst. We assume that work against resistance is the only
+dissipation of energy during the process. Hence the equation for conservation of energy could be written as
+Ep0 = Ep(t) + Ek + Wf
+(10)
+2.3.4
+Newton’s Laws of Motion
+The most basic and important laws we will used in this article is Newton’s Laws of Motion. In this
+article, we could consider problems under classical mechanics, where the mass m could be regarded as a
+constant. Hence we could write the Newton’s equation as follow:
+X⃗
+F = d(m⃗v)
+dt
+= md⃗v
+dt = md2⃗r
+dt2
+(11)⃗
+F12 = −⃗F21
+(12)
+2.3.5
+Motion with Resistance
+In this article, we consider two types of resistance. The ﬁrst is the friction between the roller coaster car
+and the track, which we note it as f1⃗
+f1 = −µN(⃗v
+v)
+(13)
+where µ is the friction coefﬁcient, which is usually between 0 and 1, N is the force that car applied
+perpendicularly on the track.
+The second is the quadratic drag between the roller coaster car and the air. Since the car is enormous
+with large mass and high speed, we consider the drag to be quadratic instead of linear, which we note it as
+f2⃗
+f2 = −βv2(⃗v
+v)
+(14)
+with the coefﬁcient β
+β = 1
+2ρCdA
+(15)
+where ρ is the ﬂuid density, Cd is the drag coefﬁcient, which is usually between 0.25 and 0.5 for cars, A
+is the cross-sectional area perpendicular to the direction of motion.
+Consequently, the total resistance equals the sum of f1 and f2.
+
+2.4
+Basic Model
+Team No. 190
+Page 8 of 29
+2.3.6
+Dynamics of Circular Motion
+Roller coaster usually follows a trajectory that has a circular shape. When choosing the roller coaster
+car as the frame of reference, we should consider the centrifugal ’force’, Fc
+Fc = −m⃗ω × (⃗ω ×⃗r)
+(16)
+2.4
+Basic Model
+The overall concept diagram of our roller coaster is shown below in Figure 4.1 and 2.4. To make it
+easier to analyse the equations of motion, we divided the whole trajectory into ﬁve parts and analyze them
+respectively.
+Figure 2.3: Concept Diagram of Roller Coaster
+Figure 2.4: Solidworks diagram of Roller Coaster
+
+2.4
+Basic Model
+Team No. 190
+Page 9 of 29
+Using solid works, we could simplify the concept diagram of our roller coaster, as shown above in
+Figure 2.4. In order to analyze the motion of the whole trajectory, we divided the track into ﬁve parts, as
+shown below in Figure 2.5
+2.4.1
+The First Cant Track
+(a) The First Cant Track
+As shown in Figure (a), the ﬁrst cant track are formed of four straight line parts:
+• 20-meter long horizontal track
+• 30-meter height rising slope with 75o inclining angle
+• 30-meter height falling slope with 75o inclining angle
+• 20-meter long horizontal track
+2.4.2
+The Tri-semicircle Circle Track
+(b) The Tri-semicircle Circle Track
+As shown in Figure (b), the tri-semicircle track are formed of three half-circle parts:
+• 16-meter height up-circle with 8-meter radius
+• 16-meter height mid-circle with 8-meter radius
+• 16-meter height down-circle with 8-meter radius
+
+2.4
+Basic Model
+Team No. 190
+Page 10 of 29
+2.4.3
+The Upward Cant Track
+(c) The Upward Cant Track
+As shown in Figure (c), the upward cant track are formed of three straight line parts:
+• 20-meter long horizontal track
+• 22-meter height rising slope with 60o inclining angle
+• 10-meter long horizontal track
+2.4.4
+The Double Helix Track
+(d) The Double Helix Track
+As shown in Figure (d), the double helix track looks like a ﬂat, twice-wound spring.
+The radius of the circle is 8 meters, with a screw pitch of 2π meters each.
+
+2.4
+Basic Model
+Team No. 190
+Page 11 of 29
+2.4.5
+The Downward Cant and Circular Track
+(e) The Downward Cant and Circular Track
+As shown in Figure (e), The downward cant and circular track are formed of four parts:
+• 16-meter height falling slope with 75o inclining angle
+• 26-meter long horizontal track
+• horizontal half-circle track with (8+2π)-meter radius
+• 20-meter long horizontal track leading it back to the origin
+
+Team No. 190
+Page 12 of 29
+3
+Results
+3.1
+The Whole Model
+According to our calculation, we obtain the detailed values of distance, speed, and time in each part
+of the model. The model is in Figure 3.1 and the data is recorded in Table 1. The direction of the roller
+coaster is always tangential to the trajectory. Based on the calculated values, we ﬁnd the total length of the
+trajectory L and the duration T
+L = 394.7507 + 33.3597 = 428.1104[m]
+T = 32.3094 + 16.6798 = 48.9892[s]
+Figure 3.1: Figure of Each Point’s Position
+s[m]
+v[m/s]
+t[s]
+Origin
+-33.3597
+2.0000
+-16.6798
+0
+0
+0
+0
+1
+31.0583
+23.5084
+2.6231
+2
+51.0583
+22.9152
+3.4938
+3
+76.1910
+14.2516
+4.8664
+4
+101.3238
+14.0754
+6.6409
+5
+126.4565
+22.4271
+8.0352
+6
+146.4565
+21.8213
+8.9393
+7
+171.8599
+5.3568
+10.8123
+8
+181.8599
+4.3289
+12.8775
+9
+283.1732
+1.5490
+24.4635
+10
+303.8787
+20.2203
+26.5508
+11
+329.8787
+19.3877
+27.8638
+12
+374.7507
+18.9860
+30.2026
+Final
+394.7507
+0
+32.3094
+1 2
+Table 1: The Whole Trajectory Values
+
+3.1
+The Whole Model
+Team No. 190
+Page 13 of 29
+The followings are the graphs of Gx, Gy, Gz, S depending on time t for the whole process. These four
+graphs of Gi and S are generalized from plots in MATLAB for each ﬁve parts as we have divided into. All
+the single plots and codes in MATLAB is attached in the Appendix
+(a) Gx vs t in the whole time interval
+(b) Gy vs t in the whole time interval
+(c) Gz vs t in the whole time interval
+(d) S vs t in the whole time interval
+Figure 3.2: Relation with Respect to t in the Whole Time Interval
+1. The Safety Judgement
+According to Figure 3.2(a) and Figure 3.2(b), we notice the maximal Gx is 1, while the maximal Gy
+is 2.5, which are below the safe range according to Equation (3) and (4).
+As for Gz, the maximal value is 6.5 > 4.8 which is the limit in Equation (2). But value of Gz larger
+than 4.8 only lasting for 1 second, much smaller than the maximal lasting time 2.5s, hence it is also
+safe according to NASA’s study[2].
+From our calculation, the safety of our design is conﬁrmed. And we ﬁnd that the most signiﬁcant
+1When the car is at the highest point with altitude equals 30 meters, the travelling distance and the time is 0.
+2All the codes needed to obtain the results in MATLAB is attached in the appendix.
+
+3.2
+Detailed Model Analysis
+Team No. 190
+Page 14 of 29
+limiting factor of safety is the upward acceleration, while the forward acceleration and the lateral
+acceleration can hardly exceed the limitation.
+2. The Excitement Judgement
+The degree of excitement S with respect to time interval t is shown in Figure 3.2(d). When S ≥12
+we regard that the amusement is very exciting. We ﬁnd that the largest S is even larger than 20.
+Also we noticed many sudden change of S. Passengers would experience a period of high level of S
+while suddenly rise into a very high level, which is really exciting.
+Consequently, the excitement requirement of our roller coaster could be regarded as satisﬁed.
+3.2
+Detailed Model Analysis
+Before analyze the model in details, we deﬁne the following
+• The gravitational acceleration: g = 9.78[m/s2]
+• The mass of the roller coaster: M = 1000[kg]
+• The friction coefﬁcient: µ = 0.05 for strait track, µ = 0.001 for circular track
+• The damping coefﬁcient: β = 1
+2ρCdA = 1
+2 × 1.293 × 0.25 × 10 = 0.37[kg/m]
+• We will choose the 20 meter horizontal segment as the potential reference.
+3.2.1
+The First Cant Track
+1. The Start Point
+The roller coaster is ﬁrst taken to the highest point which is H = 30[m] above the starting location.
+The slope has an angel of 64o, with a length of 33.3597m. Assume the electromotor drive the roller
+coaster at a constant speed of 2m/s, then it takes the car 16.6798s to arrive at the top. Choose this
+time as the original time t = 0s. Then choosing the starting location as the potential reference point,
+the roller coaster would possess a high potential energy, and we note it as Ep0.
+Ep0 = MgH = 293400[J]
+(17)
+2. The Downward Cant
+Now we consider the downward cant track with the dip angle θ = 75o. We use the vx, vy, vz as
+parametrization, which is the forward speed in the direction of Gx, Gy, Gz. According to Newton’s
+law we obtain Using Equation (11) and (12), we could write the Newton equations
+
+
+
+
+
+M ˙vx = Fx = f
+M ˙vy = Fy = 0
+M ˙vz = Fz = 0
+(18)
+where
+f = −µN −βv2
+x = −µN −βv2
+x
+
+3.2
+Detailed Model Analysis
+Team No. 190
+Page 15 of 29
+N = Mgcos(θ)
+Using the above equations, we could get the ODE equation for vx below:
+Mgsin(θ)cos(θ) −(µN + βv2
+x)cos(θ) = Mcos(θ) ˙vx
+(19)
+Insert the concrete value into this equation, we have
+˙vx + 3.7 × 10−4v2
+x −9 = 0
+(20)
+Using Matlab, we obtain the following data for this motion:
+x[R]
+vx[m/s]
+˙vx[m/s2]
+t[s]
+0
+0
+0
+0
+4.9994
+9.4770
+8.9668
+1.0543
+9.9989
+13.3905
+8.9337
+1.4915
+19.9993
+18.9029
+8.8678
+2.1107
+31.0578
+23.5084
+8.7955
+2.6231
+3. The Horizontal Track
+Now we comes the ﬁrst horizontal track. Assume the total length of this track is 20m. Using Equation
+(3.2.4), and apply θ = 0o, we obtain
+˙vx + 3.7 × 10−4v2
+x + 0.489 = 0
+(21)
+Using Matlab, we obtain the following data for this motion:
+x[R]
+vx[m/s]
+˙vx[m/s2]
+t[s]
+0
+0
+0
+0
+4.9986
+23.3605
+-0.6919
+2.8364
+9.9981
+23.2123
+-0.6894
+3.0511
+19.9983
+22.9152
+-0.6843
+3.4948
+Using Matlab to apply Euler’s method, we approximately solve the ODE Equation (19) and (20) and further
+get Gx, Gy, Gz as well as Sexcitement related to time t based on Equation (1) ∼(4). The code and ﬁgures are
+attached in Appendix. 3
+3.2.2
+The Tri-semicircle Track
+1. The Upward Circle Track
+Then the upward half-circle track follows. Assume the angle for the car to move up is θ and the radius
+of the circle is R. We assume R is 8m. Then
+θ =
+Z t
+0
+vx
+R dt
+(22)
+3Using cant.m, horizontal.m, climb.m
+
+3.2
+Detailed Model Analysis
+Team No. 190
+Page 16 of 29
+Using Equation (11) and (12), we could write the Newton equations
+
+
+
+
+
+
+
+
+
+
+
+
+
+M ˙vx = Fx = −Mgsin(
+Z t
+0
+vx
+R dt) −µ
+
+M v2
+x
+R + Mgcos(
+Z t
+0
+vx
+R dt)
+
+−βv2
+x
+M ˙vy = Fy = 0
+M ˙vz = Fz = Mv2
+x
+R
+(23)
+Using the above equations, we could get the ODE equation for vx below:
+˙vx + βv2
+x
+M ˙v2 + gsin(
+Z t
+0
+vx
+R dt) + µ
+v2
+x
+R + gcos(
+Z t
+0
+vx
+R dt)
+
+= 0
+(24)
+Using Matlab with Euler’s law, with the estimation of θ as:
+θ =
+Z t
+0
+vx
+R dt = Σvx
+R dt
+(25)
+together with
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gx = ˙vx
+g
+Gy = 0
+Gz = ˙vz
+g = v2
+x
+gR
+(26)
+Using Matlab, we obtain the following data for this motion:
+θ[R]
+vx[m/s]
+˙vx[m/s2]
+an[m/s2]
+t[s]
+0
+22.9152
+0
+0
+3.4938
+π/4
+21.8158
+-7.1701
+59.4912
+3.7727
+π/2
+19.0369
+-9.9794
+45.3004
+4.0792
+π
+14.2516
+-0.0937
+25.3096
+4.8673
+2. The Middle Circle Track
+Then the horizontal half-circle track follows. Assume the radius of the circle is R. We assume R is
+8m and the angle for the car to move forward is θ. We write the Newton’s equations
+
+
+
+
+
+
+
+
+
+
+
+M ˙vx = Fx = −µ(M v2
+x
+R + Mg) −βv2
+x
+M ˙vy = Fy = Mv2
+x
+R
+M ˙vz = Fz = 0
+(27)
+Using the above equations, we could get the ODE equation for v below:
+˙vx + βv2
+x
+M + µ(M v2
+x
+R + Mg) = 0
+(28)
+
+3.2
+Detailed Model Analysis
+Team No. 190
+Page 17 of 29
+together with
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gx = ˙vx
+g
+Gy = ˙vy
+g = v2
+x
+gR
+Gz = 0
+(29)
+Using Matlab, we obtain the following data for this motion:
+θ[R]
+vx[m/s]
+˙vx[m/s2]
+an[m/s2]
+t[s]
+0
+14.2516
+0
+0
+4.8673
+π/4
+14.2074
+-0.0999
+25.2311
+5.3079
+π/2
+14.1632
+-0.0993
+25.0747
+5.7508
+π
+14.0754
+-0.0981
+24.7646
+6.6409
+3. The Downward Circle Track
+Then the upward half-circle track follows. Assume the angle for the car to move up is θ and the radius
+of the circle is R. We assume R is 8m. Then
+θ =
+Z t
+0
+vx
+R dt
+(30)
+Using Equation (11) and (12), we could write the Newton’s equations
+
+
+
+
+
+
+
+
+
+
+
+
+
+M ˙vx = Fx = −Mgsin(π +
+Z t
+0
+vx
+R dt) −µ
+
+M v2
+x
+R + Mgcos(π +
+Z t
+0
+vx
+R dt)
+
+−βv2
+x
+M ˙vy = Fy = 0
+M ˙vz = Fz = Mv2
+x
+R
+(31)
+Using the above equations, we could get the ODE equation for v below:
+˙vx + βv2
+x
+M ˙v2 + gsin(π +
+Z t
+0
+vx
+R dt) + µ
+v2
+x
+R + gcos(π +
+Z t
+0
+vx
+R dt)
+
+= 0
+(32)
+Using Matlab with Euler’s law, with the estimation of θ as:
+θ =
+Z t
+0
+vx
+R dt = Σvx
+R dt
+(33)
+together with
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gx = ˙vx
+g
+Gy = 0
+Gz = ˙vz
+g = v2
+x
+gR
+(34)
+
+3.2
+Detailed Model Analysis
+Team No. 190
+Page 18 of 29
+Using Matlab, we obtain the following data for this motion:
+θ[R]
+vx[m/s]
+˙vx[m/s2]
+an[m/s2]
+t[s]
+0
+14.0754
+0
+0
+6.6409
+π/4
+15.5821
+6.8140
+30.3501
+7.0718
+π/2
+18.7581
+9.6258
+43.9835
+7.4396
+π
+22.4271
+-0.2549
+62.8718
+8.0352
+Using Matlab to apply Euler’s method, we approximately solve the ODE Equation (24), (28) and (32). Then
+further get Gx, Gy, Gz as well as Sexcitement related to time t based on Equation (26), (29) and (34). The
+code and ﬁgures are attached in Appendix. 4
+3.2.3
+The Upward Cant Track
+1. The Horizontal Track
+The length of this track is 20 meters. The procedures are similar to what we have done in Section
+3.2.1, hence we directly list the results here. Using Matlab, we obtain the following data for this
+motion:
+x[R]
+vx[m/s]
+˙vx[m/s2]
+t[s]
+0
+22.4271
+0
+8.0352
+4.9978
+22.2762
+-0.6736
+8.2588
+9.9996
+22.1247
+-0.6711
+8.4841
+14.9980
+21.9729
+-0.6686
+8.7108
+19.9992
+21.8213
+-0.6662
+8.9393
+2. The Upward Track
+The height of the cant is 22m, with a dip angle θ equals 60o. Similarly, we could obtain the equation
+of motion as follows
+−Mgsin(θ) −µMgcos(θ) −βv2
+x = M ˙vx
+(35)
+Apply the constant quantities, we obtain the following equation
+˙vx + 3.7 × 10−4v2
+x + 8.714 = 0
+(36)
+Similarly to section 3.1.2, we obtain the ODE’ s solution as well as Gx, Gy, Gz and Sexcitement related
+to time t. The terminal state is shown in the Table below. 5
+Using Matlab, we obtain the following data for this motion:
+4Using upcircle.m, midcircle.m, downcircle.m
+5Using cant.m, horizontal.m, climb.m
+
+3.2
+Detailed Model Analysis
+Team No. 190
+Page 19 of 29
+x[R]
+vx[m/s]
+˙vx[m/s2]
+t[s]
+0
+21.8213
+0
+8.9393
+9.9907
+17.2958
+-8.8248
+9.4503
+19.9941
+11.0990
+-8.7597
+10.1553
+25.4010
+5.3568
+-8.7246
+10.8123
+3. The Horizontal Track
+After the upward track is a horizontal track of altitude equals 22m. Assume the total length of this
+track is 10m. Similarly, using Equation (28) again,
+˙vx + 3.7 × 10−4v2
+x + 0.489 = 0
+(37)
+Using Matlab, we obtain the following data for this motion:
+x[R]
+vx[m/s]
+˙vx[m/s2]
+t[s]
+0
+5.3568
+0
+10.8123
+4.9998
+4.8681
+-0.4988
+11.7903
+9.9997
+4.3289
+-0.4969
+12.8775
+3.2.4
+The Double Helix Track
+After the horizontal track is the double helix track. Assume the angle for the car to move up is θ, then
+the car passes the whole double helix track when θ = 3π. The radius of the helix is ρ, and the screw pitch
+is 2πk. We assume ρ is 8m, k is 1m. Then
+θ =
+Z t
+0
+vx
+ρ dt
+(38)
+Using Equation (11) and (12), we could write the Newton equations
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+M ˙vx = Fx = −M
+ρ
+p
+ρ2 + k2gsin(π +
+Z t
+0
+vx
+ρ dt) −µ
+"
+M v2
+x
+ρ + M
+ρ
+p
+ρ2 + k2gcos(π +
+Z t
+0
+vx
+ρ dt)
+#
+−βv2
+x
+M ˙vy = Fy = 0
+M ˙vz = Fz = Mv2
+x
+ρ
+(39)
+Using the above equations , with the estimation of θ as:
+θ =
+Z t
+0
+vx
+R dt = Σvx
+R dt
+(40)
+we could get the ODE equation for v below:
+˙vx + βv2
+x
+M ˙v2 +
+ρ
+p
+ρ2 + k2gsin(π +
+Z t
+0
+vx
+ρ dt) + µ
+"
+v2
+x
+ρ +
+ρ
+p
+ρ2 + k2gcos(π +
+Z t
+0
+vx
+ρ dt)
+#
+= 0
+(41)
+
+3.2
+Detailed Model Analysis
+Team No. 190
+Page 20 of 29
+together with
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gx = ˙vx
+g
+Gy = 0
+Gz = ˙vz
+g = v2
+x
+gR
+(42)
+Using Matlab, we obtain the following data for this motion:
+θ[R]
+vx[m/s]
+˙vx[m/s2]
+an[m/s2]
+t[s]
+0
+4.3289
+0
+0
+12.8775
+π/2
+13.0976
+9.5249
+21.4434
+14.6215
+π
+17.9443
+-0.1379
+40.2495
+15.3985
+2π
+3.2196
+-0.0017
+1.2958
+18.1905
+3π
+17.7153
+-0.1274
+39.2288
+20.9895
+4π
+1.5490
+0.0063
+0.2999
+24.4635
+Using Matlab to apply Euler’s method, we approximately solve the ODE Equation (41). Then further
+get Gx, Gy, Gz as well as Sexcitement related to time t based on Equation (42). The code and ﬁgures are
+attached in Appendix. 6
+3.2.5
+The Downward Cant and Circular Track
+1. The Downward Cant
+The calculation for the downward cant is similar to the ﬁrst downward track in 3.2.1, so we directly
+list results here in the table below, where x is the total displacement along G-x axis. 7
+x[m]
+vx[m/s]
+˙vx[m/s2]
+t[s]
+0
+1.5490
+8.9991
+24.4625
+4.9997
+9.6027
+8.9659
+25.3597
+9.9988
+13.4790
+8.9328
+25.7928
+14.9986
+16.4573
+8.8998
+26.1268
+19.9988
+18.9651
+8.8669
+26.4091
+22.7752
+20.2203
+8.8487
+26.5508
+2. The Horizontal Track
+Followed by the downward cant is a horizontal track whose length equals 26 meters. The calculation
+is similar to the middle circle track in 3.2.1, so we directly list our calculation results here in the table
+below, where x is the total displacement along G-x axis. 8
+6Using orbit.m
+7Using cant.m
+8Using horizontal.m
+
+Team No. 190
+Page 21 of 29
+x[m]
+vx[m/s]
+˙vx[m/s2]
+t[s]
+0
+20.2203
+-0.6403
+26.5508
+5.0010
+20.0616
+-0.6379
+26.7991
+10.0004
+19.9023
+-0.6356
+27.0493
+15.0016
+19.7422
+-0.6332
+27.3016
+20.0016
+19.5815
+-0.6309
+27.5559
+26.0009
+19.3877
+-0.6281
+27.8638
+3. The Circular Track
+Followed by the horizontal track is a circular track with radius equals 8+2π meters. The calculation
+is similar to the middle circle track in 3.2.2, so we directly list our calculation results here in the table
+below, where θ is the total displacement of rotation angle. 9
+θ[R]
+vx[m/s]
+˙vx[m/s2]
+an[m/s2]
+t[s]
+0
+19.3877
+-0.6281
+26.3165
+27.8638
+π/4
+19.2866
+-0.1735
+26.0426
+28.4439
+π/2
+19.1859
+-0.1718
+25.7715
+29.0271
+3π/4
+19.0857
+-0.1701
+25.5030
+29.6133
+π
+18.9860
+-0.1684
+25.2372
+30.2026
+4. The Last Horizontal Segment
+The last part of the track is also the original 20 meter horizontal segment. In order to slow down
+the high-speed roller coaster, we need to apply a large damping coefﬁcient µ0. Since this µ0 is large
+enough, we could ignore the inﬂuence of quadric drag. Hence this motion could be regarded as a
+uniformly retarded motion. We have the following equation
+v2 = 2a(x −x0)
+(43)
+t = t0 + v
+a
+(44)
+Hence we calculate the ﬁnal state of motion as 10
+s[m]
+v[m/s]
+a[m/s2]
+t[s]
+394.7507
+0
+9.3971
+32.3094
+4
+Discussion
+4.1
+Conclusion
+During the whole process, we draw a concept model for the ideal roller coaster and then simplify the
+complex model using the assumptions that roller coaster could be regarded as a particle. Also, we ignore
+9Using horicircle.m
+10Using horizontal.m
+
+4.2
+Limitations and Possible Improvement Team No. 190
+Page 22 of 29
+the rotation of tracks and the roller coaster to simplify the calculation.
+Using Euler’s Method, we could solve the complex second order ODEs of motion, then Matlab is
+applied to ﬁnd the approximate solution of the equation. Calculate the ﬁve models respectively, we ﬁnally
+obtain the total duration of the ride equals 48.9892[s], covering a track lengthen out to 428.1104[m].
+Before our calculation, we set the mass of roller coaster M, the friction coefﬁcient µ, and the damping
+coefﬁcient of air drag. Furthermore, the shape and length of the track is determined ﬁrst, such as the height
+and length of the track, the radius and screw pitch of the circle. We could obtain some different results by
+changing the value of this constants. In this article, we choose the parameters that can reach to the most
+safe and exciting roller coaster.
+During the calculation, we ﬁnd that the friction coefﬁcient would lead to a huge dissipation of energy
+due to the large centrifugal ’force’, which make it difﬁcult for the car passing through the helix. Hence we
+replace the origin µ with a smaller one for circular track.
+4.2
+Limitations and Possible Improvement
+4.2.1
+Shape of the Car Consideration
+In this article, we consider the car as a mass point without length and volume. However, actually it is
+not the case. If we want to examine the rotation of the roller coaster, we should take into consideration of
+its length and volume. However, in this article we only need to ﬁnd out its Newton’s equations, hence our
+model could work well.
+To make our model much better, we could consider the shape of the roller coaster car as a long cuboid.
+Take into consideration of the rotation of the car and the reverse of the track. To do so, we could try to
+consider the normal vector of the track surface.
+Planet Coaster[4] can be applied to formulate the structure of the roller coaster, and calculate the three
+kinds of accelerations and sense of excitement respectively. We build the concept diagram of the roller
+coaster here, and it could also be used to test our model.
+4.2.2
+Self-rotation Consideration
+Figure 4.1: Graph of the self-rotating track
+In the above model, we regard the track as a line, and the car as a particle. However,in actual world, the
+track of the roller coaster would have a width of three to ﬁve meters. So the car can be self-rotating along
+the trajectory, as Figure 4,1 shows.
+One of our method to estimate the self-rotation effect is:
+
+4.3
+Advantages
+Team No. 190
+Page 23 of 29
+Let the initial angular momentum of the roller coaster be L, the projected radius of the track in the
+direction parallel to the track is R, and the rising height of the track is H.
+Since the friction and air resistance is ignored, we assume the conservation of angular momentum is
+satisﬁed, thus we can simply calculate the angular velocity for the roller coaster to rotate along the axis is
+ω = 4L2
+md2
+so the centripetal acceleration is
+aω = ω2R
+and the rising velocity along the axis as
+valong = 2LH
+πmd2
+.
+Then with the same method in 2.2.3, we deﬁne
+Gω = aω
+g
+We add a correction term to Sexcitement in Equation (7)
+∆w = k1 · k4Gω + k1 · k5valong
+(45)
+Then the corrected Sexcitement(new) is written as:
+S(new) = S + ∆w = S = k1(4Gx + 5Gy + 3Gz + k2v + k3H + k4Gω + k5valong)
+(46)
+4.2.3
+Other Considerations
+We could consider the air drag more precisely and apply a much more precise and convincing method
+to deﬁne safety and exciting.
+4.3
+Advantages
+Firstly, our model is easy to formulate and calculate. We utilize some basic functions to represent the
+complex trajectory of the track. We also focus on analysing the state of motion of the roller coaster and
+write equations of motion.
+Moreover, we build our model under many reasonable assumptions. We take into consideration of many
+important factors. Since the roller coaster run in a high speed, the factor of the quadratic drag should be
+considered. We assume the roller coaster to be a particle since we do not need to analyse the rotation of it.
+We also assume the friction between the car and the track is small, which could make the car to run much
+further. We set some reasonable initial conditions to increase the sense of excitement and
+Thirdly, the model of the roller coaster track is very humanized. There are no sharp turns in the track of
+the roller coaster, which can avoid the huge acceleration caused by simpliﬁcation. At the same time, it can
+make the roller coaster running more smoothly, and passengers can have a better experience.
+Last but not least, we make a clear deﬁnition of the safety and excitement, which make it easier for us
+to analyse and fulﬁl our goal of constructing a roller coaster that is safe and exciting.
+Above all, we tried our best to construct an analysable model of roller coaster and analyse its concrete
+motion in the whole process. We have searched many information and material to support our assumption,
+and apply Euler Method to ﬁnd the approximate solution of velocity and the three kinds of accelerations at
+any instant time. Although the process is difﬁcult, but we ﬁnally succeed to construct model and obtain all
+the results.
+
+REFERENCES
+Team No. 190
+Page 24 of 29
+References
+[1] Av Med, G Force – What is? [Online]. Available FTP: http://www.avmed.in/2012/06/g-force-what-is/
+[2] K. Vasantha Kumar, William T. Norﬂeet, Issues on Human Acceleration Tolerance After Long-
+Duration Space Flights, NASA Technical Memorandum (1992), pages 2-9, 29-38
+[3] Paul Dawkins, Paul’s Online Notes, section 2-9 [Online].
+Available FTP: http://tutorial.math.lamar.edu/Classes/DE/EulersMethod.aspx
+[4] Jody Macgregor, PLANET COASTER REVIEW (2016) [Online].
+Available FTP: https://www.pcgamer.com/planet-coaster-review-1/
+[5] Donggun Park, Sunghwan Park, A comparative study on subjective feeling of engine acceleration
+sound by automobile types, International Journal of Industrial Ergonomics (2019)
+
+Team No. 190
+Page 25 of 29
+A
+Plotting Figures
+(a) Gx horicircle
+(b) Gx midcircle
+(c) Gx downcircle
+(d) Gx orbit
+(e) Gx upcicle
+Figure A.1: Gx for the ﬁve circular track
+
+Team No. 190
+Page 26 of 29
+(a) Gy horicircle
+(b) Gy midcircle
+(c) Gz downcircle
+(d) Gz orbit
+(e) Gz upcicle
+Figure A.2: Gy or Gz for the ﬁve circular track
+
+Team No. 190
+Page 27 of 29
+(a) S downcircle
+(b) S horicircle
+(c) S midcircle
+(d) S orbit
+(e) S upcircle
+Figure A.3: Sexcitement for the ﬁve circular track
+
+Team No. 190
+Page 28 of 29
+B
+MATLAB Codes
+11
+1
+%Euler
+Method
+f o r
+downward
+cant
+2
+f u n c t i o n
+[ xn , vn , an , tn ] = cant ( x0 , v0 , a0 , t0 )
+3
+a1 = −0.00037∗v0 ˆ2+9;
+4
+v1 = v0 + a1 ∗0.0001;
+5
+x1 = x0 + v1 ∗0.0001;
+6
+t1 = t0 + 0.0001;
+7
+i f
+x1 <31.0583
+8
+[ xn , vn , an , tn ]= cant ( x1 , v1 , a1 , t1 ) ;
+9
+e l s e
+10
+xn = x0 ;
+vn = v0 ;
+11
+an = a0 ;
+tn = t0 ;
+12
+end
+1
+%Euler
+Method
+f o r
+h o r i z o n t a l
+t r a c k
+2
+f u n c t i o n
+[ xn , vn , an , tn ] = h o r i z o n t a l ( x0 , v0 , a0 , t0 )
+3
+a1 = −0.00037∗v0 ˆ2 −0.0098;
+4
+v1 = v0 + a1 ∗0.0001;
+5
+x1 = x0 + v1 ∗0.0001;
+6
+t1 = t0 + 0.0001;
+7
+i f
+x1<10
+8
+p l o t v ( t1 , v1 ) ;
+9
+[ xn , vn , an , tn ]= h o r i z o n t a l ( x1 , v1 , a1 , t1 ) ;
+10
+e l s e
+11
+xn = x0 ;
+12
+vn = v0 ;
+13
+an = a0 ;
+14
+tn = t0 ;
+15
+end
+1
+%Euler
+Method
+f o r
+upward
+c i r c l e
+t r a c k
+2
+f u n c t i o n
+[ xn , vn , an , bn , tn ] = u p c i r c l e
+( x0 , v0 , a0 , b0 , t0 )
+3
+a1 =
+−0.001∗( v0 ˆ2/8+9.8∗cos ( x0 ) ) −0.00037∗v0 ˆ2 −9.8∗s i n ( x0 ) ;
+4
+v1 = v0 + 0.0001∗a1 ;
+5
+x1 = x0 + v1 / 8 ∗0 . 0 0 0 1 ;
+6
+b1 = v1 ˆ 2 / 8 ;
+7
+t1 = t0 + 0.0001;
+8
+i f
+x1<pi
+9
+s = 4∗a1 /9.8+4∗b1 / 9 .8 + 0. 0 5 ∗v1 +0.1∗8∗(1 −cos ( x1 ) ) ;
+10
+p l o t ( t1 , s , ’ . ’ ) ;
+11
+hold on ;
+12
+[ xn , vn , an , bn , tn ] = u p c i r c l e ( x1 , v1 , a1 , b1 , t1 ) ;
+13
+e l s e
+14
+xn = x0 ;
+15
+vn = v0 ;
+16
+an = a0 ;
+17
+bn = b0 ;
+18
+tn = t0 ;
+19
+end
+11We apply recursion to the Matlab Code. The function require initial conditions of the car as the input and can output the
+emotion condition at any instant of time.
+
+Team No. 190
+Page 29 of 29
+1
+%Euler
+Method
+f o r
+middle
+c i r c l e
+t r a c k
+2
+f u n c t i o n
+[ xn , vn , an , bn , tn ] = m i d c i r c l e ( x0 , v0 , a0 , b0 , t0 )
+3
+a1 =
+−0.001∗( v0 ˆ 2 / 8 ) −0.00037∗v0 ˆ 2 ;
+4
+%assume
+s u r f a c e
+o r b i t s
+but
+s e l f −r o t a t i o n
+ignored
+5
+v1 = v0 + 0.0001∗a1 ;
+6
+x1 = x0 + v1 / 8 ∗0 . 0 0 0 1 ;
+7
+b1 = v1 ˆ 2 / 8 ;
+8
+t1 = t0 + 0.0001;
+9
+i f
+x1<pi
+10
+s = 4∗a1 /9.8+4∗b1 / 9 .8 + 0. 0 5 ∗v1 + 1 . 6 ;
+11
+p l o t ( t1 , s , ’ . ’ ) ;
+hold on ;
+12
+plotG ( t1 , b1 ) ;
+13
+[ xn , vn , an , bn , tn ] = m i d c i r c l e ( x1 , v1 , a1 , b1 , t1 ) ;
+14
+e l s e
+15
+xn = x0 ;
+16
+vn = v0 ;
+17
+an = a0 ;
+18
+bn = b0 ;
+19
+tn = t0 ;
+20
+end
+1
+%Euler
+Method
+f o r
+downward
+c i r c l e
+t r a c k
+2
+f u n c t i o n
+[ xn , vn , an , bn , tn ]= downcircle ( x0 , v0 , a0 , b0 , t0 )
+3
+a1 =
+−0.001∗( v0 ˆ2/8+9.8∗cos ( x0+ pi ) ) −0.00037∗v0 ˆ2 −9.8∗s i n ( x0+ pi ) ;
+4
+v1 = v0 + 0.0001∗a1 ;
+5
+x1 = x0 + v1 / 8 ∗0 . 0 0 0 1 ;
+6
+b1 = v1 ˆ 2 / 8 ;
+7
+t1 = t0 + 0.0001;
+8
+i f
+x1<pi
+9
+s = 4∗a1 /9.8+4∗b1 / 9 .8 + 0. 0 5 ∗v1 +0.1∗8∗(1 −cos ( x1+ pi ) ) ;
+10
+p l o t ( t1 , s , ’ . ’ ) ;
+hold on ;
+11
+plotG ( t1 , b1 ) ;
+12
+[ xn , vn , an , bn , tn ] = downcircle ( x1 , v1 , a1 , b1 , t1 ) ;
+13
+e l s e
+14
+xn = x0 ;
+15
+vn = v0 ;
+16
+an = a0 ;
+17
+bn = b0 ;
+18
+tn = t0 ;
+19
+end
+1
+%Euler
+Method
+f o r
+climbing
+t r a c k
+2
+f u n c t i o n
+[ xn , vn , an , tn ] = climb ( x0 , v0 , a0 , t0 )
+3
+a1 = −0.00037∗v0 ˆ2 −8.714;
+4
+v1 = v0 + a1 ∗0.001;
+5
+x1 = x0 + v1 ∗0.001;
+6
+t1 = t0 + 0 . 0 0 1 ;
+7
+i f
+x1<25
+8
+[ xn , vn , an , tn ]= climb ( x1 , v1 , a1 , t1 ) ;
+9
+e l s e
+10
+xn = x0 ;
+vn = v0 ;
+11
+an = a0 ;
+tn = t0 ;
+12
+end
+
+Team No. 190
+Page 30 of 29
+1
+%Euler
+Method
+f o r
+climbing
+t r a c k
+2
+f u n c t i o n
+[ xn , vn , an , bn , tn ] =
+o r b i t ( x0 , v0 , a0 , b0 , t0 )
+3
+a1 =
+−0.001∗( v0 ˆ 2 / 8 + 5 / 2 6 ˆ 0 . 5 ∗9 . 8 ∗cos ( x0+ pi )) −5/26ˆ0.5∗9.8∗s i n ( x0+ pi ) −0.00037∗v0 ˆ 2 ;
+4
+v1 = v0 + a1 ∗0.001;
+5
+x1 = x0 + v1 / 8 ∗0 . 0 0 1 ;
+6
+b1 = v1 ˆ 2 / 8 ;
+7
+t1 = t0 + 0 . 0 0 1 ;
+8
+9
+i f
+x1<4∗pi
+10
+s = 4∗a1 /9.8+5∗b1 / 9 .8 + 0. 0 5 ∗v1 +0.1∗8∗(1 −cos ( x1+ pi ) ) ;
+11
+p l o t ( t1 , s , ’ . ’ ) ;
+12
+hold on ;
+13
+%plotG ( t1 , b1 ) ;
+14
+[ xn , vn , an , bn , tn ]= o r b i t ( x1 , v1 , a1 , b1 , t1 ) ;
+15
+e l s e
+16
+xn = x0 ;
+17
+vn = v0 ;
+18
+an = a0 ;
+19
+bn = b0 ;
+20
+tn = t0 ;
+21
+end
+1
+%Function
+to
+P l o t G
+2
+f u n c t i o n
+plotG ( t , a )
+3
+p l o t ( t , a / 9 . 8 , ’ . ’ ) ;
+4
+hold on ;
+5
+end
+1
+%Function
+to
+P l o t G
+2
+f u n c t i o n
+p l o t v ( t , v )
+3
+p l o t ( t , v , ’ . ’ ) ;
+4
+hold on ;
+5
+end

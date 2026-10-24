@@ -1,0 +1,596 @@
+Establishing a Martian Greenhouse Eect Through Directed Impacts
+TEAM 190: Problem A - Terraforming Mars
+November 15, 2015
+Abstract
+In this report we investigate the eectiveness of asteroid bombardment on Mars in creating a stable atmosphere
+which allows for the existence of liquid water. The impacts release thermal energy which temporarily raises the
+average temperature of the Martian atmosphere, thereby allowing carbon dioxide frozen in the poles to be released.
+We found total mass of the impactors to be 1.225 × 1013kg, based on a required energy for atmospheric heating
+and CO2 sublimation of 2.14 × 1021J. The impulse required to move these asteroids such that they collide with
+Mars is on the order of 1016 N*s.
+TEAM 190
+1
+
+1
+Introduction
+Humanity has been fascinated with Mars since its discovery by ancient civilizations thousands of years ago. The
+evidence of the past existence of liquid water on Mars' surface has reinvigorated this fascination, and given it a
+new focus. Modern scientic understanding puts the colonization of Mars in view by giving humanity the ability
+to approach the problems created by the inhospitable conditions on Mars' surface. In this report we approach the
+problem of Mars' low surface temperature. A signicant amount of carbon dioxide is frozen at the poles, and if
+released could thicken Mars' atmosphere enough to maintain a temperature which permits liquid water to form. We
+hypothesize that driving asteroids into the surface of Mars would increase the average temperature to a point which
+drives the dry ice in the poles to sublimation. The positive-feedback loop caused by this sublimation would lead to
+a thicker atmosphere and more stable climate conditions.
+2
+Required Equilibrium Conditions
+2.1
+Conditions for Liquid Water
+We want Mars to be able to sustain liquid water on its surface. To do this, we require Mars to have a surface air
+temperature of at least 273K and a surface air pressure of at least 612Pa. This was determined with the location of
+the triple point on the phase diagram of water[5]. Mars already has a sucient surface air pressure of about 636Pa[12];
+however, Mars' surface temperature is another story.
+2.2
+Blackbody Temperatures
+To achieve sustainable liquid water on Mars, we need Mars to have an average surface air temperature slightly
+above 273K. Using the Stefan-Boltzmann equation, the blackbody temperature of Mars at equilibrium, TMars, can
+be determined. TSun = 5778K[13] is the blackbody temperature of the Sun (or surface temperature). a = 0.17[12] is
+the albedo of Mars. RSun = 6.96 × 108m[13] is the radius of the Sun. D = 2.2792 × 1011m[12] is the average distance
+between Mars and the Sun.
+TMars = TSun(1 −a)
+1
+4
+r
+RSun
+2D
+(1)
+We determine that the blackbody temperature of Mars is about 215K, which isn't enough to satisfy the conditions
+for liquid water. As a comparison, Earth's blackbody temperature is about 254K, which is also below 273K. Earth's
+average surface air temperature is actually much higher than 254K. This is due to the greenhouse eect of various
+gases in Earth's atmosphere, such as CO2, H2O, CH4, CFCs and so on. Mars' atmosphere is comprised of mostly
+CO2, and for the purposes of this report, we will consider that it is all CO2. Assuming this, we can model the eects
+of dierent CO2 levels on heating up Earth's atmosphere and apply it to Mars.
+2.3
+Optical Depth of CO2
+We can determine the temperature change due to the greenhouse eect using the optical depth, τ(n), of certain
+concentrations, n, of gases in the atmosphere.
+We used a version of Ramanathan's semi-gray model shown in
+the equation below[8], where TS is the surface air temperature after the greenhouse eect, TB is the blackbody
+temperature of the planet, and β ~ 0.7[8] is a constant representing the ratio of electromagnetic radiation that is
+opaque to the gas.
+τ(n) = 2
+3
+2T 4
+S −T 4
+B
+T 4
+B −(1 −β)T 4
+S
+(2)
+The optical depth of CO2 on Earth before the industrial era was determined to be our reference to be about
+1.73, when the concentration of CO2 in the atmosphere was about 280ppm[8]. The eects of other greenhouse gases
+have already been considered by the source. The number density of CO2 on Earth at this time can be determined
+by using the concentration as a ratio of the number density of air (about 2.7 × 1025m-3[10]). The number density of
+CO2 on Earth before the industrial era was about 7.56 × 1021m-3.
+The ratio of optical depths of dierent concentrations of CO2 is equal to the ratio of those concentrations. This
+is shown in the equation below[8], where n0 is the pre-industrial concentration of CO2.
+τCO2(n) = n
+n0
+τCO2(n0)
+(3)
+TEAM 190
+2
+
+This can be rewritten in terms of a ratio of number densities. N0 was determined earlier to be about 7.56×1021m-3.
+τCO2(N) = N
+N0
+τCO2(N0)
+(4)
+Using Equation 2, we can determine the optical depths required for liquid water (we'll consider temperatures
+slightly higher than 273K).
+Figure 1: The relation between the optical depth of CO2 and the surface air temperature
+We will need an optical depth of at least 12.72 to provide an equilibrium surface air temperature of 273K on
+Mars. Using equation 4, we can see that this corresponds to a number density of about 5.56 × 1022m-3, or a mass
+density of about 0.0041kg/m3 (assuming mCO2~44amu).
+In conclusion, Mars requires an atmospheric CO2 density of over 0.0041kg/m3, as a bare minimum, in order to
+maintain an average surface air temperature capable of sustaining liquid water.
+3
+The Current State of Mars
+3.1
+The Martian Atmosphere
+Mars has a current average atmospheric temperature of roughly 210 Kelvin[12]. This is due to the absence of a thick
+atmosphere which would otherwise trap the sun's energy. Mars' atmosphere has a density of roughly 0.02kg/m3
+and a surface pressure of about 6.36mb[12], which are roughly 1.7% and 0.6% of Earth's, respectively. The Martian
+atmosphere has a composition (by volume) of 95.32% Carbon Dioxide (CO2), 2.7% Nitrogen (N2), 1.6% Argon (Ar),
+0.13% Oxygen (O2) and traces of other compounds[12]. The mass of Mars' atmosphere is ~2.5 × 1016kg, based on a
+scale height of 11.1km. Both the low temperature and atmospheric pressure prevent the existence of liquid water on
+TEAM 190
+3
+
+Mars' surface, excepting a limited amount during warmer seasons[1]. We calculate an approximation for the volume
+of Mars' atmosphere by treating it as a spherical section with a width equal to the scale height. The volume is then
+given by equation 5 and works out to be 1.59 × 1018m3.
+V = 4
+3π(r3
+Mars −r3
+Mars+ScaleHeight)
+(5)
+3.2
+Polar Ice Caps
+Mars has two distinct polar caps which are comprised of a surface layer coating of solid carbon dioxide covering a
+signicantly thick layer of water ice[9]. The exact size and shape of these caps has a dramatic seasonal dependence.
+It is known that during Martian Summers, at times the North pole completely vanishes due to sublimation, while
+the South pole never completely sublimates. In this paper we are interested only in this surface layer of solid carbon
+dioxide. The North pole of Mars features a layer approximately 1100km in diameter and 1m thick, while the South
+pole features a layer approximately 350km in diameter and 8m thick[9]. We compute a volume for the carbon dioxide
+stored in the North pole by modelling the North pole as a cylinder with a diameter of 1100km and height of 1m.
+Doing so, we arrive at a volume of 9.50x10^11 m^3. Similarly, the computed volume of carbon dioxide stored in the
+South pole is found to be 7.69 × 1011m3. Thus we nd that at its coldest, Mars currently stores 1.72 × 1012m3 of
+carbon dioxide in its poles. By completely sublimating this stored CO2, we can thicken the atmosphere and initiate
+a greenhouse eect which can contribute to further warming the planet to desired levels.
+3.3
+The Heat Capacity of the Martian Atmosphere
+In order to simplify future calculations, in particular that of optical depth and its eect on temperature, we approxi-
+mate this atmosphere to be comprised of solely carbon dioxide. We take the specic heat capacity of the atmosphere
+to be equal to that of gaseous carbon dioxide, 735 J/kgK at a temperature of 200K[3]. Multiplying this capacity
+by the atmospheric mass given in section 3.1 gives an energy value of 1.8375 × 1019J needed to raise the entire
+atmosphere's temperature by one Kelvin.
+4
+Generation of the Greenhouse Eect
+A large body colliding with Mars will increase the overall temperature of the planet as energy is added to the system.
+Not all of the energy of the colliding body will go towards heating the surroundings and eventually, by dissipation,
+the planet. Following from the results of a simulation done by Maindl et. al. (2015), we expect a weak dependence for
+energy transfer on size of colliding body and a strong dependence on angle of impact[7]. Adapting the methodology
+of Maindl et. al. (2015), we also relate the energy available as heat from the collision to be 60% of the kinetic energy
+of the colliding object[7].
+We decided to choose a series of collisions such that the energy available is sucient to heat the planet enough to
+amplify the current greenhouse eect by adding all of the stored carbon dioxide from the poles to the atmosphere. This
+thickening enhances the ability of the atmosphere to absorb and retain heat, leading to higher surface temperatures
+and the ability to support liquid water.
+4.1
+Initial Atmospheric Heating
+A series of ten impacts heat the atmosphere to a temperature sucient to start sublimation. The coldest temperature
+recorded at the polar regions of Mars was 123K, we require that this be raised to 150K to allow for sublimation to
+occur[9]. The mechanism for generating this heat is the impacts themselves, so we require that the collisions provide
+enough energy to raise the temperature by 27K. After this initial atmospheric heating, temperatures at the polar
+regions are high enough that even during the coldest seasonal period of Mars sublimation can occur.
+4.2
+Sublimation of the Polar Caps
+From 3.2, we know that the total volume available for sublimation is 1.72 × 1012m3. Were the poles to completely
+sublimate, this would add a large amount of carbon dioxide to the atmosphere. We ignore the timescale over which
+this sublimation occurs as it is not of interest to us in this rst approximation of creation of a suitable environment
+for liquid water to exist. Using a density of 1600kg/m3 [2], this corresponds to a mass of 2.75 × 1015kg of carbon
+dioxide being added to the atmosphere. Thus, the amount of carbon dioxide in the atmosphere after the asteroid
+impacts is 2.78 × 1016kg. This will correspond to a new atmospheric density of 0.0175kg/m3.
+TEAM 190
+4
+
+4.3
+The New Optical Depth
+The new atmospheric number density of CO2 will be about 2.38 × 1023m-3. Using equation 4, we nd that the new
+optical depth of CO2 is about 54.45. The corresponding surface air temperature appears to be between 285K and
+286K, according to Figure 1. This is sucient for liquid water to exist on the surface of Mars.
+5
+Required Energy
+The energy required to change Mars to a state capable of supporting liquid water on its surface comes from the ten
+collisions. From 4.1 we require that the collisions provide enough energy to raise the temperature by 27K, and from
+4.2 we require that they also provide enough energy to completely sublimate the poles. The energy required to raise
+the temperature by 27K follows from equation 6, which gives a value of 4.961 × 1020J.
+∆E = HeatCapacityOfAtmosphere × 27K
+(6)
+The energy required to sublimate the poles is given by equation 7, where m is 1.72 × 1012m3 from 3.2, M is the
+molar mass, ~44 amu and ΔH is the enthalpy of sublimation, 26.3 kJ/mol[2]. This energy works out to be equal to
+1.64 × 1021J.
+∆E = mIceCap
+mCO2
+∆H
+(7)
+From the two energies above, we conclude that the impacts must provide a total energy of 2.14 × 1021J to change
+the state of Mars. Providing that the energy transfer from the collisions has an eciency of 60%, as discussed in
+section 4, an estimate for total mass of colliding objects can be obtained from equation 8.
+X
+mi = 2∆E
+0.6v2
+(8)
+Following the equation above and assuming a collision velocity of ~24km/s, we nd that the total mass required
+is 1.225 × 1013kg. This required collision velocity was chosen arbitrarily, but led to a very physical size estimate for
+the colliding bodies, and so was kept.
+6
+Asteroid Hunting
+From section 5, it is apparent that we must nd 10 bodies whose total mass adds to 1.225 × 1013kg to collide into
+Mars. We decide that such candidates are best found in the population of Mars-crossing asteroids and the asteroid
+belt itself. Prior to searching for specic candidates, we decide to specify an ideal asteroid to which we may compare
+candidates.
+This ideal asteroid is spherical in shape, is solid and of uniform density, a circular orbit on the plane of Mars, and
+contains one tenth the required total mass (1.225 × 1012kg). The asteroid must be able to withstand the strains of
+approaching Mars and travelling through its atmosphere. Upon impacting Mars, this ideal asteroid will transfer most
+of its kinetic energy into heat, and will have lost no energy in the process of travelling through Mars' atmosphere.
+Certainly no real asteroids are expected match the all the criteria. In fact, none are expected to match any of
+the criteria; however, they serve to set a good baseline. From the NASA data sheet on the asteroid belt, we see that
+the best candidates (mass-wise) will be asteroids similar to Icarus[11]. Since it is dicult to calculate the mass of
+an asteroid, it is rarely done and thus any database of asteroids, such as the one used to nd candidates, lacks this
+information. As a result we have to make the assumption that if we choose bodies similar in diameter to Icarus,
+their masses will be of similar scale. We set a range of diameters of 1.0km - 2.0km as a search criterion and end up
+choosing the ten bodies listed in table 1, obtained from the Jet Propulsion Laboratory database[6].
+7
+Asteroid Energies and Impulses
+7.1
+Virial Theorem
+Using the Virial Theorem, we can determine the change in orbital energy of an asteroid when we move it from its
+initial orbit to a similar, stable, Martian orbit. The orbital energy of an object in the solar system is given by the
+equation below, where MSun is the solar mass, a is the semi-major axis of orbit, and μ is the mass of the orbiting
+body.
+TEAM 190
+5
+
+ET otal = −GMSunµ
+2a
+= −EKinetic = EP otential
+2
+(9)
+Thus, the change in orbital energy can be described below. An extra term has been added to account for the
+extra relative velocity between the asteroid and Mars that we wish for the bodies to collide with (24km/s as was
+chosen earlier).
+∆E = −GMSunµ
+2
+(
+1
+aMars
+−
+1
+aAsteroid
+) + 1
+2µv2
+rel
+(10)
+7.2
+Impulse
+The impulse, J, required for this action is described below using changes in total momentum, rather than momentum
+as a vector. The downside to using this method is that we don't know which direction we are pushing the asteroid,
+only how hard. Another method that involves slowing down the tangential velocity of the asteroid will be discussed
+in the next section, but it is incomplete. In our equation, aMars is the semi-major axis of Martian orbit, and aAsteroid
+is the semi-major axis of the asteroid's initial orbit. Again, vrel was chosen to be 24km/s.
+J = ∆p = µ((vf + vrel) −vi) = µ(
+r
+GMSun
+aMars
+−
+r
+GMSun
+aAsteroid
++ vrel)
+(11)
+7.3
+Sending an Imaginary Asteroid to Mars
+As an example, we will determine the energy and total impulse required to send an ideal asteroid (described in
+section 6) on a collision course towards Mars. The mass of our asteroid is 1.225 × 1012kg. Assuming its initial orbit
+lies within the asteroid belt (a ~ 3AU = 4.5 × 1011m). Using equation 10, we determine that the energy required to
+send our rock to Mars is 1.77 × 1020J. This is equivalent to about 42000 megatons of TNT. As a comparison, the
+Tsar Bomba was the largest nuclear detonation on Earth. It was recorded to release an energy of about 50 megatons.
+We would need a signicantly larger amount of energy to move even one asteroid in such a way that we could hit
+Mars hard enough to terraform it.
+Using equation 11, we can also determine that the total impulse needed to move our imaginary asteroid would
+be about 3.79 × 1016kg*m/s.
+7.4
+Sending Real Asteroids to Mars
+By applying the same steps in 7.3, we can determine the energies and impulses required to smash the asteroid
+candidates from section 6 into Mars. The mass of each asteroid is estimated to be of the same order as Icarus. This
+data is shown in the table below.
+Asteroid
+Semi-major Axis[10] [m]
+Eccentricity
+Diameter [km]
+Mass [kg]
+ΔE [J]
+J [kg*m/s]
+Icarus[11]
+1.61267e+11
+0.82690
+1.4
+1e12
+4.08e20
+1.94e16
+152558 (1990 SA)[6.1]
+3.01299e+11
+0.44154
+1.4
+~1e12
+2.17e20
+2.71e16
+217628 Lugh (1990 HA)[6.2]
+3.81493e+11
+0.70353
+1.4
+~1e12
+1.71e20
+2.94e16
+2201 Oljato[6.3]
+3.25304e+11
+0.71313
+1.8
+~1e12
+2.01e20
+2.79e16
+4769 Castalia[6.4]
+1.59062e+11
+0.48317
+1.4
+~1e12
+4.14e20
+1.92e16
+85182 (1991 AQ)[6.5]
+3.32418e+11
+0.77645
+1.1
+~1e12
+1.96e20
+2.82e16
+(2001 OB74)[6.6]
+4.60753e+11
+0.49528
+2.0
+~1e12
+1.41e20
+3.12e16
+153591 (2001 SN263)[6.7]
+2.97254e+11
+0.47842
+2.0
+~1e12
+2.20e20
+2.70e16
+3908 Nyx (1980 PA)[6.8]
+2.88373e+11
+0.45862
+1.0
+~1e12
+2.27e20
+2.67e16
+7335 (1989 JA)[6.9]
+2.64889e+11
+0.48425
+1.8
+~1e12
+2.47e20
+2.57e16
+Table 1: Asteroid Candidates to Terraform Mars
+TEAM 190
+6
+
+8
+Discussion
+8.1
+Timing of Impacts
+Our model assumes that the impact energy in the form of heat (and therefore the change in temperature) is commu-
+nicated instantly. In reality there is some timescale over which this operates, one that depends on the density of the
+atmosphere, the dierence between the temperature of the impact region and the rest of the atmosphere, and the
+contents of the atmosphere. If this timescale is comparable to or greater than the timescale of total heat dissipation
+through the atmosphere, then an impact at an arbitrary location will have a signicant-or even total- reduction
+in eciency. Depending upon the severity of this reduction it may be enough to simply reduce the delay between
+impacts. Otherwise, directing the initial impacts toward the poles in order to reduce dissipation might cause the
+release of enough CO2 to reduce the dissipation associated with future collisions.
+8.2
+Molecules Escaping the Atmosphere
+In heating up the Martian atmosphere, we need to be careful that we aren't increasing the surface air temperature
+over the point at which CO2 molecules begin to gain enough speed to escape Mars' gravitational potential and escape
+the atmosphere. The rate of particles leaving the atmosphere is given by the following equation[4]. R is the radius
+of the outer edge of the atmosphere. n is the number density of the atmosphere (determined to be 2.83 × 1023m-3
+earlier).
+·
+N = 4πR2υn
+(12)
+ν is characterized by the following equation[4], where m is the mass of each particle (44 amu), k is the Boltzmann
+constant, and T is the temperature (we determined earlier that the new equilibrium surface air temperature would
+be about 286K).
+υ ≡1
+8
+r
+m
+2πkT
+
+v2
+esc + 2kT
+m
+
+e−mv2
+esc/2kT
+(13)
+vesc is the escape velocity described by the equation below. M is the mass of Mars (about 6.42 × 1023kg[12]).
+v2
+esc = 2GM
+R
+(14)
+These equations result in a calculated
+·
+N of about 4.57 × 10−61s-1. N ~ nV = 4.5 × 1041, where the volume of the
+atmosphere was determined earlier to be 1.59 × 1018m3. We determine that the time for all the CO2 to leave the
+atmosphere is tesc = N/
+·
+N = 9.85 × 10101s = 3.12 × 1094years. We won't need to worry about CO2 escaping from
+the Martian atmosphere any time soon.
+8.3
+Using Angular Momentum to nd the Impulse of Asteroids
+We can send asteroids towards Mars by slowing down their motions in the tangential direction of their orbits. This
+would result in the asteroid spiralling inwards. Assuming the impulses to the asteroids are instantaneous, we would
+have a tangential velocity vθ of the asteroid that remains the same after we push it. This can be determined with
+our impulse. The nal angular momentum can be represented in the following way, assuming that the nal stabilized
+orbit of the asteroid is circular, with a radius r (vr=0).
+L2 = GMrµ2 = µ2v2
+θ
+r2
+(15)
+Since the tangential velocity should remain constant after we push it, we can represent it as follows.
+v2
+θ = GMr3
+(16)
+In order for the asteroid to spiral into a smaller orbit, its radial velocity would need to change. We want it to
+change in such a way such that the asteroids relative velocity with Mars is about 24km/s as it passes through Martian
+orbit.
+vrel = vMars −
+q
+v2r + v2
+θ = −24km/s
+(17)
+TEAM 190
+7
+
+Since vMars is also about 24km/s, we want v2
+r + v2
+θ = v2
+r + GMr3 = (48km/s)2. This gives us a relation between
+vr and r, the nal stable radius of the asteroid's orbit assuming it doesn't collide with Mars. Finding a nal orbital
+radius that allows the asteroid to travel through the Martian orbit such that equation 17 is satised would allow us
+to nd the impulse that we need to push the asteroid with. The direction of impulse would simply be in the opposite
+of its initial tangential motion. We do not know how to model an orbit spiralling inwards, so this method was too
+dicult for us to use, but it could be used to nd a more ecient method of sending the asteroids to Mars.
+9
+Conclusion
+Our analysis suggests that the total energy necessary to sublimate the amount of carbon dioxide needed to create
+atmospheric conditions conducive to the existence of liquid water is roughly 2.14 × 1021J, accounting for both the
+energy necessary to heat the atmosphere and the energy needed to fuel the state transition. Based on our assumption
+about the impact velocity, this corresponds to a total required mass of 1.225 × 1013kg. Assuming that this mass is
+distributed evenly between all of the asteroids, and that these asteroids are located in the asteroid belt, the impulse
+required to place them on a collision course with Mars is on the order of 1016 N*s.
+References
+[1]
+Brown, D., Cantillo, L., & Webster, G. (2015, September 28). NASA Conrms Evidence That Liquid
+Water Flows on Today's Mars. In NASA. Retrieved November 15, 2015. <https://www.nasa.gov/press-
+release/nasa-conrms-evidence-that-liquid-water-ows-on-today-s-mars>
+[2]
+Carbon Dioxide. NIST, 2011. Accessed November 13, 2015.
+<http://webbook.nist.gov/cgi/cbook.cgi?ID=C124389&Mask=4>
+[3]
+Carbon Dioxide - Specic Heat. The Engineering Toolbox. Accessed November 13, 2015.
+<http://www.engineeringtoolbox.com/carbon-dioxide-d_974.html >
+[4]
+Carroll and Ostlie, Introduction to Modern Astrophysics (2013). Carroll, Bradley, and Dale Ostlie. An
+Introduction to Modern Astrophysics. 2nd ed. London: Pearson Education Limited, 2014. Print.
+[5]
+Chaplin, M. (n.d.). Water Phase Diagram. In Water Structure and Science.
+<http://www1.lsbu.ac.uk/water/water_phase_diagram.html>
+[6]
+JPL Small-Body Database.
+Jet Propulsion Laboratory, California Institute of Technology.
+Accessed
+November 13, 2015.
+<http://ssd.jpl.nasa.gov/sbdb_query.cgi>
+[6.1]
+<http://ssd.jpl.nasa.gov/sbdb.cgi?sstr=152558>
+[6.2]<http://ssd.jpl.nasa.gov/sbdb.cgi?sstr=217628>
+[6.3]<http://ssd.jpl.nasa.gov/sbdb.cgi?sstr=2201>
+[6.4]<http://ssd.jpl.nasa.gov/sbdb.cgi?sstr=4769>
+[6.5]<http://ssd.jpl.nasa.gov/sbdb.cgi?sstr=85182>
+[6.6]<http://ssd.jpl.nasa.gov/sbdb.cgi?sstr=2001%20OB74>
+[6.7]<http://ssd.jpl.nasa.gov/sbdb.cgi?sstr=153591>
+[6.8]<http://ssd.jpl.nasa.gov/sbdb.cgi?sstr=3908 >
+[6.9]<http://ssd.jpl.nasa.gov/sbdb.cgi?sstr=7335 >
+[7]
+Maindl, T. I.; Dvorak, R.; Lammer, H.; Güdel, M.; Schäfer, C.; Speith, R.; Odert, P.; Erkaev, N. V.;
+Kislyakova, K. G.; Pilat-Lohinger, E. Impact induced surface heating by planetesimals on early Mars.
+Astronomy & Astrophysics, vol.574. 2015.
+<http://arxiv.org/abs/1405.5913>
+[8]
+Miyazaki, K. An Explanation of Global Warming without Supercomputing. University of Texas.
+<https://www.ma.utexas.edu/mp_arc/c/10/10-195.pdf>
+TEAM 190
+8
+
+[9]
+Russell, Randy. Mars Polar Regions. National Earth Science Teachers Association. July 7, 2008. Ac-
+cessed November 13, 2015.
+<http://www.windows2universe.org/mars/places/mars_polar_regions.html&edu=high>
+[10]
+The Atmosphere and Weather. University of Arizona, 2012.
+<http://www.atmo.arizona.edu/students/courselinks/fall12/atmo336/lectures/sec1/structure.html>
+[11]
+Williams, David R. Asteroid Fact Sheet. NASA, 2014. Accessed November 13, 2015.
+<http://nssdc.gsfc.nasa.gov/planetary/factsheet/asteroidfact.html>
+[12]
+Williams, David R. Mars Fact Sheet. NASA, 2014. Accessed November 13, 2015.
+<http://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html>
+[13]
+Williams, David R. Sun Fact Sheet. NASA, 2014. Accessed November 13, 2015.
+<http://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html>
+TEAM 190
+9
+
+Appendix - Code
+The following code was used to produce Figure 1.
+## Team 190 −opticaldepth . py
+## This code was used to
+c a l c u l a t e
+the
+o p t i c a l
+depth
+of CO2 and plot a graph
+##
+of
+the
+o p t i c a l
+depth
+required
+f o r
+l i q u i d
+water to
+e x i s t
+on Mars .
+import numpy as np
+from
+matplotlib
+import
+pyplot
+as
+plt
+# Optical
+depth as a function
+of
+surface
+a i r temp and blackbody temp
+def
+o p t i c a l ( T_surf , T_bb) :
+return
+( 2 . / 3 . ) ∗( ( 2 . ∗f l o a t ( T_surf )∗∗4. −f l o a t (T_bb)∗∗4.)/\
+( f l o a t (T_bb)∗∗4. −(0.3) ∗f l o a t ( T_surf ) ∗∗4 . ) )
+# Range of
+temperatures
+allowing
+f o r
+l i q u i d
+water
+ts = np . arange (273 ,
+290)
+# Blackbody temp of Mars
+i s
+about 215K
+tbb = 215.
+opt = [ ]
+f o r
+i
+in
+ts :
+opt . append ( o p t i c a l ( i ,
+tbb ))
+opt = np . array ( opt )
+print
+opt [ 0 ] ,
+opt [ −1]
+plt . plot ( ts ,
+opt ,
+l a b e l =' Optical
+depth
+of CO2' )
+plt . xlabel ( ' Surface
+Air Temperature
+[K] ' )
+plt . ylabel ( ' Optical Depth ' )
+plt . legend ( loc =2)
+plt . t i t l e ( ' Optical
+depth
+of CO2 required
+f or
+surface
+a i r
+temperatures on Mars ' )
+plt . show ()
+TEAM 190
+10

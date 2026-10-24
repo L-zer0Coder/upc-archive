@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2013 题A：木星卫星引力辅助减速入轨（Gravitationally Assisted Jupiter Orbital Entry） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg:#0a0f1e;--panel:#111a2e;--ink:#e8eef8;--mut:#94a5c0;--line:#22304c;--acc:#4f7dd9;--acc2:#39c2b0;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
+ font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar a:hover{border-color:var(--acc);color:#fff}
+.crumb{color:var(--mut);font-size:13px}
+.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
+h3{font-size:17px;color:#cfe0ff}
+a{color:#7fb0ff} a:hover{text-decoration:underline}
+code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
+pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1em 0;padding:8px 16px;border-left:4px solid var(--acc2);background:rgba(57,194,176,.07);color:#c9d6ea;border-radius:0 10px 10px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#16233c;color:#a9bcda;white-space:nowrap}
+tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
+@media(max-width:700px){.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a href="../../index.html">🏆 总览首页</a>
+  <span class="crumb">07_题目解读</span>
+  <span style="flex:1"></span>
+  
+  <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2013_%E9%A2%98A_%E6%9C%A8%E6%98%9F%E5%BC%95%E5%8A%9B%E8%BE%85%E5%8A%A9%E5%85%A5%E8%BD%A8.md">原文 .md</a>
+</div></div>
+<div class="wrap"><div class="card">
+<h1 id="2013-agravitationally-assisted-jupiter-orbital-entry">2013 题A：木星卫星引力辅助减速入轨（Gravitationally Assisted Jupiter Orbital Entry）</h1>
+<blockquote>
+<p>赛题来源：UPC 2013 Problem A（当年 121 队中 52 队选题 A，金奖 1 队：滑铁卢大学 538 队）</p>
+</blockquote>
+<h2 id="1">1. 题目原文与关键数据</h2>
+<p><strong>原文压缩引用</strong>：</p>
+<blockquote>
+<p>Space probes to the outer solar system will often use a gravity assist maneuver, flying past a planet like Venus to gain speed. When a probe reaches an outer planet, like Jupiter, it must slow down, in order to enter orbit, and this can consume a substantial amount of fuel. It has been suggested that a spacecraft arriving at Jupiter could use Jupiter's moons to perform a gravity assist maneuver to slow down the spacecraft, thus saving fuel. <strong>Evaluate whether this is a realistic strategy to produce significant fuel savings for a spacecraft arriving at Jupiter (approaching Jupiter's system) at a speed of 20 km/s.</strong></p>
+</blockquote>
+<p><strong>中文翻译</strong>：外太阳系探测器常用引力辅助（如飞掠金星）加速。到达外行星（如木星）时必须减速入轨，这会消耗大量燃料。有人建议：抵达木星系统的探测器可借木星卫星做引力辅助减速以省燃料。<strong>请评估：对以 20 km/s 速度抵达木星（进入木星系统）的探测器，这是否是能带来显著燃料节省的现实策略？</strong></p>
+<p><strong>题面给定参数表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>数值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>到达速度</td>
+<td>20 km/s</td>
+<td><strong>语义多义</strong>：相对木星的 $v_\infty$？还是日心系到达速度（需与木星公转 13.07 km/s 矢量合成）？</td>
+</tr>
+<tr>
+<td>卫星</td>
+<td>木星伽利略卫星（Io/Europa/Ganymede/Callisto）自选</td>
+<td>需自行比较</td>
+</tr>
+<tr>
+<td>目标轨道</td>
+<td><strong>未指定</strong></td>
+<td>最大的隐藏自由度，必须操作化</td>
+</tr>
+<tr>
+<td>发动机</td>
+<td>未指定</td>
+<td>喷气速度 $u$ 需自取（化学推进 ~3.1 km/s）</td>
+</tr>
+</tbody>
+</table>
+<p>常用常数（自取，注明出处）：$\mu_J = 1.266\times10^{17}\ {\rm m^3/s^2}$，$R_J = 71{,}492$ km，Io：轨道半径 421,700 km $=5.9\,R_J$、轨道速度 17.33 km/s、半径 1821 km、$\mu_{Io}=5.96\times10^{12}\ {\rm m^3/s^2}$、轨道倾角 2.21°。</p>
+<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<p>题面给了三个必须自己定义的东西，每个都直接改变答案数量级：</p>
+<ol>
+<li><strong>"arriving at 20 km/s" 怎么解读</strong>：金奖论文取"日心系到达速度 20 km/s 与木星公转 13.07 km/s 垂直合成"，得木星系双曲超速 $v_\infty=\sqrt{20^2+13.07^2}=23.89$ km/s。若直接取 $v_\infty=20$ km/s，结果又不同。<strong>必须显式声明选择</strong>。</li>
+<li><strong>"enter orbit" 入轨到什么轨道</strong>：这是最大的隐藏分水岭。同样从近木点 $1.2\,R_J$ 出发：(a) 刹成<strong>圆轨道</strong>需 $\Delta v = v_{\rm peri} - v_{\rm circ} = 59.9-38.9 \approx 21.0$ km/s；(b) 只需<strong>捕获成大椭圆</strong>（刹到逃逸速度以下）需 $59.9-54.9\approx 5.0$ km/s。真实任务走的是后者：Galileo 1995 年木星入轨仅消耗 $\Delta v\approx643$ m/s（377 kg 推进剂）进入大椭圆轨道，Juno 2016 年为 542 m/s。不定义目标轨道，"significant fuel savings" 无从谈起。</li>
+<li><strong>"realistic / significant" 的判据</strong>：应换算成任务语言——火箭方程 $m_f/m_0 = e^{-\Delta v/u}$ 是指数敏感的，省 1 km/s 的 $\Delta v$ 等于剩余载荷乘 $e^{1/u({\rm km/s})}$。建议以"同任务下非燃料载荷倍数"作为显著性的可计算判据。</li>
+</ol>
+<h2 id="3">3. 物理建模路线图</h2>
+<p><strong>层次 1：直接入轨基线（无辅助）</strong></p>
+<ul>
+<li>火箭方程从动量守恒现场重推：$\Delta v = u\ln(m_0/m_f)$。</li>
+<li><strong>最优制动点要证明而非假设</strong>：同样 $\Delta v$ 在速度最大处带走的轨道能量最多（$\Delta\varepsilon = \vec v\cdot\Delta\vec v \approx v\,\Delta v$），速度最大点即近木点，故应瞄准"近木点 = 目标轨道半径"的轨迹并在该点一次制动。</li>
+<li>$v_{\rm peri}=\sqrt{v_\infty^2+2\mu_J/r}$，$v_{\rm circ}=\sqrt{\mu_J/r}$，相减得 $\Delta v$；取 $u=5$ km/s、$r=1.2\,R_J$：$\Delta v\approx21.0$ km/s $\Rightarrow$ 燃料占 98.5%（剩余质量仅 1.5%）。</li>
+</ul>
+<p><strong>层次 2：单卫星飞掠减速（patched conics）</strong></p>
+<p>飞掠三件套（对任意引力源通用，建议收进赛前模板）：</p>
+<p>$$b=\sqrt{r_p^2+\frac{2\mu r_p}{v_\infty^2}},\qquad e=\sqrt{1+\Big(\frac{b v_\infty^2}{\mu}\Big)^2},\qquad \delta=2\arcsin\frac{1}{e}$$</p>
+<p>机制：卫星参考系中速率不变、方向偏转 $\delta$；回到木星系后与卫星轨道速度（Io 为 17.33 km/s）矢量合成，速度可增可减。<strong>减速 = 从卫星前方通过</strong>（经典棒球-火车类比），能量实为探测器与卫星交换动量。</p>
+<p><strong>自检上界（本解读独立补充，务必掌握）</strong>：一次飞掠能改变多少木星系速度？在卫星系中速度不变，木星系速度改变量 $|\Delta V| = 2v_{\rm rel}\sin(\delta/2) = \dfrac{2v_{\rm rel}}{1+r_p v_{\rm rel}^2/\mu}$。对 $r_p\ge R_{\rm moon}$：</p>
+<ul>
+<li>快速接近 regime（本场景，$v_{\rm rel}\ge 17$ km/s $\gg \sqrt{\mu/r_p}$）：$|\Delta V|_{\max}\approx \dfrac{2\mu}{r_p v_{\rm rel}}$。代入金奖参数（$v_{\rm rel}=16$ km/s、$r_p=2186$ km）得 <strong>Io 单次飞掠上界仅 ~0.34 km/s</strong>（偏转角 $\delta\approx1.2°$）。</li>
+<li>绝对上界：$v_{\rm rel}=\sqrt{\mu/r_p}$ 时取最大 $|\Delta V|_{\max}=\sqrt{\mu/r_p}=v_{\rm esc}/\sqrt2$，Io 约 <strong>1.8 km/s</strong>——但那要求探测器几乎与 Io 同轨共速，20 km/s 到达场景根本不满足。</li>
+</ul>
+<p><strong>任何飞掠模型给出的单次减速若超过此界，几何或公式必有错。</strong></p>
+<p><strong>层次 3：可选扩展</strong>：链式多星飞掠（Io→Ganymede→Callisto 多次借力累加）；三维几何与轨道倾角；捕获椭圆 + 后续降轨的两脉冲方案；用真实 $I_{sp}$（$u\approx3.1$ km/s）重算。</p>
+<pre><code class="language-mermaid">flowchart TD
+    A[&quot;到达 20 km/s&quot;] --&gt; B[&quot;解读：与木星公转速度合成 v∞ = 23.89 km/s&quot;]
+    B --&gt; C[&quot;操作化目标轨道：1.2 R_J 圆轨道&quot;]
+    C --&gt; D[&quot;基线：近木点制动 Δv = 21.0 km/s → 燃料 98.5%&quot;]
+    D --&gt; E[&quot;分支：绕 Io 飞掠减速&quot;]
+    E --&gt; F[&quot;飞掠三件套 b、e、δ&quot;]
+    F --&gt; G[&quot;几何闭合：撞击参数匹配 b1 = b2，扫 α&quot;]
+    G --&gt; H[&quot;飞掠后速度 → 再入轨 Δv → 火箭方程&quot;]
+    D --&gt; I[&quot;对比：非燃料载荷 1.5% vs 飞掠后？&quot;]
+    H --&gt; I
+    I --&gt; J[&quot;自检上界：单次飞掠 |ΔV| ≤ 2μ/(rp·vrel) ≈ 0.34 km/s&quot;]
+</code></pre>
+<h2 id="4">4. 关键物理效应量级表</h2>
+<table>
+<thead>
+<tr>
+<th>效应</th>
+<th>估算量级</th>
+<th>是否必须建模</th>
+<th>估算依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>直接入轨 $\Delta v$（1.2 $R_J$ 圆轨道）</td>
+<td>21.0 km/s → 燃料 98.5%</td>
+<td>必须（基线）</td>
+<td>$v_{\rm peri}=59.9$、$v_{\rm circ}=38.9$ km/s 相减</td>
+</tr>
+<tr>
+<td>捕获大椭圆所需 $\Delta v$</td>
+<td>仅 ~5.0 km/s → 燃料 63%</td>
+<td>必须（操作化对照）</td>
+<td>$v_{\rm peri}-v_{\rm esc}=59.9-54.9$ km/s</td>
+</tr>
+<tr>
+<td>单次 Io 飞掠最大交换速度</td>
+<td>本场景 ~0.34 km/s；绝对上界 1.8 km/s</td>
+<td>必须（自检）</td>
+<td>$2\mu/(r_p v_{\rm rel})$；$v_{\rm esc}/\sqrt2$</td>
+</tr>
+<tr>
+<td>Io 轨道半径/速度</td>
+<td>$5.9\,R_J$ / 17.33 km/s</td>
+<td>必须</td>
+<td>NASA fact sheet（金奖论文误作 ~15 $R_J$，疑混入 Ganymede 数据，引用常数需交叉核对）</td>
+</tr>
+<tr>
+<td>Io 引力影响域（Hill 半径）</td>
+<td>$\approx1.05\times10^4$ km $\ll$ 日木距离</td>
+<td>支撑"飞掠与再减速两段拆分"合法</td>
+<td>$r_H=a(m/3M)^{1/3}$</td>
+</tr>
+<tr>
+<td>火箭方程指数敏感性</td>
+<td>省 1 km/s → 剩余载荷 $\times e^{0.2}\approx1.22$ 倍</td>
+<td>必须（结论换算）</td>
+<td>$m_f/m_0=e^{-\Delta v/u}$</td>
+</tr>
+<tr>
+<td>木星辐射带/工程约束</td>
+<td>—</td>
+<td>扩展讨论</td>
+<td>现实任务在 1.2 $R_J$ 长期驻留不可行</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5">5. 求解算法与数值要点</h2>
+<ul>
+<li><strong>解析为主、一维搜索为辅</strong>：全部闭式公式手推；唯一数值环节是把全部几何自由度压缩为<strong>发射时机（相位角）$\alpha$</strong> 做扫描，配合撞击参数匹配条件 $b_1=b_2$（飞掠出口轨迹恰好接上目标轨道的进动双曲线）。</li>
+<li><strong>对拍验证</strong>：有/无飞掠两种情形必须用<strong>同一套公式链</strong>计算，唯一差异是飞掠——这是对比实验的公平性所在。</li>
+<li><strong>量级自检清单</strong>：$\delta$ 是否在物理范围（本场景 Io 只有 1°–2°）；$r_p$ 是否在卫星表面之外；$|\Delta V|$ 是否超过 $2\mu/(r_p v_{\rm rel})$；单位（km vs m、rad vs deg）三轮排查。</li>
+<li><strong>陷阱</strong>：把 $v_\infty$ 当作飞掠点的实际速度（飞掠点真速度是 $\sqrt{v_\infty^2+v_{\rm esc}^2(r)}$，在 Io 轨道处还要再大 10 km/s 量级，使偏转更小）；$\mu$ 用错天体（木星 vs 卫星差 4–5 个量级）；火箭方程的 $u$ 与 $\Delta v$ 单位不一致。</li>
+</ul>
+<h2 id="6">6. 常见错误与陷阱</h2>
+<ol>
+<li><strong>不定义目标轨道</strong>："入轨"泛化导致 $\Delta v$ 从 3.5 到 21 km/s 都"对"，结论失去意义——先操作化，再计算。</li>
+<li><strong>跳过"在哪里刹车"的论证</strong>：$\Delta\varepsilon = v\,\Delta v$ 的近木点最优性是评委眼中的隐藏分题，只会套公式会丢过程分。</li>
+<li><strong>把飞掠当免费减速</strong>：忽略撞击参数/方向匹配（$b_1=b_2$），或给出的单次减速超过量级上界。值得警惕的实例：把金奖论文印刷的公式链代入题面常数，单次 Io 飞掠偏转角仅 ~1.2°、剩余速度 ~23.6 km/s，而论文报告的 11.15 km/s 需要约 50° 偏转（对应近心距 ~50 km，深藏在 Io 内部）——其附录代码未公开无法复核。<strong>教训不是否定引力辅助（见第 7 节，链式借力确有节省），而是"超过上界的结果必须回头查几何"。</strong></li>
+<li><strong>忘记火箭方程的指数性</strong>：0.3–1 km/s 级的节省看似渺小，换算成载荷百分比才是回答 "significant" 的正确语言。</li>
+<li><strong>常数张冠李戴</strong>：轨道半径、轨道速度、半径、GM 必须取自同一颗卫星（金奖论文把 ~15 $R_J$ ≈ Ganymede 的轨道距离与 Io 的其余参数混用即是教训）；建议每个常数旁注来源。</li>
+</ol>
+<h2 id="7">7. 全网参考与延伸</h2>
+<ol>
+<li><strong>JPL：Critical Galileo Engine Firing Scheduled（1995）</strong>（<a href="https://www.jpl.nasa.gov/news/critical-galileo-engine-firing-scheduled">jpl.nasa.gov</a>）——Galileo 木星入轨实烧 377 kg 推进剂、$\Delta v\approx643$ m/s，是把"目标轨道操作化"锚定到现实的最好数据。</li>
+<li><strong>Juno 木星入轨 Press Kit（2016）</strong>（<a href="https://www.jpl.nasa.gov/news/press_kits/juno/overview/">jpl.nasa.gov</a>）——$\Delta v=542$ m/s 捕获入 53.5 天大椭圆轨道再降轨，展示真实任务如何用"先捕获后调整"省燃料。</li>
+<li><strong>Lynam 2011《Multiple-satellite-aided capture trajectories at Jupiter》</strong>（<a href="https://ui.adsabs.harvard.edu/abs/2011CeMDA.109...59L/abstract">ADS 摘要</a>）——严谨的任务设计研究表明：单/双伽利略卫星借力捕获确实能可观测地削减入轨 $\Delta v$（数百 m/s 到 km/s 量级），但依赖<strong>链式多次飞掠</strong>——与本解读的"单次飞掠上界"自洽，可作结论显著性的真实参照。</li>
+</ol>
+<h2 id="8">8. 金牌论文思路对比</h2>
+<p>本题金奖唯一一队（滑铁卢大学 538 队，13 页，LaTeX）：从动量守恒重推火箭方程 → 能量论证"近木点制动最优" → 直接入轨算得燃料 98.5% → 用飞掠三件套与 $b_1=b_2$ 匹配把发射时机 $\alpha$ 压成一维扫描 → 报告最优 $\alpha=0.8366$ rad、剩余速度 11.15 km/s、燃料 96.8%，并表述为"同任务非燃料载荷翻倍"。其框架（火箭方程 + 最优制动点 + 飞掠三件套 + 同框架对照）是完全值得继承的赛前模板；但其单次飞掠数值结果超出本解读第 3 节给出的量级上界，且附录代码未公开，复现时请以自检上界把关。详细拆解见 <code>05_论文赏析\2013\2013-GM-A-538.md</code>。</p>
+<h2 id="9">9. 评分要点：评委想看什么</h2>
+<ul>
+<li>[ ] <strong>三个操作化声明</strong>：20 km/s 的参考系、目标轨道、喷气速度 $u$，一个都不能含糊。</li>
+<li>[ ] <strong>最优制动点的能量证明</strong>（$\Delta\varepsilon=v\,\Delta v$），而非直接假设在近木点。</li>
+<li>[ ] <strong>火箭方程现场推导</strong> + 把结论换算成载荷/燃料百分比回答 "significant"。</li>
+<li>[ ] <strong>飞掠几何闭合</strong>：偏转角、撞击参数匹配、发射相位角扫描，缺一不可。</li>
+<li>[ ] <strong>量级自检</strong>：单次飞掠 $|\Delta V|$ 上界、$r_p$ 在星体之外、单位一致性。</li>
+<li>[ ] <strong>与真实任务对照</strong>（Galileo/Juno 的 0.5–0.6 km/s 入轨），把理论放回工程语境。</li>
+</ul>
+</div></div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+});
+</script>
+</body>
+</html>

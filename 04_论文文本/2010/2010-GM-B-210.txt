@@ -1,0 +1,2563 @@
+Team # 210 – Page 1 
+ 
+Team # 210 
+Problem B 
+Trebuchet: The Dynamics of a Medieval Siege Engine 
+ 
+Abstract 
+ 
+Our task for this problem was to design a trebuchet that does maximum damage, given 
+that its counterweight has a mass of 5,000 kilograms and is released from a height of 2 meters 
+above the ground.  To that end, we first modeled the trebuchet as a uniform, frictionless beam, 
+pinned at its fulcrum, with the counterweight (taken to be a point mass) on one end of the beam, 
+and a sling of fixed length and negligible mass attached to the other end.  The projectile (located 
+on the far end of the sling) was also taken to be a point mass.  We assumed that the beam could 
+make a full revolution about the fulcrum with neither the counterweight nor the projectile 
+touching the ground, and that the beam would not fail during operation.  Moreover, we 
+interpreted maximizing the damage done by the projectile as maximizing its speed upon release, 
+which we assumed to occur when the counterweight reached its lowest point for the first time.   
+ 
+Lagrangian mechanics was used to find the governing differential equations for this 
+system, and an algorithm for solving said differential equations using first-order Taylor series 
+approximations was developed and translated into C++ code.  Finally, the speed of the projectile 
+upon release was calculated for all allowed dimensions of the trebuchet (for a chosen set of 
+parameters), and the dimensions corresponding to the maximum observed speed were recorded.  
+For a steel beam with square cross sections of side length 10 centimeters whose fulcrum was 
+located 1.5 meters above the ground, and a 100-kilogram projectile, we found that the optimum 
+lengths of the arm of the counterweight, the opposing arm, and the sling, were approximately 
+0.51 meters, 0.91 meters, and 0.58 meters, respectively.  We conclude that, for the parameters we 
+chose, the ratio of the length of the sling to that of the arm to which the sling is attached should 
+
+Team # 210 – Page 2 
+ 
+be about 2:3, that together these should be as long as possible, and that the lever arm of the 
+counterweight should be shorter than the opposing arm.  To find out whether this works as a 
+general rule-of-thumb would require further investigation. 
+ 
+The strengths of our approach include that it takes into account the beam’s size and 
+shape.  It is also quite general, in the sense that it makes very few simplifications beyond the 
+idealized model of the system and the approximate numerical methods used to solve for the 
+motion of the system.  The weaknesses of this approach are that it fails to account for friction 
+between the beam and the fulcrum, the mass of the sling, and the sling’s elasticity.  In addition, 
+we have made no attempt here to determine whether or not the trebuchet we have designed will 
+withstand operation conditions.  Nevertheless, as a first approximation, our approach appears to 
+do very well.  An actual trebuchet would need to be built to check the predictions of our model. 
+ 
+ 
+ 
+ 
+
+Team # 210 – Page 3 
+ 
+Problem Definition 
+ 
+Consider the trebuchet represented in Figure 1.  It consists of a beam of mass 
+2
+m which 
+is pinned at the point O (the origin of the xyz -coordinate system, and henceforth referred to as 
+the fulcrum) at some distance 
+0h above the ground.  On one side of the beam, at a distance 
+1r 
+from the fulcrum, is a counterweight of mass 
+1
+m .  Attached to the other side of the beam, at a 
+distance 
+2r from the fulcrum, is a sling of length 
+3r .  Inside the sling is a projectile of mass 
+3
+m .  
+The counterweight is to be released (presumably from rest) from a height h above the ground, 
+launching the projectile into the air.  We would like to find the lengths 
+1r , 
+2r , and 
+3r which 
+enable the projectile to do the most possible damage, given that 
+000
+,5
+1 =
+m
+kg and 
+2
+=
+h
+m. 
+ 
+Figure 1.  Diagram of simplified trebuchet, with parameters labeled. 
+
+Team # 210 – Page 4 
+ 
+ 
+To simplify our analysis, we will treat the counterweight and the projectile as point 
+masses, and the beam as a frictionless, slender rod whose mass is evenly distributed along its 
+length.  We will also neglect the mass of the sling, and we’ll assume that its length remains 
+constant.  Furthermore, we will suppose that the beam can make a full revolution about the 
+fulcrum with neither the counterweight nor the projectile touching the ground.  Finally, we will 
+assume that the beam will not fail during operation.   
+ 
+Now in order to do the most damage, the projectile must have as much energy as 
+possible.  Since we are treating the projectile as a point mass (thereby ignoring any rotation it 
+may acquire about its center of mass), we must maximize its translational speed at the point of 
+release.  To be definite, we will take the point of release to be the point at which the 
+counterweight reaches its lowest height above the ground for the first time.  In order to find 
+numerical values for 1r , 
+2r , and 
+3r , we will eventually need to decide on a material for the beam 
+and the shape of its cross section, as well as values for 
+0h and 
+3
+m .  For now, however, we will 
+treat all parameters as unknowns, both for mathematical convenience and so that the results of 
+our analysis will be general.  We are now ready to proceed to an analysis of the trebuchet system. 
+ 
+Analysis 
+ 
+Since the only external force on the trebuchet system (i.e., gravity) is conservative, it is 
+only natural to use the Lagrangian formulation of mechanics to analyze it.  We choose as our 
+generalized coordinates 
+1φ , the angle the arm of length 
+1r makes with the positive y -axis, and 
+2
+φ , the angle the sling makes with the negative y -axis, both measured clockwise (see Figure 1). 
+ 
+We begin by expressing the Cartesian coordinates of the counterweight, the center of 
+mass of the beam, and the projectile (which is located at the end of the sling) in terms of the  
+
+Team # 210 – Page 5 
+ 
+generalized coordinates 
+1φ and 
+2
+φ .  The position of the counterweight is given by (
+)
+1
+1, y
+x
+, where 
+ 
+1
+1
+1
+sinφ
+r
+x =
+ 
+(1)
+ 
+1
+1
+1
+cosφ
+r
+y =
+ 
+(2) 
+We will also need the first time derivatives of these coordinates, so we might as well calculate 
+them right now: 
+ 
+1
+1
+1
+1
+cosφ
+φ&
+&
+r
+x =
+ 
+(3)
+ 
+1
+1
+1
+1
+sinφ
+φ&
+&
+r
+y
+−
+=
+ 
+(4)
+Now the center of mass of the beam will be a distance r from the fulcrum in the direction of the 
+sling, where 
+ 
+2
+1
+2
+r
+r
+r
+−
+=
+ 
+(5)
+Thus, the position of the center of mass of the beam is given by (
+)
+2
+2, y
+x
+, where 
+ 
+1
+2
+sinφ
+r
+x
+−
+=
+ 
+(6)
+ 
+1
+2
+cosφ
+r
+y
+−
+=
+ 
+(7)
+Taking the first time derivatives of (6) and (7), we find that 
+ 
+1
+1
+2
+cosφ
+φ&
+&
+r
+x
+−
+=
+ 
+(8)
+ 
+1
+1
+2
+sinφ
+φ&
+&
+r
+y =
+ 
+(9)
+Finally, the position of the projectile (at the end of the sling) is given by (
+)
+3
+3, y
+x
+, where 
+ 
+(
+)
+2
+3
+1
+2
+3
+sin
+sin
+φ
+φ
+r
+r
+x
++
+−
+=
+ 
+(10)
+ 
+(
+)
+2
+3
+1
+2
+3
+cos
+cos
+φ
+φ
+r
+r
+y
++
+−
+=
+ 
+(11)
+Again, taking the first time derivatives of (10) and (11), we find that 
+(
+)
+2
+2
+3
+1
+1
+2
+3
+cos
+cos
+φ
+φ
+φ
+φ
+&
+&
+&
+r
+r
+x
++
+−
+=
+ 
+(12)
+
+Team # 210 – Page 6 
+ 
+ 
+2
+2
+3
+1
+1
+2
+3
+sin
+sin
+φ
+φ
+φ
+φ
+&
+&
+&
+r
+r
+y
++
+=
+ 
+(13)
+ 
+We must now calculate the total kinetic and potential energies of the system.  We begin 
+with kinetic energy of the counterweight, which is purely translational because the counterweight 
+is treated as a point mass: 
+(
+)
+2
+1
+2
+1
+1
+2
+1
+2
+1
+1
+2
+1
+1
+1
+2
+1
+2
+1
+2
+1
+φ&
+&
+&
+r
+m
+y
+x
+m
+v
+m
+T
+=
++
+=
+=
+ 
+(14)
+Now the beam is not a point mass, but rather a rigid body which is rotating about the z -axis as 
+shown in Figure 1.  Its kinetic energy is therefore purely rotational, and is given by 
+ 
+2
+1
+2
+2
+1
+φ&
+zz
+I
+T =
+ 
+(15)
+where 
+zz
+I is the moment of inertia of the beam about the z -axis.  The moment of inertia of a 
+slender rod of mass m and length l about an axis perpendicular to its length and passing 
+through its center of mass is given by 
+ 
+ 
+2
+12
+1
+l
+m
+I zz =
+′
+ 
+(16)
+(Resnick, 185).  By the Parallel-Axis Theorem, its moment of inertia about a parallel axis a 
+distance r from its center of mass is given by 
+2
+2
+2
+12
+1
+mr
+m
+mr
+I
+I
+zz
+zz
++
+=
++
+′
+=
+l
+ 
+(17)
+Substituting 
+2
+m for m , (
+)
+2
+1
+r
+r +
+ for l , and r for r , we have the moment of inertia of our beam 
+about the z -axis: 
+(
+)
+2
+2
+2
+2
+1
+2
+12
+1
+r
+m
+r
+r
+m
+I zz
++
++
+=
+ 
+(18)
+
+Team # 210 – Page 7 
+ 
+Even though we have derived this equation for the beam’s moment of inertia, we will leave it as 
+zz
+I for now so that our results will generalize to other kinds of beams. 
+ 
+The kinetic energy of the point mass projectile (while it is still attached to the sling) is 
+purely translational, and is therefore given by the following: 
+(
+)
+2
+3
+2
+3
+3
+2
+3
+3
+3
+2
+1
+2
+1
+y
+x
+m
+v
+m
+T
+&
+&
++
+=
+=
+ 
+(19)
+After substituting (12) and (13) and simplifying, this becomes 
+(
+)
+[
+]
+2
+2
+2
+3
+2
+1
+2
+1
+3
+2
+2
+1
+2
+2
+3
+3
+cos
+2
+2
+1
+φ
+φ
+φ
+φ
+φ
+φ
+&
+&
+&
+&
+r
+r
+r
+r
+m
+T
++
+−
++
+=
+ 
+(20)
+Here we have used the trigonometric identity that 
+(
+)
+2
+1
+2
+1
+2
+1
+cos
+sin
+sin
+cos
+cos
+φ
+φ
+φ
+φ
+φ
+φ
+−
+=
++
+ 
+(21)
+(Taylor, front cover).  The total kinetic energy of the system is simply the sum of the kinetic 
+energies of the counterweight, beam, and projectile: 
+ 
+3
+2
+1
+T
+T
+T
+T
++
++
+=
+ 
+(22)
+ 
+Now we turn our attention to (gravitational) potential energy, which we will measure 
+with respect to the line 
+0
+=
+y
+ rather than ground level for convenience.  The potential energies of 
+the counterweight, the center of mass of the beam, and the projectile are, respectively, 
+ 
+1
+1
+1
+1
+1
+1
+cosφ
+gr
+m
+gy
+m
+U
+=
+=
+ 
+(23)
+ 
+1
+2
+2
+2
+2
+cosφ
+gr
+m
+gy
+m
+U
+−
+=
+=
+ 
+(24)
+(
+)
+2
+3
+1
+2
+3
+3
+3
+3
+cos
+cos
+φ
+φ
+r
+r
+g
+m
+gy
+m
+U
++
+−
+=
+=
+ 
+(25)
+where we have used the results of (2), (7), and (11).  The total potential energy of the system, 
+then, is the sum of these: 
+ 
+3
+2
+1
+U
+U
+U
+U
++
++
+=
+ 
+(26)
+
+Team # 210 – Page 8 
+ 
+ 
+We now have everything we need to write down the Lagrangian for the system: 
+ 
+U
+T
+L
+−
+=
+ 
+(27)
+Substituting (22) and (26)—and by extension, (14), (15), (20), (23), (24), and (25)—we have 
+(
+)
+[
+]
+(
+)
+2
+3
+1
+2
+3
+1
+2
+1
+1
+1
+2
+2
+2
+3
+2
+1
+2
+1
+3
+2
+2
+1
+2
+2
+3
+2
+1
+2
+1
+2
+1
+1
+cos
+cos
+cos
+cos
+cos
+2
+2
+1
+2
+1
+2
+1
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+r
+r
+g
+m
+gr
+m
+gr
+m
+r
+r
+r
+r
+m
+I
+r
+m
+L
+zz
++
++
++
+−
++
+−
++
++
++
+=
+&
+&
+&
+&
+&
+&
+ 
+ 
+(28)
+The two Lagrangian equations, which determine the generalized coordinates as functions of time, 
+are as follows: 
+ 
+1
+1
+φ
+φ
+&
+∂
+∂
+=
+∂
+∂
+L
+dt
+d
+L
+ 
+(29)
+ 
+2
+2
+φ
+φ
+&
+∂
+∂
+=
+∂
+∂
+L
+dt
+d
+L
+ 
+(30)
+Focusing first on 
+1φ , we find that 
+(
+) (
+)
+1
+2
+3
+2
+1
+1
+2
+1
+2
+1
+3
+2
+3
+1
+sin
+sin
+φ
+φ
+φ
+φ
+φ
+φ
+g
+r
+m
+r
+m
+r
+m
+r
+r
+m
+L
+−
+−
++
+−
+−
+=
+∂
+∂
+&
+&
+ 
+(31)
+and 
+(
+)
+(
+)
+2
+1
+2
+3
+2
+3
+1
+2
+2
+3
+2
+1
+1
+1
+cos
+φ
+φ
+φ
+φ
+φ
+−
++
++
++
+=
+∂
+∂
+&
+&
+&
+r
+r
+m
+r
+m
+I
+r
+m
+L
+zz
+ 
+(32)
+Taking the first time derivative of (32), and substituting the result along with (31) into (29), we 
+obtain, after some simplification, the following: 
+(
+)
+(
+)
+(
+)
+(
+)
+[
+]
+2
+1
+2
+2
+2
+1
+2
+3
+2
+3
+1
+2
+2
+3
+2
+1
+1
+1
+2
+3
+2
+1
+1
+sin
+cos
+sin
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+−
++
+−
++
++
++
+=
+−
+−
+&
+&&
+&&
+r
+r
+m
+r
+m
+I
+r
+m
+g
+r
+m
+r
+m
+r
+m
+zz
+     (33) 
+Similarly, for 
+2
+φ , we find that 
+(
+)
+2
+3
+3
+2
+1
+2
+1
+3
+2
+3
+2
+sin
+sin
+φ
+φ
+φ
+φ
+φ
+φ
+gr
+m
+r
+r
+m
+L
+−
+−
+=
+∂
+∂
+&
+&
+ 
+(34)
+and 
+
+Team # 210 – Page 9 
+ 
+ 
+(
+)
+2
+2
+3
+3
+2
+1
+1
+3
+2
+3
+2
+cos
+φ
+φ
+φ
+φ
+φ
+&
+&
+&
+r
+m
+r
+r
+m
+L
++
+−
+=
+∂
+∂
+) 
+ 
+(35)
+Taking the time derivative of (35), substituting the result and (34) into (30), and simplifying, we 
+find that 
+(
+)
+(
+)
+[
+]
+2
+1
+2
+1
+2
+1
+1
+2
+2
+3
+2
+sin
+cos
+sin
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+−
+−
+−
++
+=
+−
+&
+&&
+&&
+r
+r
+g
+ 
+(36)
+Now (33) and (36) constitute a set of two coupled, nonlinear, second-order differential equations 
+for 
+1φ and 
+2
+φ .  If we could solve them analytically for 
+( )t
+1φ
+ and 
+( )t
+2
+φ
+, we could find the time at 
+which 
+π
+φ =
+1
+ (the point at which we have supposed that the projectile is released), write down 
+the speed of the projectile at that time, and proceed to maximize it with respect to 1r , 
+2r , and 
+3r .  
+Unfortunately, we cannot solve (33) and (36) analytically; however, we can solve them 
+numerically. 
+ 
+Numerical Analysis 
+ 
+Given 
+1
+m , 
+2
+m , 
+3
+m , 1r , 
+2r , 
+3r , 
+( )
+0
+1φ
+, 
+( )
+0
+2
+φ
+, 
+( )
+0
+1φ&
+, and 
+( )
+0
+2
+φ&
+, we can solve (33) and (36) 
+numerically using a series of Taylor series approximations.  We have already been given that 
+000
+,5
+1 =
+m
+ kg.  Now if we assume that the beam is to be cut from material with uniform cross-
+section of area A , the value of 
+2
+m (the mass of the beam) will depend on the mass density ρ of 
+the material, the cross-sectional area A , and the lengths 1r and 2r .  In particular, 
+ 
+(
+)
+2
+1
+2
+r
+r
+A
+m
++
+= ρ
+ 
+(37)
+To obtain a numerical value for 
+2
+m , we are forced to decide on a material for the beam and a 
+shape for its cross section.  Let us suppose, therefore, that the beam is made of steel, whose mass 
+
+Team # 210 – Page 10 
+ 
+density is 
+850
+,7
+=
+ρ
+ kg/m3 (Gere, 991).  Furthermore, we will take the cross section to be a 
+square of side length 
+10
+.0
+=
+s
+m (we will see shortly that this is consistent with our 
+approximating the beam as a slender rod).  Hence, the cross-section area is given by 
+ 
+10
+.0
+(
+2 =
+= s
+A
+m)2 
+(38)
+We must now decide what we would like our projectile to be.  For simplicity, let’s make it a 
+spherical rock of mass 
+100
+3 =
+m
+ kg.  Now 
+( )
+0
+1φ
+ will depend on the height 
+0h of the fulcrum 
+above the ground and the height h from which the counterweight is released.  In particular (refer 
+to Figure 1), 
+ 
+( )
+
+
+
+
+
+
+−
+=
+1
+0
+1
+arccos
+0
+r
+h
+h
+φ
+ 
+(39)
+We have been given that 
+2
+=
+h
+m, so we just need to decide on a value for 
+0h .  Let’s say that 
+5.1
+0 =
+h
+m.  We are free to choose 
+( )
+0
+2
+φ
+, so for convenience we will take it to be zero.  Likewise, 
+since we assume that the system is released from rest, 
+( )
+( )
+0
+0
+0
+2
+1
+=
+= φ
+φ
+&
+&
+.  Next we must obtain 
+from (33) and (36) expressions for 
+( )
+0
+1φ&&
+ and 
+( )
+0
+2
+φ&&
+ in terms of everything else.  After a lot of 
+simplification, involving the well-known trigonometric identity 
+(
+)
+(
+)
+2
+1
+2
+2
+1
+2
+sin
+cos
+1
+φ
+φ
+φ
+φ
+−
+=
+−
+−
+, 
+we find that 
+(
+)
+(
+)
+(
+)
+(
+)
+(
+)
+[
+]
+(
+)
+2
+1
+2
+2
+2
+3
+2
+1
+1
+2
+1
+2
+1
+2
+1
+2
+2
+1
+2
+2
+3
+2
+1
+2
+2
+3
+2
+3
+2
+1
+1
+1
+1
+sin
+sin
+cos
+sin
+cos
+sin
+sin
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+−
++
++
+−
+−
+−
+−
+−
+−
++
+−
+−
+=
+r
+m
+I
+r
+m
+r
+r
+g
+r
+m
+r
+m
+r
+m
+r
+m
+g
+zz
+&
+&
+&&
+      (40) 
+and 
+(
+)
+(
+)
+[
+]
+2
+2
+1
+1
+2
+1
+2
+1
+3
+2
+2
+sin
+cos
+sin
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+φ
+g
+r
+r
+−
+−
+−
+−
+=
+&&
+&
+&&
+ 
+(41)
+where we already know what 
+1φ&& is from (40).   
+
+Team # 210 – Page 11 
+ 
+ 
+Now we are ready to begin the iterative approximation process.  For every possible value 
+of 
+1r , 
+2r , and 
+3r (we’ll discuss what this means shortly), we start by using (40) and (41) to find 
+( )
+0
+1φ&&
+ and 
+( )
+0
+2
+φ&&
+ (the initial values of 
+1φ&& and 
+2
+φ&& ) based on 
+( )
+0
+1φ
+, 
+( )
+0
+2
+φ
+, 
+( )
+0
+1φ&
+, and 
+( )
+0
+2
+φ&
+ (the 
+initial values of 
+1φ , 
+2
+φ , 
+1φ& , and 
+2
+φ& given above).  We then approximate the next values of 
+1φ , 
+2
+φ
+, 
+1φ& , and 
+2
+φ& using first-order Taylor series as follows: 
+(
+)
+( )
+( )dt
+t
+t
+dt
+t
+0
+1
+0
+1
+0
+1
+φ
+φ
+φ
+&
++
+≈
++
+ 
+(42)
+(
+)
+( )
+( )dt
+t
+t
+dt
+t
+0
+2
+0
+2
+0
+2
+φ
+φ
+φ
+&
++
+≈
++
+ 
+(43)
+(
+)
+( )
+( )dt
+t
+t
+dt
+t
+0
+1
+0
+1
+0
+1
+φ
+φ
+φ
+&&
+&
+&
++
+≈
++
+ 
+(44)
+(
+)
+( )
+( )dt
+t
+t
+dt
+t
+0
+2
+0
+2
+0
+2
+φ
+φ
+φ
+&&
+&
+&
++
+≈
++
+ 
+(45)
+Here dt is a constant time increment which we can choose; let’s set it at 0.01 s.  We then 
+calculate 
+1φ&& and 
+2
+φ&& again using (40) and (41) and repeat the process until 
+1φ reaches π to within 
+some tolerance (0.05 radians, say).  At that point, we stop and calculate the speed of the 
+projectile according to the following equation (refer to (19) and (20)): 
+(
+)
+2
+2
+2
+3
+2
+1
+2
+1
+3
+2
+2
+1
+2
+2
+3
+cos
+2
+φ
+φ
+φ
+φ
+φ
+φ
+&
+&
+&
+&
+r
+r
+r
+r
+v
++
+−
++
+=
+ 
+(46)
+We then use whichever values of 1r , 
+2r , and 3r result in the highest value of 
+3v . 
+ 
+We must now put bounds on 
+1r , 
+2r , and 
+3r .  From Figure 1, we see that the smallest 
+possible value of 
+1r for a given 
+0h is 
+0h
+h −
+, and the largest value of 
+1r for which the 
+counterweight clears the ground is 
+0h .  We therefore have the following bounds on 1r : 
+ 
+0
+1
+0
+h
+r
+h
+h
+<
+<
+−
+ 
+(47)
+The bounds for 
+2r and 3r are only slightly more complicated.  By the same reasoning as for 1r ,  
+
+Team # 210 – Page 12 
+ 
+the sum 
+3
+2
+r
+r +
+ cannot exceed 
+0h .  If we allow for very small values of 
+2r , and suppose that the 
+shortest sling length available is 
+0
+l (a reasonable value might be 0.30 m), we have that 
+ 
+0
+3
+0
+h
+r <
+<
+l
+ 
+(48)
+and 
+ 
+3
+0
+2
+0
+r
+h
+r
+−
+<
+<
+ 
+(49)
+Of course, we can’t check all of the infinite values contained in (47), (48), and (49), so we’ll 
+have to choose a length increment of dr .  Since we presumably don’t need to be accurate to a 
+millimeter, we can let 
+01
+.0
+=
+dr
+m, or one centimeter. 
+ 
+One question remains unanswered, namely whether or not we can get accurate results by 
+treating the beam as a slender rod.  For the parameters we have chosen, the shortest possible 
+beam would occur when 
+50
+.0
+0
+1
+=
+−
+=
+h
+h
+r
+m and 
+0
+2 =
+r
+m.  The total length of the beam would 
+then be 50 centimeters.  The side length on the cross section is 10 centimeters.  Thus, the ratio of 
+the two is 5.  As a first approximation, this is good enough.  If additional accuracy is needed, we 
+can always calculate the moment of inertia of the beam exactly and use that value everywhere 
+the moment of inertia occurs (this is why we left everything in terms of the moment of inertia to 
+begin with).   
+ 
+To summarize, we have created an algorithm for finding the values of 
+1r , 
+2r , and 
+3r 
+which maximize the speed of the projectile at its release.  We just have to translate it into a 
+computer program and let a computer do the rest.  Appendix A contains such a program written 
+in the C++ programming language called “optimize_trebuchet.cpp.”  Note that it was written for 
+the parameter values chosen above, but in such a way that the parameters can be varied with 
+ease.  Thus, it can be used to optimize the projectile’s speed for any desired set of parameters.  
+The results obtained with the chosen parameter values are discussed in what follows. 
+
+Team # 210 – Page 13 
+ 
+Results 
+ 
+For the values of the parameters discussed in the previous section, the optimum lengths 
+were found to be as follows: 
+ 
+51
+.0
+1 ≈
+r
+ m 
+(50)
+ 
+91
+.0
+2 ≈
+r
+ m 
+(51)
+ 
+58
+.0
+3 ≈
+r
+ m 
+(52)
+The corresponding speed of the projectile upon release was 
+ 
+48
+.
+17
+3 ≈
+v
+ m/s 
+(53)
+See Figure 2 for corresponding plots of 
+( )t
+1φ
+ and 
+( )t
+2
+φ
+.  (These plots were generated using the R 
+programming language with the data output by “graph_data.cpp.”  The code for 
+“graph_data.cpp” can be found in Appendix B, the data itself can be found in Appendix C, and 
+the script used to plot the data in R can be found in Appendix D.) 
+ 
+ 
+ 
+ 
+ 
+        (a)  
+ 
+ 
+ 
+ 
+      (b) 
+Figure 2.  (a) Plot of 
+1φ (radians) versus t (seconds).  (b) Plot of 
+2
+φ (radians) versus t (seconds). 
+
+Team # 210 – Page 14 
+ 
+ 
+Obviously, (50), (51), (52), and (53) are just approximations; our model for the trebuchet 
+was an idealization from the start, and the method we used to calculate its motion as a function 
+of time was only approximate.  Having said that, the speed given in (53) seems reasonable 
+enough; it is neither astronomically small nor astronomically large.  The same is true of the three 
+lengths.  We can see that 
+1r came out as close to the minimum value as our length increment 
+allowed it to be.  Likewise, the total length 
+3
+2
+r
+r +
+ of the sling and the opposing arm was as close 
+as possible to the maximum allowable length, with 
+3r approximately two-thirds of 
+2r .  This 
+seems to indicate that for optimal results, 
+2r and 
+3r should together be as long as possible, with 
+the ratio of 
+3r to 
+2r about 2:3.  In addition, it appears that 
+1r should be smaller than 
+2r .  
+However, we should not be quick to make a generalization based on one simulation.  Ideally, we 
+would run multiple simulations with different values for the parameters, and we would check the 
+results of said simulations by actually building the corresponding trebuchets and testing them 
+under realistic conditions.  At that point we might be able to arrive at a general rule-of-thumb for 
+how to design the “best” trebuchet.  Until then, we can get a rough idea by running the program 
+in Appendix A with any given parameters. 
+ 
+Conclusion 
+ 
+Our task was to design a trebuchet which dealt the most damage when a 5,000-kilogram 
+counterweight was released from a height of 2 meters above the ground.  After modeling the 
+trebuchet and creating a recursive algorithm for approximating its motion as a function of time, 
+we found (for the parameters we chose) that the ratio of the length of the sling to that of the arm 
+to which the sling is attached should be about 2:3, that together these should be as long as 
+possible, and that the lever arm of the counterweight should be less than the opposing arm.  We 
+
+Team # 210 – Page 15 
+ 
+cannot conclude that this result would work as a rule-of-thumb; however, for any given set of 
+parameters, we can use the program in Appendix A to obtain a first approximation to the best 
+trebuchet possible. 
+ 
+ 
+
+Team # 210 – Page 16 
+ 
+Appendix A: Code for “optimize_trebuchet.cpp” 
+  /* optimize_trebuchet.cpp 
+    This program was written by Team 210 to help solve Problem B of 
+the 2010 University Physics Competition.  */ 
+   
+  // Declare libraries. 
+  #include<cmath> 
+  #include<cstdlib> 
+  #include<iostream> 
+  #include<fstream> 
+  #include<string> 
+ 
+  // Declare the namespace. 
+  using namespace std; 
+ 
+  // The main program. 
+  int main() 
+  { 
+      // Define physical constants. 
+      const double PI = acos(-1);   // Pi. 
+      const double g = 9.8; // The acceleration due to gravity, m/s/s. 
+       
+      // Declare/define the masses of the system. 
+      double m1 = 5000;   // The mass of the counterweight in kg. 
+      double m2;          // The mass of the beam in kg. 
+      double m3 = 100;    // The mass of the projectile in kg. 
+       
+      // Define the heights of the system. 
+      double h = 2;   // The initial height of the counterweight in m. 
+      double h0 = 1.5;    // The height of the fulcrum in m. 
+       
+      // Declare the lengths of the system. 
+      double r1;          // The length of the "short" arm in m. 
+      double r2;          // The length of the "long" arm in m. 
+      double r3;          // The length of the sling in m. 
+       
+      // Declare the parameters that depend on the lengths. 
+      double r;           // = (r2-r1)/2; 
+      double Izz;         // = m2*pow((r1+r2),2)/12+m2*pow(r,2); 
+       
+      // Define tolerance for phi1 (see below). 
+      double tol = 0.05; 
+       
+      // Define the maximum time and the time increment. 
+      double tmax = 10;         // The maximum time in s. 
+      double dt = tmax/1000;    // The time increment in s. 
+      double T = 0; 
+       
+      // Define the dimension of future vectors. 
+      int dim = (int)(tmax/dt+1); 
+
+Team # 210 – Page 17 
+ 
+      int n; 
+       
+      // Declare and define the time vector. 
+      double t[dim]; 
+      t[0] = 0; 
+      for(int k=1; k<dim; k++) 
+      { 
+         t[k]=t[k-1]+dt; 
+      } 
+       
+      // Declare the generalized coordinates and time derivatives. 
+      double phi1[dim];    // phi1 
+      double phi2[dim];    // phi2 
+      double phi1d[dim];   // first time derivative of phi1 
+      double phi2d[dim];   // first time derivative of phi2 
+      double phi1dd[dim];  // second time derivative of phi1 
+      double phi2dd[dim];  // second time derivative of phi2 
+       
+      /* For all possible values of r1, r2, and r3, compute maximum 
+speed of m3 when phi1 = PI. */ 
+       
+      // Declare variables that will keep track of maximum speed. 
+      double v3=0;             // The current speed.  
+      double v3max=0;          // The maximum speed observed. 
+      double r1max=0;        // The value of r1 corresponding to vmax. 
+      double r2max=0;        // The value of r2 corresponding to vmax. 
+      double r3max=0;        // The value of r3 corresponding to vmax. 
+       
+      // Define the length increment. 
+      double dr = 0.01;   // The length increment in m. 
+       
+      for(r1=h-h0+dr;r1<h0;r1+=dr)   // h-h0 < r1 < h0 
+      { 
+         for(r3=0.30;r3<h0;r3+=dr)   // 0.30 < r3 < h0 
+         { 
+            for(r2=dr;r2<h0-r3;r2+=dr)   // 0 < r2 < h0-r3 
+            { 
+               // Determine the mass of the beam. 
+               m2 = (7850)*pow(0.10,2)*(r1+r2); 
+                
+               // Determine the parameters that depend on the lengths. 
+               r = (r2-r1)/2; 
+               Izz = m2*pow((r1+r2),2)/12+m2*pow(r,2); // Slender rod. 
+             
+               // Determine the initial value of phi1. 
+               phi1[0] = acos((h-h0)/r1); 
+             
+               // Define the initial value of phi2. 
+               phi2[0] = 0; 
+             
+               // Define the initial values of phi1d and phi2d. 
+               phi1d[0] = 0; 
+
+Team # 210 – Page 18 
+ 
+               phi2d[0] = 0; 
+             
+               // Determine the initial values of phi1dd and phi2dd. 
+               phi1dd[0] = ( g*sin(phi1[0])*(m1*r1-m2*r-m3*r2) + 
+m3*r2*( g*sin(phi2[0])*cos(phi1[0]-phi2[0]) - 
+r3*pow(phi2d[0],2)*sin(phi1[0]-phi2[0]) - 
+r2*pow(phi1d[0],2)*cos(phi1[0]-phi2[0])*sin(phi1[0]-phi2[0]) ) ) / ( 
+m1*pow(r1,2) + m3*pow(r2,2)*pow(sin(phi1[0]-phi2[0]),2) + Izz ); 
+ 
+               phi2dd[0] = ( r2*( pow(phi1d[0],2)*sin(phi1[0]-phi2[0]) 
+- phi1dd[0]*cos(phi1[0]-phi2[0]) ) - g*sin(phi2[0]) ) / r3; 
+             
+               n = 0; 
+             
+               // Find subsequent values of coordinates/derivatives. 
+               for(int k=1; k<dim; k++) 
+               { 
+                  // Approximate with first-order Taylor Series. 
+                  phi1[k] = phi1[k-1] + phi1d[k-1]*dt; 
+                  phi2[k] = phi2[k-1] + phi2d[k-1]*dt; 
+                  phi1d[k] = phi1d[k-1] + phi1dd[k-1]*dt; 
+                  phi2d[k] = phi2d[k-1] + phi2dd[k-1]*dt; 
+                
+                  // If phi1 has reached PI within tolerance, break. 
+                  if(abs(PI-phi1[k])<tol) 
+                  { 
+                      n = k;  // Store index for future use. 
+                      break; 
+                  } 
+                
+                  // Calculate phi1dd and phi2dd based on above. 
+                  phi1dd[k] = ( g*sin(phi1[k])*(m1*r1-m2*r-m3*r2) + 
+m3*r2*( g*sin(phi2[k])*cos(phi1[k]-phi2[k]) - 
+r3*pow(phi2d[k],2)*sin(phi1[k]-phi2[k]) - 
+r2*pow(phi1d[k],2)*cos(phi1[k]-phi2[k])*sin(phi1[k]-phi2[k]) ) ) / ( 
+m1*pow(r1,2) + m3*pow(r2,2)*pow(sin(phi1[k]-phi2[k]),2) + Izz ); 
+ 
+                  phi2dd[k] = ( r2*( pow(phi1d[k],2)*sin(phi1[k]-
+phi2[k]) - phi1dd[k]*cos(phi1[k]-phi2[k]) ) - g*sin(phi2[k]) ) / r3; 
+               } 
+             
+               // Calculate the current speed of m3. 
+               v3 = sqrt( pow(r2*phi1d[n],2) + pow(r3*phi2d[n],2) + 
+2*r2*r3*phi1d[n]*phi2d[n]*cos(phi1[n]-phi2[n]) ); 
+             
+               // If this speed is greater than the maximum speed 
+observed thus far, replace the maximum speed observed with this speed. 
+               if(v3>v3max) 
+               { 
+                  v3max = v3; 
+                  r1max = r1; 
+                  r2max = r2; 
+
+Team # 210 – Page 19 
+ 
+                  r3max = r3; 
+                  T = t[n]; 
+               } 
+            } 
+         } 
+      } 
+       
+      // Display the maximum speed and the corresponding r1, r2, r3. 
+      cout << endl << "  vmax = " << v3max << endl << "  r1 = " << 
+r1max << endl << "  r2 = " << r2max << endl << "  r3 = " << r3max << 
+endl << "  tmax = " << T; 
+       
+      cin.get(); 
+  } 
+ 
+ 
+
+Team # 210 – Page 20 
+ 
+Appendix B: Code for “graph_data.cpp” 
+  /* graph_data.cpp 
+   
+  This program was written by Team 210 to help solve Problem B of the 
+2010 University Physics Competition.  */ 
+   
+  // Declare libraries. 
+  #include<cmath> 
+  #include<cstdlib> 
+  #include<iostream> 
+  #include<fstream> 
+  #include<string> 
+ 
+  // Declare the namespace. 
+  using namespace std; 
+ 
+  // The main program. 
+  int main() 
+  { 
+      // Define physical constants. 
+      const double PI = acos(-1);   // Pi. 
+      const double g = 9.8; // The acceleration due to gravity, m/s/s. 
+       
+      // Declare/define the masses of the system. 
+      double m1 = 5000;   // The mass of the counterweight in kg. 
+      double m2;          // The mass of the beam in kg. 
+      double m3 = 100;    // The mass of the projectile in kg. 
+       
+      // Define the heights of the system. 
+      double h = 2;   // The initial height of the counterweight in m. 
+      double h0 = 1.5;    // The height of the fulcrum in m. 
+       
+      // Declare the lengths of the system. 
+      double r1 = 0.51;         // The length of the "short" arm in m. 
+      double r2 = 0.91;          // The length of the "long" arm in m. 
+      double r3 = 0.58;          // The length of the sling in m. 
+       
+      // Declare the parameters that depend on the lengths. 
+      double r = (r2-r1)/2; 
+      double Izz = m2*pow((r1+r2),2)/12+m2*pow(r,2); 
+       
+      // Define the maximum time and the time increment. 
+      double tmax = 10;         // The maximum time in s. 
+      double dt = tmax/1000;    // The time increment in s. 
+
+Team # 210 – Page 21 
+ 
+       
+      // Define the dimension of future vectors. 
+      int dim = (int)(tmax/dt+1); 
+       
+      // Declare and define the time vector. 
+      double t[dim]; 
+      t[0] = 0; 
+      for(int k=1; k<dim; k++) 
+      { 
+         t[k]=t[k-1]+dt; 
+      } 
+       
+      // Declare the generalized coordinates and time derivatives. 
+      double phi1[dim];    // phi1 
+      double phi2[dim];    // phi2 
+      double phi1d[dim];   // first time derivative of phi1 
+      double phi2d[dim];   // first time derivative of phi2 
+      double phi1dd[dim];  // second time derivative of phi1 
+      double phi2dd[dim];  // second time derivative of phi2 
+       
+      // Determine the mass of the beam. 
+      m2 = (7850)*pow(0.10,2)*(r1+r2); 
+                
+      // Determine the initial value of phi1. 
+      phi1[0] = acos((h-h0)/r1); 
+             
+      // Define the initial value of phi2. 
+      phi2[0] = 0; 
+             
+      // Define the initial values of phi1d and phi2d. 
+      phi1d[0] = 0; 
+      phi2d[0] = 0; 
+             
+      // Determine the initial values of phi1dd and phi2dd. 
+      phi1dd[0] = ( g*sin(phi1[0])*(m1*r1-m2*r-m3*r2) + m3*r2*( 
+g*sin(phi2[0])*cos(phi1[0]-phi2[0]) - r3*pow(phi2d[0],2)*sin(phi1[0]-
+phi2[0]) - r2*pow(phi1d[0],2)*cos(phi1[0]-phi2[0])*sin(phi1[0]-
+phi2[0]) ) ) / ( m1*pow(r1,2) + m3*pow(r2,2)*pow(sin(phi1[0]-
+phi2[0]),2) + Izz ); 
+ 
+      phi2dd[0] = ( r2*( pow(phi1d[0],2)*sin(phi1[0]-phi2[0]) - 
+phi1dd[0]*cos(phi1[0]-phi2[0]) ) - g*sin(phi2[0]) ) / r3; 
+             
+      // Determine subsequent values of coordinates/derivatives. 
+      for(int k=1; k<dim; k++) 
+
+Team # 210 – Page 22 
+ 
+      { 
+         // Approximate with first-order Taylor Series. 
+         phi1[k] = phi1[k-1] + phi1d[k-1]*dt; 
+         phi2[k] = phi2[k-1] + phi2d[k-1]*dt; 
+         phi1d[k] = phi1d[k-1] + phi1dd[k-1]*dt; 
+         phi2d[k] = phi2d[k-1] + phi2dd[k-1]*dt; 
+                
+         // Calculate phi1dd and phi2dd based on above values. 
+         phi1dd[k] = ( g*sin(phi1[k])*(m1*r1-m2*r-m3*r2) + m3*r2*( 
+g*sin(phi2[k])*cos(phi1[k]-phi2[k]) - r3*pow(phi2d[k],2)*sin(phi1[k]-
+phi2[k]) - r2*pow(phi1d[k],2)*cos(phi1[k]-phi2[k])*sin(phi1[k]-
+phi2[k]) ) ) / ( m1*pow(r1,2) + m3*pow(r2,2)*pow(sin(phi1[k]-
+phi2[k]),2) + Izz ); 
+ 
+         phi2dd[k] = ( r2*( pow(phi1d[k],2)*sin(phi1[k]-phi2[k]) - 
+phi1dd[k]*cos(phi1[k]-phi2[k]) ) - g*sin(phi2[k]) ) / r3; 
+      } 
+             
+      // Output the values of t, phi1, and phi2 to a text file. 
+      ofstream file1; 
+      file1.open("data.txt"); 
+       
+      file1 << "t phi1 phi2" << endl; 
+       
+      for(int k=0; k<=dim; k++) 
+      { 
+         file1 << t[k] << " " << phi1[k] << " " << phi2[k] << endl; 
+      } 
+  } 
+ 
+ 
+ 
+
+Team # 210 – Page 23 
+ 
+Appendix C: Data Generated by “graph_data.cpp” 
+t  
+ 
+phi1   
+ 
+phi2 
+0  
+ 
+0.198355   
+0 
+0.01   
+0.198355   
+0 
+0.02   
+0.198715   
+-0.000555201 
+0.03   
+0.199437   
+-0.00166556 
+0.04   
+0.200521   
+-0.00333081 
+0.05   
+0.201967   
+-0.0055505 
+0.06   
+0.203777   
+-0.00832393 
+0.07   
+0.205955   
+-0.0116502 
+0.08   
+0.208502   
+-0.015528 
+0.09   
+0.211423   
+-0.019956 
+0.1   
+0.214721   
+-0.0249324 
+0.11   
+0.218402   
+-0.030455 
+0.12   
+0.22247  
+ 
+-0.0365214 
+0.13   
+0.226932   
+-0.0431286 
+0.14   
+0.231794   
+-0.0502731 
+0.15   
+0.237064   
+-0.0579511 
+0.16   
+0.242749   
+-0.0661579 
+0.17   
+0.248858   
+-0.0748883 
+0.18   
+0.2554  
+ 
+-0.0841362 
+0.19   
+0.262384   
+-0.0938947 
+0.2   
+0.269821   
+-0.104156 
+0.21   
+0.277723   
+-0.114911 
+0.22   
+0.2861  
+ 
+-0.126149 
+0.23   
+0.294965   
+-0.137858 
+0.24   
+0.304331   
+-0.150026 
+0.25   
+0.314212   
+-0.162638 
+0.26   
+0.324623   
+-0.175676 
+0.27   
+0.335577   
+-0.189121 
+0.28   
+0.347092   
+-0.202951 
+0.29   
+0.359184   
+-0.217143 
+0.3   
+0.371869   
+-0.231669 
+0.31   
+0.385167   
+-0.246498 
+0.32   
+0.399096   
+-0.261598 
+0.33   
+0.413675   
+-0.276929 
+0.34   
+0.428926   
+-0.292449 
+0.35   
+0.444868   
+-0.308113 
+0.36   
+0.461525   
+-0.323867 
+0.37   
+0.47892  
+ 
+-0.339656 
+0.38   
+0.497075   
+-0.355416 
+0.39   
+0.516017   
+-0.371078 
+0.4   
+0.53577  
+ 
+-0.386566 
+0.41   
+0.556362   
+-0.401798 
+0.42   
+0.57782  
+ 
+-0.416684 
+0.43   
+0.600174   
+-0.431125 
+0.44   
+0.623451   
+-0.445016 
+0.45   
+0.647685   
+-0.458241 
+0.46   
+0.672906   
+-0.470677 
+0.47   
+0.699148   
+-0.482192 
+
+Team # 210 – Page 24 
+ 
+0.48   
+0.726444   
+-0.492643 
+0.49   
+0.754829   
+-0.501877 
+0.5   
+0.78434  
+ 
+-0.509734 
+0.51   
+0.815013   
+-0.516043 
+0.52   
+0.846886   
+-0.52062 
+0.53   
+0.879998   
+-0.523278 
+0.54   
+0.914386   
+-0.523814 
+0.55   
+0.950089   
+-0.522021 
+0.56   
+0.987148   
+-0.517681 
+0.57   
+1.0256  
+ 
+-0.51057 
+0.58   
+1.06548  
+ 
+-0.500456 
+0.59   
+1.10683  
+ 
+-0.487101 
+0.6   
+1.14968  
+ 
+-0.470265 
+0.61   
+1.19407  
+ 
+-0.449702 
+0.62   
+1.24003  
+ 
+-0.425165 
+0.63   
+1.28758  
+ 
+-0.396406 
+0.64   
+1.33675  
+ 
+-0.363179 
+0.65   
+1.38755  
+ 
+-0.325241 
+0.66   
+1.44001  
+ 
+-0.282354 
+0.67   
+1.49411  
+ 
+-0.234286 
+0.68   
+1.54988  
+ 
+-0.180815 
+0.69   
+1.60729  
+ 
+-0.121727 
+0.7   
+1.66633  
+ 
+-0.0568223 
+0.71   
+1.72697  
+ 
+0.0140842 
+0.72   
+1.78918  
+ 
+0.0911624 
+0.73   
+1.8529  
+ 
+0.174564 
+0.74   
+1.91808  
+ 
+0.26442 
+0.75   
+1.98464  
+ 
+0.360842 
+0.76   
+2.05248  
+ 
+0.463916 
+0.77   
+2.12152  
+ 
+0.573703 
+0.78   
+2.19163  
+ 
+0.690241 
+0.79   
+2.26268  
+ 
+0.813538 
+0.8   
+2.33455  
+ 
+0.943573 
+0.81   
+2.40707  
+ 
+1.0803 
+0.82   
+2.48009  
+ 
+1.22363 
+0.83   
+2.55345  
+ 
+1.37347 
+0.84   
+2.62698  
+ 
+1.52967 
+0.85   
+2.70052  
+ 
+1.69204 
+0.86   
+2.7739  
+ 
+1.86039 
+0.87   
+2.847  
+ 
+2.03445 
+0.88   
+2.91967  
+ 
+2.21393 
+0.89   
+2.99182  
+ 
+2.39849 
+0.9   
+3.06337  
+ 
+2.5877 
+0.91   
+3.13428  
+ 
+2.78109 
+ 
+ 
+
+Team # 210 – Page 25 
+ 
+Appendix D: R Script for Plotting the Data Generated by “graph_data.cpp” 
+$ graph.R 
+graph_data = read.table("data.txt", header = TRUE) 
+plot(phi1~t, data = graph_data) 
+plot(phi2~t, data = graph_data) 
+ 
+ 
+
+Team # 210 – Page 26 
+ 
+References 
+Gere, James M., and Barry J. Goodno.  Mechanics of Materials.  Seventh Edition.  Mason, Ohio: 
+ 
+Cengage Learning, 2009. 
+Resnick, Robert; David Halliday; and Kenneth S. Krane.  Physics: Volume One.  Fifth Edition.  
+ 
+New York, New York: John Wiley & Sons, Inc., 2002. 
+Taylor, John R.  Classical Mechanics.  Sausalito, California: University Science Books, 2005. 

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生物物理与标度律 · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg:#0a0f1e;--panel:#111a2e;--ink:#e8eef8;--mut:#94a5c0;--line:#22304c;--acc:#4f7dd9;--acc2:#39c2b0;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
+ font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar a:hover{border-color:var(--acc);color:#fff}
+.crumb{color:var(--mut);font-size:13px}
+.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
+h3{font-size:17px;color:#cfe0ff}
+a{color:#7fb0ff} a:hover{text-decoration:underline}
+code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
+pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1em 0;padding:8px 16px;border-left:4px solid var(--acc2);background:rgba(57,194,176,.07);color:#c9d6ea;border-radius:0 10px 10px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#16233c;color:#a9bcda;white-space:nowrap}
+tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
+@media(max-width:700px){.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a href="../../index.html">🏆 总览首页</a>
+  <span class="crumb">08_物理模型综述</span>
+  <span style="flex:1"></span>
+  
+  <a href="../../../08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/05_%E7%94%9F%E7%89%A9%E7%89%A9%E7%90%86%E4%B8%8E%E6%A0%87%E5%BA%A6%E5%BE%8B.md">原文 .md</a>
+</div></div>
+<div class="wrap"><div class="card">
+<h1 id="_1">生物物理与标度律</h1>
+<blockquote>
+<p>UPC 全档案库专题综述之五。素材来源：<code>05_论文赏析/</code> 各批次对比表、<code>07_题目解读/2013_题B_超重力生物结构.md</code>、<code>07_题目解读/2016_题B_恐龙哺乳动物体型上限.md</code>、<code>07_题目解读/2019_题A_火星辐射防护.md</code>、<code>07_题目解读/2021_题B_小行星撞击沿海城市.md</code>。</p>
+</blockquote>
+<h2 id="1-upc">1. 该专题在 UPC 中出现全景</h2>
+<p>UPC 极少出"纯生物题"，但多次把生物体或生物判据作为物理模型的"负载对象"：要么给生物一个新环境（超重力行星、深空辐射场），要么反过来把生物/生态数据当作待解释的物理系统（体型上限），要么把"对人的伤害"作为设计的约束判据（撞击毁伤、辐射剂量）。</p>
+<table>
+<thead>
+<tr>
+<th>年份</th>
+<th>题号</th>
+<th>具体场景</th>
+<th>所用模型（一句话）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2013</td>
+<td>B</td>
+<td>8 倍地球质量、2 倍半径行星（$g=2g_\oplus$）上的四足动物形态</td>
+<td>骨骼等应力标度（$A\propto g$）+ Dawson 异速血容量律（$V\propto g$）+ Froude 步态判据（$Fr=v^2/gl$），双独立模型收敛于"矮壮"体型（2013-GM-B-611a，华盛顿大学圣路易斯）</td>
+</tr>
+<tr>
+<td>2016</td>
+<td>B</td>
+<td>最大恐龙（~70–100 t）比最大陆地哺乳动物（~15–20 t）重一个数量级的成因</td>
+<td>McNab 异速能量上限 $M_{max}=(K/a)^{1/b}$ + 134 物种实测 FMR 对数回归 + 可否证双假说检验（2016-GM-B-441，巴塞罗那自治）</td>
+</tr>
+<tr>
+<td>2019</td>
+<td>A</td>
+<td>火星旅途宇航员的人体辐射剂量与防护</td>
+<td>剂量学链（Gy→品质因子→Sv）+ NASA 职业限值判据 + RAD 实测剂量率标定基准线（105/289/343 三支金奖队）</td>
+</tr>
+<tr>
+<td>2021</td>
+<td>B</td>
+<td>小行星撞击海洋对 1000 km 外沿海城市的"实质性破坏"</td>
+<td>生物毁伤阈值工程：把模糊词译成文献波高阈值（2 m/7 m/10 m）再反解最小质量（216/385/442/445 四支金奖队）</td>
+</tr>
+</tbody>
+</table>
+<p>外围相关题（本综述不展开但同源）：2018-B 堆肥堆（微生物反应动力学 $k(T)$ 双 Arrhenius 律，240/285 队）与 2024-B 火星电源（人生存所需的工程系统），前者把"生物过程"化为热-质输运方程，是代谢标度思想的化学版。</p>
+<h2 id="2">2. 核心模型库逐一解读</h2>
+<h3 id="21-allometric-scaling-mathph000006endph">2.1 异速生长律（allometric scaling）家族 $Y\propto M^a$</h3>
+<p><strong>适用场景</strong>：任何"身体某个量随体重怎么变"的问题——代谢率、血容量、骨骼占比、步频、寿命。它是把生物学变成物理学的第一把钥匙，因为幂律两端取对数后就是一条直线，可回归、可检验、可外推。</p>
+<p><strong>方程</strong>：
+$$Y = a M^b \quad\Longleftrightarrow\quad \log Y = \log a + b\log M,$$
+能耗上限形式（McNab 框架）：日能耗 $\mathrm{FEE}=aM^b$（$b&lt;1$），环境对单个个体每日能供给上限记 $K$，联立得
+$$M_{max}=\Big(\frac{K}{a}\Big)^{1/b}.$$</p>
+<p><strong>建模要点</strong>：① 指数 $b$ 群间相近（哺乳 ~0.73、爬行 ~0.89、巨蜥 ~0.71，文献区间 0.67–0.85），群间差异几乎全部由质量无关系数 $a$ 承载——$a$ 越小，同等环境养得起的体重越大；② 必须亲自回归并报告 $n$、$r^2$、$p$ 三件套；③ 回归口径要统一（BMR 与 FMR 相差 2–3 倍，不可混用；单位进对数前要一致）。</p>
+<p><strong>金牌队的典型处理</strong>：2016-GM-B-441 队（巴塞罗那自治）对 Nagy 双标水法 134 个物种的实测野外代谢率重新做对数线性回归（$r^2\approx0.94$–0.95），并用 Paraceratherium（15 t）"最重已知个体≈上限"的自然实验反解环境承载 $K_m\approx8.9\times10^5$ kJ/d；然后做可否证检验——代入普通爬行类参数预测 $M_{max}\approx31.5$ t（与 ~100 t 化石记录矛盾，否证），代入巨蜥型中温代谢参数（$a_v=1.36$、$b_v=0.71$）预测 158 t、比值 $158/15\approx10.5$，命中题面"10 倍"靶子。</p>
+<p><strong>常见错误</strong>：只讲"恐龙代谢低所以能更大"的故事而不产出与 10 倍对标的具体数字；把 $Fr$ 式幂律当万能公式不做外推合法性论证（441 队预测的 100 t 超出数据集两个量级，必须单独论证幂律外推的合理性并做独立热学检查）。</p>
+<h3 id="22-">2.2 平方-立方律与结构强度标度（骨骼/肌肉/树木）</h3>
+<p><strong>适用场景</strong>：体型放大或环境重力改变时，"重量按 $l^3$ 长而支撑截面按 $l^2$ 长"的矛盾如何被演化化解。</p>
+<p><strong>方程</strong>：几何相似下骨应力 $\sigma \sim mg/A \propto M^{1/3}$；等应力设计（地球动物跨物种骨强度近似恒定）要求
+$$\frac{mg}{A}=\sigma_{\rm bone}=\text{const}\quad\Rightarrow\quad A\propto g\,M^{2/3},$$
+而加粗骨骼的代价是骨骼自重占比 $f_{\rm bone}\propto g\,l$——体型上限由"骨骼占重比不失控"决定。</p>
+<p><strong>建模要点</strong>：① 工况要用动载荷（奔跑时地面反力为体重 2–3 倍、四足分担），站立工况会低估；② 平方-立方律只是"下界约束"，演化可以加粗骨骼（正异速生长）对抗它，真正上限来自自重占比；③ 安全因子是现成的锚点——大象下肢骨安全因子已仅 2–3。</p>
+<p><strong>金牌队的典型处理</strong>：2013-GM-B-611a 队用人体股骨剪切强度实测值 51.6 MPa 锚定等应力条件，得 2g 下骨截面积翻倍；再把骨长 $l$ 与肌腱附着角 $\theta$ 画成力矩平衡的等应力曲线族，引入"演化最小化肌应力"假设取曲线角点，输出 1g/2g 角点 $\theta\approx0.107/0.0756$ rad（比值 $1/\sqrt2$）、<strong>腿长缩短约 30%</strong>。2016-B 的 441 队则用 $\sigma\propto M^{1/3}$ 反向解释"上限为何是软约束"：等比放大到 100 t 安全因子将小于 1，恐龙必须靠更直立的柱状肢势 + 气腔骨骼（体密度 ~0.8）解锁。树木高度 $\propto 1/g$ 也是 2013-B 环境层的标准扩展（食物链随之变矮）。</p>
+<p><strong>常见错误</strong>：把平方-立方律当全部答案，直接说"2g 下生物缩小一半"——既忽略骨骼可加粗，也没指出真正上限在自重占比；引用骨强度等生物常数零出处（超重力题最容易被批"编故事"）。</p>
+<h3 id="23">2.3 心血管与流体标度</h3>
+<p><strong>适用场景</strong>：重力改变时循环系统的代价（2013-B 的第二主线）。</p>
+<p><strong>方程</strong>：把血液泵到高度 $h$ 需压差 $\Delta P=\rho_b g h$；心脏壁厚由 Laplace 定律 $\Delta P=2\sigma t/r$ 联系；血容量按 Dawson 异速律 $V\propto g$（注意该律在高 $g$ 发散，仅限小幅变化，须标注失效域）。</p>
+<p><strong>建模要点</strong>：真实生理常数自检是本模型的灵魂——长颈鹿头部高于心脏 ~2 m，$\rho_bgh\approx2.1\times10^4$ Pa ≈ 155 mmHg，与长颈鹿实测血压量级吻合，这个对照一步建立"模型没有瞎编"的信任。2g 下同身高血压翻倍，出路只有三条：身高/附肢减半、心脏壁增厚、血容量调整。</p>
+<p><strong>金牌队的典型处理</strong>：611a 队让心血管模型与骨骼模型<strong>双独立收敛</strong>于同一"矮壮"结论，并在文中明确点出这一交叉印证——这是 2013-B 金奖最核心的论证结构（也见批次 01 对比观察："双独立模型收敛于同一形态结论"）。该队对 Navier-Stokes 方程干脆承认"数值不可解"，改走定性推论，是"诚实降级"的范例。</p>
+<p><strong>常见错误</strong>：忘了血压梯度与身高耦合，把"心脏变大"当成无代价方案；$V\propto g$ 外推到极端重力不标注失效域。</p>
+<h3 id="24-froude">2.4 步态与运动标度（Froude 数 + 代谢功率）</h3>
+<p><strong>适用场景</strong>："它跑多快"这类运动能力问题。</p>
+<p><strong>方程</strong>：肢体是倒摆，Froude 数
+$$Fr=\frac{v^2}{gl}\quad(\text{特征长度取腿长 } l)$$
+控制步态转换：走-跑阈值 $Fr\approx0.3$–0.8，跑-飞奔 $Fr\approx2$–3（Alexander 实测）。同一速度下 $g$ 加倍使 $Fr$ 减半——"地球上在飞奔、系外行星上只是小跑"。极速的更硬约束是代谢功率：移动每米克服重力做功 $\sim c\,mg$（地球 cost of transport ~10–20 J/(kg·m)），比功率恒定给出 $v_{\max}\propto l/g$。</p>
+<p><strong>建模要点</strong>：$Fr$ 只是步态转换判据，不能当极速公式；极速应诉诸功率论证。跳跃高度 $h=v^2/(2g)$ 减半（肌肉能量密度不变）是同一思想的另一面。</p>
+<p><strong>金牌队的典型处理</strong>：611a 队用 Froude 论步态、再用代谢论证极速（腿缩短 30% 后 2g 下极速仅剩 ~35%），两条线索互相补充而非重复。题面明确列了 size/shape/speed 三问，该队逐项回答——评委按示例逐项找答案，漏一项就整段丢分。</p>
+<p><strong>常见错误</strong>：Froude 数特征长度取身高而非腿长；把 $Fr$ 阈值当极速判据。</p>
+<h3 id="25">2.5 撞击生物毁伤判据（阈值工程）</h3>
+<p><strong>适用场景</strong>：题目给出"substantial damage"式模糊判据，要求反解物理参数（2021-B）。这本质上是把"人/建筑能承受什么"作为生物-工程界面的经验标度问题。</p>
+<p><strong>方程</strong>：无普适方程，核心是把判据翻译成带文献的数值阈值，再嵌入波幅-质量关系
+$$A(r)=\frac{9700\sqrt{E_{\rm kt}}}{r}\ (\text{Gault \&amp; Sonett 实验律})\quad\text{或}\quad A(r)\propto \min(D_{tc}/14,H)\cdot\frac{3D_{tc}}{4r}\ (\text{CMM05}),$$
+最后反解 $m_{\min}$。</p>
+<p><strong>建模要点</strong>：阈值翻倍在振幅-质量关系里放大成质量翻一个数量级，所以阈值工程直接决定答案数量级——2021-B 四支金奖队答案横跨两个多数量级（$10^9$–$1.7\times10^{11}$ kg），第一分歧来源正是阈值：216 队引三份海啸灾害文献定 2 m 波高（毁木屋/砖房）、442 队按 ITIS-2012 量表对 D 类建筑定 7 m、385 队取 Watanabe 海啸等级 3（10–20 m）、445 队自定 10 m。</p>
+<p><strong>金牌队的典型处理</strong>：216 队（Harvey Mudd）的"阈值工程"最成体系——用三份灾害文献把 substantial damage 定义为 2 m 波高，再反解 $m_{\min}=10^9$ kg；442 队（华沙）则做"多害相权"逐项定量排除（热辐射需 $d&gt;4.61$ km、超压 1000 Pa &lt; 20000 Pa 阈值、地震 PGV &lt; 3 cm/s），把唯一幸存通道（海啸）的阈值精确到建筑类别。</p>
+<p><strong>常见错误</strong>：阈值随手拍一个数不给文献；不报告对阈值/波幅定律选择的敏感性（两条文献波幅律在 1000 km 处可差一个量级）。</p>
+<h3 id="26">2.6 人体辐射剂量学（人作为被照射对象）</h3>
+<p><strong>适用场景</strong>：辐射防护题中"人"这一端的判据（2019-A）。</p>
+<p><strong>方程</strong>：吸收剂量 $D=E/m$（Gy）→ 品质因子加权 → 剂量当量 $H$（Sv）；基准线 $D_0=\dot D\,T_{\rm cruise}$，取 MSL/RAD 实测巡航 ~1.8 mSv/天 × Hohmann 259 天 ≈ 480 mSv，对照 NASA 职业限值（~600 mSv/职业生涯）。</p>
+<p><strong>建模要点</strong>：① Gy 与 Sv 混用是最典型的判据口径漂移（品质因子随粒子类型在 2–20 间变化）；② "没有基准线就没有防护"——先算无屏蔽剂量，再算屏蔽后剂量，给"559.48 Sv → 1.86 Sv"式对照（105 队），评委才有可判定结论。</p>
+<p><strong>金牌队的典型处理</strong>：105 队（德里大学，单人队）以"时间 × 路径 × 屏蔽"三因子分解，把剂量限值、RAD 实测、材料衰减系数全部文献化。详细的屏蔽物理（指数衰减、GCR 剂量-深度极小值、主动磁场）在本库《06_电磁辐射与辐射防护》中展开。</p>
+<p><strong>常见错误</strong>：用"年剂量限值"套"单程剂量"；忽略品质因子随粒子类型变化；只报屏蔽厚度不给有/无屏蔽的 Sv 闭环数字。</p>
+<h2 id="3">3. 跨题目的建模套路总结</h2>
+<ol>
+<li>
+<p><strong>"生物题物理化"五步路线</strong>（从 2013-B 与 2016-B 提炼）：
+   - <strong>第一步：先排除干扰变量</strong>。2013-B 金奖队开局先用一张 log-log 图排除自转离心效应（需自转快 10 倍以上才显著），声明"重力是唯一决定性变量"；2016-B 的 441 队先定性排除环境论（氧/温度/食物）——因为两群同期共存却差 10 倍，主限制必在内在参数。排除动作让评委无从追问"为什么不考虑 X"。
+   - <strong>第二步：把模糊词拆成可算代理量</strong>。"长什么样"→ 体长/骨截面/附着角/血容量/极速五个代理量；"差异"→ 比值 ≈10 的数值靶子。
+   - <strong>第三步：真实生理常数锚定</strong>。51.6 MPa 股骨剪切强度、155 mmHg 长颈鹿血压、Paraceratherium 15 t、Alexander 步态阈值——生物参数必须有出处，数据地基决定可信度。
+   - <strong>第四步：可否证的双假说裁决</strong>。让两个假说各自产出数值预测（31.5 t vs 158 t），用数据裁决其中一个——展示完整科学方法而非单边论证。
+   - <strong>第五步：独立自洽检查</strong>。第二模型收敛（心血管 vs 骨骼）、独立量级检查（100 t 散热 Newton 冷却 $\Delta T\approx7$ K 可行 vs 内温 40 K 过热；骨应力放大）防止结论被"代谢太低不可能"一票否决。</p>
+</li>
+<li>
+<p><strong>标度律清单化呈现</strong>。把 $A\propto g$、$V\propto g$、$Fr\propto1/g$、$\lambda\propto1/g$（大气标高）等一张表覆盖多子系统并标注失效域，是 2013-B 式"多子系统画像"的最高效写法；收尾用"一句话画像"（更矮、更壮、更慢、心脏更大、血量翻倍）把各模型拼成完整答案。</p>
+</li>
+<li>
+<p><strong>判据工程是生物界面的通用接口</strong>。无论 2016-B 的"10 倍靶子"、2019-A 的"600 mSv 职业限值"还是 2021-B 的"2/7/10 m 波高"，凡是"人与生物"出现在题面里，第一步永远是把它变成带文献出处的数字判据——这一步的工作量与价值不亚于任何公式推导（批次 06 观察原话）。</p>
+</li>
+<li>
+<p><strong>回归即实验</strong>。当题目附赠或允许自取生物数据时（2016-B 的 134 物种），"亲自回归 + 报 $n/r^2/p$ + 与文献复现交叉核对"就是把 evaluate with data 实质完成的最低成本路径。</p>
+</li>
+</ol>
+<h2 id="4">4. 备赛建议</h2>
+<ol>
+<li><strong>背下三个数</strong>：骨剪切强度 ~50 MPa 量级、Kleiber 指数 $b\approx0.7$（区间 0.67–0.85）、Froude 步态阈值 0.3–0.8 / 2–3。有这三个数，任何超重力/体型题的骨架十分钟内可以立起来。</li>
+<li><strong>训练"双模型收敛"结构</strong>：对同一形态学结论（如"矮壮"）用两条独立物理路径（应力平衡 vs 血压平衡）各推一遍并在文中点明收敛——这是单模型论文与金牌论文的显著差距（2013-B 唯一金奖队的胜负手）。</li>
+<li><strong>假说裁决演练</strong>：拿"恐龙为什么大"这类多假说开放题，强制自己为每个假说写出一行数值预测，并至少否证一个——把科学方法做成显式结构。</li>
+<li><strong>生物常数表进模板</strong>：赛前准备"常用生理/生态常数表"（骨强度、血压、代谢标度、步态阈值、典型体重），每条带出处。生物题丢分大多不在物理而在"编故事"。</li>
+<li><strong>阈值敏感性必报</strong>：凡答案依赖一个文献阈值（波高、剂量限值、破坏等级），必须报告"阈值 ±x → 答案数量级如何移动"，否则结论脆而无援（2021-B 四队答案差两个数量级的教训）。</li>
+</ol>
+</div></div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+});
+</script>
+</body>
+</html>

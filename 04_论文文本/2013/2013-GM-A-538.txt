@@ -1,0 +1,588 @@
+Using Gravity Assist Maneuver to Increase Fuel
+Consumption Eﬃciency for a Space Probe
+Entering Jupiter’s Orbit
+Team 538
+November 17, 2013
+Problem A. Gravitationally Assisted Jupiter Orbital Entry
+Abstract
+In this investigation of whether the gravity assist maneuver generates
+signiﬁcant fuel savings for a space probe approaching Jupiter at 20 km/s,
+we calculate the amount of fuel needed the slow the probe down to enter
+Jupiter’s orbit at an orbital radius of 1.2 times the radius of Jupiter.
+In both cases (with and without the gravity assist maneuver), the speed
+at the optimal point for the probe to release its thrusters (consume its
+fuel) is calculated, and then the diﬀerence between the result and the
+orbital speed required is computed. These results are then placed into
+Tsiolkovsky’s Rocket Equation [4] to determine the amount of mass lost
+(fuel consumed) in each case. The ﬁndings show that without the gravity
+assist maneuver, the probe would need to spend 98.5% of its mass as fuel
+while it only needs to spend 96.8% of its mass as fuel with the gravity
+assist maneuver around Jupiter’s moon Io. In a practical sense, this means
+that the probe can now carry twice the amount of non-fuel material to
+complete the same task by implementing this method. Thus we conclude
+that the gravity assist maneuver can produce signiﬁcant fuel savings for
+the space probe.
+1
+
+1
+Background
+The gravity assist maneuver is a technique employed by a spacecraft to change
+its path and speed while saving propellant, and thus, expense. The concept
+is to use the relative motion and gravity of astronomical objects in order to
+accelerate/decelerate or redirect the spacecraft. The idea was ﬁrst proposed by
+astronomical pioneers Yuri Kondratyuk and Friedrich Zander in their papers
+published in 1925 and 1938, respectively. It was ﬁrst implemented in 1959 by
+the Soviet probe Luna 3 to photograph the far side of Earth’s moon. Since then,
+notable successful implementations include space probes Mariner 10, Voyager 1,
+and Galileo. [2]
+2
+Introduction
+In this paper, we compare the amount of fuel consumed by a space probe to
+enter Jupiter’s orbit with and without implementing the gravity assist maneuver
+through Jupiter’s moon Io. Given the initial speed of 20 km/s, we calculate the
+amount of fuel consumed to reduce the speed to the orbital speed required at
+1.2 times the radius of Jupiter under the optimal trajectory. Then, using the
+same initial conditions, we calculate the amount of fuel needed to complete the
+same task but performing the gravity assist maneuver on Io ﬁrst. Throughout
+the paper, we assume that the only astronomical objects whose gravitational
+ﬁelds can inﬂuence the space probe are Jupiter and Io. In the small time span
+to perform the gravity assist maneuver and the deceleration, we assume that
+the paths of Io’s orbit around Jupiter and Jupiter’s orbit around the sun are
+relatively linear. During the gravity assist maneuver, the eﬀects of Jupiter’s
+gravitational pull on the space probe is assumed to be negligible. The change
+in speed caused by fuel consumption is calculated in both cases and is used
+to compare the amounts of fuel used in the process to determine whether the
+gravity assist maneuver generates signiﬁcant fuel savings for the probe.
+3
+The Tsiolkovsky Rocket Equation
+We ﬁrst wish to derive an expression for the amount of fuel needed to change the
+speed of the space probe by a certain amount ∆v. Under the ideal conditions
+assumed where there are no external forces, this will result in the Tsiolkovsky
+rocket equation [4].
+Since there are no external forces acting on the probe, by the Conservation of
+Momentum, the only way for it to change its motion is for it to throw away part
+of its own mass in the opposite direction. Let the initial mass of the probe be
+m0 and the speed that it emits its exhaust be u, relative to the probe itself. If v
+is the speed of the rocket at some time, momentum will be mv. Assuming that
+the probe emits exhaust at a constant rate, after some interval of time ∆t, the
+mass of the probe will be m + ∆m (∆m will be a negative value, as the mass
+is decreasing.) and the speed will be v + ∆v. Now the exhaust will have mass
+2
+
+−∆m (again, since ∆m is a negative quantity), and it will be moving back at a
+speed u −v.
+Figure 1: The space probe’s momentum before and after emitting exhaust
+By the Conservation of Momentum, we have
+mv = (m + ∆m)(v + ∆v) + (−∆m)(v −u)
+As ∆t goes to 0, ∆m →dm and ∆v →dv, and we can solve the equation.
+mv = (m + dm)(v + dv) −(dm)(v −u)
+mv = mv + mdv + vdm + dmdv −vdm + udm
+The term dmdv is the product of two diﬀerentials, so it is extremely small and
+negligible.
+−mdv = udm
+−dv
+u = dm
+m
+Z v
+v0
+−dv
+u =
+Z m
+m0
+dm
+m
+−(v
+u −v1
+u ) = ln m −ln m0
+∆v = u ln m0
+m
+(1)
+4
+Fuel Needed without Gravity Assist Maneu-
+ver
+In the case without the gravity assist maneuver around a moon, the probe will
+ﬂy toward Jupiter, and at some point when it is curving around Jupiter and its
+path is aligned with the desired circular orbit, the probe should apply thrust to
+slow itself to the appropriate speed. But at which point should it do this? We
+claim that we should aim the probe so that the point of closest approach is the
+orbital distance, and it is at this point that it should change its speed.
+3
+
+To understand this, consider the Conservation of Energy. The space probe has
+some kinetic energy as it is approaching Jupiter (but no potential energy, as it is
+far away), and it needs to reach a certain total energy to be in a particular orbit.
+(This will be negative since it is bound.) From the previous section, we know
+that the fuel needed (change in mass) to decrease the speed is exponentially
+proportional to the change in speed, but the change in energy is greatest for a
+given change in speed when the speed itself is the highest. This is when the
+probe is closest to Jupiter, since it will have the lowest potential energy and is
+when we should aim to change the speed.
+One thing to note before we proceed with the calculations is that Jupiter itself
+is moving relative to the Sun, so the initial velocity of the rocket that we really
+want to consider is the velocity relative to Jupiter. This is given by
+v0 =
+q
+v2p + v2
+J
+(2)
+since the two velocities are perpendicular.
+Figure 2: The space probe’s trajectory around Jupiter
+We can determine the speed of the probe when it reaches the point of closest
+approach using the Conservation of Energy.
+E1 = E2
+1
+2mv2
+0 = 1
+2mv2 −GMm
+r
+Let µJ = GM be the standard gravitational parameter of Jupiter.
+v =
+r
+v2
+0 + 2µJ
+r
+(3)
+4
+
+To ﬁgure out the speed that we actually need here, we relate the gravitational
+force of Jupiter to the centripetal force.
+GMm
+r2
+= mv2
+r
+v =
+rµJ
+r
+(4)
+Now we can calculate ∆v and substitute values to get the amount of fuel needed
+using equation (1).
+|∆v| =
+r
+v2
+0 + 2µJ
+r
+−
+rµJ
+r = u ln m0
+m
+m
+m0
+= exp
+
+
+
+
+
+rµJ
+r −
+r
+v2
+0 + 2µJ
+r
+u
+
+
+
+
+
+Using the values µJ = 1.266×1017 N m2 kg−1 [6], r = 8.389×107 m [6] (1.2 times
+the radius of Jupiter), vJ = 13.07 km s−1 [6], v0 =
+q
+v2p + v2
+J = 23.89 km s−1,
+and u = 5000 m s−1 (a very high speed for space probes) [1] we get that
+m
+m0 =
+98.5%. This means that the space probe would only be able to keep 1.5% of its
+original mass after going into orbit.
+4.1
+Calculating Other Useful Quantities
+In this situation with a probe trying to directly enter orbit, we can calculate
+several other important quantities that will be useful in the later discussion.
+These calculations will be valid for the probe entering a moon’s gravitational
+ﬁeld as well as Jupiter’s so we use the more general µ instead of µJ
+First, we will calculate the impact parameter b that is needed to reach this
+situation. Using the Conservation of Angular Momentum, we get that
+L1 = L2
+mv0b = mvr
+b = vr
+v0
+b =
+r
+r
+v2
+0 + 2µ
+r
+v0
+b =
+s
+r2 + 2µr
+v2
+0
+(5)
+Now we calculate the distance of closest approach given the initial conditions
+(speed and impact parameter), which will be needed in the next section. Sub-
+stitute v = v0b
+r
+from the Conservation of Angular Momentum into the equation
+5
+
+for the Conservation of Energy to get
+1
+2mv2
+0 = 1
+2mv2
+0b2
+r2
+−GMm
+r
+0 = v2
+0r2 + 2µr −v2
+0b2
+r = −µ +
+p
+µ2 + v4
+0b2
+v2
+0
+(6)
+5
+Space Probe Passing Io
+Here, we will examine the eﬀects that Io has on the space probe as the probe
+passes by Io to perform the gravity assist maneuver.
+From equation (6) of the previous section, the distance of closest approach
+is given by
+r = −µ +
+p
+µ2 −v4
+0b2
+v2
+0
+Using the formula for hyperbolic excess velocity[3]:
+v0 =
+rµ
+a
+a = µ
+v2
+0
+Figure 3: The space probe’s trajectory around Io for the gravity assist maneuver
+In the diagram, 2θ is the angle between the initial and ﬁnal velocity vectors.
+6
+
+We now solve for θ:
+θ = sin−1
+
+b
+a + r
+
+= sin−1
+
+
+
+
+
+b
+µ
+v2
+0
++ −µ +
+p
+µ2 −v4
+0b2
+v2
+0
+
+
+
+
+
+= sin−1
+ 
+bv2
+0
+p
+µ2 + v4
+0b2
+!
+= sin−1
+
+
+
+
+
+
+1
+s
+µ2
+b2v4
+0
++ 1
+
+
+
+
+
+
+(7)
+6
+Gravity Assist Maneuver around Io
+We come to the main result of our discussion: whether or not performing a
+gravity assist maneuver around one of Jupiter’s moons has a signiﬁcant impact
+on the amount of fuel needed.
+We choose to use Jupiter’s moon Io in our
+calculations because it is one of Jupiter’s largest moons [9] so its gravitational
+inﬂuence can alter the probe’s path more. Its orbit is very close to Jupiter,
+which means that it has a high speed relative to Jupiter compared with the other
+moons. This is advantageous, as we will see, since the eﬀectiveness of a gravity
+assist maneuver depends largely on the speed of the object you are maneuvering
+around [2]. Additionally, the inclination angle of Io’s orbit around Jupiter is
+only 2.21◦to the ecliptic [5], so we can simplify the problem considerably by
+taking it as essentially two dimensional.
+6.1
+How the Maneuver Works
+This idea of a gravity assist maneuver may at ﬁrst seem to violate the Law of
+Conservation of Energy since it does not seem possible to gain or lose speed
+for free. However, this is because we have not considered the moon itself to be
+moving as well, so that before and after the maneuver, the space probe would
+have the same speed relative to the moon. The direction of motion of the probe
+changes, so that when the speed is then calculated relative to Jupiter, because
+of the way the new relative velocity vectors add up, the magnitude can be made
+greater or less than the original. [2]
+7
+
+The classic example of this is throwing a baseball against a wall. [2] Let’s say
+the initial speed is 50 km/h. If the wall was stationary, the ball would just
+bounce back at the same speed that it came in at. Now imagine that you were
+behind a train moving at 20 km/h, and you threw the baseball at the train at
+the same speed. The train would see the ball coming in at only 30 km/h, so
+it would send it back at 30 km/h relative to itself. But this would be only 10
+km/h relative to you, so we’ve slowed down the baseball by 40 km/h! If the
+train was instead coming toward you (I don’t know why you would be standing
+in front of a train.), the ball would be moving 70 km/h relative to the train, the
+train would send it back at 70 km/h relative to itself, which would then be 90
+km/h relative to you. Thus, in this case we’ve increased the baseball’s speed by
+40 km/h.
+As you can see, this can be a very powerful technique to save fuel, but where
+does the excess energy go? It gets absorbed by the moon, but since the moon
+has so much mass compared to the space probe, the eﬀect will not be noticeable
+at all. From this analogy, we see that to gain speed, we must be moving in
+the opposite direction of the moon at ﬁrst and with it after, which means going
+behind it. To lose speed, we ﬁrst move with the moon and against it after,
+which means going in front of it.
+6.2
+Details in the Case of Io
+Figure 4: The position of Io relative to Jupiter
+The space probe will be coming toward Jupiter at some speed v0 =
+q
+v2p + v2
+J
+8
+
+(equation (2)) relative to Jupiter (take the whole problem relative to Jupiter).
+At the point when the maneuver is done, the moon and Jupiter make an angle
+α with the probe’s velocity toward Jupiter. Assume without loss of generality
+that Io is moving clockwise. (We can look at the situation upside down if it is
+counterclockwise.) This way, the probe will go to the left of Io to lose speed
+and Io is currently on the left side of Jupiter from the probe’s perspective (see
+Figure 4). The distance from the moon to Jupiter is around 15 times the radius
+of Jupiter [7, 6], so we make the rough estimate of dividing the problem into
+two separate parts: ﬁrst, the gravity assist maneuver to change the speed and
+direction of the probe; and second, the problem of needing to slow down further
+to the orbital speed of Jupiter at 1.2 times the radius, which is exactly the same
+problem as solved in section 4.
+Figure 5: Velocity of the space probe relative to Io
+Assume Io’s orbit to be relatively circular so that its velocity makes an angle
+α with the horizontal. We are also given the probe’s initial velocity, so we use
+trigonometry to calculate its velocity relative to the moon.
+vpm =
+q
+v2
+0 + v2m −2v0vm cos(90◦−α)
+vpm =
+q
+v2
+0 + v2m −2v0vm sin α
+vm
+sin(90◦−β) =
+vpm
+sin(90◦−α)
+β = cos−1
+ vm
+vpm
+cos α
+
+Now we look at the situation after it swings around the moon.
+9
+
+Figure 6: Velocity of the space probe after going around Io
+We will set the distance of closest approach to the moon rm as 1.2 times the
+radius of the moon to be safe from crashing into it and calculate the necessary
+impact parameter b based on that. From equation (5) of section 4.1,
+b =
+s
+r2 + 2µrm
+v2pm
+and from equation (7) of section 5, we know that the speed of the probe relative
+to the moon is the same, but the direction changes by 180◦−2θ, where
+θ = sin−1
+
+
+
+
+
+
+1
+s
+µ2
+b2v4pm
++ 1
+
+
+
+
+
+
+Given this, we calculate γ, the angle v′
+pm makes with the horizontal, as
+γ = β −(180◦−2θ)
+The new velocity v′
+pm will have the same magnitude as vpm, so v′
+p, the velocity
+of the probe relative to Jupiter, is given by
+v′
+p =
+q
+v2pm + v2m −2vpmvm cos(α + γ)
+vm
+sin δ =
+v′
+p
+sin(α + γ)
+δ = sin−1
+vm
+v′p
+sin(α + γ)
+
+10
+
+For simplicity, we want to be able to translate the problem after the probe leaves
+Io’s gravitational ﬁeld to the problem solved in section 4. This means that we
+will need the correct impact parameter. Although this may not result in the
+lowest speed after leaving Io’s gravitational ﬁeld, it does mean that we will not
+have to waste energy on correcting the path to the circular orbit and changing
+direction.
+Figure 7: The probe’s velocity relative to Jupiter
+The probe will go close to the moon relative to the distance to Jupiter, so we
+can essentially consider it to leave from the moon at the angle of v′
+p. Thus, the
+impact parameter can be calculated as
+b1 = rJm sin((γ + δ) −(90◦−α))
+b1 = rJm sin(α + γ + δ −90◦)
+and the needed impact parameter is
+b2 =
+s
+r2 + 2µJr
+(v′p)2
+from equation (5) of section 4.
+6.3
+Solving the Equations
+The parameter in all of these equations that we can change is α, since we can
+time the launch of the probe so that the moon will be at the optimal position.
+11
+
+Note that once we set an α value, all of the other values in the equations of
+the previous section will be determined, and all that’s left is to compare if the
+impact parameter that will come out is the same as the one that is needed. We
+use the appropriate values for each of the other variables: v0 =
+q
+v2p + v2
+J =
+23.89 km s−1 [6], vm = 17.33 km s−1 [7], rm = 1.2(radius of Io) = 2186 km
+[7], µ = GMIo = 5.958 × 1012 N m2 kg−1 [7], rJm = 1.022 × 106 km [7], µJ =
+1.266×1017 N m2 kg−1 [6], and r = 6.991×104km [6] Using a computer program
+[8] to test all possible α values between 0◦and 90◦( π
+2 radians) in increments
+of 0.0001 radians, computing b1 and b2, and testing when then are suﬃciently
+close, we get that
+α = 0.8366 rad
+v′
+p = 11.15 km s−1
+m
+m0
+= 3.2%
+7
+Concluding Remarks
+In summary, the results of the previous sections indicate that using the gravity
+assist maneuver will produce signiﬁcant fuel savings for space probes. In order
+to enter Jupiter’s orbit at an orbital radius of 1.2 time the radius of Jupiter
+from an initial speed of 20 km/s, the probe would have to consume 98.5%
+of its mass as fuel without the use of the gravity assist maneuver, but only
+96.8% of its mass with the use of the gravity assist maneuver.
+This means
+that the probe can now carry up to twice as much non-fuel materials during its
+space exploration task. Thus the gravity assist maneuver can greatly increase
+the eﬃciency of eﬀectiveness of fuel consumption for future space exploration
+missions. Although our results are comprehensive under the assumptions stated
+earlier, further research can still be performed. We can take into consideration
+the eﬀects of the gravitational ﬁelds of other astronomical objects on the space
+probe while it is performing the gravity assist maneuver. This would increase
+the accuracy of the amount of fuel consumed. Further research can also include
+analysis of performing the gravity assist maneuver multiple times on the same
+or even diﬀerent moons in order to conserve even more fuel. Overall, the results
+show that the gravity assist maneuver can indeed produce signiﬁcant fuel savings
+for a space probe.
+A
+Python Code to Solve for the Optimal Posi-
+tion of the Moon
+12
+
+References
+[1] app-b8.
+(n.d.).
+app-b8.
+Retrieved
+November
+17,
+2013,
+from
+http://history.nasa.gov/SP-4404/app-b8.htm
+[2] Gravity assist. (2013, November 15). Wikipedia. Retrieved November 17,
+2013, from http://en.wikipedia.org/wiki/Gravity assist
+[3] Hyperbolic trajectory. (2013, August 11). Wikipedia. Retrieved November
+17, 2013, from http://en.wikipedia.org/wiki/Hyperbolic trajectory
+[4] Ideal
+Rocket
+Equation.
+(n.d.).
+Ideal
+Rocket
+Equation.
+Retrieved
+November
+17,
+2013,
+from
+http://exploration.grc.nasa.gov/education/rocket/rktpow.html
+[5] Io (moon). (2013, November 17). Wikipedia. Retrieved November 17, 2013,
+from http://en.wikipedia.org/wiki/Io (moon)
+[6] Jupiter Fact Sheet. (n.d.). Jupiter Fact Sheet. Retrieved November 17, 2013,
+from http://nssdc.gsfc.nasa.gov/planetary/factsheet/jupiterfact.html
+[7] Jupiter’s Moon: Io. (n.d.). ThinkQuest. Retrieved November 17, 2013, from
+http://library.thinkquest.org/18188/english/planets/jupiter/moons/io.htm
+[8] Python 2.6
+[9] Solar
+System
+Exploration.
+(n.d.).
+National
+Aeronautics
+and
+Space
+Administration.
+Retrieved
+November
+17,
+2013,
+from
+http://solarsystem.nasa.gov/planets/proﬁle.cfm?Display=Moons&Object=Jupiter
+13

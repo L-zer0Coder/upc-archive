@@ -1,0 +1,1219 @@
+Problem A: Sending a Light Sail Propelled Nanocraft
+to Alpha Centauri
+Team 258
+Abstract
+The stability of the sail, the precision of the initial trajectory, and the materials necessary for the design
+are all analyzed in an attempt to model a nanocraft's journey to Proxima Centauri B. Approximations and
+assumptions are made to simplify the issue of sail stability, which is the most dicult part of the analysis.
+Materials that are suitable for the sail  at least partially  are currently available. The requirements on the
+sail are that its emissivity, ϵ, reectance, η, and absorptance, α, meet the following condition:
+ϵη
+α ≥6.6·103.
+The sail is assumed to be a rigid body with high reectance, so that Newton's Laws and Euler's equation
+can be used to describe its motion. Assuming a constant laser beam shape over the area of the sail, these
+dierential equations can be found analytically. Numerical simulations are performed to analyze the stability
+of the craft, suggesting stability for angular perturbations on the order of 2·10−6 rad. The maximum initial
+transverse perturbation is 10 µm. If Proxima Centauri b is to be reached within the Earth-Moon distance,
+a 10 nrad maximum angular perturbation is needed. The laser beam would have to be aligned with the
+sail according to these specications. Although these results suggest that highly accurate trajectories are
+necessary, the model proposed is conservative, in the sense that it does not allow the laser beam to stabilize
+the sail.
+
+Contents
+1
+Introduction
+1
+1.1
+Approach
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1
+1.2
+General assumptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1
+2
+The physics of light sailing
+1
+2.1
+About laser beams . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1
+2.2
+About light sails
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1
+2.3
+Relativistic velocities . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+2.4
+Light sailing dynamics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+2.5
+From equations of motion to Alpha Centauri
+. . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+3
+Model analysis and results
+4
+3.1
+Feasibility of light sailing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+3.2
+Accelerating to relativistic limit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+3.3
+Stability analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+3.3.1
+Flat sail . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+3.3.2
+Spherical Sail . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+3.4
+Accuracy of the system . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+4
+Conclusions
+7
+4.1
+Discusion of the results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+4.2
+Strengths and weaknesses
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+4.3
+Future work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9
+A Python code for numerical simulation
+10
+
+Light Sail Propelled Nanocraft to Alpha Centauri
+Team 258
+1.
+Introduction
+1.1.
+Approach
+A model will be developed for the motion of a light
+sail accelerated by a high power, 50 GW laser. The
+data given in the problem statement will then be
+taken as the initial conditons for this initial value
+problem. Whatever parameters characterize a light
+sail are analyzed in an attempt to answer the main
+problem: Is reaching Proxima Centauri b feasible
+with reasonable accuracy and 10-20 minutes of ac-
+celeration time? If so, what tolerances exist for the
+accuracy of the laser beam and the design of the sail
+in order to achieve this?
+1.2.
+General assumptions
+Since [1], in 1984, attempts have been made to de-
+termine ideal sail materials for laser sailing. An ideal
+material would have a combination of properties that
+does not exist in any available materials. Therefore,
+the material of the sail was assumed to be heat resis-
+tant, ultra-thin  on the order of 100 nm, and light
+ weighing 0.5 g for an area of 10 m2. This material
+was assumed to be perfectly reecting. Due to the
+large amount of energy imparted to the sail, imper-
+fect reectors would not allow the craft to accelerate
+to the target speed.
+Furthermore, the sail is assumed to be a rigid body
+that retains its shape. The nanocraft, also weighing
+0.5 g, is connected to the sail by rigid, strong, light
+connectors. In reality, these connectors  and their
+respective moments of inertia  would have to be
+accounted for to produce an accurate model of the
+acceleration of the craft.
+The dierential equations that are derived assume
+that the sail is solely under the inuence of the laser's
+radiation, ignoring gravity of the Moon, Earth, and
+Sun.
+The sail is to be released above the Earth's
+atmosphere, however, so escape velocity would not
+have to be taken into account.
+Although any diraction-limited, coherently com-
+bined laser beam will be a gaussian  to achieve
+the highest power per unit area, a at-topped beam
+shape has been used for the analysis in this paper. If
+a smaller width than the FWHM value actually hits
+the sail, then this is not a bad approximation; how-
+ever, in practice, the beam will be hitting the light
+sail up to its rst airy disk for the highest possible
+power eciency.
+2.
+The physics of light sailing
+2.1.
+About laser beams
+In order to achieve laser powers of 50 GW, coher-
+ent combination of mode-locked, pulsed laser beams
+is necessary. This is usually done  and has been
+achieved  with lasers of wavelength λ = 1064 nm [2].
+However, as will be shown, this wavelength makes no
+dierence on calculations of acceleration.
+According to DeBroglie, the momentum imparted
+by a photon is p = h
+λ and its energy follows E = pc.
+Likewise, a laser beam with power P is emitting P/pc
+photons per unit time.
+That means that the mo-
+mentum of a laser beam per unit time is simply P/c.
+When this laser beam hits a surface the momentum
+of the reected photons should also be considered.
+Thus, the momentum per unit time exerted on this
+surface is 2P/c.
+2.2.
+About light sails
+This section will mostly follow [1]. If one considers
+the results of the previous section and applies New-
+ton's second law, then it is straight-forward to nd
+the following expression for the acceleration of a light
+sail:
+a = 2ηP
+mc
+(1)
+where P is the power that arrives to the sail, η is the
+reectance of the material and m is the total mass
+of the spacecraft. Although mass distribution will be
+discussed later, the system will consist of a nanocraft
+(ideally a light, wafer-scale chip) xed by four con-
+nectors to a light sail. A representation of this design
+can be seen in Figure 1. The sail is assumed to be
+spherical in this report (unlike in Figure 1), with a
+large radius R. By taking the limit R −→∞, the
+at sail case is recovered, which has been proved to
+be unstable under realistic conditions. Literature on
+this topic has details about conical and hyperbolic
+sails, which will not be covered here [5][?].
+Writing m = mls + msc as a sum of the masses of
+the sail and the craft, and now mls = ρAd, where ρ is
+1 of 11
+
+Light Sail Propelled Nanocraft to Alpha Centauri
+Team 258
+Figure 1: Schematic representation of the nanocraft and laser
+beam direction. [3]
+the density of the sail material and d is its thickness,
+the acceleration is:
+a =
+2ηP
+(msc + ρAd)c
+(2)
+Some considerations may be derived from this for-
+mula. First, this formula puts a limit on the maxi-
+mum acceleration one could achieve with such a sys-
+tem. Until now, loss of power due to heating of the
+material has not been considered. Also, according to
+[1] if the goal is to optimize the sail lm thickness,
+the payload and the structure mass in the eective
+sail material density could be included, so that Equa-
+tion 2 becomes:
+a = 2P
+Ac
+η
+ρd
+(3)
+where the last factor only depends on the parameters
+of the sail material.
+According to the above equation, in order to max-
+imize a, a thin sail from a low density material is
+needed. Note, however, that for a very thin material
+most of the power passes through the sail and is then
+wasted. Additionally, some power will be absorbed,
+and, if the absorptance of the material is too high,
+power will also be lost here. Assuming that this ma-
+terial does not have to be a perfect black body, the
+absorbed power αP has to be equal to a fraction of
+the radiated heat 2σAεT 4, where α is the absorp-
+tance, ε is the emissivity, σ is the Stefan-Boltzmann
+constant, and T is the operating temperature of the
+sail. Equation 3 becomes:
+a = 4σ
+c
+εηT 4
+αρd
+(4)
+Equation 4 can be used to compute the accelera-
+tion of a light sail given the power of a laser beam
+array. This will give a rst estimation of the possible
+velocities, which will be of the order of 0.2c. More-
+over, Equation 4 can be used to discuss the materials
+required to build a suitable light sail.
+2.3.
+Relativistic velocities
+According to Equation 2 and considering the rela-
+tivistic case where p = mcγβ, one can write:
+2ηP
+mc = dp
+dt = mcβ dγ
+dt + mcγ dβ
+dt
+(5)
+following [4].
+Considering the denition of the
+gamma factor one derives the dierential equation:
+2ηP
+mc2 = dβ
+dt
+1
+(1 −β2)2
+(6)
+Integration yields an analytical solution for t:
+t = mc2
+4Pη
+h
+β
+1 −β2 + 1
+2 ln
+1 + β
+1 −β
+i
+(7)
+which can be inverted to nd β. Despite other intu-
+itive considerations, this will be the main evidence
+that a large error is not made by not considering
+special relativity.
+2.4.
+Light sailing dynamics
+One of the main problems is to achieve a sail
+with a beam-riding stability without need of active-
+feedback of the spacecraft. In this section,[3] and [5]
+will be followed to determine the equations of mo-
+tions of the spacecraft. A Cartesian reference frame
+(X, Y, Z) with its origin at the center of mass of the
+spacecraft and its Z-axis in the direction of the cylin-
+drical symmetry axis of the sail will be used. This
+choice of Z is important, as it makes the used ref-
+erence frame (RF) a non-inertial RF moving along
+the axis of the laser beam with the acceleration given
+by the laser-imparted force. One of the assumptions
+made is that the sail behaves like a rigid body, so
+that its motion can be described with both New-
+ton's second law (Equation 8) and Euler's equation
+(Equation 9):
+F = m¨x
+(8)
+2 of 11
+
+Light Sail Propelled Nanocraft to Alpha Centauri
+Team 258
+I ˙ω + ω × Iω = τ
+(9)
+where ω is the angular velocity and I the inertia
+tensor of the sail.
+First, Ixx = Iyy because of
+the cylindrical symmetry of the problem and also
+Iij = 0 if i̸ = j, since the principal axes are being
+used. Then a simple calculation gives,
+Ixx = Iyy = I = mlsL2
+c + msc(L −Lc)2
+(10)
+where L is the distance between the nanocraft and
+the sail and Lc, between the center of mass of the
+sail and the center of the nanocraft.
+By applying Equation 2  supposing an ideal re-
+ectance  to an element of the sail surface, the force
+applied by the laser beam can be determined:
+F =
+Z
+S
+2p(x) · ˆn(x)
+c
+ˆn(x)dS
+(11)
+with p(x) being the bean power ux at a point x
+in the surface of the sail, S the light sail area, and
+n(x) a normal unit vector to this surface at x. Con-
+sidering the constant direction of p(x): parallel to
+the z-axis and perpendicular to the Earth surface
+where the laser is assumed to be installed, this im-
+plies p(x) = p(x)ˆz.
+Similarly the expression for the torque applied to
+the beam can be found using τ = r × F :
+τ =
+Z
+S
+2p(x) · ˆn(x)
+c
+(r(x) × ˆn(x))dS
+(12)
+Here, r(x) corresponds to the distance between the
+center of the sail and a point x on the sail's sur-
+face. From basic geometry, one can see that it can
+be computed as r = (x, y, Lc −R +
+p
+R2 −x2 −y2)
+The main purpose of the dynamical analysis is to
+study small perturbations in the x and y axis. As
+a consequence of these perturbations, two rotations
+of the center of mass dened by the angles θx and
+θy, which correspond to rotations about the x- and
+y-axes respectively, are caused. Using the gradient
+on the surface of a sphere, ˆn = ( x
+R, y
+R,
+√
+R2−x2−y2
+R
+)
+can be found, and so p(x) · ˆn(x) = p(x)
+√
+R2−x2−y2
+R
+where R is the radius of curvature of the sail. It is
+also easy to see that a small displacement ∆in the
+X-direction will trigger a rotation about the Y-axis
+Figure 2:
+Schematic representation of the sail and the
+nanocraft. The light sail is spherical with a large radius R. In
+this scheme, the direction of Z is taken in the direction of L.
+X and Y are perpendicular to Z.
+(θy). This is equivalent to motion in the Y-direction
+and rotation about the X-axis because of the sym-
+metry of the sail and the coupling between X and
+θy in the equations of motion for Fx is the same as
+the coupling between Y and θx in the equations of
+motion for Fy.
+Only one displacement (in the X-
+direction) will be solved for, since a displacement in
+Y will be equivalent. Solving for motion along the
+Z-axis is trivial because the torque is zero about Z.
+Thus, Z is governed by a constant acceleration which
+makes it depend only on t2.
+Using
+the
+approximation
+for
+small
+angles,
+sin θy
+≈
+θy,
+∆
+=
+X + θyLr
+where Lr
+=
+q
+(
+√
+R2 −a2 + Lc −R)2 + a2 is the distance be-
+tween the rim and the center of mass of the sail. A
+schema of L and a can be found in Figure 2. Now, the
+force in the X-direction can be computed, using the
+ux of the beam. As it has been mentioned, a gaus-
+sian beam model for the laser will not be used, with a
+constant one in its place (Equation 13). This allows
+the solution of the integrals analitically and hence
+to make explicit the set of dierential equations of
+motion. The power of the beam can be assumed to
+3 of 11
+
+Light Sail Propelled Nanocraft to Alpha Centauri
+Team 258
+be
+p(x) =
+
+
+
+p0
+if
+0 ≤x2 + y2 ≤a
+0
+otherwise
+(13)
+Such
+an
+illumination
+model
+allows
+dS
+=
+∆dy
+R
+√
+R2−x2−y2 .
+This
+is
+because
+there
+is
+a
+constant power ux over all the area except the rim
+of the sail. Then, the force is simply:
+Fx =
+Z +a
+−a
+p0∆
+R xdy = p0∆
+R
+Z +a
+−a
+p
+a2 −y2dy
+= −1
+2Frad
+X + Lrθy
+R
+(14)
+where the denition Frad = 2p0πa2 is used. Note
+that this is precisely the force coming from the laser
+beam that was computed in the last section, which
+is assumed to cause all the acceleration. The same
+can be done for the torque:
+τy = 2p0∆
+Lc
+R −1
+ Z +a
+−a
+xdy
+= −1
+2Frad
+Lc
+R −1
+
+X + Lrθy
+
+(15)
+Then, Newton's second law and Euler's equation can
+be written as:
+m ¨X = Fradθy −1
+2Frad
+X + Lrθy
+R
+(16)
+I ¨θy = −1
+2Frad
+Lc
+R −1
+
+X + Lrθy
+
+(17)
+In the rst one, an extra term has been added which
+represents the additional force created due to the
+angle θy. If a2 is assumed to be much less than R2,
+Lr = Lc.
+Taking the limit R −→∞the at sail model is
+recovered, governed by equations:
+m ¨X = Fradθy
+(18)
+I ¨θy = 1
+2Frad
+
+X + Lrθy
+
+(19)
+2.5.
+From equations of motion to Alpha
+Centauri
+If the goal is to arrive at Proxima B in Alpha Cen-
+tauri at a closer distance than that between the
+Figure 3: Schematic view of the range of allowed trajectories
+to Proxima B, located at (b). Earth is located at point (a).
+Earth and the Moon, motion in the x and y direc-
+tions once acceleration stops should be considered.
+If in this instant of time the angles θx and θy are too
+large, a close enough approach to Proxima B cannot
+be guaranteed.
+Figure 3 can be used to better understand this
+problem. In it, θmax represents the maximum angle
+the craft can have with respect to the x or y axis
+when the acceleration is stopped after t ∼10 min.
+If the distance between the Earth and the Moon is
+ϵ ∼400, 000 km the condition for achieving the goal
+is:
+θmax ≈sin θmax ≤
+ϵ
+4.25 years · c ≈1·10−8 rad (20)
+Thus, considering the perturbations in the light sail,
+the maximum error in the laser beam can be char-
+acterized. In order to satisfy this constraint, a great
+accuracy in the laser beam is required.
+3.
+Model analysis and results
+3.1.
+Feasibility of light sailing
+A rst estimate will show that nearly c velocities are
+possible with such a laser beam (ignoring relativity).
+As discussed in previous sections, the momentum im-
+parted by a 50 GW beam each second is
+5 · 1010
+c
+· 2 J = 1
+3 · 103 kgm
+s
+(21)
+4 of 11
+
+Light Sail Propelled Nanocraft to Alpha Centauri
+Team 258
+where η, the reectance, is assumed to be 1. Assum-
+ing the sail is perfectly aligned with the laser beam
+(i.e. with no perturbations), the sail will accelerate
+at a constant rate. This acceleration will be given
+by
+1
+3 · 103 kg m
+s2
+0.001 kg
+= 1
+3 · 106 m
+s2
+(22)
+If this acceleration is maintained for 10 minutes,
+the craft will achieve a speed of
+1
+3 · 106 m
+s2 · 600 s = 2 · 108 m
+s
+(23)
+without taking into account relativity.
+The
+gamma factor, γ =
+1
+√
+1−β2 , is only a 0.5% correction
+for v = 0.1c, where c is the speed of light. Therefore,
+up to 0.1c, relativity does not need to be taken into
+account to still retain 99% accuracy. Past this speed,
+γ increases to 1.02, requiring a 2% correction. Due to
+the other assumptions made, this is not considered to
+aect the results of this paper signicantly, so it has
+been ignored. Since the craft needs to reach a target
+speed of 0.2c, any acceleration past this (which will
+be greatly abated when v →0.5c) is inconsequential,
+as this is an ideal case.
+The non-ideal case is much more complex, includ-
+ing many parameters.
+According to [1] the upper
+limit of acceleration of an object can be derived from
+Equation 4. In [1], Forward claims that aluminum
+is the best known material for the sail; however, its
+maximum operating temperature of 600 K limits its
+uses. If aluminum (ϵ = 0.06, η = 0.82, α = 0.135,
+ρd = 2.71
+g
+cm3 ) was used for the design proposed in
+this paper, it would limit the acceleration to 1.32 m
+s2 .
+This is unacceptable, as the craft would be unable to
+reach relativistic speeds in a short time. An upper
+limit on the desired acceleration  to reach 0.2c in
+10-20 minutes  would be a =
+0.2c
+600 s, a = 1 · 105 m
+s2 .
+The issue with aluminum is its low emissivity, caus-
+ing it to heat up  and therefore reach its tempera-
+ture limit  too quickly. The following analysis will
+attempt to determine an ideal material for the sail,
+according to the constraints that the design in this
+paper requires.
+The sail design proposed here requires a low sur-
+face density.
+Since a total sail weight of 0.5 g is
+required for a surface area of 10 m2 the total mass
+per unit area is ρd = 5 · 10−5
+kg
+m2 . The density of
+such a material would then be ρ = 5 · 103
+kg
+m3 . This
+is reasonable, as the material would be only 5 times
+as dense as water (but would need to be thinned to
+10 nm). Materials that are less dense could be used
+as a thicker sail, as long as they meet the other re-
+quirements. Assuming an operating temperature of
+1000 K, a model can be built for the constraints on
+the emissivity, reectance, and absorbace:
+ϵη
+α ≥6.6 · 103
+(24)
+These requirements are not out of reach. Accord-
+ing to [6], multi-layer dielectric materials currently
+exist that can be coated to result in 99.995-9% re-
+ectance for a specic laser line (in this case 1064
+nm). This is two orders of magnitude better than re-
+quired by the above analysis, allowing the constraints
+on absorptance and emissivity to not be as strin-
+gent. Of course, designing a material that has all
+these properties  high reectance, low absorptance,
+high operating temperature, and high emissivity  is
+dicult.
+3.2.
+Accelerating to relativistic limit
+Using Equation 7, it can be shown that all the equa-
+tions used are not within the relativistic limit. In
+Figure 4 this equation is plotted.
+It can be seen that for the considered mass of 1
+g, speeds up to 0.2c are achieved in a reasonable
+amount of time.
+Obviously, as m increases  still
+under a few grams, more time is needed to achieve
+higher speeds, so spacecrafts are non-relativistic for
+longer periods of time.
+As shown for β ≪1, the constant acceleration
+behavior is recovered, as treated earlier. This can
+also be shown from Equation 7. When β →1:
+β
+1 −β2 →β, ln
+1 −β
+1 + β
+
+→2β
+(25)
+thus recovering Equation 2.
+3.3.
+Stability analysis
+In this section the system of ordinary dierential
+equations (Equation 16 and Equation 17) that deter-
+mines the dynamics of the spacecraft has been solved
+5 of 11
+
+Light Sail Propelled Nanocraft to Alpha Centauri
+Team 258
+
+
+
+
+
+	
+ 
+
+
+
+
+
+β
+m   
+m   
+m  	 
+m   
+
+	
+
+	
+
+ 
+
+	
+
+	
+
+β
+m   
+m   
+m  	 
+m   
+Figure 4:
+β versus time, considering relativity.
+Dierent
+masses have been plotted. Lower gure shows constant ac-
+celeration until β < 0.2.
+numerically. The parameters used in the simulation
+are a = 200 cm and L = 2000 cm; both masses mls,
+msc have been taken to be the same  according to
+[6] this is the optimal conguration  so Lc = L/2.
+Also, if a2 is much smaller than R2, then Lc = Lr. In
+an idealized case, it has been shown that it is possible
+to reach velocities of vmax = 0.2c. Now, one might
+wonder what force the spacecraft needs to achieve
+such velocities. The assumption that η = 1 when
+deriving the equations of motion still holds.
+Sim-
+ple calculations for ∆t = 600 s give an approximate
+value of Frad = 102 N, an upper limit on the force
+required.
+3.3.1.
+Flat sail
+If R →∞, the sail becomes at.
+The intuitive
+idea behind the at sail instability is that any non-
+uniformity in the beam intensity or alignment of the
+sail will cause a torque with no restoring force; hence,
+it will not be at all stable. The plot for this simula-
+tion is not shown, because the velocities in the x-axis
+exceed the relativistic limit. Therefore, the deriva-
+tions made are not valid anymore. Regardless, the
+simulations still suggest an unstable behavior of a
+at sail.
+3.3.2.
+Spherical Sail
+Figure 5 shows the components x and z of the motion
+of the light sail for a spherical sail with radius of
+curvature R = 1000 cm. There is no torque on the
+z-axis, so the shape of the function of motion of the
+sail is going to be well approximated by Equation 2
+(with η = 1). This is reasonable, since the kinetic
+energy associated to x and y axes is not comparable
+with the total kinetic energy, as will be shown. Note
+that z has a parabolic behavior.
+The simulation has been run for two dierent per-
+turbations, rst for δx = 0.001 cm and θy = 0.001
+degrees, getting an amplitude of 2 cm and then; for
+δx = 0.0001 cm and θy = 0.0001 degrees, getting
+an amplitude of approximately 0.2 cm. Note that as
+one may expect, bigger initial perturbations imply
+bigger amplitudes. This means that the more per-
+turbed the system is initially, the greater the varia-
+tions of the coordinates on the x-axis (and similarly
+on the y-axis). These variations are reected in the
+value of the amplitude of the oscillations. Simula-
+tions also show that for larger initial perturbations
+no acceptable amplitudes are obtained, showing an
+unstable behavior for the spacecraft at those initial
+conditions.
+The energy absorbed by these perturbations is re-
+lated to the kinetic energy of the oscillatory motion
+according to ⟨T⟩x = 1
+2Iω2. However, there are os-
+cillations in both the x-axis and y-axis.
+Thus, an
+estimation for the kinetic energy of one oscillation
+is ⟨T⟩≈600J, and the kinetic energy per second
+is around 7000 W, which is negligible in comparison
+with the power of the laser beam (50 GW). This al-
+lows the consideration of Equation 2 as an equation
+of motion for z.
+3.4.
+Accuracy of the system
+Once the craft stops accelerating after a time of 10
+min, it has traveled a distance ∼107 km, as shown in
+Figure 5. This is negligible compared to the distance
+between the Earth and Alpha Centauri, so it can be
+assumed that the sail is still at Earth (though out
+of its gravitational eld). According to Figure 3, a
+6 of 11
+
+Light Sail Propelled Nanocraft to Alpha Centauri
+Team 258
+
+
+
+
+
+	
+
+
+ 
+
+	
+	
+	
+ 
+
+
+	
+
+	
+
+	
+
+ 
+
+
+ 
+δx = 0.001
+
+	
+	
+	
+
+	
+	
+	
+
+ 
+
+
+
+
+
+ 
+
+	
+
+	
+
+	
+
+ 
+
+
+ 
+δx = 0.0001
+
+	
+	
+	
+
+	
+	
+	
+
+ 
+
+
+
+
+
+ 
+Figure 5: Spacecraft position for small initial perturbations in
+X and θy. Simulation results.
+really small angle in the x or y axis is needed in order
+to achieve the goal of ying by Proxima Centauri B
+within the desired distance. This has been found to
+be of a great complexity.
+The simulation gives a value equal to the initial
+perturbation for the maximum deviation of the x-
+axis  i.e 0.0001 or 0.001 degrees. These angles cor-
+respond in the best case to an angle of the order of
+2 · 10−6 rad.
+As seen in the introduction, the needed accuracy
+is on the order of nrad. Simulations show that this
+could be achieved by reducing the initial perturba-
+tions in θx by two orders of magnitude, but leaving
+constant the initial perturbations in x. A laser beam
+capable of this would be able to propel the craft to
+Proxima B. Greater errors do not guarantee the suc-
+cess of the trip. Simulations also show that the am-
+plitude of the oscillations are small enough to keep
+the spacecraft stable; hence, the needed accuracy is
+about 1 −10 µm for perturbations in x and of the
+order of nrad for perturbations in θx.
+Some considerations can be made regarding the
+power of the laser beam. It has been assumed that
+in order to achieve the desired velocities, the system
+should receive a force in the z-direction of around 100
+N. This leaves unused more than half of the available
+power. Thus, such an ideal system where η = 1, and
+none of the power passes through the sail or is oth-
+erwise lost has signicant margin for error. Many
+papers argue that the beam would not be able to
+be completely enclosed by the sail for the entire du-
+ration of the acceleration [6][4]. These results show
+that this is not a signicant issue  as long as half
+the power hits the sail, on average.
+4.
+Conclusions
+4.1.
+Discusion of the results
+The ability of such a system to achieve nearly c ve-
+locities in a reasonable amount of time was one of the
+primary concerns. At a rst estimate of η = 1 and a
+perfectly aligned laser with no perturbations, results
+show that up to 0.2c speeds can be easily achieved.
+Another important issue was the eects of relativity
+when reaching velocities on the order of the speed of
+light. However, it has been shown that the case stud-
+7 of 11
+
+Light Sail Propelled Nanocraft to Alpha Centauri
+Team 258
+ied here can be assumed to be non-relativistic. If the
+mass of the craft is increased, then the spacecraft is
+only more of a non-relativistic system.
+The material of the light sail was also considered.
+Due to an idea purported by [1], the properties of
+aluminum were analyzed, but it was determined to
+not be a suitable candidate due to its emissivity
+and operating temperature.
+The acceleration nec-
+essary to reach v = 0.2c was determined and used
+to set constraints on an ideal material for the sail.
+The ideal material for a sail should have low sur-
+face mass density. Moreover, by assuming an oper-
+ating temperature of 1000K, a simple relation that
+this material must satisfy can be obtained: Equa-
+tion 24. In words, the material needs to have high
+reectance, low absorptance, high operating temper-
+ature and high emissivity. Even though such a mate-
+rial could seem hard to manufacture, materials that
+satisfy these requirements at least partially are al-
+ready available.
+Finally, stability of the light sail was considered.
+Two models have been considered: a at sail which
+is not stable at all under small perturbations, and a
+spherical sail which is stable. For the latter, calcu-
+lations were performed approximating the intensity
+of the laser beam with a piece-wise function. These
+calculations suggest that the amplitude of the os-
+cillatory motion in both the x and y axes increases
+when the initial perturbation is increased. In order
+to plan such an interstellar ight, a system with ac-
+curacy of nrad in θx and of µm in both x and y axes
+is necessary.
+4.2.
+Strengths and weaknesses
+• Weaknesses
+1. In order to achieve maximum power in the
+spot generated by a laser beam, a gaussian
+beam prole would be used [6][?].
+This
+prole would change the calculations for
+the stability of the sail considerably. The
+calculations performed in this paper would
+no longer be accurate.
+2. The connectors of the sail to the craft are
+dicult to account for. If they are to be
+rigid and strong, then their mass would be
+a factor in the calculations of the sail dy-
+namics, something which this paper does
+not account for.
+3. The necessary precision is calculated to
+be a less than nrad angular perturbation,
+which is most likely not achievable.
+4. Uniformity  or lack thereof  of the laser
+beam has not been taken into account.
+5. Dust impacts during ight will greatly al-
+ter the course taken by the spacecraft. Ac-
+cording to [6], a craft on the order of grams
+will be perturbed by dust impacts.
+Al-
+though these impacts will not damage the
+spacecraft itself, they will cause it to slowly
+drift o-course [6].
+If this nanocraft is
+around 1 g, as assumed by Lubin, angular
+acceleration caused by dust impacts will be
+on the order of 10−5 rad
+sec , with the direc-
+tion depending on the direction of impact
+of the dust. This angular acceleration will
+destabilize the craft and lead to a drift from
+the trajectory.
+In his paper, Lubin sug-
+gests photon thrusters on the craft which
+will counteract this small acceleration. If
+it is not counteracted, it will lead to ap-
+proximately a complete rotation in just one
+day. This completely eliminates the possi-
+bility of the spacecraft staying on course
+for an order of decades without some kind
+of on-board correction mechanism, such as
+thrusters. Since such a mechanism would
+cause a (signicant) increase in mass, this
+is likely the most detrimental weakness to
+this model.
+• Strengths
+1. The analysis provided through this model
+suggests that it is possible for a craft to
+achieve speeds on the order of 0.2 c with
+the given laser power of 50 GW, and 
+with sucient precision  to reach Prox-
+ima Centauri b at a closer distance than
+that between the Earth and Moon.
+2. As discussed previously, less than half the
+total power of the laser is needed to be
+used for acceleration. If 50% of the power
+is transformed into kinetic energy of the
+8 of 11
+
+Light Sail Propelled Nanocraft to Alpha Centauri
+Team 258
+spacecraft, then the target of 0.2 c is still
+achieved.
+3. The materials that are required for the con-
+struction of the sail are not readily avail-
+able but can be theoretically created and
+fabricated in the foreseeable future.
+4. The control of the laser prole through a
+phased laser array could allow it to be used
+as a source of extra stability for the sail
+[6]. This suggests that this analysis was a
+conservative one.
+5. The suggested sail design has been proven
+to be stable under laser beam conditions
+which are not favorable and can be made
+to be more stable with manipulation of
+the laser beam, as is possible with modern
+phase-locked lasers [6][5].
+4.3.
+Future work
+More analysis needs to be performed on the ideal
+shapes for a laser-propelled sail.
+Several designs
+have been proposed  such as hyperboloids, cones,
+spheres, and others, but  due to the possibility of
+laser beam shape modication  which of these de-
+signs is ideal is unclear. Moreover, there needs to
+be a determined ideal balance between accelerating
+power and stability of the sail.
+The analysis of laser beam shapes for ideal stabil-
+ity is crucial to the success of this kind of mission. [6]
+suggests that a minimum be created in the center of
+the beam to promote stability, while [5] argues that
+four gaussian beams on a spherical sail can keep it
+stable with initial perturbations of several centime-
+ters, which is promising. In either case, more analy-
+sis and modeling is necessary in order to assess what
+the best shape is for stability of the craft. Assum-
+ing an amount of power as given in this problem is
+achievable, then perhaps losing some of that power to
+a less-favorable (in terms of power eciency) beam
+shape in order to achieve a more stable craft is nec-
+essary.
+Due to the high precision required in aiming the
+spacecraft towards Alpha Centauri as well as the
+problem of dust impacts discussed above, methods
+of correcting the craft's trajectory and unwanted ac-
+celeration need to be analyzed. Ideally, some kind of
+mechanism would be on-board which would be able
+to correct the trajectory, suggesting that the weight
+of the craft would have to be increased.
+Detailed
+analysis of ultra-light correction systems should be
+performed.
+References
+[1] Forward, R. L. "Roundtrip interstellar travel us-
+ing laser-pushed lightsail." Journal of Spacecraft
+and Rockets, 21, 187, (1984)
+[2] Arnaud Brignon, Coherent Laser Beam Combin-
+ing. Wiley-VCH, 1st Edition, (2013)
+[3] E. Popova, M. Efendiev, and I. Gabitov. "On the
+Stability of a Space Vehicle Riding on an Intense
+Laser Beam." Mathematical Methods in the Ap-
+plied Sciences, vol. 40, no. 4, pp. 13461354, Mar.
+(2017)
+[4] Bible, Johanna, Isabella Johansson, Gary B.
+Hughes,
+and Philip M. Lubin. "Relativistic
+Propulsion Using Photonic Directed Energy."
+Proc. Of SPIE, Optics and Photonics (2013).
+[5] Manchester Z, Loeb A. "Stability of a Light Sail
+riding on a laser beam." College Park, MD, 2016.
+arXiv:1609.09506 [astro-ph.IM].
+[6] Lubin, P. "A Roadmap to Interstellar Flight."
+arXiv:1604.01356v5 [astro-ph.EP] (2016).
+[7] Srinivasan, P. et al. "Stability of Laser Pro-
+pelled Wafer Satellites." Proc. of SPIE, Vol. 9981,
+(2016).
+9 of 11
+
+Light Sail Propelled Nanocraft to Alpha Centauri
+Team 258
+A.
+Python code for numerical simulation
+# Python
+modules
+from
+numpy
+import
+linspace
+import
+random as random
+from
+scipy.integrate
+import
+odeint
+from math
+import sqrt , pi , log
+import
+matplotlib.pyplot as plt
+from
+matplotlib
+import
+rcParams
+rcParams.update ({'font.size ': 13})
+rcParams['font.family '] = 'sans -serif '
+rcParams['font.sans -serif '] = ['tahoma ']
+# Equations of motion
+spherical
+sail
+def
+light_spherical_sail (y,t,Frad ,Lc ,R,m,I):
+x, vx , thetay , omegay = y
+dydt = [vx , Frad(t)/m*thetay -1/2/m*Frad(t)*(x+Lc*thetay)/R,
+omegay ,
+-1/2* Frad(t)/I*(x+Lc*thetay)*(Lc/R-1)]
+return
+dydt
+# Equations of motion
+flat sail
+def
+light_flat_sail (y,t,Frad ,Lc ,m,I):
+x, vx , thetay , omegay = y
+dydt = [vx , Frad(t)/m*thetay ,
+omegay , 1/2* Frad(t)/I*(x+Lc*thetay)]
+return
+dydt
+# Constants
+a = 200 #cm
+R = 1000 #cm
+Lc = 1000 #cm
+m1 = 1/2 #g
+m2 = 1/2 #g
+m = (m1+m2) #g
+L = 2000 #cm
+I = m1*Lc **2+ m2*(L-Lc)**2 #g*cm^2
+F_rad_0 = 10**7 #cm*g/s^2
+tim = 10*60 #s
+P = 50*10**9 #W
+c = 3*10**8 #m/s
+eta = 1 #reflectance
+def F_rad(x): #Force
+from the laser
+beam
+if x <=10*60:
+return
+F_rad_0
+#+ normal(F_rad_0 /100 , F_rad_0 /100) #adding
+noise
+if x >10*60:
+return 0
+y0 = [0.001 ,0 ,0.001 ,0] #Initial
+cond set 1
+y1 = [0.0001 ,0 ,0.0001 ,0] #Initial
+cond set 2
+yr = [0.0000001 ,0 ,0.00001 ,0] #Initial
+cond set 3
+sol1 = odeint(light_spherical_sail , y0 , t, args = (F_rad ,Lc ,R,m,I))
+sol2 = odeint(light_spherical_sail , y0 , t2 , args = (F_rad ,Lc ,R,m,I))
+sol12 = odeint(light_spherical_sail , y1 , t, args = (F_rad ,Lc ,R,m,I))
+sol22 = odeint(light_spherical_sail , y1 , t2 , args = (F_rad ,Lc ,R,m,I))
+# solving
+for
+different
+conditions
+#Plotting
+results
+from ODEs
+10 of 11
+
+Light Sail Propelled Nanocraft to Alpha Centauri
+Team 258
+fig ,ax = plt.subplots (5,1, figsize =(7 ,12))
+ax [0]. plot(t3 ,z)
+ax [0]. set_xlabel('Time (s)')
+ax [0]. set_ylabel('z (km)')
+ax [1]. plot(t,sol1 [:,0], label=r'$\delta_{x} = 0.001$')
+ax [1]. legend ()
+ax [1]. set_xlabel('Time (s)')
+ax [1]. set_ylabel('x (cm)')
+ax [1]. set_xlim (0,tim /2)
+ax [1]. set_ylim ( -1.5 ,3.5)
+ax [2]. plot(t2 ,sol2 [: ,0])
+ax [2]. set_xlabel('Time (s)')
+ax [2]. set_ylabel('x (cm)')
+ax [2]. set_xlim (0,tim /300)
+ax [2]. set_ylim (-1,3)
+ax [3]. plot(t,sol12 [:,0], label=r'$\delta_{x} = 0.0001$',color='orange ')
+ax [3]. legend ()
+ax [3]. set_xlabel('Time (s)')
+ax [3]. set_ylabel('x (cm)')
+ax [3]. set_xlim (0,tim /2)
+ax [3]. set_ylim ( -0.15 ,0.35)
+ax [4]. plot(t2 ,sol22 [:,0], color='orange ')
+ax [4]. set_xlabel('Time (s)')
+ax [4]. set_ylabel('x (cm)')
+ax [4]. set_xlim (0,tim /300)
+ax [4]. set_ylim ( -0.1 ,0.3)
+plt.savefig('dxbis.eps')
+plt.show ()
+#Solving
+for flat sail
+sol_flat = odeint(light_flat_sail ,y1 ,t4 ,args = (F_rad ,Lc ,m,I))
+fig ,ax = plt.subplots(figsize =(7 ,4.5))
+ax.plot(t4 ,sol_flat [: ,1])
+plt.show ()
+11 of 11

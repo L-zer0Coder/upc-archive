@@ -1,0 +1,795 @@
+Team 385 
+1 
+ 
+Analysis of Asteroid Mass Influences 
+Ocean Impact 
+Problem B: Asteroid Ocean Impact 
+Team 385 
+November 7, 2021 
+Abstract 
+Among the plentiful effects caused by asteroids hitting the ocean, tsunami is 
+probably the most devastating type of damage for asteroids. 
+[1]We suppose that the 
+biggest factor causing urban substantial damage is tsunami. Then we divide the course 
+of asteroid hitting the ocean into three processes. Based on the processes, we build 
+physical models to solve the minimum mass of an asteroid that causes substantial 
+damage to a city. 
+The first process is that the asteroid travels through the Earth’s atmosphere to the 
+sea surface. During this process, its speed and mass will be slightly lost. Establishing 
+a physical model can calculate the speed and mass loss of the asteroid. 
+The second process is that the asteroid hitting the sea causes a tsunami wave. 
+Establishing a physical model can create a connection between the asteroid's kinetic 
+energy and the amplitude of the tsunami wave. 
+The third process is the propagation of tsunami waves from the deep sea area to 
+the shore. Since the tsunami wave propagates from the deep sea area to the shallow 
+sea area, there is a "Shallow Water Effect", that is, the tsunami wave will increase as 
+it propagates. Establishing a physical model can calculate the amplitude of the 
+tsunami wave reaching the shore. 
+Finally, we solve the problem in reverse based on the physical models. First, we 
+get the amplitude of the tsunami wave reaching the shore from the level of the 
+tsunami that caused substantial damage. Then we calculate the amplitude of the 
+tsunami wave at 1,000 kilometers. Then we calculate the kinetic energy of the 
+asteroid. Finally we calculate the minimum mass of the asteroid is 4.046 × 1010kg. 
+
+Team 385 
+2 
+ 
+Contents 
+1 Introduction ............................................................................. 3 
+2 Restatement ............................................................................... 3 
+3 Assumptions and Notations ...................................................... 4 
+3.1 Assumptions .................................................................... 4 
+3.2 Notations .......................................................................... 4 
+4 Physical Analysis of Model ...................................................... 5 
+4.1 Model Establishment and Analysis ................................. 5 
+4.1.1 Asteroid travels through the atmosphere ............... 5 
+4.1.2 Asteroid hits the ocean causing a tsunami ............. 7 
+4.1.3 Tsunami waves propagate to the shore ................ 10 
+4.2 Model Solving ............................................................... 12 
+5 Conclusion .............................................................................. 13 
+6 Strengths and Weaknesses ...................................................... 14 
+6.1 Strengths ........................................................................ 14 
+6.2 Weaknesses .................................................................... 14 
+7 Reference................................................................................. 15 
+Appendix .................................................................................... 15 
+ 
+ 
+ 
+ 
+
+Team 385 
+3 
+ 
+1 Introduction 
+The impact of asteroids on the earth will threaten the survival of mankind. After 
+entering the earth, asteroids may hit the earth's land or ocean. Because the ocean area 
+is larger than the land area, the probability of asteroid hitting the ocean is expected to 
+be four times that of hitting the land[2]. Therefore, the study of asteroid hitting the 
+ocean is of great significance. 
+The impact of asteroids on the ocean is a complex physical process involving 
+many physical dynamic issues and will have many impacts. After investigation and 
+research, we have learned that the tsunami is the most influential factor of an asteroid 
+impact on the ocean[1], and it is also one of the biggest damages to cities. 
+We divide the whole process into three processes based on the impact of 
+asteroids on the ocean, and establish physical models to analyze and solve the 
+minimum mass of asteroids that cause substantial damage to a city. 
+              
+ 
+Figure1 The three processes of asteroid ocean impact 
+2 Restatement 
+ This question is to consider the impact of an asteroid hitting the ocean on the 
+city, that is, analyzing the process of the asteroid hitting the ocean, what is the result 
+of the impact, what factors will change or affect the result, and how this result 
+destroys the city. Finally, according to our analysis, combining the criteria for causing 
+substantial damage to the city, calculate the minimum mass required for the asteroid 
+(1,000 kilometers from the coastal city) to cause substantial damage to the city. 
+ 
+
+Team 385 
+4 
+ 
+3 Assumptions and Notations 
+3.1 Assumptions 
+(1) Because causing the tsunami of the same intensity, the iron asteroid needs 
+smaller mass. [6] We assume that irregular asteroids are pure iron balls 
+with uniform mass distribution, which enter the atmosphere at an altitude 
+of 500km from the sea surface.  
+(2) We ignore the force that causes the trajectory to deflect, such as the 
+Coriolis force, that is, let the flight track angle and heading angle be both 
+0. 
+(3) Since the disintegration of asteroids is a complicated process, we assume 
+that after entering the atmosphere, asteroids will not disintegrate, only 
+have the loss of speed and mass. 
+(4) From (3) we assume that the asteroid does not disintegrate, so we assume 
+that the initial velocity of the asteroid entering the atmosphere is 
+11.2km/s-12.4km/s.[1] 
+(5) We assume that the tsunami wavelength is 100km, the shore water depth 
+is 0.3m, the seawater depth 1000km away from the shore is 5000m, and 
+the seawater density is 1.04 × 103𝑘𝑔/𝑚3, acceleration of gravity g is 
+9.8 m /𝑠2. 
+3.2 Notations 
+Variables 
+Explanations 
+V 
+instantaneous velocity of asteroid 
+h 
+the current height of the asteroid from the sea 
+t 
+the time passed 
+γ 
+flight path angle 
+ψ 
+flight heading angle 
+ϕ 
+current point latitude 
+ρair 
+atmospheric density 
+rt 
+the distance from the asteroid to the center of the earth 
+ω 
+angular velocity of the earth's rotation 
+θ 
+longitude of current point 
+Cd 
+resistance coefficient=1(Dimensionless) 
+σ 
+ablation coefficient≈1.0 × 10−7（Bronshten 1983） 
+
+Team 385 
+5 
+ 
+ρM 
+density of asteroids 
+ρ0 
+atmospheric density at sea level 
+𝑯 
+total height of the atmosphere 
+V0 
+the speed at which the asteroid just entered the atmosphere 
+u 
+tsunami wave velocity 
+ω 
+     the Angular frequency 
+η 
+vertical displacement from wave surface to static water surface 
+A 
+the amplitude of asteroid 
+ϕ 
+wave potential function 
+H 
+the vertical distance from the bottom of the wave to the top 
+k 
+wave number 
+T 
+wave period 
+L 
+wave length 
+δ 
+wave steep 
+d 
+water depth 
+4 Physical Analysis of Model 
+4.1 Model Establishment and Analysis 
+4.1.1 Asteroid travels through the atmosphere 
+ In the first place, we analyze the first process, the asteroid travels through the 
+earth’s atmosphere to the sea surface. When the asteroid passes through the earth’s 
+atmosphere, its speed and mass will be slightly lost. The mass and speed after passing 
+through the atmosphere will be calculated. 
+
+Team 385 
+6 
+ 
+ Figure 2 Schematic diagram of asteroid entering the Earth's atmosphere 
+As shown in Figure 2 is a schematic diagram of the asteroid entering the Earth’s 
+atmosphere. Perform dynamic analysis on asteroid, set the mass of asteroid as M and 
+the velocity as V, adopt the spherical earth model and consider the earth's rotation, 
+and only consider the resistance in flight, then the ballistic equations of a single flying 
+body can be written as follows: 
+dh
+dt = Vsin γ
+dθ
+dt =
+Vcos γ cos ψ
+rt cosϕ
+dϕ
+dt =
+Vcosγ sin ψ
+rt
+dV
+dt = −Cd ⋅
+1
+2M ρairV2 ⋅A −gsin γ +
+ω2rtcos ϕ(sin γcos ϕ −cos γsin ψsin ϕ)
+dγ
+dt = −gcos γ +
+V2
+rt cos γ +
+2ωVcos ψcos ϕ +
+ω2rtcos ϕ(cos γcos ϕ + sin γsin ψsin ϕ)
+d
+dψ
+dt = −
+V2
+rt cos γcos ψtanϕ +
+2ωV(tan γsin ψcos ϕ −sin ϕ) −
+ω2rt
+cos γ cos ψsin ϕcos ϕ
+              (1) 
+ Simplifying the above equations can get the differential equation of the 
+asteroid's velocity change in the atmosphere: 
+                        
+dV
+dt = −Cd ⋅C
+1
+M ρairV2 ⋅A −gsin γ +
+ω2rtcos ϕ(sin γcos ϕ −cos γsin ψsin ϕ)
+                (2) 
+In this equation, A = πR2, R is the instantaneous radius of the asteroid. 
+𝛾 and 𝜓 are the track angle and heading angle, we assume that the asteroid's 
+flight direction is unbiased, that is 𝛾 and 𝜓 are both 0, Equation (2) can be 
+simplified to： 
+  
+dV
+dt = −Cd ⋅C
+1
+M ρairV2 ⋅A                           (3) 
+The mass of the asteroid is：M =
+4
+3 πR3ρM                            (4) 
+Atmospheric density changes with altitude formula： 
+
+Team 385 
+7 
+ 
+                                          ρair = ρ0𝑒−h
+𝑯                                   (5) 
+After ablation, the mass loss can be described by the following formula[3,4,5]： 
+                                          
+dM
+dt = −
+1
+2 ρairV3Aσ                               (6) 
+Simplified by formula (3),(4),(5),(6)： 
+                
+V
+V0 = exp [−
+3
+4 C (
+ρ0
+ρM)
+𝑯
+R (e−h
+𝑯)]                      (7) 
+In this equation, V is the current speed of the asteroid，h is the current altitude 
+of the asteroid. 
+Simplified by formula (3) and (6)：  
+                                                   
+dM
+dV = VMσ                                   (8) 
+  Based on formula(7),(8),we can calculate the loss of asteroid’s mass and speed. 
+4.1.2 Asteroid hits the ocean causing a tsunami 
+An asteroid hitting the ocean is just like hitting on land. Most of the kinetic 
+energy of an asteroid hitting the ocean is involved in the formation of a crater, and 
+this process will expel a lot of sea water, and the asteroid will further contact the 
+mantle. After the asteroid hits the ocean to form a crater, the sea water will rush into 
+the crater, and the sea water rushing into the crater will collide with each other to 
+form waves. Because the crater is deep, surface waves will not be formed, but tsunami 
+waves will be formed.[1] 
+ 
+Figure 3 Wave propagation diagram produced by an asteroid hitting the ocean 
+
+Team 385 
+8 
+ 
+As shown in the figure 3, the red line is the coastline. After the asteroid hits the 
+sea surface, the waves generated will propagate. Tsunami will spread from deep water 
+to shore. 
+ 
+            Figure 4 Schematic diagram of wave propagation 
+Next we conduct physical analysis. As shown in figure 4 ,suppose the point 
+where the asteroid falls on the sea surface is the coordinate origin O, the point 
+pointing to the shore is the positive direction of the x-axis, and the vertical direction 
+(vibration direction of the tsunami wave) is the positive direction of the y-axis. There 
+is a point P in the direction distance O point, the distance between P and O point is x, 
+and the phase of O point is 0 at the initial time. The time required for the vibration to 
+travel from point O to point P is: 
+Δt =
+x
+u                               (9) 
+P point lags behind O point： 
+Δφ = ω
+x
+u                           (10) 
+The vibration equation of water near point O is: 
+y = Acos(ωt)                       (11) 
+The displacement of point P at time t is equal to the displacement of the particle 
+near point O at time t −
+x
+u, so the vibration equation of point P is: 
+y(x, t) = Acos [ω (t −
+x
+u)]                   (12) 
+Since the point P is chosen arbitrarily, the above equation is the wave function of 
+the plane harmonic. 
+Next, we derive the energy of the tsunami wave. 
+
+Team 385 
+9 
+ 
+We believe that the tsunami wave is ideally not affected by the friction of the 
+seabed. We assume its wave amplitude is A, the total energy density of a wave 
+includes kinetic energy and potential energy. The instantaneous potential energy 
+density can be obtained by the following formula: 
+    𝜌𝑔[∫
+ 
+𝜂
+−𝑑𝑦𝑑𝑦−∫
+ 
+0
+−𝑑𝑦𝑑𝑦] = 𝜌𝑔∫ 
+𝜂
+0 𝑦𝑑𝑦=
+1
+2 𝜌𝑔𝜂2 =
+1
+2 𝜌𝑔𝐴2cos2 (𝜔𝑡)     (13) 
+Among them, ρ is the density of sea water, and the position of the wave surface 
+is: 
+                                                    𝜂(𝑥, 𝑡) = 𝐴cos (𝑘𝑥−𝜔𝑡)                    (14) 
+Integrate the above formula in one cycle: 
+(1/𝑇) ∫ 
+𝑇
+0 cos2 (𝜔𝑡)𝑑𝑡= 1/2                 (15) 
+We have: 
+𝑃𝐸=
+1
+4 𝜌𝑔𝐴2                       (16) 
+For kinetic energy, the density of the local kinetic energy body is 𝜌|𝐮|2, and the 
+integral can be obtained: 
+ 𝜌∫
+ 
+0
+−ℎ|𝐮|2𝑑𝑧= 𝜌∫
+ 
+0
+−ℎ(𝑈2 + 𝑉2)𝑑𝑧            (17) 
+In linear surface gravity waves: 
+{
+𝑈(𝑥, 𝑧, 𝑡) = 𝐴𝜔
+cosh [𝑘(𝑧+ℎ)]
+sinh (𝑘ℎ)
+cos (𝑘𝑥−𝜔𝑡)
+𝑉(𝑥, 𝑧, 𝑡) = 𝐴𝜔
+sinh [𝑘(𝑧+ℎ)]
+sinh (𝑘ℎ)
+sin (𝑘𝑥−𝜔𝑡)
+         (18) 
+Integrate in the vertical direction and within one period: 
+𝐾𝐸=
+1
+4 𝜌𝑔𝐴2                       (19) 
+Thus the total energy is: 
+𝐸= 𝐸𝐾+ 𝐸𝑃=
+1
+2 𝜌𝑔𝐴2 =
+1
+8 𝜌𝑔𝐻2             (20) 
+Considering that the wavelength of a tsunami is much greater than the depth of 
+the sea, the energy of a tsunami does not follow the law of energy equalization. So for 
+energy E, there is the following formula: 
+𝐸= ∫
+ 
+𝜂
+−ℎ(
+1
+2 𝜌|𝐮|2 + 𝜌𝑔𝑧) 𝑑𝑧                   (21) 
+The diameter of the asteroid is: 
+D = 2 (
+3M
+4ρMπ)
+1
+3                       (22) 
+
+Team 385 
+10 
+ 
+The velocity of the asteroid reaching the sea surface is V , and the energy 
+released by the asteroid at the point of impact is: 
+            EM =
+1
+2 M𝑉2                         (23) 
+In the case of an asteroid hitting the ocean, 10-30% of the energy is transferred to 
+the water[6], but most of it will not be transferred to the effectively propagating 
+surface waves. Therefore, we assume that 20% of the asteroid’s energy is transferred 
+to the water. 
+Therefore, the energy of the tsunami wave is: 
+ E = 20%EM                          (24) 
+Thus we establish the relationship between the asteroid kinetic energy and the 
+amplitude of the tsunami wave: 
+20%EM = ∫
+ 
+𝜂
+−ℎ(
+1
+2 𝜌|𝐮|2 + 𝜌𝑔𝑧) 𝑑𝑧                (25) 
+  Based on formula (25) we can calculate the mass of asteroid reaching the sea 
+surface. 
+4.1.3 Tsunami waves propagate to the shore 
+The third process is that the tsunami wave propagates from the deep sea area to 
+the shallow sea area and the shore. Since the tsunami wave propagates from the deep 
+sea area to the shallow sea area, there is a "shallow water effect". The "shallow water 
+effect" means that the closer the tsunami wave is to the shallow water area, the higher 
+the waves will be. We build a physical model to calculate the amplitude of the 
+tsunami wave reaching the shore. The tsunami propagation process is shown in the 
+figure 5. 
+ 
+           Figure 5 Schematic diagram of tsunami propagation 
+
+Team 385 
+11 
+ 
+The second-order Stokes wave theory is widely used in the calculation of the 
+rising height of the wave crest surface[7], so we use the Stokes wave governing 
+equation to establish a model to solve the "shallow water effect" problem of the 
+tsunami near the shore. Assuming that the wave motion is a potential motion, 
+establish a coordinate system that is exactly the same as in 4.1.2, where ϕ is the 
+potential function of the wave, we can write the following Stokes governing equation: 
+∇2𝜙= 0
+∂𝜙
+∂𝑦= 0,
+∂𝜙
+∂𝑡|
+𝑦=𝜂+
+1
+2 [(
+∂𝜙
+∂𝑥)
+2
++ (
+∂𝜙
+∂𝑦)
+2
+]|
+𝑦=𝜂
++ 𝑔𝜂= 0
+∂𝜂
+∂𝑡+
+∂𝜂
+∂𝑥
+∂𝜙
+∂𝑥−
+∂𝜙
+∂𝑦= 0, 𝑦= 𝜂
+𝜙(𝑥, 𝑦, 𝑡) = 𝜙(𝑥−𝑐𝑡, 𝑦)
+               (26) 
+ 
+In the velocity field: 
+𝒘=
+∂𝜙
+∂𝑧                         （27） 
+                                                              𝒖=
+∂𝜙
+∂𝒙                          （28） 
+By solving the Stokes governing equation by the perturbation method, the 
+potential function and wave surface of the Stokes second-order solution can be 
+obtained as, 
+ 
+Potential function: 
+𝜙=
+𝜋𝐻
+𝑘𝑇
+cosh[𝑘(𝑦+𝑑)]
+sinh(𝑘𝑑)
+sin(𝑘𝑥−𝛿𝑡) +
+3
+8
+𝜋2𝐻
+𝑘𝑇(
+𝐻
+𝐿)
+cosh[2𝑘(𝑦+𝑑)]
+sinh4(𝑘𝑑)
+sin 2(𝑘𝑥−𝛿𝑡)   （29） 
+ 
+Wave surface: 
+ 𝜂=
+𝐻
+2 cos(𝑘𝑥−𝛿𝑡) +
+𝜋𝐻
+8 (
+𝐻
+𝐿)
+cosh(𝑘𝑑)⋅[cos(2𝑘𝑑)+2]
+sinh3(𝑘𝑑)
+cos 2(𝑘𝑥−𝛿𝑡)         （30） 
+ 
+Therefore, the formula for calculating the height of the wave crest above the 
+static water surface is: 
+
+Team 385 
+12 
+ 
+𝜂=
+𝐻
+2 +
+𝜋𝐻2
+2𝐿
+(cosh2𝜋𝑑
+𝐿)(cosh4𝜋𝑑
+𝐿+2)
+4 sin ℎ32𝜋𝑑
+𝐿
+                （31） 
+Using this formula, we can calculate the amplitude of the tsunami wave reaching 
+the shore. 
+4.2 Model Solving 
+Figure 6 Schematic diagram of minimum mass calculation 
+According to the above three processes and the physical model we have 
+established, we solve the results. As shown in the figure 6, we solve the problem in 
+reverse. 
+Figure 7 Watanabe Tsunami Rating Table 
+First of all, we get the tsunami rating as causing substantial damage to the city is 
+level 3. Internationally, it is said that the size of tsunami is more adopting Watanabe's 
+tsunami grade, as shown in the figure 7, which is used to determine the magnitude of 
+the energy of a certain tsunami. 
+At this time, the corresponding tsunami amplitude is 10m. 
+
+Team 385 
+13 
+ 
+And then the tsunami amplitude at 1000 kilometers can be calculated by 
+formula(31) .  
+   𝜂=
+𝐻
+2 +
+𝜋𝐻2
+2𝐿
+(cosh2𝜋𝑑
+𝐿)(cosh4𝜋𝑑
+𝐿+2)
+4 sin ℎ32𝜋𝑑
+𝐿
+                 （31） 
+Thus, the tsunami amplitude at 1000 kilometers is 1.3cm. 
+From the relationship between the amplitude and the kinetic energy of the 
+asteroid, we can get the mass of the asteroid. 
+20%𝐸𝑀= ∫
+ 
+𝜂
+−ℎ(
+1
+2 𝜌|𝐮|2 + 𝜌𝑔𝑧) 𝑑𝑧                 (25) 
+For a hot asteroid that comes to sea level, about 10% of its total energy is kinetic 
+energy. Based on this, the mass of the asteroid is 1.993 × 1010𝑘𝑔, the kinetic energy of 
+asteroid is 1.531 × 1018J,the speed of asteroid 12.396 𝑘𝑚/𝑠. 
+And finally we get the mass of the asteroid before it enters the earth’s 
+atmosphere by formula(7),(8). By formula(7),(8), the mass of the asteroid before 
+entering the atmosphere is 2.03 times that of reaching sea level. It is the smallest mass 
+that causes substantial damage to the city. 
+V
+V0 = exp [−
+3
+4 C (
+ρ0
+ρM)
+𝑯
+R (e−h
+𝐇)]                      (7) 
+                                                              
+dM
+dV = VMσ                               (8) 
+Then the diameter of this iron asteroid is 214.2𝑚. 
+The smallest mass asteroid requires that causes substantial damage to the city is 
+4.046 × 1010𝑘𝑔. 
+5 Conclusion 
+Based on the physical model we established above, we performed calculations 
+and got some visual conclusions. 
+We can draw the curve of the asteroid's instantaneous speed versus altitude at 
+different speeds. 
+
+Team 385 
+14 
+ 
+ 
+Figure 8 Instantaneous velocity versus altitude 
+We can get the relationship diagram of the minimum mass corresponding to the 
+asteroids entering the atmosphere at different speeds. 
+ 
+Figure 9 Relationship between initial velocity and minimum mass 
+In conclusion, when the initial speed is 12.4 km/s, the smallest mass asteroid 
+requires that causes substantial damage to the city is 4.046 × 1010kg. 
+6 Strengths and Weaknesses 
+6.1 Strengths 
+(1) The model is able to visualize the entire process and calculation results, easy for 
+readers to understand. 
+(2) The systemic analysis of the complex process is divided into three clear 
+processes to simplify the analysis. 
+(3) The established model can be closely connected with reality and better reflect 
+reality. 
+(4) The model is relatively simple and easy to simulate. 
+6.2 Weaknesses 
+(1) There are many complex factors in the model, which cannot be fully 
+
+Team 385 
+15 
+ 
+considered. For example: The high temperature of the asteroid itself will cause 
+water to evaporate to form a large amount of water vapor, which may cause an 
+explosion, but we did not consider this factor. 
+(2) In shallow water, the error of the peak height calculated by the Stokes 
+governing equation is slightly larger, and the elliptic cosine wave theory is 
+more adaptable in shallow water. 
+(3) Some assumptions are ideal, but the reality is difficult to achieve. For example: 
+Coriolis force cannot be ignored in reality, that is, track angle and heading 
+angle will not be 0. 
+(4) Our model believes that the asteroid will fall vertically after passing through 
+the atmosphere, but it should actually be thrown diagonally downward. 
+7 Reference 
+[1] Hills JG, Goda MP. The fragmentation of small asteroids in the atmosphere. The 
+Astronomical Journal, 1993, 105 (3): 1114-1144. 
+[2]ASSESSING ATMOSPHERIC WATER INJECTION FROM OCEANIC IMPACTS. E. 
+Pierazzo, Planetary Science Institute (1700 E. Ft. Lowell, Suite 106, Tucson AZ 85719; 
+betty@psi.edu). 
+[2] ÖEJ. Physics of Meteor Flight in the Atmosphere. New York: Interscience Publishers 
+Inc., 1958. 
+[4] Allen GA, Prabhu DK Jr., Saunders DA. Trajectory simulation of meteors assuming mass 
+loss and fragmentation//1st International Workshop on PHA Characterization, Atmospheric 
+Entry and Risk Assessment, NASA Ames Research Center, California, 2015. 
+[5] Wheeler LF, Register PJ, Mathias DJ. A fragment-cloud model for asteroid breakup and 
+atmospheric energy deposition. Icarus, 2017, 295: 149-169. 
+[6] Darrel K. Robertsona, Galen R.Near and far-field hazards of asteroid impacts in 
+oceans.Acta Astronautica 156 (2019) 262–277. 
+[7] Zou Zhili. Coastal Dynamics［M］. Beijing: People's Communications Press, 2010. 
+Appendix 
+Python codes 
+1.Schematic code of instantaneous velocity versus altitude 
+1. 
+import math   
+2. 
+import matplotlib.pyplot as plt   
+3. 
+import numpy as np   
+4. 
+for v0 in [11.2,11.6,12,12.4]:   
+5. 
+    plt.style.use('ggplot')       
+6. 
+    h=np.arange(0,500,10)# Generate x-axis coordinates  
+7. 
+    vf = []#Define the y-axis coordinate data type  
+8. 
+    c=0.5   
+
+Team 385 
+16 
+ 
+9. 
+    p0=0.001293   
+10. 
+    pm=7.8   
+11. 
+    R=0.5   
+12. 
+    H=500   
+13. 
+    for i in h:   
+14. 
+        # y-axis coordinate data calculation  
+15. 
+        vf.append(v0*math.exp((-3/4)*c*(p0/pm)*(H/R)*math.exp(-i/H)))  
+16. 
+    # Bring the x and y axis coordinates into plot() to draw a picture.   
+17. 
+    plt.plot(h,vf) 
+18. 
+plt.xlabel(u'h')# Display the x-axis noun, u is to change the character code.   
+19. 
+plt.ylabel(u'vf')       
+20. 
+plt.show()   
+2.Schematic code of instantaneous velocity versus minimum mass 
+1. 
+import math   
+2. 
+import matplotlib.pyplot as plt   
+3. 
+import numpy as np   
+4. 
+plt.style.use('ggplot')       
+5. 
+vf=np.arange(11.2,12.4,0.1)# Generate x-axis coordinates   
+6. 
+m=[]# Define the y-axis coordinate data type   
+7. 
+E=3.062500127359016e+18   
+8. 
+E0=(E/0.2)*0.1   
+9. 
+for i in vf:   
+10. 
+    m.append((2*E0/i**2)*2.03)# y-axis coordinate data calculation   
+11. 
+# Bring the x and y axis coordinates into plot() to draw a picture.   
+12. 
+plt.plot(vf,m) 
+13. 
+# Display the x-axis noun, u is to change the character code.   
+14. 
+plt.xlabel(u'vf') 
+15. 
+plt.ylabel(u'm')       
+16. 
+plt.show()   
+ 
+3.Calculate wave height H 
+1. 
+import math   
+2. 
+n=10   
+3. 
+d=0.3   
+4. 
+L=100000   
+5. 
+delta=0.25+n*(math.pi/(2*L))*(((math.cosh(2*math.pi*d)/L)*(math.cosh((4
+*math.pi*d)/L)+2))/((math.sinh(2*math.pi*d/L))**3))   
+6. 
+x1=(-
+0.5+(delta)**0.5)/(2*(math.pi/(2*L))*(((math.cosh(2*math.pi*d)/L)*(math.cosh((4
+*math.pi*d)/L)+2))/(4*(math.sinh(2*math.pi*d/L))**3)))   
+
+Team 385 
+17 
+ 
+7. 
+x2=(-0.5-
+(delta)**0.5)/(2*(math.pi/(2*L))*(((math.cosh(2*math.pi*d)/L)*(math.cosh((4*mat
+h.pi*d)/L)+2))/(4*(math.sinh(2*math.pi*d/L))**3)))   
+8. 
+print(x1)   
+9. 
+print(x2)   
+ 
+4.Calculate the energy of the wave 
+1. 
+import math   
+2. 
+n=0.012985924244515964   
+3. 
+c=(9.8*5000)**0.5   
+4. 
+E=0.5*1.04*1000*c**2*(n+5000)+0.5*1000*9.8*(n**2-(5000)**2)**2   
+5. 
+print(E)  
+ 
+5.Calculate the mass and radius of iron asteroids 
+1. 
+import math   
+2. 
+v0=12.4   
+3. 
+c=0.5   
+4. 
+p0=0.001293   
+5. 
+pm=7.8   
+6. 
+R=100   
+7. 
+H=500   
+8. 
+h=5   
+9. 
+vf=v0*math.exp((-3/4)*c*(p0/pm)*(H/R)*math.exp(-h/H))*1000   
+10. 
+E=3.062500127359016e+18   
+11. 
+E0=(E/0.2)*0.1   
+12. 
+m=2*E0/vf**2*2.03   
+13. 
+R=(3*m/(4*7.86*1000*math.pi))**(1/3)   
+14. 
+print(m)   
+15. 
+print(R)   

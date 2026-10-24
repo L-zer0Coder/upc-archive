@@ -1,0 +1,998 @@
+Team 289A 
+ 
+1 
+ 
+Team Number 289 
+Problem Selected: A 
+Modelling an Active Radiation Shield for Manned 
+Mission to Mars 
+November 3, 2019 
+Abstract 
+Long duration manned mission in space needs yet to overcome a lot of enabling and enhancing 
+technologies. One of the challenges encountered in deep space missions is harmful radiation 
+from solar flares and galactic cosmic radiation. In the early days of manned space mission 
+around low earth orbit and moon, radiation encounter was not a major issue, since earth’s 
+magnetic field is strong enough in this region to deflect a considerable amount of radiation flux. 
+But long-duration manned mission to mars needs further technologies. The main constraint to 
+use conventional passive shielding with absorbing material to block these radiations is extra 
+mass, as an increase of payload comes with a greater trade-off with fuel. Another natural 
+approach to attack this problem is to use active magnetic shields mimicking the earth’s role 
+toward space radiation. But this approach presents another set of complexity, like maintaining a 
+stable static magnetic field, energy dissipation, effects of magnetic field on on-board crews. A 
+thorough investigation of possible shortcomings and challenges associated with active shielding 
+is considered in this paper, and possible mass needed to build the shield is estimated to be 48.346 
+tons. 
+ 
+1. Introduction  
+First debate that arises for protection measurement in space is whether to use active or passive 
+shielding methods. The driving question we addressed in comparing active methods to passive 
+methods is whether the total mass of the active shield configuration (coils, power sources, 
+refrigeration, support structure, etc.) needed to provide some specified level of protection (as 
+measured by radiation dose, risk, etc.) actually less than the mass of bulk material shielding 
+needed to afford the same level of protection. Since mass consideration is one of the major 
+concerns of space travel, we reveal a potential advantage of active shielding in this paper. Our 
+ultimate model is a confined static magnetic field with race-track coil winding. 
+To advance our analysis, firstly, we stand upon some reasonable assumption of simplify the 
+greater complexity of the problem 
+1. Among different shapes of habitable capsules used in space travel, the most common 
+cylindrical-shaped compartment with a diameter of 10 m and length of 13 m is assumed to be a 
+reasonable choice because of geometrical and maneuvering simplicity. 
+
+Team 289A 
+ 
+2 
+ 
+2. The problem statement was simplified to approach with greater clarity. A different portion of 
+the habitable capsule such as incoming doc, internal heat management system, the interaction of 
+the magnetic field with communication is omitted to concentrate solely on the radiation 
+protection measurements. 
+3. Most deadly energetic ion of galactic cosmic radiation is comparatively less abundant in space 
+than solar flare particles. But the major inspiration to employ magnetic shielding was to deflect 
+high energy heavy nuclei since they cannot be blocked with only passive shielding. 
+4. Complicated consequence associated with the generation of secondary radiation is safely 
+ignored up to reasonable consideration. The simulation of high energy impact with supporting 
+structure and magnetic coil is harder to carry out.   
+ 
+2. Background Research 
+Space radiation can infiltrate living spaces, spacecraft, spacesuits and can hurt space explorers. 
+Limiting the physiological changes brought about by space radiation introduction is perhaps the 
+greatest test in keeping space travelers fit and sound as they travel through the close planetary 
+system. As referenced already, ionizing radiation is a significant issue that can make harm all 
+pieces of the body including the focal sensory system, skin, gastrointestinal tract, skeletal 
+framework, and the blood shaping organs. In any case, organic harm because of radiation can be 
+prevented through usage of shielding and other necessary procedure that are intended to diminish 
+radiation presentation and its belongings. 
+ 
+2.1 Types of Radiation 
+There are three kinds of radiation in space: 
+● Galactic cosmic rays (GCR) originating outside the solar system; 
+● Solar particles emitted by the sun during solar flares (solar particle events); 
+● Radiation trapped by the Earth’s magnetic field. 
+Among these, the first two are faced by the spacecraft during the phase of traveling to Mars from 
+Earth for a very long time (500 to 1000 days approximately). 
+
+Team 289A 
+ 
+3 
+ 
+ 
+Figure 2.1- Solar and cosmic proton energy spectra [Spillantini, et al., 2000][6] 
+ 
+2.1.1 Solar Particle Events 
+Solar Particle Events comprise generally of low to direct vitality protons tossed into 
+interplanetary space by coronal mass launches. SPEs can't right now be anticipated ahead of 
+time, yet the recurrence of SPEs is associated with sun-oriented movement. Figure 1 shows 
+normal spectra of solid SPEs. The risk to space explorers from SPEs is measurable, both in light 
+of the fact that SPEs are generally inconsistent and on the grounds that any given SPE will just 
+influence rocket situated in the zone of the sun oriented interplanetary attractive field lines along 
+which SPE charged particles are obliged to travel. In any case, solid SPEs can convey 
+conceivably deadly intense doses of radiation to unprotected space explorers. For instance, 5 Sv 
+is commonly perceived as a deadly portion, and SPE would have presented Apollo space 
+explorers to an expected 10 Sv. In any case, since SPE proton energies are practically all <1 
+GeV, they can be protected against either with passive protecting or by the proposed active 
+protecting framework. [6] 
+ 
+2.1.2 Galactic Cosmic Radiation 
+Galactic cosmic radiation, comprising for the most part of protons, alpha particles, and cores of 
+heavier components, is isotropic and overruns the close planetary system. Lower vitality GCR 
+can be dispersed by anomalies in the sun oriented interplanetary attractive field, which spread 
+outwards from the sun with the sun-based breeze. Since such inconsistencies are related with 
+sunlight-based movement, the force of low-vitality GCR is hostile to associated with the sun-
+oriented action cycle. The impacts of dispersing decline at higher GCR energies, so the level of 
+
+Team 289A 
+ 
+4 
+ 
+variety with the sunlight-based action cycle diminishes at expanding energies. (As a matter of 
+fact, the avoidance by attractive fields is a consolidated capacity of the energy and charge of a 
+molecule. For a given completely ionized component, "inflexibility" increments with vitality.) 
+Figure 1 additionally shows the GCR proton range at sun powered least and sun powered 
+greatest.[6] 
+ 
+2.2 Biological Effects 
+Astronauts are exposed to approximately 50-2,000 millisieverts (mSv) while on six-month-
+duration missions to the International Space Station (ISS), the Moon and beyond. 
+ 
+ 
+Fig 2.2- Comparison of radiation doses, includes the amount detected on the trip from Earth to 
+Mars by the RAD on the MSL (2011–2013) [12] 
+ 
+ 
+ 
+ 
+
+Team 289A 
+ 
+5 
+ 
+ 
+  
+  
+Absorbed 
+dose (Gy)* 
+  
+Effective 
+dose (Sv) 
+                  Fatal risk, 
+Men(age 40 years) 
+% (95% Cl) 
+ Women (age 40   
+years) 
+Lunar mission 
+(180 days) 
+  
+0.06 
+     0.17 
+ 0.68%(0.20-2.4) 
+ 0.82%(0.24-3.0) 
+Mars orbit 
+(600 days) 
+      0.37 
+     1.03 
+ 4.0%(1.0-13.5) 
+ 4.9%(1.4-16.2) 
+Mars exploration 
+(1000 days) 
+      0.42 
+      1.07 
+ 4.2%(1.3-13.6) 
+ 5.1%(1.6-16.4) 
+ Calculations are at solar minimum, where GCR dose is highest behind a 5 g/cm2. *Mean for tissues known to be 
+sensitive to radiation and at risk of cancer including lung, colon, stomach, bladder, bone marrow, and breast and 
+ovaries in women. Competing causes of death are included in calculations because they decrease risk probabilities if 
+high (ie, >5%). 
+Table 1: Radiation risks for men and women on missions to the moon or Mars [11] 
+ 
+2.3 Existing Concept for Protection 
+There are two main categories of approaches for shielding humans from radiation in space: 
+passive shielding and active shielding. 
+ 
+2.3.1 Passive Radiation Shielding 
+Passive space radiation shielding consists of placing some sort of physical material in between a 
+person and the source of radiation. Its main advantage over other forms of radiation shielding is 
+its ability to shield against any form of radiation, be it positively charged, negatively charged, or 
+
+Team 289A 
+ 
+6 
+ 
+neutral, and it is widely-employed in Earth-based shielding applications, since weight is not an 
+issue.[13]  
+2.3.2 Active Radiation Shielding 
+Active space radiation shielding is inspired by the Earth's magnetic field, which serves both to 
+deflect and to trap portions of the incoming space radiation. Since the field is still under 
+development, a multitude of suggested approaches exist: 
+2.3.2.1 Electrostatic Shielding 
+This approach creates an electric field around an astronaut habitat, with the negative potential 
+facing outwards to slow down negatively charged radiation. There are no known major 
+physiological issues associated with humans in large electrostatic fields, but further 
+investigations are required in order to verify astronaut safety with a sufficient degree of certainty. 
+2.3.2.2 Magnetic Shielding  
+Magnetic shielding consists of forming a large magnetic field around the spacecraft, usually 
+through the use of superconducting solenoids. Unlike with electric fields, there are known and 
+suspected physiological effects of moving within a strong magnetic field. In order to use this 
+approach for space radiation shielding, the design must allow for a habitable region without 
+significant magnetic field strengths. Usually, this is done by using a torus-shaped design that has 
+a shielded region internal to the torus. These layouts allow for a small region between the 
+solenoids that is free of magnetic fields, while still generating a magnetic field that is comparable 
+to an ideal dipole at large distance. Charged particles are either be deflected by the magnetic 
+field, or trapped along the magnetic field lines, well before they approach the internal shielded 
+region of the torus. 
+2.3.2.3 Plasma Shielding 
+Plasma shielding is a field of ongoing research, fundamentally consisting of a mass of ionized 
+particles that are entrapped by electromagnetic fields, swirling around a spacecraft enclosure and 
+serving to deflect or ensnare charged particles.  
+Comparing the three types of active shields, electrostatic shields are relatively lightweight, but 
+since they only repel negative particles, they also pull in positive particles, which creates a 
+current influx that must be counteracted. Additionally, electrostatic shields are limited by voltage 
+level, which in turn limits the energy level of the particles that they can deflect. Magnetic shields 
+do not collect currents and can achieve effective shielding for all expected radiation levels. 
+Finally, plasma shields are the most lightweight and the least power-consuming of all three 
+approaches, but are also the least mature design approach. They are experimentally unproven, 
+and their functionality is hotly debated.[13] 
+ 
+Two types of magnetic shielding are available: confined and deployed. We developed a plan 
+using deployed magnetic shielding for protecting humans from most radiations. 
+ 
+
+Team 289A 
+ 
+7 
+ 
+3. Justification of Our Choices 
+Our spacecraft model is planned using High Temperature Superconductor (HTSC) Magnesium 
+Dibromide (MgB2) and Racetrack Toroid support structure based on the Confined Active 
+Radiation Shield Configuration. Here 2 choices are highlighted with utmost attention- 
+1. Confined Active Radiation Shield 
+2. High Temperature Superconductor (HTSC) MgB2 
+Why Confined Shielding method? 
+Among all other shielding methods Confined and Deployed Shielding methods are studied 
+highly to solve mars mission problems. From Størmer's theorem, it can be shown that the 
+shielding capacity of deployed coils decreases dramatically as the radius of the coil increases and 
+the magnetic moment is held constant. Numerical simulations and the proper use of the analysis 
+by Stormer [1955] demonstrate that magnetic shields consisting of deployed circular coils of 
+wire are not practical for shielding energetic particles such as GCRs from spacecraft.[1] 
+According to Stormer’s theory to apply this deployed mechanism to a circular coil of wire, the 
+radius of the coil must be much smaller than the dimension of the region being shielded which is 
+the first reason we have given priority to Confined mechanism over the deployed shielding. Our 
+spaceship is about 1000 m3 and the deployed mechanism cannot cover the whole region of the 
+spaceship as it has to oblige the mentioned criterion. Deployed magnetic shields have reduced 
+energy requirements and magnetic field strengths relative to confined systems, therefore, they 
+also have a significantly reduced capacity for protecting the occupants of the desired shielded 
+region. However, confined shielding covers the whole region of the spaceship and doesn’t extend 
+much beyond the craft which leads us to overcome the dilemma and therefore choose confined 
+magnetic field as the shielding method. 
+HTSC or LTSC?  
+ Magnets based on low-temperature superconductors (LTS) (i.e., niobium-titanium (NbTi) and 
+niobium-tin (Nb3Sn)) require that the conductors be kept at low, near liquid helium (4.2 K) 
+temperature in absolute rigid assemblies. Even superconductor movements on the order of 
+microns under the effect of acting Lorentz forces generate enough energy to heat the conductor 
+locally above its critical temperature and thus the superconductivity of the magnet is lost. Based 
+on the design concept of such LTS magnets, it was again inconceivable that magnetic shielding 
+could be used for radiation shielding in space.  
+However,HTS represent a realistic alternative due to the lower critical 
+and provide interesting possibilities for the space mission’s enable magnet operation up to the 
+temperature of liquid nitrogen (77 K) and do not need costly liquid helium (at a temperature of 
+4K) , where the enthalpy of all materials is orders of magnitude larger than at the operational 
+temperatures needed for LTS magnets.. The only requirement for needed support structures is 
+containment of the magnetic pressure acting in the coils. Accordingly, with HTS, ultra-
+lightweight coils become feasible, and magnets with flux densities ranging from one to several 
+tesla and volumes of hundreds to several thousand m3 can be considered for space 
+
+Team 289A 
+ 
+8 
+ 
+applications. MgB2 has a clear advantage of the cheap preparation technology [5] over YBCO 
+(yttrium-barium-copper-oxide) while YBCO demands high manufacturing cost and poor 
+mechanical properties. 
+ 
+4. Time Selection for Voyage 
+ Solar activity has an 11-year cycle, known as the solar cycle, which culminates in solar maxima, 
+a dramatic increase in the number and intensity of solar flares, especially during periods when 
+there are numerous sunspots. Lower energy GCR can be scattered by irregularities in the solar-
+interplanetary magnetic field, which propagates outward from the sun with the solar wind. The 
+effects of scattering decrease at higher GCR energies, so the degree of variation with the solar 
+activity cycle decreases at increasing energies. But, Anti-correlation between solar activity and 
+the intensity of low-energy GCR is an important point for time selection of interplanetary travel.  
+Since detrimental damage of GCR is less than the solar particle event, we propose to conduct the 
+voyage in time of solar maxima. 
+ 
+Figure 4: Sunspot cycle over year Image Source: NASA 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Team 289A 
+ 
+9 
+ 
+ 
+5. Proposed Plan 
+5.1 Fundamentals of Magnetic Deflection 
+• Charged particles can be either absorbed in a relatively uncontrolled way by various materials 
+or actively reflected by stationary electric and/or magnetic fields.  
+• During the process of absorption, the composition and spectrum of the radiation changes. 
+Particles with kinetic energy less than 1GeV/nucleon can be safely absorbed into material, but 
+higher energy particles can produce secondary particles, also known as spallation radiation, 
+which were not present in the incoming radiation (e.g. neutrons) can be produced in the shielding 
+material and enter the habitable zone.  
+• Since magnetic field does no work on charged particles, reflection does not alter the 
+composition of the radiation nor no new particles are created; it just diverts them. Thus, at all 
+energies, the radiation penetrating the habitable zone is never greater than the incident radiation.  
+Above a kinetic energy of 4 GeV/nucleon, cosmic rays lose energy at a constant linear rate; so, 
+for example, an alpha particle (charge 2) will lose ~120 MeV passing through a human body 
+whether its total energy is 10 or 100 GeV/nucleon. Below about 1 GeV/nucleon, however, 
+cosmic ray energy loss goes like 1/v2; so, an alpha particle with 500 MeV/nucleon will deposit 
+all of its energy in the human body, a total of 2 GeV, or sixteen times as much as a 10-100 
+GeV/nucleon alpha. For this reason, our focus will be limited to block out the particles of the 2-4 
+GeV/nucleon energy range. [6] 
+ 
+5.2 High Temperature Superconductor Wire 
+There are two competing classes of high temperature superconductors (HTSC) - 
+1. Yttrium-barium-copper-oxide (YBCO): YBCO superconductors are manufactured in the 
+form of a 4-mm-wide tape with a thickness smaller than 0.2 mm. The density of the 
+material is 6.3 gm/cm3. 
+2. Magnesium diboride (MgB2): The magnesium diboride superconductors are produced in 
+cable form; the individual MgB2 wire elements are brittle and require a rigid support. It 
+becomes superconducting at Tc = 39K. The density of the material is 2.57 gm/cm3, which 
+is 2.4 times less than YBCO. 
+
+Team 289A 
+ 
+10 
+ 
+ 
+Figure 4.2: Yttrium-barium-copper-oxide tape [9] 
+A decision matrix can be created based on three parameters of these two-existing material. 
+Superconducting 
+Compound 
+Tc in Kelvin 
+coherence length 
+ξ (nm) 
+Mass Density 
+(g/cm3) 
+Current 
+carrying 
+capacity 
+MgB2 
+39 
+5 
+2.57 
+~ 200 A/mm2 
+YBCO 
+70 
+<<1 
+6.3 
+300 A/1-cm 
+tape 
+Table 2: Comparison between MgB2 and YBCO [7] 
+The coherence length ξ is a key parameter that determines the maximum distance that guarantees 
+superconducting coupling between adjacent particles (the longer the better). Manufacturing 
+methods significantly benefits from a long ξ, thus even though the superconducting temperature 
+of MgB2 is in lower range than YBCO. Between the two choices, MgB2   has more potential to 
+be a workable superconductor wire, because of our mass constraint. 
+ 
+5.3 Coil Configuration Cylindrical Habitable Capsule 
+The shield coil must produce maximum bending of charged particles for minimum mass of coils, 
+structure, and cryogenics. But operating temperatures of the HTSC materials (~25 K) do not 
+require the use of liquid helium, which represents a significant advantage in view of the technical 
+difficulties, which guarantees the stability of the cryogenic system in space with further 
+cryogenics. The structure required to support the coils is minimized if the windings utilize the 
+pure-tension ‘D’ contour.  
+
+Team 289A 
+ 
+11 
+ 
+There are several proposals for magnetic coil configuration in current literature. Magnet shield 
+configurations based on the high-temperature superconductors (HTSC) yttrium-barium-copper-
+oxide (YBCO) and magnesium diboride (MgB2) were evaluated in the European Space Agency 
+(ESA), National Iranian American Council (NIAC), and the Space Radiation Superconducting 
+Shield study. 
+• “Pumpkin” Structure or 6 + 1 extendable solenoid shield Structure - This is a design 
+developed by the European Space Radiation Superconducting Shield working along with 
+CERN. It is an unconfined magnetic field and would be able to envelope the spacecraft in 
+a magnetic field without surrounding it in solenoid-type electromagnets [8] .This geometry 
+has the advantage of producing a field outside of the confining material, meaning the 
+generation of secondary particles is significantly reduced; however, it is a complicated 
+design and would require more superconducting tape to construct compared to other 
+designs.  
+ 
+Figure 4.3.1: Single extendable solenoid shield and full deployment, developed by Advanced 
+Magnet Lab (aml) [9] 
+• Counter-wound Spool or double-helix solenoid coil - Like the pumpkin structure, this is 
+an unconfined magnetic field. The counter-wound spools of superconducting wire are 
+angled to produce a magnetic dipole that would surround the spacecraft. Like the 
+pumpkin structure, this geometry greatly diminishes the generation of secondary 
+particles. Though it uses less tape than the pumpkin structure, the two integral coils 
+increase its complexity compared to the solenoid-type and require a greater current to 
+generate a similar field. 
+
+Team 289A 
+ 
+12 
+ 
+ 
+Figure 4.3.2: Two-layer winding used to produce the double-helix solenoid field and full 
+deployment [9] 
+ 
+• Continuous race-track configuration - ESA’s study on racetrack coil toroid is composed 
+of MgB2 superconducting cable. The field integral of the 12-racetrack coil toroid is 4.9 
+Tm. The racetrack geometry is commonly used in high energy physics. The dimensions 
+of the low-temperature superconducting racetrack toroid of the Atlas experiment at the 
+Large Hadron Collider (LHC-CERN) are comparable with the dimensions required for a 
+radiation shield in the space application. The multiplication of the number of coils in the 
+continuous- coil design reduces the force acting on a single coil. The result is an overall 
+reduction of the magnet shield mass and a greater mechanical tolerance for the toroid 
+assembly. 
+ 
+ 
+Figure 4.3.3: single racetrack coil (lower left) and the 120-coil toroid (lower right) are shown 
+with the Al-B4C support cylinder (gray) that surrounds the Columbus habitat (blue-green). Each 
+coil (yellow) is supported by a 0.6-mm-thick KEVLAR sheath (cyan).[9] 
+ 
+
+Team 289A 
+ 
+13 
+ 
+ 
+Manufacturability 
+Shielding 
+Effectiveness 
+Overall 
+mass 
+Supercondu
+ctor in use 
+Bending power 
+(BL) 
+Pumpkin 
+Difficult 
+Good 
+Much 
+YBCO 
+For 4m diameter 
+cylinder 
+~4 Tm 
+Counter-
+wound 
+Difficult 
+Better 
+Less tape 
+YBCO 
+For 8m diameter 
+cylinder Average 
+6.3 
+Continuo
+us race-
+track 
+Already deployed in, 
+Atlas experiment, ESA 
+Columbus scientific 
+module ISS 
+Moderate 
+Less 
+MgB2 
+For 12 race-track 
+~4.9Tm 
+Table 3: Comparison among different coil configuration [9] 
+Better practicability is achieved in the case of race-track coil configuration since it has already 
+proven a possibility in space. 
+ 
+5.4 Structural Design 
+Proposed cylindrical habitable capsule has a dimension of radius 5m and length 13m to 
+accommodate a volume of 1000m3. From earlier comparison, continuous race-track 
+configuration has proven to have most promising implication with example in practical situation. 
+The major structure is divided into three parts 
+Al-B4C support cylinder: To mount the whole structure rigidly and support accessory 
+instruments, and also to shield a portion of secondary radiation with passive shielding 
+mechanism  
+Thick KEVLAR sheath: To support the winding coil and dissipate high energy radiation as they 
+pass through them 
+MgB2 coil: To provide high current to produce desired magnetic field lines. 
+ 
+Figure 5.4: Conceptual design of the capsule and radiation shield 
+
+Team 289A 
+ 
+14 
+ 
+5.5 Simple Simulation with Toroidal Magnetic Field 
+Modeling the racetrack coil as a perfect toroid with the inverse relationship between magnetic 
+field and distance, we simplify the greater complexity of produced magnetic field from this coil 
+arrangement. We primarily used non relativistic treatment for force equation of omit complexity 
+and not-linear differential equation. 
+ 
+Figure 5.5.1: Model in consideration 
+Current carrying superconductors around each KEVLAR sheath produce a toroidal magnetic 
+field as shown below 
+ 
+Figure 5.5.2: Magnetic field visualization 
+
+Team 289A 
+ 
+15 
+ 
+I (amp) with turn ratio per unit length (m), N, magnetic field strength at co-ordinate point (x,y) 
+can be determined as 
+  𝐵(𝑥, 𝑦) = |𝐵|𝑐𝑜𝑠(𝜃+ 90°) 𝑖 + |𝐵|𝑠𝑖𝑛(𝜃+ 90°) 𝑗 
+Where magnitude of B and angle 𝜃 is 
+ 𝐵=
+𝜇𝑁𝐼
+2𝜋√𝑥2+𝑦2    
+𝜃=𝑎𝑟𝑐𝑡𝑎𝑛 𝑥
+𝑦  
+Using current level of I = 800 A, N = 3000 and other parameters, maximum magnetic field is 
+obtained 0.5 T. Though this strength is below desirable value, mass constraint doesn’t permit us 
+to increase the turn ratio by adding an extra layer of wire. But the simulation result shows 
+promising result.   
+Now, from Lorentz force equation 
+𝐹⃗= 𝑞𝑣⃗× 𝐵⃗⃗ 
+To compose the equation of motion for a charged particle with nuclear number 𝑍 and charge 𝑞, 
+we use 
+𝐹⃗= 𝑚𝑎⃗ 
+ 
+[
+Fx
+Fy
+Fz
+] = q [
+𝑣𝑥
+𝑣𝑦
+𝑣𝑧
+] × [
+−|𝐵|𝑠𝑖𝑛(𝜃)
+− |𝐵|𝑐𝑜𝑠(𝜃)
+0
+] = 𝑚 [
+𝑥′′
+𝑦′′
+𝑧′′
+] 
+Carrying out the cross product, 
+[
+−𝑧′|𝐵|𝑠𝑖𝑛(𝜃)
+− 𝑧′|𝐵|𝑐𝑜𝑠(𝜃)
+𝑥′|𝐵|𝑐𝑜𝑠(𝜃) + 𝑦′|𝐵|𝑠𝑖𝑛(𝜃)
+] =
+𝑍𝑚𝑝
+𝑞[
+𝑥′′
+𝑦′′
+𝑧′′
+]   
+ 
+     …(1) 
+This system of 2nd order differential equation can be numerically solved with the help of Matlab. 
+We obtained Euler method to approximate the vector [
+𝑥
+𝑦
+𝑧
+] with an initial position vector and 
+velocity vector. 
+Worst case scenario would be to have a particle incident on the field perpendicularly. The 
+projected trajectory of an alpha particle is shown below. 
+
+Team 289A 
+ 
+16 
+ 
+ 
+Figure 5.5.3: Alpha particle trajectory in the toroidal magnetic field 
+A trajectory for initial velocity of 30° inclination with respect to the x axis is given below 
+ 
+Figure 5.5.4: Alpha particle trajectory with 30° inclination 
+
+Team 289A 
+ 
+17 
+ 
+A trajectory for initial velocity of equal component in all axis is given below 
+ 
+Figure 5.5.5:  Alpha particle trajectory with equal component in all axis 
+For energy range of 0.01GeV to 4GeV, the performance of the toroidal magnetic field is 
+measured with deflection angle, defined as the slope of the particle trajectory,  
+𝜕𝑧
+𝜕𝑥 , at time when 
+|𝑥| < 𝑅2.With this definition, the following graph is obtained. 
+ 
+Figure 5.5.6: 𝐸𝑘 vs deflection angle (degree) 
+
+Team 289A 
+ 
+18 
+ 
+ 
+It is noteworthy that, as the energy of the particle is increased, the variation in deflection angle 
+saturates and the value is considerably small to be deflected all together from the habitant 
+compartment. But KEVLAR sheath and supporting cylinder in the race-track coil configuration 
+has a crucial role of reducing particle energy as they travel through the inter space of the 
+magnetic field. The secondary low energy particles, which has a greater deflection angle, get 
+blocked by the supporting cylinder or deflected gradually. 
+Nuclear number vs deflection angle 
+ 
+Figure 5.5.7: Deflection vs Z, nuclear number 
+As predicted, an increase in nuclear number result in smaller deflection angle. 
+ 
+5.6 Heat Shield 
+Recent development of JWST (James Webb Space Telescope) is required to be cooled below 40 
+K to block the thermal noise from the Sun, allowing the instrumentation to investigate deep-
+space, infrared phenomena. This requirement, and the development of the telescope’s heat shield, 
+may be usable with the race-track coil shield. This technology is investigated here, comparing 
+the cooling potential and the issues of configuration. 
+The first consideration is the photovoltaic solar array system. The heat shield is intended to block 
+the thermal load, mostly dominated by the Sun, but not to obstruct power generation via solar 
+
+Team 289A 
+ 
+19 
+ 
+arrays. The obvious solution is to place the solar panels between the Sun and the heat shield, 
+allowing the solar panels to work normally, and also to block some of the incoming heat load. 
+While the back-emissive temperature of the solar panels is subject to the insulation used, and 
+said insulation is subject to its effect on the panel performance, the temperature is assumed to be 
+300 K. 
+The panels designed here were to be placed at the tail end of the spacecraft, and sized to block 
+the full circular surface area of the confined race-track coil shield. 
+The heat shield was sized to shade the coils. This configuration features the solar panels and heat 
+shield to be deployed from the logistics module, thereby driving the pointing requirement of the 
+spacecraft. 
+For the heat shield to work most effectively, it must stand between the Sun and the coils. 
+Assuming a pointing accuracy of 5°, the minimum width of the heat shields necessary to 
+overcome any possible solar exposure can be determined: 
+Assuming Heat shield is 1 m from coils and spacecraft coil length is 15 m and overall width is 10 
+m, we get 
+Total length (coil length + distance between heat shield and coils) = 16 m 
+For rough calculation, θ = pointing accuracy = 5°  
+w = extra width of heat shield = 16𝑡𝑎𝑛𝜃 = 1.4 𝑚  
+Minimum apothem (radius) = 0.5 ∗(2 ∗1.4 + 10)𝑚= 6.4𝑚 
+This sizing consideration is dependent on the pointing accuracy and the dimensions of the race-
+track coil shield. As such, it is subject to those dimensions and is scalable.  
+The thermal insulating performance of a heat shield, or any spacecraft thermal insulation 
+material, is determined by the emissivity, 𝑒∗. This parameter is determined by the quality and 
+number of layers of the heat shield design. To facilitate a parametric analysis, the values of 0.01 
+is assumed for a single insulation layer, 0.002 for multiplayer insulation, and 0.000001 for a heat 
+shield of JWST quality, also named as sunshield. 
+The thermal load on the coils can be calculated: 
+         𝑄 = 𝐹12∗𝐴1∗𝑒*∗𝜎∗ (𝑇14 −T24)   
+Where, 
+F12 = the view factor between the solar array and heat shield, assumed to be 1 here  
+A1 = the area of the entire solar array system = 3.1416*6.42 m2 = 113.0976 m2 
+𝜎 = Stefan-Boltzmann constant = 5.67*10-8 (Wm-2K-4) 
+
+Team 289A 
+ 
+20 
+ 
+𝑒∗  = 0.01, 0.002, or 0.000001  
+T1 = 300 K, the back-surface temperature of the solar arrays  
+T2 = 30 K, the desired temperature on the surface of the coils.  
+ 
+The thermal load on the coils is then calculated to be 519.37 W, 103.87 W, or 0.052 W, 
+depending on the heat shield emissivity of 0.01, 0.002, or 0.000001 respectively. 
+As the emissivity goes down, the thermal load on the coils also goes down. Therefore, it is good 
+to almost completely cool the coils from the external environment using a JWST-type heat shield 
+as the emissivity of it is very low. 
+ 
+5.6.1 Result Analysis 
+Using JWST-type heat shield we find out that, there is 0.052 W thermal load on the coils 
+(through calculations), which we are actually neglecting as it is so poor amount. But if we 
+consider this, we have to use cryocoolers with flexible, low-pressure helium gas circulation loops 
+driven by low-pressure head helium fans, would be used to actively cool the coils. 
+But cryocooler technology is far less developed and reliable than heat shield technology, so we 
+avoid this technology. 
+ 
+5.6.2 Passive Thermal Design Recommendations 
+After considering the passive thermal control needs and options, the following recommendations 
+are made to thermally insulate and cool the coils of the spacecraft: 
+1. Point the tail end of the spacecraft at the sun. 
+2. Position the solar arrays in front of the heat shield. 
+3. Size the heat shield to account for 5° pointing accuracy. Distance from center to outside 
+edge = 6.4 m. 
+4. Use a JWST-type heat shield. Then, only 0.052 W radiates in coils. 
+ 
+5.7 Interplanetary magnetic Field 
+Interplanetary Magnetic Field (IMF) is a part of Sun’s magnetic field, which has a magnetic 
+dipole field of 10-4 T flux density near its surface. IMF is brought into interplanetary by solar 
+wind and its field lines are considered to be “frozen in” solar wind plasma. As the space is not 
+pure vacuum this magnetic field doesn’t follow inverse cubic reduction formula. The estimated 
+value of flux density is actually in the order of 2-40 nT. Due to sun’s continuous rotation ,the 
+IMF travels in a spiral pattern like the solar wind and its distribution in interplanetary space 
+begets a complex field. 
+
+Team 289A 
+ 
+21 
+ 
+ 
+           Figure 5.7: Interplanetary magnetic Field  
+During interplanetary mission, the spacecraft’s own magnetic field produced from HTSC coils, 
+interacts with ambient IMF which creates disturbance torque in return. 
+ 
+Magnetic disturbance torque determination 
+The instantaneous magnetic disturbance torque Tm is the vector cross-product of the spacecraft’s 
+effective dipole moment M and the local magnetic flux density B [2] 
+             Tm =M×B 
+So, this disturbance torque tries to change direction of the spacecraft which leads to a great 
+danger. As the main methodology of our spacecraft is established by its own magnetic field, 
+optimization of magnetic dipole of the spacecraft is not a solution to reduce IMF disturbance. If a 
+rocket propulsion system is mounted 10 m from the center of gravity, a propulsion force of less 
+than 5 N is sufficient to counteract the maximum torque acting on the shielding array. The linear 
+force (as opposed to torque) on the coils is proportional to the gradient of the interplanetary 
+magnetic field. [3] 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Team 289A 
+ 
+22 
+ 
+ 
+5.8 Mass determination in active shielding method 
+Refer to figure 5.3.3, to cover 1000 m3 with active shielding method, the Columbus habitat 
+radius and height is assumed 5m and 13m respectively. 
+Mass of grey base cylinder 
+Volume of cylinder, 𝑉𝑐𝑦𝑙= 𝜋ℎ𝑐(𝑟𝑜𝑢𝑡
+2
+−𝑟𝑖𝑛
+2 )  
+Mass of cylinder, 𝑚𝑐𝑦𝑙= 𝜌𝐴𝑙−𝐵4𝐶𝑉𝑐𝑦𝑙                    
+ 
+ 
+…………………. (i) 
+Here, height of the support cylinder, ℎ𝑐=15m 
+            Inner radius,𝑟𝑖𝑛 = radius of Columbus habitat=5 m  
+           Outer radius, 𝑟𝑜𝑢𝑡 = (5+.001) m = 5.001m 
+Density of Al-B4C, ρAl-B4C=2700 kg/m^3 
+From (i) we get, 𝑚𝑐𝑦𝑙 = 1273kg 
+ 
+Mass of racetrack coil 
+𝑚𝑟𝑎𝑐𝑒  = 𝑁𝑟𝑎𝑐𝑒𝑤ℎt𝑘𝑒𝑣𝑙𝑎𝑟𝜌𝑘𝑒𝑣𝑙𝑎𝑟 
+Here, 
+𝑁𝑟𝑎𝑐𝑒= Number of race track coil=120 
+w = racetrack width = 5m 
+h = racetrack height = 15m 
+t𝑘𝑒𝑣𝑙𝑎𝑟 = depth of KEVLAR sheath = 0.6mm 
+𝜌𝑘𝑒𝑣𝑙𝑎𝑟 = density of KEVLAR sheath = 7800-8000 kg/m3 
+So 𝑚𝑟𝑎𝑐𝑒 = 43200 kg = 43.2 tons 
+ 
+Again, 𝑚𝑐𝑜𝑖𝑙= 2(𝑤+ ℎ)𝑁𝐿𝜋𝑟𝑐𝑜𝑖𝑙
+2 𝜌𝑀𝑔𝐵2 
+Number of coil layers, NL = 3 
+Radius of a coil, 𝑟𝑐𝑜𝑖𝑙 = 1 mm 
+ρMgB2 = 2570 kg/m^3 
+⸫ 𝑚𝑐𝑜𝑖𝑙
+   = 3873kg 
+
+Team 289A 
+ 
+23 
+ 
+ 
+        ⸫   Total extra mass, 𝑚𝑒𝑥𝑡𝑟𝑎= 𝑚𝑐𝑦𝑙+ 𝑚𝑟𝑎𝑐𝑒+ 𝑚𝑐𝑜𝑖𝑙
+          
+                                                                             = 48346 kg or 48.346 tons                
+Extra fuel consideration for extra mass from shielding 
+From rocket equation,  
+∆𝑣= 𝑣𝑒𝑙𝑛𝑚𝑜
+𝑚𝑓
+ 
+We consider two separate case for a maneuver with shielding instrument and another for not. To 
+maintain an equal final velocity, we set the parameter ∆𝑣/𝑣𝑒 constant. 
+Now, case 1, 𝑚𝑜1 = 𝑚𝑝𝑟𝑜𝑝𝑒𝑙𝑙𝑎𝑛𝑡1 + 𝑚𝑓1 
+𝑚𝑓1 = 𝑚ℎ𝑎𝑏𝑖𝑡𝑎𝑛𝑡 
+For second case, 𝑚𝑜2 = 𝑚𝑝𝑟𝑜𝑝𝑒𝑙𝑙𝑎𝑛𝑡2 + 𝑚𝑓2 
+𝑚𝑓1 = 𝑚ℎ𝑎𝑏𝑖𝑡𝑎𝑛𝑡+ 𝑚𝑠ℎ𝑖𝑒𝑙𝑑𝑖𝑛𝑔 
+Now comparing two fractions, we get 
+𝑙𝑛𝑚𝑜1
+𝑚𝑓1
+= 𝑙𝑛𝑚𝑜2
+𝑚𝑓2
+ 
+𝑚𝑝𝑟𝑜𝑝𝑒𝑙𝑙𝑎𝑛𝑡2
+𝑚𝑝𝑟𝑜𝑝𝑒𝑙𝑙𝑎𝑛𝑡1
+= 1 + 𝑚𝑠ℎ𝑖𝑒𝑙𝑑𝑖𝑛𝑔
+𝑚ℎ𝑎𝑏𝑖𝑡𝑎𝑛𝑡
+ 
+        
+6.Critical Analysis 
+Strength 
+● HTSC is more accessible for general use and host of energy-saving process. It is cost-
+effective and HTSCs have high current density between 50-100 kA/cm^2. 
+ 
+● For racetrack structure, the cooling process is relatively easy. Other spaceship structures 
+demand Cryocooler for the cooling process which is too expensive. However, the heat 
+shield system in our spaceship is quite sufficient to handle heat production. 
+ 
+● An extra mass requirement of HTSC confined active radiation shielding method is much 
+less than that of passive radiation shielding method. 
+Polyethylene is a good passive shielding material because it has high hydrogen content, and 
+hydrogen atoms are good at absorbing and dispersing radiation. 
+
+Team 289A 
+ 
+24 
+ 
+However, the presence of extremely energetic heavy ions in the GCR spectrum, such as Fe56+, 
+that can penetrate tens of centimeters of shielding materials, producing a secondary particle 
+cascade, is a big concern for both the human crew and the electronics inside the spacecraft.[4] 
+ 
+For Toroid shape inner radius = r  
+                          Outer radius = R  
+Volume of toroid = 2π2Rr2   ………………………………………………(i) 
+and Surface area=4π2Rr        ………………………………………………(ii) 
+As the shielding covers 1000 m3 area, we assume that  
+                          Outer Radius, R=10m 
+                           Inner Radius, r=2.25 m 
+Calculating (i) Surface area. S=889 m2 
+Here, 
+Total areal density of passive shielding=14.7 g/cm2 (Using areal density of 14.7g/cm^2 
+passive coating layer consisting of Al2219. Nextel, Kevlar Epoxy) [4] 
+⸫ Total extra mass in passive shielding=130 tons 
+The extra mass required in Passive shielding method is about 130 tons while the amount is 
+about 48.5 tons in Active radiation shielding method. 
+ 
+●  Minimize charged particle flux into spaceship habitat and secondary particle production 
+in shielding coil material is reduced 
+Weakness 
+● MgB2 cannot operate at higher than 4T magnetic field. However, we have used 
+magnetic field within the range of 3T. However, it suffers from flux jump problem at 
+high-density magnetic field even in low temperatures. 
+● Communication disruption due to high flux density of magnetic field. 
+● Extra thrust required to overcome IMF issues. 
+● Around 0.052W heat entry in spite of using heat shield. 
+ 
+ 
+ 
+ 
+
+Team 289A 
+ 
+25 
+ 
+Conclusion 
+Major motivation of using active shielding was the innovation high-temperature superconductors 
+which were a difficult hurdle to overcome in the past. Our developed plan uses this fruitfulness 
+using a continuous coil race-track coil shield that would protect the human crew from most of the 
+harmful radiation in interplanetary travel. An additional mass of 48.346 tons would need to be 
+brought on the journey to protect the habitat of 1000 cubic meters. 
+We have compared different methods like deployed shielding, poly-ethylene coating, double-
+helix solenoid coil shield, etc. with our applied method and the analysis results show potential 
+implications. Though it cannot solve problems like reliable communication or hundred percent 
+protection from GCR. Our proposed JWST-type heat shield, containing a very low emissivity, is 
+a very useful instrument for reducing thermal load on the coils from KW or W range to mW 
+range. However, our simplified model doesn’t address all the problems arise in the practical 
+situation but it surely gives enough mass reduction and guarantee towards tolerable radiation 
+protection. 
+ 
+Reference 
+[1] Shepherd, S. G., and B. T. Kress. "Comment on" Applications for Deployed High Temperature Superconducting 
+Coils in Spacecraft Engineering: A Review and Analysis" by JC Cocks et al." Journal of the British Interplanetary 
+Society 60, no. 4 (2007): 129-132. 
+[2] NASA Electronics Research Center; Cambridge, MA, United States, “Magnetic torque resulting from interaction 
+between magnetic properties of spacecraft and ambient magnetic field”, March 01, 1969 
+[3] Shayne Westover   Rainer Meinke , Shaun Nerolich ,Roberto Battiston ,William Burger, Dallas Kasaboski , 
+Francis Davies,” Magnet Architectures and Active Radiation Shielding Study (MAARSS)”, Final Report for NASA 
+Innovative Advanced Concepts Phase II , November 2014 
+[4] Silvestri, Marco, Emanuele Tracino, Mauro Briccarello, Maurizio Belluco, Roberto Destefanis, Cesare Lobascio, 
+Marco Durante, Giovanni Santin, and Ronald D. Schrimpf. "Impact of Spacecraft-Shell Composition on 1 
+GeV/Nucleon 56Fe Ion-Fragmentation and Dose Reduction." IEEE Transactions on Nuclear Science 58, no. 6 
+(2011): 3126-3133. 
+ [5] Koblischka-Veneva, Anjela, Michael R. Koblischka, Kévin Berger, Quentin Nouailhetas, Bruno Douine, 
+Miryala Muralidhar, and Masato Murakami. "Comparison of Temperature and Field Dependencies of the Critical 
+Current Densities of Bulk YBCO, MgB2, and Iron-Based Superconductors." IEEE Transactions on Applied 
+Superconductivity 29, no. 5 (2019): 1-5. 
+[6] Hoffman, J., Peter Fisher, and Oleg Batishchev. "Use of superconducting magnet technology for astronaut 
+radiation protection." Final Report for NIAC Phase I Contract CP (2005): 04-01. 
+[7] Battiston, R., W. J. Burger, V. Calvelli, R. Musenich, V. Choutko, V. I. Datskov, A. Della Torre et al. "Active 
+Radiation Shield for Space Exploration Missions (ARSSEM)." arXiv preprint arXiv:1209.1907 (2012). 
+[8] Goodzeit, C. L., M. J. Ball, and R. B. Meinke. "The double-helix dipole-a novel approach to accelerator magnet 
+design." IEEE transactions on applied superconductivity 13, no. 2 (2003): 1365-1368.  
+[9] Ambroglini, Filippo, Roberto Battiston, and William J. Burger. "Evaluation of superconducting magnet shield 
+configurations for long duration manned space missions." Frontiers in oncology 6 (2016): 97. 
+
+Team 289A 
+ 
+26 
+ 
+ [10] Westover, Shayne C., Rainer Meinke, Shaun Nerolich, Scott Washburn, Roberto Battison, William Burger, 
+Dallas Kasaboski, and Francis Davies. "Magnet Architectures and Active Radiation Shielding Study (MAARSS)." 
+(2019). 
+[11] Cucinotta, Francis A., and Marco Durante. "Cancer risk from exposure to galactic cosmic rays: implications for 
+space exploration by human beings." The lancet oncology 7, no. 5 (2006): 431-435. 
+ [12] Kerr, Richard A. "Radiation will make astronauts' trip to Mars even riskier." (2013): 1031-1031. 
+ [13] Noon, Daniel. "AA Novel Layered System to Prevent High-Energy, Ionizing Radioactive Photon 
+Transmissions and Control Particle Behavior With The Utilization of Monte Carlo Transport Modeling Via 
+SPENVIS-Based Modular Implementation." (2018). 
+Resource : Matlab 2018a 
+ 
+Appendix 
+Matlab code for solving the 2nd order differential using Euler method  
+%Parameters 
+R1 = 5; %m 
+R2 = 10; 
+ 
+mu = 12.57*10^-7 ; 
+N = 3000; 
+I = 800; 
+ 
+Z = 4; 
+mp = 1.6*10^-27; 
+m = Z*mp; 
+q = 2* 1.6*10^-19; 
+k = m/q; 
+ 
+%Fucntions 
+B = @(x,y) (sqrt(x.^2 + y.^2) > R1 & sqrt(x.^2 + y.^2) < R2)*... 
+    mu*N*I/(2*pi*sqrt(x.^2 + y.^2)); 
+ 
+%Associated Fucntions to solve ODE 
+co = @(x,y) cos(atan(y/x)); 
+si = @(x,y) sin(atan(y/x)); 
+ 
+x_dot = @(x,y,z,vx,vy,vz,t) vx; 
+vx_dot = @(x,y,z,vx,vy,vz,t) -vz*B(x,y)*co(x,y)/k; 
+ 
+y_dot = @(x,y,z,vx,vy,vz,t) vy; 
+vy_dot = @(x,y,z,vx,vy,vz,t) -vz*B(x,y)*si(x,y)/k; 
+ 
+z_dot = @(x,y,z,vx,vy,vz,t) vz; 
+vz_dot = @(x,y,z,vx,vy,vz,t) B(x,y)*(vx*co(x,y) + vy*si(x,y))/k; 
+
+Team 289A 
+ 
+27 
+ 
+ 
+%variables 
+t_min = 0.5e-7; 
+t = linspace(0,t_min,1000); 
+h = t(2) - t(1); 
+n = length(t); 
+ 
+x = zeros(1,n); 
+vx = zeros(1,n); 
+y = zeros(1,n); 
+vy = zeros(1,n); 
+z = zeros(1,n); 
+vz = zeros(1,n); 
+ 
+%initial condition 
+Ek = 1; %GeV 
+G = 10^9 * 1.6*10^-19; %constant to convert to J from GeV 
+ 
+x(1) = -R2; %initial position 
+c = 3*10^8; 
+vx(1) = sqrt(c^2*(1 - (m*c^2/(Ek*G +  m*c^2))^2)); %relativistic velocity 
+y(1) = 0; 
+vy(1) = 0; 
+z(1) = 0; 
+vz(1) = 0; 
+ 
+for i=2:n 
+    x(i) = x(i-1) + ... 
+        x_dot(x(i-1),y(i-1),z(i-1),vx(i-1),vy(i-1),vz(i-1),t(i-1))*h; 
+    vx(i) = vx(i-1) + ... 
+        vx_dot(x(i-1),y(i-1),z(i-1),vx(i-1),vy(i-1),vz(i-1),t(i-1))*h; 
+ 
+    y(i) = y(i-1) + ... 
+        y_dot(x(i-1),y(i-1),z(i-1),vx(i-1),vy(i-1),vz(i-1),t(i-1))*h; 
+    vy(i) = vy(i-1) + ... 
+        vy_dot(x(i-1),y(i-1),z(i-1),vx(i-1),vy(i-1),vz(i-1),t(i-1))*h; 
+ 
+    z(i) = z(i-1) + ... 
+        z_dot(x(i-1),y(i-1),z(i-1),vx(i-1),vy(i-1),vz(i-1),t(i-1))*h; 
+    vz(i) = vz(i-1) + ... 
+        vz_dot(x(i-1),y(i-1),z(i-1),vx(i-1),vy(i-1),vz(i-1),t(i-1))*h; 
+end 
+ 
+figure; 
+ 
+plot3(x,y,z,'LineWidth',1.5); 
+title('Path trajectory of 1GeV aplha particle in toroidal magnetic field'); 
+xlabel('x(m)'); 
+ylabel('y(m)'); 
+zlabel('z(m)'); 
+hold on; 
+
+Team 289A 
+ 
+28 
+ 
+ 
+%Toroid drawing 
+th = 0:pi/50:2*pi; 
+plot3(R2 * cos(th), R2 * sin(th),zeros(length(th)),'LineWidth',2); 
+ 
+hold on; 
+plot3(R1 * cos(th), R1 * sin(th),zeros(length(th)),'LineWidth',2); 

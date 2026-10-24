@@ -1,0 +1,635 @@
+Deflecting an asteroid
+Problem A
+Team 425
+Abstract
+In our work we considered an asteroid with a diameter of 100 m on
+a trajectory to directly impact the Earth at a speed of 25 km/s. With
+proper assumptions we managed to parameterize with one parame-
+ter – impact angle orbits that such asteroids can have. We restricted
+ourselves to asteroids that are bounded to Solar System. Further we
+considered the disturbance of asteroid’s trajectory after adding certain
+momenta to it (collision with spacecraft), we found the optimal way of
+momenta transfer to be: to hit asteroid, parallel to its own velocity, in
+the asteroid’s perihelion. We found also that disturbance in asteroid’s
+period is greater than disturbance of its orbit’s axes, and we focused
+on the first value neglecting the later. We estimated value of momenta
+that we can transfer to asteroid with our spacecraft. Having that we
+calculated the disturbance of the period for 20 different asteroid’s or-
+bits (characterized by impact angle). Further we obtained condition
+on minimal time difference, that has to result from spacecraft’s col-
+lision, to prevent Earth-asteroid collision. That together with values
+of orbit’s periods allowed as to get final results. We obtained that we
+have to hit asteroid between 0.1 to 0.7 year before its possible collision
+with Earth.
+1
+
+Team 425
+UPC 2022
+1
+Introduction
+Let us consider space objects posing a possible threat to earth (i.e. having
+trajectories which intersect the Earth’s orbit) we can divide them into two
+categories. One category will contain asteroids bound to our solar system,
+while the second one - comets with hyperbolic trajectory (or effectively hy-
+perbolic, as seen in the proximity of the Sun). According to data gathered by
+NASA Center for Near Earth Object Studies, a vast majority (>99.57 %) of
+objects considered as the threat, are asteroids with closed orbits around sun.
+This can be easily understood in the face of the fact that the hyperbolic ob-
+ject would have the chance to hit the earth only once during its flight through
+the Solar System, while the asteroids closer to the Sun can cross Earth’s or-
+bit every orbital period. impactFamous recent event of a Chelyabinsk meteor
+entering the Earth’s atmosphere on 15 February 2013 and causing injuries to
+several people and vast property damage was related exactly to this kind of
+asteroid. We have decided to exclude the objects with hyperbolic trajectories
+from our model, and focus on objects bound to Sun. class
+Figure 1: Discovery statistics of Near Earth Objects according to NASA
+CNEOS. Most comets and all four asteroid classes correspond to closed orbits
+around Sun
+2
+
+Team 425
+UPC 2022
+2
+Numerical simulations
+The main tool for dealing with the problem is using numerical simulations.
+In order to solve the problem we use Verlet integration [5] method. This
+approach gives better results than the easiest Euler’s method, because the
+algorithm is time-reversible, just like the physics laws.
+The algorithm was implemented in programming language Python. During
+simulation we do small time-steps dt. At each step we calculate new grav-
+itational force acting on the object and its new position. The value of dt
+depended on the strength of the force. In the close-to-Earth locations the
+value was dt ≈10s, but in the larger distances it became dt ≈200s.
+In order to calculate the change of period of asteroid orbit caused by collision
+with spacecraft we numerically calculated the new semi-major axis through
+numerically looking for the closest and most far positions from the Sun.
+3
+Restatement of the problem and a model used
+for obtaining results
+3.1
+Asteroid’s trajectory
+We consider a class of objects defined as "an asteroids on a trajectory
+to directly impact the Earth at a speed of 25 km/s". To see what orbits
+correspond to the class of such objects we reversed the problem and analyzed
+a trajectory of an object starting from Earth’s surface with velocity (in the
+Earth’s frame of reference) vcol = 25km
+s at the angle ϕ, in the radial direction.
+In this way we parameterized by an angle parameter ϕ all possible orbits
+belonging to the class. Here we make two reasonable assumptions. One is
+that asteroid’s orbit lies in the same plane as Earth’s (we use only an angle
+ϕ) which is the case. The other one is that Earth’s orbit is ideally circular
+- we do not consider different points (with respect to Sun) of collision but
+assume that there is a symmetry. The assumption is quite reasonable, as
+Earth orbit’s eccentricity is just 0.0167.
+Depending on the ϕ we may have hyperbolic trajectory or a closed one.
+Velocity of the asteroid relative to Earth may be added or subtracted from the
+Earth’s velocity in the Solar System frame of reference and result in a velocity
+big enough to escape Solar System in some cases or a velocity implying closed
+orbit in the other. We have to remember that in our approach we analyze
+motion with reversed time and added velocity means that asteroid "caught
+up with Earth and hit it from the back" while subtracted velocity means
+3
+
+Team 425
+UPC 2022
+that the opposite has happened. To find what ϕ imply the closed orbit we
+use energy formula. If the sum of potential and kinetic energy is negative, it
+means that asteroid does not have enough energy to escape to infinity and
+the orbit is closed. The energy is given by (1), where Rz is Earth’s radius,
+R is mean Earth’s distance from Sun, ma is Sun’s mass, mz is Earth’s mass
+and v is impact velocity (25 km
+s
+in our case). On the figure 2 we see the
+Energy depending on ϕ angle. By solving (1) we find that closed orbits form
+approximately for angles in the range [3.2305, 6.19424].
+E = −Gmzma
+Rz
+−
+Gmsma
+(R + Rz cos ϕ)2 + (R + Rz sin ϕ)2
++m
+2
+
+
+ r
+Gms
+R
++ v sin ϕ
+!2
++ (v cos ϕ)2
+
+
+(1)
+1
+2
+3
+4
+5
+6
+impact angle, ϕ [rad]
+-1.5 × 107
+-1.0 × 107
+-5.0 × 106
+5.0 × 106
+1.0 × 107
+1.5 × 107
+energy, E [a. u.]
+Figure 2:
+Dependence of energy (in arbitrary units) on impact angle –
+negative energy results in closed orbit.
+To find possible orbits, we have simulated the motion of an asteroid starting
+from Earth at the angles, that result in closed orbit. Numerical simulation
+has been done in two phases. In phase one we calculate both the gravitational
+force from the Sun and Earth acting on asteroid and gravitational force
+from the Sun acting on Earth.
+At the moment when the force from the
+Sun acting on asteroid is more than one thousand times stronger than one
+acting from Earth, we move to phase two. In the phase two we assume that
+both the asteroid and the Earth orbit around the Sun independently and we
+consider only the Sun’s gravitational field. This assumption in many cases is
+4
+
+Team 425
+UPC 2022
+reasonable. On the figure 3 we see example of (ϕ = 4) trajectories in phase
+one - time of simulation is short (below one day) and trajectories look as
+they would be straight. On the figure 4 we see full orbit we get for ϕ = 4.
+1.475
+1.480
+1.485
+1.490
+1.495
+1.500
+1.505
+x coordinate [km]
+1e8
+0.00
+0.25
+0.50
+0.75
+1.00
+1.25
+1.50
+1.75
+2.00
+y coordinate [km]
+1e6
+earth's trajectory
+asteroid's trajectory
+Figure 3: Trajectories in phase 1 for ϕ = 4.
+5
+
+Team 425
+UPC 2022
+2
+1
+0
+1
+2
+x coordinate [km]
+1e8
+1.5
+1.0
+0.5
+0.0
+0.5
+1.0
+1.5
+y coordinate [km]
+1e8
+Earth's trajectory
+asteroid's trajectory
+Figure 4: asteroid’s orbit for ϕ = 4.
+For the purposes of its usefulness further in this work, we find dependence
+of the orbital period on the impact angle. This was done numerically and the
+results can be seen on the figure 5. As we may expect, as we approach the
+angles that imply a hyperbolic orbit, the period tends to infinity (we have
+obtained numerical results for 20 angle values between 3.35 and 6.1 radians).
+6
+
+Team 425
+UPC 2022
+actively
+3.5
+4.0
+4.5
+5.0
+5.5
+6.0
+impact angle [rad]
+200
+300
+400
+500
+600
+period, T [days]
+Figure 5: Dependence of period on impact angle.
+To summarize - we have parameterized all the possible orbits belonging to
+objects mentioned in the problem statement and by a numerical simulation
+we have found their trajectories and orbital periods.
+3.2
+Model of the spacecraft and its mission
+For an object potentially hazardous to Earth with diameter of 100 m,
+according to the comprehensive study "Defending Planet Earth" [3], two
+viable strategies for actively deflecting the object are a kinetic impact of a
+spacecraft and altering its trajectory by putting a spacecraft in proximity of
+the object and tracting it gravitationally. The second option requires a lot
+longer time before impacting the Earth to work (see regimes of applicability
+in the figure 6). We therefore choose our spacecraft to be designed for a
+kinetic impact mission and thus achieve the shortest possible time before
+Earth impact required for a mission success. We consider possible use of
+nuclear weapon to be out of scope of this problem.
+7
+
+Team 425
+UPC 2022
+Figure 6: Range of the applicability of certain asteroid threat mitigation
+strategies, depending on the diameter of asteroid and time left to the impact.
+Source: [3]
+Prime example of what are the optimal parameters of this kind of mission
+and spacecraft is the recent NASA Double asteroid Redirection Test. That
+mission’s goal was very similar to what we would want to achieve in a situa-
+tion described in our problem: impacting an asteroid of diameter comparable
+to 100 m, orbiting the Sun on an elliptical orbit nearing the Earth’s one, with
+a maximum possible momentum transfer to the asteroid. Designing optimal
+trajectory and choosing the right propulsion system, constrained by the rel-
+ative location of Earth and asteroid, mission time, requirement of minimum
+fuel loss in maneuvering and maximum kinetic energy transferred at impact
+is a very complex task. In this situation, designing an entire mission plan
+for every kind of asteroid would have to be overly simplistic and very likely
+introduce the difference in momentum transfer of some few orders of magni-
+tude depending on a chosen simplifications, as well as a type of propulsion
+8
+
+Team 425
+UPC 2022
+and different mission trajectories. We decide, that rather than optimizing
+for the best mission trajectory and designing all the propulsion usage and
+maneuvers, in this work we will estimate the momentum transfer from our
+spacecraft to the asteroid as a constant value throughout the calculations,
+based on the initial condition of our 20 ton spacecraft put on Low Earth
+Orbit and a value of momentum transfer that has been measured during a
+DART mission, for its smaller device. Assuming that our spacecraft, that
+have been put on the low earth orbit is using contemporary technology and
+the object we try to deflect have a typical Near Earth Object trajectory, both
+it and the mission trajectory can be modelled as an adequate counterpart of
+the DART mission, witch have had a very similar goal to ours and has been
+successfully carried out with the technical capabilities we have right now.
+Figure 7: Optimal trajectory chosen for the DART mission. Vectors show
+the usage of ion thruster throughout mission. Source: [1]
+Our estimation of the spacecraft momentum at impact will be taken as a
+product of spacecraft mass when it escapes the Earth’s gravity after using
+some fuel and the relative velocity of spacecraft and asteroid corresponding
+to the results of DART mission.
+9
+
+Team 425
+UPC 2022
+3.2.1
+Escaping the Earth
+First, we try to estimate, how much fuel will be used up due to the escape
+from Earth’s gravity. We start with a spacecraft on Low Earth Orbit, that
+is with a velocity of approximately 7.9 km/s relative to Earth. Typical Low
+Earth Orbit objects have the altitude of a few hundred kilometers.
+For
+example, International Space Station in its apogee has the altitude of 422
+km[cite] or about 6.6% of Earth’s radius. Therefore we will assume, that
+obtaining a total velocity equal to Earth’s escape velocity (11.186 km/s) is
+needed for our spacecraft to escape the Earth. We use the Tsiolkovsky rocket
+equation:
+m0
+mf
+= e∆v/ve
+(2)
+Where ve is exhaust gas velocity, equivalent to the engine’s specific impulse,
+m0 and mf is the spacecraft initial and final mass, respectively and ∆v is
+necessary difference in velocity during maneuver. We solve for mf with given
+∆v = vescape −vLEO = 11.186 km
+s −7.9 km
+s = 3.286 km
+s , m0 = 20 · 103 kg We
+assume that a typical liquid fuel rocket engine is used, with an effective
+exhaust velocity of ve = 3800 m
+s
+The result is:
+mf ≈8.44 · 103 kg = 0.422 · m0
+3.2.2
+Impact speed
+Our estimate of impact speed will be based on the measured impact ve-
+locity of the DART mission. On the September 26, 2022 the 570 kg DART
+Impactor spacecraft have crushed into the Dimorphos asteroid at a speed
+of approximately 6.1 km/s, according to the data published by the mission
+team [2].
+This gives us a result of
+pest = 5.1463 · 107kg · m
+s
+3.3
+Momentum transfer during collision of the space-
+craft and the asteroid
+In this section we want to consider, how much momentum can the space-
+craft transfer to the asteroid during a collision in real world.
+Let us denote the total momentum amount carried by the spacecraft as P
+and let β be such parameter, that the total transfer of momentum to the
+asteroid is equal to βP. Let’s consider three possible types of collisions (see
+fig.8):
+10
+
+Team 425
+UPC 2022
+1. β < 1
+This type of collision corresponds to a situation when there are some
+ejecta caused by the spacecraft impact carrying off momentum in the
+common direction with the asteroid’s velocity.
+2. β = 1
+This type corresponds to a perfect inelastic collision (spacecraft sticks
+into asteroid)
+3. β > 1
+This type of collision corresponds to a situation when there are some
+ejecta caused by the spacecraft impact carrying off momentum in the
+opposite direction with the asteroid’s velocity. That is the situation
+that helps us to affect more on the asteroid trajectory.
+According to [4] the parameter β for an asteroid of diameter 100m can
+be about β ∼8.4 for an impact at 10km/s. This result could be under-
+stood by the following consideration. Due to low gravity force causing by
+asteroid (mass of asteroid is about M = 109kg, and its radius is 50m) the
+escape velocity equals approximately ve =
+q
+2GM
+r
+≈0.0052m/s. It means
+that almost every object detached from asteroid reaches the escape veloc-
+ity. Therefore whole powder took off by the crashing spacecraft would cause
+extra momentum transfer.
+11
+
+Team 425
+UPC 2022
+Figure 8: The picture depicts three possible types of collisions between
+spacecraft and asteroid. The picture comes from [1].
+A requirement is to measure the momentum transfer enhancement param-
+eter (β), which is a measure of how much additional momentum beyond that
+carried by the spacecraft is transferred to the asteroid in a kinetic impact.
+In a perfectly inelastic collision, with zero net ejecta momentum, β = 1
+by definition. More generally, ejecta caused by the spacecraft impact carry
+off momentum, effectively giving an extra push and making β > 1 for the
+impact.
+3.4
+The optimal asteroid-spacecraft collision
+One of the most important question in the problem is how the place and
+direction of collision between spacecraft and asteroid affects the trajectory
+of asteroid, and consequently the chances to hit the Earth. Therefore we put
+two questions: 1) how the period of a new orbit trajectory depends on the
+velocity direction of the spacecraft just before collision, and what is the op-
+timal direction of it. 2) How the period of new orbit depends on the collision
+place on the heliocentric orbit of asteroid.
+In the next part of this section we assume that the asteroid is traveling on
+its heliocentric trajectory −→r (t) = (x(t), y(t)) and it is hit by the spacecraft
+12
+
+Team 425
+UPC 2022
+in moment when its position was −→
+r0. Just before collision the velocity of
+a spacecraft was equal to −→
+v0. Therefore the asteroid gained extra momen-
+tum coming from the spacecraft and consequently the instantaneous velocity
+changed from −→v to some −→v + −→
+δv. Using new initial conditions one can cal-
+culate new trajectory and its period T + δT, where T is the period of the
+trajectory before the collision.
+In order to get exact results we assumed the transfer of momentum during
+the collision as the space craft hit the asteroid with velocity 10km/s, den-
+sity of asteroid ρ = 2g/cm3 mass of spacecraft (in the moment of collision)
+m = 15000kg and parameter β = 10. These assumptions are rather more
+optimistic than they could be in reality, but we assume them only to get
+some qualitative results.
+3.4.1
+The direction of the spacecraft dependence
+In this subsection it is assumed that the spacecraft hits the asteroid in
+a fixed place −→r . The total velocity Vs of the spacecraft is also fixed. We
+ask, how the change in period δT depends on the direction of the velocity
+of spacecraft. In this consideration we assume only trajectories on plane,
+so the direction of the spacecraft velocity could be characterized by only on
+one parameter θ ∈(0, 2π) meaning the angle between x axis and spacecraft
+velocity. One can numerically check which value of θ gives the biggest change
+in period. In order to establish attention we made the numeric simulation for
+a asteroid trajectory given by parameter ϕ = 3.19 (see fig. 9). Precisely, using
+numeric simulation we have calculated changed a semi-major axis change
+a + δa and in consequence the change in period ∆T = 3√aδa
+GM⊙, which is the
+first order Taylor approximation of the third Kepler’s Law T 2
+a3 =
+4π2
+GM⊙. The
+final result dependence ∆T(α) is shown on the fig. 10.
+13
+
+Team 425
+UPC 2022
+t
+Collision with angle α on
+Sun
+Asteroid orbit
+V
+-α
+Figure 9: asteroid - spacecraft collision with the spacecraft velocity direction
+α ∈(0, 2π) on a fixed point θ = 1.9. The period change ∆T(α) dependence
+on α is shown on the fig.10.
+14
+
+Team 425
+UPC 2022
+Figure 10: The resulting dependence ∆T(α) for a trajectory given by ϕ =
+3.19. One could see, that vertical change of the asteroid velocity gives nearly
+zero effect. Therefore the best possible angle for spacecraft to hit the asteroid
+is parallel to the asteroid velocity.
+3.4.2
+The place of collision dependence
+In this subsection it is assumed that the spacecraft hits the asteroid in a
+place −→r given by an angle θ in polar coordinates related to sun (see fig. 11)
+and the angle of spacecraft velocity is fixed (in the simulation it is parallel
+to the velocity vector of the asteroid with opposite direction). The total
+velocity Vs of the spacecraft is also fixed. We ask, how the change in period
+δT depends on the place around the trajectory where spacecraft hits asteroid.
+Analogically as before, in this consideration we assume only trajectories on
+plane, and we calculate the change in period from the value of semi-major
+axis. In order to establish attention we made the numeric simulation for a
+asteroid trajectory given by parameter ϕ = 3.19 (see fig. 11).
+The result of this simulation is depicted on fig.12.
+15
+
+Team 425
+UPC 2022
+t
+Collision at angle θ on
+Sun
+Asteroid orbit
+V
+-θ
+Figure 11: asteroid - spacecraft collision with the fixed spacecraft velocity
+direction on a point given by θ ∈(0, 2π). The period change ∆T(θ) depen-
+dence on θ is shown on the fig.12.
+16
+
+Team 425
+UPC 2022
+Figure 12: The resulting dependence ∆T(θ) for a trajectory given by ϕ =
+3.19. The biggest change of period is in the angle θ ≈1.9 which correspond
+to the perihelion.
+As we see, in the case ϕ = 3.19 the optimal way to hit the asteroid is to
+do it in the perihelion and use velocity of spacecraft parallel to the velocity
+of asteroid. But taking another value of ϕ for closed orbits we would get
+the same results (just using analogical simulation). Therefore we have found
+the optimal way to disturb the period of asteroid and the general period
+dependence on place and angle of hit.
+3.5
+Sun - Earth - asteroid system and the conditions for
+thwarting an imminent collision
+Our basic assumption, allowing us to simplify calculations vastly, while not
+departing too far away from the exact description, is that all bodies in the
+system are moving in one plane.
+In general, when the calculations in our model concern locations not in the
+close proximity of Earth, its gravitational field is several orders of magnitude
+weaker than that of Sun and can be neglected. In the case, when we track
+an object that approaches Earth’s proximity, however, the situation is more
+subtle and how we treat an effect of Earth’s gravity then, will be explained
+17
+
+Team 425
+UPC 2022
+in more detail later.
+The diameter of an asteroid is more than four orders of magnitude smaller
+than the diameter of Earth, therefore we can safely treat the asteroid as a
+point mass, when determining if a collision with Earth would occur. For
+any sensible assumption about asteroid density, also the trajectory of earth
+would not be altered in a measurable way by the asteroid, so we do not take
+that effect into the account.
+For a given orbit around sun, we can have one or two x-areas, defined as the
+spots in Solar System, where the Earth would lie at the moment of collision,
+should we not alter asteroid’s trajectory in any way. For a given event we
+set a default time and x-area, where collision is normally expected to hap-
+pen and we say, that if the trajectory corrected after spacecraft hit imply no
+collision close to this time and area, the object has missed the Earth. We do
+not consider next possible events for this object, then.
+The probability of an asteroid on a given orbit hitting the earth in general
+is so small, that after missing one unlikely opportunity for collision, that
+asteroid is no more likely to threat earth in the future as any other similar
+object.
+To simplify the problem, let us consider which parameter of the trajectory
+is the best to use during calculations if the asteroid hits Earth.
+At first, time of the asteroid-spacecraft collision is much shorter than the
+period of asteroid orbit, so we assume that this collision is just immediate
+transfer of momentum to the asteroid. Then the parameters of asteroid’s tra-
+jectory change instantly. The new trajectory could miss Earth in two ways.
+The change of the trajectory itself and the change of the time when asteroid
+cross the Earth trajectory.
+One could characterize the orbit trajectory of an asteroid by the period T
+and the semi-major axis a. They are connected with the Kepler’s third law:
+T 2
+a3 = const.. Therefore scaling a by a factor λ scale T by factor λ
+3
+2. After
+collision the change in period is greater than the change in semi-major axis.
+Moreover, when the semi-major axis change, it stays the same all the time,
+but if period changes, then the difference of time arriving becomes grater in
+each encirclement. In other words, when we change the period by ∆T, then
+after three encirclements the total time difference of crossing Earth trajec-
+tory becomes 3∆T.
+Taking this paragraph into consideration we use only time-difference condi-
+tion of making asteroid to miss Earth.
+18
+
+Team 425
+UPC 2022
+3.6
+Hit or miss - the simplest model
+Having obtained the change of asteroid’s period after collision we have to
+answer the fundamental question, that is: how it affects the collision of as-
+teroid and Earth. We say that if n∆T > Rz
+v , where v is Earth’s velocity and
+n is the number of periods asteroids makes from the hit time to potential
+collision time, asteroid will miss the Earth. Our reasoning here is that as-
+teroid will be in collision point n∆T earlier comparing with the scenario in
+which we do not hit asteroid and do not disturb its period. So for Earth to
+be safe it has to be further than Rz from the collision point and from that
+we get our condition.
+We made several approximations here.
+Firstly we do not consider the
+disturbance of asteroid’s trajectory and we can make that because, as it is
+stated in one of previous chapters, hitting the asteroid greater disturb its
+period than semi axes, and period disturbance grows every period while axes
+disturbance stays the same, and that is why the later was neglected. Secondly
+we do not directly consider the attraction force between asteroid and Earth,
+which in first approximation may be reasonable because asteroid velocity is
+greater than escape velocity and even if Earth influences asteroid’s trajectory
+asteroid will not hit Earth unless it is because their trajectories around the
+Sun. The later probably bigger approximation could be easily reduced by
+numerical simulation of the collision.
+4
+Result
+According to section Hit or miss - the simplest model the minimal
+number of total laps must be at least n =
+Rz
+v∆T . In order to get the answer
+in Earth’s years we must rescale the result by a factor
+year
+period. Therefore the
+result counted in the number of years is y =
+Rz·365
+v∆T(ϕ)·T(ϕ)., where period T is
+counted in days.
+19
+
+Team 425
+UPC 2022
+Figure 13: The minimal time amount in which spacecraft have to hit as-
+teroid in order to avoid collision with Earth. These results come from the
+calculation of the period-change caused by collision with spacecraft. The
+approximate period of the asteroid’s orbits is about T ∼180 days, therefore
+the asteroid needs from 2 to 3 full sun encirclement to avoid collision with
+Earth.
+5
+Summary
+Our attitude was to look at the problem as a description of a possible real
+- life threat to Earth and consider simplifications that won’t lead us away
+from the possible realistic character of such an asteroid collision event. We
+have Interpreted the problem as a task of finding the approximate minimum
+time between a spacecraft impact to asteroid and potential asteroid impact
+to Earth for any possible asteroid with closed orbit around the Sun, that
+result in a "trajectory to directly impact the Earth at a speed of 25 km/s",
+understood according to the section 2.1. We assumed that the spacecraft
+shall only be used as a kinetic impactor. We have abstained from considering
+minute details of all possible spacecraft routes inside the Solar System and
+decided to adopt single estimate of the spacecraft momentum at impact,
+based to a significant extent on a recent NASA DART mission, that was
+20
+
+Team 425
+UPC 2022
+very similar to the kind of spacecraft mission we would have to consider.
+We analyzed the very effect of the spacecraft impact on asteroid momentum,
+as well as a requirement for an asteroid’s orbital period needed for Earth
+miss. We have used numerical simulations of a planetary dynamics to obtain
+all the results and final dependence of the minimal time before asteroid’s
+impact to earth needed for the spacecraft, on a parameter characterizing all
+the relevant asteroid orbits.
+References
+[1] A. S. Rivkin et al., The Double asteroid Redirection Test (DART): Plan-
+etary Defense Investigations and Requirements, The Planetary Science
+Journal, vol. 2, no. 5. American Astronomical Society, p. 173, (2021).
+DOI: 10.3847/psj/ac063e.
+[2] Official website of the DART impactor spacecraft; Oficcial website of
+the mission
+https://dart.jhuapl.edu/Mission/Impactor-Spacecraft.php
+https://dart.jhuapl.edu/Mission/index.php
+[3] Committee to Review Near-Earth Object Surveys and Hazard Mitiga-
+tion Strategies Space Studies Board, Defending Planet Earth: Near-
+Earth Object Surveys and Hazard Mitigation Strategies, National Re-
+search Council, p. 152, (2010). DOI: 10.17226/12842
+[4] K. A. Holsapple and K. R. Housen, Momentum transfer in asteroid
+impacts. I. Theory and scaling, Icarus, vol. 221, no. 2. Elsevier BV, pp.
+875–887, (2012). DOI: 10.1016/j.icarus.2012.09.022
+[5] Loup Verlet, Computer "Experiments" on Classical Fluids. I. Thermo-
+dynamical Properties of Lennard-Jones Molecules DOI: 10.1103/Phys-
+Rev.159.98
+21

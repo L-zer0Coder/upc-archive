@@ -1,0 +1,1021 @@
+Launching nuclear residuals and its risks
+Team # 412
+Problem A
+Abstract
+In this paper, extraterrestrial disposal is proposed as a solution to the problem of nuclear residuals.
+We start analyzing six diﬀerent ways of extraterrestrial disposal comparing them, based on their cost
+and on their security.
+After concluding that the optimal disposal method consists on sending the
+nuclear waste on an heliocentric orbit we start our modeling work. Both deterministic and stochastic
+modeling techniques have been used to solve diﬀerent stages of the problem. The dangers involved
+in leaving the planet with radioactive waste have been analyzed together with the probability of this
+dangers to actually become true, comparing debri collision and ﬂight failure using a pertinent ﬁgure
+of merit.
+Our model studies two possible heliocentric orbits where the radioactive waste could be
+stored and methods for reaching these destinations are proposed.
+We have studied and compared
+the possible dangers that radioactive waste could encounter in their new location (such as unwanted
+asteroid collision with unpredictable results) as well as the energetic costs involved in bringing them
+there. According to our model, the asteroid belt represents the best option when considering storage or
+disposal of radioactive waste during the 250 000 years that it takes for them to become innocuous again.
+State of the art techniques have been used to develop our models, like Lagrangian points, libration
+oscillations and the Hoﬀman maneuver. Rkf45 integration has been used to obtain high precision on
+our computations, which is important as our system is highly chaotic.
+
+Team 412
+Page 1 of 23
+Contents
+1
+Introduction
+2
+2
+First insights
+2
+2.1
+High Earth orbit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+2.2
+Lunar orbit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+2.3
+Solar system escape
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+2.4
+Solar impact
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2.5
+Lunar soft landing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2.6
+Heliocentric orbit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+2.7
+Comparison of destinations
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+3
+Modeling the disposal of the residuals in space
+6
+3.1
+General assumptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+3.2
+Abandoning Earth . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+3.2.1
+Probability of disaster . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+3.2.2
+Consequences of a disaster . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+3.3
+Putting the rocket in a stable orbit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9
+3.3.1
+Aiming at the Lagrangian points . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9
+3.3.2
+Modeling the chances of collisions with Trojans . . . . . . . . . . . . . . . . . . . . .
+11
+3.3.3
+Aiming at the asteroid belt . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12
+3.3.4
+Modeling the chances of collisions with asteroids in the asteroid belt . . . . . . . . .
+12
+3.3.5
+Comparing models . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14
+4
+Strengths and weaknesses
+15
+5
+Conclusions
+16
+6
+Future Work
+17
+
+Team 412
+Page 2 of 23
+7
+Appendix
+19
+1
+Introduction
+Since the construction of the ﬁrst nuclear plant the disposal of high level nuclear waste (HLW) generated
+by nuclear ﬁssion has been an important problem. Nowadays the current production rate of HLW is of
+27 tons per nuclear plant and year. According to [1] the international consensus about disposal of HLW
+is geological disposal. In other words burying the radioactive wastes deeply underground. However, this
+disposal methods encounters a variety of inconveniences. Two of this are represented by security and
+social and political acceptance. Yucca Mountain and the Waste Isolation Pilot Plant have demonstrated
+that researchers cannot guarantee completely environmental isolation for the thousands of years needed
+until these wastes cease to be a threat and the well known ”Not in my backyard” syndrome constitutes
+an example of social nonacceptance towards the present dominant method of radioactive waste disposal.
+In this paper we will propose and study a diﬀerent, more deﬁnitive, disposal method; sending the HLW
+into outer space.
+2
+First insights
+After a brief research, we have encountered in [2] six diﬀerent destinations in outer space to be considered.
+We will compare this destinations mainly considering the energetic costs necessary in order to reach them
+(which will be represented by the values of speed variations that would be necessarily made) and, more
+importantly, the safety problems that reaching each destination could carry. It will also be considered as
+a slight advantage the possibility of recovering these residuals in case we ﬁnd a way to use them.
+2.1
+High Earth orbit
+The ﬁrst option would be to keep the HLW in the terrestrial orbit. The main advantage of this method is
+its low expense (according to NASA studies it would require a variation in speed of only around 4 km/s
+when you are above the Shuttle orbit, at 297 km from Earth surface). Another small advantage consists
+in the relatively easy retrieval of the HLW in a later time if we were to ﬁnd a way to productively use this
+wastes.
+On the other hand, this location supposes a great danger. In fact, a periodic storage of nuclear waste in
+Earth’s orbit would greatly increase the transit in the already cluttered Earth orbital space which would
+diﬃcult later space expeditions. More importantly, plutonium and other radioactive wastes that we would
+like to get rid of are not deemed to be considered safe again until 250 000 years [2] have passed. Since
+it is highly unlikely that a waste canister can be constructed that will last for the required 250 000 years
+this option supposes a great danger for humanity. The canisters will probably erode with time under the
+inﬂuence of internal radiation as well as space encountered radiation, and the solar wind could drive the
+small particles back into the Earth’s atmosphere contaminating it. Due to this fact, we considered this
+option a non desirable one.
+
+Team 412
+Page 3 of 23
+2.2
+Lunar orbit
+This option demands a higher energetic cost than the later. It supposes, in fact, a speed variation of 4250
+m/s above Shutter orbit in order to reach a circular lunar orbit of radius 21700 km. The transportation
+time would be higher that that of the previous option (6 days compared to the 18 hours) but it still
+wouldn’t be very high (which implies lesser chances of accidents). A high improvement of this option
+from the later would be that once reached the lunar orbit, even if the canisters were to malfunction due
+to prolonged radiation exposure the radioactive, particles able to escape would mostly remain in Moon’s
+orbit.
+Furthermore, due to higher distances, the few particles that would escape Moon’s orbit would
+disperse leaving only a very small portion reaching the Earth. This could seem a small problem concern
+at ﬁrst. However, considering the huge amounts of HLW that we are planning to store, this small portion
+could represent an excessively large quantity. Another counterpart is that this option (as every option
+involving leaving Earth orbit) implies, as explained in [2], the need of a non perfect waste-retrieval plan
+to be executed in case of failure on the transportation process.
+2.3
+Solar system escape
+This option presents the advantage that the disposal of the waste would be deﬁnitive with no chance of
+going back to Earth. Furthermore, the transportation method would be relatively simple implying a single
+burn of the propulsion system. This fact would allow us to operate with easily reusable ground based
+propulsion systems such as electromagnetic launchers, mass drivers, gas guns and laser propulsion which,
+even if they are currently not very eﬃcient due to the high development and construction costs, would
+in the long term and after more investigation probably turn out to be proven cheaper. Unfortunately we
+cannot ignore the current ineﬃciency of this methods so we cannot consider this later argument as an
+advantage. A counterpart to this method is the huge energy cost that it implies. In fact, we can use a
+simpliﬁed model where the only relevant gravitational ﬁelds at the earth surface are the ones from the
+earth and from the sun. The condition that the system must have is that the total energy must be zero,
+since we want to put that body at the inﬁnite and still.
+1
+2v2
+e = GMS
+IAU + GMT
+RT
+⇔ve =
+s
+2G
+MS
+AU + MT
+RT
+
+≈43591m
+s
+(1)
+where G = 6.67 · 10−11 Nm2
+kg2 is the universal gravitational constant MS = 1.99 · 1030 kg is the Sun’s mass
+and IAU = 1.50 · 1011 is the international astronomical unit.1 If given that any object in Earth has a
+mean orbital velocity of vmean = 29780 km/s we will need to give our satellite a speed variation of
+∆v = ve −vmean = 13811m/s
+(2)
+According to calculations made in [4] this needed velocity variation can be reduced to 7010 m/s using
+Jupiter swing-by to escape the solar system. Either way the needed velocity variation is much higher that
+the one needed for the methods exposed up until now so we will consider this option as unpractical until
+there have been improvements in ground based propulsion systems.
+1This and other planetary constants have been extracted from [3].
+
+Team 412
+Page 4 of 23
+2.4
+Solar impact
+Despite the fact that this option seems the best one in a ﬁrst approach, taking the rocket to the sun is
+not an eﬃcient option. The main reason is that it is need to decelerate the rocket into a lower speed in
+order to go to the sun. Firstly, it is possible to fully decelerate the rocket and then it would do a Sun dive.
+However, this option requires a speed variation equal to the orbital velocity of the Earth vT = 30.03km/s.
+On the other side, there is a more eﬃcient method, describing an elliptical orbit with a perihelion at the
+Solar surface and an aphelion at the Earth surface. The speed increase of that path is given by the energy
+equation (3) and the semi-major axis for that speciﬁc orbit 4, where the sun radius is Rs = 6.957 · 108 m:
+E/m = −GM
+UA + 1/2v2 = −GM
+2a
+(3)
+a = UA + Rs
+2
+(4)
+Rearranging both equations and keeping in mind that the velocity in the equation is the orbital velocity
+plus the speed increase that we need to calculate, we get to the ﬁnal equation:
+∆v =
+s
+2GM
+
+1
+2UA −
+1
+Rs + UA
+
+−vT
+(5)
+Introducing the values we get that it is need an spread orbit of ∆v=−27.164 km/s. The negative tells us
+that we need to decelerate in order to get into the sun. Both results require a high speed increase, that’s
+why a solar impact it’s not the most eﬃcient idea. Furthermore, a solar impact is a non-return action, so
+the waste would never return to Earth in the hypothetical case that we found a way to use it.
+2.5
+Lunar soft landing
+The process followed in order to safely land the HLW very much resembles the one followed to in orbit
+around the moon. However, it supposes higher energetic cost since it is necessary to decrease the Orbit
+Transfer Vehicle (OTV) speed in order to safely land on the Moon. It is also needed to avoid the dispersion
+on the Moon surface of the nuclear waste which would diﬃcult the explorations of the Moon surface.
+Moreover, the building of such an OTV would increase the expedition economical expense. Despite its
+higher energetic cost respect the moon orbiting option, the energetic cost presented by landing the HLW
+on the Moon surface would, according to [2], be lower that that Solar system escape and solar impact
+options.
+A discrete advantage presented by this option is that the HLW would be reachable and could be extracted
+in case we should ﬁnd a way to make it useful in the future.
+Another advantage is that, even if the
+canisters should be rendered useless due to prolonged radiation exposure the wastes would not contaminate
+the Earth since they would remain in the Moon surface due to gravity attraction.
+In fact the only
+way that the radioactive waste should return to Earth without active human intervention would be as a
+Moon meteorite which, even if deemed improbable (there are only 118 registered moon meteorites) it still
+represents a possibility which should be considered. Another disadvantage of this option is that using the
+Moon to store all our nuclear waste would diﬃcult the Moon’s surface exploration which could be somehow
+attenuated placing the nuclear residuals in a place of low exploration interest.
+
+Team 412
+Page 5 of 23
+2.6
+Heliocentric orbit
+This last option represents, like the Solar system escape and the Solar impact options, a deﬁnitive way
+to dispose of the nuclear waste. Compared with the lunar soft landing option, the possibility of retrieval
+of the nuclear waste in this option is harder due to the greater distances involved. Despite this moderate
+disadvantage this option presents many positive facts. The ﬁrst is that the even if diﬃcult, the retrieval
+is not impossible given that the waste would remain in a known stable orbit inside the solar system. An
+advantage worth of notice of this option consists in the fact that, in this kind of expeditions, escape from
+Earth would occur within the ﬁrst 1700 s according to [2]. Besides, if a failure occurred after this brief
+period and before reaching the new orbit, the nuclear canister would remain in a heliocentric orbit that
+would have a probability of re-encountering Earth within 250 000 years (the period of time during with
+the nuclear waste would be dangerous) of only 0.1%. Flying one recovery mission would reduce further
+this low probability making it irrelevant. The only factor that could really be considered a disadvantage
+for this option is the high energetic expense required to send the wastes at a far enough distance from
+Earth to make the HLW take a heliocentric orbit, completely separated from that of Earth. This high
+cost is however lower than the one necessary to achieve Solar impact or Solar system escape and could be
+further diminished using planetary assisted ﬂights.
+2.7
+Comparison of destinations
+From the the advantages and disadvantages exposed above we have reached the conclusion that the op-
+timal destination for our nuclear wastes is an heliocentric orbit. That is why it has the important ad-
+vantage of being a deﬁnitive disposal method of nuclear waste with a low possibility of waste going back
+to Earth.
+Moreover, is the cheapest and the safest way from the ones studied.
+The lunar soft land-
+ing option almost reaches this parameter, but building an OTV able to soft landing Moon requires a
+higher economical expense.
+Furthermore, the risk of meteorites impacting the Moon and sending the
+nuclear waste back to Earth as nuclear meteorite is also higher than the probability to bring the waste
+back from a diﬀerent heliocentric orbit.
+The only doubt remains in deciding which heliocentric orbit
+should be used to store the HLW. The criterion to use is the stability.
+It is obvious observing ﬁgure
+1 that the most stables orbits of the inner solar system are the ones represented by the asteroid belt
+and the orbits of the Lagrange points of Jupiter.
+The proof is simple, there are plenty of asteroids
+there.
+In our model we will study the stability of this orbit and methods used to reach this orbits.
+Figure 1: Inner Solar system.
+
+Team 412
+Page 6 of 23
+3
+Modeling the disposal of the residuals in space
+3.1
+General assumptions
+In this section we will discuss the main assumptions that we will consider when modeling the motion of a
+rocket:
+• We will use Newton’s law of universal gravitation to describe the interaction of the planets with the
+rocket.
+• The motion will be planar: we neglect the possible variations in the axis perpendicular to the ecliptic.
+• The Sun will be in a ﬁxed position and the planets will go around the Sun in a circular orbit. This
+assumption is justiﬁed due to the fact that the eccentricity of the orbits of the planets considered in
+the model is really low.
+• We will not consider the gravitational ﬁeld of Mercury, Venus, Saturn, Uranus and Neptune.
+• When we kick the rocket, we can give an instantaneous increase of speed (we neglect the acceleration
+time with respect to the time scale of the problem).
+3.2
+Abandoning Earth
+The biggest dangers of space travel are concentrated in the moments of leaving and coming back to Earth.
+It is therefore important to consider the problems involved in exiting our planet and which is the probability
+of an uncontrolled incident happening.
+3.2.1
+Probability of disaster
+In this section we will compute through a simple model the probability of collision with a debri (space
+junk orbiting the earth at low earth orbit). Since any object abandoning Earth needs to deal with debris
+surrounding Earth this is a problem worth considering. The number of debris is constantly increasing, and
+in future time will become a big problem (see [5]). In our model we will consider a uniform distribution
+of debris in the lower earth orbit. We will also assume that the rocket will be traveling through the lower
+earth orbit at constant speed and through a radial line, and that the debris are orbiting at a constant an
+equal speed. Although this assumptions are not completely realistic, as we are doing a stochastic model
+we can just use the average values.
+To compute the probability of collision, we are going to consider the problem from the reference system of
+a debri. On this system, the debri is still and it will see the rocket moving in a non-radial path. That is, if
+the debri have velocity⃗vdebri, it will see the rocket moving at velocity⃗vrocket −⃗vdebri, being⃗vrocket the ve-
+locity of the rocket in the Earth reference system. That is what we see in ﬁgure 2, where θ = arctan vdebri
+vrocket .2
+Of course, the rocket has a cross-sectional area that will provide the possibility of colliding with a debri.
+As the rocket is much bigger, we will assume the debris to be point-sized. As the rocket has a cross section
+and travels through the low earth orbit, its path will have an eﬀective volume, being it the length of the
+2We write v to express the norm of⃗v
+
+Team 412
+Page 7 of 23
+Figure 2: Path of the rocket from a debri reference system.
+path times the area of the cross-section. Now, the probability that it collides with a certain debri is the
+probability of the debri being in the eﬀective volume of the path. Using basic trigonometry, one can easily
+work out the length of the path, being it (Rmax−Rmin)/ sin θ. This means that the probability of colliding
+with a certain debri is:
+p = σ(Rmax −Rmin)/ sin (θ)
+4π
+3 (R3max −R3
+min)
+(6)
+being σ the cross section of the rocket. Finally, the probability of colliding with n debris can be easily
+computed as
+ptotal = 1 −(1 −p)n
+(7)
+where n is the number of debris. Using the values found in [5] and average speed of rockets at the lower
+Earth orbits, one obtains
+ptotal ≈2.02 · 10−7
+(8)
+we have set Rmax ∼2000 km, Rmin ∼300 km, n ∼1.4 · 104, σ ∼π82 m2, vdebri ∼8 km
+s
+and vrocket ∼8 km
+s .
+This result means that the collision probability is currently extremely low and there is no actual danger.
+However, our model is slightly optimistic, as it considers the debris point-sized. Moreover, we should
+evaluate our model in the launching time, as the number of debris is constantly increasing.
+Furthermore, we must consider the fact that there are launching failures can happen. Using the database
+from 1994 into 2014 showed in [6], we estimate that the probability of a launch failure is 0.79%. This is
+not a low probability, so before implementing the waste extraterrestrial disposal it is necessary to reduce
+the launch failure.
+3.2.2
+Consequences of a disaster
+It is very important to take care of the radioactive residual storage. In case of collision. It is extremely
+important to have a container with a high melting point, so that the nuclear waste does not get scattered
+
+Team 412
+Page 8 of 23
+over the Earth surface. Here we have an illustrative example of what happens when there is a collision
+with a debris and all nuclear waste gets scattered:
+We can imagine our rocket colliding at a height h against a debri and exploding as a result.
+Aiming a simple approximation to the real solution, we can separate the total amount of particles in
+two groups. The ﬁrst one we will continue having a high velocity and we will consider that they will leave
+the Earth and forget about them. For the second group we will optimistically consider that will have its
+up momentum compensated by the explosion force being therefore left with a 0 radial speed but thrown
+like a Gaussian distribution (9) in every other direction. We know that the second group must be much
+lower in number than the ﬁrst one due to the linear moment conservation. However, that smaller amount
+will still be signiﬁcantly dangerous for the earth-livings. In real life, this division is not continuous, but
+for the approximation that we look for is perfect.
+Therefore, we will look for a measure of the dispersion of that second group over the Earth Surface. Let
+us consider the x Cartesian coordinates of the velocity, being the z coordinate the height. The distribution
+of velocities will be the following:
+ρ(vx) =
+1
+σ
+√
+2π e−
+v2
+x
+2σ2
+(9)
+The explosion shock wave that will push all particles in every direction is just a pressure wave, just as
+the sound waves (see [7]). For this reason, the shock wave will push the particles at the speed of sound
+vs = 342.3m/s. Therefore, the estimated value for average vx is 0.That means that 68.27% of the parti-
+cles will have a speed ∈[−σ, σ] If we choose σ = 300m/s we get that 68.27% of particles have a speed
+∈[−300, 300]m/s, so with this sigma we cover all the range of velocity and we will have a complete dis-
+persion.
+For the remaining particles in the Earth, ⟨v⟩= 0, we get that the average time to get from the height of
+the particles ⟨h⟩to the Earth surface is ⟨tf⟩=
+q
+2⟨h⟩
+g , where we have estimated that gravity is constant
+at this height, a reasonable approximation because the actual value of the gravity in the low earth orbit
+is ≈7.5m/s2. Assuming there is no wind that changes our earth-particles speed, we change the density
+probability for a lateral dispersion density (x coordinates of the particles) using x = vxt, where
+ρ(x) = ρ
+
+vx = x
+t
+ dvx
+dx =
+1
+tσ
+√
+2π e−
+x2
+2σ2t
+(10)
+The dispersion approximation gives us a new dispersion for a given time
+σx = σt = σ
+s
+2⟨h⟩
+g
+(11)
+According to [5], the average height of the low earth orbit is ⟨h⟩= 1150km, so the estimated dispersion at
+the earth surface is
+σx ≈145km
+As a ﬁrst approximation, this estimation gives as the idea that a rocket collision with the debris at a
+1150 km, will scatter more than 95.57 percent of the remaining radioactive particles over a surface of
+Sdispersion = π(2σ)2 ≈264000km2, which approximately the area of Colorado.
+The aﬀected area by
+95.45% will become our Figure of merit. We take all the particles in the 2σ interval, because we consider
+
+Team 412
+Page 9 of 23
+that particles that have more speed than the 95.45% of them are negligible.
+However, we have not considered the eﬀects of wind and radioactive ashes that would spread even more
+the radioactive particles.
+As we have explained before, the probability of a launch failure is 0.79%, we can also make the same wild
+guess as before and obtain the aﬀected area in case of launch disaster. As the process is the same, we can
+use the equation 11. A good example of a launch disaster is Space shuttle Challenger disaster from 1986,
+that exploded at an altitude of 15 km. Using this altitude as the average altitude of disaster, it is obtained
+that the surface of dispersion the 95.57% of radioactive particles from a launch disaster is
+Sdispersion ≈346.16km2
+To sum up, we have two possible accident causes, one less probable but more lethal, and the other more
+possible but less dangerous and still fatal. Both must be taken in care, but we can make a wild guess to
+know which is the most dangerous. The ﬁgure of merit to determine which one is the most dangerous that
+we have taken is eﬀective area destructed per launch (Seff). This magnitude is described by
+Seff = Probabilitydisaster · Sdispersion
+(12)
+Applying the values of each possible accident cause, we get that the eﬀective areas are Slaunch = 2.7347km2
+ans Sdebris = 0.0533km2. This magnitudes gives as the theoretical area that it is sprayed by 95.45% of
+the radioactive particles in each rocket launch. As a result, we can see that as a ﬁrst approximation, the
+launch disaster is 51.28 times worse than the debris collision. However, both disasters would be lethal and
+devastating.
+3.3
+Putting the rocket in a stable orbit
+3.3.1
+Aiming at the Lagrangian points
+In this section, we will develop and implement a model to put the rocket carrying the nuclear waste in a very
+stable orbit. The main focus will be on putting the rocket on a Lagrangian point of the Jupiter-Sun system.
+First of all let us talk about what is a Lagrangian point. The Lagrangian points are the critical points of a
+star-planet dynamical system. Although the Lagrangian points are unstable critical points, as seen in [8],
+the fact that they are moving in a non-inertial reference frame makes some of them stable. Actually the
+L4 and L5 Lagrangian points are eﬀectively stable when considering that they are a non-inertial system.
+As explained in [8], when a point in L4 starts moving away from equilibrium, the Coriolis force takes it
+back to L4. This is the reason of the existence of Trojans [9], being objects orbiting the L4 and L5 points,
+which are in the asteroid belt. One can see the geometry of the problem in ﬁgure 3.
+Our aim will be to put the rocket on a Lagrangian point, as other locations are not safe due to the fact
+that the N-body problem is chaotic. The point is that this is the most stable that we can aim from a
+physical viewpoint. L4 and L5 guarantee equilibrium if we just consider the sun and Jupiter, and not all
+the planets. However, every other planet ﬁeld will just add a correction to the path that will be negligible.
+
+Team 412
+Page 10 of 23
+Figure 3: Critical points of the earth-sun dynamical system.
+In this model we will assume that Jupiter is orbiting around the sun in a circular path. This is well
+justiﬁed, as the eccentricity of Jupiter is almost 0 (it is 0.048498). We will also consider the Earth going in
+a circular orbit, is also well justiﬁed (Earth’s eccentricity is 0.0167). The gravitational bodies that aﬀect
+the path of the rocket will be Jupiter, the Earth and the Sun. Our model will assume planar motion of
+all the bodies.
+The most eﬃcient way to kick a rocket is tangential to its velocity. All other kicks will be less energetically
+eﬃcient. In rocket science, this kind of techniques are known as Hoﬀman’s maneuvers.
+We will divide our problem in a two-step kick of the rocket. First of all, we will kick it to go out from
+Earth and approaching Jupiter. Both in this and the following methods, our initial conditions will be at
+a distance of 10000 from the center of the Earth. Secondly, when we are close to Jupiter’s orbit, we will
+push the satellite to obtain the same speed as Jupiter. In order to do this, we will integrate the motion
+equations of the rocket and impose that after the second kick it will be moving on L4 in the sun reference
+frame. Now, let us consider the geometric situation shown in ﬁgure 4.
+Figure 4: Geometric situation.
+
+Team 412
+Page 11 of 23
+Without loss of generality, we can assume the Earth to be in the position (−AU, 0), where AU is the
+distance from Earth to Sun (astronomic unit). We launch the rocket with a speed (0, v1), being v1 < 0
+such that it intersects tangentially the path of Jupiter at the position⃗r0 = (5.2AU, 0) (the radius of Jupiter
+path is 5.2AU). The initial angle of Jupiter and the x axis must be θ such that when the rocket is in
+position⃗r0, Jupiter is in the following position:⃗
+r =
+ cos(π/3)
+sin(π/3)
+−sin(π/3)
+cos(π/3)
+ 5.2AU
+0
+
+This is due to the fact the L4 point is at an angle of 60 degrees of the Jupiter. Theoretically, L4 is not
+in the path of Jupiter, as by deﬁnition the triangle between the Sun, L4 and Jupiter is equilateral. If we
+assume a circular orbit of Jupiter, L4 gets to its path.
+At that moment, we will do a second push of velocity (0, v2) such that the ﬁnal velocity is the one that
+Jupiter would have at⃗r0.
+Using this conditions, we have that setting v1 = −12.4 km
+s , v2 = 5.6 km
+s , θ = −145.15◦, we can get to the L4
+point.3 Actually, this strategy is much more energy consuming than throwing it out of the solar system.
+However, this strategy provides a possibility to recover the residuals in case of loss. The path of the rocket
+in the following 1000 years is shown in ﬁgure 5. The motion equations have been integrated using a rkf45
+numerical method. This method provides the necessary precision to obtain a realistic simulation.
+Figure 5: Green:Path of Jupiter. Blue: Path of the Earth. Red: Path of the rocket. The sun is in the
+origin and the units are meters
+3.3.2
+Modeling the chances of collisions with Trojans
+In this section, we will develop a model to compute the probabilities of collisions with Trojans once we
+have set our rocket in L4. This has to be considered, as a collision could set the rocket out of L4 and
+a chaotic motion could bring it to the Earth. To develop this model, we will consider libration (see [10]
+and [11]), which is the process of angular oscillations of the Trojans of Jupiter. That is, the angle between
+Jupiter and a certain Trojan is not constant as time evolves. As [11] claims, the oscillations have an
+3This parametrization of θ is equivalent to saying that the angle between the Earth and Jupiter is 35◦and that the Earth
+path is currently following Jupiter’s. It is not hard to ﬁnd a position in the following years where this is satisﬁed.
+
+Team 412
+Page 12 of 23
+average period around 150 years. We will consider the problem from the rocket reference frame. Let us
+put our three-dimensional axes such that x is parallel to the speed of the rocket. As the period of the
+oscillations of every Trojan is about T = 150 years, every Trojan will cross the x = 0 plane about one
+time every T/2 years.4 After a time t, the number of Trojans that will have crossed the x = 0 plane will
+be, on average, about 2nt
+T , where n is the number of Jupiter Trojans.
+The probability of a collision when a Trojan crosses the x = 0 plane will be proportional to the cross-
+section of the Trojan and inversely proportional to the total area of the Trojan orbits. This assumption
+is justiﬁed due to the fact that the area of a Trojan is much bigger than the area of the rocket, so we can
+consider the rocket punctual. For this reason, the probability of a collision after a time t is given by:
+P(t) = 2nt
+T
+σ
+TotalArea
+(13)
+where σ is the average cross-section of a Trojan. If we compute this probability with t ∼2.5 · 105 years,
+which is enough time for the Plutonium-239 to decay at its most. Using the data provided by [12], we set
+σ ∼1km2, TotalArea∼0.252AU2, n ∼106, and T ∼150, our probability becomes P ∼2.4 · 10−6. As this
+probability is really low, one can assume that a collision is not likely to happen and the L4 and L5 points
+are safe points to aim.
+3.3.3
+Aiming at the asteroid belt
+In this section we analyze how a to put a rocket that carries the residuals in the asteroid belt. We will
+use the same assumptions that in the other model, but we will consider the ﬁeld of Mars at the rocket
+position, as Mars’ distance to the asteroid belt is low enough. The reason to put it in the asteroid belt
+is due to the fact that some regions of the asteroid belt are very stable regions. As seen in 6, the regions
+with higher density of asteroids are the ones which are more stable. On the other hand, the Kirkwood
+gaps are highly unstable regions.
+Again, our aim is to put our rocket in the asteroid belt with a two-step acceleration using the Hoﬀman
+maneuver, but now we need to get a semi-major axis in the proper range, considering 6. In this case, we
+achieve it using an initial speed of 41km/s. Of course, as the Earth speed from the sun frame reference is
+already 29.8km/s, we only need to give 11.22km/s to the rocket, if we throw tangentially. At the second
+acceleration, we need to use a propulsion of 2km/s. Using this accelerations one can aim the asteroid belt,
+and the motion of the bodies are shown in ﬁgure 7. Finally, we can compute the semi-major axis, and the
+result is 2.25 AU. As shown in ﬁgure 6, it is a considerably stable zone.
+3.3.4
+Modeling the chances of collisions with asteroids in the asteroid belt
+After putting the rocket in the asteroid belt, we must analyze the safety of that path. As an assumption,
+we will only take as relevant the collisions with objects of more than 10 km of radius, which are the only
+ones that are able to give the rocket such a linear moment that it changes its path dramatically, starting
+a chaotic motion. According to [13], there is a collision of a 10 km radius approximately once every 107
+4In a T period, it turns around doing a ”lap” and actually crosses the x = 0 plane two times. For this reason, it crosses
+one time every T years.
+
+Team 412
+Page 13 of 23
+Figure 6: Source: Wikipedia commons
+years, and the numbers of objects with that radius is 104.
+As this is the only data that we have, we will do a modeling trick to obtain the probability of the collision
+of the rocket with an asteroid. Let m = 104 be the total amount of asteroids. We know that a collision
+takes place every t = 107 years. That is, the average time that we have to wait for a collision taking place
+is t. Now let us consider the rocket-asteroids system. We will compute which is the average time that we
+have to wait for a collision taking place with the rocket.
+Let us assume that a collision takes place between two bodies of the system. There are an amount of
+m(m + 1)/2 possible pairs of bodies.5 Moreover, there m of them involve the rocket. For this reason, the
+probability of this collision involving the rocket is
+m
+m(m+1)/2 =
+2
+m+1 ≈2
+m. From this we conclude that the
+average time that we have to wait for a collision taking place with the rocket is tm
+2 .
+We can model the probability distribution of the collisions of the rocket through time with an exponen-
+tial distribution. This assumption is very natural, as the probabilities of collisions during disjoint time
+intervals are independent. Moreover, one has that the probability distribution will be continuous. With
+this two hypothesis, one can prove mathematically that the probability distribution will be an exponential
+distance. If we use an exponential model of parameter λ, we have that its expected value is 1
+λ.
+Let us join the derivations worked out in the last paragraphs: the expectation value of an exponential
+distribution is 1
+λ, which is the same as tm
+2 (this is the average time that we have to wait for the rocket to
+collide!). We can therefore compute λ =
+2
+tm ≈5 · 1011, which units are year−1. Now, we will compute the
+probability that the rocket collides with one of the asteroids in the lifetime of the radioactive particles. As
+in the other sections, we will set the particles extinguished when T = 2.5 · 105 years. As the probability
+5The system has m + 1 bodies, as the rocket is one of them. However, this is not important, as m ≈m + 1 ≈104.
+
+Team 412
+Page 14 of 23
+Figure 7: Green: Path of Jupiter. Blue: Path of the Earth. Yellow: Path of Mars. Red: Path of the
+rocket. The sun is in the origin and the units are meters.
+distribution is exponential, one has the probability of having collided at time T is
+P(T) = 1 −e−λT = 1 −e−2
+tm T
+(14)
+Giving values to our parameters, we have P(2.5 · 106) = 1 −e−5·10−6 ≈5 · 10−6. Again, the probability is
+of the order of 10−6. For this reason, we can conclude that the orbit is actually safe.
+3.3.5
+Comparing models
+All the models made before have some pros and cons. We will compare them taking the increase of velocity
+that we must give to the rocket as the ﬁgure of merit. Therefore, we provide a comparison of the methods
+considering diﬀerent aims:
+Objective
+First increase (m/s)
+Second increase (m/s)
+Total increase (m/s)
+Restore
+Out Solar System
+13811
+0
+13811
+×
+L4 L5
+12400
+5600
+17000
+✓
+Asteroid belt
+11220
+2000
+13220
+✓
+Table 1: Comparison of the diﬀerent methods. Restore means the possibility of recovering the rocket from
+its orbit in a future time.
+
+Team 412
+Page 15 of 23
+4
+Strengths and weaknesses
+The strengths of our models are the following:
+• Our models are mass independent, which simplify the models extensively, being the assumptions
+realistic enough.
+• We take into account a large variety of methods of extraterrestrial waste disposal and select the most
+reasonable one (sending the nuclear waste to an heliocentric orbit) from within them.
+• Our models have the discrete advantage, with respect to the naive strategy of throwing the residuals
+away from our galaxy, that there exists the possibility (even if narrow) of waste retrieval.
+This
+advantage would become a major one if it was to be found a method to recycle the nuclear waste.
+• We use the Hoﬀman maneuver in order to obtain an optimal usage of our energy.
+• We consider and model many problems that could happen in the disposal of the residuals, comparing
+the danger of them by using an appropriate ﬁgures of merit.
+The weaknesses of our models are the following:
+• The motion of the celestial bodies is assumed to be circular. More realistic simulations could be
+carried away solving the diﬀerential equations of motion for all the bodies and not just for the
+rocket.
+• The energies that we need to supply to our rocket are of the same order of magnitude as the ones
+that we need to give in order to escape the solar system, so our method does not show a signiﬁcant
+improvement in energy expense with respect to the naive strategy. We could probably improve this
+fact by performing gravity assistance maneuver.
+
+Team 412
+Page 16 of 23
+5
+Conclusions
+The studies made on safety and energy costs for sending nuclear waste have shown us that the best possible
+option is that of sending the wastes on an heliocentric orbit. Energetically is the optimal one and it is in
+a safe storage location (unlike a High Earth orbit or a Lunar orbit).
+Another remarkable conclusion is that it is very important to make sure that the waste would be able
+to abandon safely Earth’s orbit since an uncontrolled crash in this zone would be fatal. It would be rec-
+ommendable, even if economically disadvantageous, to plan waste recovery maneuvers for such situations.
+Moreover, we could simulate a crash with mock cargo to prove their eﬃciency and reassure the public
+opinion regarding the dangers of extraterrestrial disposal of nuclear waste.
+Our main conclusion is that the most desirable of the two possible heliocentric orbits is the asteroid belt
+orbit, due to energetic reasons.
+An important result that we have run into is that the probability of
+accident for the nuclear waste deposited on the asteroid belt is so low as to be considered negligible.
+Moreover, aiming to the Sun with a naive strategy requires really high energies. For this reason, if we
+want to send it to the Sun we should follow non-trivial strategies.
+Finally, it is desirable to comment that one advantage of extraterrestrial nuclear disposal (apart from the
+obvious one of getting rid of highly contaminating waste) is that such a program would promote founding
+and investigation in space research techniques reactivating an area of science that has seen a drastic re-
+duction on its advancing rate since the conclusion of the cold war.
+
+Team 412
+Page 17 of 23
+6
+Future Work
+It would be interesting in order to make a more complete model to add and improve the following points
+in future work
+Gravity assisted maneuvers: Planning to take advantage of the gravity ﬁeld of celestial bodies is a
+common practice in space travel. This method could help us to place the radioactive waste on the
+asteroid belt with a much lower fuel expense. On the other hand, this maneuver could suppose a
+restriction on the day we could extract radioactive waste from Earth since it would be necessary to
+wait for the celestial bodies used for the gravity assisted maneuver to be on the necessary location
+at the moment of launching. This would suppose a slower disposal of the radioactive material or a
+larger fuel expense.
+Orbit Transfer Vehicle (OTV) construction: In order to maximize the amount of nuclear waste ex-
+tracted from Earth with each rocket launch, it would be necessary to build OTV with great capacity
+and high resistance to radiation. Since it would suppose a periodical necessary expense and it would
+be very diﬃcult to retrieve the OTV used once it reached the asteroid belt, it would be wise to
+investigate a method to produce relatively large amounts of identical OTV. It would be interesting
+in this regard to conduct further investigations on reliability of ground based propulsion methods.
+Radioactive waste collection: It would be interesting to conduct plans to recollect the radioactive
+material storage in stable orbits.
+Further improvement of security systems: During our paper we have studied the disasters that
+would follow a malfunctioning of the OTV extracting the radioactive waste from Earth. It is neces-
+sary to be absolutely certain that no such malfunctioning would occur and have a contingency plan
+in case it happened to occur anyway.
+Further alternate extraterrestrial disposal methods: It would be interesting to make further in-
+vestigations on the variety of extraterrestrial disposal methods such as Lunar hard landing and
+heliocentric orbiting with a radius of 0.86UMA as proposed in [2].
+Simulation improvement: In order for the made simulations to be actually useful on the planning of
+space trips, it would be necessary to make a more complete model. At those scales, it still wouldn’t
+be necessary add more planets nor relativistic eﬀects. However, the model should include progressive
+accelerations.
+Market investigation: It would be an interesting thing to compute how much would suppose to send the
+radioactive waste to space. It should be compared to the currently dominant politic of underground
+burial of such wastes. It would also be important to consider how such a project would aﬀect the
+investigation ﬁeld of space traveling and what beneﬁts could this bring.
+
+Team 412
+Page 18 of 23
+References
+[1] “World Nuclear Association radioactive waste management.” http://www.world-nuclear.org/
+information-library/nuclear-fuel-cycle/nuclear-wastes/radioactive-waste-management.
+aspx. Accessed: 2016-11-12.
+[2] W. E. G. R. E. Burns, W. E. Causey and R. W. Nelson, “Nuclear waste disposal in space,” Technical
+Paper 1225, NASA, may 1987.
+[3] D. D. R. Williams, “Planetary fact sheet,” fact sheet, NASA, november 2015.
+[4] J. R. R. R. L. Thompson and S. M. Stevenson, “Study of extraterrestrial disposal of radioactive
+wastes,” Technical Memorandum X-71557, NASA, Cleveland, Ohio 44135, may 1974.
+[5] “David Wright presentation on the current debris situation.” https://swfound.org/media/99971/
+wright-space-debris_situation.pdf. Accessed: 2016-11-12.
+[6] “Space launch report, all-time launcher results summary.” http://www.spacelaunchreport.com/
+logsum.html. Accessed: 2016-11-13.
+[7] “Wikipedia’s
+eﬀects
+of
+nuclear
+explosions.”
+https://en.wikipedia.org/wiki/Effects_of_
+nuclear_explosions. Accessed: 2016-11-12.
+[8] T. Greenspan, “Stability of the lagrange points, L4 and L5,” Accessed: 2016-11-12.
+[9] S. B. Nicholson, “The Trojan Asteroids,” Leaﬂet of the Astronomical Society of the Paciﬁc, vol. 8,
+p. 239, 1961. Provided by the SAO/NASA Astrophysics Data System.
+[10] S. C. Levison H., Shoemaker E., “Dynamical Evolution of Jupiter’s Trojan Asteroids,” Nat, 385, 42,
+1997.
+[11] G. F. Robutel P., “The resonant structure of Jupiter’s Trojan asteroids – I. Long-term stability and
+diﬀusion,” Mon. Not. R. Astron. Soc. 372, 1463–1482 (2006), 2006.
+[12] F. Yoshida and T. Nakamura, “Size Distribution of Faint Jovian L4 Trojan Asteroids,” The Astro-
+nomical Journal. 130 (6): 2900–11, vol. 130, pp. 2900–2911, Dec. 2005. Provided by the SAO/NASA
+Astrophysics Data System.
+[13] Anonymous, “Backman, D. Eﬂuctuations in the general zodiacal cloud density”.” http://archive.
+is/C8kw. Accessed: 2016-11-13.
+
+Team 412
+Page 19 of 23
+7
+Appendix
+Here we attach the codes in python that have been used to perform numerical methods:
+import math
+import time
+import scipy
+import scipy.interpolate
+from numpy import *
+from scipy.linalg import norm
+from scipy import array as vector
+from matplotlib import pyplot
+%matplotlib inline
+year=365*3600*24
+UA=1.496*10**11
+#Prob of a debri hit
+ndebris=1.4*10**4
+Vcoet=8.*10**3
+Vdebri=8.*10**3
+Rmax=2000.*1000
+Rmin=300.*1000
+CrossSect=pi*8.*8.
+Prob1debri=CrossSect*(Rmax-Rmin)/sin(arctan(Vcoet/Vdebri))/(4*pi/3*(Rmax**3-Rmin**3))
+print Prob1debri
+Probtotal=1-(1-Prob1debri)**ndebris
+print Probtotal
+DistJUP=5.2*UA
+Rsol=6.96*10**8
+G=6.67*10**(-11)
+Msol=2*10**(30)
+Vterrasol=30*10**3
+Rasteroids=2.7*UA
+MProbe=10**4
+MJupiter=2*10**27
+T=(4331.572*24*3600) #T jupiter
+aJUP=(UA+DistJUP)/2
+VJUP=sqrt(2*G*Msol*(2*aJUP-UA)/(2*aJUP*UA))
+Tmart=686.971*24*3600
+Mmart=6.4*10**23
+Distmart=230*10**9
+def solve(f, t0, tfinal, y0, tol = 1e-7):
+def F(*args):return vector(f(*args))
+t = t0
+hmax = (tfinal - t0) / 128.0
+h = hmax / 4.0
+y = vector(y0)
+# Column vector (nx1).
+out = [(t, list(y))]
+#Cash-Karp parameters
+a = [ 0.0, 0.2, 0.3, 0.6, 1.0, 0.875 ]
+
+Team 412
+Page 20 of 23
+b = [[],
+[0.2],
+[3.0/40.0, 9.0/40.0],
+[0.3, -0.9, 1.2],
+[-11.0/54.0, 2.5, -70.0/27.0, 35.0/27.0],
+[1631.0/55296.0, 175.0/512.0, 575.0/13824.0, 44275.0/110592.0, 253.0/4096.0]]
+c
+= [37.0/378.0, 0.0, 250.0/621.0, 125.0/594.0, 0.0, 512.0/1771.0]
+dc = [c[0]-2825.0/27648.0, c[1]-0.0, c[2]-18575.0/48384.0,
+c[3]-13525.0/55296.0, c[4]-277.00/14336.0, c[5]-0.25]
+while t < tfinal:
+if t + h > tfinal:
+h = tfinal - t
+if t + h <= t:
+raise ValueError(’Singularity in ODE’)
+# Compute k[i] function values.
+k = [None] * 6
+k[0] = F(t, y)
+k[1] = F(t+a[1]*h, y+h*(k[0]*b[1][0]))
+k[2] = F(t+a[2]*h, y+h*(k[0]*b[2][0]+k[1]*b[2][1]))
+k[3] = F(t+a[3]*h, y+h*(k[0]*b[3][0]+k[1]*b[3][1]+k[2]*b[3][2]))
+k[4] = F(t+a[4]*h, y+h*(k[0]*b[4][0]+k[1]*b[4][1]+k[2]*b[4][2]+k[3]*b[4][3]))
+k[5] = F(t+a[5]*h, y+h*(k[0]*b[5][0]+k[1]*b[5][1]+k[2]*b[5][2]+k[3]*b[5][3]+k[4]*b[5][4]))
+# Estimate current error and current maximum error.
+E = norm(h*(k[0]*dc[0]+k[1]*dc[1]+k[2]*dc[2]+k[3]*dc[3]+k[4]*dc[4]+k[5]*dc[5]))
+Emax = tol*max(norm(y), 1.0)
+# Update solution if error is OK.
+if E < Emax:
+t += h
+y += h*(k[0]*c[0]+k[1]*c[1]+k[2]*c[2]+k[3]*c[3]+k[4]*c[4]+k[5]*c[5])
+out += [(t, list(y))]
+# Update step size
+if E > 0.0:
+h = min(hmax, 0.85*h*(Emax/E)**0.2)
+return out
+Vastnova=4.241e+04
+epsilon=-10000
+x0=vector([-UA,epsilon,0,-Vastnova])
+aValue=1/((2/UA)-Vastnova**2/(G*Msol))
+semitemps=sqrt(abs(aValue)**3*4*pi**2/(G*Msol))/2
+print aValue
+theta=-pi/3-2*pi*semitemps/T
+year=24*365*3600
+Mterra=6*10**24
+print DistJUP*2*pi/T
+def campVectorial(t,x): #t=tempsReal/(4331.572*25*3600)
+JupiterPosition=DistJUP*vector([cos(theta+2*pi*t/T),sin(theta+2*pi*t/T)])
+sunField=-G*Msol*vector([x[0],x[1]])/sqrt(x[0]**2+x[1]**2)**3
+JupiterField=-G*MJupiter*vector([x[0]-JupiterPosition[0],
+x[1]-JupiterPosition[1]])/sqrt((x[0]-JupiterPosition[0])**2+(x[1]-JupiterPosition[1])**2)**3
+
+Team 412
+Page 21 of 23
+terraPosition=UA*vector([-cos(2*pi*t/year),-sin(2*pi*t/year)])
+terraField=-G*Mterra*vector([x[0]-terraPosition[0],
+x[1]-terraPosition[1]])/sqrt((x[0]-terraPosition[0])**2+(x[1]-terraPosition[1])**2)**3
+field=sunField+JupiterField+terraField
+if((x[0]-terraPosition[0])**2+(x[1]-terraPosition[1])**2<0): print
+(x[0]-terraPosition[0])**2+(x[1]-terraPosition[1])**2
+return vector([x[2],x[3],field[0],field[1]]);
+#solution=solve(campVectorial,0.0,semitemps,x0,1e-10)
+#Sortint de la terra
+x0=vector([-UA,-10000000,0,-Vastnova])
+semitemps=semitemps/80
+solution=solve(campVectorial,0.0,semitemps,x0,1e-10)
+myspeed=sqrt(solution[len(solution)-1][1][2]**2+solution[len(solution)-1][1][3]**2)
+extraSpeed=DistJUP*2*pi/T-myspeed
+print myspeed
+print DistJUP*2*pi/T
+print ’Extraspeed:’
+print extraSpeed
+print ’theta:’
+print theta*180/pi
+print ’Initial speed’
+print Vastnova
+newicons=vector([solution[len(solution)-1][1][0],solution[len(solution)-1][1][1],
+solution[len(solution)-1][1][2],solution[len(solution)-1][1][3]+extraSpeed])
+newsolution=solve(campVectorial,semitemps,1000*year,newicons,1e-10)
+xcomp=zeros(len(solution))
+ycomp=zeros(len(solution))
+jupx=zeros(len(solution))
+jupy=zeros(len(solution))
+terrax=zeros(len(solution))
+terray=zeros(len(solution))
+for i in range(len(solution)):
+xcomp[i]=solution[i][1][0]
+ycomp[i]=solution[i][1][1]
+jupx[i]=DistJUP*cos(theta+2*pi*solution[i][0]/T)
+jupy[i]=DistJUP*sin(theta+2*pi*solution[i][0]/T)
+terrax[i]=-UA*cos(2*pi*solution[i][0]/(3600*24*365))
+terray[i]=UA*sin(2*pi*solution[i][0]/(3600*24*365))
+newxcomp=zeros(len(newsolution))
+newycomp=zeros(len(newsolution))
+newjupx=zeros(len(newsolution))
+newjupy=zeros(len(newsolution))
+newterrax=zeros(len(newsolution))
+newterray=zeros(len(newsolution))
+for i in range(len(newsolution)):
+newxcomp[i]=newsolution[i][1][0]
+newycomp[i]=newsolution[i][1][1]
+newjupx[i]=DistJUP*cos(theta+2*pi*newsolution[i][0]/T)
+newjupy[i]=DistJUP*sin(theta+2*pi*newsolution[i][0]/T)
+newterrax[i]=-UA*cos(2*pi*newsolution[i][0]/(3600*24*365))
+newterray[i]=UA*sin(2*pi*newsolution[i][0]/(3600*24*365))
+import matplotlib.pyplot as plt
+
+Team 412
+Page 22 of 23
+plt.plot(xcomp,ycomp, ’r’, newxcomp, newycomp, ’r’, newjupx, newjupy, ’g’, jupx, jupy, ’g’,
+terrax, terray, ’b’, newterrax, newterray, ’b’)
+#Let us consdierMars!
+Vastnova=4.10e+04
+theta=pi
+Mterra=6*10**24
+print DistJUP*2*pi/T
+def campVectorial(t,x): #t=tempsReal/(4331.572*25*3600)
+JupiterPosition=DistJUP*vector([cos(theta+2*pi*t/T),sin(theta+2*pi*t/T)])
+sunField=-G*Msol*vector([x[0],x[1]])/sqrt(x[0]**2+x[1]**2)**3
+JupiterField=-G*MJupiter*vector([x[0]-JupiterPosition[0],
+x[1]-JupiterPosition[1]])/sqrt((x[0]-JupiterPosition[0])**2+(x[1]-JupiterPosition[1])**2)**3
+terraPosition=UA*vector([-cos(2*pi*t/year),-sin(2*pi*t/year)])
+terraField=-G*Mterra*vector([x[0]-terraPosition[0],
+x[1]-terraPosition[1]])/sqrt((x[0]-terraPosition[0])**2+(x[1]-terraPosition[1])**2)**3
+marsPosition=Distmart**vector([cos(theta+2*pi*t/Tmart),sin(theta+2*pi*t/Tmart)])
+marsfield=-G*Mterra*vector([x[0]-marsPosition[0],
+x[1]-marsPosition[1]])/sqrt((x[0]-marsPosition[0])**2+(x[1]-marsPosition[1])**2)**3
+field=sunField+JupiterField+terraField+marsfield
+#if((x[0]-terraPosition[0])**2+(x[1]-terraPosition[1])**2<0): print
+(x[0]-terraPosition[0])**2+(x[1]-terraPosition[1])**2
+return vector([x[2],x[3],field[0],field[1]]);
+#solution=solve(campVectorial,0.0,semitemps,x0,1e-10)
+#Sortint de la terra
+semitemps=1.45*year
+x0=vector([-UA,-10000000,0,-Vastnova])
+solution=solve(campVectorial,0.0,semitemps,x0,1e-10)
+myspeed=sqrt(solution[len(solution)-1][1][2]**2+solution[len(solution)-1][1][3]**2)
+extraSpeed=2000
+newicons=vector([solution[len(solution)-1][1][0],solution[len(solution)-1][1][1],
+solution[len(solution)-1][1][2],solution[len(solution)-1][1][3]+extraSpeed])
+newsolution=solve(campVectorial,semitemps,50*year,newicons,1e-10)
+xcomp=zeros(len(solution))
+ycomp=zeros(len(solution))
+jupx=zeros(len(solution))
+jupy=zeros(len(solution))
+terrax=zeros(len(solution))
+terray=zeros(len(solution))
+marsx=zeros(len(solution))
+marsy=zeros(len(solution))
+for i in range(len(solution)):
+xcomp[i]=solution[i][1][0]
+ycomp[i]=solution[i][1][1]
+jupx[i]=DistJUP*cos(theta+2*pi*solution[i][0]/T)
+jupy[i]=DistJUP*sin(theta+2*pi*solution[i][0]/T)
+marsx[i]=Distmart*cos(2*pi*solution[i][0]/Tmart)
+marsy[i]=Distmart*sin(2*pi*solution[i][0]/Tmart)
+terrax[i]=-UA*cos(2*pi*solution[i][0]/(3600*24*365))
+terray[i]=UA*sin(2*pi*solution[i][0]/(3600*24*365))
+newxcomp=zeros(len(newsolution))
+
+Team 412
+Page 23 of 23
+newycomp=zeros(len(newsolution))
+newjupx=zeros(len(newsolution))
+newjupy=zeros(len(newsolution))
+newterrax=zeros(len(newsolution))
+newterray=zeros(len(newsolution))
+newmarsx=zeros(len(newsolution))
+newmarsy=zeros(len(newsolution))
+for i in range(len(newsolution)):
+newxcomp[i]=newsolution[i][1][0]
+newycomp[i]=newsolution[i][1][1]
+newjupx[i]=DistJUP*cos(theta+2*pi*newsolution[i][0]/T)
+newjupy[i]=DistJUP*sin(theta+2*pi*newsolution[i][0]/T)
+newterrax[i]=-UA*cos(2*pi*newsolution[i][0]/(3600*24*365))
+newterray[i]=UA*sin(2*pi*newsolution[i][0]/(3600*24*365))
+newmarsx[i]=Distmart*cos(2*pi*newsolution[i][0]/Tmart)
+newmarsy[i]=Distmart*sin(2*pi*newsolution[i][0]/Tmart)
+import matplotlib.pyplot as plt
+plt.plot(newmarsx, newmarsy, ’yellow’, xcomp,ycomp, ’r’, newxcomp, newycomp, ’r’, newjupx,
+newjupy, ’g’, jupx, jupy, ’g’, terrax, terray, ’b’, newterrax, newterray, ’b’)
+(newsolution[2][1][0])
+maxim=0;
+minim=0;
+for i in range(len(newsolution)):
+if(newsolution[i][1][0]>maxim): maxim=newsolution[i][1][0]
+if(newsolution[i][1][0]<minim): minim=newsolution[i][1][0]
+print (maxim-minim)/(2*UA)

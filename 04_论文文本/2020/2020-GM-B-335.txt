@@ -1,0 +1,907 @@
+Team 335
+Team Number 335 
+Problem Selected: B 
+Wind Control Strategy for Quadcopter  
+November 8, 2020 
+Abstract 
+Recently, quadcopter has become one of the most popular machines world-widely. 
+It’s smaller and lighter than other UAV but still good in maneuverability. Now it acts 
+an indispensable role in many ﬁelds like emergency treatment, dispatch, etc. So 
+how to control a quadcopter and make it as stable as possible is what people want 
+to know. Because of the lighter weight, wind becomes a kind of severe inﬂuence 
+which may damage the stability of a quadcopter. Real nature wind never shows 
+symmetry and changeless, which makes a big trouble in quadcopter control 
+method. This thesis describes a model based on Newton-Euler function and PID 
+controller, to ﬁnd a better control strategy under turbulence wind based on Dryden 
+model. Finally, by simulation based on our model, the distance between the 
+quadcopter and the target will reach 20cm when the velocity of wind is 10.63 m/s. 
+1. Model 
+To ﬁnd a better model for quadcopter controller, ﬁrst we use an appropriate method 
+to local the quadcopter, which can enable us describe the location and movement 
+accurately and make the equations of motion as easy as enough. Then we can 
+analyze the quadcopter by Newton-Euler function, and get the equations of motion 
+for programming. To generate a kind of wind which is similar to the real, we build 
+three transfer functions to create turbulence wind based on Dryden model, and 
+combine the turbulence wind created and the equations of motions together to 
+simulate the real quadcopter in the air. 
+1.1. Coordinate system 
+To describe the movement of quadcopter clearly, we need to set two coordinate 
+systems[1]. One is the ground coordinate system whose observer is on the earth. 
+The ground coordinate system enables us to get precise location of the quadcopter, 
+1
+
+Team 335
+which means that we can get 
+ at a certain moment. The original point 
+ 
+is set at the starting point of the UAV, and 
+ is perpendicular to the ground. 
+ shows the direction of the movement of the UAV. 
+ is same with the 
+direction of 
+. 
+ 
+Another coordinate system is the rigid body coordinate system 
+ whose 
+observer is on the quadcopter and follows every moment of if. In our model, we 
+assume that the UAV is a rigid body, which means that its mass and form never 
+change. The barycenter is also the geometry center and the original point of the 
+rigid body coordinate system.  
+According to the two coordinates above, we can use Euler angles to describe the 
+rotation of the UAV in the air. Euler angles contains three diﬀerent angle: roll angle ,  
+pitch angle  and yaw angle . The meaning of these angles is shown on the ﬁgure 
+above. We also need transformation matrix of the two coordinates which shows 
+below: 
+ 
+(Xg, Yg, Zg)
+Og
+OgZg
+OgXg
+OgYg
+OgZg × OgXg
+O −XYZ
+θ
+φ
+ψ
+R(φ, θ, ψ) =
+cos θ cos ψ
+cos ϕ sin φ sin θ −sin ψ cos θ
+cos φ sin θ cos ψ + sin φ sin ψ
+sin ψ cos θ
+sin φ sin θ sin ψ + cos θ cos ψ
+sin θ sin ψ cos φ −sin φ cos ϕ
+−sin θ
+cos θ sin φ
+cos φ cos θ
+2
+Fig.1 Coordinate system
+
+Team 335
+1.2. Derivation of kinematics model 
+Before the derivation, we need to make some hypothesis to simplify the problem: 
+• Neglect the inﬂuence of movements of the earth, which means the ground 
+coordinate system is an inertial system. Also neglect the variance of the 
+acceleration of gravity since the variance of height is small. 
+• The shape and construction of the quadcopter is geometrically symmetric. 
+The mass is even, and the barycenter is also the geometry center. 
+• The quadcopter we analyze is a rigid body. Neglect all form and mass 
+changes in the whole process. 
+• Neglect the inﬂuence of wind on the main body of the UAV since the main 
+body has smaller interface with the wind comparing to fans[2]. 
+1.2.1 Aerodynamic analysis 
+As we assumed before, the quadcopter is mainly made up of four total same rotors, 
+and the main body is negligible in the aerodynamic analysis. So we only analyze one 
+rotor, and the conclusion can be used in other three rotors. Finally combine them 
+together, we can get the aerodynamic model of the quadcopter. 
+The basic analysis diagram shows in Fig.2. 
+ is the 
+speed of wind. 
+ is induction speed of the rotor 
+which deﬁned as follow[3, 4]: 
+ 
+ is the thrust of the rotor.  is the density of air.  is  
+the area of the fan. 
+ is the rotate speed of the rotor. 
+ is total induction speed. 
+ and 
+ are proportional to 
+. 
+ is torque of the 
+rotor[5]. 
+  
+ is the pull force coeﬃcient, and 
+ is torque coeﬃcient. 
+Under wind disturbance, the total aerodynamic thrust is the sum of 
+ and 
+[3, 4]: 
+Vw
+Vd
+||Vd|| =
+FT
+2ρA
+FT
+ρ
+A
+Ω
+V
+FT
+MT
+Ω2 MT
+FT = kFΩ2, MT = kMΩ2
+kF
+kM
+FT
+Fw
+3
+Fig.2 Aerodynamic 
+analysis of one rotor
+
+Team 335
+  
+It’s obvious that if there has no wind disturbance, 
+. So that
+, which is the same as the deﬁnition of 
+. The total torque of 
+the rotor is also the sum of 
+ and 
+:  
+  
+ is a coeﬃcient related to ,  and shape of the fan[4]. 
+  
+1.2.2 Overall motion analysis for quadcopter 
+From the analysis above, we now consider movement of quadcopter is composed 
+of translation and rotation. We analyze them separately in diﬀerent coordinate 
+system. 
+For translation, in the ground coordinate system 
+, we can get 
+equations of translation from Newton-Euler equation: 
+  
+In the equation, 
+ is the position of quadcopter. 
+ is mass, and  is 
+translation matrix mentioned before. 
+ is the gravity matrix. 
+For rotation, we can get equation of rotation in the rigid body coordinate system 
+: 
+  
+ is the sum of external torque and  is rotational inertial of quadcopter. 
+ is angular velocity. Combine every torque the UAV takes, we get 
+the equation: 
+  
+ is gyro torque generated by rotation of rotor, and 
+ 
+where 
+ is rotational inertial of rotor. 
+ is torque made by thrust of rotor[6]: 
+FR = FT + Fw = 2ρAVdV
+Vd = V
+FR = FT = 2ρAV 2
+d
+Vd
+Mw
+MT
+MR = Mw + MT = kdragV 2
+kdrag
+A ρ
+Og −XgYgZg
+m ··X = R(
+4
+∑
+i=1
+FTi +
+4
+∑
+i=1
+FWi) + mG
+X = [x
+y
+z]T
+m
+R
+G = [0
+0
+−g]
+O −XYZ
+∑τ = J ·ω + ω × Jω
+∑τ
+I
+ω = [p
+q
+r]T
+J ·ω = −ω × Jω + ω × Jrr + MB + Mw
+ω × Jrr
+Jrr = [0
+0
+JrΩr]
+Jr
+MB
+4
+
+Team 335
+  
+ is the distance from rotor center to geometry center. 
+ is torque made by wind[6]: 
+  
+From all the deduction above, we can get the equations of motion as follow: 
+  
+Deﬁne 
+ as control vector: 
+  
+Deﬁne 
+ as wind disturbance vector: 
+  
+MB =
+l(−F2
+T2 + F2
+T4)
+l(−F2
+T3 + F2
+T1)
+MT1 −MT2 + MT3 −MT4
+l
+Mw
+Mw =
+l(−F2
+w2 + F2
+w4)
+l(−F2
+w3 + F2
+w1)
+Mw1 −Mw2 + Mw3 −Mw4
+··x
+··y
+··z
+··φ
+··θ
+··ψ
+=
+U1(CφSθCψ + Sφ + Sψ)/m
+U1(CφSθCψ −Sφ + Cψ)/m
+U1(CφCθ)/m −g
+qr(Jyy −Jzz)/Jxx + qΩrJr /Jxx + U2l/Jxx
+pr(Jzz −Jxx)/Jyy −pΩrJr /Jyy + U3l/Jyy
+pr(Jxx −Jyy)/Jzz + U4l/Jzz
++
+W1
+W1
+W1
+W2
+W3
+W4
+U = [U1
+U2
+U3
+U4]T
+U1
+U2
+U3
+U4
+=
+b(Ω2
+1 + Ω2
+2 + Ω2
+3 + Ω2
+4)
+b(−Ω2
+2 + Ω2
+4)
+b(Ω2
+1 −Ω2
+3)
+d(Ω2
+1 −Ω2
+2 + Ω2
+3 −Ω2
+4)
+W = [W1
+W2
+W3
+W4]T
+W1
+W2
+W3
+W4
+=
+∑4
+i=1 Fwi/m
+l(−F2
+w2 + F2
+w4)/Jxx
+l(−F2
+w3 + F2
+w1)/Jyy
+l(MR1 −MR2 + MR3 −MR4)/Jzz
+5
+
+Team 335
+Now we get all information of motion. What we need to do next is design controller 
+for control vector 
+ and construct wind model to get wind disturbance vector 
+. 
+1.3 Turbulence wind model 
+As we said before, there is no pure wind in nature. Most wind we feel is actually 
+turbulence wind. However, turbulence is one of the most diﬃcult question in 
+physics. Scientists try so hard to solve it but until now people do not get a perfect 
+model of turbulence. We can calculate turbulence by N-S equation at a horribly high 
+cost. But we won’t do that, we generate turbulence wind data by Dryden model 
+which ﬁltrates white noise by special transfer functions and simulates real 
+turbulence wind. 
+Assume that we have three diﬀerent white noise who obeys Gaussian distribution. 
+Also assume that 
+, 
+ and 
+ represents three diﬀerent direction 
+components of the turbulence. 
+According to Dryden model, the frequency of turbulence velocity is[7]: 
+  
+ is frequency, and ,  are turbulence coeﬃcients. They can be determined by the 
+following equations[8]: 
+ 
+U
+W
+u(r) v(r)
+w(r)
+Φu(ω) = σ2
+u
+Lu
+πUx
+1
+1 + (Lu
+ω
+Ux )2
+Φv(ω) = σ2
+v
+Lv
+πUy
+1 + 12(Lv
+ω
+Uy )2
+[1 + 4(Lv
+ω
+Uy )2]2
+Φv(ω) = σ2
+w
+Lw
+πUz
+1 + 12(Lw
+ω
+Uz )2
+[1 + 4(Lw
+ω
+Uz )2]2
+ω
+L σ
+2Lw = h
+Lu = 2Lv =
+h
+(0.177 + 0.000823h)1.2
+σw = 0.1u20
+σu
+σw
+= σv
+σu
+=
+1
+(0.177 + 0.000823h)0.4
+6
+
+Team 335
+ is the wind velocity in the height of 
+.  is height. 
+White noise 
+ is ﬁltrated by a ﬁlter whose transfer function is 
+, and get the 
+output 
+: 
+  
+Decompose frequency of turbulence velocity by the formula above, and get transfer 
+functions: 
+ 
+ and  can be determined by , : 
+ 
+  
+So once we set certain 
+ and , we can calculate all the other parameters needed 
+in Dryden model. Here we set 
+, and get the turbulence wind 
+like Fig.3. 
+In our model, turbulence does not always exist. What we want to simulate is 
+quadcopter meets turbulence unexpectedly. So we only allow turbulence to perform 
+in a special region 
+, and set turbulence 
+to zero in other regions. The diagram is like Fig.4. 
+2. Simulation 
+Now the complete model shows on the table. All we need to do is design a 
+wonderful simulation program. First we need to determine the construction of the 
+program basically. Then the control vector 
+ should be designed. Some parameters 
+of the quadcopter should also be determined. The structure of control system is 
+shown in Fig.5. 
+Here  is the status of next stage of quadcopter, and it contains all the information 
+that we need. 
+u20
+6.096m h
+n(t)
+G(s)
+x(t)
+Φ(ω) = |G(iw)|2 = G*(iω)G(iω)
+Gu(s) =
+Ku
+Tus + 1 ,
+Gv(s) =
+Kv
+Tvs + 1 ,
+Gw(s) =
+Kw
+Tws + 1
+K
+T
+L σ
+Ku = σu
+Lu
+πV ,
+Kw = σw
+Lw
+πV ,
+Kv = σv
+Lv
+πV
+Tv = 2Lv
+3V
+,
+Tu = Lu
+V ,
+Tw = 2Lw
+3V
+u20
+h
+u20 = 20m /s, h = 1m
+[startTime,
+startTime + duration]
+U
+X
+7
+
+Team 335
+ 
+ 
+In the system, controller and turbulence provide 
+ and 
+ to the quadcopter. 
+Quadcopter accepts the parameters and calculates new status 
+, and sends the 
+new status to the controller. Then the Controller calculates new 
+ and 
+turbulence provides next wind data generated before. 
+2.1 Parameters 
+Before we move to the next part, we need to calculate some important parameters 
+based on the question: 
+X = [x
+y
+z
+·x
+·y
+·z
+φ
+θ
+ψ
+p
+q
+r]T
+U
+W
+Xn+1
+Un+1
+8
+Fig.3 Turbulence wind generated by Dryden model (
+)
+u20 = 20m /s, h = 1m
+
+Team 335
+9
+Fig.4 Turbulence wind in certain region (
+)
+u20 = 20m /s, h = 1m
+Fig.5 Structure of control system
+
+Team 335
+ 
+In these conditions, if we have a certain 
+ of the rotor, than from the equation 
+ we can easily get 
+ which limits the max value of the control 
+vector 
+ who is determined by 
+. To simplify the model, we assume that 
+ is the 
+same value of . The value of  in a kind of quadcopter is 
+[6], so, 
+ 
+From 
+ and  we can calculate rotational inertia of the quadcopter. As we assumed, 
+the mass of the quadcopter is evenly distributed. So we idealize the quadcopter as 
+an even square board whose side length is 
+ and show it in Fig.6. 
+According to the symmetry of the rigid body coordinate system we set, it’s obvious 
+that 
+.  
+ 
+To get 
+, we can simply use perpendicular axis 
+theorem: 
+  
+The rotational inertia of the quadcopter in the question: 
+  
+FTmax = 7N
+m = 1.5kg
+l = 0.5m
+kF
+FTmax = kFΩ2
+max
+Ω2
+max
+U
+Ω2
+i
+kF
+b
+b
+5.324 ∙10−5N ∙s2
+Ωmax = 362s−1
+m
+l
+a =
+2l
+Jxx = Jyy
+Jxx = Jyy = ∫dJ
+= ∫
+a/2
+−a/2
+a m
+a2 x2dx
+= 1
+12 ma2
+= 1
+6 ml2
+Jzz
+Jzz = Jxx + Jyy = 1
+3 ml2
+Jxx = 0.0625kg ∙m2
+Jyy = 0.0625kg ∙m2
+Jzz = 0.125kg ∙m2
+10
+Fig.6 rotational inertia 
+deduction
+
+Team 335
+Other parameters determined by rotors refer to a kind of quadcopter[6]. All the 
+parameters shows int Tab.1. 
+2.2 PID controller 
+Traditional PID controller has a pretty long history in control science. Simple theory 
+and easy to calibrate make it the most wildly used control method in industrial 
+engineering. It is a kind of closed loop control method which dominates the variable 
+by its errors and no need for the exact model of the controlled variable. In the real 
+ﬂying procession of quadcopter, we have many variable which can’t be determined 
+precisely. So PID controller is the best method for quadcopter. 
+2.2.1 Basic introduction to PID controller 
+Structure of PID controller shows in Fig.7. 
+ is the controlled variable, and 
+ is the target value of the controlled variable. 
+ is output value. 
+ is error between output value and target value: 
+  
+Tab.1 Quadcopter parameters
+Para
+Name
+Value
+Unit
+Mass
+1.5
+Arm length
+0.5
+The rotational inertia of 
+rotors
+7.321E-05
+The rotational inertia in 
+x-axis
+0.0625
+The rotational inertia in 
+y-axis
+0.0625
+The rotational inertia in 
+z-axis
+0.125
+Lift coeﬃcient
+5.324E-05
+Resistance coeﬃcient
+8.721E-07
+kg ∙m2
+kg ∙m2
+l
+b
+N ∙s2
+d
+m
+Jyy
+kg
+N ∙s2
+Jr
+kg ∙m2
+kg ∙m2
+m
+Jxx
+Jzz
+u(t)
+r(t)
+y(t)
+e(t)
+e(t) = r(t) −y(t)
+11
+
+Team 335
+The biggest character of PID controller is that it combines ratio part, integral part 
+and diﬀerential part. We control proportion of each part by changing the PID 
+coeﬃcients: 
+, 
+ and 
+. 
+Ratio part can diminish disturbance quickly but may generate new error after the 
+control process. Disturbance is diminished quicker if 
+ is bigger. However, bigger 
+ also means that the system may vibrate violently. So an appropriate 
+ is very 
+important. The ratio part can be expressed as follow: 
+ 
+Integral part can diminish the steady-state error to improve the quality of control 
+method. In the same way, 
+ needs an appropriate value. The integral part can be 
+expressed as follow: 
+  
+Diﬀerential part can diminish errors proactively and also stabilize the control system. 
+In the same manner, we can express the diﬀerential part: 
+  
+ Above all, we get the PID controller: 
+Kp Ki
+KD
+Kp
+Kp
+Kp
+Ukp = Kpe(t)
+Ki
+Uki = Ki∫
+τ
+0
+e(t)dt
+Ukd = Kd
+de(t)
+dt
+12
+Fig.7 Structure of PID controller
+
+Team 335
+  
+2.2.2 Design control vector 
+We use four PID controllers to control 
+. While the 
+quadcopter ﬂies, the only disturbance in our model is turbulence wind which shows 
+great randomness. In this situation, Integral part can’t perform well. So we set 
+ and mainly use the ratio part and diﬀerential part. Design the controller[6]:  
+ 
+From the equations of motion we deduced before, it’s easy to know that locations 
+variables are conjugated and anger variables are conjugated. So in the following 
+analysis, we mainly discuss  and . PID coeﬃcients are very important values 
+which needed to be determined carefully since they can inﬂuence performance of 
+PID controller greatly. 
+Now we set target height is 
+ and don’t consider turbulence, and change PID 
+coeﬃcients to ﬁnd the best values. 
+From Fig.8 to Fig.10,  
+ changes in 
+. As we can see, when 
+, 
+the whole system will be stable near 
+. As long as 
+ goes bigger, the system 
+gets the stable state quicker. When 
+, it only takes 
+ to reach the stable 
+state. But when 
+ becomes too large, convergence time doesn’t change too much. 
+What’s more, it seems the quadcopter “jumps” before the stable state, which means 
+the rotor needs to provide huge force to make the quadcopter move back. However, 
+our motor doesn’t have this ability. So a very large 
+ is not what we want. 
+U = Kpe(t) + Ki∫
+τ
+0
+e(t)dt + Ki∫
+τ
+0
+e(t)dt
+U = [U1
+U2
+U3
+U4]T
+Ki = 0
+u1 = Kpzez + Kdz
+dez
+dt
+u2 = Kpφeφ + Kdφ
+deφ
+dt
+u3 = Kpθeθ + Kdθ
+deθ
+dt
+u4 = Kpψeψ + Kdψ
+deψ
+dt
+z
+ψ
+1m
+Kp
+[20,60,120]
+Kp = 20
+t = 4s
+Kp
+Kp = 60
+1.83s
+Kp
+Kp
+13
+
+Team 335
+From Fig.11 to Fig.13,  
+ changes in 
+. The conclusion is that we need 
+to set 
+ a small value since the system becomes slower as 
+ goes bigger. And 
+Kd
+[10,50,100]
+Kd
+Kd
+14
+Fig.8 20, 0, 14
+Fig.11 60, 0, 10
+Fig.9 60, 0, 14
+Fig.12 60, 0, 50
+Fig.10 120, 0, 14
+Fig.13 60, 0, 100
+
+Team 335
+when 
+ is too large, the quadcopter vibrates in a very high frequency. Of course 
+such kind of motion is not what we want. 
+So we ﬁnally set 
+ and 
+. The process to determine 
+ and 
+ 
+goes the same way, and 
+, 
+. Fig.14 shows the process of the PID 
+controller we selected. 
+2.3 Quadcopter in turbulence 
+Kd
+Kpz = 60
+Kdz = 14
+Kpψ
+Kdψ
+Kpψ = 65 Kdψ = 15
+15
+Fig.14 Selected PID controller
+
+Team 335
+We have seen that we can determine the turbulence wind at height  by setting 
+. 
+It is easy to know that turbulence wind goes severer if 
+ is getting larger. We can 
+calculate the total turbulence wind that the quadcopter takes by using vector 
+addition: 
+  
+So our strategy is, in order to ﬁnd when the quadcopter leaves its target, magnifying 
+ until the quadcopter leaves more than 
+ far away. Then calculate the wind 
+speed now, and that’s the value we want. The turbulence wind performs in 
+.  
+h
+u20
+u20
+Vwind = Vu + Vv + Vw
+u20
+20cm
+[4,
+10]
+16
+Fig.15 Quadcopter in turbulence (
+)
+u20 = 10m /s
+
+Team 335
+When the 
+ is slow, we can get Fig.15. Both  and  are disturbed by the 
+turbulence wind. But both have small errors because the PID controller controls 
+well. Until now, the quadcopter doesn’t leave the target point too far away. As the 
+wind is getting stronger, the inﬂuence is also getting stronger. PID controller can’t 
+control the UAV well since the wind is too strong. When 
+, Fig.16 
+shows that the distance between the quadcopter and the target reaches 
+. 
+Calculate the velocity of wind: 
+ 
+4 Conclusion 
+We design control strategy for wind control for quadcopter, which enables the 
+quadcopter given in the question stay stable in the turbulence wind whose max 
+u20
+z
+ψ
+u20 = 23m /s
+20cm
+||Vwind||2 =
+V 2
+u + V 2
+v + V 2
+w =
+7.512 + 6.242 + 4.202 = 10.63m /s
+17
+Fig.16 Quadcopter in turbulence (
+)
+u20 = 23m /s
+
+Team 335
+velocity is 10.63 m/s. Equations of motion based on Newton-Euler equations in the 
+ground coordinate system and the rigid body coordinate system are the core of the 
+model, which serve as guidance for simulation programming. PID controller is used 
+to control the control vector, and after selection of coeﬃcients it can make the 
+whole system more stable.  
+4.1 Limitations and Possible Improvement 
+We don’t have enough time to complete the whole model. So the current model 
+have some limitations and possible improvement: 
+• The main body takes pressure from wind. In order to simplify the question, 
+we neglect the inﬂuence of wind on the main body. To improve, new model 
+must consider this inﬂuence. 
+• The rotational inertia should be calculated precisely. In the current model, we 
+we idealize the quadcopter as an even square board. But the mass of the 
+quadcopter distributes mainly around its center. Rotors’ mass is small. 
+• Turbulence wind is the only kind of wind we consider. Real nature wind is 
+made up by several diﬀerent types of wind. 
+• PIL coeﬃcients selection is rough. Because of the tight time, we choose PIL 
+coeﬃcients by change values manually. But coeﬃcients are really important. 
+It’s better to apply some search algorithms, GA(Genetic Algorithm) and Q-
+Learning algorithm here to ﬁnd the best coeﬃcients. 
+• Dryden model for turbulence is not very precise. Real turbulence wind data 
+are better in simulation. 
+4.2 Advantages 
+• The model uses PIL controller, which means that the model have wonderful 
+adaptability. It can work for diﬀerent quadcopters by changing PIL 
+coeﬃcients. 
+• The model stabilizes the quadcopter very fast, which means it responds 
+quickly. 
+• The model can control the quadcopter well when wind is not too strong. So it 
+can satisfy consumers who use quadcopter in daily life. 
+• The dynamic equations deduced by this model can describe motions of 
+quadcopter precisely.  
+Reference 
+18
+
+Team 335
+[1] Yanjuan Yang.”Research on key technologies of strapdown inertial navigation system”. 
+Diss. Harbin Engineering University, 2001. 
+[2] Laura Elena Muoz Hernández, et al. "Embedded robust nonlinear control for a four-rotor 
+rotorcraft: Validation in real-time with wind disturbances." 2011 IEEE/RSJ International 
+Conference on Intelligent Robots and Systems, IROS 2011, San Francisco, CA, USA, 
+September 25-30, 2011 IEEE, 2011. 
+[3] Jr, Mc Cormick , and B M. "AERODYNAMICS OF V/STOL FLIGHT." Aerospace 
+Engineering (1967). 
+[4] Munoz E L, Santos O, et al. “Nonlinear and robust control strategy to stabilize in real 
+time a PVTOL aircraft exposed to crosswind” RSJ International Conference on Intelligent 
+Robots and Systems Taipei, 2010 
+[5] Nagaty, Amr , et al. "Control and Navigation Framework for Quadrotor Helicopters." 
+Journal of Intelligent & Robotic Systems 70.1-4(2013):1-12. 
+[6] Hanwen Wu. “Research on the wind control for quadrotor UAV". Diss. 2016. 
+[7] Karman, Theodore Von , W. Z. Chien , and T. R. Beal . "Digital simulation of atmospheric 
+turbulence for Dryden and von Karman models." Journal of Guidance, Control, and 
+Dynamics (1993). 
+[8] Yelun Xiao.”Flight theory in atmospheric disturbance”. National Defense Industry Press, 
+1993.
+19

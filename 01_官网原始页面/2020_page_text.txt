@@ -1,0 +1,135 @@
+The University Physics Competition
+The University Physics Competition
+Home
+Contest Rules
+Register a Team
+2026 Contest
+2025 Contest
+2024 Contest
+2023 Contest
+2022 Contest
+2021 Contest
+2020 Contest
+2019 Contest
+2018 Contest
+2017 Contest
+2016 Contest
+2015 Contest
+2014 Contest
+2013 Contest
+2012 Contest
+2011 Contest
+2010 Contest
+About Us
+Home
+Contest Rules
+Register a Team
+2026 Contest
+2025 Contest
+2024 Contest
+2023 Contest
+2022 Contest
+2021 Contest
+2020 Contest
+2019 Contest
+2018 Contest
+2017 Contest
+2016 Contest
+2015 Contest
+2014 Contest
+2013 Contest
+2012 Contest
+2011 Contest
+2010 Contest
+About Us
+The 2020 University Physics Competition
+The 2020 University Physics Competition began on Friday, November 6, 2020, at 6pm MDT (Mountain Daylight Time), which is Saturday, November 7, 2020, 1am GMT/UTC, when the contest problems below were posted.
+Problem A: Ion Thrusters to Saturn
+A spacecraft is in a circular orbit around the Earth, with an orbital period of 90 minutes. The spacecraft has a total mass of 5,000 kg, including fuel. The spacecraft is equipped with ion thrusters that can provide a constant thrust of 400 millinewtons, with a specific impulse of 4,000 seconds. Our goal is to place the spacecraft into a circular orbit around Saturn, with an orbital period of 40 hours. What is the minimum amount of fuel this will take? What will be the duration of the trip? How should the thrusters be controlled during the journey?
+Problem B: Quadcopter Stability in Wind
+We have designed a quadcopter UAV (unmanned aerial vehicle) drone that has a mass of 1.5 kg, and is powered by four rotors which can each generate up to 7 Newtons of thrust. The rotors of the drone are each centered 50 cm from its center of mass, and arranged in a square. Determine the maximum windspeed for safe operation of the quadcopter, so that it can stay within 20 cm of a target location. Note that real wind is not steady, varying in magnitude and direction.
+Results of the 2020 University Physics Competition were posted on January 18, 2021.
+To download a printable pdf award certificate for your team, set your browser to: http://www.uphysicsc.com/certificates2020/*.pdf
+Here * is your team number. For example if your team number is 200, this is: http://www.uphysicsc.com/certificates2020/200.pdf
+If you would like us to send paper award certificates for your team through the mail, please email us (director@uphysicsc.com) with your current postal mailing address. We will send one set of certificates for each team, so please send us only one address. We will not mail a separate certificate to each of the three members of your team.
+The following announcement of results was made on Monday, January 18, 2021:
+Full results announcement and complete listing of all medals in the 2020 University Physics Competition
+We are very pleased to announce the results of the eleventh
+annual University Physics Competition. The
+University Physics Competition is an international contest for undergraduate
+students, who worked in teams of up to three students at their home colleges
+and universities all over the world, and spent 48 hours during the weekend of
+November 6, 7, & 8, 2020, analyzing an applied scenario using the
+principles of physics, and writing a formal paper describing their work.
+In this year’s competition 346 teams submitted
+papers for judging. 244 teams selected “Problem
+A – Ion Thrusters to Saturn” and 102 teams selected “Problem B – Quadcopter
+Stability in Wind.”
+Univ. of Michigan-Shanghai Jiao Tong Univ. Joint Institute
+For Problem A, the Gold Medal Winning Teams were:
+Team 340: Xie Mengxiang, Xiao Yao, & Zhao Yingshan
+Institution: Tongji University,
+China
+Faculty Sponsor: Ma Yan
+Team 340's 2020 Problem A Gold Medal Winning Paper
+Team 354: Bibek Bhujel, Fahrudin Delic, & Carmelo
+Desales Ortiz
+Institution: Jacobs University Bremen,
+Germany
+Faculty Sponsor: Peter Schupp
+Team 354's 2020 Problem A Gold Medal Winning Paper
+Team 426: Andrew McEntaggart, Adele Payman, & Aulden
+Jones
+Institution: Georgia Institute of
+Technology, USA
+Faculty Sponsor: Edwin Greco
+Team 426's 2020 Problem A Gold Medal Winning Paper
+Team 447: Yasin Sönmez, Arda Aydın, & Batuhan
+Keskin
+Institution: Boğaziçi University,
+Turkey
+Faculty Sponsor: Ilmar Gahramanov
+Team 447's 2020 Problem A Gold Medal Winning Paper
+For
+problem B, the Gold Medal Winning Teams were:
+Team 335: Zhu Guorui,
+Institution: Tongji University, China
+Faculty Sponsor: Ma Yan
+Team 335's 2020 Problem B Gold Medal Winning Paper
+Team 380: Chen Qiuyu, Zhan Haidong, & Zhang Chongfa
+Institution: National University of Defense Technology, China
+Faculty
+Sponsor: Peng Gang
+Team 380's 2020 Problem B Gold Medal Winning Paper
+Of the 346 papers submitted in this year's University
+Physics Competition, 6 teams (1.7%) were ranked as Gold Medal Winners, 54 teams
+(15%) were ranked as Silver Medal Winners, 99 teams (29%) were ranked as Bronze
+Medal Winners, and 187 teams (54%) were ranked as Accomplished Competitors.
+We extend our sincerest congratulations to each of
+the competing teams for their excellent work and their enthusiasm for physics!
+Kelly S. Cline
+Carroll College; Helena, MT
+Director of the University Physics Competition
+www.uphysicsc.com
+Above, 2020 Gold Medal Winners: Team 335: Zhu Guorui,
+Institution: Tongji University, China
+Faculty Sponsor: Ma Yan
+Above, 2020 Gold Medal Winners:
+Team 340: Xie Mengxiang, Xiao Yao, & Zhao Yingshan
+Institution: Tongji University, China
+Faculty Sponsor: Ma Yan
+Above, 2020 Gold Medal Winners: Team 354: Fahrudin Delic , Carmelo Desales Ortiz, & Bibek Bhujel
+Institution: Jacobs University Bremen, Germany
+Faculty Sponsor: Peter Schupp
+Above, 2020 Gold Medal Winners:
+Team 380: Zhang Haidong, Zhang Chongfa, & Chen Qiuyu
+Institution: National University of Defense Technology, China
+Faculty Sponsor: Peng Gang
+Above, 2020 Gold Medal Winners: Team 426: Adele Payman, Andrew McEntaggart, & Aulden Jones
+Institution: Georgia Institute of Technology, USA
+Faculty Sponsor: Edwin Greco
+Above, 2020 Gold Medal Winners:
+Team 447: Yasin Sönmez, Arda Aydın, & Batuhan Keskin
+Institution: Boğaziçi University, Turkey
+Faculty Sponsor: Ilmar Gahramanov
+Web Hosting powered by Network Solutions®

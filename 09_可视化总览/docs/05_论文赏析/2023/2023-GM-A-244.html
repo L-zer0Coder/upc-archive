@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analysis of Multiple Factors Restricting The Maximum Height of Skydiving（2023 题A 队伍244） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg:#0a0f1e;--panel:#111a2e;--ink:#e8eef8;--mut:#94a5c0;--line:#22304c;--acc:#4f7dd9;--acc2:#39c2b0;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
+ font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar a:hover{border-color:var(--acc);color:#fff}
+.crumb{color:var(--mut);font-size:13px}
+.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
+h3{font-size:17px;color:#cfe0ff}
+a{color:#7fb0ff} a:hover{text-decoration:underline}
+code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
+pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1em 0;padding:8px 16px;border-left:4px solid var(--acc2);background:rgba(57,194,176,.07);color:#c9d6ea;border-radius:0 10px 10px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#16233c;color:#a9bcda;white-space:nowrap}
+tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
+@media(max-width:700px){.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html">🏆 总览首页</a>
+  <span class="crumb">05_论文赏析/2023</span>
+  <span style="flex:1"></span>
+  <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2023/Problem%20A/2023-GM-A-244.pdf">📄 论文 PDF</a>
+  <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2023/2023-GM-A-244.md">原文 .md</a>
+</div></div>
+<div class="wrap"><div class="card">
+<h1 id="analysis-of-multiple-factors-restricting-the-maximum-height-of-skydiving2023-a-244">Analysis of Multiple Factors Restricting The Maximum Height of Skydiving（2023 题A 队伍244）</h1>
+<p><strong>页数</strong>: 28 页（正文至 p18，附录为 MATLAB 代码）｜ <strong>对应题目</strong>: Problem A — Space Diving（太空跳伞最大安全高度）</p>
+<h2 id="1">1. 论文速览</h2>
+<p>本文的鲜明旗帜是"排除法"：建立全程速度/加速度/高度-时间模型后，论证速度与过载在卡门线以内都不是限制因素（进入对流层速度仅约 150 m/s、开伞前过载约 3g），真正卡死高度的是<strong>摩擦热积累导致的舱内升温</strong>。用摩擦生热 + MLI 航天服换热模型算得 61,270 m 起跳时舱内达 51.98 °C 接近人体耐受极限，故最大安全高度为 <strong>61,270 m</strong>——六篇论文中最低也最"热"的一个答案。</p>
+<h2 id="2">2. 建模体系逐层拆解</h2>
+<p><strong>第一层：运动学主干。</strong> 以弓身（arch）姿态下落，牛顿第二定律 $m\frac{dv}{dt}=-mg+Kv^2$（式 1），阻力系数 $K=\frac12C_d\rho A_1$（式 2），并化为 $mv\frac{dv}{dz}$ 形式（式 3）。重力取 $g(h)$ 随高度修正（附录 <code>gravityEst</code> 用 $GM/(R+p)^2$）。</p>
+<p><strong>第二层：八层标准大气。</strong> 密度不拍脑袋：以 US Standard Atmosphere 八层参数表（各层温度直减率、基准温度/高度/压强，正文完整列表）配合
+$$temp=T(i)+K(i)(H_{geop}-H(i)),\quad press=P(i)\exp\left(-\frac{g_0(H_{geop}-H(i))}{T(i)R}\right)\ (5)(6)$$
+计算，且做了<strong>位势高度换算</strong> $H_{geop}=\frac{R_E H_{in}}{R_E+H_{in}}$——这是多数队伍忽略的细节。附录直接内置 <code>stdatmo</code> 函数（含 Sutherland 黏性、声速输出），工程成熟度高。</p>
+<p><strong>第三层：开伞瞬态。</strong> 依据 Red Bull Stratos 实测把开伞时刻固定在 255 s、约 4 s 完全展开；迎风面积从 $A_1=0.4$ m² 渐变到 $A_2=25$ m²。附录代码进一步把充气过程离散为 0.5 s 一档的面积/阻力系数阶梯（A: 4→8→12→16→20→25 m²，C_D: 0.3→1.75），比"瞬间换面积"精细得多。</p>
+<p><strong>第四层：热模型（决定性一层）。</strong> 摩擦生热功率 $\frac{Q_{friction}}{dt}=\frac12K\rho v^3A$（式以 $v^3$ 计），散热用 Stefan-Boltzmann 定律 $\frac{Q_{exchange}}{dt}=\epsilon_{MIL}\sigma A(T_1^4-T_2^4)$，论证 MLI 材料低导热使换热面积与摩擦面积相同（$A_3=A_4=A_1=0.4$ m²）。航天服吸热能力按 NASA 数据分容器与 PLSS 两部件 $P_s=m_cc_c+m_pc_p$，加人体 $P_m=m_mc_m$，总热平衡 $\lambda(P_s+P_m)\delta T=Q_{friction}+Q_{exchange}$，$\lambda=0.2$ 取自 NASA 实验。因 v(t) 无解析解，用六阶多项式拟合 $v(t)=-2\times10^{-9}t^6+1\times10^{-6}t^5-\ldots+7.5691t+1.2745$ 后积分 0–150 s。最终 61,270 m 时 $Q=2.3425\times10^9$ J、$\delta T=14.98$ °C，舱内 37→51.98 °C。</p>
+<h2 id="3">3. 数学方法与算法</h2>
+<p>MATLAB <code>ode45</code> 求解两状态 ODE（位置+速度），开伞用时间触发的分段参数；热计算走"多项式拟合 v(t) + 解析积分"的半解析路线。模型验证是全文最强板块：读取 Red Bull Stratos 的 Excel 实测数据（<code>RedBullStratosData180.xlsx</code>，高度/空速/时间逐帧），在 38,969.4 m 同条件下把模拟的高度、速度、加速度与实测曲线三联对比（图 14–16），定性吻合。文中明确列出主要假设（高度 ≤ 卡门线 100 km、对流层内不超 1 Ma、短时过载 ≤15G、人体耐温 325 K），并对结果做了"速度/加速度/热"三案例的极限扫描（接近卡门线的极端算例）。不足：无步长收敛性检验，多项式拟合引入的误差只在 Weaknesses 中定性承认，未定量；热平衡忽略了蒸发散热等通道。</p>
+<h2 id="4">4. 排版与图表赏析</h2>
+<p>版式与 131 队同源（UPC 模板）：页眉"Problem A | The University Physics Competition, Team 244 | 页码"，居中标题+单段摘要+Key Words。摘要把结论（61,270 m）与"热是主因"的因果链讲得非常清楚，且把数值写进了 Key Words，辨识度高。全文 16 幅图，几乎全为 MATLAB 默认样式单曲线图（从 fig.png 可见图 3/4 的朴素风格：细线、默认图例框 "Modeled Value"），信息够用但视觉打磨弱于其他队伍；图 10 的温度-高度-时间三维曲面是唯一的三维呈现，是热模型结论的主视觉。公式编号(1)–(6)集中在运动学部分，热模型公式未编号，体例稍不统一。符号表中有个别笔误（如 σ 误标为 1.38×10⁻²³ J/K 的玻尔兹曼常数、气体常数 R 带负号），是不小的硬伤。</p>
+<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<ol>
+<li><strong>反直觉主结论+清晰因果链</strong>："不是速度、不是过载，而是热"——先用模型把前两者定量排除（150 m/s &lt; 340 m/s；3g），再聚焦热，问题收敛路径干净利落，评委一眼看到物理洞察。</li>
+<li><strong>逐帧实测数据验证</strong>：用 Red Bull Stratos 真实数据做多曲线模型-实测叠加图（图 14–16），验证维度比只对一个数更立体。</li>
+<li><strong>位势高度换算</strong>：$H_{geop}=\frac{R_EH}{R_E+H}$ 的小细节体现对标准大气定义的准确理解。</li>
+<li><strong>开伞充气过程离散化</strong>：0.5 s 一档的面积/C_D 阶梯模拟伞的渐次充气，比阶跃假设更接近真实开伞冲击。</li>
+<li><strong>热模型有实装参数</strong>：MLI 发射率、PLSS/容器质量与比热、λ=0.2 全部落到 NASA 文献数值上，避免"拍参数"。</li>
+</ol>
+<h2 id="6">6. 可借鉴清单</h2>
+<ol>
+<li>"排除法"叙事结构：先定量证明次要因素不构成约束，再深入主因素，论文主线极清晰。</li>
+<li>直接采用 US Standard Atmosphere 八层参数表 + 位势高度换算，比自己发明分段大气更权威省事。</li>
+<li>开伞过程用时间触发的面积/阻力阶梯逼近充气动态，可移植到任何开伞冲击计算。</li>
+<li>无解析解时用多项式拟合数值曲线再解析积分，是热积累类问题的实用技巧（记得讨论拟合误差）。</li>
+<li>摘要中把最终数值放进 Key Words，强化记忆点。</li>
+<li>引用真实任务的逐帧数据（视频/公开 Excel）做三量联检，验证成本低而说服力高。</li>
+</ol>
+</div></div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+});
+</script>
+</body>
+</html>

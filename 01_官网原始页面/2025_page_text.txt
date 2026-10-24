@@ -1,0 +1,160 @@
+The University Physics Competition
+The University Physics Competition
+Home
+Contest Rules
+Register a Team
+2026 Contest
+2025 Contest
+2024 Contest
+2023 Contest
+2022 Contest
+2021 Contest
+2020 Contest
+2019 Contest
+2018 Contest
+2017 Contest
+2016 Contest
+2015 Contest
+2014 Contest
+2013 Contest
+2012 Contest
+2011 Contest
+2010 Contest
+About Us
+Home
+Contest Rules
+Register a Team
+2026 Contest
+2025 Contest
+2024 Contest
+2023 Contest
+2022 Contest
+2021 Contest
+2020 Contest
+2019 Contest
+2018 Contest
+2017 Contest
+2016 Contest
+2015 Contest
+2014 Contest
+2013 Contest
+2012 Contest
+2011 Contest
+2010 Contest
+About Us
+The 2025 University Physics Competition
+The University Physics Competition began on Friday, November 7, 2025, at 6pm MST (Mountain Standard Time), which is 8pm EST, when the contest problems were posted here.
+Problem A: Acoustic Preservation of the Electric Sasando
+The sasando is a traditional Indonesian string instrument where sound is produced by vibrating strings acoustically amplified through a hand-formed, dried lontar leaf resonator. This unique resonator naturally amplifies frequencies between 98 Hz and 1047 Hz. The strings are mounted on a bamboo tube measuring 70 cm in length with a diameter of 8 cm. Modern electric versions replace the resonator with a pickup and speaker, sacrificing acoustic quality for portability. Your challenge is to develop a method for the electric sasando to replicate the authentic acoustic sound of the traditional instrument.
+Problem B: Artillery
+Consider a cannon 150 or 200 years ago that fired spherical 5 kg projectiles that are 11cm in diameter with a muzzle velocity of up to 450 m/s. If our target is at a horizontal distance of 1,200 meters, and both the cannon and the target are at an altitude of 500 meters above sea level, what muzzle velocity and firing angle above the horizontal will successfully hit the target? Then, consider targets at horizontal distances between 1,000 meters and 1,500 meters, at a variety of different altitudes, and accounting for different amounts of wind. Develop a method that an artillery officer trained in mathematics, but lacking computers or calculators, could use to quickly estimate a successful muzzle velocity and firing angle.
+Results of the 2025 University Physics Competition were posted on January 15, 2025.
+To download a printable pdf award certificate for your team, set your browser to: http://www.uphysicsc.com/certificates2025/*.pdf
+Here * is your team number. For example if your team number is 200, this is: http://www.uphysicsc.com/certificates2025/200.pdf
+Full results announcement and complete listing of all medals in the 2025 University Physics Competition
+We are very pleased to announce the results of the sixteenth annual University Physics Competition. The University Physics Competition is an international contest for undergraduate students, who worked in teams of up to three students at their home colleges and universities all over the world, and spent 48 hours during the weekend of November 7, 8, & 9, 2025, analyzing a scenario using the principles of physics, and writing a formal paper describing their work.
+In this year’s competition 838 teams submitted papers for judging. 131 teams selected “Problem A – Acoustic Preservation of the Electric Sasando” and 707 teams selected “Problem B – Artillery.”
+Of the 838 papers submitted in this year’s University Physics Competition, 16 teams (1.9%) were ranked as Gold Medal Winners, 152 teams (18%) were ranked as Silver Medal Winners, 239 teams (29%) were ranked as Bronze Medal Winners, and 431 teams (51%) were ranked as Accomplished Competitors.
+For Problem A, the Gold Medal Winning Teams were:
+Team 112: Lingxuan Zhou, Hongtao Wang, Cheng Lu
+Institution: Chongqing University of Posts and Telecommunications
+Faculty Sponsor: Jia Ran
+Team 112's 2025 Problem A Gold Medal Winning Paper
+Team 182: Sabrina Li, Joanna Geng, Rina Song
+Institution: University of Waterloo
+Faculty Sponsor: Richard Epp
+Team 182's 2025 Problem A Gold Medal Winning Paper
+Team 485: Guorui Liu, Ying Chen, Lingxin Bu
+Institution: Nanjing University of Science and Technology
+Faculty Sponsor: Haiping Wu
+Team 485's 2025 Problem A Gold Medal Winning Paper
+For problem B, the Gold Medal Winning Teams were:
+Team 127: Donghao Zhou, Shuimiao Zhang, Hongyu Qian
+Institution: Nanjing University of Aeronautics and Astronautics
+Faculty Sponsor: Shuiyan Cao
+Team 127's 2025 Problem B Gold Medal Winning Paper
+Team 155: Zhang Shuhao, Huang Yuhang, Wang Hanshuyu
+Institution: Nanjing University of Aeronautics and Astronautics
+Faculty Sponsor: Ma Haixia
+Team 155's 2025 Problem A Gold Medal Winning Paper
+Team 188: Zou Shijun, Wu Zhonghua, Liang Chuhan
+Institution: Nanjing University of Aeronautics and Astronautics
+Faculty Sponsor: Du ChaoLing
+Team 188's 2025 Problem B Gold Medal Winning Paper
+Team 204: Gu Chenwang, Yu Jiahao, Zhong Zhijie
+Institution: Nanjing University of Aeronautics and Astronautics
+Faculty Sponsor: Kan Caixia
+Team 204's 2025 Problem B Gold Medal Winning Paper
+Team 207: Mingyu Liu, Weiyi Zhang, Yosh Shaw
+Institution: Nanjing University of Aeronautics and Astronautics
+Faculty Sponsor: Kan Caixia
+Team 207's 2025 Problem B Gold Medal Winning Paper
+Team 264: Nuoheng Ni, Ruya Lei, Yancheng Lin
+Institution: Nanjing University of Science and Technology
+Faculty Sponsor: Haiping Wu
+Team 264's 2025 Problem B Gold Medal Winning Paper
+Team 311: Yun'ao Peng, Chengrui Wang, Jiayuan Kang
+Institution: Nanjing University of Science and Technology
+Faculty Sponsor: Haiping Wu
+Team 311's 2025 Problem B Gold Medal Winning Paper
+Team 392: Yuanhao Li, Lihui Liu, Yuheng Mi
+Institution: Nanjing University of Science and Technology
+Faculty Sponsor: Haiping Wu
+Team 392's 2025 Problem B Gold Medal Winning Paper
+Team 428: Hongzhi Shao, Jiang Lu, Hangyu Liu
+Institution: Nanjing University of Science and Technology
+Faculty Sponsor: Haiping Wu
+Team 428's 2025 Problem B Gold Medal Winning Paper
+Team 460: Qian Wang, Jiaxin Lin, Xinguo Xia
+Institution: Nanjing University of Science and Technology
+Faculty Sponsor: Haiping Wu
+Team 460's 2025 Problem B Gold Medal Winning Paper
+Team 496: Rudro Karmokar, Sanjeeda Islam Mou
+Institution: Rajshahi University of Engineering and Technology
+Faculty Sponsor: Md. Faruk Hossain
+Team 496's 2025 Problem B Gold Medal Winning Paper
+Team 765: Zhai Junxian, Xiong Yuxuan, Zhang Yiming
+Institution: National University of Defense Technology
+Faculty Sponsor: Huang Ming Qiu
+Team 765's 2025 Problem B Gold Medal Winning Paper
+Team 796: Sun ShengBo, Yuancai Hu, Li Yawen
+Institution: Tongji University
+Faculty Sponsor: Ma Yan
+Team 796's 2025 Problem B Gold Medal Winning Paper
+We extend our sincerest congratulations to each of the competing teams for their excellent work and their enthusiasm for physics!
+Kelly S. Cline
+Carroll College; Helena, Montana, United States
+Director of the University Physics Competition
+www.uphysicsc.com
+Above, 2025 Gold Medal Winners
+Team 112: Lingxuan Zhou, Hongtao Wang, Cheng Lu
+Institution: Chongqing University of Posts and Telecommunications
+Faculty Sponsor: Jia Ran
+Above, 2025 Gold Medal Winners
+Team 127: Donghao Zhou, Shuimiao Zhang, Hongyu Qian
+Institution: Nanjing University of Aeronautics and Astronautics
+Faculty Sponsor: Shuiyan Cao
+Above, 2025 Gold Medal Winners
+Team 182: Sabrina Li, Joanna Geng, Rina Song
+Institution: University of Waterloo
+Faculty Sponsor: Richard Epp
+Above, 2025 Gold Medal Winners Team 188: Zou Shijun, Wu Zhonghua, Liang Chuhan
+Institution: Nanjing University of Aeronautics and Astronautics
+Faculty Sponsor: Du ChaoLing
+Above, 2025 Gold Medal Winners
+Team 204: Gu Chenwang, Yu Jiahao, Zhong Zhijie
+Institution: Nanjing University of Aeronautics and Astronautics
+Faculty Sponsor: Kan Caixia
+Above, 2025 Gold Medal Winners
+Team 311: Yun'ao Peng, Chengrui Wang, Jiayuan Kang
+Institution: Nanjing University of Science and Technology
+Faculty Sponsor: Haiping Wu
+Above, 2025 Gold Medal Winners
+Team 496: Rudro Karmokar, Sanjeeda Islam Mou
+Institution: Rajshahi University of Engineering and Technology
+Faculty Sponsor: Md. Faruk Hossain
+Above, 2025 Gold Medal Winners
+Team 765: Zhai Junxian, Xiong Yuxuan, Zhang Yiming
+Institution: National University of Defense Technology
+Faculty Sponsor: Huang Ming Qiu
+Web Hosting powered by Network Solutions®

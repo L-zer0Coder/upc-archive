@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circumbinary Planets（2014 题A 队伍726） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg:#0a0f1e;--panel:#111a2e;--ink:#e8eef8;--mut:#94a5c0;--line:#22304c;--acc:#4f7dd9;--acc2:#39c2b0;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
+ font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar a:hover{border-color:var(--acc);color:#fff}
+.crumb{color:var(--mut);font-size:13px}
+.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
+h3{font-size:17px;color:#cfe0ff}
+a{color:#7fb0ff} a:hover{text-decoration:underline}
+code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
+pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1em 0;padding:8px 16px;border-left:4px solid var(--acc2);background:rgba(57,194,176,.07);color:#c9d6ea;border-radius:0 10px 10px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#16233c;color:#a9bcda;white-space:nowrap}
+tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
+@media(max-width:700px){.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html">🏆 总览首页</a>
+  <span class="crumb">05_论文赏析/2014</span>
+  <span style="flex:1"></span>
+  <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2014/Problem%20A/2014-GM-A-726.pdf">📄 论文 PDF</a>
+  <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2014/2014-GM-A-726.md">原文 .md</a>
+</div></div>
+<div class="wrap"><div class="card">
+<h1 id="circumbinary-planets2014-a-726">Circumbinary Planets（2014 题A 队伍726）</h1>
+<p><strong>页数</strong>: 25 页 ｜ <strong>对应题目</strong>: 题A Circumbinary Planets（环双星行星：1 倍与 0.5 倍太阳质量双星，周期 30 天，求稳定行星轨道）</p>
+<h2 id="1">1. 论文速览</h2>
+<p>论文把"三体问题无解析解"这一困境直接转化为数值实验设计：先用 Kepler 第三定律（式 1-2）由 30 天周期定出双星间距，再在 $(r_0, v_0)$ 二维初值平面上扫参（50 个半径 × 150 个速度），用 Mathematica NDSolve 积分行星运动方程（式 10）至 10 年，并对缩小的参数范围积分到 1000 年，以"能量仍为束缚态（式 11）+ 从未进入恒星一个太阳半径内"判据标记稳定黑格，得到稳定带状区域。三种双星偏心率 $\varepsilon=0,\,0.4,\,0.6$ 对比后结论：1000 年后持续稳定的最小轨道半径约 0.6 AU；并进一步用质光关系与流量判据算出宜居带 1.05–1.36 AU，确认其中有稳定轨道。摘要 8 行，直接给出 0.6 AU 的定量答案。</p>
+<h2 id="2">2. 建模体系逐层拆解</h2>
+<ul>
+<li><strong>第 1 层：双星轨道的解析骨架</strong>。式(1) $T^2=4\pi^2 a^3/[G(M_1+M_2)]$ 由周期定间距 $a$；式(3)(4) $a_1=\frac{M_2}{M_1+M_2}a$、$a_2=\frac{M_1}{M_1+M_2}a$ 把两星质量加权分配到质心两侧；式(5)(6)给圆轨道参数化，式(7)(8)给偏心轨道（加 $a_i\varepsilon$ 常数项把质心放回原点，$y$ 分量乘 $\sqrt{1-\varepsilon^2}$）。论证方式是教科书式的两体化简，为第 2 层提供随时间运动的"引力源坐标"。</li>
+<li><strong>第 2 层：行星的受限三体动力学</strong>。式(9)按叠加原理写出双星引力场 $\vec E(t)$（文本提取丢失了方向单位矢量记号），式(10) $\ddot{\vec r}(t)=\vec E(t)$ 即行星运动方程。核心假设：行星质量对双星无反作用（test particle），论文在 8.1 节主动承认这违背严格能量守恒、对气态巨行星不成立。</li>
+<li><strong>第 3 层：稳定性判据与碰撞处理</strong>。式(11)用总能量 $\frac12\dot r^2-\frac{GM_1}{|\vec r_1-\vec r|}-\frac{GM_2}{|\vec r_2-\vec r|}&lt;0$ 判定束缚态；附录代码中用 sigmoid 光滑化符号函数构造"恒星表面排斥场"，使行星一旦触及恒星表面即被弹向无穷远，优雅地把"碰撞"这一离散事件连续化。</li>
+<li><strong>第 4 层：宜居带扩展分析</strong>。式(13)(14)引用文献的宜居带内外半径 $\sqrt{L/1.1}$、$\sqrt{L/0.53}$，式(15)(16)反解出流量上下限；用 $L\propto M^4$ 质光关系（式 17-18：$L_1=L_{sol}$，$L_2=L_{sol}/16$）得双星总光度；式(19) $\mathrm{Flux}(r,\varphi)$ 在极坐标下逐方位计算，图 14 画出 $r\!-\!\varphi$ 相空间中的紫色宜居带，并取"最内半径取 $\varphi=0$ 处最大值、最外半径取 $\varphi=\pi$ 处最小值"的最保守交集，得 1.05–1.36 AU。</li>
+</ul>
+<h2 id="3">3. 数学方法与算法</h2>
+<p>纯数值路线：Mathematica 9 的 NDSolve（MaxSteps=30000），Matlab R2013b 辅助作图。扫参设计清晰：10 年模拟用 50 个半径（0.19 AU 起、步长 0.04 AU）× 150 个速度（5.0 AU/yr 起、步长 0.1 AU/yr）；1000 年模拟把半径范围压到 0.19–0.75 AU、速度步长放大 3 倍以控制算力。极限情形检验做得好：上边界直接用逃逸速度解析曲线（式 11）解释，图 15 还抓到"10 年模拟判定稳定、326 年时坠星"的反例，说明稳定判据对积分时长敏感——这是全文最有物理洞察的一段。初速度用 $v_{estimate}=\sqrt{G(M_1+M_2)/|\vec r(0)|}$（式 12）作中心估计再加余量。不足：无步长收敛性/能量漂移的定量检验，1000 年上限靠算力而非收敛性论证。</p>
+<h2 id="4">4. 排版与图表赏析</h2>
+<p>标题页（p1 图）为极简 LaTeX 风格：居中大标题 + Topic A + Team 726 + 日期 + 单栏摘要，摘要仅 8 行但含 0.6 AU 硬结论。全文共 16 图 1 附录、无表格；图表页（fig 图）显示 Figure 1/2 为 Mathematica 原生快照图——蓝色行星轨迹、红点双星、绿点行星当前位置，坐标轴为 AU，风格朴素但信息自足；核心成果图是 9 张 $r_0\!-\!v_0$ 相空间稳定图（Fig 4-12，黑格=稳定）按 $\varepsilon$ 分三组、按积分时长（1 月/1 年/10 年/1000 年）递进排布，形成"时间越长相稳定集越小"的视觉论证链。公式编号 (1)-(19) 连续规范。25 页中有约 10 页是图与附录代码，正文紧凑。</p>
+<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<ol>
+<li><strong>把开放题变成可判定的数值实验</strong>：不空谈"三体混沌"，而是定义两条可操作的稳定判据（式 11 能量判据 + 不碰恒星），让"哪里稳定"有明确答案。</li>
+<li><strong>扫参维度选取正中题目要害</strong>：$r_0\!-\!v_0$ 平面恰好对应"何处、以何速度"两个自然问句，稳定带及其上下边界的物理解释（上界=逃逸速度曲线、下界渐近）让数据有理论回声。</li>
+<li><strong>多偏心率 + 多时长的系统对比</strong>：$\varepsilon=0/0.4/0.6$ 三组平行实验，得到"偏心率越高稳定带越窄"的规律性结论，超出题目最低要求。</li>
+<li><strong>诚实的局限分析</strong>：8.1-8.5 节五条局限（test particle 假设、1000 年太短、初始取向单一、稳定轨道形态未知、S 型轨道未展开），并配图 15 的反例证据，评委最看重的自洽性意识体现充分。</li>
+<li><strong>宜居带闭环</strong>：把"稳定存在吗"升级为"宜居行星可能存在吗"，式(19)与图 14 是漂亮的附加分。</li>
+<li><strong>附录完整代码</strong>：25 页内附带注释的 Mathematica 源码，可复现性拉满。</li>
+</ol>
+<h2 id="6">6. 可借鉴清单</h2>
+<ol>
+<li>数值扫参前先用解析近似（式 12 圆轨道速度估计、式 11 逃逸边界）框定参数窗口，避免盲目撒点。</li>
+<li>给"稳定"这类模糊概念写出书面化、可编码的判据，并在论文正文明确陈述。</li>
+<li>用"短时长全扫 + 长时长缩域"两级模拟平衡算力与结论强度。</li>
+<li>主动寻找自己模型的反例（图 15 的晚期坠星）并展示，比只报好结果更可信。</li>
+<li>相空间"稳定/不稳定"黑白网格图是呈现大样本数值实验的高效图式，附刻度与参数即可复现。</li>
+<li>附录附注释版源码；局限小节逐条写"假设→何时失效→如何扩展"。</li>
+</ol>
+</div></div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+});
+</script>
+</body>
+</html>

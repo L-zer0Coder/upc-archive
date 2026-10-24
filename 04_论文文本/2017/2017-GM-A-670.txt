@@ -1,0 +1,236 @@
+Problem A: Solar Sailing to Mars
+Team 670
+November 13, 2017
+Abstract
+Solar sails became reality lately, being far more aﬀordable then most of modern methods
+of propulsion in space. They obviously have some limitations, as they can work eﬀectively
+only in close proximity of the Sun and can not propel spacecrafts towards the Sun. Using such
+solar sails for missions to the Mars has been discussed previously by many groups and seem to
+have a lot of potential, especially if time is not the most limiting factor. Our limiting factor
+was a mass of an entire ship ﬁxed at 2000kg. In our work we suggest a heuristic approach to
+optimize an angle of incidence during ﬂight, while keeping this angle ﬁxed for ﬁxed periods
+of time. With numerical simulations we found optimal routes for diﬀerent ratio (q) of sail to
+ship mass. With such an optimization we concluded, that most promising is to have q ratio
+equal to 0.46, what gives 1080 kg of payload. Such a spaceship would reach Mars in about
+532 days.
+1
+Introduction
+A solar sail is a modern concept of cosmic travel, where a spacecraft is propelled by light pressure
+from photons emitted from the Sun. It oﬀers obvious advantages of fuel conservation and possible
+weight reduction. Using solar sail can become the future of cosmic exploration, but it also demands
+a new approach to planning a mission.
+Indeed, the concept signiﬁcantly diﬀers from conventional methods, where for most part the vessel
+travels along an elliptical path with gravity being the only acting force, and the orbit is changed
+by short boosts at perihelion / aphelion. Light pressure constantly aﬀects the sail, which makes
+equations of motion more complicated and trajectories impossible to derive analytically.
+Therefore we evaluated trajectories numerically with variable parameters of sail size and orientation
+angle with respect to position vector (which can be modiﬁed throughout the ﬂight by rotating the
+sail at low energetic cost). Our goal is to optimize η = m
+T , where m is the mass of a spacecraft,
+and T the time of a mission.
+In our case we consider a mission to Mars, where we start at the moment of planet’s closest
+approach to Earth. Similar problem has been presented previously by [5], but with less constraints
+than in our case. We decided to use a diﬀerent with semi-heuristic algorithm attached in Appendix
+A.
+2
+Mathematical model of solar sail
+We model a solar sail as a ﬂat surface tilted at an angle Θ between line connecting the center of
+the Sun and normal vector to sail surface. The net force acting on a sail is proportional to an
+eﬀective cross section of a solar sail and scales with a cos(Θ). We assume that sun is a uniform
+black sphere at a temperature equal to 5 778K [4]. Therefore, solar radiation impulse on a sail can
+be estimated based on total radiation emitted by black body according to equation:
+F = 2A⊙σT⊙AS
+4πr2c
+cos(Θ)
+Where A⊙is total Area of the Sun, T⊙is temperature of a surface of the Sun, As is a total area of
+the sail, r is distance between aircraft and the Sun, σ is the Stefan–Boltzmann constant and c is
+speed of light in vacuum. After projecting this force on orthogonal basis in spherical coordinates
+1
+
+we receive such components:
+
+
+
+Fr = 2A⊙σT⊙AS
+4πmr2
+cos2(Θ)
+Fφ = 2A⊙σT⊙AS
+4πr2c
+cos(Θ)sin(Θ)
+(1)
+Figure 1:
+Mathematical model of a solar sail with deﬁned angle
+2.1
+Equations of motion
+We append derived equations to a standard equations of motion for a standard spherical coor-
+dinates, assuming that orbit is a circle with the Sun in the center. We therefore consider only
+positions on a plane, assuming that orbits of the Earth and Mars lie on the same plane.
+
+
+
+¨r = −GM
+r2 + α
+r2 cos2(Θ) + ˙φ2r
+r ¨φ = α
+r2 sin(Θ)cos(Θ) −2 ˙r ˙φ
+(2)
+Where, α = 2A⊙σT⊙AS
+4πmc
+We can modify radial component of above equations to be a motion in
+modiﬁed gravity ﬁeld, as all forces are proportional to
+1
+r2
+With this assumptions we are able to simulate ﬂight of the satellite with diﬀerent Θ(t). Lets
+also assume, that our satellite at a beginning has a well deﬁned surface of the sail and that changing
+angle Θ does not aﬀect energy of a satellite. Under such conditions, change of an angle Θ in time
+is the only parameter for optimization. For every size of sail (which deﬁnes also payload size) we
+are able to propose a best route and measure transit time. Since we want to optimize ratio of
+payload weigh and mission time we are able to maximize it for every parameter.
+Considering now a ﬁxed payload size and ﬁxed sail size we optimize only angle Θ(t) in time.
+Since the launch takes place on a day where Earth and Mars are in the closest proximity,
+satellite reaches Mars orbit Before Mars and has to decelerate in order to reach it‘s proximity.
+Therefore we decided to simulate movement of the satellite by considering long distances with
+ﬁxed angle Θ, so function Θ(t) becomes a piecewise function of time. We can denote number of
+individual parts (with ﬁxed angles) as N. If we will increase N to inﬁnity we can easily convert this
+approach for a smooth function Θ(t), but due to nature of a problem piecewise function seem to ﬁt
+well and highly simpliﬁes optimization process. We keep number of pieces low as complexity of a
+problem scales with exponent. Moreover, with a few degrees of freedom we obtain highly enhanced
+time of mission and route. Further increase in number of diﬀerent settings Θ(t) does not decrease
+ﬂight time signiﬁcantly.
+2.2
+Flight optimization
+Search for optimal ratio has been performed assuming three diﬀerent angles Θ, so with two changes
+of an angle during the ﬂight. We deﬁne a sail area factor q (mass of sail/entire mass of aircraft)
+2
+
+and we probe best solutions with a resolution of 0.01.
+First we try to estimate a range of parameters, which allow to reach the Mars orbit, and then we
+optimize them in order to decrease distance from Mars and adjust relative speed for it to be below
+the required 9km/s. By using such a heuristic approach we deﬁne some parameter ranges, such
+that eg. sail angle at the beginning should not be set to decelerate aircraft. This approach narrows
+the space to be searched and, because of that, lowers the computation time.
+2.3
+Optimization Algorithm
+We had 3 parameters in our optimization process θ1,θ2,θ3 which were respectively angles of inci-
+dence for diﬀerent times of ﬂight (from take oﬀto 6 month mark, then 12 month mark and then
+to contact with the Mars). We used grid optimization and after ﬁnding local minimum for given
+q we optimized further near previously found minimum.
+Initial conditions:
+r(0)=Earth radius, ˙r(0) = 0, φ(0) = 0,
+˙
+phi(0) = Earth’s angular velocity
+Constrains for initial parameters
+−π
+2 ≤θ ≤π
+2
+(3)
+3
+Results
+All data and equations has been obtained from following resources: [4, 2, 3, 1] After running initial
+simulations, a trend emerges. Most of locally optimal solutions follow a speciﬁc behavior: ﬁrst,
+Mars’ orbit is reached; then, the ship decelerates, by changing the direction of the sail, and makes
+its ﬁnal approach. Sometimes, a ﬁnal correction takes place to hit Mars more precisely.
+This course of action, which was found by optimizing sail’s angle in respect to time, is to be
+expected. It proves that the simulation gives rational results.
+When the aircraft ﬁrst approaches the Mars orbit it is signiﬁcantly ahead of the Mars. As the
+launch happened from Earth orbit and since Earth‘s orbital velocity is higher than Mars’, to reach
+close proximity of Mars and not waist time probe should reach higher (further) orbit from the Sun
+and decrease its angular speed, "wait for Mars", before next crossing.
+Then, when shuttle is in proximity of Mars, we can adjust course to reach Mars within good
+radius (estimated to 20,400km - near stationary orbit for Mars, between its moons Phobos and
+Deimos) and with low enough velocity given in a task to be less than 9km/s.
+Example trajectory found by our simulation look like the one below:
+0 . 3
+0 . 4
+0 . 5
+0 . 6
+0 . 7
+0 . 8
+1 . 0
+1 . 2
+1 . 4
+1 . 6
+1 . 8
+2 . 0
+2 . 2
+C a p a c i t y ( k g / d a y )
+M
+a s s o f s a i l / M
+a s s o f s h i p
+Figure 2:
+Capacity of sail as function of q
+3
+
+The graph below pictures the relation between loading factor q, and the time for the shuttle
+to reach Mars by following the optimized trajectory: As it would be expected, the larger the sail,
+0 . 3
+0 . 4
+0 . 5
+0 . 6
+0 . 7
+0 . 8
+3 5 0
+4 0 0
+4 5 0
+5 0 0
+5 5 0
+6 0 0
+6 5 0
+7 0 0
+7 5 0
+M
+i n i m
+a l t r a v e l t i m
+e ( D a y s )
+M
+a s s o f s a i l / M
+a s s o f s h i p
+Figure 3:
+Minimal ﬂight time as function of q
+the faster our target can be reached. However, when we consider load mass to travel time ratio
+(channel capacity), the result is very interesting:
+- 2
+- 1
+0
+1
+2
+- 2
+- 1
+0
+1
+2
+[ m
+1 0 ^ 1 1 ]
+[ m
+ 1 0 ^ 1 1 ]
+Figure 4:
+Trajectory of optimal ﬂight path. Two circles represent orbits of Earth and Mars
+A clear maximum can be seen around q = 0.46. As one would expect the transport eﬃciency
+decreases when q reaches 0 or 1. Having a very small sail results in a far too long trip, while a
+short trip with a huge sail is not fast enough to account for the load capacity lost to the sail.
+Optimal transport eﬃciency was reached for q = 0.46 and it was η = 2.028 kg
+day. It was reached
+after 532.517 days, distance from mars at that time was 1.07 · 107m and their relative velocity
+8.6 km
+s .
+4
+
+4
+Conclusions
+Our results for 3 angle optimization gives a reasonable capacity yield of 2.028 kg
+day. With more
+computational power we could add more optimization points, which would possibly increase the
+capacity-to-time ratio.
+During our simulations we deduced that this particular time is not optimal and we could
+increase this ratio by changing the launch date and time, for example having Mars ahead of Earth
+would probably simplify the task. However, we did not consider such conditions, as it was stated
+in the task that we have to start from such a setup.
+References
+[1] R. P. Feynman, R. B. Leighton, and M. Sands. The Feynman lectures on physics, Vol. I: The
+new millennium edition: mainly mechanics, radiation, and heat, volume 1. Basic books, 2011.
+[2] Wikipedia. Earth, 2017. [Online; accessed 12-November-2017].
+[3] Wikipedia. Mars, 2017. [Online; accessed 12-November-2017].
+[4] Wikipedia. Sun, 2017. [Online; accessed 12-November-2017].
+[5] M. Zhang, G. Wang, and Y. Sun. Solar sail trajectory optimization for earth-mars mission. In
+Control Conference (CCC), 2010 29th Chinese, pages 139–143. IEEE, 2010.
+5

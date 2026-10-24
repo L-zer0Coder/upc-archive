@@ -1,0 +1,505 @@
+Team No. 449
+Problem A
+Volcanism on Super-Earths
+Abstract
+In this problem, we are required to predict the volcanic activities on the super-
+earths.
+To solve the problem, we set up a model based on the conservation of
+energy, the heat conduction law and the decay law of isotopes. Then we give the
+simulation of the volcanic activities using MATLAB and Mathematica, and the
+results show an approximated relationship between the volcanic activities and the
+mass of the super-earth clearly.
+After optimizing the model and discussing the
+strengths and weaknesses, we derived the conclusion: the volcanic activities become
+intenser gradually at the beginning and slow down after some time. The larger mass
+a super-earth possesses, the longer the volcanic activities can last.
+
+Team No. 449: Page 2 of 17
+1
+Introduction
+In the universe, there are many planets which are very similar to our Earth by struc-
+ture and components. However, their mass may be diﬀerent from the Earth’s mass, for
+example, ranging from 0.5 to 3 times of the mass of Earth. These planets are called
+”super-earth”, and the volcanic activities on the planets are of vital importance because
+it can help people explore the formation and evolution of these planets. This article gives
+a method to predict the volcanic activities on a super-earth.
+In the article, we start from the earth and set up a model: we deﬁne the volcanic
+activity as a quantity proportional to the energy stored in the lava during a certain
+period of time, analyze the energy gain and loss of the earth, and use the conservation of
+energy to obtain the energy transferred to the lava. When the temperature of the lava
+is lower than 700 ℃(the lower bound of temperature interval of the lava),the volcanic
+activity is regarded as stopped. Combining all together we ﬁnally derive a diﬀerential
+equation and solved it using MATLAB and Mathematica. After getting the numerical
+solutions and expanding it to all the super-earths with dimensional analysis. we get the
+conclusion: the larger radius a super-earth has, the longer volcanic activities can last on
+it.
+2
+Model
+2.1
+Assumptions
+In this problem, we ﬁrst consider the super-earth as a planet having the same structure as
+the Earth. As shown in ﬁgure 2.1, the super-earths consist of four parts: inner core, outer
+core, mantle, crust. Between the mantle and the crust, we assume that the super-earths
+have a layer of viscous lava. Here we assume that the thickness of the layer of lava is
+trivial compared to the thickness of the crust. This is reasonable, since the thickness of
+the layer of lava is just several hundred meters. [1] Since we do not have any idea about
+how the density and the heat capacity change with temperature and pressure, it is very
+diﬃcult to ﬁnd the functions ρ(r) of the super-earths, so we assume that the density and
+speciﬁc heat capacity of each parts are constant.
+As seen in the ﬁgure 2.3.2 [2], the geothermal curve can be regarded as a piecewise
+linear function. This is quite reasonable. We will give the reason in latter section.
+Since we consider a large scale of time, that this, in the scale of 108 year. The time
+between two volcanic eruptions is too small so that we can regard the eruption as a
+continuous process.
+Since the earthquake and volcanic eruption are both the energy release of layer of lava,
+we do not distinguish them. We think that they are at least in proportion. We denote the
+energy release of volcano as Evol and the total energy release as Erel, by our assumption,
+we have
+Evol = λvrErel
+
+2.2
+Model Overview
+Team No. 449: Page 3 of 17
+Figure 1: The Structure of Super-Earth (Not to Scale)
+We call λvr volcanic eruption factor. Since this is just small linear constant, it is trivial
+for our model. Here, we set λvr = 1. That is, all the energy release becomes the volcanic
+eruption.
+We assume that the temperature distribution in each part of the super-earth is linear.
+We also assume that the thermal conductivity in the same part of the super-earth
+stays the same.
+2.2
+Model Overview
+The volcanic activity is related to the temperature of the inner part of the planet. In order
+to give relation of the volcanic activity over time, we need to ﬁnd the volcanic activity
+varies over time. Our model mainly focuses on a universal law in physics, Conservation
+of the Energy. Using this law, we get the equation (3), in words, the energy for volcanic
+eruption equals the diﬀerence between the energy transfered to the layer of lava and the
+energy released from the inner part of the planet received on the surface of the planet.
+2.3
+Basic Model
+We ﬁrst deﬁne the volcanic activity as the energy release of the layer of lava. Since the
+core of the super-earth releases energy due to the decay of heavy elements and the residual
+heat from the early age of the super-earth, it heats the layer of lava. The layer of lava
+also releases the energy to the crust, however, it also stores the energy by various of
+method [3]. When the storage of the energy reaches its maximum capacity, the layer of
+lava releases the energy. By our assumption, λvr of this kind of energy release leads to
+
+2.3
+Basic Model
+Team No. 449: Page 4 of 17
+volcanic activities. Denote the energy stored by the layer of lava as Estore, we have
+Evol = λvrEstore
+By conservation of energy, we have
+Etrans −Ereceived = Estore
+(1)
+where Ereceived stands for the energy release by thermal transfer (including thermal con-
+duction and thermal radiation) detected at the surface of the super-earth and Etrans stands
+for the energy transfer from mantle of the super-earth to the layer of lava.
+Denote ∆U as the change of internal energy of the super-earth and Edecay as the energy
+supply by decay of heavy elements. By conservation of energy, we have
+∆U = Edecay −Etrans
+(2)
+By (1) and (2), we have
+Estore = Edecay −∆U −Ereceived
+Take the partial diﬀerentiation by time on the both side, we have
+∂Estore
+∂t
+= ∂Edecay
+∂t
+−∂∆U
+∂t
+−∂Ereceived
+∂t
+So ﬁnally, we have
+∂Evol
+∂t
+= λvr(Etrans −Ereceived) = λvr(∂Edecay
+∂t
+−∂∆U
+∂t
+−∂Ereceived
+∂t
+)
+(3)
+2.3.1
+Decay Energy
+The core of the Earth has huge magnitude of radioactive isotopes at its early age. Uni-
+versity Physics shows that the decay of the 238U supplies the energy for the core.[5] So
+we have
+∂Edecay
+∂t
+= U238Ue
+−
+−t
+τ238U
+where U238U is the initial radiance of 238U and τ238U is the time constant of τ238U. The
+research shows that U238U = 20 · 1012W.[6] Since in our assumption we assume that the
+super-earths has the same structure of the Earth, we can easily calculate ∂Edecay
+∂t
+on the
+super-earth.
+
+2.3
+Basic Model
+Team No. 449: Page 5 of 17
+2.3.2
+Heat Transfer
+Here we regard mantle, inner core and outer core as a whole and calculate its internal
+energy. Note that the internal energy of an object can be calculated as
+U(r) =
+ZZZ
+Σ
+C(r)T(r)ρ(r) dV
+where Σ is the sphere, C(r) is the speciﬁc heat capacity function, ρ(r) is the density
+function and T(r) is the temperature function.
+Shown in the ﬁgure 2.3.2, by the research result [2], we have the thermal distribution
+(temperature distribution) of the Earth.
+Figure 2: The Geothermal Curve of the Earth
+As we discussed before, we regard the geothermal curve of the Earth as piecewise linear
+function. We make this approximation since the T is linear to U and the relative error is
+quite small (see ﬁgure 2.3.2). Another reason is that this kind of geothermal distribution
+is just a kind of approximation. It is evident that we human beings lack a direct way
+to measure these temperatures. If the geothermal function is piecewise function, we can
+apply the Fourier’s law of heat conduction without knowing thermal conductivity.
+T = T0 + T −T0
+L
+
+2.3
+Basic Model
+Team No. 449: Page 6 of 17
+where T0 indicates the known temperature and L denotes the distance between the points
+whose temperature is T and T0.
+Since we suppose the super-earths have the same structure as the Earth and the
+geothermal curve is piecewise linear, we can calculate its internal energy by simply mul-
+tiplying a factor λR(r). By the Fourier’s law of heat conduction, the geothermal function
+of the Earth obtained directly by is given as following.
+T(r) =
+(
+T1 −2(T1−T2)
+R
+r
+if 0 ≤r < 3000 m,
+T2 −2(T2−T3)
+R
+(r −1
+2R)
+if 3000 < r ≤(6370 −100) m,
+(4)
+where T1 = 5000K is the temperature of center of inner core, T2 = 3500K is the tempera-
+ture of the surface between inner core and outer core, and T3 = 1300K is the temperature
+of the surface between outer core and mantle.
+By the assumption, we can obtain the density function of the Earth
+ρ(r) =
+ 4.0 · kg · m3
+if 0 ≤r < 3000 m,
+12 · kg · m3
+if 3000 < r ≤(6370 −100) m,
+(5)
+Note that (5) only gives the density of the core and the mantle.
+By our assumption, we can get the speciﬁc heat capacity function of the Earth
+C(r) =
+ 477.3 J · kg−1 · K−1
+if 0 ≤r < 3000 m,
+1500 J · kg−1 · K−1
+if 3000 < r ≤(6370 −100) m,
+(6)
+Substitute (5), (4), (6), by numerical calculation, we have
+U(r) = U(r) = U(r) =
+ZZZ
+Σ
+C(r)T(r)ρ(r) dV
+(7)
+As for ∂Evol
+∂t , by the Fourier’s law of heat conduction, we have
+∂Evol
+∂t
+= 4πr2λ(T −T0)
+d
+= B(T −T0)
+(8)
+where λ ≈0.025W/m2[7], d ≈150m.[8]. So we can get B = 8.5 · 1010W/K.
+2.3.3
+Core Energy Received on Surface
+Basalt is the main component of the crust.
+The experience in the daily life and the
+contents on the textbook [4] shows that the basalt has excellent property of thermal
+insulation. Since the research shows that the average thickness of the crust of the Earth
+is 39 km.[4] It is reasonable that we can omit the energy release by the heat conduction
+by the thick crust. Even if in the super-earth which the mess is 0.5 times of the earth,
+the thickness of the crust is
+d = d0 ·
+3√
+0.5 = 31km
+
+2.4
+Extended Model
+Team No. 449: Page 7 of 17
+which is also very thick and has excellent heat insulation. Therefore, We can regard that
+all the energy store in the layer of lava and release in the volcano eruptions or earthquakes.
+So, we have
+Ereceived = 0
+One the one hand, since the heat insulation of the crust is so great we can consider
+that the energy obtained from the ”sun” (the star in the corresponding ”solar” systems)
+will not be conducted to the inner part of the planet. On the other hand, as for the Earth,
+the thermal radiation received from the Sun equals to the thermal radiation released by
+the Earth surface. As for super-earth, we know nothing about its sun, so we can assume
+that this relation also holds.
+2.3.4
+Volcanic Activity Rate
+We deﬁne the level of volcanic activity as the rate η:
+η = ∆N
+∆t
+where ∆N is the times of the eruption in ∆t, Q is the total energy released in an single
+eruption. By the assumption, we have the following approximation
+∆N
+∆t = ∆Evol
+Q∆t = ∆Evol
+∆t
+· 1
+Q = 1
+Q
+dEvol
+dt
+= Pvol
+Q
+So, we have
+η = Pvol
+Q
+2.4
+Extended Model
+Another research shows that 238U is not the only radioactive isotopes which supplies the
+Earth energy. The Earth are mainly heated by the decay of 40K, 235U, 238U and 232Th.As
+seen in the ﬁgure 2.4, we can calculate Edecay precisely. We can improve our model by
+considering these energy of decay. So, we have
+∂Edecay
+∂t
+= U40Ke
+−−t+Ta
+τ40K + U235Ue
+−−t+Ta
+τ235U + U238Ue
+−−t+Ta
+τ238U + U232The
+−−t+Ta
+τ232T h
+(9)
+where Ta indicates the age of the Earth (4.5 billion years), U40K, U235U, U238U and U232Th
+denotes the initial radiance of 40K, 235U, 238U and 232Th respectively.
+3
+Results
+3.1
+The Numerical Formula
+Set p =
+r
+R0 as the ratio of the super-earth and the Earth (R0 is the radius of the Earth),
+we can get the T(p, t) from the equation:
+T ′(p, t) = 2 · 1013Exp
+
+−t
+ 1.9 · 1017
+−8.5 · 1010 · (T[t] −14)/p, T(p, 0) = 1300
+(10)
+
+3.2
+Simulation of Basic Model
+Team No. 449: Page 8 of 17
+Figure 3: Radiogenic Heat Production for the Four Most Important Isotopes
+The equation is just an inhomogeneous ordinary equation of ﬁrst order. We can simple
+get the solution:
+T(p, t) = (1.19 × 1012 + e−8.5×1010t
+p
+(1.09 × 1014 −2.0 × 1013p) −7.37 · 10−17p + 2.0 · 1013e−5.26·10−18tp
+8.5 × 1010 −5.26 · 10−18p
+(11)
+where T(p, t) is the temperature of the outer surface of the mantle of the super-earth with
+the radius of pR0 at time t. Note that we denote the present by t = 0.
+The power of energy obtained by the layer of lava is given as
+Pvol = ∂Evol
+∂t
+= (T(p, t) −700) · 8.5 · 1010
+(12)
+3.2
+Simulation of Basic Model
+We denote ξ =
+m
+m0 as the ratio of the mess of the super-earth and the mess of the Earth.
+We have
+ξ = p3
+We use p instead of ξ in the formula (10) and (11) since p can make the formulae simpler.
+Set ξ = 0.5, 0.066(Mercury), 1(Earth), 3.0. From ﬁgure (3.2), we can see that if
+these ”super-earth” are in the same status of the Earth now, we can see a very interesting
+result. By our model, the Mercury will only have 5 · 1016s = 1.5 billion years to ﬁnish its
+volcanism. As for the Earth, it has 1.6 · 1017s = 5.07 billion years, which is quite sound.
+As for given super-earth, the activities last from 1.1 · 1017s to 2.5 · 1017s with ξ = 0.5 to
+3. From here we can see that our model is quite reliable.
+
+3.3
+Simulation of Extend Model
+Team No. 449: Page 9 of 17
+Figure 4: The Temperature Curve of Outer Surface of Mantle of Diﬀerent Super-Earths
+Assume the following super-earths have the same initial temperature. As seen in the
+ﬁgure (3.2), here we set p = 0.7 to 1.4 by step 0.1 (this equals to ξ = 0.5 to 3). We can see
+that all the curves act as exponential decay. We can also see that the smallest super-earth
+has the life of volcanic activities 5.5·1016s = 1.74 billion years shorter than the Earth. As
+for the biggest super-earth, it has the life of the volcanic activities 1.5·1017s = 4.76 billion
+years longer than the Earth. These results gives a good prediction of volcanic activities
+of diﬀerent super-earth varies by the time.
+3.3
+Simulation of Extend Model
+After calculating the preciser Edecay, we can get a new set of ﬁgures. We can see that
+the new model indicates a new feature, which is very interesting.(See ﬁgure 3.3) The
+temperature of the outer surface of mantle increase at ﬁrst and decrease at last. This
+shows that the temperature of the surface of the Earth was very low at ﬁrst, then due
+to the decay of the isotopes, the Earth was been heated and then its temperature rise.
+When the mass of the isotopes decrease as well as the radiance of the isotopes decrease,
+the temperature goes down. So the level of volcanic activities also increase at ﬁrst and
+
+Team No. 449: Page 10 of 17
+Figure 5: The Volcanic Activity Curve varies by time of Diﬀerent Super-Earths
+ﬁnally go down. We consider this is quite reasonable.
+As for ξ = 0.5, ξ = 0.73, ξ = 1.73, ξ = 2.74, we can see that the larger the super-
+earth.
+the later it starts the temperature decrease.
+This is quite sound, since larger
+super-earth has longer volcanic activities period.
+4
+Discussion
+4.1
+Weaknesses
+First, we lack too many conditions and details. The whole problem is set up on a large
+scale of time and space, and there is little information about the thermal history of the
+Hadean and Archean Eon as well as about the interior circumstances of the Earth. For
+example, we can’t ﬁnd any information about the thickness of the lava layer, which is
+important in our formula. Therefore we have to estimate some parameters and get a
+possible solution. When calculating the interior energy of the Earth, though we have
+the temperature-depth relationship of the Earth, we can’t ﬁnd the speciﬁc heat capacity
+of iron and silicate with such pressure and temperature, so we have to replace them by
+
+4.2
+Strengths
+Team No. 449: Page 11 of 17
+Figure 6: The Temperature of Outer Surface of Mantle of the Earth in the Extended
+Model Varies by Time
+approximated values.These estimations and approximations can cause considerable error.
+Second, we make too much simpliﬁcation compared with the original complicated
+situation. The volcanic activity is a series of very complex physical-chemical reaction
+but we just use such simple conditions and physical laws to simulate, so there are many
+processes inﬂuencing the results that we have neglected. However, this is the best model
+we can formulate using all the information we have.
+Finally, during the simulation of the evolution, since the time interval is too large, we
+have to set 1013 seconds(3 · 105 year) as a step so that the computer can accomplish the
+work. This large step may also cause errors.
+4.2
+Strengths
+First, our model is simple and directly to perceive, it can show clearly a trend of the
+change of the volcanic activity with the change of the radius. From the result we can
+see the model ﬁts the real situations well, especially when we consider the radiogenic
+emitted from diﬀerent elements. Therefore we can use it to predict the volcanic activity
+on diﬀerent super-earths with time varies approximately.
+Second, our model is based on a series of reasonable assumptions. We assume the
+energy released from volcano eruption is proportional to that released from earthquakes,
+considering the volcanoes and the seismic zones distributes similarly, thus simpliﬁes the
+
+4.3
+The Dependence of the Results on Parameters
+Team No. 449: Page 12 of 17
+calculation. We also choose to neglect the heat ﬂow from the earth, because the isolation
+of the crust is excellent, meanwhile the solar radiance is also providing energy and the
+surface of the earth has been in thermal balance for billions of years.
+Furthermore, our model is based on the real situation of the energy ﬂow. We referred
+the documentations and speciﬁed that the two main energy sources are the residual heat
+and the radiogenic heat. This can help to set up a clear equation and make the model
+more valid than just assuming.
+Generally speaking, it is very diﬃcult to analyze such a large and complicated process
+with so little information, but we did it. Though this model is kind of rough, we show
+a satisfying trend of the volcanic activity successful. This is the biggest victory of the
+modeling.
+4.3
+The Dependence of the Results on Parameters
+Since we estimate a lot of parameters due to a lack of information, now we try to analyse
+the dependence of the results on them.
+We choose coeﬃcient B in formula (8) because it contains two estimated parameters:
+the conductivity λ and the thickness of the lava layer d. During modeling, we didn’t ﬁnd
+exact information on λ and d, so we just estimate them as 0.025W/m2 and d as 150m
+on average. However, consider if λ = 0.03W/m2 and d = 100m (it’s very likely), then
+B = 1.53 · 1011W/K. We tried the simulation again and ﬁnd that the shape of the curve
+as well as the time period before the volcanoes die will be much smaller. Actually, it is
+just like we are considering an Earth-like planet with radius r = 0.55R, where R is the
+radius of the Earth. Therefore, we can see that the estimation of the conductivity and
+the thickness of lava layer will severely inﬂuence the result.
+References
+[1] D. Wu, X, Tao, General Geology, 1st edition, Science Press (2007), chapter 7.4 [in
+Chinese]
+[2] C. J. Ammon, Earth’s Origin and Composition (2010), Retrieved from Lecture Notes
+Online Website:
+http://eqseis.geosc.psu.edu/cammon/HTML/Classes/IntroQuakes/Notes/earth origin lecture.html
+[3] S. Bi, Science of Earth System, 2nd edition, Science Press (2003), pages 244-250 [in
+Chinese]
+[4] N. I. Christensen, W. D. Mooney, Seismic velocity structure and composition of the
+continetal crust: a global view, Journal of Geophysical Research, 100, B7, 9761-9788
+[5] H. D. Young, R. A. Freedman, A. L. Ford, University Physics with Modern Physics,
+13th edition, Pearson Press (2011), pages 1454
+
+REFERENCES
+Team No. 449: Page 13 of 17
+[6] S. Yamada, Measurement of Geoneutrinos with KamLAND, AIP Conference Pro-
+ceedings (2011), 1405, pages 300-305
+[7] G. J. F. MacDonald, Calculations on the Thermal History of the Earth, Journal of
+Geography Research (1959), 64,11, page 1974
+[8] G. L. Christerson, K. D. Mclntosh, J. A. Karson, Inconsistent Correlation of Seismic
+Layer 2A and Lava Layer Thickness in Oceanic Crust, Nature (2007), Vol 445, page
+419
+Appendix A: Plot of the Figures
+i=0;
+tt = 1300 ;
+T_ar = [tt];
+T = tt;
+t_ar =[0];
+t = 0;
+dt = 10^13;
+p = 1;
+while i<14191
+T = T - (2*10^13)*exp(-t/1.9*10^17)-8.5*10^10*(T-14)/p)*dt/(4*10^27);
+t = t - dt;
+T_ar = [T T_ar];
+t_ar = [t t_ar];
+i = i+1;
+end
+i=0;
+T_arr = [tt];
+T = tt;
+t_arr =[0];
+t = 0;
+while i<30000
+T = T + (2*10^13)*exp(-t/1.9*10^17)-8.5*10^10*(T-14)/p)*dt/(4*10^27);
+t = t + dt;
+T_arr = [T_arr T];
+t_arr = [t_arr t];
+i = i+1;
+if T<700
+break
+
+REFERENCES
+Team No. 449: Page 14 of 17
+end
+end
+T_ar = [T_ar T_arr];
+t_ar = [t_ar t_arr];
+plot(t_ar,T_ar)
+Figure 7: The Temperature of Outer Surface of Mantle of the super-earth (ξ = 0.5) in
+the Extended Model Varies by Time
+
+REFERENCES
+Team No. 449: Page 15 of 17
+Figure 8: The Temperature of Outer Surface of Mantle of the super-earth (ξ = 0.73) in
+the Extended Model Varies by Time
+
+REFERENCES
+Team No. 449: Page 16 of 17
+Figure 9: The Temperature of Outer Surface of Mantle of the super-earth (ξ = 1.73) in
+the Extended Model Varies by Time
+
+REFERENCES
+Team No. 449: Page 17 of 17
+Figure 10: The Temperature of Outer Surface of Mantle of the super-earth (ξ = 2.74) in
+the Extended Model Varies by Time

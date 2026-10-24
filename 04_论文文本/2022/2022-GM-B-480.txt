@@ -1,0 +1,935 @@
+Team 480 
+Analysis of the optimal initial velocities and 
+spins of soccer in Penalty Kicks 
+Problem B: FIFA Penalty Kicks 
+Team 480 
+November 6,2022 
+Abstract 
+ 
+Among the plentiful factors effecting the moving motion of the ball, gravity, air resistance, and 
+Magnus force are the three most important factors. In the course of the goalkeeper's defense, the 
+judgment of the direction of the shot, the defensive area and the start time of the attack are the main 
+factors that affect the success or failure of the penalty kick saving. We divided the process into two 
+parts: the soccer moving through the air and the defense of the goalkeeper. 
+ 
+The first part is to find initial velocities and spins that will result in a successful shot to an 
+upper corner. During this process, the gravity, air resistance, and Magnus force working together, 
+formulating the curve of the ball. Distinguish from the common theory, we take the multi-directional 
+axis of rotation and air resistance moment into account and establish a physical model that can 
+calculate and judge whether the input initial velocities and spins can match our request of distance 
+and position. We assume that the distance from the top corner of the crossbar and goalpost from 1 
+soccer radius to 2 soccer radius is the upper corner, and the maximum velocity is 31m/s. So that we 
+solve out the value range of initial velocities and spins that will result in a successful shot. 
+The second part is built on the model of part 1. To figure out the initial ball velocity and spin 
+should the shooting player attempt to create to have the best chance of avoiding the goalkeeper and 
+making the goal, among the three factors --- the judgment of the direction of the shot, the defensive 
+area and the start time of the attack , supposing that the goalkeeper can always accurately judge the 
+direction of the shot and react instantly to defend the goal and the defensive area is the only factor 
+that needed to be considered. We simulate the maximum defending area of the goalkeeper and 
+finally calculate the best initial velocity is 21.245 m/s with elevation of 0.2057 rad, declination of 
+1.4182 rad and the spin is 15.255 rad/s with elevation of 1.417 rad and declination of -0.752 rad, 
+shooting towards the left bootom of the goal. 
+ 
+Key words: Penalty Kicks; initial velocities; spins; Magnus force 
+ 
+ 
+
+Team 480 
+Contents 
+Analysis of the optimal initial velocities and spins of soccer in Penalty Kicks ....................... 1 
+Problem B: FIFA Penalty Kicks .............................................................................................................. 1 
+Team 480 .................................................................................................................................................. 1 
+Abstract ......................................................................................................................................................... 1 
+1. Introduction .............................................................................................................................................. 3 
+2. Restatement .............................................................................................................................................. 3 
+3. Assumptions and Notations .................................................................................................................. 4 
+3.1 Assumptions ...................................................................................................................................... 4 
+3.2 Notations ............................................................................................................................................ 4 
+4. Physical Analysis of Model .................................................................................................................. 5 
+4.1 Moving Motion of the Ball ............................................................................................................ 5 
+4.2 Initial Velocities and Spins of the Upper Corner Ball ............................................................. 6 
+4.3 Defense of Goalkeeper ................................................................................................................... 9 
+4.4 Initial Velocity and Spin of the Best Kick ............................................................................... 11 
+5 Model Evaluation ................................................................................................................................... 13 
+5.1 Strengths .......................................................................................................................................... 13 
+5.2 Weaknesses ..................................................................................................................................... 13 
+6 Reference ................................................................................................................................................. 13 
+Appendix ..................................................................................................................................................... 14 
+ 
+ 
+ 
+
+Team 480 
+1. Introduction 
+According to the soccer competition rules, when a penalty kick is taken in the game of FIFA 
+soccer, one player takes a single shot at the goal and is only defended by the opposing team’s 
+goalkeeper. It is taken with the ball at a point centered 11 meters from the goal, which is a rectangle 
+7.32 meters wide and 2.44 meters tall. 
+We divided the whole process into two parts: the process of the ball moving through the air 
+and the defense of the goalkeeper. And we establish physical models to analyze and figure out the 
+initial ball velocity and spin should the shooting player attempt to create to shot the upper corner of 
+the goal as well as have the best chance of avoiding the goalkeeper and making the goal.  
+Players can choose to kick to different positions in the goal, top left, bottom left, top center, 
+bottom center, top right, bottom right. To avoid the goalkeeper, the shooting player often aims for 
+an upper corner of the goal. The impact factors of the ball’s moving motion is complicated, after 
+investigation and research, we have learned that gravity, air resistance, and Magnus force are the 
+three most important factors in the curve motion of the ball. In order to find way of kicking the ball 
+to have the best chance of avoiding the goalkeeper and making the goal, suppose that the goalkeeper 
+can always accurately judge the direction of the shot and react instantly to defend the goal, thus the 
+only main factor that need to be decided is the goal shooting area. 
+ 
+ 
+ 
+ 
+Figure 1 the process of solution 
+2. Restatement 
+This question is to consider the moving motion of soccer when a penalty kick is taken in the 
+game of FIFA, and analysis the reaction of goalkeeper to find the best chance of scoring a goal. 
+Finally, through investigation and solving systems of equations to find the initial ball velocities and 
+spins that will result in a successful shot to an upper corner from the penalty mark, and also figure 
+out the initial ball velocity and spin should the shooting player attempt to create to have the best 
+chance of avoiding the goalkeeper and making the goal.  
+
+Team 480 
+3. Assumptions and Notations 
+3.1 Assumptions 
+(1) The influence of psychological and other human factors are ignored. 
+(2) In the process of motion, the spinning soccer is only affected by gravity, air resistance, Magnus 
+forces.  
+(3) Suppose the moment of air resistance on the soccer is proportional to the angular velocity of 
+rotation. 
+(4) Suppose there is no effect of wind speed. 
+(5) The width of the goal frame is ignored. 
+(6) The value of air resistance is proportional to the value of velocity squared. 
+3.2 Notations 
+Variables 
+Explanations 
+𝜔⃗⃗  
+the angular velocity of the ball 
+𝑉⃗  
+the velocity of the flow relative to the sphere 
+𝑓  
+Magnus force 
+𝜌 
+the air density 
+𝑟 
+the radius of the ball 
+𝐼 
+the moment of inertia 
+𝑡 
+time 
+𝑀⃗⃗  
+torque 
+𝑚 
+the mass of the soccer 
+𝑡𝑎 
+time of acceleration 
+𝑘 
+proportional coefficient 
+𝑎 
+accelerated speed 
+𝑔 
+acceleration of gravity 
+𝑉0 
+the initial velocity 
+𝑥/𝑦/𝑧 
+directions 
+α/ β 
+ angle 
+𝑅⃗  
+air resistance 
+ 
+
+Team 480 
+4. Physical Analysis of Model 
+4.1 Moving Motion of the Ball 
+In the process of moving through the air, taking three forces into consideration: gravity, 
+Magnus force 𝑓 , and air resistance. 
+The force that deflects a spinning soccer in flight is Magnus force. If the ball rotates, the 
+combination of rotation and air viscosity creates a circulation in the boundary layer around the ball.  
+As a result of the combination of the inflow and the current, the flow speeds up on the side of the 
+inflow and the current in the same direction, and slows down on the opposite side. According to 
+Bernoulli's principle, the difference between the pressure falling on the side where the flow is 
+speeding up and the pressure rising on the other side where the flow is slowing down is called the 
+Magnus force. The angular velocity of rotation is 𝜔, the velocity of the flow relative to the sphere 
+is 𝑉⃗  . 
+ 
+Figure 2 the cause of Magnus force 
+ 
+In the curve motion of the ball, the force analysis of the ball as figure 3: 
+ 
+Figure 3 the force analysis of soccer 
+ 
+The magnitude and direction of Magnus force is given by the following equation : 
+𝑓 = 8
+3 𝜋𝜌𝑟3𝜔⃗⃗ × 𝑉⃗ 
+(1) 
+𝑉⃗  is the speed of soccer relative to the air, 𝜔⃗⃗  is instantaneous rotation angular velocity, 𝑟 is 
+the radius of the ball, 𝜌 refers to the air density. 
+
+Team 480 
+Suppose the moment of inertia of soccer about its central axis is 𝐼 and the initial angular 
+velocity is 𝜔⃗⃗ . According to the assumptions, the angular velocity of the ball at time 𝑡 satisfies the 
+following equation: 
+𝑀⃗⃗ = 𝐼𝑑𝜔⃗⃗ 
+𝑑𝑡= −𝜂𝜔⃗⃗ 
+(2) 
+Which means: 
+{
+ 
+ 
+ 
+ 𝐼𝑑𝜔𝑥
+𝑑𝑡= −𝜂𝜔𝑥
+𝐼𝑑𝜔𝑦
+𝑑𝑡= −𝜂𝜔𝑦
+𝐼𝑑𝜔𝑧
+𝑑𝑡= −𝜂𝜔𝑧
+(3) 
+Through equations 3, 
+𝜔⃗⃗ = 𝜔⃗⃗ 0𝑒−𝜇𝑡= (𝜔0𝑥𝑖 + 𝜔0𝑦𝑗 + 𝜔0𝑧𝑘⃗ )𝑒−𝜇𝑡
+(4) 
+𝜇= 𝜂/𝐼 , equation 1 can be expressed as: 
+𝑓 = 8
+3 𝜋𝜌𝑟3
+x
+y
+z
+x
+y
+z
+i
+j
+k
+V
+V
+V
+
+
+
+= 8
+3 𝜋𝜌𝑟3𝑒−𝜇𝑡
+0
+0
+0
+'
+'
+'
+x
+y
+z
+i
+j
+k
+x
+y
+z
+
+
+
+= 8
+3 𝜋𝜌𝑟3𝑒−𝜇𝑡[(𝜔0𝑦𝑧′ −𝜔0𝑧𝑦′)𝑖 + (𝜔0𝑧𝑥′ −𝜔0𝑥𝑧′)𝑗 + (𝜔0𝑥𝑦′ −𝜔0𝑦𝑥′)𝑘⃗ ]
+(5)
+ 
+Taking air resistance into consideration, which is proportional to the square of the velocity and 
+opposite to the direction of the velocity: 
+𝑅⃗ = −𝑘𝑉2𝑉⃗ = −𝑘𝑉𝑉⃗ = −𝑘√𝑥′2 + 𝑦′2 + 𝑧′2(𝑥′2𝑖 + 𝑦′2𝑗 + 𝑧′2𝑘⃗ )
+(6) 
+𝑘 is the proportional coefficient, which is determined by the size of the sphere, the density 𝜌 
+of the air and the resistance coefficient 𝑐, 𝑘=
+𝜋
+2 𝑐𝜌𝑟2. 
+Equations (5) and (6) and gravity are substituted into Newton's second law to get the equations 
+of soccer dynamics: 
+{
+  
+ 
+  
+ 
+𝑚𝑥′′ = −𝑘√𝑥′2 + 𝑦′2 + 𝑧′2𝑥′ + 𝜆(𝜔0𝑦𝑧′ −𝜔0𝑧𝑦′)𝑒−𝜇𝑡
+𝑚𝑦′′ = −𝑘√𝑥′2 + 𝑦′2 + 𝑧′2𝑦′ + 𝜆(𝜔0𝑧𝑥′ −𝜔0𝑥𝑧′)𝑒−𝜇𝑡
+𝑚𝑥′′ = −𝑘√𝑥′2 + 𝑦′2 + 𝑧′2𝑧′ + 𝜆(𝜔0𝑥𝑦′ −𝜔0𝑦𝑥′)𝑒−𝜇𝑡−𝑚𝑔
+(7) 
+m refers to the mass of the soccer; 𝜆=
+8
+3 𝜋𝜌𝑟3. 
+Solving the system of equation (7), we can get the moving curve of the ball. 
+4.2 Initial Velocities and Spins of the Upper Corner Ball 
+System (7) is a complex nonlinear system of differential equations with no analytical solution. 
+Considering the limits of human energy and strength, the maximum initial velocity is set to 31m/s, 
+
+Team 480 
+and have to make sure the soccer is kicked into the upper corner of the goal which is 11 meters away.  
+On the other hand, according to the actual situation, the partial velocity of the ball's initial 
+velocity is slower in the x and z axis directions, while the partial velocity is larger in the y axis 
+directions. According to some researches, the initial velocity in the x, y and z directions is set 
+respectively 0~11m/s, 20~30m/s, 0~10m/s. By reading a lot of papers on curveball and looking 
+through a lot of soccer videos, the value range of the angular velocity of the ball in the x,y and z 
+direction is set respectively -8~8 rad/s, -5~5 rad/s and 0~15 rad/s. 
+ 
+Figure 4 the simulation of shooting the upper corner 
+ 
+According to the value range, we substitute the numerical value into the system of differential 
+equations (7) and select the initial velocity and spins that conforms to the system of differential 
+equations and get more than 600 results. 
+ 
+Figure 5 Statistics of data about 𝑣0 and 𝜔0 
+We use x, y, and z coordinates to represent the angular velocity, the angular velocity elevation, 
+and the angular velocity deflection, respectively. The size of the point is used to represent the 
+velocity, the color of the point is used to represent the velocity deflection, and the color of the point 
+frame is used to represent the elevation Angle of the velocity. The six-dimensional data can be 
+represented in the three-dimensional coordinate system to complete data visualization. 
+
+Team 480 
+ 
+Figure 6 Data visualization of velocities and spins 
+ 
+As shown in table 1, we list the value range of velocities and spins: 
+Table 1 detailed data on velocities and spins 
+𝑣0/ 
+(𝑚/𝑠2) 
+𝜃𝑣/rad 
+𝜑𝑣/rad 
+𝑡𝑦𝑝𝑒 
+𝑤0/ 
+(rad/s) 
+𝜃𝑤/rad 
+𝜑𝑤/rad 
+27.82086 
+0.25434 
+1.19029 
+𝑚𝑎𝑥 
+10.81665 
+±1.19029 
+±0.69474 
+𝑚𝑖𝑛 
+13.96424 
+±0.86039 
+0 
+27.96426 
+0.21624 
+1.15629 
+𝑚𝑎𝑥 
+16.61325 
+±1.02285 
+±0.55860 
+𝑚𝑖𝑛 
+15.55635 
+±0.94304 
+±0.35877 
+28.08914 
+0.28881 
+1.19029 
+𝑚𝑎𝑥 
+16.54734 
+±1.57080 
+±1.57080 
+𝑚𝑖𝑛 
+±1.07681 
+0 
+28.19574 
+2.50888 
+1.15629 
+𝑚𝑎𝑥 
+17.29162 
+±1.28439 
+±1.03038 
+𝑚𝑖𝑛 
+13.34166 
+±1.05010 
+0 
+28.39014 
+0.32258 
+1.19029 
+𝑚𝑎𝑥 
+11.57584 
+±1.15026 
+±1.03038 
+𝑚𝑖𝑛 
+10.95445 
+±1.0429 
+±0.46365 
+28.46050 
+0.28493 
+1.15629 
+𝑚𝑎𝑥 
+15.93738 
+±1.57080 
+±1.57080 
+𝑚𝑖𝑛 
+12.68858 
+±1.14897 
+0 
+28.72280 
+0.24619 
+1.20362 
+𝑚𝑎𝑥 
+13.19091 
+±0.86039 
+±0.62025 
+𝑚𝑖𝑛 
+28.75761 
+0.31831 
+1.15629 
+𝑚𝑎𝑥 
+16.09348 
+±1.28439 
+±1.03038 
+𝑚𝑖𝑛 
+13.56466 
+±0.94884 
+0 
+28.86174 
+0.20942 
+1.17056 
+𝑚𝑎𝑥 
+15.26434 
+±0.93027 
+±0.55860 
+𝑚𝑖𝑛 
+14.49138 
+±0.86189 
+±0.46365 
+29.08610 
+0.24305 
+1.17056 
+𝑚𝑎𝑥 
+16.43168 
+±1.21406 
+±1.03038 
+𝑚𝑖𝑛 
+12.08305 
+±0.98623 
+0 
+29.34280 
+0.27614 
+1.17056 
+𝑚𝑎𝑥 
+15 
+±1.57080 
+±1.57080 
+𝑚𝑖𝑛 
+11.1803 
+±1.13673 
+0 
+
+Team 480 
+29.63106 
+0.30861 
+1.17056 
+𝑚𝑎𝑥 
+15 
+±1.30025 
+±1.19029 
+𝑚𝑖𝑛 
+11.74734 
+±0.90773 
+0 
+29.98333 
+0.235638 
+1.183921 
+𝑚𝑎𝑥 
+16.06238 
+±1.1442 
+±0.89606 
+𝑚𝑖𝑛 
+11.18034 
+±0.90455 
+0 
+30.23243 
+0.267806 
+1.183921 
+𝑚𝑎𝑥 
+13.34166 
+±1.48014 
+±1.57080 
+𝑚𝑖𝑛 
+10.04988 
+±1.09927 
+0 
+30.51229 
+0.299417 
+1.183921 
+𝑚𝑎𝑥 
+13.15295 
+±1.29087 
+±1.19029 
+𝑚𝑖𝑛 
+10.04988 
+±0.90773 
+0 
+30.8869 
+0.22862 
+1.196463 
+𝑚𝑎𝑥 
+14.49138 
+±1.07681 
+±0.55860 
+𝑚𝑖𝑛 
+11.35782 
+±0.81452 
+0 
+31.1288 
+0.25991 
+1.196463 
+𝑚𝑎𝑥 
+12.72792 
+±1.47113 
+±1.03038 
+𝑚𝑖𝑛 
+10.04988 
+±1.00126 
+0 
+31.40064 
+0.290695 
+1.196463 
+𝑚𝑎𝑥 
+12.24745 
+±1.29515 
+±1.37340 
+𝑚𝑖𝑛 
+10.39230 
+±1.07681 
+0 
+ 
+4.3 Defense of Goalkeeper 
+ 
+In the course of the goalkeeper's defense, the judgment of the direction of the shot, the 
+defensive area and the start time of the attack are the main factors that affect the success or failure 
+of the penalty kick saving [3]. 
+ 
+In order to find the initial ball velocity and spin should the shooting player attempt to create to 
+have the best chance of avoiding the goalkeeper and making the goal, suppose that the goalkeeper 
+can always accurately judge the direction of the shot and react instantly to defend the goal, thus the 
+only main factor that need to be decided is the goal shooting area. The average height of goalkeeper 
+is 185 centimeters. The spread length of human arms is almost equal to its height. The distance from 
+chin to shoulder of human body is 1/3 of the length of head, and the length of the whole body is 8 
+heads. Therefore, the 185-tall goalkeeper has an arm length of 69.5 centimeters. Professional 
+athletes can jump to a height of more than 1 meter, take 1 meter as an example, the initial velocity 
+of goalkeeper can be given by the following formula: 
+𝑉0 = √2𝑔ℎ= √2 × 9.8 × 1 = 4.43 𝑚/𝑠  
+(8) 
+ 
+When people take off, they need to lift the back root of their feet according to their physical 
+conditions, 10 cm to 20 cm from the ground, 20 cm to 30 cm shallow squat, and take an average 
+acceleration distance of 𝑆𝑎=40 cm, 𝑎 is the average takeoff acceleration: 
+ 
+ 
+𝑉0
+2 = 2(𝑎−𝑔)𝑆𝑎
+(9) 
+𝑉0 = (𝑎−𝑔)𝑡
+(10) 
+ 
+Thus, the average takeoff acceleration 𝑎 and the acceleration time 𝑡𝑎 can be calculate:𝑎=
+𝑉0
+2 × 𝑆𝑎+ 𝑔= 34.33𝑚/𝑠2, 𝑡𝑎= 𝑉0/(𝑎−𝑔) = 0.181𝑠. 
+ 
+When the goalkeeper takes off at an oblique angle, the force analysis to the goalkeeper’s center 
+of gravity is shown in Figure 6: 
+
+Team 480 
+                
+ 
+Figure 7 the accelerated speed analysis of goalkeeper 
+The process by which a goalkeeper dives for the ball can be regarded as a motion of uniform 
+acceleration followed by free fall.According to the geometric relation and newton's second law: 
+tan 𝛽= 𝑎× sin 𝛼−𝑔
+𝑎× cos 𝛼
+ 
+(11) 
+𝑉𝑥= 𝑎× cos 𝛼× 𝑡𝑎 
+(12) 
+𝑉𝑦= (𝑎× sin 𝛼−𝑔) × 𝑡𝑎 
+(13) 
+Thus, the displacement components in the direction of the two coordinate axes are obtained: 
+{
+𝑥= 1
+2 × 𝑎× cos 𝛼× 𝑡2(𝑡< 𝑡𝑎)
+𝑥= 𝑉𝑥× (𝑡−𝑡𝑎) + 1
+2 × 𝑎× cos 𝛼× 𝑡𝑎
+2(𝑡≥𝑡𝑎)
+(14) 
+{
+𝑦= 𝑦0 + 1
+2 × (𝑎× sin 𝛼−𝑔) × 𝑡2(𝑡< 𝑡𝑎)
+𝑦= 𝑦0 + 1
+2 × (𝑎× sin 𝛼−𝑔) × 𝑡𝑎
+2 −(𝑉𝑦× 𝑡𝑎−1
+2 𝑔𝑡2) (𝑡≥𝑡𝑎)
+(15) 
+After get rid of t, s is the result of integrating with respect to x. Taking the derivative of α to 
+find the maximum of s. It can be solved that when s is at its maximum 13.34𝑚2, 𝑉𝑥= 3.34𝑚/𝑠, 
+𝑉𝑦= 3.47𝑚/𝑠, 𝛼= 57.52°. 
+The goalkeeper's "control area" mainly refers to the place where the hands and arms can reach. 
+The goalkeeper can skip the ball in any direction from the middle of the goal. In addition to diving 
+outwards, a goalkeeper can also jump upwards to prevent the ball from going into the goal, which 
+can formulate a three-dimensional defensive zone shapes like a ellipsoid. 
+ 
+Figure 8 the area that goalkeeper can cover 
+
+Team 480 
+Considering the goalkeeper's best case, any ball whose path overlaps with the goalkeeper's 
+defensive area will be guarded by the goalkeeper. Through figure 8, if the shooting player attempt 
+to create to have the best chance of avoiding the goalkeeper and making the goal, he has to aim at 
+the four corners of the goal. 
+4.4 Initial Velocity and Spin of the Best Kick 
+Through the analysis above, we conclude that the easiest way to score is to shoot into the corner. 
+However, we have to choose shooting upper or bottom corner. The shooting player should shot to 
+an bottom corner for the following reasons: 
+Firstly, it is more possibly to score through the bottom corner than the upper one. We use the 
+velocity and spin through regional center as an initial condition, then move the initial condition up 
+and down 2rad/s or 2m/s. By counting the number that match condition of upper or bottom corner, 
+we can distinguish the precise one.  
+ 
+ 
+Figure 9 comparation of upper and bottom corner 
+
+Team 480 
+ 
+Secondly, according to the World Cup statistics from 2002-2018, shooting bottom corner own 
+higher goal and lower miss. 
+ 
+Table 2 penalty kicks statistics of the World Cup from 2002-2018 
+Corner and height 
+Goal 
+Miss 
+Saved 
+Post/Crossbar 
+Top left corner 
+83.53% 
+6.62% 
+0.17% 
+9.68% 
+Bottom left corner 
+82.95% 
+2.79% 
+8.15% 
+6.11% 
+To the center 
+71.51% 
+6.56% 
+1.30% 
+20.63% 
+Top right corner 
+77.59% 
+9.93% 
+0.43% 
+12.06% 
+Bottom right corner 
+83.35% 
+2.50% 
+8.07% 
+6.08% 
+ 
+Thirdly, there is higher risk to shot to upper corner than to bottom one. Because of the energy 
+exhaustion and mental stress, shooting bottom corner should be a better choice. 
+Therefore, we conclude that the shooting player should shot to an bottom corner. 
+Applying the model proposed in 4.1, change the destination from upper corner to bottom corner, 
+so that we solve out the initial velocity and spin of the best kick: 
+ 
+Table 3 the initial velocity and spin of the best kick 
+𝒗𝟎/ 
+(𝒎/𝒔𝟐) 
+𝜽𝒗/𝐫𝐚𝐝 
+𝝋𝒗/𝐫𝐚𝐝 
+𝒘𝟎/ 
+(𝐫𝐚𝐝/𝐬) 
+𝛉𝐰/𝐫𝐚𝐝 
+𝛗𝐰/𝐫𝐚𝐝 
+21.245021 
+0.205708 
+1.418237 
+15.254751 
+1.416735 
+-0.751829 
+ 
+Figure 10 the initial velocity and spin of the best kick 
+ 
+We show the condition of shotting bottom left corner, because the other one could be the same. 
+
+Team 480 
+5 Model Evaluation 
+5.1 Strengths 
+(1) In order to facilitate calculation, many papers make a series of simplifications, ignoring the air 
+resistance moment and vertical air resistance, and limiting the axis of rotation to the vertical 
+direction, which is quite different from the actual situation. We have improved this by taking into 
+account the vertical air resistance and the multi-directional axis of rotation to make the physical 
+model more realistic. 
+(2) The range of velocity is considered reasonably to ensure that it is achievable for athletes 
+(3) Three-dimensional coordinate system is uesd to represent six-dimensional data to enhance the 
+readability of data. 
+5.2 Weaknesses 
+(1) The model is too ideal to satisfy all the situations . 
+(2) The range of angular velocity is not very clear. If the speed and angular velocity are to be further 
+improved in rationality, it is necessary to make the range of angular velocity more accurate. 
+6 Reference 
+[1]Ge Longqi. Discussion on the Motion of Curveball [J]. College Physics, 1991(07):26-28. 
+[2]Lin Peizhu. The Digital Simulation of Banana Kick [J]. Journal of Guangdong University of 
+Education, 2016,36(3):63-67. DOI:10.3969/j.issn.2095-3798.2016.03.010. 
+[3]Zhou Peiyong, Zhu Yugonghong. The Cognitive and Action Strategies of Elite Football 
+Goalkeepers during Penalty Kicks [J]. China Sport Science and Technology,2010,46(06):39-
+45.DOI:10.16470/j.csst.2010.06.011. 
+[4] Sun Chunfeng, Yang Xiaoyun. The Principles of Mechanics for Spin Service and Non-spin 
+Service [J]. JOURNAL OF XIAOGAN UNIVERSITY,2003,23(3): 36-39 
+[5]Hao Chenghong，Huang Yaoqing，Liu Jukun. Motion locus of banana kick with air friction [J]. 
+College Physics,2018,37(6): 19-21 
+[6]Han Yunxia. Dynamics Analyses of Banana Kick [J]. Journal of Luoyang Teachers 
+College,2005,24(5): 37-38+44 
+[7]Xie Ming. Discuss on Goal Zone of Penalty Kicks [J]. Journal of Chengdu Sport 
+University,2002,(3): 62-64 
+[8]Helling, John.Twelve Yards: The Art and Psychology of the Perfect Penalty Kick.[J].Library 
+Journal,2015,Vol.140(12): 89 
+
+Team 480 
+Appendix 
+MATLAB code 
+clear all; 
+clc; 
+close all; 
+%% statistic 
+m = 0.43;                   %mass of soccer 
+a = 0.11;                   %radius of soccer 
+airv = 18.1*10^(-6);        %air viscosity coefficient 
+d = 1.29;                  %air density 
+A = pi*a^2;                 %the cross-section area of 
+soccer 
+I = 2/5*m*a^2;              %rotational inertia of 
+soccer 
+c = 0.5; 
+k = pi/2*c*d*a^2; 
+lamda = 8/3*pi*d*a^3;  
+mu = 0.1;                   % mu = yita/I 
+g = 9.8; 
+%gate 
+width = 7.32; distance = 11; height = 2.44; 
+ballgate = [3.66,11,2.44;-3.66,11,2.44;-
+3.66,11,0;3.66,11,0;3.66,11,2.44]; 
+figure; 
+plot3(ballgate(:,1),ballgate(:,2),ballgate(:,3));hold 
+on; 
+%% start 
+w0x = -8:8;     v0x = [-10,-11]; 
+w0y = -5:5;    v0y = []; 
+w0z = [-15:-10,10:15];    v0z = []; 
+range = [a,2*a]; 
+for i = 10:11 
+    for j =25:30 
+        for kk = 6:9 
+            if(i^2+j^2+kk^2<=961) 
+                if(~ismember(i,v0x)) 
+                    v0x = [v0x,i]; 
+                end 
+                if(~ismember(j,v0y)) 
+                    v0y = [v0y,j]; 
+                end 
+                if(~ismember(kk,v0z)) 
+
+Team 480 
+                    v0z = [v0z,kk]; 
+                end 
+            end 
+        end 
+    end 
+end 
+szwx = size(w0x);  szvx = size(v0x); 
+szwy = size(w0y);  szvy = size(v0y); 
+szwz = size(w0z);  szvz = size(v0z);   
+detat = 0.0001; 
+t = 0:detat:1; 
+szt = size(t); 
+row = 
+szwx(2)*szwy(2)*szwz(2)*szvx(2)*szvy(2)*szvz(2); 
+line = szt(2); 
+x = []; 
+test = []; 
+y = []; 
+z = []; 
+record = []; 
+recordres = []; 
+flag = 1; 
+count = 1;   
+for wx = 1:szwx(2) 
+   for wy = 1:szwy(2) 
+      for wz = 1:szwz(2) 
+        for vx = 1:szvx(2) 
+           for vy = 1:szvy(2)  
+              for vz = 1:szvz(2) 
+                  xx = 0; 
+                  yy = 0; 
+                  zz = 0; 
+                  w0x0 = w0x(wx);w0y0 = w0y(wy);w0z0 = 
+w0z(wz);v0x0 = v0x(vx);v0y0 = v0y(vy);v0z0 = v0z(vz); 
+                  w0x0temp = w0x0;w0y0temp = 
+w0y0;w0z0temp = w0z0;v0x0temp = v0x0;v0y0temp = 
+v0y0;v0z0temp = v0z0; 
+                  for ti = 1:szt(2) 
+                      xx = v0x0*detat+xx; 
+                      yy = v0y0*detat+yy; 
+                      zz = v0z0*detat+zz; 
+                      if(yy<0||zz<0) 
+                          break; 
+                      end 
+
+Team 480 
+                      if(yy>=10.9 && yy<= 11.1 && 
+xx>=(width/2-range(2)) && xx<= (width/2-range(1)) && 
+zz>=(height-range(2)) && zz<=(height-
+range(1)))||(yy>=10.9 && yy<= 11.1  && xx<=-(width/2-
+range(2)) && xx>= -(width/2-range(1)) && zz>=(height-
+range(2)) && zz<=(height-range(1))) 
+                          x= [x,xx]; 
+                          y= [y,yy]; 
+                          z= [z,zz]; 
+                          record = [record;t(ti), 
+w0x0temp, w0y0temp, w0z0temp,v0x0temp, v0y0temp, 
+v0z0temp]; 
+                          v = (v0x0temp^2+ v0y0temp^2+ 
+v0z0temp^2)^0.5; 
+                          w = (w0x0temp^2+ w0y0temp^2+ 
+w0z0temp^2)^0.5; 
+                          thetav = asin(v0z0temp/v); phiv 
+= asin(v0y0temp/(v*cos(thetav))); 
+                          thetaw = asin(w0z0temp/w); phiw 
+= asin(w0y0temp/(w*cos(thetaw))); 
+                          recordres = [recordres; t(ti), 
+v, thetav, phiv, w, thetaw, phiw]; 
+                          if(flag <= 6) 
+                            drawpic(detat, t(ti), 
+w0x0temp, w0y0temp, w0z0temp,v0x0temp, v0y0temp, 
+v0z0temp); 
+                            drawpic(detat, t(ti), 
+w0x0temp, -w0y0temp, -w0z0temp,-v0x0temp, v0y0temp, 
+v0z0temp); 
+                            flag = flag+1; 
+                          end 
+                          break;     
+                      end 
+                      v0x0tmp = v0x0;v0y0tmp = 
+v0y0;v0z0tmp = v0z0; 
+                      ax = (-k*(v0x0tmp^2 + v0y0tmp^2 + 
+v0z0tmp^2)^0.5*v0x0tmp + lamda*(w0y0 * v0z0tmp-w0z0 * 
+v0y0tmp))/m; 
+                      ay = (-k*(v0x0tmp^2 + v0y0tmp^2 + 
+v0z0tmp^2)^0.5*v0y0tmp + lamda*(w0z0 * v0x0tmp-w0x0 * 
+v0z0tmp))/m; 
+                      if(v0z0<=0) 
+                          az = (k*(v0x0tmp^2 + v0y0tmp^2 
++ v0z0tmp^2)^0.5*v0z0tmp + lamda*(w0x0 * v0y0tmp-w0y0 
+
+Team 480 
+* v0x0tmp)-m*g)/m; 
+                      else 
+                          az = (-k*(v0x0tmp^2 + v0y0tmp^2 
++ v0z0tmp^2)^0.5*v0z0tmp + lamda*(w0x0 * v0y0tmp-w0y0 
+* v0x0tmp)-m*g)/m; 
+                      end 
+                       
+                      v0x0 = v0x0+ax*detat; 
+                      v0y0 = v0y0+ay*detat; 
+                      v0z0 = v0z0+az*detat; 
+                      w0x0 = w0x0temp*exp(-mu*t(ti)); 
+                      w0y0 = w0y0temp*exp(-mu*t(ti)); 
+                      w0z0 = w0z0temp*exp(-mu*t(ti)); 
+                  end 
+                  count = count+1 
+              end 
+           end 
+        end 
+      end 
+   end 
+end 
+xlswrite('datarecord.xlsx',record); 
+xlswrite('datares.xlsx',recordres); 
+  
+figure; 
+recorders = real(recordres); 
+szres = (recordres(:,2)-27)*10; 
+cres = (recordres(:,4)-1.1)*5; 
+alpha = (recordres(:,3)-0.2)*10; 
+scatter3(recordres(:,5),recordres(:,6),recordres(:,7)
+,szres,cres,'filled');hold on; 
+scatter3(recordres(:,5),recordres(:,6),recordres(:,7)
+,szres+3,alpha);hold on; 
+xlabel('w') 
+ylabel('thetaw') 
+zlabel('phiw') 
+colorbar 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Team 480 
+function drawpic(detat, t, wx0, wy0, wz0,vx, vy, vz) 
+%% statistic 
+m = 0.43;                   %mass of soccer 
+a = 0.11;                   %radius of soccer 
+airv = 18.1*10^(-6);        %air viscosity coefficient 
+d = 1.205;                  %air density 
+A = pi*a^2;                 %the cross-section area of 
+soccer 
+I = 2/5*m*a^2;              %rotational inertia of 
+soccer 
+c = 0.5; 
+k = pi/2*c*d*a^2; 
+lamda = 8/3*pi*d*a^3;  
+mu = 0.1;                   % mu = yita/I 
+g = 9.8; 
+%gate 
+width = 7.32; distance = 11; height = 2.44; 
+ballgate = [3.66,11,2.44;-3.66,11,2.44;-
+3.66,11,0;3.66,11,0;3.66,11,2.44]; 
+%% draw  
+tt = 0:detat:t; 
+szt = size(tt); 
+colorbox = rand(1,3); 
+x = [];y = []; z = []; 
+xx = 0; 
+yy = 0; 
+zz = 0; 
+w0x0 = wx0; 
+w0y0 = wy0; 
+w0z0 = wz0; 
+v0x0 = vx; 
+v0y0 = vy; 
+v0z0 = vz; 
+for ti = 1:szt(2) 
+    xx = v0x0*detat+xx; 
+    yy = v0y0*detat+yy; 
+    zz = v0z0*detat+zz; 
+    x = [x,xx];y = [y,yy];z = [z,zz]; 
+    v0x0tmp = v0x0;v0y0tmp = v0y0;v0z0tmp = v0z0; 
+    ax = (-k*(v0x0tmp^2 + v0y0tmp^2 + 
+v0z0tmp^2)^0.5*v0x0tmp + lamda*(w0y0 * v0z0tmp-w0z0 * 
+v0y0tmp))/m; 
+    ay = (-k*(v0x0tmp^2 + v0y0tmp^2 + 
+v0z0tmp^2)^0.5*v0y0tmp + lamda*(w0z0 * v0x0tmp-w0x0 * 
+
+Team 480 
+v0z0tmp))/m; 
+    if(v0z0<=0) 
+      az = (k*(v0x0tmp^2 + v0y0tmp^2 + 
+v0z0tmp^2)^0.5*v0z0tmp + lamda*(w0x0 * v0y0tmp-w0y0 * 
+v0x0tmp)-m*g)/m; 
+    else 
+      az = (-k*(v0x0tmp^2 + v0y0tmp^2 + 
+v0z0tmp^2)^0.5*v0z0tmp + lamda*(w0x0 * v0y0tmp-w0y0 * 
+v0x0tmp)-m*g)/m; 
+    end 
+  
+    v0x0 = v0x0+ax*detat; 
+    v0y0 = v0y0+ay*detat; 
+    v0z0 = v0z0+az*detat; 
+    w0x0 = wx0*exp(-mu*tt(ti)); 
+    w0y0 = wy0*exp(-mu*tt(ti)); 
+    w0z0 = wz0*exp(-mu*tt(ti)); 
+end 
+%     scatter3(xx,yy,zz) 
+    plot3(x, y, z, 'color',colorbox(1,:));hold on; 
+    axis equal 
+end 
+ 

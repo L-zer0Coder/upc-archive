@@ -1,0 +1,1108 @@
+Low-Thrust Interplanetary Trip to Saturn Using Ion Thrusters
+Team 447
+Problem A
+November 8, 2020
+Abstract
+With the latest expanses in the electrical propulsion systems, it is now possible to think about the interplanetary
+low-thrust travel with the ion thrusters. It is called low thrust because the acceleration that given by this engine’s
+force is very small compared to other forces but its sustainability comes from long time usage of the engine. In this
+paper, we carefully investigate the feasibility of Earth to Saturn travel only using ion thrusters. The problem is the
+optimum control of the thrust to reach Saturn with the maximum mass and minimum time elapsed. After implementing
+a solar system simulator we ﬁrst investigate the escaping from the earth gravitational ﬁeld using different methods of
+thrust control and after we escape from the earth we use gravity assist from Jupiter to get faster and reach Saturn. The
+propulsion system applies constant thrust in the direction of the orbital velocity to increase the semimajor axis at the
+fastest rate. After the ﬂyby to Jupiter, the thrusters are ﬁred back to slow down so that minimizes the velocity relative to
+Saturn at arrival, thus facilitating the orbit insertion. We show that with our proposed method, it’s possible to reach
+Saturn in approximately 8 years with a loss of 1.3 tons of fuel.The amount of fuel we propose is feasible compared to
+mass of the spaceshuttle being send.
+1
+
+447A
+2
+1
+Introduction
+Interplanetary travel will be crucial for human life in the future, however, the efﬁciency and feasibility of such ﬂights is
+very low if we want to reach distant planets. Because interplanetary distances are so big compared to escape velocity
+from the earth and the fuel needed to accelerate the spacecraft to such big velocities is a crucial problem. Low-thrust
+acceleration methods gained huge attention in recent years because of the potential of reducing the payload mass to a
+huge extent compared to chemical propellers. Ion thrusters play a big role here since its fuel consumption is low and
+its continuous thrust force can be utilized to ﬁnd more effective trajectories than chemical fuels. Optimization of low
+and continuous thrust is a different and more complex problem than short impulse optimization since in the latter we
+can compute the trajectories before and after the engines ﬁring with very good precision. However, in the continuous
+thrust case, we need numerical integration to ﬁnd trajectories that are computationally more expensive than the direct
+calculation of orbits.[6]
+In the process of interplanetary travel techniques such as gravity assist [7] which uses other planets to gain momentum
+are used. And optimization techniques such as Reinforcement Learning [8] which employs machine learning using the
+simulations of planets are also used in the most recent years.
+The core objective of this paper is to replace a spacecraft from an orbit around the earth to an orbit around Saturn
+while utilizing the low thrust Ion engines. While conducting this operation, some constraints are proposed. Controlling
+the ion thruster is deﬁnitely a crucial factor. A moderate amount of ﬂight time should be concerned and ﬁnally, the
+amount of fuel is also available to some extent. Modeling of this problem has to adequately take into account all of these
+constraints.
+Symbol
+Meaning
+Numerical Values
+G
+Gravitational constant
+6.67x10−11m3kg−1s−1
+g
+Gravitational acceleration at sea level
+9.8 ms−2
+Ms
+Mass of the Sun
+1.98x1030kg
+ME
+Mass of the Earth
+5.97x1024kg
+Msaturn
+Mass of the Saturn
+5.86x1026kg
+Mjupiter
+Mass of the Jupiter
+1.89x1027kg
+Vsaturn
+Velocity of the Saturn
+9680 m/s
+Vjupiter
+Velocity of the Jupiter
+13007 m/s
+rm
+Distance to the moon
+384.400 km
+Isp
+Speciﬁc impulse of thruster
+4000 s
+Mthi
+Initial Mass of the rocket
+5000 kg
+Ti
+Initial period around earth
+90 m
+Tf
+Final period around Saturn
+40 h
+
+447A
+3
+1.1
+Problem Statement
+problem deﬁnition can be stated as following: Given the constant force of the thrusters ﬁnd the control function on the
+direction of force applied so that our spacecraft can maintain a trajectory from Earth orbit to Saturn orbit. We need to
+make a few assumptions to be able to calculate and simulate the trajectory.
+Assumptions:
+• We assume the motions of the bodies are Keplerian orbit. Therefore, we can assume all the motions in the 2D
+plane and simplify our equations.
+• We assume that our rocket is under the inﬂuence of a single force ﬁeld at a time. Meaning that until we escape
+from Earth only gravitational force acting on the rocket is Earth and after we escape from it, the only acting force
+ﬁeld is the Sun.
+• We assume that after we escape from Jupiter using a gravitational assist we are no longer close to any signiﬁcant
+force ﬁeld so we assume our trajectory is linear between Jupiter and Saturn.
+With these assumptions since there are only two forces (gravitational force and thruster force) acting on the body we can
+have a model and equation of motions as following;
+Figure 1: Free body diagram of the system. Only two forces are assumed to be interacting with the spacecraft:
+Gravitational force and thrust force.
+Mth(t)d2⃗r
+dt2 = Fth⃗
+r
+|r| −GMEMth(t)⃗r
+|r|3
+(1)
+d2⃗r
+dt2 =
+Fth
+Mth(t)
+ˆθ −GME⃗
+r
+|r|3
+(2)
+We assume mass of the rocket is constantly decreasing with α as the consequence of constant fuel consumption.
+Mth(t) = M0 −αt
+(3)
+In terms of state equations, we deﬁne our state s as:
+r =
+x
+y
+
+,
+s =
+
+
+r
+˙r
+Mth(t)
+
+∈R5
+(4)
+And our control variable a as:
+a =
+θ
+,
+θ ∈[0, 2π]
+(5)
+Our objective is the ﬁnd the control on a that will lead us to our objective location in space.
+
+447A
+4
+2
+Methods
+2.1
+Ion Thruster
+An ion thruster is a device that is widely used to take beneﬁts from electric repulsion for spacecraft to travel interplanetary
+or even to change orbital positions. The charged particles are ionized and forced to lose their electrons to get positive
+ions then these electrons are accelerated mainly using basic Lorentz force. The spacecraft given in the question is
+equipped with ion thrusters that can provide a constant thrust of 400 millinewtons, with a speciﬁc impulse of 4,000
+seconds. The main equation describing the ion thruster is given by :
+Fth = 2 ηP
+gIsp
+(6)
+And:
+Isp = Fth
+αg
+(7)
+where:
+• η is the efﬁciency of the engine
+• g is the acceleration at earth’s sea level
+• P is the electrical power used by the thruster in W
+• Isp is the speciﬁc impulse in seconds.
+• α is the ﬂow rate of fuel mass[1]
+We found α = 10−5 but we preferred to use its half value for real life application version. Because we need to take into
+account the geometry corrections, temperature changes etc. [2]
+2.2
+Gravity Assist Maneuver
+Gravity Assist Maneuver is a brilliant way to change the speed, path, and direction of the spacecraft. In fact, it is the
+usage of relative movement of the spacecraft when they are passing near a planet or a star. The basic idea is the same as
+the elastic collision of two bodies. In the reference frame of the planet, spacecraft should ﬂee the planet with the same
+approach velocity. For escaping from the earth in our case, we use the moon for taking slingshot to increase the speed of
+the spacecraft. For instance, the Voyager 2 used four times these maneuvers to escape from the solar system. Especially
+Jupiter played a huge role in that operation to make the spacecraft’s velocity increased substantially.⃗
+|Vri| = |⃗Vthi −⃗Vm| =
+q
+(V 2
+thi + V 2
+m −2VthiVmcos(α))
+(8)⃗
+|Vrf| = |⃗Vthf −⃗Vm| =
+q
+(V 2
+thf + V 2
+m −2VthfVmcos(β))
+(9)
+|⃗Vri| = |⃗Vrf|
+(10)
+Vthf = Vmcos(β) +
+q
+(Vmcos(β))2 + V 2
+thi −2VthiVmcos(α)
+(11)
+For this equation, α is the angle between the ﬁrst velocity of the thruster with the planet whereas β is the ﬁnal angle. As
+it indicates Vthf is increasing with the low and positive β and higher α.
+
+447A
+5
+Figure 2: How to increase the speed and decrease the speed by using positive or negative leaving angles respectively. In
+addition to that approach angle should not be small to gain speed as indicated in the ﬁgure. [4]
+2.3
+Flight Stages
+2.3.1
+Stage 1 (Escaping From the Earth)
+Stage 1 consists of escaping from Earth via the ion thruster engine that leads the velocity to increase as time goes. It
+is necessary to optimize this time by controlling the thruster. We evaluate three options. The ﬁrst way is to keep the
+engine always back so that force is always parallel to the velocity vector of the spacecraft. The second way is keeping
+the engine always in the radial direction as a similar concept to solar sailing like focusing on the Earth. The third way is
+to combine these two methods by estimating the direction of the sum of velocity and radial vectors. Which again seems
+rational because always the velocity and the distance from earth should increase.
+Let us further analyze all of the three methods by ﬁnding the equations of motions and simulating them. First we need
+the initial and ﬁnal velocities of circular motions that 90 minutes period around the Earth and 40 hours period around
+the Saturn.
+then the inside the root is as follows.:
+GMplanetMth(t)
+r2
+i
+= Mth(t)V 2
+thi
+ri
+(12)
+2πri
+Vthi
+= Ti
+(13)
+2πGMplanet
+Ti
+= V 3
+thi
+(14)
+Then Vthi = 7740 m
+s and Vthf = 11820 m
+s are the initial and ﬁnal velocities of the spacecraft respectively.
+First way: Force is in the direction of velocity for all time EQM:
+Fth⃗
+dr
+dt
+|⃗dr
+dt |
+−GMEMth(t)⃗r
+|r|3
+= Mth(t)d2⃗r
+dt2
+(15)
+
+447A
+6
+Figure 3: (Red line stands for the moon orbit Blue line describes spacecraft. It was assumed circular. Origin is the
+location of Earth.) This is the best way to leave the earth because of the direction of the force(albeit it is very small). At
+150 RE it is assumed to left the earth. [3]
+Second way: Engine kept radially inwards for all time.EQM:
+Fth⃗
+r
+|r| −GMEMth(t)⃗r
+|r|3
+= Mth(t)d2⃗r
+dt2
+(16)
+Figure 4: (Red line stands for the moon orbit Blue line describes spacecraft. It was assumed circular.Origin is the
+location of Earth.) These methods work to some extent and fail at that point. Spacecraft can not ﬁnd enough propulsion
+to accelerate itself and leave the Earth.
+
+447A
+7
+Third way: Engine kept both radially inward and in the direction of velocity for all time.let c be the vector:
+c =⃗r
+|r| +⃗
+dr
+dt
+|⃗dr
+dt |
+(17)
+Fth⃗
+c
+|c| −GMEMth(t)⃗r
+|r|3
+= Mth(t)d2⃗r
+dt2
+(18)
+Figure 5: (Red line stands for the moon orbit Blue line describes spacecraft. It was assumed circular.Origin is the
+location of Earth.) In this process again approximately 1.7 years the direction of the force is in the same direction with
+the velocity then it is changed to a radially inward direction.
+2.3.2
+Passing from Stage 1 to Stage 2 (Exploring new ways)
+Let us write some of the necessary and important results coming from stage 1.Angle between moon and the spacecraft(it
+can be deduced from the graph that it is very small.) αmbs = 4◦. As radius increased by time goes the spiral shape of
+the orbit of the spacecraft has not differed much from the circular shape. At the end of the stage 1 tstage1 = 5.909.107s
+and the velocity of the spacecraft is Vthi = 694 m
+s . The main questioning in this process is exploring whether it is
+possible to take gravitational slingshot from the moon to reach escape velocity in a very short time interval. Escape
+velocity near the moon can be calculated by equalizing total energy to zero.
+Then it can be found by very easy formula given follows.:
+Vescm =
+r
+2GME
+rm
+= 1.44km
+s
+(19)
+Then let us consider whether this lower limit can be obtained with the gravity assist formula as we know the angle of
+approaching.
+Vthf = Vmcos(β) +
+q
+(Vmcos(β))2 + V 2
+thi −2VthiVmcos(α)
+(20)
+Note that moon velocity is given Vm = 1022 m
+s and at that point velocity of the spacecraft is about Vm = 1044 m
+s
+Vthi
+Vm = 1.02 then the inside the root is as follows:
+then the inside the root is as follows.:
+p
+cos(β))2 −0.994)
+(21)
+
+447A
+8
+In that equation β forced to equal to 0.Which leads no change in the velocity. Then this Gravity assist method is not
+applicable for us at this stage.
+2.3.3
+Stage 2
+Stage 2 is the process that spacecraft experiences after it escapes from the Earth gravitational ﬁeld until it reaches Jupiter.
+The aim here is to reach Jupiter as soon as possible and make the Gravity Assist Maneuver in there. As the gravitational
+effect of other planets is quite weak, we will only take the gravitational effect of the sun. We will consider the origin of
+our coordinate system as the center of the sun. Equation of the motion of the spacecraft under these assumptions:
+−GMsMth(t)
+r(t)3⃗
+r +⃗F = Mth(t)⃗r
+′′
+(22)
+Here⃗r is the position vector of our spacecraft. Equation of motion of the Jupiter under these assumptions:
+−GMsMjup
+r3
+jup⃗
+rjup = Mjup⃗r
+′′
+jup
+(23)
+Here rjup is the position vector of Jupiter.Let’s deﬁne the angle between the spacecraft’s velocity vector and the direction
+of the thrust force as θ. If we write vector⃗F in terms of velocity vector⃗r
+′ and θ:⃗
+F = |⃗F|⃗r′
+|⃗r′|
+Rθ
+(24)
+Here Rθ is rotation matrix in 2-dimension:
+Rθ =
+cos(θ)
+−sin(θ)
+sin(θ)
+cos(θ)
+
+(25)
+After writing the set of equation of motions, we simulated it and obtained the trajectories of spacecraft and Jupiter
+with varying θ angles.We obtained the travel time and the velocity of the spacecraft just before making gravity assist
+maneuver with Jupiter. Trajectories when θ = 0 :
+Figure 6: Trajectories when θ = 0 on the left and θ = π on the right.Blue line represents the trajectory of Jupiter and
+red line represents the trajectory of spacecraft. When θ = π, spacecraft moving to the direction of sun
+When we increase the angle θ until some value we can reach Jupiter, however travel time increases in that cases. It is
+impossible to reach Jupiter for θ beyond a certain values. Trajectories when θ is different from zero:
+
+447A
+9
+Figure 7: Trajectories when θ = π/4 on the left and θ = π/2 on the right.Blue line represents the trajectory of Jupiter
+and red line represents the trajectory of spacecraft. In the case θ = 0, the spacecraft has already reached Jupiter, but has
+not reached when θ = π/4. When θ = π/2 spacecraft stuck in a circular motion
+As we can see from the simulation results, in order to reach Jupiter as soon as possible after escaping from the
+gravitational ﬁeld or Earth, we must apply thrust force along the way parallel to the speed of the spacecraft and in
+the direction that will increase the speed(θ = 0 case). Under the conditions that we explained above, we obtained the
+following results from the simulation on Matlab:
+t2 = 5.42years
+(26)
+Here t2 is the duration of the trip to Jupiter after escaping from Earth. And the mass of fuel that spacecraft use in this
+journey is 855kg. The speed of spacecraft with respect to Sun’s reference frame just before the gravitational assist
+maneuver is:
+V2 = 16.60km/s
+(27)
+Gravitational Assist Maneuver with Jupiter: To be able to compute the speed of spacecraft after the maneuver
+we have to know the initial and ﬁnal angles between the velocity vectors of Jupiter and spacecraft as we mentioned
+above. From the simulation results, we found the initial angle between the velocity vectors of spacecraft and Jupiter
+as α = 28.68 in degrees. We can assume that the ﬁnal angle between the velocity vectors of spacecraft and Jupiter as
+β = 0. If we use (10)
+V2f = Vjupcos(β) +
+q
+(Vjupcos(β))2 + V 2
+2i −2V2iVjupcos(α)
+(28)
+Here V2i = 16.60 km/s is the velocity of spacecraft with respect to Sun reference frame just before the maneuver, V2f is
+the speed of spacecraft with respect to Sun reference frame just after the maneuver and the Vjup = 14.04km/s speed
+of Jupiter.α and β angles are mentioned above. All of these results are taken from Matlab simulation. If we compute the
+ﬁnal speed of spacecraft:
+V2f = 22.02km/s
+(29)
+It means that we can increase velocity of spacecraft V2i = 16.60 km/s to V2f = 22.02 km/s with a gravity assist
+maneuver. We named the remaining part of the journey to Saturn as Stage 3
+2.3.4
+Stage 3
+In this stage of our ﬂight, we are exiting from Jupiter at a very high speed.V2f = 22.02 km
+s We know that VJupiter =
+13.070 km
+s and escape velocity at a distance nearest the Jupiter can be found directly from multiplying the velocity of
+Jupiter with the square root of 2 so:
+VescJ =
+√
+2VJupiter = 18.48km
+s
+(30)
+
+447A
+10
+which is lower than the velocity of the spacecraft. This means that after taking additional velocity from Jupiter remaining
+trajectory to Saturn can be assumed as linear. So the remaining equation of motion and initial values are independent of
+the sun.
+−Fth⃗
+r
+|r| = Mth(t)d2⃗r
+dt2
+(31)
+Mthi = 3900kg
+(32)
+ri = Rsaturn −Rjupiter = 6.46x1011m
+s
+(33)
+Mth(t) = Mthi −αt
+(34)
+d⃗r
+dt = 22.02km
+s
+(35)
+When we search solution via Matlab the ﬁnal values of the velocity and mass are obtained as follows:
+tstage3 = 3.16x107s
+(36)
+Mthf = 3692kg
+(37)
+V2f = 18.66km
+s
+(38)
+All left is adjusting the velocities such that they correspond to the desired orbit velocity because this V2f is relative to
+the sun. The angle between this vector and the Saturn velocity vector should be θ = 33.22
+3
+Results
+We carefully divided the problem into three stages: Escaping from earth, using gravitational assist from the Jupiter and
+reaching to Saturn. In order to ﬁnd elapsed time and lost mass during the ﬂight we implemented the simulation in the
+MATLAB and run it until convergence with the Saturn. Here are the results for every stage:
+Quantity
+Stage 1
+Stage 2
+Stage 3
+Total
+∆t (years)
+1.87
+5.42
+1.00
+8.29
+∆m (kg)
+295
+855
+158
+1308
+The journey takes a total of 8.29 years and a total of 1308kg of fuel is consumed. The remaining fuel can be used to
+return to the Earth. The control mechanism for stage 1 is eagerly discussed in three different ways. The most efﬁcient
+way is keeping force in the direction of the velocity. For stage 2 control mechanism was carefully evaluated with four
+different angle values. To enable us to do that, rotation matrices were deﬁned. Again the most efﬁcient way is the θ = 0
+case can be seen from the simulations. In stage 3, due to the high velocity gained from Jupiter’s assist force was directed
+back to make spacecraft slower and reduce its velocity to feasible values for orbiting around Saturn.
+4
+Conclusions
+We divide the trip to Saturn into three stages. In the ﬁrst stage, we aimed to escape from the gravitational ﬁeld of Earth.
+To achieve this within a minimal time, we tried to apply the thrust force at different angles. Firstly we aimed to reach the
+Moon ﬁrst to make a gravity assist maneuver with Moon, however, we realized that it was impossible to perform such a
+maneuver. After escaping from Earth, we begin the second stage. In this stage, we aimed to reach Jupiter to make a
+gravity assist maneuver with it. In this journey, we tried to vary thrust forced angles and simulated these cases. After
+gaining a velocity from this maneuver we begin stage 3. Because we gained a huge speed from the maneuver in stage
+2, we assumed that the remaining route of spacecraft from Jupiter to Saturn would be linear. In this stage, we applied
+thrust force in the backward direction to reduce the speed of the spacecraft. This is because the speed required for the
+spacecraft to ﬁt in an orbit in Saturn should be less than the speed at the beginning of stage 3.
+Strengths of Our Solution
+• We just used approximately one-quarter of our mass all the way from Earth to Saturn
+
+447A
+11
+• Our travel time turned out to be close to similar space missions that have happened in the past.[5]
+• We were able to observe how the results would change by controlling the thrust force with our simulations.
+Weakness of Our Solution
+• We did not optimize the trajectory of Jupiter to Saturn. We relied on assumptions for the location of the Saturn
+and linearity of that trajectory.
+• The effects of other planets were neglected during all processes we took into account one celestial body in our
+equations.
+• Due to the complexity of the calculation we did not try to calculate what should be the initials values are.
+References
+[1] John E. Foster, Tom Haag, Michael Patterson, and Jr. Williams, George J. The high power electric propulsion
+(hipep) ion thruster. 40th Joint Propulsion Conference and Exhibit, pages 12–13, 09 2004.
+[2] Dan M. Goebel and Ira Katz. Fundamentals of Electric Propulsion: Ion and Hall Thrusters. JPL SPACE SCIENCE
+AND TECHNOLOGY SERIES, 2008.
+[3] Paul W. Keaton. Low-thrust rocket trajectories. Los Alamos National Laboratory, pages 9–10, 03 1987.
+[4] Kerbal Space Program Wiki. Tutorial: Gravity Assist. https://wiki.kerbalspaceprogram.com/wiki/
+Tutorial:_Gravity_Assist, 2013.
+[5] Nasa. Tutorial: Voyager1 Timeline. https://voyager.jpl.nasa.gov/mission/timeline/#event-
+a-once-in-a-lifetime-alignment, 2020.
+[6] Sean Tang and Bruce A. Conway. Optimization of low-thrust interplanetary trajectories using collocation and
+nonlinear programming. Journal of Guidance, Control, and Dynamics, 18(3):599–604, 1995.
+[7] Chit Hong Yam, Thomas McConaghy, Kuan-Hua Chen, and James Longuski. Design of low-thrust gravity-assist
+trajectories to the outer planets. International Astronautical Federation - 55th International Astronautical Congress
+2004, 1:476–491, 01 2004.
+[8] Alessandro Zavoli and Lorenzo Federici. Reinforcement learning for low-thrust trajectory design of interplanetary
+missions, 2020.
+5
+Appendix
+5.1
+Codes
+1 %%−−−−−−−−−−−−−−−−−−−−Code
+f o r
+Stage1 −−−−−−−−−−−−−−−−−−−−−−−−−−−
+2
+3 %d e f i n i n g
+c o n s t a n t s :
+4
+d_0 = 6650000;
+5
+g l o b a l
+t _ f 1
+6
+t _ f 1 = 50000000;
+7
+g l o b a l
+t _ f 2
+8
+t _ f 2 = 20000000;
+9
+t _ i n t e r v a l
+= 1;
+10
+g l o b a l F_mag
+11
+F_mag = 400e −3;
+12
+g l o b a l m_0
+13
+m_0 = 5000;
+14
+g l o b a l G
+
+447A
+12
+15
+G = 6.67 e −11;
+16
+g l o b a l M
+17 M= 5.97 e24 ;
+18
+g l o b a l
+alpha
+19
+alpha = 5e −6;
+20
+R_moon = 3.8 e8 ;
+21
+g l o b a l
+beta_1
+22
+beta_1 = pi / 2 ;
+23
+g l o b a l
+beta_2
+24
+beta_2 = pi / 4 ;
+25
+26 %d e f i n i n g
+i n i t i a l
+c o n d i t i o n s
+27
+r_0 = [0 d_0 ] ;
+28
+r_0dot = [ s q r t (G*M/ d_0 )
+0 ] ;
+29
+y_0 = [ r_0
+r_0dot ] ;
+30
+F_0 = [0 F_mag ] ;
+31
+32
+[ t , y ] = ode23t (@eq2 ,
+[ 0 : 1 0 0 0 : t _ f 1 ] ,
+y_0 ) ;
+33
+[ t
+z ] = ode23t ( @eq2prime , [ t _ f 1 :1000: t _ f 2 + t _ f 1 ] , y ( end , : ) ) ;
+34
+35
+d t o t = [ y ; z ] ;
+36
+37
+th = 0: pi /100:2* pi ;
+38
+x_moon = R_moon * cos ( th )
+;
+39
+y_moon = R_moon *
+s i n ( th )
+;
+40
+p l o t ( −y ( : , 1 ) , y ( : , 2 ) )
+41
+hold on
+42
+p l o t ( x_moon ,
+y_moon )
+43
+legend ( ’ T r a j e c t o r y
+of
+SpaceCraft ’ , ’ T r a j e c t o r y
+of Moon ’ )
+44
+x l a b e l ( ’x (m) ’ )
+45
+y l a b e l ( ’y (m) ’ )
+46
+t i t l e ( ’ Escaping From Earth ’ )
+47
+48 % f i n d i n g
+the
+i n t e r s e c t i o n
+time
+with moon
+49
+t _ s t a g e 1 =0;
+50
+f o r
+i = 1: 1
+: l e n g t h ( y ( : , 1 ) )
+51
+i f (
+(332997000 −0.5 e6 ) <y ( i , 1 ) &&
+y ( i , 1 ) <(332997000+0.5 e6 ) &&
+(183066000 −0.5 e6 ) <y ( i , 2 ) && y ( i , 2 ) <(183066000+0.5 e6 )
+)
+52
+t _ s t a g e 1 = i *1000;
+53
+break ;
+54
+end
+55
+end
+56
+index = i ;
+1 %−−−−−−−−−Code
+f o r
+Stage2 −−−−−−−−−−−−−−−−−−−−−
+2
+R_E = 1.496 e11 ; % in
+meters
+3
+R_sat = 6.55 e11 ; % in
+meters
+4
+phi = −pi * 0 . 4 7 ;
+5
+T_sat = 11.86*365*24*60*60; %in
+sec
+6
+t _ f 2 = 1.715 e8 ;
+7
+8
+g l o b a l M_sun
+9
+M_sun = 1.989 E30 ;
+% in
+kg
+10
+g l o b a l G
+11
+g l o b a l m_0
+12
+g l o b a l
+alpha
+
+447A
+13
+13
+g l o b a l
+t h e t a
+14
+t h e t a = 0;
+15
+16 %time
+passed
+a t
+the
+f i r s t
+s t a g e :
+17
+t_1 = 59.09 e6 ; %in
+sec .
+18
+19 %mass
+a t
+the
+beginning
+of
+s t a g e
+2:
+20
+g l o b a l m_1
+21
+m_1 = m_0 −alpha * t_1 ;
+22
+23 %i n i t i a l
+v e l o c i t i e s :
+24
+V_esc = 30.480 e3 ;
+25
+V_sat = s q r t (G*M_sun / R_sat ) ;
+26
+27 %i n i t i a l
+c o n d i t i o n s :
+28
+r _ i
+=[−R_E , 0 ] ;
+29
+r _ s a t _ i
+= [ −R_sat * cos ( phi ) , R_sat * s i n ( phi ) ] ;
+30
+r _ 0 d o t _ i = [0
+V_esc ] ;
+31
+r _ s a t d o t _ i = [ −V_sat * s i n ( phi ) , −V_sat * cos ( phi ) ] ;
+32
+33 %i n i t i a l
+v e c t o r s :
+34
+q_1i = r _ i ;
+35
+q_2i = r _ 0 d o t _ i ;
+36
+q _ s a t 1 i =
+r _ s a t _ i ;
+37
+q _ s a t 2 i = r _ s a t d o t _ i ;
+38
+39
+q_i = [ q_1i , q_2i ] ;
+40
+q _ s a t _ i = [ q_sat1i , q _ s a t 2 i ] ;
+41
+42 %Solving ODE’ S :
+43
+[ t , q_sat ] = ode23t ( @Stage2_ODESat ,
+[ 0 : 1 e5 : t _ f 2 ] ,
+q _ s a t _ i ) ;
+44
+[ t , q ] = ode23t ( @Stage2_ODE ,
+[ 0 : 1 e5 : t _ f 2 ] ,
+q_i ) ;
+45
+46
+47
+p l o t ( q_sat ( : , 1 ) , q_sat ( : , 2 ) )
+48
+hold on
+49
+p l o t ( −q ( : , 1 ) , q ( : , 2 ) )
+50
+legend ( ’ T r a j e c t o r y
+of
+J u p i t e r ’ , ’ T r a j e c t o r y
+of
+SpaceCraft ’ )
+51
+x l a b e l ( ’x (m) −From Sun ’ )
+52
+y l a b e l ( ’y (m) −From Sun ’ )
+53
+t i t l e ( ’ Travel
+to
+J u p i t e r
+After
+Escaping From Earth ’ )
+1 %−−−−−−−−−−Code
+f o r
+Stage 3−−−−−−−−−−−−−−−−−−−−−
+2
+3
+t _ s t a g e 1 = 59.09 e6 ;
+4
+t _ s t a g e 2 = 1.715 e8 ;
+5
+6
+g l o b a l
+alpha
+7
+g l o b a l m_0
+8
+g l o b a l m_3
+9
+m_3 = m_0 −alpha *( t _ s t a g e 1 + t _ s t a g e 2 ) ;
+10
+11
+t_up = 1;
+12
+t_down =3.165 e7 ;
+13
+14
+g l o b a l
+m_3down_i
+
+447A
+14
+15
+m_3down_i = m_3 −alpha * t_up ;
+16
+17
+V _ a s s i s t e d = 22.02 e3 ;
+18
+19 %A c c e l a r a t i o n
+Forward :
+20
+a_i = [0 , V _ a s s i s t e d ] ;
+21
+[ t , a ] = ode45 ( @Stage_3Up ,
+[0
+t_up ] ,
+a_i ) ;
+22
+23 %A c c e l a r a t i o n
+BAckward :
+24
+b_i = a ( end , : ) ;
+25
+[ t , b ] = ode45 ( @Stage_3Down ,
+[0
+t_down ] ,
+b_i ) ;
+1
+f u n c t i o n
+[ dadt ] = Stage_3Up ( t , a )
+2
+g l o b a l F_mag
+3
+g l o b a l m_3
+4
+g l o b a l
+alpha
+5
+6
+dadt = zeros ( 1 , 2 ) ;
+7
+dadt ( 2 ) = F_mag / ( m_3−alpha * t ) ;
+8
+dadt ( 1 ) = a ( 2 ) ;
+9
+dadt = t r a n s p o s e ( dadt ) ;
+10
+end
+1
+f u n c t i o n
+[ dbdt ] = Stage_3Down ( t , b )
+2
+g l o b a l F_mag
+3
+g l o b a l
+m_3down_i
+4
+g l o b a l
+alpha
+5
+6
+dbdt = zeros ( 1 , 2 ) ;
+7
+dbdt ( 2 ) = −(F_mag / ( m_3down_i−alpha * t ) ) ;
+8
+dbdt ( 1 ) = b ( 2 ) ;
+9
+dbdt = t r a n s p o s e ( dbdt ) ;
+10
+end
+1
+f u n c t i o n
+[ dqdt ] = Stage2_ODE ( t , q )
+2
+g l o b a l F_mag
+3
+g l o b a l G
+4
+g l o b a l M_sun
+5
+g l o b a l m_1
+6
+g l o b a l
+alpha
+7
+g l o b a l
+t h e t a
+8
+9
+R_theta = [ cos ( t h e t a ) , −s i n ( t h e t a ) ; s i n ( t h e t a ) , cos ( t h e t a ) ] ;
+10
+dqdt = zeros ( 1 , 4 ) ;
+11
+dqdt ( 3 : 4 ) = −(G*M_sun / mag ( q ( 1 : 2 ) ) ^3) *q ( 1 : 2 ) +( F_mag / (
+mag ( q ( 3 : 4 ) ) *(m_1−
+alpha * t )
+)
+) *
+t r a n s p o s e ( t r a n s p o s e ( q ( 3 : 4 ) ) * R_theta ) ;
+12
+dqdt ( 1 : 2 ) = q ( 3 : 4 ) ;
+13
+dqdt = t r a n s p o s e ( dqdt ) ;
+14
+15
+16
+end
+1
+f u n c t i o n
+[ d q _ s a t d t ] = Stage2_ODESat ( t , q_sat )
+2
+g l o b a l G
+3
+g l o b a l M_sun
+4
+
+447A
+15
+5
+d q _ s a t d t = zeros ( 1 , 4 ) ;
+6
+d q _ s a t d t ( 3 : 4 ) = −( G*M_sun / mag ( q_sat ( 1 : 2 ) ) ^3
+) * q_sat ( 1 : 2 ) ;
+7
+d q _ s a t d t ( 1 : 2 ) = q_sat ( 3 : 4 ) ;
+8
+d q _ s a t d t = t r a n s p o s e ( d q _ s a t d t ) ;
+9
+end
+1
+f u n c t i o n
+[ dqdt ] = Stage2_ODE ( t , q )
+2
+g l o b a l F_mag
+3
+g l o b a l G
+4
+g l o b a l M_sun
+5
+g l o b a l m_1
+6
+g l o b a l
+alpha
+7
+g l o b a l
+t h e t a
+8
+9
+R_theta = [ cos ( t h e t a ) , −s i n ( t h e t a ) ; s i n ( t h e t a ) , cos ( t h e t a ) ] ;
+10
+dqdt = zeros ( 1 , 4 ) ;
+11
+dqdt ( 3 : 4 ) = −(G*M_sun / mag ( q ( 1 : 2 ) ) ^3) *q ( 1 : 2 ) +( F_mag / (
+mag ( q ( 3 : 4 ) ) *(m_1−
+alpha * t )
+)
+) *
+t r a n s p o s e ( t r a n s p o s e ( q ( 3 : 4 ) ) * R_theta ) ;
+12
+dqdt ( 1 : 2 ) = q ( 3 : 4 ) ;
+13
+dqdt = t r a n s p o s e ( dqdt ) ;
+14
+15
+16
+end
+1 %−−−−−−−−f u n c t i o n
+f o r
+f i n d i n g
+a magnitude
+of
+a
+vector −−−−−−−
+2
+f u n c t i o n
+[ magnitude ] = mag ( v )
+3
+n = l e n g t h ( v ) ;
+4
+magnitudesq = 0;
+5
+f o r
+i = 1
+:
+1
+:
+n
+6
+magnitudesq = magnitudesq + v ( i ) ^2;
+7
+end
+8
+magnitude = s q r t ( magnitudesq ) ;
+9
+end
+1
+f u n c t i o n
+[ dydt ] = eq2prime ( t , y )
+2
+g l o b a l F_mag
+3
+g l o b a l G
+4
+g l o b a l M
+5
+g l o b a l m_0
+6
+g l o b a l
+alpha
+7
+8
+9
+c = y ( 1 : 2 )
+/ mag ( y ( 1 : 2 ) ) + y ( 3 : 4 ) / mag ( y ( 3 : 4 ) ) ;
+10
+11
+12
+dydt = zeros ( 1 , 4 ) ;
+13
+dydt ( 3 : 4 ) = F_mag*c
+/ ( ( m_0−alpha * t ) *mag ( c ) ) −
+G*M*y ( 1 : 2 ) / mag ( y ( 1 : 2 ) ) ^3;
+14
+dydt ( 1 : 2 ) = y ( 3 : 4 ) ;
+15
+dydt = t r a n s p o s e ( dydt ) ;
+16
+17
+end
+1
+f u n c t i o n
+[ dydt ] = eq1 ( t , y , mt ,m)
+2
+g l o b a l F_mag
+3
+g l o b a l G
+4
+g l o b a l M
+
+447A
+16
+5
+g l o b a l m_0
+6
+g l o b a l
+alpha
+7
+g l o b a l
+t _ f
+8
+9
+10
+11
+F=[0 F_mag ]
+12
+dydt = zeros ( 1 , 4 ) ;
+13
+dydt ( 3 : 4 ) = y ( 1 : 2 ) / mag ( y ( 1 : 2 ) ) *(F / ( m_0−alpha * t ) −G*M/ mag ( y ( 1 : 2 ) ) ^2) ;
+14
+dydt ( 1 : 2 ) = y ( 3 : 4 ) ;
+15
+dydt = t r a n s p o s e ( dydt ) ;
+16
+17
+end
+1
+f u n c t i o n
+[ dydt ] = eq2 ( t , y )
+2
+g l o b a l F_mag
+3
+g l o b a l G
+4
+g l o b a l M
+5
+g l o b a l m_0
+6
+g l o b a l
+alpha
+7
+g l o b a l
+beta_1
+8
+9
+dydt = zeros ( 1 , 4 ) ;
+10
+dydt ( 3 : 4 ) = F_mag* cos ( beta_1 ) *y ( 3 : 4 ) / ( ( m_0−alpha * t ) *mag ( y ( 3 : 4 ) ) ) + F_mag*
+s i n ( beta_1 ) *y ( 1 : 2 ) / ( ( m_0−alpha * t ) *mag ( y ( 1 : 2 ) ) ) −
+G*M*y ( 1 : 2 ) / mag ( y ( 1 : 2 )
+) ^3;
+11
+dydt ( 1 : 2 ) = y ( 3 : 4 ) ;
+12
+dydt = t r a n s p o s e ( dydt ) ;
+13
+14
+end

@@ -1,0 +1,1068 @@
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Table Tennis Ball Sizes 
+Team 414 : Problem B 
+ 
+ 
+ 
+Abstract 
+In the year 2000, the International Table Tennis Federation changed the official ball diameters 
+from 38mm to 40mm to make it a better spectator sport. The International Table Tennis 
+Federation (ITTF) had done so to decrease the overall speed of the ball and increase the average 
+rally count, so as to turn table tennis into a more fun spectator sport. In this study, the effect of 
+changing ball diameters on television spectator enjoyment is analysed. The effect of increasing 
+ball size on the overall horizontal velocity of the ball will be investigated for each of three kinds 
+of ball strokes; The direct smash, the loop stroke and the chop stroke. These horizontal 
+velocities will be compared with the desired optimal velocity of 11.88m/s, which is based on the 
+visual tracking speed of television spectators. The optimal ball size to yield the most fun for 
+spectators is also determined. For the direct smash, the ball speed decreases with increasing 
+ball diameter as expected, indicating that the 44mm ball was most fun to watch. For the loop 
+stroke ball, the 44mm diameter ball had a velocity closest to that of the optimal velocity. For the 
+chop stroke ball, the analysis was less useful due to the nature of the stroke, but the 
+displacement graph still followed expected results. Overall, the 44mm ball was found to be 
+closest to the optimal size, and the analysis proved accurate for predicting table tennis ball 
+behaviour. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Team 414 
+1 
+ 
+    INTRODUCTION 
+Table tennis has had several changes to the 
+rules 
+and 
+regulations 
+of 
+the 
+sport, 
+introduced in years 2000 and 2001, one of 
+which is the increase in ball diameter from 
+38mm to 40mm in year 2000. The main 
+reason stated by ITTF to increase the 
+diameter of the ball is to slow the ball down 
+and to increase the rally length so as to 
+make table tennis a more fun spectator 
+sport. 
+Table 
+tennis 
+has 
+long 
+been 
+considered a bad spectator sport due to its 
+high speed of play, and inherent nature of 
+being difficult to track due to the small size 
+of the ball. Increasing the ball thus has a 
+multitude of effect making the sport more 
+spectator friendly: i) a bigger ball is easier 
+to spot; ii) an increased drag force thus 
+slowing the ball down faster; and iii) an 
+increased 
+moment 
+of 
+inertia 
+thus 
+decreasing spin. These effects also allow the 
+players to more effectively hit the ball with 
+less uncertainty from the spin and thus 
+keeping the ball in play longer, with a larger 
+number 
+of 
+rallies 
+per 
+point 
+scored. 
+However, this also simplify the game for the 
+players, who now display a lower level of 
+techniques and control at every level of play 
+of the game. This, conversely, will also 
+lowers the perception of fun within the 
+spectators who gain more utility watching a 
+challenging sport. Thus, we found a balance 
+between the two extremes, with the optimal 
+speed of the ball being 11.88m/s, which is 
+the average limit of the visual acuity of the 
+eye for tracking a moving object, after 
+crossing the net so as to allow the ball to be 
+slow enough to be adequately tracked by 
+the spectators' eyes, yet still sufficiently fast 
+enough to warrant a high level of play from 
+the players. The reason for choosing only to 
+address the television spectators will be 
+discussed in a later section. 
+ 
+To analyse if changing the ball size would 
+make the game more fun to watch on 
+television, 
+we 
+determine 
+the 
+top 
+translational speed of three different kinds 
+of rallied balls: a smash, a top spin loop and 
+a back spin chop. If the average speed of 
+each of these rallies is reduced, this implies 
+that the game becomes easier and more fun 
+to watch. The reduction in average speed 
+can only be so much before the game 
+becomes 
+too 
+slow 
+for 
+entertainment 
+however. Therefore, an optimal speed based 
+on the average tracking speed of television 
+spectators is obtained and used as a 
+benchmark for comparison. 
+ 
+In this study, the motion or trajectory of a 
+table tennis ball is analysed classically with 
+kinematics and aided with numerical 
+analysis using software like Scilab and C++. 
+ 
+ 
+THEORY 
+ 
+The initial height and position of the ball for 
+each of the three strokes is the same. The 
+ball is 50cm above the edge of the table and 
+is projected diagonally across the table to 
+cover the maximum distance possible of 
+about 313cm. This distance is taken, 
+assuming that spectators enjoy watching 
+such 
+cross-court 
+shots 
+as 
+they 
+are 
+technically more difficult to execute. 
+ 
+ 
+Fig. 1 Dimensions of a Table Tennis Table 
+ 
+The general equation used to map the 
+trajectory and velocity of the ball is found 
+below: 
+  
+     
+  
+       
+                  
+          
+    
+ 
+              (1)
+ 
+ 
+ 
+ 
+, where   is the density of air,     is the 
+angular velocity of the ball, Cm is the Magnus 
+coefficient/lift coefficient and Cd is the drag 
+coefficient. With reference to sources, the 
+Cm and Cd were found to be 0.29 and 0.5 
+respectively[1].  
+ 
+Since it is understood that the slowdown in 
+the average speed of the ball was enforced 
+so that television spectators could better 
+
+Team 414 
+2 
+ 
+track the ball, we sought to determine the 
+average tracking speed of human eyes when 
+watching 
+televised 
+table 
+tennis. 
+This 
+tracking speed would give us a benchmark 
+for the minimum speed of a ping pong ball, 
+as anything slower would inevitably lead to 
+a less exciting game as it would be slower 
+than the average moving thing that humans 
+notice. The increase in average rally count 
+in this case, is not a good indicator of fun for 
+spectators, since it will greatly sacrifice the 
+speed at which the game is played. 
+ 
+To find the average tracking speed of the 
+human eye on a televised game of table 
+tennis, the average angular movement of 
+the eyes must be involved. It is found to be 
+30°/s 
+[2], and if the audience sits at 
+approximately 2m 
+[3] away from their 
+television, their eyes can cover a distance of 
+30/360 × 2  × 2m=1.047m in 1 sec.  
+ 
+Therefore, the minimum velocity of the ball 
+on screen should be 1.0471m/s for optimal 
+fun. To find the minimum velocity of the ball 
+at the competition grounds, the velocity 
+found above must be scaled up according to 
+the length ratio between items on screen 
+and items at the competition venue. A table 
+tennis game is assumed to typically be 
+televised on 4:3 home televisions of average 
+32” [4] across. Referring to an ITTF sample of 
+optimum framing[5] as shown in Fig. 2 
+below, the diagonal of the table apparently 
+takes up 34% of the diagonal of the screen. 
+Some calculations reveal that the screen 
+image is scaled down 11.35 times as 
+compared to the live event. 
+ 
+Fig. 2 Optimum framing of a Table Tennis 
+match 
+ 
+Therefore, the minimum or optimal velocity 
+of the ball on the competition grounds 
+should be Vop = 11.35 × 1.0471m/s = 
+11.88m/s for optimal fun. 
+ 
+ANALYSIS 
+To determine the best size of table tennis 
+ball, we have concluded that the ball should 
+propagate as close as possible to the 
+optimal speed of 11.88m/s as it crosses the 
+net. We chose the net as a good reference 
+point since spectators may not be able to 
+properly track a ball at impact with a 
+paddle. Midway across the table is a 
+reasonable point for reference and it also 
+gives the ball enough time and space to 
+decelerate to its stable velocity. 
+ 
+Our analysis is conducted for balls of 
+varying diameters, not more than 44mm [6] 
+since balls any larger are currently not in 
+production 
+for 
+common 
+usage. 
+Furthermore, our analysis in the later part 
+of this report also reinforced this reason to 
+not consider balls larger than 44mm. 
+ 
+A. Direct Smash 
+For our first scenario of a direct smash, the 
+ball is assumed to have negligible spin in 
+any direction or axis. It is also assumed to 
+possess a large initial horizontal velocity 
+and a relatively large downward velocity. 
+The diagram below provides hypothesises 
+an illustration of the smash, not drawn to 
+scale. 
+ 
+ 
+Fig 3. Direct smash with no spin 
+ 
+The starting horizontal velocity Vx is set to 
+be 25m/s[7] while the vertical velocity Vz is 
+set at -5m/s where up is positive. This value 
+of horizontal velocity is chosen as it 
+matches the top horizontal speeds of table 
+tennis balls from our source. With ω0 = 0, 
+The following corrected equation of motion 
+is derived and used for this scenario: 
+ 
+
+Team 414 
+3 
+ 
+     
+  
+              
+    
+ 
+         
+(2)
+ 
+ 
+ 
+ 
+Let (x,y,z) be the local coordinates of the 
+ball(the reason will be shown later) and 
+assuming no side-curve shots: 
+ 
+     
+ 
+   
+  
+ 
+  
+   
+      
+ 
+ 
+  
+  
+             
+ 
+         
+  
+ 
+  
+   
+ 
+ 
+(3) 
+ 
+As observed, Equation 3 is composed of two 
+coupled non-linear differential equations. 
+Numerical analysis, using the Runge-Kutta 
+method, is then used to find the variation of 
+the velocity with time for a certain value of 
+diameter of the ball. In this paper,  C++ 
+(Appendix A) is the main instrument in 
+extracting graphs and data from. In 
+addition, a brief Scilab coding is attached for 
+cross reference. 
+ 
+With the necessary assumptions, graphs of 
+horizontal 
+velocity 
+versus 
+horizontal 
+displacement are plotted. They are plotted 
+for several diameters of ping pong balls. The 
+velocity of the balls at the position over the 
+net is determined. 
+ 
+ 
+ 
+ 
+ 
+Graph 1. Graph of horizontal velocity vs. 
+horizontal displacement for direct 
+smash with x=1.56m line 
+ 
+As observed, the 44m ball comes closest to 
+the optimal speed of 11.88m/s when just 
+above the net. In the case of a smash, a 
+larger ball will obviously lower average 
+speed of the ball due to drag. The 1.56m line 
+is drawn to show the point at which the ball 
+traverses the net. 
+ 
+ 
+Graph 2. Graph of vertical displacement 
+vs. horizontal displacement for direct 
+smash 
+ 
+From Graph 2, it is evident that the size of 
+the ball does not affect the trajectory of 
+smashed balls much, since their paths 
+overlap quite completely. 
+B. Top Spin 
+In this scenario, the ball is given a top spin 
+with a forward loop stroke, which will yield 
+a large Magnus effect on the ball during 
+motion. The ball is assumed to have a large 
+starting horizontal velocity Vx of 20m/s[8] 
+while the vertical velocity Vz will be 
++1.2m/s where up is positive. These values 
+fall in line with the average top spin ball 
+speeds as found in our sources. The 
++1.2m/s upwards is necessary for the ball 
+to traverse over the net. 
+ 
+ 
+Due to the low density and low mass of the 
+ping pong ball, the Magnus force must be 
+included 
+as 
+it 
+will 
+contribute 
+large 
+observable changes in the movement of the 
+ball. The Magnus force arises due to the spin 
+of the ball which gives rise to the 
+differences in pressure at the ends of the 
+ball. 
+ 
+13 
+15 
+17 
+19 
+21 
+23 
+25 
+0 
+1 
+2 
+3 
+Horizontal velocity (m/s) 
+x(m) 
+Diameter=38mm 
+Diameter=40mm 
+Diameter=42mm 
+Diameter=44mm 
+0 
+0.1 
+0.2 
+0.3 
+0.4 
+0.5 
+0.6 
+0 
+0.5 
+1 
+1.5 
+2 
+2.5 
+z (m) 
+x (m) 
+
+Team 414 
+4 
+ 
+ 
+Fig 4. Magnus force F on a rotating body 
+in a fluid with velocity v  
+ 
+Assuming that the angular velocity stays 
+constant throughout the movement across 
+the table and the direction of angular 
+velocity is only in the local y-direction or 
+perpendicular to both the table surface and 
+gravity (i.e. no side spin), the equations of 
+motions for a topspin ball can then be 
+described below: 
+ 
+     
+ 
+   
+  
+ 
+  
+   
+      
+ 
+ 
+  
+           
+      
+  
+ 
+   
+   
+             
+ 
+         
+  
+ 
+  
+  
+ 
+(4) 
+ 
+ 
+ 
+Fig 5. Loop stroke with top spin 
+ 
+The trajectory of a top spin ball is therefore 
+hypothesised to appear as shown in Fig. 5. 
+The value of ω0 is found to be 100 
+revolutions/s[9], for a ball diameter of 
+40mm. Subsequent ω for larger balls are 
+determined by using equation (6) as shown: 
+ 
+               
+                
+ 
+                                                     (5)
+ 
+ 
+ 
+ 
+ 
+   
+ 
+   
+                                                 (6)
+ 
+ 
+ 
+ 
+ 
+The graphs of horizontal velocity versus 
+horizontal displacement are plotted for 
+several diameters of ping pong balls. The 
+velocity of the balls at the position over the 
+net is determined for comparison with the 
+optimal velocity. 
+ 
+ 
+Graph 3. Graph of horizontal velocity vs. 
+horizontal displacement for top spin 
+with Vx =11.88m/s and x=1.56m lines 
+ 
+As observed, with increasing diameter, the 
+velocity will decrease, primarily due to the 
+drag force slowing the ball down. However, 
+the reduced angular velocity will also mean 
+that 
+the 
+horizontal 
+velocity 
+is 
+not  
+channelled into downward velocity by the 
+Magnus force as quickly. Overall, it is 
+observed that the 44mm ball comes closest 
+to the optimal speed of 11.88m/s when it is 
+just above the net. Since the optimal speed 
+and net distance intersection lies in 
+between 43mm and 44mm, this further 
+justifies why we do not need to analyse data 
+for balls larger than 44mm. 
+ 
+ 
+Graph 4. Graph of vertical displacement 
+vs. horizontal displacement for top spin 
+ 
+0 
+5 
+10 
+15 
+20 
+0 
+0.5 
+1 
+1.5 
+2 
+2.5 
+Horizontal velocity (m/s) 
+x(m) 
+D=40mm 
+D=42mm 
+D=43mm 
+D=44mm 
+0 
+0.1 
+0.2 
+0.3 
+0.4 
+0.5 
+0.6 
+z (m) 
+x (m) 
+D=40mm 
+D=42mm 
+D=43mm 
+D=44mm 
+
+Team 414 
+5 
+ 
+The path of the top spin balls is plotted as 
+shown above in Graph 4. It can be inferred 
+that the resistive effect of drag, overcomes 
+the lesser spin and curvature of path, to 
+yield 
+a 
+shorter 
+total 
+horizontal 
+displacement for larger balls. 
+C. Back Spin 
+In this scenario, the ball is given a back spin 
+with a chop stroke, which will yield a large 
+Magnus effect on the ball during motion. 
+The ball is assumed to have starting 
+velocities similar to that of the top spin 
+balls. Horizontal velocity Vx is 20m/s while 
+the vertical velocity Vz will be +1.2m/s 
+where up is positive. The vertical velocity is 
+once again necessary for the ball to 
+successfully cross over the net. 
+ 
+ 
+Fig 6. Chop stroke with back spin 
+ 
+Very much like the loop stroke for top spin, 
+the chop stroke with back spin follows the 
+same equation of motion as shown in 
+Equation 4 with the same value of ω0 of 100 
+rev/s. In this case, due to the nature of the 
+chop stroke with back spin, the ball travels 
+at a slower pace as its new upward velocity 
+generated from the Magnus effect is negated 
+by gravity. The analysis here is therefore 
+only 
+useful 
+for 
+corroborating 
+the 
+hypothesised trajectory as seen in Fig 6 
+above. The results from our analysis yielded 
+the following in Graph 5. 
+ 
+ 
+Graph 5. Graph of horizontal velocity vs. 
+horizontal displacement for back spin 
+The graph corroborates well with our 
+expected observation due to the observably 
+smooth decent brought about from the 
+lifting Magnus force. 
+ 
+Graph 5. Graph of vertical displacement 
+vs. time for back spin 
+Assuming that the initial height of the ball 
+(z) is at the same level as the table, its initial 
+horizontal and vertical velocity taken to be 
+5m/s and 1m/s respectively (These values 
+are chosen such that the ball is able to go 
+over the net, and hitting the far end of the 
+table), and the average value of the 
+backspin is 50rev/s [8], a graph of the height 
+of the ball against time for 2 different 
+diameters is plotted as above. It is observed 
+for both diameters of the ball that the value 
+of z , when it returns to the table,  falls to 
+zero over a long period of time ( ~1 s). This 
+shows that the velocity of the ball is very 
+slow as compared to the forward smash and 
+loop. Thus, backspin motion is not taken 
+into account in finding the optimal diameter 
+size 
+since 
+most 
+balls 
+with 
+different 
+diameters will all move in a slow speed. 
+ 
+DISCUSSION 
+In the course of the investigation into the 
+problem, the following assumptions were 
+made: 
+ 
+1) The medium that the ball travel in is a 
+still body, without any net air current. Any 
+air current will cause the ball's trajectory to 
+be different as calculated. 
+ 
+2) The ball is a perfect sphere, with a 
+uniform 
+weight 
+distribution. 
+Due 
+to 
+manufacturers' tolerance, there will be a 
+slight non uniformity of the ball, as defined 
+0 
+0.2 
+0.4 
+0.6 
+0.8 
+Horizontal velocity (m/s) 
+x (cm) 
+Vertical Displacement vs 
+Horizontal Displacement 
+0 
+0.2 
+0.4 
+0.6 
+0.8 
+1 
+1.2 
+0 
+0.5 
+1 
+1.5 
+z(m) 
+t(s) 
+D=38mm 
+D=42mm 
+
+Team 414 
+6 
+ 
+as "veer"[10] in the official table tennis rules. 
+This will shift its centre of mass and cause 
+the effects of the spin of the ball to be 
+different as calculated. 
+ 
+3) The ball with different diameters have 
+the same mass. In the actual alterations of 
+the official rules, the mass of the table 
+tennis ball is increased from 2.5g to 2.7g[11]. 
+This change in mass was ignored so as to 
+determine the effects of the trajectory solely 
+by the change in diameter. 
+ 
+4) The psychological effects of using a ball 
+with a different diameter on the spectators 
+were ignored. A survey[11] done in Japan, 
+while there were general consensus that the 
+rally length seemed to be lengthen (72.1%) 
+and that the movements of the ball is easier 
+to see (62.9%) for 40mm ball compared to 
+the 38mm ball, 41.1% of the respondents 
+felt that the games using the 40mm balls are 
+of the same excitement levels as the 38mm 
+ball games, close to the 48.7% who felt that 
+the bigger balls bring better excitement. As 
+a result, we only used the criteria of visual 
+tracking speed to classify our findings. 
+ 
+5) Turbulent effects are considered to be 
+negligible in this investigation, since the 
+form of the Magnus Force used does not 
+incorporate turbulent effects. 
+ 
+6) Vibrations of the ball from impact are 
+considered to be negligible, due to its high 
+coefficient of restitution and rigidity. 
+ 
+7) Analysed table tennis ball diameter was 
+restricted to round integers of millimetres, 
+since manufacturers have large margins of 
+error or tolerance. 
+ 
+Regarding the strengths of our chosen 
+analysis, our usage of a computational 
+approach provides good comprehensive 
+insights, by taking into account the various 
+factors that may influence the trajectory of 
+the ball. Our choice to use the visual acuity 
+of television spectators as a benchmark also 
+brings a new dimension to our analysis, 
+especially when televised games can better 
+penetrate the masses. Television spectators 
+also feel more removed than live spectators, 
+thus require additional effort to bring the 
+fun into their homes. 
+ 
+A possible weakness of this analysis could 
+stem from the fixed starting conditions used 
+for each step of our investigation. Due to 
+limited resources, we are excluding a whole 
+range of other possible starting values of 
+velocity, displacement or angular velocity.  
+ 
+CONCLUSION 
+The optimal ping pong ball size for the most 
+satisfaction provided to television viewers 
+was determined to be 44mm. Overall, the 
+analysis provided accurate predictions of 
+velocity and displacement of different sized 
+table tennis balls when subjected to a direct 
+smash, loop or chop stroke. 
+ 
+ 
+ 
+REFERENCES 
+ 
+1.  Weisstein, E. W. (2007). Coeficient of 
+restitution. In Eric Weisstein's World of 
+Physics. Wolfram Research. Retrieved from 
+http://scienceworld.wolfram.com/physics/
+CoefficientofRestitution.html 
+ 
+2. Barnes GR. Cognitive processes involved 
+in smooth pursuit eye movements.Brain 
+Cogn. 2008 Dec;68(3):309-26 
+ 
+3. Kindig, S. (2011, September 07). Tv and 
+hdtv faq. Retrieved from 
+http://www.crutchfield.com/S-
+wBGyDtQISj5/learn/learningcenter/home/
+tv_faq.html 
+ 
+4. Hsieh, D. (2012, October 02). [Web log 
+message]. Retrieved from 
+http://www.displaysearchblog.com/2012/
+10/average-size-of-lcd-tv-panels-increases-
+by-2-inches-in-12-months/ 
+ 
+5. Jota ITO (2002). The filming of table 
+tennis. International Journal of Table Tennis 
+Sciences, 5, 101-107. Retrieved from 
+http://www.ittf.com/ittf_science/SSCenter/
+docs/200200012%20-%20Ito%20-
+%20Filming.pdf 
+ 
+
+Team 414 
+7 
+ 
+6. Hoey, C. (2006, Fall). Did you know..? fun 
+facts about table tennis. The Table Tennis 
+Collector, 42, Retrieved from 
+http://www.ittf.com/museum/TTC42.pdf 
+ 
+7. Andersson, M. (2003). Kiwi wins "fastest 
+smash" competition. Retrieved from 
+http://www.ittf.com/ittf_juniors/Stories_de
+tail.asp?Year=&General_Catigory=&ID=488
+5&PT_Title=New Zealand Junior Open 
+(NZL)&Year1=2003 
+ 
+8. Alexander, E. A. (n.d.). Table tennis: A 
+brief overview of biomechanical aspects of 
+the game. Manuscript submitted for 
+publication, Sport Biomechanics 
+Laboratory, Faculty of Kinesiology and 
+Recreation Management, University of 
+Manitoba, Manitoba, Canada. Retrieved 
+from 
+http://umanitoba.ca/faculties/kinrec/resea
+rch/media/table_tennis.pdf 
+ 
+9. Wu Huan Qun, E. A. (1992). Experimental 
+research in table tennis spin. International 
+Journal of Table Tennis Sciences, 1, 73-78. 
+Retrieved from 
+http://www.ittf.com/ittf_science/SSCenter/
+docs/199208013-%20Wu%20-
+%20Table%20Tennis%20Spin.pdf 
+ 
+10. The ball (version for 40mm balls) 
+technical leaflet t3. In (2011). (06/10). 
+Renens/Lausanne, Switzerland: The 
+International Table Tennis Federation. 
+Retrieved from 
+http://www.ittf.com/stories/pictures/t3_b
+all40mm_bod2011.pdf 
+ 
+11. TAKEUCHI, E. A. (2002). Speed and spin 
+characteristics of the 40mm table tennis 
+ball. International Journal of Table Tennis 
+Sciences, 5, 267-277. Retrieved from 
+http://www.ittf.com/ittf_science/SSCenter/
+docs/200200026 - Takeechi - effect.pdf
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Team 414 
+8 
+ 
+Appendix 
+ 
+Mass of ball(g) 
+2.3g 
+Drag Coefficient 
+0.5 
+Magnus Coefficient 
+0.29 
+Density of air(kg/m3) 
+1.225 
+Table dimensions 
+As per Figure 1 
+Table of input factors 
+ 
+Coding for Scilab 
+-->deff('[ff]=f(t,x)','ff=[-b*x(2)-k*x(1)*sqrt(x(1)^2+x(2)^2);(b*x(1)-
+k*x(2)*sqrt(x(1)^2+x(2)^2))-g]') 
+ 
+-->k=0.151;g=9.81;b=30;t0=0;tn=0.1;Dt=0.001;t=[t0:Dt:tn];x0=[25;-5];      
+//k=(r^2)*pi*Cd*(p/2m),b=0.29*4 p(ω/m)*r^3 
+ 
+-->x=ode(x0,t0,t,f); 
+ 
+-->xtitle('Velocity vs Time-No spin','t(s)','v(m/s)') 
+ 
+-->plot2d([t',t'],[x(1,:)',x(2,:)'],[1,9],'111','x1@x2',[0 -10 0.1 35]) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Team 414 
+9 
+ 
+Code for C++: Runge-kutta method 
+  1 #include<stdio.h> 
+  2 #include<math.h> 
+  3 
+  4 int main() 
+  5 { 
+  6 
+  7 double t,z,x,vx,vz,xmax,dt,k1,k2,k3,k4,l1,l2,l3,l4; 
+  8 double c1,c2; 
+  9  
+ 10 double f(double t, double vx,double vz); 
+ 11 double g(double t, double vx,double vz); 
+ 12 int i; //specify the range// 
+ 13 
+ 14 //Specify conditions// 
+ 15  
+xmax=50.0; 
+ 16  
+dt=0.001; 
+ 17  
+ 18 
+ 19 
+ 20 //intitial conditions// 
+ 21  
+vz=-5.0; 
+ 22  
+vx=25.0; 
+ 23  
+t=0; 
+ 24  
+x=0; 
+ 25  
+z=0.5; 
+ 26 
+ 27  
+ 28  
+ 29 for( i=0;i<200;i++) 
+ 30 { 
+ printf("%lf\n",vx);//print type of variables chosen 
+ 31 
+ 32  
+ 
+k1=dt*f(t,vx,vz); 
+ 33  
+ 
+l1=dt*g(t,vx,vz); 
+ 34 
+ 35  
+ 
+k2=dt*f(t+dt/2,vx+k1/2,vz+l1/2); 
+ 36  
+ 
+l2=dt*g(t+dt/2,vx+k1/2,vz+l1/2); 
+ 37 
+ 38  
+ 
+k3=dt*f(t+0.5*dt,vx+k2/2,vz+l2/2); 
+ 39  
+ 
+l3=dt*g(t+0.5*dt,vx+k2/2,vz+k2/2); 
+ 40 
+ 41  
+ 
+k4=dt*f(t+dt,vx+k3,vz+l3); 
+ 42  
+ 
+l4=dt*g(t+dt,vx+k3,vz+l3); 
+ 43 
+ 44  
+ 
+vx+=(k1+2*k2+2*k3+k4)/6; 
+ 45  
+ 
+vz+=(l1+2*l2+2*l3+l4)/6; 
+ 46 
+ 47  
+ 
+x+=dt*(vx+(k1+k2+k3)/6); 
+ 48  
+ 
+z+=dt*(vz+(l1+l2+l3)/6); 
+ 49 
+ 50  
+t+=dt; 
+ 51 } 
+ 52 return 0; 
+
+Team 414 
+10 
+ 
+ 53 } 
+ 54 
+ 55 double f(double t,double vx,double vz) 
+ 56 { 
+ 57  
+//insert the differential eqn here with the corresponding parameters:eg r=0.04, 
+0.29*4 p(ω/m)=567832, pi*Cd*(p/2m)=418.3// 
+ 
+ 58  
+ 
+return -567832*(0.04*0.04*0.04)*vz-
+ 
+(0.04*0.04)*418.3*vx*sqrt((vx)*(vx)+(vz)*(vz)); 
+ 59 } 
+ 60 
+ 61 double g(double t,double vx,double vz) 
+ 62 { 
+ 63  
+//insert the differential eqn here with the corresponding coefficient of magnus force// 
+ 
+ 64  
+return  567832*(0.04*0.04*0.04)*vx- (0.04*0.04)*418.3*vz*sqrt((vx)*(vx)+(vz)*(vz))-
+9.81; 
+ 65 }  
+ 
+ 

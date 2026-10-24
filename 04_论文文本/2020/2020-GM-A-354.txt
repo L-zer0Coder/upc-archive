@@ -1,0 +1,794 @@
+Team 354
+Problem A: Ion Thrusters to Saturn
+November 6, 2020
+Abstract
+This paper investigates the optimization of the trajectory of spacecraft equipped
+with low-thrust ion engine which provides the constant thrust FT of 400 mN,
+with the speciﬁc impulse Isp of 4000 s. The main goal is to eﬃciently send the
+spacecraft from the circular orbit of radius 6650.32 km (equivalent to the time
+period of 90 minutes) around the earth to the circular orbit of radius 271033.49
+km (equivalent to the time period of 40 hours) around the Saturn. This was
+done using the combined method of ion propulsion and Gravity Assist (GA). We
+constructed the model which simulates the trajectory of the spacecraft based on
+Newton’s and Kepler’s law of gravitation. With this model, the spacecraft took
+9 years and 73 days to travel from the initial conﬁguration to Saturn. The opti-
+mal amount of fuel consumed in this model was found to 1808.75 kg considering
+the total initial mass of the spacecraft (including the fuel) to be 5000 kg. The
+method of controlling the thruster during the journey is discussed below.
+
+Ion Thrusters to Saturn
+Team 354
+Contents
+1
+Notations Used
+2
+2
+Introduction
+2
+3
+Theory
+3
+3.1
+Law of Gravitation and Kepler’s Laws
+. . . . . . . . . . . . . . . . . . . . .
+3
+3.2
+Speciﬁc Impulse . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+3.3
+Orbital spiral maneuver (SM) with low thrust . . . . . . . . . . . . . . . . .
+4
+3.4
+Gravity Assist (GA) maneuvers . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+4
+Method
+6
+5
+Results
+7
+5.1
+Earth Spiral Maneuver . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+5.2
+Lunar and double Earth Gravity Assists
+. . . . . . . . . . . . . . . . . . . .
+9
+5.3
+Earth to Saturn Trajectory . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10
+5.4
+Saturn Spiral Maneuver
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11
+6
+Discussion and Conclusion
+14
+6.1
+Limitations and Improvements . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+7
+Appendix
+16
+Page 1
+
+Ion Thrusters to Saturn
+Team 354
+1 Notations Used
+Table 1: Table of notation
+Symbols
+Meaning
+Numerical Value
+G
+Universal Gravitational Constant
+6.67408 × 10−11 m3 kg−1s−2
+ME
+Mass of Earth
+5.972 × 1024 kg
+MS
+Mass of Saturn
+5.683 × 1026 kg
+ms
+Instantaneous mass of spacecraft
+-
+a
+Semi-major axis length
+-
+T
+Time period of revolution
+-
+rs,E
+Radius of initial orbit of spacecraft
+6650.32 km (calculated)
+rs,S
+Radius of ﬁnal orbit of spacecraft
+271033.46 km (calculated)
+vs,E
+Velocity in the initial orbit of spacecraft
+7.738 km s−1 (calculated)
+vs,S
+Velocity in the ﬁnal orbit of spacecraft
+11.826 km s−1 (calculated)
+FT
+Constant thrust on the spacecraft
+400 mN (given)
+g0
+Acceleration due to gravity on Earth
+9.81 ms−2
+Isp
+Speciﬁc impulse
+4000 s (given)
+δ
+Turning angle
+-
+2 Introduction
+Ion thruster (a.k.a Kaufman Ion Engines) is electric propulsion system used for the spacecraft
+in several inter-planetary and deep space missions. The underlying principle behind it is the
+production of thrust by accelerating the ions using electric ﬁeld via exhaust. Because of
+its mass and inert behaviour, Xenon (Xe) is used as the common propellant for the ion
+propulsion system. Recently ion thrusters have been designed for various missions - from
+keeping the satellites orbiting the earth in their proper position to propelling the spacecraft
+to diﬀerent planets (for example: Mars, Jupiter, Saturn) in the solar system.
+The concept of electrostatic thrusters dates back to late 1950’s with the ﬁrst demonstration
+on July 20, 1964 on a sub-orbital spaceﬂight of the Space Electric Rocket Test 1 (SERT I)
+spacecraft. In 2007, NASA launched the DAWN spacecraft which travelled deep into the
+solar system utilizing the three NASA Solar Technology Application Readiness (NSTAR)
+ion thrusters [NASb].
+But why are ion thrusters becoming more popular recently? Well, the answer lies behind
+various factors. Ion thursters require less propellant than its traditional counterpart chemical
+propellant rocket engines. They have comparatively higher speciﬁc impulse - the quantity
+that shows how eﬃciently the propellant is used - which is most suitable for long-duration
+missions.
+Although the thrust produced is low, they can achieve incredibly high speed
+gradually.
+Due to the high eﬃciency and applicability towards deep space long-duration travel, re-
+searchers are looking for various ways to optimize the trajectory, cost, fuel, and the time of
+ﬂight. One of the best optimization technique would be using the Gravity Assist (GA) along
+Page 2
+
+Ion Thrusters to Saturn
+Team 354
+with ion propulsion which is described in this paper. Also, the way the thruster is controlled
+must be taken into account for the optimization.
+3 Theory
+3.1 Law of Gravitation and Kepler’s Laws
+In the scenario of the problem, the initial and ﬁnal states of the spacecraft are circular orbits
+around the Earth and Saturn, respectively. Solving for the period and speed of the spacecraft
+in this orbit requires knowledge about the forces acting on the spacecraft, primarily the force
+of gravity. When a spacecraft of mass ms is orbiting around a body of much larger mass
+M, the force of gravity between the body and the spacecraft is given by Newton’s Universal
+Law of Gravitation:⃗
+F = GMms
+r2
+ˆr
+(1)
+where r is the distance between the large body and the spacecraft, and G is the universal
+gravitational constant. The unit vector ˆr points from the center of mass of M to the space-
+craft. By Newton’s Second Law, the gravitational force acting on the object of mass ms
+orbiting a body of mass M ≫ms is equal to its centripetal force:
+GMsm
+r2
+= msv2
+r
+(2)
+where v is the velocity of the spacecraft in circular orbit. We can rearrange this equation to
+obtain an expression for the orbital velocity in terms of the the distance of the spacecraft
+from the center of mass of the large body:
+v =
+r
+GM
+r
+(3)
+The motion of the planets around the solar system is described by Kepler’s Laws, which
+state that each planet moves around the sun in an elliptical orbit. In particular, Kepler’s
+Third Law relates the semi-major axis of the planet’s orbit to the period of its revolution
+around the sun:
+T 2 = 4π2
+GM a3
+(4)
+Here, a is the semi-major axis of the planet’s orbit, T is the period of revolution, G is the
+universal gravitational constant (approx 6.674 m3/kg·s2). Rearranging, an expression for a
+depending on T can be obtained, with all other quantities being constant:
+a =
+T 2GM
+4π2
+ 1
+3
+When the orbit is circular, the radius r of the orbit takes the place of the semi-major axis a.
+For a circular orbit around the Earth with a period of 90 minutes:
+rs,E = 6650.321 km
+vs,E = 7.738 km/s
+Page 3
+
+Ion Thrusters to Saturn
+Team 354
+For a circular orbit around Saturn with a period of 40 hours:
+rs,S = 271033.462 km
+vs,S = 11.826 km/s
+(a) Initial Orbit of the Spacecraft around Earth
+(b) Final Orbit of the Spacecraft around Saturn
+Figure 1: Orbit of Spacecraft around Earth and Saturn. [Figures not to be scaled]
+3.2 Speciﬁc Impulse
+The speciﬁc impulse is a measure of how much thrust a spacecraft can achieve given a par-
+ticular rate of fuel consumption. These quantities are related to each other by the following
+equation:
+FT = g0 · Isp · ˙m
+(5)
+where Isp is the speciﬁc impulse, FT is the thrust force on the spacecraft, g0 is the acceleration
+due to gravity on the Earth’s surface (≈9.81 m/s2), and ˙m is the instantaneous rate of change
+in the mass of the spacecraft.
+3.3 Orbital spiral maneuver (SM) with low thrust
+For transferring between orbits around the central body, the low thrust engines may be
+employed. The shape of the trajectory will be ”spiral”, hence the name, and independent
+of the steering angle. The simplest model carried out in this paper keeps the thrust applied
+normal to radius vector, giving the upper bound for fuel consumption during this maneuver.
+Some optimization of thrust angle can be done such that the change of distance from central
+object is maximized, and fuel eﬃciency increased.
+Page 4
+
+Ion Thrusters to Saturn
+Team 354
+The spiral trajectory is calculated based on the following equations. Consider the net force
+experienced by the spacecraft when the ion thruster is turned on. It is given by:⃗
+Fnet = −GMEms
+r2
+ˆer + FT ˆeφ
+(6)
+In terms of Cartesian coordinate system, the polar unit vectors can be represented as:
+ˆer
+=
+cos(φ)ˆx + sin(φ)ˆy
+ˆeφ
+=
+−sin(φ)ˆx + cos(φ)ˆy
+(7)
+where φ is the angle made by radial vector with the x-axis.
+Figure 2: Polar coordinate system [Phy]
+Similarly,⃗Fnet is given by:⃗
+Fnet = dms
+dt
+dr(t)
+dt
++ ms
+d2r(t)
+dt2
+(8)
+where ms also changes with time due to fuel exhaust.
+Hence, combining equation 6 and 8, we get two diﬀerential equations:
+ ˙ms ˙x(t) + ms¨x(t)
+˙ms ˙y(t) + ms¨y(t)
+
+=
+−G MEms
+r2
+cos φ −FT sin(φ)
+−G MEms
+r2
+sin φ + FT cos(φ)
+
+(9)
+where ˙ represents the ﬁrst time derivatives, and¨represents the second time derivatives.
+Using equation 5, the value of ˙ms = −˙m is calculated to be ≈1 × 10−5 kg/s. Neglecting the
+eﬀect of ˙ms in equation 9, we can write:
+ms¨x(t)
+ms¨y(t)
+
+=
+−G MEms
+r2
+cos φ −FT sin(φ)
+−G MEms
+r2
+sin φ + FT cos(φ)
+
+(10)
+Hence, the ﬁnal equation of motion for the spacecraft exhibiting spiral maneuver (SM) is
+given by:
+¨x(t)
+¨y(t)
+
+=
+ 
+−G ME
+r2 cos φ −
+FT
+ms(t) sin(φ)
+−G ME
+r2 sin φ +
+FT
+ms(t) cos(φ)
+!
+(11)
+Page 5
+
+Ion Thrusters to Saturn
+Team 354
+3.4 Gravity Assist (GA) maneuvers
+Gravitational slingshot is method used to alter path and direction of a spacecraft, by taking
+advantage of relative moment and gravity of planet or Sun. The idealized equation which
+gives us the gain in velocity is described below:
+vf = (vi + 2u) ·
+s
+1 −4uvi(1 −cos θ)
+(vi + 2u)2
+(12)
+Initial and ﬁnal velocity of spacecraft are represented by vi and vf respectively, u is relative
+speed of larger body with respect to spacecraft, and θ is approaching angle of spacecraft
+with respect to velocity of larger planet.
+In the model above, the larger body was assumed to be a point, which may eﬀect the θ after
+the slingshot eﬀect. Another quantity, named turning angle is applied to consider all eﬀects
+of the gravity assist:
+δ = 2 sin−1
+
+1
+1 + rpvi
+GM
+
+(13)
+In which rp is distance between spacecraft and larger body, M mass of larger body and G
+gravitational constant.
+Usage of initial angle of θ = 0, in the idealized equation θ can be replaced by turning angle
+δ. This principle has been used for all gravity assist calculations.
+4 Method
+In order to send a spacecraft of mass 5000 kg employing ion thrust propulsion (constant
+thrust = 400 mN, speciﬁc impulse = 4000 s) from a circular orbit on Earth of radius approx.
+6650 km (equivalent to the time period of 90 minutes) to a circular orbit on Saturn of radius
+approx 271033 km, the joint method of ion thrust and gravity assists (GA) was applied.
+Therefore, the whole process is divided into three main parts.
+It is summarized in the
+following ﬂowchart.
+Page 6
+
+Ion Thrusters to Saturn
+Team 354
+Part I:
+Transfer of spacecraft using ion thruster from the initial orbit of radius 6650 km
+to the orbit near moon for Lunar Gravity Assist (LGA) with spiral maneuver (SM)
+Part II:
+Execute Lunar Gravity Assist (LGA)
+Part II:
+Execute 1st Earth Gravity Assist (EGA1)
+Part II:
+Execute 2nd Earth Gravity Assist (EGA2)
+Part II:
+Reach the Saturn’s sphere of inﬂuence (SOI)
+Part III:
+Saturn’s orbit insertion maneuver using ion thruster to reach the ﬁnal destination
+orbit of radius 2710033 km around Saturn using spiral maneuver (SM)
+The Euler-Richardson numerical integration scheme was used to determine trajectories for
+the spiral maneuvers in parts I and III, as well as the Earth-to-Saturn interplanetary maneu-
+ver in Part II (SOI). Annotated code has been included in the Appendix. Similarly, python
+scripts were used to ﬁnd the trajectory of spacecraft in part II which comprises gravity assists
+(GA) from moon and earth.
+5 Results
+5.1 Earth Spiral Maneuver
+The trajectory of the spacecraft resulting from numerical integration is shown in Figure 3
+below. Throughout the entire maneuver, the thrust force was applied in a direction perpen-
+dicular to the radius vector, going with the motion of the spacecraft.
+Page 7
+
+Ion Thrusters to Saturn
+Team 354
+Figure 3: Spiral maneuver used to leave the Earth’s sphere of inﬂuence. The orange line
+denotes the surface of the Earth. The total time of ﬂight for the whole maneuver
+is 24054600.0 s (≈278 days).
+Aside from the ﬁnal speed, the speed of the spacecraft across the duration of the ﬂight was
+also determined. The results were plotted and shown in Figure 4 below.
+Page 8
+
+Ion Thrusters to Saturn
+Team 354
+Figure 4: Speed vs. time of the spacecraft during the spiral maneuver.
+5.2 Lunar and double Earth Gravity Assists
+After reaching Moon’s sphere of inﬂuence, the gravity assist could be applied. At distance
+30000 km from center of Moon, with initial velocity 0.934 km/h, using equation 12, the
+velocity of spacecraft has been of 1.115 km/h has been reached.
+With velocity reached from LGA, the spacecraft barely escapes the gravitational ﬁeld of
+Earth, and has heliocentric orbit, with approximately Earth-Sun distance. One more engine
+burn has been used to face the spacecraft back to trajectory to Earth, and increase initial
+velocity for ﬁrst Earth Gravity Assist. The engine was burned for ≈1/15 of period.
+First EGA was done such that the velocity of spacecraft of 5.4 km/h was obtained, which
+pushes it to heliocentric orbit several Sun-Earth distances. The engine burn has been ap-
+plied, in order to adjust the position and initial velocity for second EGA.
+After second EGA, the spacecraft has enough energy for inter planatary Saturn mission,
+with velocity with respect to Earth being 10.65 km/s.
+The average time needed for each step is roughly estimated by Kepler’s third law 4, and
+estimated timing was shown in Table 2.
+Page 9
+
+Ion Thrusters to Saturn
+Team 354
+5.3 Earth to Saturn Trajectory
+The trajectory of the spacecraft just as it leaves the Earth’s sphere of inﬂuence until it reaches
+Saturn’s sphere of inﬂuence was solved for using numerical integration. The maneuver is
+shown in the Figure below. The reference frame used in this simulation is one where the sun
+is stationary, and the additional velocity that comes with moving from the stationary Earth
+frame to this new frame has been taken into account in the numerical integration.
+Figure 5: Speed vs. time of the spacecraft during the interplanetary maneuver. The total
+time of ﬂight for this maneuver is approximately 3.5 years.
+Page 10
+
+Ion Thrusters to Saturn
+Team 354
+Figure 6: Speed vs. time of the spacecraft during the interplanetary maneuver.
+5.4 Saturn Spiral Maneuver
+The last numerical integration was conducted to simulate the insertion maneuver of the
+spacecraft into the desired circular orbit around Saturn. The results are given in ﬁgure 7.
+For this insertion trajectory, the thrust force was applied in a direction perpendicular to the
+radius vector, against the motion of the spacecraft.
+Page 11
+
+Ion Thrusters to Saturn
+Team 354
+Figure 7: Speed vs. time of the spacecraft during the interplanetary maneuver.
+Figure 9: Speed vs. time of the spacecraft during the interplanetary maneuver.
+Page 12
+
+Ion Thrusters to Saturn
+Team 354
+Figure 8: Multi-gravity assist transfer from Earth to Saturn using one LGA and two EGAs.
+Lunar gravity assist is relatively small and not shown in the picture. The blue orbit
+represents Earth’s orbit around sun (yellow dot in the middle) and the red orbit
+represents the orbit of Saturn. The black dotted trajectory is the path followed by
+spacecraft. (*The ﬁgure is not be scaled.)
+Page 13
+
+Ion Thrusters to Saturn
+Team 354
+From the above calculations and numerical integration, the total change in mass of the
+spacecraft at each phase of the mission, along with the cumulative time duration to complete
+each phase and the velocity of the spacecraft at that point are given in Table 2.
+Table 2: Phase of the mission with respect to estimated time since launch, with mass of
+spacecraft and velocity of spacecraft at beginning of each phase.
+Phase
+Estimated time
+Mass of spacecraft [kg]
+Velocity of spacecraft [km/s]
+Earth transfer orbit
+0
+5000
+7.738
+Lunar approach
+278 days
+4759.45
+0.934
+After LGA
+279 days
+4759.45
+1.115
+Before ﬁrst EGA
+1 year, 60 days
+4548.42
+1.115
+After ﬁrst EGA
+1 year, 60 days
+4548.42
+5.42
+Before second EGA
+2 years, 25 days
+4451.95
+5.45
+After second EGA
+2 years, 25 days
+4451.95
+10.65
+Saturn approach
+5 years, 208 days
+4451.95
+8.92
+Circular Saturn orbit
+9 years, 73 days
+3191.25
+11.83
+6 Discussion and Conclusion
+This mission objective was to put the 5000 kg spacecraft from 90 minute circular Earth
+orbit, to 40 hours circular orbit around Saturn, such that ﬁnal mass is maximized, or in
+other words, the fuel usage was minimized. The spacecraft reached the circular Saturn orbit
+after 9 years and 73 days, and with the ﬁnal mass being 3191.25 kg.
+First method of Earth Spiral Maneuver with Low thrust engine was used in order to transfer
+from low-Earth circular orbit to a highly elliptical one. The sphere of inﬂuence of the Moon
+has been reached, and by using LGA maneuver, the spacecraft has barely escaped Earth’s
+orbit. After some adjustments and occasional engine burns, two EGA maneuvers were used
+in order to get suitable velocity to reach the Saturn. With Saturn reach, the Saturn Spiral
+Maneuver was used, in order to put the spacecraft in circular orbit required.
+By comparing Figures 3 and 7, it can be seen that the spiral trajectory of Saturn is much
+more spaced out than that of the Earth. This is to be expected. Since the distance that the
+spacecraft covers in one revolution is much larger for the case of a Saturn orbit, the thrust
+force has more time to change the total energy of the orbit. Figures 4 and 9 show that the
+velocity of the spacecraft is rapidly oscillating. This is due to the highly eccentric orbits
+caused by a thrust maneuver where the direction of the thrust is always perpendicular to
+the radius vector. In the case of the Earth-to- Saturn maneuver, the decrease in speed is
+much more uniform.
+Page 14
+
+Ion Thrusters to Saturn
+Team 354
+6.1 Limitations and Improvements
+In this paper, the use of gravity assists was done to minimize the amount of fuel expelled by
+the spacecraft. This is, however, just one of many ways to optimize fuel expenditure. Another
+way to further optimize the trajectory is with the use of direct methods– numerical meth-
+ods which obtain an optimal trajectory through continuously improving approximations. As
+an example, one popular method of trajectory optimization for low-thrust spacecraft is the
+method developed by Sims and Flanagan [Sim12]. Their method involves dividing a pro-
+posed trajectory into legs, separated by control nodes which are arbitrary destinations in
+the trajectory. By propagating forwards and backwards in time from each control node, an
+optimal trajectory can be reached. This is just one example of several ”multiple shooting”
+direct methods for optimization. One more possible improvement is to simulate the entire
+trajectory of the spacecraft (i.e. from the circular orbit of the Earth to the circular orbit of
+Saturn). This would require precise knowledge about the conﬁgurations of the Earth, Moon,
+and Saturn for the entire duration of the mission. A better trajectory computation should
+be done which takes into account the precise angle at which the spacecraft enters Saturn’s
+sphere of inﬂuence (with respect to, for example, the direction of Saturn’s motion), and the
+position of the Earth and angle at which the spacecraft leaves the Earth’s sphere of inﬂuence.
+To extend this research, it is possible to come up with feasible launch dates for this proposed
+mission, which involves one Lunar gravity assist, and two Earth gravity assists to reach Sat-
+urn. Since the Saturn-Earth synodic period is small (1.1 years), there are potentially many
+possible opportunities to execute this mission.
+To make the simulation more precise, the gravitational forces exerted by the other planets
+and Saturn’s moons and its rings.
+The most fuel used was in Spiral approach of Saturn. This fuel may be optimized better if
+Gravity Assist maneuver was used on one of the Saturn’s moons.
+For approach used in this paper, the thrust of ion engine was always perpendicular to radius
+vector of the spacecraft. However, may not be the most eﬃcient way, and several steering
+laws can be applied such that fuel usage and time is minimized.
+Page 15
+
+Ion Thrusters to Saturn
+Team 354
+7 Appendix
+import os
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+sun = ephem.Sun()
+saturn = ephem.Saturn()
+#Spiral Maneuver (for leaving the Earth's Orbit)
+#Purely angular thrust is applied.
+#Initial Parameters
+F_thrust = 0.4 #Newtons
+I_s = 4000 #seconds (specific impulse)
+m = 5000 #kg
+T_i = 90*60 #seconds (inintial orbital period of spacecraft around Earth)
+T_f = 40*3600 #seconds (final orbital period of spacecraft around Saturn)
+#Solar System Constants
+m_E = 5.972*10**24 #kg (mass of earth)
+m_Sat = 5.683*10**26 #kg (mass of saturn)
+m_Sun = 1.989*10**30 #kg (mass of sun)
+R_E = 6.59E6 #m (radius of Earth)
+G = 6.67*10**-11 #Nm^2/kg^2
+g = 9.8 #m/s^2
+T_Sat = 10759.22*86400 #seconds (orbital period of Saturn around Sun)
+T_E = 365.25*86400 #seconds (orbital period of Earth around Sun)
+#orbital radius of Saturn around Sun
+R_Sat_orbit = (((T_Sat**2)*G*m_Sun)/(4*np.pi**2))**(1/3)
+#orbital radius of Earth around Sun
+R_E_orbit = (((T_E**2)*G*m_Sun)/(4*np.pi**2))**(1/3)
+t_meas = 5 #time difference to be measured (in years)
+t_step = 24*3600 #time step for the discretization (in seconds)
+t_array = np.arange(0,t_meas*365*86400,t_step)
+Sat_x = R_Sat_orbit*np.cos((2*np.pi/T_Sat)*t_array+theta_i_Sat)
+Sat_y = R_Sat_orbit*np.sin((2*np.pi/T_Sat)*t_array+theta_i_Sat)
+E_x = R_E_orbit*np.cos((2*np.pi/T_E)*t_array)
+E_y = R_E_orbit*np.sin((2*np.pi/T_E)*t_array)
+def Earth_Orbit():
+Page 16
+
+Ion Thrusters to Saturn
+Team 354
+t_array = np.arange(0,1,0.01)
+x_E_surf = R_E*np.cos((2*np.pi*t_array))
+y_E_surf = R_E*np.sin((2*np.pi*t_array))
+return x_E_surf,y_E_surf
+#Euler-Richardson Scheme to obtain trajectory of spacecraft
+def ER_SC_Spiral_Earth(initial,F,t,t_stop):
+#initial parameters
+x,y,vx,vy,ax,ay=initial
+print(initial)
+#arrays of each variable
+x_array = np.array([])
+y_array = np.array([])
+vx_array = np.array([])
+vy_array = np.array([])
+ax_array = np.array([])
+ay_array = np.array([])
+t_array = np.array([])
+i=0
+m=5000
+m_r = 1e-5
+while (x**2+y**2)**0.5<=350E6:
+#compute acceleration
+ax = -G*(m_E*x)/(x**2+y**2)**1.5- F*(y/(x**2+y**2)**0.5)/m
+ay = -G*(m_E*y)/(x**2+y**2)**1.5+ F*(x/(x**2+y**2)**0.5)/m
+#calculate middle terms
+x_mid = x+t/2*vx
+y_mid = y+t/2*vy
+vx_mid = vx+t/2*ax
+vy_mid = vy+t/2*ay
+ax_mid = -G*(m_E*x_mid)/(x_mid**2+y_mid**2)**1.5 -
+F*(y_mid/(x_mid**2+y_mid**2)**0.5)/m
+ay_mid = -G*(m_E*y_mid)/(x_mid**2+y_mid**2)**1.5 +
+F*(x_mid/(x_mid**2+y_mid**2)**0.5)/m
+#append to arrays
+t_array = np.append(t_array,t*i)
+x_array = np.append(x_array,x)
+y_array = np.append(y_array,y)
+vx_array = np.append(vx_array,vx)
+Page 17
+
+Ion Thrusters to Saturn
+Team 354
+vy_array = np.append(vy_array,vy)
+ax_array = np.append(ax_array,ax)
+ay_array = np.append(ay_array,ay)
+#update vx, vy, x, and y
+x = x + t*vx_mid
+y = y + t*vy_mid
+vx = vx + t*ax_mid
+vy = vy + t*ay_mid
+m -= m_r*t
+i=i+1
+print("radius:",(x**2+y**2)**0.5)
+print("Time of Flight: ", t_array[-1])
+print("Final Speed: ", (vx_array[-1]**2+vy_array[-1]**2)**0.5)
+print("Mass consumed:", 5000-m)
+return(t_array, x_array, y_array, vx_array, vy_array, ax_array, ay_array)
+#position, velocity, acceleration values at circular orbit
+x0_sc = 6650321.625#m (radius of orbit)
+y0_sc = 0
+vx0_sc = 0
+vy0_sc = 7.738*1000#m/s (velocity determined using Kepler's Laws)
+ax0_sc = 0
+ay0_sc = 0
+ini1 = [x0_sc,y0_sc,vx0_sc,vy0_sc,ax0_sc,ay0_sc]
+arrays1 = ER_SC_Spiral_Earth(ini1,F_thrust,200,86400*1)
+#Plotting
+fig2 = plt.figure()
+plt.plot(arrays1[1],arrays1[2],linewidth="0.25")
+plt.plot(Earth_Orbit()[0],Earth_Orbit()[1],label = "Earth Surface")
+plt.legend(loc ="lower right")
+plt.xlim(-2.2E8, 1.1*350E6)
+plt.ylim(-1.1*350E6, 2.2E8)
+plt.xlabel("x(t) [m]")
+plt.ylabel("y(t) [m]")
+plt.axes().set_aspect('equal')
+plt.savefig("earth_spiral_orbit.png", dpi=300)
+fig3 = plt.figure()
+plt.plot(arrays1[0],(arrays1[3]**2+arrays1[4]**2)**0.5,linewidth="0.25")
+Page 18
+
+Ion Thrusters to Saturn
+Team 354
+plt.xlabel("t [s]")
+plt.ylabel("v [m/s]")
+plt.savefig("earth_velocities.png", dpi=300)
+import ephem
+#Interplanetary Maneuvering
+def Earth_pos(t):
+return R_E_orbit*np.cos((2*np.pi/T_E)*t),R_E_orbit*np.sin((2*np.pi/T_E)*t)
+def Saturn_pos(t):
+return R_Sat_orbit*np.cos((2*np.pi/T_Sat)*t+theta_i_Sat),
+R_Sat_orbit*np.sin((2*np.pi/T_Sat)*t+theta_i_Sat)
+def Get_angle(x,y):
+return np.atan(y/x)
+#Euler-Richardson Scheme to obtain trajectory of spacecraft
+def ER_SC(initial,t,t_stop):
+#initial parameters
+x,y,vx,vy,ax,ay=initial
+#arrays of each variable
+x_array = np.array([])
+y_array = np.array([])
+vx_array = np.array([])
+vy_array = np.array([])
+ax_array = np.array([])
+ay_array = np.array([])
+t_array = np.array([])
+i=0
+while (x**2+y**2)**0.5<=R_Sat_orbit:
+#compute acceleration
+ax = -G*(m_Sun*x)/(x**2+y**2)**1.5
+-G*(m_E*(x-Earth_pos(t*i)[0]))/((x-Earth_pos(t*i)[0])**2+
+(y-Earth_pos(t*i)[1])**2)**1.5
+-G*(m_Sat*(x-Saturn_pos(t*i)[0]))/((x-Saturn_pos(t*i)[0])**2+
+(y-Saturn_pos(t*i)[1])**2)**1.5
+ay = -G*(m_Sun*y)/(x**2+y**2)**1.5
+-G*(m_E*(y-Earth_pos(t*i)[1]))/((x-Earth_pos(t*i)[0])**2+
+(y-Earth_pos(t*i)[1])**2)**1.5
+Page 19
+
+Ion Thrusters to Saturn
+Team 354
+-G*(m_Sat*(y-Saturn_pos(t*i)[1]))/((x-Saturn_pos(t*i)[0])**2+
+(y-Saturn_pos(t*i)[1])**2)**1.5
+#calculate middle terms
+x_mid = x+t/2*vx
+y_mid = y+t/2*vy
+vx_mid = vx+t/2*ax
+vy_mid = vy+t/2*ay
+ax_mid = -G*(m_Sun*x_mid)/(x_mid**2+y_mid**2)**1.5
+-G*(m_E*(x_mid-Earth_pos(t*i)[0]))/((x_mid-Earth_pos(t*i)[0])**2+
+(y_mid-Earth_pos(t*i)[1])**2)**1.5
+-G*(m_Sat*(x_mid-Saturn_pos(t*i)[0]))/((x_mid-Saturn_pos(t*i)[0])**2+
+(y_mid-Saturn_pos(t*i)[1])**2)**1.5
+ay_mid = -G*(m_Sun*y_mid)/(x_mid**2+y_mid**2)**1.5
+-G*(m_E*(y_mid-Earth_pos(t*i)[1]))/((x_mid-Earth_pos(t*i)[0])**2+
+(y_mid-Earth_pos(t*i)[1])**2)**1.5
+-G*(m_Sat*(y_mid-Saturn_pos(t*i)[1]))/((x_mid-Saturn_pos(t*i)[0])**2+
+(y_mid-Saturn_pos(t*i)[1])**2)**1.5
+#append to arrays
+t_array = np.append(t_array,t*i)
+x_array = np.append(x_array,x)
+y_array = np.append(y_array,y)
+vx_array = np.append(vx_array,vx)
+vy_array = np.append(vy_array,vy)
+ax_array = np.append(ax_array,ax)
+ay_array = np.append(ay_array,ay)
+#update vx, vy, x, and y
+x = x + t*vx_mid
+y = y + t*vy_mid
+vx = vx + t*ax_mid
+vy = vy + t*ay_mid
+i=i+1
+print("Time of Flight: ", t_array[-1])
+print("Final speed:",(vx_array[-1]**2+vy_array[-1]**2)**0.5)
+return(t_array, x_array, y_array, vx_array, vy_array, ax_array, ay_array)
+launch_angle = np.radians(78)
+launch_speed = 10.7*1000 #m/s
+x0_sc = R_E_orbit+924648*1000#radius of earth's orbit+sphere of influence
+y0_sc = 0
+Page 20
+
+Ion Thrusters to Saturn
+Team 354
+vx0_sc = launch_speed*np.cos(launch_angle) #m/s
+vy0_sc = 30*1000+launch_speed*np.sin(launch_angle) #m/s
+ax0_sc = 0
+ay0_sc = 0
+ini = [x0_sc,y0_sc,vx0_sc,vy0_sc,ax0_sc,ay0_sc]
+arrays = ER_SC(ini,86400*0.25,t_meas*365*86400*2)
+final_angle = math.atan(arrays[2][-1]/arrays[1][-1])
+print("True initial position",arrays[1][-1],arrays[2][-1])
+#Plotting
+fig = plt.figure()
+plt.plot(E_x,E_y,label = "Earth orbit")
+plt.plot(Sat_x,Sat_y,label = "Saturn orbit")
+plt.plot(arrays[1],arrays[2],label = "Spacecraft Position")
+plt.plot(arrays[1][-1],arrays[2][-1],'bo', markersize=5)
+plt.xlim(-1.1*R_Sat_orbit,1.1*R_Sat_orbit)
+plt.ylim(-1.1*R_Sat_orbit,1.1*R_Sat_orbit)
+plt.xlabel("x(t) [m]")
+plt.ylabel("y(t) [m]")
+plt.legend(loc ="lower right")
+plt.axes().set_aspect('equal')
+plt.savefig("interplanetary_trajectory.png", dpi=300)
+fig2 = plt.figure()
+plt.plot(arrays[0],(arrays[3]**2+arrays[4]**2)**0.5)
+plt.xlabel("t [s]")
+plt.ylabel("v [m/s]")
+plt.savefig("interplanetary_velocity.png", dpi=300)
+Page 21
+
+Ion Thrusters to Saturn
+Team 354
+References
+[Kem06]
+Stephen Kemble. Interplanetary Missions Analysis and Design. 34. Praxis Pub-
+lishing, 2006. isbn: 343.
+[Sim12]
+Sims. “Implementation of a Low-Thrust Trajectory Optimization Algorithm for
+Preliminary Design”. In: Aerospace Research Center (2012). doi: https://doi.
+org/10.2514/6.2006-6746.
+[con]
+Wikipedia contributors. Ion thruster. url: https://en.wikipedia.org/w/
+index.php?title=Ion_thruster&oldid=987408391. (accessed November 8,
+2020).
+[NASa]
+NASA. A Brief History of Ion Propulsion. url: https://solarsystem.nasa.
+gov/news/723/a-brief-history-of-ion-propulsion/. (accessed November 7,
+2020).
+[NASb]
+NASA. NASA - Ion Propulsion. url: https://www.nasa.gov/centers/glenn/
+about/fs21grc.html. (accessed November 7, 2020).
+[Phy]
+Mathematical Physics. Co-ordinate systems. url: http://www.furqaanyusaf.
+com/notes/vectors/co-ord-sys. (accessed November 8, 2020).
+Page 22

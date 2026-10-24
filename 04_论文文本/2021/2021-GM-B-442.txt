@@ -1,0 +1,681 @@
+Asteroid Ocean Impact
+Problem B
+Team 442
+Abstract
+Asteroid and space debris impacts have been considered one of the greatest threats to human
+life and land structures for centuries. Though many are too small to cause any significant damage,
+there have been incidents which inspired researchers to create more accurate numerical and sim-
+ulation models describing the effects of such an impact on nearby land. In our work, we present
+a simplified model of an oceanic impact 1000 km from a coastal city. Using data derived from
+numerical simulations and wave mechanics theory, we estimate the minimal height of a tsunami
+wave causing substantial damage to equal 7 m. To cause such a wave, the asteroid would need
+to weigh 1.7 · 1011 kg. We are also assuming the most favorable conditions, that is: the maximal
+angle of approach (θ = 90°) and the asteroid to be made of iron (ρa = 8000 kg/m3). The damage
+may also be inflicted through thermal radiation, air burst or seismic effects, though the mass
+needed to cause them greatly exceeds the previously mentioned minimum.
+
+Team 442
+CONTENTS
+Contents
+1
+Notations used
+3
+2
+Energy and velocity in the atmosphere
+3
+3
+Thermal radiation on impact
+4
+4
+Generation of tsunami waves
+5
+5
+Air Burst
+6
+6
+Earth vibrations after impact
+7
+7
+Damage assumptions
+8
+7.1
+Thermal damage . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+7.2
+Tsunami damage . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+7.3
+Air burst damage . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+7.4
+Seismic damage . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9
+8
+Calculating the minimum mass
+10
+9
+Conclusion
+13
+Introduction
+To estimate the minimum mass of an asteroid sufficient to cause damage to a coastal city, we have
+to assume a simplified model of an oceanic meteoroid impact. Such models can be of importance in
+evaluating the damage caused in real-life terrestrial events.
+The speed of the meteoroid can realistically be between 11 km/s and 72 km/s [BNGK94] and have
+a trajectory from 0° (flat approach) and 90° (normal incidence). The asteroid is spherical in shape,
+and dense and big enough so that it does not break up during the flight in the atmosphere. Our
+main focus for the distance of 1000 km is the creation and propagation of tsunami waves, mainly their
+height at the shore. A satisfactory model should also take into account the seismic events correlated
+with an asteroid impact, the emitted thermal energy and the shock wave created during collision, as
+those are the most important factors for water impacts (proposed in [RLA17]).
+After quantifying the impact of each of those factors we can take a look at the effect they have
+on the coastal city. We can estimate the level of damage caused as a parameter of the asteroid’s size,
+which along with density dictates its mass.
+1
+
+Team 442
+CONTENTS
+θ
+v0
+ρa
+d
+r
+h
+H
+Figure 1: Model of an asteroid impact.
+2
+
+Team 442
+2
+ENERGY AND VELOCITY IN THE ATMOSPHERE
+1
+Notations used
+Symbol
+Meaning
+Value
+r
+distance from the point of impact
+1000 m
+H
+water depth at the point of impact
+5000 m
+ρw
+density of water
+1000 kg/m3
+g
+gravity of Earth
+9.81 m/s2
+CD
+drag coefficient of a sphere in air
+0.47 [LL59]
+CDw
+drag coefficient of a sphere in water
+0.877 [LL59]
+R
+universal gas constant
+8.31446 J/mol K
+T0
+sea level temperature
+288.15 K
+M
+molar mass of air
+0.0289652 kg/mol
+β
+temperature lapse rate
+0.0065 K/m
+p0
+atmospheric pressure at sea level
+101325 Pa
+vsound
+speed of sound in air
+343 m/s
+RE
+radius of the Earth
+6400000 m
+ρa
+density of the asteroid
+d
+diameter of the asteroid
+v0
+initial speed of the asteroid
+Ek
+kinetic energy of the asteroid
+θ
+angle of approach
+h
+water depth at the continental shelf
+Dtc
+transient crater diameter
+vi
+speed of the asteroid during impact with water
+ve
+speed of the asteroid during impact with bottom of the ocean
+Table 1: Used symbols and their values
+2
+Energy and velocity in the atmosphere
+One of the most fundamental quantities we have to consider while analysing asteroid impacts is their
+kinetic energy. It can be written as:
+Ek = 1
+2mv2
+a = π
+12ρad3v2
+a
+(2.0.1)
+assuming a spherical shape and uniform density. Later this energy will be used to assess the severity
+of earlier mentioned effects as it influences the amount of thermal, wind, seismic and other energy
+types released.
+We assume that the asteroid has an initial velocity of v0 (before entering the atmosphere). For our
+problem we can neglect the effect of gravitational field on the asteroid trajectory (because of the great
+speeds we are dealing with). This results in a straight line path with a constant angle of approach
+([Bro83]). The change in velocity is then denoted by a drag equation ([CTZ93]):
+dv
+dt = −3ρ(z)CD
+4ρad
+v2
+(2.0.2)
+where ρ(z) is the air density at height z above ground, which we assume to be ([BSBP97]):
+ρ(z) = p0M
+RT0
+
+1 −βz
+T0
+ gM
+Rβ −1
+3
+
+Team 442
+3
+THERMAL RADIATION ON IMPACT
+for atmosphere with a vertical temperature gradient and constant temperature lapse rate given in
+Table 1.
+Solving the equation for v and substituting ρ(z) yields:
+va(z) = v0 · exp
+ 
+−
+3CDp0
+4gdρa sin θ
+
+1 −βz
+T0
+ gM
+Rβ !
+.
+(2.0.3)
+Although if the calculated velocity is less than the terminal velocity near the surface:
+vt =
+r 2mag
+ρ0ACD
+=
+s
+4
+3
+ρadg
+ρ0CD
+,
+(2.0.4)
+where ρ0 is the density of air at sea level: ρ0 = p0M
+RT0 ; the greater of the two figures is taken into
+consideration.
+Velocity of the asteroid on impact with water can be calculated as:
+vi = va(0) = v0 · exp
+
+−
+3CDp0
+4gdρa sin θ
+
+.
+(2.0.5)
+3
+Thermal radiation on impact
+Surface impacts produce thermal radiation as a result of a rapid compression of the target and the
+impactor material. Those violent events generate a rapidly expanding plume (called fireball) with
+very high pressure (> 100 GPa) and temperature (≈10, 000 K). As a result of the high temperature,
+the gas is ionized and appears opaque to thermal radiation due to the plasma’s radiation absorption
+characteristics. Consequently, the plume expands adiabatically and only starts to radiate outwards
+when the plasma cools to the transparency temperature T∗([ZR66]). [CMM05] includes an empirical
+relationship for the fireball radius Rf when it reaches its maximum heat radiation state (connected
+with temperature T∗):
+Rf = 0.002E
+1
+3
+(3.0.1)
+To estimate if the thermal energy generated by the impact could threaten our city, we have to take
+into account the visibility of the fireball. To do that, we calculate the height of the impact center
+below horizon for the observer:
+h = (1 −cos θ)RE .
+(3.0.2)
+Thermal effect is experienced at the place of interest only if this height is smaller than the radius of the
+fireball. Let’s see what is the minimal diameter of the asteroid with typical impact velocity (17 km
+s ,
+[BNGK94]) and density for iron material
+
+8000
+kg
+m3 , [Hil02]
+
+that would satisfy this condition:
+h < Rf
+Let us define ∆as the central angle between the impact and the observation points, ∆=
+r
+RE
+(1 −cos ∆)RE < 0.002E
+1
+3
+
+1 −cos r
+RE
+
+RE < 0.002d
+ π
+12ρav2 1
+3
+d > 500RE
+
+1 −cos r
+RE
+  π
+12ρav2−1
+3 ≈4.61 km
+(3.0.3)
+4
+
+Team 442
+4
+GENERATION OF TSUNAMI WAVES
+At this size other destructive effects would be far more devastating. The same applies for less dense
+asteroids, they need even bigger diameters to have an impact in therms of thermal radiation. For
+this reason we will treat the effect of the thermal radiation from impact at such a great distance as
+negligible and will be omitting them in further analysis. This aspect is discussed in greater detail in
+[CMM05] and [NSA+98].
+4
+Generation of tsunami waves
+Wave mechanics is a complicated topic of study for many researchers. For the purpose of simplifying
+the model, we assumed one used in [CMM05]. Amplitude of the rim wave (formed by the material
+firstly ejected from the area of impact) is estimated to be:
+At(r) = min
+Dtc
+14 , H
+
+· 3Dtc
+4r
+for r > 3
+4Dtc ,
+(4.0.1)
+where Dtc is the diameter of the transient crater also described in [CMM05]:
+Dtc = 1.365 ·
+ ρa
+ρw
+ 1
+3
+d0.78v0.44
+i
+g−0.22 · sin
+1
+3 (θ) ,
+(4.0.2)
+where vi is the velocity of the asteroid upon impact with the water which in our case would we
+equivalent to v(0).
+Collapse waves are generated by the oscillations in water height near the impact zone as the
+transient crater collapses after the initial impact. Waves of huge amplitude can be created by this
+process, which quickly dissipate with growing r. The equation showing the amplitude of collapse
+waves at distance r > 5Dtc
+2
+is:
+Ac(r) = 0.06 · min
+ Dtc
+2.828, H
+
+·
+5Dtc
+2r
+q
+,
+(4.0.3)
+where q = 3e−0.8 d
+H for
+d
+H <
+1
+2.
+As Figure 2 shows, these waves at distances near 1000 km are
+substantially smaller than the ones generated by At. For this reason, mechanism of the creation of
+these waves has been deemed insignificant for the purpose of this research.
+5
+
+Team 442
+5
+AIR BURST
+Figure 2: Function of rim wave and collapse wave amplitude. We can see that collapse wave amplitude
+shrinks much faster and at the distance of 1000 km is negligible.
+We took into account the shoaling effect that waves go through when transferring through shallow
+water, amplifying the wave amplitude. We used the model presented in [DD84]. Thus, the shoaling
+coefficient is:
+Ks = As
+Ad
+=
+
+tanh(kh)
+
+1 +
+2kh
+sinh(2kh)
+−1
+2
+,
+(4.0.4)
+where As is the wave amplitude near the shore, Ad is the amplitude before the shelf and k equals:
+k = 2π
+Lsh
+,
+(4.0.5)
+where:
+Lsh =
+p
+gh · T .
+(4.0.6)
+Assuming that the initial wave amplitude L0 is similar to Dtc [CMM05], we can estimate T =
+q
+2πL0
+g
+and substitute into Lsh, getting:
+Lsh =
+p
+2πDtch .
+(4.0.7)
+5
+Air Burst
+During an asteroid impact, a shock wave is induced which is often referred to as an air burst. The
+intensity of the shock wave depends on the energy released by the meteoroid and the height of the
+release. For our model, we assume that the energy is released at sea level (the meteor doesn’t break
+up in the atmosphere). Hence, we can use the data deduced from nuclear blasts and equations used
+6
+
+Team 442
+6
+EARTH VIBRATIONS AFTER IMPACT
+R[km]
+α
+0.01◦
+0.1◦
+1◦
+65
+2.59
+1.49
+1.00
+200
+2.17
+1.37
+1.15
+750
+4.56
+3.10
+3.27
+Table 2: Shoaling coefficient depending on shelf slope (α) and shelf width (R). It can be seen that
+generally we have a great wave scaling for wider shelves. This can be due to the fact that wider shelves
+are more shallows thus resulting in bigger scaling. The same applies for the slope, flatter shelves are
+shallower at their end. On the other hand we can observer some inconsistencies, so further reserch on
+this topic might prove interesting.
+in [CMM05] to estimate overpressure p at distance r:
+p = pxrxE1/3
+kt
+4r
+
+1 + 3
+ 
+rxE1/3
+kt
+r
+!1.3
+,
+(5.0.1)
+where px = 75000 Pa, rx = 290 m and Ekt is the kinetic energy of an asteroid during impact in
+kilotons of TNT. We can also calculate the wind speed behind the shock wave and assess it’s effect
+on the city:
+vwind = 5p
+7p0
+vsound
+(1 + 6p
+7p0 )1/2
+(5.0.2)
+Nevertheless, we have to keep in mind that this data has been extrapolated from explosions of mag-
+nitude of 1 kt. They also ignore the curvature of the Earth, which at a distance of 1000 km begins to
+play a role. As follows, these assumptions may not work for larger impacts which we are interested
+in. [CMM05] states that for impacts of energy > 10000 Mt, these effects may be overestimated by a
+factor of 2-5.
+6
+Earth vibrations after impact
+In the case of low ocean depth level, a significant amount of asteroid’s kinetic energy could be trans-
+ferred into earth vibrations. Such vibrations could cause heavy damage in the nearby area. We’ve
+estimated the size of such damages as a function of angle θ and Ek by assuming that there is no sub-
+stantial difference (other than kinetic energy lost in water) between hitting the surface and bottom
+of the ocean. Presented equations are an approximation for an asteroid impacting average ground
+[KSS18]. In the first step we’ve calculated the perpendicular component of energy Ek of falling asteroid
+to the ground during impact with the bottom of the ocean.
+Ekp = π
+12d3ρav2
+e · sin2 θ
+(6.0.1)
+Here ve is used as the velocity of the asteroid as it reaches the seafloor. We can calculate the value
+using a formula similar to the one used in finding the change of velocity in the atmosphere, assuming
+constant water density in the fluid column as it varies an insignificant amount ([NSBL16]):
+ve = va(0) · exp
+
+−3ρwCDwh
+2ρad sin θ
+
+(6.0.2)
+7
+
+Team 442
+7
+DAMAGE ASSUMPTIONS
+With that, using experimentally established dependencies between magnitude M of a spurious source,
+magnitude Meff in distance r from the source (for r>700 km), and earthquake intensity I, we’ve
+obtained:
+I = (ln Ek −2.49 ln r −8.42)
+(6.0.3)
+Using another experimentally established dependency, we’ve approximated Peak Ground Velocity P
+in the distance r from the source:
+P =
+(
+exp(0.29I −0.68)
+I >= 5
+exp(0.48I −1.62)
+I < 5
+(6.0.4)
+7
+Damage assumptions
+In this section we will make assumptions and define the meaning of ”substantial damage” done to the
+coastal city. We take a look at previously inspected aspects of the asteroid impact. For each type of
+possible damage we asses its importance and define necessary levels of threat for it to be considered
+”substantial”.
+7.1
+Thermal damage
+As stated in Section 3 and seen in equation 3 we can neglect thermal wave effects in the analysis of
+minimal asteroids required for substantial damage. Other effects have a far greater impact at those
+distances.
+7.2
+Tsunami damage
+As seen in [RLA17] we can expect tsunami to be the most impactful effect for large distances (1000
+km for our purpose). [LAKK13] provides deep analysis of different structure classes and the damage
+sustained to them via a tsunami. According to the reference, buildings of class D (reinforced masonry,
+frames/walls with moderate level of earthquake-resistant design, steel/timber structures) will sustain
+damage of grade 3 or 4 (heavy / very heavy) with a tsunami height of about 7 m. We take this class
+into account because we assume a coastal city situated near the ocean to be prepared in some degree
+for heavy waves. Also, steel and reinforced concrete are the most common materials used in urban
+architecture, opposed to weaker wood or aluminum. Thus, we assumed our minimal tsunami height
+goal to be 7 m.
+7.3
+Air burst damage
+Considering Table 5.145 in [GD97], to shatter windows in buildings, the overpressure must be equal
+to 0.5 - 1 psi (3447 - 6895 Pa) in nuclear explosions. To demolish a concrete wall (not reinforced)
+the additional pressure needed is around 1.5 - 5.5 psi(10342 - 37921 Pa). Considering this, the city
+structure assumed in subsection 7.2 and the table shown in [CMM05], we can estimate the overpressure
+needed to cause substantial damage to be around 20000 Pa. [GD97] also takes into account the damage
+caused by high winds created behind the initial shock wave. For our model we can assume that the
+”Moderate” level (‘About 30 percent of trees blown down; (...) Area passable to vehicles only after
+extensive clearing.’) is satisfactory for our needs. This is equivalent to winds of 90-100 mph (40 -
+45 m
+s ). In spite of these facts, we have to remember that we are also taking the tsunami effects into
+account and the distance is about 1000 km. For an average asteroid(Ek ≈1019J) the overpressure
+at 1000 km derived from equation 5.0.1 is approx. 1000 Pa, which is certainly below the damage
+threshold.
+8
+
+Team 442
+7
+DAMAGE ASSUMPTIONS
+7.4
+Seismic damage
+Depending on empirical and simulation data for asteroid impacts (for example [RLA17]) we can
+expect the seismic effects to be minimal (especially at greater distances) compared to other effects
+such as tsunami.
+For earth impact scenario our computations turned out to match the result of
+other researchers [KSS18]. Using experimentally calculated scales [Wu03], we’ve managed to estimate
+Modified Mercalli Intensities from PGV values. Even assuming no velocity loss from the water depth,
+kinetic energy of an asteroid sufficient to make a high tsunami wave is not enough to cause significant
+seismic damage.
+Figure 3: Seismic effect in PGV and Modified Mercalli Intensities depending on the angle of approach
+and the kinetic energy of the asteroid. Bigger impact for a larger angle of approach can clearly be
+seen as the effect depends mostly on the horizontal velocity of the impactor. A more straightforward
+relation applies to kinetic energy in the same way. The values are calculated without taking water drag
+into consideration, but for energies that we are interested in the seismic effect at the great distance
+(PGV < 3 cm
+s ) is minimal and we can neglect it entirely.
+9
+
+Team 442
+8
+CALCULATING THE MINIMUM MASS
+Figure 4: Seismic effect measured in PGV as a function of the angle of approach and the kinetic
+energy. Similar reasoning as in the Figure 3 applies.
+8
+Calculating the minimum mass
+Using the model presented, we can estimate the effect of an asteroid impact on a coastal city situated
+1000 km away. Because of data presented in the subsection 7, we can assume that the creation of
+tsunami will be of utmost importance in calculating the minimal mass of an object required to cause
+damage. We conducted our calculations for two most interesting densities: ρ1 = 3000
+kg
+m3 , which is
+the upper estimate for rock density, and for: ρ2 = 8000
+kg
+m3 , which is the density of iron [Hil02]. We
+also assumed five spaced out approach angles: θ1 = 10°, θ2 = 20°, θ3 = 45°, θ4 = 60°, θ5 = 90°, with
+θ3 = 45° being the most likely for asteroid impacts [M.62]. The depth of water at the impact site was
+assumed to equal H = 4000 m, which is the average depth of the Pacific Ocean [Adm18]. The velocity
+used is v0 = 17 km/s as it’s the most common for terrestrial asteroid impacts [BNGK94]. With these
+assumptions, Figures 6 and 7 show the amplitude of the wave near the shore (for average shelf depth
+h = 113 m [Wik] and average α = 0.1° [Bri]) with regards to d for ρ1 and ρ2. We can deduce that
+the higher the density and the approach angle, the higher the wave will be. Thus, assuming the most
+positive conditions (θ = 90°, ρa = ρ2), the minimal required mass to create 7 m waves equals 1.7 · 1011
+kg.
+10
+
+Team 442
+8
+CALCULATING THE MINIMUM MASS
+Figure 5: Function of wave amplitude 1000 km from the impact (sea depth 5 km). We can see that for
+two asteroids with the same mass, the amplitude generated by the one with higher density is bigger.
+11
+
+Team 442
+8
+CALCULATING THE MINIMUM MASS
+Figure 6: Function of tsunami amplitude with regards to asteroid diameter for different θ. The dashed
+line represents the threshold of 7 m.
+12
+
+Team 442
+9
+CONCLUSION
+Figure 7: Function of tsunami amplitude with regards to asteroid diameter for different θ. The dashed
+line represents the threshold of 7 m.
+9
+Conclusion
+The model presented in this work, although simplified, has allowed us to estimate the minimal mass
+of a destructive asteroid to be about 1.7 · 1011 kg. With the constraints of the simplified model and
+a lack of exact studies conducted in this area, we cannot assure that the value presented is optimal.
+Theoretical behavior and simulation of oceanic waves is an intricate topic, still being discussed by
+experts. The exact computation, including solutions to difficult equations (e.g. for changing θ while
+falling) is beyond the scope of our capabilities. What is more, currently published research doesn’t
+agree whether the waves created by singular impacts can pose any threat to coastal regions (the ”Van
+Dorn” effect). Also, we omit the effects of breaking up and/or ”pancaking” of the asteroid in the
+atmosphere or in the ocean, which would have affected the velocity and kinetic energy of the object.
+Such effects would allow for the shock wave to reflect off the surface, causing interference and thus
+possibly changing the overpressure.
+On the other hand, the model can be accurate enough in the regions up to a few thousand kilometers
+away from the collision site. It also greatly simplifies the calculations, while being favorable with real-
+life observations and computer simulations. Considering possible future improvements, we could have
+taken into account some previously mentioned factors which would have improved the accuracy of
+our work. For example, when contemplating a big enough object in a shallower body of water, the
+seismic effects could play a bigger role. We could also take into account the ejecta released from the
+impact site, although it is supposed that their size (and the damage they can cause) decays much
+13
+
+Team 442
+REFERENCES
+more rapidly with distance than tsunami or seismic shaking [CMM05].
+References
+[Adm18]
+US Department of Commerce Administration. How big is the pacific ocean?
+National
+Oceanic and Atmospheric, 2018.
+[BNGK94] W. F. Jr. Bottke, M. C. Nolan, R. Greenberg, and R. A. Kolvoord. Hazards due to comets
+and asteroids, volume III. The University of Arizona Press, 1994.
+[Bri]
+Encyclopedia Britannica. Continental shelf.
+[Bro83]
+V. A. Bronshten. Physics of Meteoric Phenomena. Springer, Dordrecht, 1983.
+[BSBP97]
+Mario N Berberan Santos, Evgeny N. Bodunov, and Lionello Pogliani. On the barometric
+formula. American Journal of Physics, 65:404–412, 05 1997.
+[CMM05]
+Gareth S. Collins, H. Jay Melosh, and Robert A. Marcus. Earth impact effects program:
+A web-based computer program for calculating the regional environmental consequences
+of a meteoroid impact on earth. Meteoritics & Planetary Science, 40(6):817–840, 2005.
+[CTZ93]
+C. F. Chyba, P. J. Thomas, and K. J. Zahnle. The 1908 tunguska explosion: atmospheric
+disruption of a stony asteroid. Nature, 361(6407):40–44, 1993.
+[DD84]
+Robert G. Dean and Robert A. Dalrymple. Water Wave Mechanics For Engineers And
+Scientists. Prentice Hall inc., 1984.
+[GD97]
+S. Glasstone and P. J. Dolan. The effects of nuclear weapons, volume 3rd edition. United
+States Department of Defense and Department of Energy, 1997.
+[Hil02]
+J. L. Hilton. Asteroid masses and densities. Asteroids, III:103–112, 2002.
+[KSS18]
+V. M. Khazinsa, V. V. Shuvalova, and V. V. Svettsova. The seismic efficiency of space
+body impacts. Solar System Research, 52:547–556, 2018.
+[LAKK13] Efthymis L. Lekkas, Emmanuel Andreadakis, Irene Kostaki, and Eleni Kapourani. A pro-
+posal for a new integrated tsunami intensity scale (itis-2012). Bulletin of the Seismological
+Society of America, 103(2B):1493–1502, 2013.
+[LL59]
+L. D. Landau and E. M. Lifshitz. Fluid mechanics. Pergamon Press, 1959.
+[M.62]
+Shoemaker E. M. Interpretation of lunar craters in physics and astronomy of the moon.
+New York: Academic Press, pages 283–359, 1962.
+[NSA+98]
+I. V. Nemtchinov, V. V. Shuvalov, N. A. Artemieva, B. A. Ivanov, I. B. Kosarev, and I. A
+Trubetskaya. Light flashes caused by meteroid impacts on the lunar surface. Solar System
+Research, 32:99–114, 1998.
+[NSBL16]
+Kishor G. Nayar, Mostafa H. Sharqawy, Leonardo D. Banchik, and John H. Lienhard
+V. Thermophysical properties of seawater: A review and new correlations that include
+pressure dependence. Desalination, 390:1–24, 2016.
+14
+
+Team 442
+REFERENCES
+[RLA17]
+Clemens M. Rumpf, Hugh G. Lewis, and Peter M. Atkinson. Population vulnerability
+models for asteroid impact risk assessment. Meteoritics & Planetary Science, pages 1–21,
+2017.
+[Wik]
+Wikipedia. Continental shelf.
+[Wu03]
+Y. M. Wu. Relationship between peak ground acceleration, peak ground velocity, and
+intensity in taiwan. Bulletin of the Seismological Society of America, 93(1):386–396, 2003.
+[ZR66]
+Ya. B. Zel’dovich and Yu. P. Raizer. Physics of shock waves and high-temperature hydro-
+dynamic phenomena. New York: Academic Press, page 916, 1966.
+15

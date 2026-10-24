@@ -1,0 +1,939 @@
+Problem Chosen
+A
+2023
+MCM/ICM
+Summary Sheet
+Team Control Number
+227
+Maximum Altitude for Safe Space Diving
+Summary
+Space diving, an exhilarating extreme sport, has gained immense popularity worldwide.
+This paper aims to analyze the challenges and risks involved in a skydiver’s process of
+descenting back to Earth in a space suit with a parachute. In addition, we also try to
+determine the maximum altitude at which a space dive can be safely performed.
+In this study, we consider the skydiver in a space suit and the parachute as a cohesive
+"system". By making appropriate assumptions, we begin by analyzing the four forces
+acting on this system. Next, we examine how atmospheric density varies with altitude to
+derive the motion equations governing the descent process.
+Then, we thoroughly evaluate the four primary challenges and dangers that the system
+encounters. Through the numerical solution of multiple differential equations, we
+establish the limitations imposed by each factor on the maximum altitude for parachute
+jumping. These factors include the fast landing velocity, large acceleration, death spiral
+and high temperature. While the limitation on maximum initial altitude imposed by the
+first factor is negligible, the second, third, fourth factors restrict the maximum initial
+altitude to 255km,510km,153km,respectively.
+Consequently, our findings indicate that the highest attainable altitude for parachute
+jumping in this context is 153km.
+Keywords: skydiving, motion, acceleration, temperature
+
+Team # 227
+Page 1 of 21
+Contents
+1
+Introduction
+2
+1.1
+Background
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+1.2
+Problem Restatement . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+2
+Assumption and Notation
+2
+2.1
+Assumptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+2.2
+Notations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+3
+Physical Analysis of Descent Process
+3
+3.1
+Force Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+3.1.1
+Gravity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+3.1.2
+Air Buoyancy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+3.1.3
+Coriolis Force . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+3.1.4
+Air Resistance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+3.2
+Variation of Air Density with Height . . . . . . . . . . . . . . . . . . . . . . .
+6
+3.3
+Dynamic Equation of the Skydiver . . . . . . . . . . . . . . . . . . . . . . . .
+7
+4
+Challenges and Dangers
+8
+4.1
+Final Velocity
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+4.2
+Acceleration . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9
+4.3
+Rotation
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12
+4.4
+Temperature . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14
+5
+Conclusion
+15
+6
+Strengths and Weaknesses
+16
+6.1
+Strengths . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+16
+6.2
+Weakness . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+16
+Appendices
+17
+
+Team # 227
+Page 2 of 21
+1
+Introduction
+1.1
+Background
+Since the late 1400s, when the renowned Italian inventor and artist Leonardo da Vinci
+sketched a design of a pyramid-shaped parachute, there has been an enduring
+fascination with jumping from great heights.[1] In modern times, space diving has
+emerged as an exhilarating pursuit, involving the descent from high altitudes in space
+back to the Earth’s surface using a parachute. This extreme sport offers an extraordinary
+adrenaline rush and provides breathtaking views, attracting a growing number of
+enthusiasts who continually seek higher and more challenging jumps.[2] However, as
+the altitude increases, space diving presents a unique set of challenges and dangers. For
+instance, among the almost 6.2 million jumps performed by 519,620 skydivers over 10
+years between 2010 and 2019, 35 deaths and 3015 injuries were reported.[3] Hence, the
+safety of parachuting and the maximum altitude for skydiving must be thoroughly
+examined and analyzed to ensure a secure and enjoyable experience.
+Figure 1: skydiving
+[4]
+Figure 2: skydiving
+[5]
+1.2
+Problem Restatement
+Now we consider a skydiver equipped with a space suit and parachute, with a total
+mass of 190kg, descending back down to the Earth’s surface from perhaps above the
+Earth’s atmosphere. In this analysis, we treat the skydiver, his space suit and parachute
+as a ’system’. Our task is to examine the impact of various external physical factors on
+this system and explore the challenges and dangers involved in the descent. By carefully
+evaluating these factors, we can determine the maximum altitude achievable for a safe
+and controlled descent.
+2
+Assumption and Notation
+2.1
+Assumptions
+• Ignore potential collisions with planes and other objects.
+
+Team # 227
+Page 3 of 21
+• Space suits can provide sufficient oxygen during landing periods.
+• The skydiver jumps off at the equator, which is the most suitable place for a rocket
+launch. Therefore we set the ground gravitational acceleration to 9.78m/s2.
+• Assume that the parachute is opened immediately after jumping to minimize the
+maximum acceleration and temperature experienced by the skydiver. And the open-
+ing time of the parachute is less than 0.5s[6], thus we neglect it. Also, because we
+can use mechanical device to open the parachute, there is no need to worry about
+the parachute not opening when the atmospheric density is low.
+• Ignore the effect of sound barrier. At altitudes where the velocity of the system
+exceeds the speed of sound, the air density in that region remains extremely low.
+• Ignore the disturbance caused by winds in the troposphere.
+• Assume that the rocket launches at night to mitigate the impact of solar radiation.
+• Assume that the spacesuit and parachute can withstand temperatures up to 650
+degrees, providing protection to the individual from high temperatures[7].
+2.2
+Notations
+Table 1: Notations
+Symbol
+Definition
+Numerical value
+R
+Earth radius
+6378km
+m
+The total mass
+190kg
+g0
+Gravitational acceleration at the equator
+9.78m/s2
+ρpara
+The density of the parachute material
+1.93g/m3
+C
+Coefficient factor
+1.6
+k
+Boltzmann constant
+1.380649 × 10−23J/K
+ω0
+Speed of earth’s rotation
+7.27 × 10−5rad/s
+µ
+Average mass of air molecules
+4.82 × 10−26kg
+ρair
+The density of air
+3
+Physical Analysis of Descent Process
+3.1
+Force Analysis
+First, let’s consider the forces a skydiver will experience.
+
+Team # 227
+Page 4 of 21
+3.1.1
+Gravity
+Since the initial height of the skydiver could potentially reach the top of the atmosphere
+(∼2000 km) , the gravitational acceleration should be taken into account as a function of
+height. According to the law of universal gravitation,
+g(h) = g0
+
+R
+R + h
+2
+(1)
+where g(h) is the acceleration at height h.
+3.1.2
+Air Buoyancy
+According to Archimedes principle, air buoyancy is:
+Ffloat = ρ(h)V g(h)
+(2)
+Where V represents the total volume. However, the maximum air density
+(approximately 1.29 kg/m3 at ground level) is only about one thousandth of the density
+of the human body (approximately 1000 kg/m3). Therefore, we can neglect the effect of
+air buoyancy.
+3.1.3
+Coriolis Force
+Since the Earth is rotating at a constant angular velocity w0, the consideration of the
+Coriolis force becomes necessary when selecting a reference frame at rest relative to the
+Earth:
+Fcor = 2m⃗v ×⃗ω
+(3)
+As we assume that the skydiver will jump near the equator (where many rocket
+launches occur), the formula can be simplified as follows:
+Fcor = 2mv⊥ω
+(4)
+v⊥refers to the vertical velocity of the system, v∥refers to the horizontal velocity of the
+system. Since v∥≪v⊥, the Coriolis force caused by v∥can be neglected.
+3.1.4
+Air Resistance
+The relationship between air resistance and velocity can be inferred from Maxwell’s
+speed distribution in a single direction:
+f(v) =
+r
+m
+2πkT e−mv2
+2kT
+(5)
+
+Team # 227
+Page 5 of 21
+Figure 3: Schematic Diagram of Air resistance
+The impetus from airflow1 is:
+2mns
+Z +∞
+µ
+r
+m
+2πkT e−mv2
+2kT (v −µ)2dv
+(6)
+Similarly, the resistance from airflow2 is:
+2mns
+Z +∞
+−µ
+r
+m
+2πkT e−mv2
+2kT (v + µ)2dv
+(7)
+where µ is the speed of the system, S is the area projected in the direction of velocity, m is
+the average mass of an air molecule, and n is the number density of air molecules. After
+approximate calculation, we determined the air resistance:
+Ff = 1
+2nmSv2 = 1
+2Sρairv2
+(8)
+The reality is more complicated because the parachute is not a flat surface, and the air
+strikes against the surface of the parachute. Therefore, we introduce a coefficient C to
+modify the equation, and according to relevant documents, C is approximately 1.6.
+Finally, the air resistance can be considered as:
+Ff = 1
+2CSρairv2
+(9)
+However, it is important to note that air density ρ varies with height. To determine the
+forces acting on the skydiver, we first need to calculate the variation of air density with
+respect to height.
+
+Team # 227
+Page 6 of 21
+3.2
+Variation of Air Density with Height
+Figure 4: Diagram of Earth’s Atmospheric
+Layering
+[8]
+Figure 5: Illustration of the more accurate
+variation of atmospheric temperature with
+altitude
+[9]
+The density of air (ρ) depends on temperature (T) and varies with height (h). Based on
+the force balance in the atmosphere and the temperature variation with altitude, we can
+calculate the change in air density (ρ) with height (h) in the ranges of 0-160km:
+ρ = ρ0
+
+1 −k1h
+T0
+ µg
+k1R −1
+,
+0 ≤h < 10km,
+(10)
+where ρ0 = 1.225kg/m3, k1 = 6.5 × 10−3K/m, T0 = 298K,
+ρ = ρ1e−µg
+RT1 (h−h1),
+10km ≤h < 20km,
+(11)
+where ρ1 = 0.4334kg/m3, T1 = 233K, h1 = 10km,
+ρ = ρ2
+
+1 −k3(h −h2)
+T2
+ µg
+k3R −1
+,
+20km ≤h < 50km,
+(12)
+where ρ2 = 0.1009kg/m3, k3 = −1.8 × 10−3K/m, T2 = 233K, h2 = 20km,
+ρ = ρ3
+
+1 −k4(h −h3)
+T3
+ µg
+k4R −1
+,
+50km ≤h < 160km,
+(13)
+
+Team # 227
+Page 7 of 21
+where ρ3 = 0.0016kg/m3, k4 = 2.4 × 10−3K/m, T3 = 287K, h3 = 50km.
+derivation procedure:
+The atmosphere must satisfy the force equilibrium:
+dp
+dh = −ρg
+(14)
+According to the Clausius-Clapeyron equation:
+ρ = pµ
+RT
+T = T0 −kh
+dp
+p =
+µg
+R (T0 −kh)dh
+p = p0
+
+1 −kh
+T0
+ µg
+kR
+ρ = ρ0
+
+1 −kh
+T0
+ µg
+kR −1
+3.3
+Dynamic Equation of the Skydiver
+Now we’ve obtained all the forces the skydiver would experience(as shown below):
+Figure 6: Total force analysis of the system
+Thus, the dynamic equation of the skydiver can be obtained:
+
+Team # 227
+Page 8 of 21
+
+
+
+
+
+m
+dv∥
+dt = 2mωv⊥−1
+2CSρv2
+∥
+−md2h
+dt2 = mg0
+ R
+R+h
+2 −1
+2CSρ
+  dh
+dt
+2
+v⊥= −dh
+dt
+(15)
+(v∥is horizontal velocity,v⊥is vertical velocity)
+The skydiver will experience such a process:
+1. Exiting the rocket at a height much higher than 50km
+2. Accelerating at regions where the air density is extremely low while gaining hori-
+zontal velocity from the effect of Coriolis force
+3. Decelerating at regions where the air density is high and the air resistance exceeds
+the gravity
+4. Reaching the ground
+4
+Challenges and Dangers
+Now let’s consider the major challenges and dangers that the skydiver would encounter.
+1. Firstly, let’s address the issue of speed. If the speed upon reaching the ground (ei-
+ther horizontally or vertically) exceeds the human body’s ultimate endurance, the
+skydiver would undoubtedly be in great danger.
+2. Secondly, we cannot neglect the acceleration. If the acceleration is too rapid, it could
+potentially tear the parachute and exceed the limits of what the human body can
+withstand.
+3. Thirdly, the potential rotation of the parachute and skydiver poses a probably and
+potentially catastrophic threat to the skydiver.
+4. Lastly, we need to consider the potential threat of temperature due to the friction be-
+tween the parachute and the air. Clearly, the initial height must be carefully chosen
+to ensure that none of these three dangers occur.
+4.1
+Final Velocity
+Theoretically, the final velocity can be determined by solving the dynamic equation in
+(20), The dynamic equation is too complex to obtain an analytical solution, so we have
+written a Python program to obtain the numerical solution for the final velocity at
+different initial altitudes:
+
+Team # 227
+Page 9 of 21
+600
+800
+1000
+1200
+1400
+1600
+1800
+t
+10
+15
+20
+25
+30
+35
+40
+v
+h=220km
+h=230km
+h=240km
+h=250km
+h=260km
+Figure 7: Final Velocity(m/s) versus Time(t) Graph at Different Initial Altitudes(km) (the
+skydiver lands at approximately 1800s)
+Based on our analysis, we can conclude that the final velocity is relatively low, posing no
+significant threat to the skydiver. Therefore, it can be neglected.
+4.2
+Acceleration
+Based on the analysis, it has been determined that the maximum acceleration a human
+body can endure is approximately 10G. However, to ensure the safety of the skydiver
+and prevent excessive harm, we have set the maximum acceleration to be no more than
+8G. To showcase the maximum acceleration at different initial altitudes, we have
+developed a Python program:
+
+Team # 227
+Page 10 of 21
+140 150 160 170 180 190 200 210 220 230 240 250 260 270 280
+t
+90
+80
+70
+60
+50
+40
+30
+20
+10
+0
+10
+20
+a
+h=220km
+h=230km
+h=240km
+h=250km
+h=260km
+Figure 8: Acceleration(m/s2) versus Time(s) Graph at Different initial altitude(km) (Ac-
+celeration is positive when directed downward.)
+By comparing the maximum acceleration at various heights, we estimate that a
+maximum height of 255 kilometers is considered safe for the skydiver.
+Also, it is crucial to prevent the parachute from becoming tangled. The following dia-
+gram illustrates a simplified force analysis of the parachute:
+
+Team # 227
+Page 11 of 21
+Figure 9: a Simple Parachute Model
+Figure 10: Force Analysis Diagram of the
+Parachute
+According to force balance,
+T sin(θ) = S∆p
+(16)
+p =
+T
+2πrd sin(θ) = R
+2d∆p
+(17)
+∆p = 1
+2Cρv2
+(18)
+where
+R is depicted in the picture as the radius of the parachute.
+d represents the thickness of the parachute material.
+T denotes the tangential tension on the parachute.
+p represents the tangential pressure on the parachute.
+To ensure the parachute does not fatigue, p0 should not exceed the Young’s modulus of
+the material. We consider the material to be M60JB −6000 carbon fiber, a highly
+durable material with a tensile strength of 3800MPa. We further assume d to be 2mm
+and the radius, R, to be 5m. Under these conditions, the pressure difference, ∆p, should
+not exceed 1.51 × 106Pa.
+Utilizing a numerical solution implemented in Python, we obtained the relationship
+between ∆p, and time under varying initial heights.
+
+Team # 227
+Page 12 of 21
+140 150 160 170 180 190 200 210 220 230 240 250 260 270 280
+t
+0
+100
+200
+300
+400
+500
+600
+700
+800
+900
+p
+h=220km
+h=230km
+h=240km
+h=250km
+h=260km
+Figure 11: ∆p(pa) versus Time(t) Graph at Different Initial Altitudes(km)
+Fortunately, the pressure difference ∆p ≪1.5 × 10−6pa, so the safety of the parachute is
+guaranteed.
+4.3
+Rotation
+Figure : Schematic Diagram of Death Spiral
+
+Team # 227
+Page 13 of 21
+During a HAHO (High Altitude High Opening) jump, the most dangerous situation
+arises when the skydiver gets caught in uncontrollable spins, commonly referred to as
+a "parachute death spiral." Therefore, it is crucial to handle the potential rotation with
+utmost care to prevent tragic incidents from occurring.
+To analyze this issue, we should first calculate the position of mass center of the system:
+h = 2πR3ρd
+R θ
+0 sin(t) cos(t)dt
+Mtotal
+= 1.99m
+(19)
+Figure 12: The Schematic Diagram of ρ, θ, h
+Next, we will calculate the moment of inertia of the system about the center of mass:
+πρdR4[
+Z θ
+0
+(1 −1
+2 sin2(t))sin(t)dt] −Mtotalh2 = 570kg · m2
+(20)
+where ρ = 1.93kg/m3, where ρ is the density of the parachute.
+The torque relative to the center of mass is entirely provided by the Coriolis force. There-
+fore, the torque relative to the center of mass can be calculated as:
+M = [
+Z θ
+0
+4πωR2ρd sin(t)(R cos(t) −h)v⊥dt] −2mpeoplev⊥ω = 9.75 × 10−5v⊥
+(21)
+Since the rotation is very slow, we neglect the resistance of the system’s rotation.
+According to rotation theorem:
+Z
+Mdt = 9.75 × 10−5
+Z
+v⊥dt
+= 9.75 × 10−5h
+= I · φ
+where φ is the deflected angle of the system.
+We assume φ cannot be more than 5◦, then h is approximately 510km > 255km.
+
+Team # 227
+Page 14 of 21
+4.4
+Temperature
+In pursuit of exploring the universe, one significant challenge humans face is the intense
+heat generated when vehicles travel at high speeds upon exiting the atmosphere. This
+obstacle applies equally to skydivers. Therefore, it is crucial to prevent the high
+temperatures from damaging the parachute and endangering the skydiver.
+To minimize the impact of temperature, it is assumed that the skydive takes place at
+night to avoid the effects of solar radiation.
+When the parachute encounters the air at a velocity of v0, the resulting increase in air
+temperature (∆T) can be calculated:
+∆T = v2
+⊥
+2Cp
+[10]
+(22)
+where Cp is the heat capacity of air at constant temperature.
+P = α
+2 Sρv3
+⊥
+(23)
+where P is the thermal power caused by air compression. α is the ratio of the heat trans-
+ferred to the parachute to the total heat generated.
+An approximation can be used to calculate it:
+α =
+kair
+kpara + kair
+(24)
+(kair ∼0.025W/(m · k), kpara ∼5W/(m · k))
+where kair is the thermal conductivity of air, and kpara is approximately 5, representing
+the thermal conductivity of the parachute. Thus we can assume that α = 1, meaning that
+almost all heat is transferred to the parachute.
+Thus, the equation describing the temperature as a function of time can be formulated as
+follows:
+CMpara
+dT
+dt = α
+2 Sρv3
+⊥−σS
+
+2T 4 −T 4
+ground
+
+(25)
+(M = 81.14kg, Tground = 298K, Tinitial = 298K, t = 0, σ = 5.67 × 10−8W · m2 · K−4, S =
+20m2, C = 150J/K, g = 9.8m/s2)
+where C0 represents the heat capacity of the parachute, and Mpara denotes the mass of the
+parachute.
+
+Team # 227
+Page 15 of 21
+We computed the numerical solution of the equation for various initial heights:
+100
+115
+130
+145
+160
+175
+190
+205
+220
+235
+250
+t
+300
+400
+500
+600
+700
+800
+900
+1000
+T
+h=140km
+h=145km
+h=150km
+h=155km
+h=160km
+h=165km
+Figure 13: T(K) versus Time(t) Graph at Different Initial Altitudes(km)
+According to the relevant documentation, it has been determined that the melting point
+of carbon fiber is between 800◦∼900◦. However, considering the material’s softening
+and allowing for a margin of safety, we assume that the maximum temperature the
+parachute can withstand should not exceed 650◦.
+By comparing this temperature limit with the data presented in Figure 13, we can
+conclude that the initial height for the space dive is restricted to 153km.
+5
+Conclusion
+Through the analysis and comparison of different maximum altitudes, we have
+determined that the maximum altitude for the skydiver’s descent in our physical model
+is 153km.
+To determine the outcome, we begin by making several reasonable assumptions. Then,
+we analyze the four primary forces acting on the system by presenting their respective
+
+Team # 227
+Page 16 of 21
+formulas and providing the overall dynamic equations alongside a diagram. Specifically,
+we thoroughly examine the variations in air density at different altitudes. Subsequently,
+by computing numerical solutions of relevant differential equation systems with a
+Python code, we find the maximum altitude under the limitations of different factors, so
+that the skydiver could stay safe in the face of each factor. As a result of our solutions,
+the challenges of landing velocity on the skydiver can be neglected, and the maximum
+altitude is 255km under acceptable acceleration, 510km under acceptable rotation angle,
+and 153km under acceptable temperature.
+Overall, we successfully analyze the challenges and dangers in such a descent and find
+the maximum altitude. Based on our models and results, we believe that a skydiver can
+maximize his own safety by jumping from an altitude below 153km.
+6
+Strengths and Weaknesses
+6.1
+Strengths
+• Our assumptions are reasonable and well-founded
+We have taken into account as many realistic factors as possible and made reason-
+able assumptions based on the literature to simplify the model.
+• Our physical model is comprehensive and universally applicable
+We have factored in a range of variables, from acceptable acceleration to safe tem-
+perature, to determine the final maximum altitude.
+• Our analysis of the forces is thorough and meticulous
+We have thoroughly analyzed a variety of forces, including gravity and air resis-
+tance, and have also taken into account some less obvious forces like the Coriolis
+force.
+• Our solutions have a high level of accuracy
+By listing all the relevant differential equations, we develop a Python code that com-
+putes the numerical solutions of these equations with a large number of data points.
+• Our graphics are exquisite and highly illustrative
+During the analysis, we create visually appealing diagrams and function images,
+using carefully chosen colors and patterns to enhance the understanding of the re-
+sults.
+6.2
+Weakness
+• Some factors have been neglected
+For instance, we have disregarded the influence of wind due to its complexity. Also,
+We have neglected the potential electromagnetic effects caused by the ionosphere
+on the system. I hope that in the future, we will have more time to take these two
+factors into consideration and further modify the model to better align with reality.
+
+Team # 227
+Page 17 of 21
+References
+[1]
+C. Mooney, Skydiving. The Rosen Publishing Group, Inc, 2015.
+[2]
+T. H. Barrows, T. J. Mills, and S. D. Kassing, “The epidemiology of skydiving in-
+juries: World freefall convention, 2000–2001,” The Journal of emergency medicine, vol. 28,
+no. 1, pp. 63–68, 2005.
+[3]
+C. Fer, M. Guiavarch, and P. Edouard, “Epidemiology of skydiving-related deaths
+and injuries: A 10-years prospective study of 6.2 million jumps between 2010 and
+2019 in france,” Journal of science and medicine in sport, vol. 24, no. 5, pp. 448–453,
+2021.
+[4]
+“Photography-man-parachute-sea-wallpaper,” warpaperflare, 2016.
+[5]
+“Get your head in the clouds: Skydiving is therapeutic,” skydiveorange, 2018.
+[6]
+Z. Q. Peng Yong Song Xumin, “Calculation method for parachute inflation time,”
+Aerospace Return and Remote Sensing, vol. 25, no. 1, pp. 17–20, 2004.
+[7]
+“What is zirconium – properties of zirconium element – symbol zr.” (Aug. 10, 2018),
+(visited on 11/05/2023).
+[8]
+“Comparison-us-standard-atmosphere-1962,” Wikimedia Commons,
+[9]
+“U.s. standard atmosphere,” Wikimedia Commons,
+[10]
+H. W. Sun Xiwan Guo Zhenyun, “Research of calculation methods of aerodynamic
+heating for hypersonic re-entry vehicles,” Aerospace Return and Remote Sensing, vol. 36,
+no. 1, 2016.
+Appendices
+Python source code:
+import numpy as np
+from scipy.integrate import odeint
+import matplotlib.pyplot as plt
+def func(hv,t): #differential equation system of h,v,T,t
+m=190
+g=9.8
+R=6378000
+C=1.6
+s=20
+w=7.27e-5
+M=81.14
+c=150
+T0=298
+o=5.67e-8 #some constants
+if hv[0]<10000:
+rho=1.225*(1-0.0065*hv[0]/298)**4.215
+
+Team # 227
+Page 18 of 21
+elif 10000<=hv[0]<20000:
+rho=0.4334*np.exp(-1.455e-4*(hv[0]-10000))
+elif 20000<=hv[0]<50000:
+rho=0.1009*(1+1.8e-3*(hv[0]-20000)/233)**(-19.833)
+elif 50000<=hv[0]<160000:
+rho=0.0016*(1-2.4e-3*(hv[0]-50000)/287)**(13.125)
+else:
+rho=0 #rho in different h
+dhdt1=hv[1]
+dhdt2=-g*(R/(R+hv[0]))**2+C*s*rho/(2*m)*hv[1]**2
+dv2dt=2*w*(-dhdt1)-C*s*rho/(2*m)*hv[2]**2
+dTdt=(g+dhdt2)*(-dhdt1)/(2*c)-o*s*(2*hv[3]**4-T0**4)/(c*M)
+#differential equation system
+return [dhdt1,dhdt2,dv2dt,dTdt]
+def init(h0): #numerical solutions of h,v,a,T
+step=1
+t=np.arange(0,1741,step)
+hv0=[h0,0,0,298] #initial values
+sol=odeint(func,hv0,t) #solving equations
+v1=[] #vertical velocity
+v2=[] #horizontal velocity
+v3=[] #resultant velocity
+h=[] #height
+a=[0] #acceleration
+T=[] #Kelvin temperature
+for i in range(len(sol)): #store numerical solutions
+v1.append(-sol[i][1])
+v2.append(sol[i][2])
+v3.append(np.sqrt(sol[i][1]**2+sol[i][2]**2))
+h.append(sol[i][0])
+T.append(sol[i][3])
+if i==0:
+continue
+else:
+a.append((v3[len(v3)-1]-v3[len(v3)-2])/step)
+a[0]=a[1]
+return t,v3,a,T
+def findmaxa():
+maxh=240000
+for i in range(240000,260001,1000):
+[t,v,a,T]=init(i)
+if max(abs(aa) for aa in a)<80 and maxh<i:
+maxh=i
+return maxh
+def findmaxT():
+maxh=150000
+for i in range(150000,160001,1000):
+[t,v,a,T]=init(i)
+if max(T)<=923 and maxh<i:
+maxh=i
+return maxh
+
+Team # 227
+Page 19 of 21
+def ga(a): #calculate the pressure difference
+p=[]
+for i in range(len(a)):
+p.append(9.5*(9.8-a[i]))
+return p
+ss=input("which maximum(a or T):")
+if ss==’a’:
+print(findmaxa()) #print the maximum of jumping height considering the maximum of a
+elif ss==’T’:
+print(findmaxT()) #print the maximum of jumping height considering the maximum of T
+#sketch
+s=input("which figure(a or v or p or T):")
+if s==’a’: #a-t image (at different heights)
+plt.figure()
+[t,v,a,T]=init(220000)
+l1,=plt.plot(t[150:280],a[150:280],color=’#9FAE16’)
+[t,v,a,T]=init(230000)
+l2,=plt.plot(t[150:280],a[150:280],color=’#F1B154’)
+[t,v,a,T]=init(240000)
+l3,=plt.plot(t[150:280],a[150:280],color=’#F3D389’)
+[t,v,a,T]=init(250000)
+l4,=plt.plot(t[150:280],a[150:280],color=’#B7D3BE’)
+[t,v,a,T]=init(260000)
+l5,=plt.plot(t[150:280],a[150:280],color=’#51838C’)
+plt.legend(handles=[l1,l2,l3,l4,l5]
+,labels=[’h=220km’,’h=230km’,’h=240km’,’h=250km’,’h=260km’],loc=’best’)
+xt=np.arange(140,281,10)
+yt=np.arange(-90,21,10)
+plt.xlim(140,280)
+plt.ylim(-90,20)
+plt.xticks(xt)
+plt.yticks(yt)
+plt.xlabel("t",fontsize=20,labelpad=3)
+plt.ylabel("a",fontsize=20,rotation=0,labelpad=12)
+plt.savefig(’a_t.pdf’,format=’pdf’)
+plt.show()
+elif s==’v’: #v-t image (at different heights)
+plt.figure()
+[t,v,a,T]=init(220000)
+l1,=plt.plot(t[500:],v[500:],color=’#134F85’)
+[t,v,a,T]=init(230000)
+l2,=plt.plot(t[500:],v[500:],color=’#5C7AAC’)
+[t,v,a,T]=init(240000)
+l3,=plt.plot(t[500:],v[500:],color=’#D9E0E6’)
+[t,v,a,T]=init(250000)
+l4,=plt.plot(t[500:],v[500:],color=’#CC7892’)
+[t,v,a,T]=init(260000)
+
+Team # 227
+Page 20 of 21
+l5,=plt.plot(t[500:],v[500:],color=’#E2A2B3’)
+plt.legend(handles=[l1,l2,l3,l4,l5]
+,labels=[’h=220km’,’h=230km’,’h=240km’,’h=250km’,’h=260km’],loc=’best’)
+plt.xlabel("t",fontsize=20,labelpad=3)
+plt.ylabel("v",fontsize=20,rotation=0,labelpad=12)
+plt.savefig("v_t.pdf",format="pdf")
+plt.show()
+elif s==’p’: #p-t image (at different heights)
+plt.figure()
+[t,v,a,T]=init(220000)
+p=ga(a)
+l1,=plt.plot(t[150:280],p[150:280],color=’#403990’)
+[t,v,a,T]=init(230000)
+p=ga(a)
+l2,=plt.plot(t[150:280],p[150:280],color=’#80A6E2’)
+[t,v,a,T]=init(240000)
+p=ga(a)
+l3,=plt.plot(t[150:280],p[150:280],color=’#FBDD85’)
+[t,v,a,T]=init(250000)
+p=ga(a)
+l4,=plt.plot(t[150:280],p[150:280],color=’#F46F43’)
+[t,v,a,T]=init(260000)
+p=ga(a)
+l5,=plt.plot(t[150:280],p[150:280],color=’#CF3D3E’)
+plt.legend(handles=[l1,l2,l3,l4,l5]
+,labels=[’h=220km’,’h=230km’,’h=240km’,’h=250km’,’h=260km’],loc=’best’)
+xt=np.arange(140,281,10)
+yt=np.arange(0,901,100)
+plt.xlim(140,280)
+plt.ylim(-15,901)
+plt.xticks(xt)
+plt.yticks(yt)
+plt.xlabel("t",fontsize=20,labelpad=3)
+plt.ylabel("\u0394p",fontsize=20,rotation=0,labelpad=15)
+plt.savefig(’p_t.pdf’,format=’pdf’)
+plt.show()
+elif s==’T’: #T-t image (at different heights)
+plt.figure()
+[t,v,a,T]=init(140000)
+l1,=plt.plot(t[100:250],T[100:250],color=’#EE695B’)
+[t,v,a,T]=init(145000)
+l2,=plt.plot(t[100:250],T[100:250],color=’#F6B853’)
+[t,v,a,T]=init(150000)
+l3,=plt.plot(t[100:250],T[100:250],color=’#C8DCD6’)
+[t,v,a,T]=init(155000)
+l4,=plt.plot(t[100:250],T[100:250],color=’#4DA6A0’)
+[t,v,a,T]=init(160000)
+
+Team # 227
+Page 21 of 21
+l5,=plt.plot(t[100:250],T[100:250],color=’#B7DFB7’)
+[t,v,a,T]=init(165000)
+l6,=plt.plot(t[100:250],T[100:250],color=’#185827’)
+plt.legend(handles=[l1,l2,l3,l4,l5,l6]
+,labels=[’h=140km’,’h=145km’,’h=150km’
+,’h=155km’,’h=160km’,’h=165km’],loc=’best’)
+xt=np.arange(100,251,15)
+yt=np.arange(300,1001,100)
+plt.xlim(100,250)
+plt.ylim(280,1000)
+plt.xticks(xt)
+plt.yticks(yt)
+plt.xlabel("t",fontsize=20,labelpad=3)
+plt.ylabel("T",fontsize=20,rotation=0,labelpad=12)
+plt.savefig(’T_t.pdf’,format=’pdf’)
+plt.show()

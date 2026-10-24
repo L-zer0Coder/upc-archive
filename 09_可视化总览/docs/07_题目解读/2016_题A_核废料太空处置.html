@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2016 题A：核废料太空处置（Reactor Waste Disposal） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg:#0a0f1e;--panel:#111a2e;--ink:#e8eef8;--mut:#94a5c0;--line:#22304c;--acc:#4f7dd9;--acc2:#39c2b0;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
+ font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar a:hover{border-color:var(--acc);color:#fff}
+.crumb{color:var(--mut);font-size:13px}
+.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
+h3{font-size:17px;color:#cfe0ff}
+a{color:#7fb0ff} a:hover{text-decoration:underline}
+code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
+pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1em 0;padding:8px 16px;border-left:4px solid var(--acc2);background:rgba(57,194,176,.07);color:#c9d6ea;border-radius:0 10px 10px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#16233c;color:#a9bcda;white-space:nowrap}
+tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
+@media(max-width:700px){.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a href="../../index.html">🏆 总览首页</a>
+  <span class="crumb">07_题目解读</span>
+  <span style="flex:1"></span>
+  
+  <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2016_%E9%A2%98A_%E6%A0%B8%E5%BA%9F%E6%96%99%E5%A4%AA%E7%A9%BA%E5%A4%84%E7%BD%AE.md">原文 .md</a>
+</div></div>
+<div class="wrap"><div class="card">
+<h1 id="2016-areactor-waste-disposal">2016 题A：核废料太空处置（Reactor Waste Disposal）</h1>
+<blockquote>
+<p>赛题来源：UPC 2016 Problem A（当年 197 队中 146 队选题 A，金奖 2 队：多伦多大学 331 队、巴塞罗那自治大学 412 队）</p>
+</blockquote>
+<h2 id="1">1. 题目原文与关键数据</h2>
+<p><strong>原文压缩引用</strong>：</p>
+<blockquote>
+<p>The disposal of radioactive waste is a serious problem... One solution proposed is to launch the waste into space, with the idea of either destroying the waste by allowing it to fall into the sun, or simply having it take up an orbit in the asteroid belt where the radioactive waste products would eventually decay. <strong>Make a comparison of these two methods. Which method would be easier to implement? How long could the waste be safely stored in the asteroid belt?</strong></p>
+</blockquote>
+<p><strong>中文翻译</strong>：放射性废料处置是核电工业的难题。一种提议是把废料发射到太空：要么让它坠入太阳"销毁"，要么让它进入小行星带轨道、让放射性产物在那里自然衰变。<strong>比较这两种方法，哪种更容易实现？废料在小行星带能安全存放多久？</strong></p>
+<p><strong>题面给定参数</strong>：<strong>零</strong>。这是本题第一个特征——所有常数必须自取并注明来源：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>取值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>地球公转速度</td>
+<td>$v_E=29.78$ km/s</td>
+<td>量纲分析必用</td>
+</tr>
+<tr>
+<td>太阳引力参数</td>
+<td>$GM_\odot=1.327\times10^{20}\ {\rm m^3/s^2}$</td>
+<td>1 AU 处 $v_{circ}=29.78$、$v_{esc}=42.1$ km/s</td>
+</tr>
+<tr>
+<td>小行星主带</td>
+<td>2.2–3.2 AU</td>
+<td>存放目标区，代表值取 2.7 AU</td>
+</tr>
+<tr>
+<td>全球乏燃料存量</td>
+<td>$\sim4.5\times10^5$ tHM（IAEA 2026），年增 $\sim9\times10^3$ t</td>
+<td>决定发射次数与总成本</td>
+</tr>
+<tr>
+<td>关键半衰期</td>
+<td>Cs-137/Sr-90 ≈ 30 a；Pu-239 24.1 ka；U-238 4.47 Ga</td>
+<td>回答"存放多久"的物理前提</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<ol>
+<li><strong>"easier to implement" 的判据链</strong>：开放式比较必须先选"统一货币"。标准译法是 $\Delta v\to$ 火箭方程 $\to$ 单枚有效载荷 $\to$ 发射次数 $\to$ 总成本，五级贯通——只停在 $\Delta v$ 层会丢掉"工程实现"的分。</li>
+<li><strong>"safely stored how long" 的时钟是什么</strong>：题面暗示"等放射性衰变完"，但贫铀半衰期是十亿年量级——<strong>衰变不是限制，轨道稳定性与撞击风险才是</strong>。把这个问题翻译成：主带轨道能否稳定存放到"放射性已无关紧要"的时标（$\gtrsim10^5$ a）？被撞击、被弹回地球的概率多小？安全论证必须给"危险阈值"变成不等式判断。</li>
+<li><strong>隐藏的第三问</strong>：坠日方案的"销毁"价值本身就是伪命题——裂变产物在任何地方都会衰变，太阳不提供额外销毁价值，只提供 $\Delta v$ 账单。点破这一点是评委眼中的物理成熟度标志。</li>
+<li><strong>隐藏方案空间</strong>：由 $\Delta v(d)$ 曲线的渐近线（=太阳系逃逸速度）会自然发现"直接逃逸出太阳系比坠日更省"——比较题里从数据形态反哺出第三方案是高分动作。</li>
+</ol>
+<h2 id="3">3. 物理建模路线图</h2>
+<p><strong>层次 1：轨道力学基线（Vis-Viva 一把梭）</strong></p>
+<p>$v(r,a)=\sqrt{GM_\odot(2/r-1/a)}$ 是全文发动机。全部自 1 AU 圆轨道（借用地球公转速度）起算：</p>
+<ul>
+<li><strong>坠日</strong>（Hohmann 至近日点 = 太阳表面）：$a_t\approx0.5$ AU，远日点速度 $v_a=2.85$ km/s，故 $\Delta v=v_E-v_a=\mathbf{26.9}$ km/s（逆行）；若从 LEO 出发借 Oberth 效应，$\sqrt{26.9^2+11.0^2}-7.78=\mathbf{21.3}$ km/s。</li>
+<li><strong>存带</strong>（Hohmann 至 2.7 AU 并圆化）：$\Delta v_1=35.98-29.78=6.2$ km/s，圆化 $\Delta v_2=18.13-13.33=4.8$ km/s，共 $\mathbf{11.0}$ km/s（与金奖 331 队的 10977 m/s 吻合）；若存放在近日点 1 AU 的椭圆轨道上可只花 6.2。</li>
+<li><strong>逃逸太阳系</strong>：$42.1-29.8=\mathbf{12.3}$ km/s。排序：椭圆存带 6.2 &lt; 圆存带 11.0 &lt; <strong>逃逸 12.3 &lt; 坠日 26.9</strong>——"把垃圾扔出太阳系比扔进太阳还便宜"，这是本题最反直觉、最值得写的结论。</li>
+</ul>
+<p><strong>层次 2：火箭方程与容器工程</strong>：Tsiolkovsky $\Delta v=u\ln(m_0/m_f)$（化学推进 $u\approx4.4$ km/s）把 $\Delta v$ 差换成载荷差：坠日与存带（含圆化）总 $\Delta v$ 约 30.7 vs 19 km/s，同样火箭载荷比 $e^{11.7/4.4}\approx14$ 倍（椭圆存带则 $\sim40$ 倍）。屏蔽容器用半值层估算：废料近场剂量率 $\sim$ Sv/日、工人年限 50 mSv $\Rightarrow$ 需 $\sim$15 个半值层铅 $\approx$ 15–20 cm，容器自身质量吃掉大半载荷。</p>
+<p><strong>层次 3：长期安全概率模型</strong>：(a) 撞击概率——扫描体积/主带体积 + Poisson 过程：$P=\sum A_k v_k/V$，注意截面要用<strong>小行星自己的</strong> $\pi r^2$（大天体撞小包裹），取 $N\sim10^6$ 颗 km 级、$v_{rel}\sim5$ km/s、主带体积 $\sim20\ {\rm AU^3}$，得 $P\sim10^{-11}$ /yr 量级；(b) 撞击后果阈值——从 2.7 AU 圆轨道把碎片送到地球穿越轨道需 $\sim4.8$ km/s 逆行分量（与金奖队取的 $\ge4$ km/s 同量级），5 km/s 的随机撞击中只有小部分碎片满足，且地球是小目标；(c) 选址要避开 Kirkwood 空隙与共振区，主带普通轨道稳定性有 4.5 Ga 的"天然实验"背书。</p>
+<pre><code class="language-mermaid">flowchart TD
+    A[&quot;两方案对比&quot;] --&gt; B[&quot;统一货币 Δv&quot;]
+    B --&gt; C[&quot;坠日 26.9 km/s (LEO 出发 21.3)&quot;]
+    B --&gt; D[&quot;存带 2.7 AU 共 11.0 km/s&quot;]
+    C --&gt; E[&quot;Δv 曲线渐近线 = 逃逸速度 12.3 → 第三方案：逃逸太阳系&quot;]
+    D --&gt; F[&quot;火箭方程 → 载荷比 ~14-40 倍 → 发射次数 → 成本&quot;]
+    E --&gt; F
+    A --&gt; G[&quot;安全性：能存多久&quot;]
+    G --&gt; H[&quot;放射性时钟：裂变产物 600 a / Pu 24 ka / 贫铀 Gyr&quot;]
+    G --&gt; I[&quot;撞击概率 扫掠+Poisson：P ~ 1e-11-1e-9 /yr&quot;]
+    G --&gt; J[&quot;后果阈值：逆行 Δv ≥ 4.8 km/s 才可能回流地球&quot;]
+    H --&gt; K[&quot;结论：限制是撞击风险而非衰变 → 可存 Gyr 量级&quot;]
+    I --&gt; K
+    J --&gt; K
+</code></pre>
+<h2 id="4">4. 关键物理效应量级表</h2>
+<table>
+<thead>
+<tr>
+<th>效应</th>
+<th>估算量级</th>
+<th>是否必须建模</th>
+<th>估算依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>坠日 $\Delta v$</td>
+<td>26.9 km/s（日心）/ 21.3（LEO）</td>
+<td>必须（基线）</td>
+<td>$v_E-v_a$，$v_a=2.85$ km/s</td>
+</tr>
+<tr>
+<td>存带 2.7 AU $\Delta v$</td>
+<td>11.0 km/s（圆）/ 6.2（椭圆）</td>
+<td>必须（基线）</td>
+<td>Vis-Viva 两脉冲</td>
+</tr>
+<tr>
+<td>逃逸太阳系</td>
+<td>12.3 km/s</td>
+<td>应有（第三方案）</td>
+<td>$v_{esc}-v_E$</td>
+</tr>
+<tr>
+<td>载荷比</td>
+<td>14–40 倍/枚</td>
+<td>必须（回答"easier"）</td>
+<td>$e^{\Delta\Delta v/u}$，$u=4.4$ km/s</td>
+</tr>
+<tr>
+<td>裂变产物衰减</td>
+<td>$\sim600$ a 降 $10^{-6}$</td>
+<td>必须（前提）</td>
+<td>$t_{1/2}\approx30$ a，$20$ 个半衰期</td>
+</tr>
+<tr>
+<td>主带撞击概率</td>
+<td>$10^{-11}$–$10^{-9}$ /yr</td>
+<td>必须（回答"how long"）</td>
+<td>$\sum A_k v_k/V$ + Poisson</td>
+</tr>
+<tr>
+<td>撞击回流阈值</td>
+<td>逆行 $\gtrsim4.8$ km/s</td>
+<td>必须（闭环）</td>
+<td>2.7 AU→1 AU 的 Hohmann 减速量</td>
+</tr>
+<tr>
+<td>屏蔽容器</td>
+<td>铅 15–20 cm，$\sim2.3$ t/m²</td>
+<td>必须（工程闭环）</td>
+<td>15 个半值层</td>
+</tr>
+<tr>
+<td>Yarkovsky 漂移</td>
+<td>$\lesssim10^{-5}$ AU/Myr（10 m 级物体）</td>
+<td>可不做</td>
+<td>$da/dt\propto1/D$ 反比于尺寸</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5">5. 求解算法与数值要点</h2>
+<ul>
+<li><strong>解析为主</strong>：全部轨道量有闭式（Vis-Viva/Hohmann），唯一必须"算给评委看"的曲线是 $\Delta v$ 随二次点火距离 $d$ 的单调下降曲线——<strong>务必标注其渐近线 = 12.3 km/s</strong>，它是自检也是亮点。</li>
+<li><strong>概率部分</strong>：优先用真实小行星数据库（JPL Small-Body Database，数万条）逐条算 $\sum A_kv_k/V$，再按 Poisson/指数分布外推到题目时标；没有数据时用"数量-尺寸幂律"合成，并声明保守性。</li>
+<li><strong>验证手段</strong>：① Hohmann 数值与已知基准对拍（1→2.7 AU 圆化 ≈ 11 km/s）；② 撞击累积 $\Delta v$ 与回流阈值的不等式闭环；③ 火箭方程简化（忽略级间损失）对两方案的偏置相同 → 相对结论不变。</li>
+<li><strong>陷阱</strong>：单位（AU vs m）混算；截面用包裹尺寸而非小行星尺寸（差 5 个量级）；椭圆存放轨道忘记它会周期性穿越火星轨道；发射失败率是两方案共同项应显式约掉而不是选择性使用。</li>
+</ul>
+<h2 id="6">6. 常见错误与陷阱</h2>
+<ol>
+<li><strong>忘了抵消地球公转速度</strong>：直接说"掉向太阳只要松手"——坠日的本质是消灭 29.8 km/s 切向速度，漏掉这一步结论直接反转。</li>
+<li><strong>把"能存多久"答成半衰期</strong>：只算放射性不管轨道力学（或反之），两头都不闭环；正确结构是"衰变前提 → 撞击时钟 → 阈值不等式"。</li>
+<li><strong>安全论证没有"后果"半边</strong>：只算撞不上，不算"万一撞了会不会回地球"——两个方案应各配一个失败模式（坠日=发射失败坠落散布；存带=撞击改道）才公平。</li>
+<li><strong>只算单次发射</strong>：不清运全球 $\sim4.5\times10^5$ 吨存量，"easier to implement"没有工程落点；给出总发射次数与成本（百万亿美元量级）才有冲击力。</li>
+<li><strong>忽略容器质量</strong>：无屏蔽的废料"载荷"毫无意义，铅屏蔽是载荷的大头。</li>
+</ol>
+<h2 id="7">7. 全网参考与延伸</h2>
+<ol>
+<li><strong>NASA 1974 年《Extraterrestrial Disposal of Radioactive Wastes》可行性研究</strong>（<a href="https://ntrs.nasa.gov/api/citations/19740014663/downloads/19740014663.pdf">NTRS</a>）——AEC 委托 NASA 的官方空间处置研究，可作"该问题被严肃研究过"的引用锚点。</li>
+<li><strong>美国能源部《3 reasons why we don't launch nuclear waste into space》</strong>（<a href="https://www.energy.gov/ne/articles/3-reasons-why-we-dont-launch-nuclear-waste-space">energy.gov</a>）——官方给出的三理由（成本、发射失败散布风险、瞄准精度），可直接对照自己的结论。</li>
+<li><strong>IAEA 全球乏燃料地图（2026）</strong>（<a href="http://www.iaea.org/newscenter/news/iaea-releases-first-public-tool-to-map-the-worlds-spent-nuclear-fuel">iaea.org</a>）——全球存量 $\approx44.8$ 万吨重金属、年增 $\approx9$ 千吨，是把"清运多久/多少发射"落到真实数字的最佳来源。</li>
+<li><strong>The Space Review 2005《Launching the dead：space disposal of nuclear waste》</strong>（<a href="https://www.thespacereview.com/article/437/1">thespacereview.com</a>）——从政策与安全角度论证空间处置"可行但不划算"，可作讨论节素材。</li>
+</ol>
+<h2 id="8">8. 金牌论文思路对比</h2>
+<ul>
+<li><strong>331 队（多伦多，16 页）</strong>：以 $\Delta v$ 为统一货币做全链路对比，从 $\Delta v(d)$ 渐近线挖出"逃逸更省"的第三方案；用 JPL 数据库 5 万+ 真实小行星建 Poisson 撞击模型（千年撞击概率 $10^{-6}$、十亿年累积 $\Delta v=2115$ m/s &lt; 4000 m/s 阈值）回答存放时长；最后用 Saturn V + 铅容器算出 4.5×10⁵ 次发射、超 500 万亿美元。详见 <code>05_论文赏析\2016\2016-GM-A-331.md</code>。</li>
+<li><strong>412 队（巴塞罗那，23 页）</strong>：先横向筛选六种目的地再收敛到"日心轨道最优"；确定性部分用自适应 RKF45 在太阳+木星+地球多体场中真实打靶（含 L4/L5 拉格朗日点方案与相位旋转矩阵）；随机性部分建四套风险模型并以"有效污染面积 $S_{eff}$"统一量纲，结论存带可安全存放 Pu-239 衰减所需 25 万年。详见 <code>05_论文赏析\2016\2016-GM-A-412.md</code>。</li>
+</ul>
+<h2 id="9">9. 评分要点：评委想看什么</h2>
+<ul>
+<li>[ ] 坠日 $\Delta v$ 正确包含"抵消地球公转速度"（26.9 km/s 日心口径），并明示与存带方案（≈11 km/s）的对比。</li>
+<li>[ ] 有一张 $\Delta v$–距离曲线并解读其渐近线（=逃逸速度），引出逃逸第三方案。</li>
+<li>[ ] "存放多久"三件套：衰变时标（不是限制）→ 撞击概率（Poisson+真实数据更佳）→ 回流地球的 $\Delta v$ 阈值不等式。</li>
+<li>[ ] 火箭方程 + 屏蔽容器质量 → 单枚载荷 → 总发射次数/成本，回答"easier to implement"的工程含义。</li>
+<li>[ ] 两方案的失败模式对称建模（发射失败散布 vs 撞击改道），并声明共同项（发射可靠性）不影响相对排序。</li>
+<li>[ ] 所有自取常数注明来源，结论附"对简化假设不敏感"的论证。</li>
+</ul>
+</div></div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+});
+</script>
+</body>
+</html>

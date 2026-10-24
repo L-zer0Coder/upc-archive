@@ -1,0 +1,578 @@
+Collision Saves the Earth
+Team 460, Problem A
+November 2022
+Abstract
+In this essay, we explore the scenario where we need to deploy a spacecraft, whose
+initial total mass is 20, 000kg, to collide with a coming asteroid, so as to deflect it from
+our Earth, and we aim to find the time t before Earth impact when our spacecraft
+should hit the asteroid. To do this, we first divide the whole process into three major
+stages to clarify our model: launching the Spacecraft, collision between the asteroid
+and the spacecraft, drifting of the asteroid. Before investigation into these stages, we
+discuss about the scales of important physical quantities to simplify our model, and
+to take the influence of the atmosphere into account. Afterwards, we study the three
+stages one by one, and acquire our result, that the spacecraft should hit the asteroid 14
+years before it hits Earth, if we take the effective exhaust velocity vr of the spacecraft
+as 4.4 × 103m/s. Finally, we evaluate the result’s feasibility, and point out the decisive
+effect of vr on t: for vr = 5.0 × 104m/s, t = 0.67year.
+Our model is based on physical principles and is simplified based on the scales of
+quantities. Therefore, our model is strong in generalizability and clarity. However, it
+may cost our model accuracy due to some rough estimations and presumptions.
+Keywords:
+Rocket Equation, Collision, Conservation of Momentum, Conserva-
+tion of Angular Momentum, Conservation of Energy
+1
+
+Contents
+1
+Introduction
+2
+1.1
+Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+1.2
+Problem Statement
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+2
+Notations
+3
+3
+General Analysis
+3
+3.1
+Stages of the Entire Process . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+3.2
+Scales of Important Quantities
+. . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+3.2.1
+The Spacecraft’s Effective Exhaust Velocity vr
+. . . . . . . . . . . . . . .
+4
+3.2.2
+Scale of the Asteroid and its Momentum Vs. the Spacecraft . . . . . . . . .
+4
+3.2.3
+Scale of the Atmosphere and its Effect . . . . . . . . . . . . . . . . . . . .
+5
+4
+First Stage: Launching the Spacecraft
+6
+4.1
+Introduction, Presumptions and Observations
+. . . . . . . . . . . . . . . . . . . .
+6
+4.2
+Calculation of m1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+5
+Second Stage: Collision Between the Asteroid and the Spacecraft
+7
+5.1
+Introduction, Presumptions and Observations
+. . . . . . . . . . . . . . . . . . . .
+7
+5.2
+Calculations of m, p∗, α, v⊥and v//
+. . . . . . . . . . . . . . . . . . . . . . . . .
+7
+6
+Third Stage: Drifting of the Asteroid
+9
+6.1
+Introduction, Presumptions and Observations
+. . . . . . . . . . . . . . . . . . . .
+9
+6.2
+Calculations of vf, l and t . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9
+7
+Evaluation
+10
+7.1
+Evaluation of the Result . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10
+7.2
+Evaluation of the Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11
+7.3
+Strength . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11
+7.4
+Weakness . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11
+8
+Conclusion
+11
+
+Team # 460
+Page 2 of 12
+1
+Introduction
+1.1
+Background
+The impact of sufficiently large asteroids on the Earth would be catastrophic for mankind and other
+creatures because it may cause massive tsunamis or multiple firestorms. [1] A possible way to
+avoid asteroid impact is to launch a spacecraft and crash it into the asteroid to divert the asteroid
+from its course. On 26, September 2022, a probe launched by NASA intentionally crashed into
+Dimorphos and shortened its orbital period by about 32 minutes, which proved the feasibility of
+the aforementioned method. [2] Determining how much time before the impact would be needed
+for the spacecraft to hit the asteroid is crucial to a successful hit and is thus worth investigating.
+1.2
+Problem Statement
+We need to launch a spacecraft, whose initial total mass is 20, 000kg, to collide with a coming
+asteroid at a initial velocity of 25km/s and with a diameter of 100m, so as to deflect it from the
+Earth. We are required to find the time t before Earth impact when our spacecraft should hit the
+asteroid.
+
+Team # 460
+Page 3 of 12
+2
+Notations
+Symbols
+Description
+m0
+Initial mass of the spacecraft (including the fuel)
+vr
+Effective exhaust velocity of the spacecraft
+m1
+Mass of the spacecraft at the end of Stage 1
+m
+Mass of the spacecraft before the collision
+u
+Velocity of the spacecraft
+p
+Momentum of the spacecraft
+p∗
+Maximum momentum of the spacecraft (before the collision)
+M
+Mass of the asteroid
+r
+Radius of the asteroid
+d
+Diameter of the asteroid
+ρ
+Density of the asteroid
+ρa
+Assumed density of the asteroid
+P
+Momentum of the asteroid
+v0
+Initial velocity of the asteroid
+v//
+Component of the velocity of the asteroid in the direction to the Earth
+v⊥
+Component of the velocity of the asteroid in the direction perpendicular to the Earth
+ME
+Mass of the Earth
+R
+Radius of the Earth including the atmosphere
+R0
+Radius of the Earth excluding the atmosphere
+H
+Equivalent thickness of the atmosphere
+G
+Gravitational constant
+l
+Distance between the spot of collision and the Earth
+t
+Time the spacecraft needs to hit the asteroid before the impact
+Here the main notations are defined while their specific values will be discussed and given later.
+3
+General Analysis
+3.1
+Stages of the Entire Process
+In this problem, we are required to launch the spacecraft from its original orbit to the spot of
+collision, design its collision with the asteroid, and then monitor the asteroid’s trajectory so that it
+will not collide onto the Earth. Thus, the physical process can be divided into three major stages:
+
+Team # 460
+Page 4 of 12
+launching the spacecraft to the collision spot; collision between the asteroid and the spacecraft;
+drifting of the asteroid to the Earth.
+1. In the first stage, we need to launch the spacecraft from its low-earth orbit to the collision
+spot. Since spacecrafts need to eject burned fuel products to accelerate, this process will
+affect the spacecraft’s mass when it reaches the spot.
+2. In the second stage, we need to adjust the spacecraft to a certain direction and accelerate it to
+a certain speed, so that it may have the maximum impact on the asteroid’s future trajectory.
+We also need to calculate the asteroid’s final velocity.
+3. In the third stage, we need to analyze the asteroid’s movement after the collision. In order to
+calculate the time the collision needs to happen before the impact, we study the case where
+the asteroid barely misses the Earth.
+There are also possible minor stages, such as the case where the asteroid passes through the
+Earth’s atmosphere. They will be qualitatively discussed in the next subsection on the basis of
+scales of important quantities.
+3.2
+Scales of Important Quantities
+It is also important to consider the scales of important quantities, so that we may qualitatively
+decide on the nature of some physical processes, and simplify our model or calculation in some
+steps. Below are some important quantities to consider:
+3.2.1
+The Spacecraft’s Effective Exhaust Velocity vr
+The spacecraft’s effective exhaust velocity vr is defined by the relative velocity to the spacecraft at
+which the burned fuel products are ejected. It is crucial to further calculations of the spacecraft’s
+acceleration process. This parameter differs from type to type, and we choose vr = 4.4 × 103m/s,
+which is the effective exhaust velocity of a typical liquid-fuel rocket, as our reference value. [6]
+3.2.2
+Scale of the Asteroid and its Momentum Vs. the Spacecraft
+There are many categories of asteroids, and their densities vary accordingly. As shown in Figure 1,
+we can see that the density of most asteroids falls in the range of 1.0 ∼5.0g/cm3. [8] Due to this
+lack of information, we assume the density of the asteroid ρ = ρa = 2.0 × 103kg/m3 to calculate
+the final values as a reference, and also to compare the scales of some quantities.
+Here, we have the mass of asteroid M = 1
+6πd3ρ = 5.236 × 105ρ. Assume ρ = ρa, M =
+1.0 × 109kg. Since the initial mass of the spacecraft m0 = 20000kg, m0
+M ∼10−5, the spacecraft’s
+mass at any stages is insignificant compared to that of the asteroid.
+The momentum of the asteroid is given by P = Mv0 = 2.6 × 1013; the maximum momentum
+of the spacecraft (without initial velocity) is given by p =
+1
+evrm0 = 3.2 × 107kg · m/s (this
+equation will be proved in the second stage). Thus, p
+P ∼10−6, which implies that the spacecraft’s
+momentum is also insignificant compared to the asteroid.
+
+Team # 460
+Page 5 of 12
+Figure 1: Diameter v.s. Density of Asteroids
+Therefore, we can deduce that it is impossible for the spacecraft to collide with the asteroid
+head-on and push it back; instead, the spacecraft needs to give the asteroid a side-push and make
+its trajectory deviate. This will be quantitatively proved in the second stage.
+3.2.3
+Scale of the Atmosphere and its Effect
+The atmosphere contains particles, which, when the asteroid passes through, will exert a drag force
+on it in the opposite direction to its velocity. [3] This force will decrease the asteroid’s velocity
+and thus decrease its angular momentum, which may cause the asteroid to fall to the ground when
+it would otherwise barely passes through the Earth. Therefore, we should add the height of the
+atmosphere H to the Earth’s radius R0, and keep the asteroid out of the final sum R = R0 + H.
+We will briefly discuss about what value of H we should take.
+The Earth’s atmosphere can extend to 10, 000km if the Exosphere is included, which is even
+larger than the Earth’s radius R0 = 6378.1km. However, both the Exosphere and the Thermosphere
+contain too less particles and won’t interfere with the movement of the asteroid. Thus, we only
+need to consider the layers below, which only extends to 80km’s height from the ground.
+In addition, the atmosphere’s density decreases exponentially with the increase of altitude: [4,5]
+ρair(h) = ρair(0)e
+h
+Hn
+(1)
+where h is the altitude, and Hn, the scale height, or the increase in altitude for which the atmospheric
+pressure decreases by a factor of e, is equal to 10.4km for air. Also, as for the air drag,
+FD = 1
+2ρairv2CDA
+(2)
+where FD is the drag force, v is the asteroid’s speed with respect to the air, CD is a constant(CD =
+0.47 for spheres), and A is the reference area (A = πr2 for spheres, with r being the radius), from
+which we can see FD ∝ρ.
+
+Team # 460
+Page 6 of 12
+Thus, when calculating the work the air drag force does on the asteroid,
+WD = −
+Z +∞
+0
+FDdh ∝
+Z +∞
+0
+ρair(h)dh
+Z +∞
+0
+ρair(h)dh = Hn
+Therefore, we can use Hn as the equivalent height of the atmosphere.
+Since this estimation is rather rough, we only retain one significant figure of Hn, so R =
+R0 + Hn = 6.39 × 106m. We will use R instead of R0 as the Earth’s radius in the calculation
+below.
+4
+First Stage: Launching the Spacecraft
+4.1
+Introduction, Presumptions and Observations
+First, we look into the stage when the spacecraft travels from the Earth to the spot of collision.
+We want to study in this stage how much of its initial mass m0 is lost. In order to simplify our
+calculation, we design this process such that the spacecraft is accelerated for a short time from its
+initial speed u0 to a speed u1, and then drift to the spot of collision, and when it reaches there, all
+its speed is lost; the velocity always points towards the collision spot. We further assume that:
+1. The acceleration process is short enough, so that we can ignore the gravitational force of the
+Earth in this process. (This will be compensated when considering the change of gravitational
+energy, where we choose the starting point as the original orbit of the spacecraft.)
+2. The spot of collision is far enough, so that the spacecraft’s gravitational energy equals to
+zero (choose the points infinitely far away for the Earth as zero potential point) when the
+spacecraft gets there. (This will be confirmed in the third stage.)
+4.2
+Calculation of m1
+Since the spacecraft is initially in low Earth orbit, its gravity acts as the centripetal force.
+u2
+0
+R0 + h =
+GME
+(R0 + h)2
+(3)
+where u0 is the initial velocity of the spacecraft, h is the distance from the low Earth orbit to the
+Earth’s surface, G is the gravitational constant, R0 is the radius of the Earth without the atmosphere,
+ME is the mass of the Earth, and H is the equivalent thickness of the atmosphere. Here we take
+h = 2, 000km. We thus get u0 = 6.793 × 103m/s.
+We then consider the acceleration process. The rocket’s final speed is given by the rocket
+equation: [7]
+u(m) = u0 + vrlnm0
+m
+(u(m) > u0)
+(4)
+
+Team # 460
+Page 7 of 12
+where u is the velocity of the spacecraft, m0 is the initial mass of the spacecraft (m0 = 20, 000kg),
+and vr is the effective exhaust velocity of the spacecraft.
+In order that the rocket can reach the collision spot, by the conservation of energy, we derive
+that:
+1
+2mu2 −G MEm
+R0 + h = 0
+(5)
+Combining the two equations, we get u = 9.607 × 103m/s, and m = 1.055 × 104kg, which is
+the value of m1, i.e., the mass of the spacecraft at the end of the first stage.
+5
+Second Stage: Collision Between the Asteroid and the Space-
+craft
+5.1
+Introduction, Presumptions and Observations
+In this stage, we presume that the spacecraft has already arrived at the point where it is to collide
+with the asteroid, with its remaining mass m1, and that it can quickly speed up to achieve its
+maximum momentum and adjust its direction to crush onto the asteriod as shown in Figure 5.1.
+We want to first determine the maximum momentum p∗it can achieve, and then study its collision
+with the asteroid and find the asteroid’s velocity after the collision.
+We further make the following presumptions and observations based on the scale of quantities:
+1. Both the spacecraft and the asteroid can be modeled as mass points. The diameter of the
+asteroid d is 100m; the dimensions of a standard spacecraft are within the range of 1 ∼10m.
+Thus, the spacecraft can be safely modeled as a mass point; the validity of the second
+statement will be proved in the calculation.
+2. m1 << M, m << M, and p << P, as is shown in Section 3.2.2.
+p
+P is even smaller because
+the mass of the spacecraft has decreased.
+3. The collision is perfectly inelastic. The spacecraft will not stand such a collision and will
+thus explode. We assume that the debris will fly off in random directions with respect to
+the asteroid, so the center of mass of the whole spacecraft is with the same velocity as the
+asteroid.
+4. The debris’s velocity only remains the same as that of the asteroid after the collision for a
+short time. Therefore, the spacecraft’s mass needs to be accounted only in this stage, but not
+in the next stage.
+5.2
+Calculations of m, p∗, α, v⊥and v//
+We want to first study the maximum momentum the spacecraft can achieve given its initial mass
+m1, so that it can give the maximum impact to the asteroid. Since the spacecraft loses all of its
+velocity when it reaches the spot, we have
+u(m) = vr ln m1
+m
+
+Team # 460
+Page 8 of 12
+p∗
+m
+α
+M
+r
+v0
+v//
+v⊥
+M(+m)
+ω
+s
+Figure 2: Collision Between the Asteroid and the Spacecraft
+p(m) = vrm ln m1
+m
+where u is the velocity of the spacecraft, and p is of course the momentum of it.
+To maximize p(m), we solve dp
+dm = 0 and get the remaining mass
+m = m1
+e = 3.881 × 103kg
+and the maximum momentum of the spacecraft
+p∗= vrm1
+e
+= 1.708 × 107kg · m/s
+This also proves the equation we used in Section 3.2.2.
+During the collision, both the momentum and the angular momentum of the system are con-
+served. As for conservation of momentum, we have:
+Mv0 −p∗sin α = (M + m)v//
+(6)
+p∗cos α = (M + m)v⊥
+(7)
+where M is the mass of the asteroid, and denote by v// and v⊥respectively the component of the
+velocity of the asteroid in the direction to the Earth, and perpendicular to the Earth. Then, we get
+v// = Mv0 −p∗sin α
+(M + m)
+,
+v⊥= p∗cos α
+M
+Since p∗<< P, m << M, we can simplify the Equation (6) to v// = v0 within 10−3 of
+relative error. This means we shouldn’t waste any of the spacecraft’s velocity on pushing back the
+asteroid, because the effect wound be insignificant (this statement will be further confirmed in the
+next section). Thus, we should take α = 0, and we can write the Equation (7) as v⊥= p∗
+M . Thus,
+we have v// = 2.5 × 104m/s and v⊥= 0.016 × m/s. We can observe that
+v⊥
+v//
+= p∗
+P ∼10−6
+
+Team # 460
+Page 9 of 12
+Next, using conservation of angular momentum, we have:
+p∗s = (I + mr2)ω
+(8)
+where I = 2
+5Mr2 because of the asteroid’s spherical shape.
+Thus, ω = p∗s
+I , and as for the kinetic energy of the asteroid after collision
+Ek = 1
+2Iω2 + 1
+2Mv2
+⊥+ 1
+2Mv2
+// = 5
+4
+p∗2s2
+Mr2 + 1
+2
+p∗2
+M + 1
+2Mv2
+0
+(9)
+The term of rotational kinetic energy 5
+4
+p∗2s2
+Mr2 is insignificant compared to Ek (∼10−12) even when
+s = r and it reaches its maximum; in addition, we will see in the next stage that no force will
+interfere with the asteroid’s rotation, so this proportion of energy will not make any difference.
+Therefore, modelling the asteroid as a mass point is also reasonable.
+6
+Third Stage: Drifting of the Asteroid
+6.1
+Introduction, Presumptions and Observations
+At the beginning of this stage, the asteroid retains its velocity v// = v0 towards the Earth and
+acquires a velocity v⊥= p∗/M. We want to study the case where it barely passes by the Earth
+without hitting it, and then find out the minimum distance l where the spacecraft has to collide with
+the asteroid, and thus the time t the collision needs to happen before the impact. The diagram is
+shown in Figure 3.
+We here observe and presume that:
+1. The final velocity vf should be tangential to the Earth’s surface.
+2. During this drifting stage, the asteroid is only affected by the Earth’s gravitational force. This
+presumption will be fallible if d is so large that the asteroid is likely to be affected by other
+celestial bodies’ gravitational field, and in that case, predicting its trajectory will be extremely
+difficult. We will come back to this presumption after we have calculated the value of l and
+provide justification.
+6.2
+Calculations of vf, l and t
+During this stage, because the asteroid is only subject to a central, conservative force, the gravita-
+tional force of the Earth, its angular momentum with respect to the Earth’s center and the energy
+of the asteroid-Earth system is conserved. Choosing the points infinitely far away for the Earth as
+zero potential point, we have:
+v⊥l = vfR
+(10)
+1
+2v2
+// −GME
+l
+= 1
+2v2
+f −GME
+R
+(11)
+we only retain the term 1
+2v2
+// to represent the asteroid’s kinetic energy after collision, because other
+two terms are too insignificant, as discussed in Section 5.2.
+
+Team # 460
+Page 10 of 12
+We first look at the second equation. Since 1
+2v2
+// = 3.13 × 108J/kg, GME
+R
+= 6.23 × 107J/kg,
+and −GME
+R
+< −GME
+l
+< 0, we can deduce that 25km/s < vf < 27.4km/s, or v0 < vf < 1.1v0.
+Turning to the first equation, we acquire that l = vf
+v⊥R, where v⊥
+v// ∼10−7. Therefore, l
+R ∼107, and
+we can safely ignore the term −G ME
+l . This also confirms our presumption in Section 4.1.
+Thus, we can calculate vf from the second equation: vf = 2.74 × 104m/s. From the first
+equation, then, we derive l = 1.1 × 1013m (only 2 significant figures are retained because ρ, thus
+M, thus v⊥only has 2 significant figures).
+Therefore, t is given by t =
+l
+v// = 4.3 × 108s = 5.0 × 104day = 14year.
+7
+Evaluation
+7.1
+Evaluation of the Result
+The result shows that the collision needs to happen about 14 years before the impact. This is a
+very large number compared with NASA’s plan, where the probe was launched only 10 months, or
+0.83 years before the collision. [2] Such a long drifting time may make the spacecraft susceptible to
+attrition and extra influences like other passing celestial bodies. In addition, l = 1.1 × 1013m >>
+1AU = 1.5 × 1011m, which may be too far a distance. Thus, this result is not satisfying.
+M
+v⊥
+v//
+l
+R
+vf
+Figure 3: Drifting of the Asteroid
+
+Team # 460
+Page 11 of 12
+Such a long time mainly comes from the relatively huge mass of the asteroid, and the small
+value of vr = 4.4×103m/s. If we increase the value of vr to 5.0×104m/s, which can be generated
+by the Hall-effect thruster, we get m1 = 1.891×104kg, p∗= 3.477×108kg·m/s, v⊥= 0.332m/s,
+l = 5.3 × 1011m, and can reduce t to 2.4 × 102day or 0.67year. This result is satisfying, and
+shows the decisive influence of vr on our result. Thus, it is essential that technology that can further
+increase vr is developed.
+7.2
+Evaluation of the Model
+Our model is based on physical principles instead of data analysis; meanwhile, based on the scales
+of quantities, the model and some calculations are simplified. Thus, our model enjoys the following
+strength:
+7.3
+Strength
+• Since the model is based on physical principles, it is easy to generalize our model to similar
+cases.
+• Analysis of the scales of quantities greatly simplifies our model and makes it more under-
+standable. Moreover, it helps to clarify the main stages of the model.
+Our model also has the following weaknesses:
+7.4
+Weakness
+• Some parameters, such as the asteroid’s density ρ, has few significant figures due to lack of
+information. This may decrease the accuracy of our model.
+• Some estimations we have made, such as taking the equivalent thickness of the atmosphere
+H as Hn, may be too rough, and can decrease our accuracy. (However, here, since the
+atmosphere’s possible equivalent thickness is much smaller than the Earth’s radius ME, the
+inaccuracy is well-controlled.)
+8
+Conclusion
+In this essay, we explore the scenario where we need to deploy a spacecraft to collide with a coming
+asteroid, so as to deflect it from our Earth. We first divide this process into three major stages
+to clarify our model, and discuss about the scales of important physical quantities to simplify it.
+Then, we study the three stages one by one, and acquire our result t = 14year for the parameter
+vr = 4.4 × 103m/s. Finally, we evaluate the result’s feasibility, and point out the decisive effect of
+vr on t.
+References
+[1] Rumpf, Clemens M.; Lewis, Hugh G.; Atkinson, Peter M. (2017-04-19). "Asteroid impact
+effects and their immediate hazards for human populations". Geophysical Research Letters.
+44 (8): 3433–3440.
+
+Team # 460
+Page 12 of 12
+[2] Chang, Kenneth (26 September 2022). "NASA Smashes into an Asteroid, Completing a
+Mission to Save a Future Day". The New York Times.
+[3] Batchelor, G.K. (1967). An Introduction to Fluid Dynamics. Cambridge University Press.
+ISBN 0-521-66396-2.
+[4] https://en.wikipedia.org/wiki/Density_of_air#Variation_with_altitude
+[5] https://en.wikipedia.org/wiki/Atmosphere_of_Earth
+[6] https://en.wikipedia.org/wiki/Spacecraft_propulsion
+[7] Tsiolkovsky. Exploring world spaces with jet instruments, 1903.
+[8] Britt, D. T., Yeomans, D., Housen, K.,; Consolmagno, G. (2002). Asteroid density, porosity,
+and structure. Asteroids III, 485–500. https://doi.org/10.2307/j.ctv1v7zdn4.37

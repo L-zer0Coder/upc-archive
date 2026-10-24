@@ -1,0 +1,971 @@
+ 
+1 
+ 
+Space Parachute Model Considering Rotation, 
+Superheat, and Large Acceleration 
+Problem A 
+Team：447 
+ 
+Abstract： 
+The landing process of a skydiver can be divided into three stages: falling without a par-
+achute, falling with the secondary parachute and falling with the main parachute. Based on 
+these three stages, the possible dangers to skydivers are fast rotation, high temperatures, and 
+high acceleration. To address these three questions, the atmospheric density distribution is 
+calculated first (Figure 3). On this basis, firstly, we considered one of the biggest challenges: 
+the skydiver's spin (which can occur at any altitude). According to the data and torque bal-
+ance equation (equation 5), the relationship between velocity loss and angular velocity in-
+crease is calculated. It is concluded that compared with the free fall speed, the actual angular 
+velocity of the skydiver increases by 2.2 rad/s for every 1 m/s lost, and a method to deal with 
+the spin is proposed. Secondly, just considering the dangers posed by acceleration, the sky-
+diver’s vertical motion equation is obtained (equation 14) and solved numerically (Figure 16). 
+In order to avoid the harm caused by the human body acceleration exceeding 8g in the instant 
+of opening the parachute, we adopted the way of opening the auxiliary parachute first and 
+then the main parachute and analyzed the opening process of the main parachute in detail. 
+The result shows that the maximum height that can be reached is 162.7km. Thirdly, consid-
+ering the effects of high temperatures on skydivers, the concepts of stagnation temperature 
+and stagnation point are introduced. Its temperature was calculated from the basic adiabatic 
+flow equation (equation 13). The surface temperature of the spacesuit can be expressed 
+through its temperature. Combined with the maximum temperature that a spacesuit can with-
+stand, this gives a maximum drop height of 63.78km. 
+ 
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+2 
+ 
+Contents 
+1 Introduction ...................................................................................................... 3 
+1.1 Problem Background ....................................................................................................... 3 
+1.2 Analysis of the problem ................................................................................................... 3 
+1.3 Our Work .......................................................................................................................... 4 
+2 Assumptions and Justifications ....................................................................... 4 
+3 Notations ........................................................................................................... 5 
+4 Model preparation ........................................................................................... 5 
+4.1 atmospheric density ......................................................................................................... 5 
+4.2 parachute opening process ............................................................................................... 6 
+5 Analysis of rotation dangers ............................................................................ 7 
+5.1 The Establishment of Model ............................................................................................ 7 
+6 Analysis of high-temperature danger ............................................................. 9 
+6.1 The concept of stagnation point ....................................................................................... 9 
+6.2 Calculation of stagnation point temperature .................................................................. 10 
+7 Analysis of overload and speed danger ........................................................ 11 
+7.1 Establishment of the process .......................................................................................... 11 
+7.2 Solution of the process ................................................................................................... 12 
+7.3 Conclusion ..................................................................................................................... 15 
+8 Model Evaluation and Further Discussion .................................................. 16 
+8.1 Strengths ........................................................................................................................ 16 
+8.2 Weaknesses .................................................................................................................... 17 
+References .......................................................................................................... 17 
+Appendices ......................................................................................................... 18 
+ 
+ 
+ 
+ 
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+3 
+ 
+1 Introduction 
+1.1 Problem Background 
+Eleven years ago, Austrian skydiver Felix Baumgartner reached an altitude of 37 kilo-
+meters in a specially designed hot air balloon. When the weather was right and all systems 
+were go, he jumped off the air balloon in a pressurized suit and free-fall to earth. 
+The Austrian skydiver reached a speed of 
+Mach 1.2(1,110 kilometers per hour) and fell 
+freely for four and a half minutes before opening 
+his parachute at an altitude of 5,000 feet (1,524 
+meters) to float him to the ground. It is undenia-
+ble that he successfully challenged the limits of 
+mankind. 
+Space skydiving involves a rocket ride into 
+space, so it can face problems such as overheat-
+ing, overweight, and difficulty in determining 
+the landing point. Not only that, skydivers may 
+spin around as they cross the speed of sound, which is also a major source of danger. How to 
+get this right and make space jumping possible is what scientists are currently trying to 
+achieve. 
+1.2 Analysis of the problem 
+Considering the background information and restricted conditions identified in the prob-
+lem statement, we need to solve the following problem:  
+What is the maximum altitude at which a skydiver can successfully descend to the 
+ground, given that the total mass of the jumper, space suit, and parachute is 190 kilograms. 
+ Skydiver will encounter the threats below during his descent: 
+⚫ Horizontal rotation in fall 
+Since the descending altitude has reached tens of kilometers, the skydiver will reach 
+very fast speeds. Therefore, the huge air resistance can cause the skydiver to imbal-
+ance and produce a strong self-rotation.  
+⚫ Great deceleration when opening a parachute 
+When opening the parachute, a great acceleration may be generated due to the great 
+speed. 
+⚫ Small horizontal and vertical velocities required for landing 
+When landing, there is a limit to how much weight a person's legs can carry. 
+⚫ Elevation of heat in spacesuits 
+Relative to the skydiver's incoming air is compressed instantaneously, the temperature 
+at the stagnation point rises sharply to the stagnation temperature, and the heat of the 
+suit gradually increases. 
+ 
+Figure 1 Felix Baumgartner[1] 
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+4 
+ 
+1.3 Our Work 
+ 
+ 
+Figure 2 The process of landing 
+2 Assumptions and Justifications 
+ The parachute is round 
+By far the most used parachute is still the round parachute. Compared to other parachute 
+shapes, a round parachute has the most significant deceleration effect and a wider range 
+of application conditions, in addition to its simple structure and low cost. 
+ The process of opening the parachute 
+Due to the small area of the auxiliary parachute and the high speed of the parachutist 
+when opened, it can be considered to be an instant opening. However, the main para-
+chute area is large, and the speed of the skydiver is small when it is opened, so the clos-
+ing process and inflation process need to be considered when it is opened. 
+ Performance of the space suit 
+The suit we have chosen is specific, it has a maximum temperature of 121 ℃ and a min-
+imum temperature of -156℃. There is a perfect and good cooling and heating system in-
+side the suit, so we just need to verify that the temperature of the suit is within this ran[2] 
+ The maximum load the skydiver can carry is 8G[3] 
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+5 
+ 
+3 Notations 
+The key mathematical notations used in this paper are listed in Table 1. 
+Table 1: Notations used in this paper 
+Symbol 
+Description 
+Unit 
+Z 
+geometric height 
+m 
+H 
+gravitational potential height 
+m 
+R0 
+the radius of the Earth 
+m 
+ 
+Atmospheric density at local altitude 
+Kg/m3 
+ 
+Sea level atmospheric density 
+Kg/m3 
+(CA)sk 
+The area of the parachute in the closing stage 
+m2 
+(CA)s 
+The area of the parachute in the inflation stage  
+m2 
+λm1 
+Parameters of the parachute itself 
+1 
+λm3 
+Parameters of the parachute itself 
+1 
+tm1 
+The time of the closing stage 
+s 
+tm2 
+The duration of maintenance after the closing stage 
+s 
+tm3 
+The time of the inflation stage 
+s 
+ 
+Parachute’s initial closing velocity 
+m/s 
+ 
+The velocity after the closing stage 
+m/s 
+Vx 
+Velocity along the X-axis 
+m/s 
+Vy 
+Velocity along the Y-axis 
+m/s 
+Vz 
+Velocity along the Z-axis 
+m/s 
+ωz 
+Angular velocity along the Z-axis 
+rad/s 
+Fz 
+Air resistance along the Z-axis 
+N 
+Mz 
+Moment along the Z-axis 
+N·m 
+Θx 
+Deflection angle along the X-axis 
+rad 
+Θy 
+Deflection angle along the X-axis 
+rad 
+Vlost 
+Temperature loss due to air resistance at the same altitude 
+m/s 
+Δt 
+The minimum time for the main parachute to achieve the target 
+deceleration effect during the closing stage 
+s 
+a 
+The local speed of sound 
+m/s2 
+γ 
+The ratio of isobaric heat capacity to isovolumetric heat capacity 
+1 
+T 
+The temperature of the air at rest 
+K 
+T0 
+The temperature we are looking for 
+K 
+4 Model preparation 
+4.1 atmospheric density 
+According to the formula of the standard atmospheric parameters of "Yang Bingwei", it 
+can be obtained[4]: 
+Conversion between geometric height Z and gravitational potential height H: 
+ 
+(1) 
+R0=6.356766*103km is the radius of the Earth.  
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+6 
+ 
+ 
+(2) 
+ 
+Due to the excessive number of formulas, this paper only lists the density formulas for 
+heights of 11.0191-20.0631km. 
+The image obtained is as follows: 
+ 
+Figure 3 Atmospheric density and temperature fitting image 
+In the subsequent modeling process, density and temperature of atmosphere is distributed 
+according to this image.  
+4.2 parachute opening process 
+ 
+Figure 4 The four stages of opening a parachute 
+The parachute opening process can be divided into four stages, namely: stretching stage, 
+closing stage, inflation stage, and stabilization stage. The change of parachute area can be 
+seen in the following figure： 
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+7 
+ 
+ 
+Figure 5 Area of resistance change during opening process[5] 
+(CA)sk is the area of resistance in the closing state, and (CA)s is the area of resistance in 
+the fully tensioned state.  
+tm1 is the time of the closing stage [5]: 
+ 
+(3) 
+Where, λm1 is the setting parameter, vL is the parachute’s initial closing velocity. 
+ 
+(4) 
+λm3 is the setting parameter and vDR is the velocity after the closing stage. The parachute 
+is selected with λm1 of 37.3 and λm3 of 4.42[5]. 
+5 Analysis of rotation dangers 
+5.1 The Establishment of Model  
+During landing, the skydiver controls the fluid forces acting on the body and the result-
+ing direction and speed of descent by changing the position of the body. However, changes in 
+body position also cause changes in stability. If stability is lost and the diver is caught in an 
+unstable state such as spinning, a fatal accident may occur. Centrifugal force will throw the 
+blood from the human brain, causing the eyes to be black, rotate the foot as the center, the 
+blood will quickly rush to the brain, will cause the field of vision to become red, the for-
+mation of red vision, two cases will make people fall into a coma, heavy blood backfill-ing, 
+bursting the skull.[6] 
+In this model, we relate rotational motion to vertical motion, describing the hazards that 
+can result from rotation during descent. 
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+8 
+ 
+ 
+Figure 6 Coordinate system for the landing process 
+As shown in the figure, we set the mass of the astronaut as m, the velocities and angular 
+velocities in the three directions of x y z as Vx, Vy, Vz, ωx, ωy, ωz. The forces in the three di-
+rections are set as Fx, Fy, Fz. By expressing the components of the inertia tensor and the mo-
+ments generated by the forces around the three axes in terms of I, Mx, My and Mz, respectively. 
+Cn  is the air resistance coefficient of the human body, taken as 0.865[7].The resulting equation 
+of motion[8] is： 
+ 
+(5) 
+Since Vz is much larger than Vx, Vy, we can simplify the equation for Mz as： 
+ 
+(6) 
+Because Θx and Θy are both small variable, we assume that it tends to approach 0.The 
+above formula can be simplified to： 
+(7) 
+For the same person, the static moment: 
+ and 
+ are fixed. 
+ 
+(8) 
+Suppose Θx+Θy  stay the same, then： 
+(9) 
+Further changes obtain: 
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+9 
+ 
+(10) 
+Vlost is the difference between the velocity of a free-falling body and its actual velocity in 
+the presence of air resistance. According to the query information, when jumping from the 
+height of 39km at 0.8 times the speed of sound, the body rotates 180 times per minute, name-
+ly ωz is 6
+ rad/s[9]. According to the kinetic aerodynamic model, the Vlost is 8.5 m/s. Take 
+into the equation (6) to calculate: 
+ 
+(11) 
+Analysis this formula, we can draw the final conclusion: the loss of 1 m/s landing speed 
+will increase the angular speed of 2.2 rad/s. Therefore, skydiver need to keep themselves lev-
+el at all times and be able to make adjustments in time in order to minimize their rotation. 
+To ensure safety, we can refer to Baumgartner's team, using supersonic missiles to de-
+sign an auxiliary stabilization device, a special drag parachute installed on the body of the 
+skydiver, will be opened when the accelerometer reading on the jumpsuit exceeds 3.5G for 
+six consecutive seconds, playing a stabilizing role. But overcoming the spin is more about the 
+parachutist's ability to control the air[10]. 
+6 Analysis of high-temperature danger 
+6.1 The concept of stagnation point 
+The stationary point is the point at which the relative velocity of the air to the object is 0. 
+Points A and B in the diagram are the stagnation points. 
+ 
+Figure 7 stagnation point diagram 
+The temperature at the stagnation point can be viewed as a conversion of all the kinetic 
+energy of the air into internal energy. Theoretically, this is the highest temperature that can be 
+reached on the outer surface of a spacesuit. But the heat transfer capacity of the thin atmos-
+phere is limited, and the suit must absorb enough heat to approach the temperature.  
+Assuming that half of loss energy turns into the heat that is absorbed by the spacesuit, 
+the outer surface of the spacesuit is made of polyethylene, the outer layer of the mass of 10Kg, 
+the specific heat capacity of 1.5J/(g·k), if the skydiver were in 40km, 60km, 80km at the 
+time of jumping, the heat absorbed on the outer surface of the spacesuit are 4764kJ, 5340kJ 
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+10 
+ 
+and 5857kJ respectively, the outer surface can be warmed up 317.6K, 356K, 390K, it can be 
+considered that the outer surface of the suit is close to the stationary point temperature, due to 
+the existence of convective heat transfer between the suit and the air, and the outer surface 
+temperature is not exactly equal to the stationary point temperature. When designing the 
+thermal protection capability of the capsule, engineers often take 80% of the stationary tem-
+perature as the maximum temperature of the capsule's surface. It is impossible for a spacesuit 
+to reach the same high temperature as a space capsule, and it cannot dissipate heat on a large 
+scale by radiation like a space capsule, but basically only by convection heat transfer with the 
+air, so the ratio of its outer surface temperature to the stagnation temperature is generally 
+higher than 80%. In this model we approximate the outer surface temperature of the suit to be 
+85% of the stationary point temperature. 
+6.2 Calculation of stagnation point temperature 
+To calculate the temperature at the stagnation point, we introduce the following equation. 
+Firstly, we need to calculate the local speed of sound: 
+ 
+(12) 
+a is the local speed of sound, γis the ratio of isobaric heat capacity to isovolumetric heat ca-
+pacity, R is the gas constant. 
+Thus, the velocity of the gas can be converted to Mach number. From the speed of sound we 
+can find the temperature of the stagnation point: 
+ 
+(13) 
+T is the temperature of the air at rest and T0 is the stagnation temperature. The following 
+figure illustrates the maximum surface temperature skydivers will encounter when jumping at 
+different height. 
+ 
+Figure 8 Variation of maximum surface temperature with initial height 
+From this it can be concluded that astronauts will exceed the maximum thermal 
+load(121℃[11]) when jumping at altitudes above 63.78 Km.  
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+11 
+ 
+7 Analysis of overload and speed danger 
+7.1 Establishment of the process 
+In this model, the main problem we solve is the problem of overload (acceleration) at the 
+moment of opening the parachute and speed when landing on the ground. 
+After reviewing Felix Baumgartner's skydiving case[13], we have the following statistics： 
+Table 2: Felix Baumgartner's skydiving statistics 
+Time(s) 
+Altitude(m) 
+Velocity(km/h) 
+Accident 
+0 
+38969 
+0 
+ 
+39.4 
+31676 
+1238 
+reach the speed of sound 
+49.5 
+27993 
+1356 
+Reach maximum speed 
+60.0 
+24144 
+1201 
+Maximum resistance 
+100.3 
+15505 
+502 
+ 
+255.2 
+2838 
+202 
+ 
+260.6 
+2533 
+181 
+Open the parachute. 
+Referring to this case, we design the movement process of the skydiver as the following 
+three steps (Figure 2):  
+1. 
+Non-parachute drop 
+2. 
+Open the secondary parachute 
+3. 
+Open the main parachute 
+The rationale for this process is argued below: 
+Since the total mass stated in the question is 190kg, and our assumed mass of the man 
+and spacesuit is 160kg, the parachute can only have a weight of 30kg. Since the total density 
+of the parachute is 0.2 kg/m2[12], the total area of the parachute is 150m2. After analysis, the 
+area of the main parachute is 146m2 and the area of the secondary parachute is 4m2. 
+The skydiver’s velocity change is an acceleration-deceleration process. If only consider 
+vertical acceleration does not exceed 8g, parachute can be opened before the speed rises. But 
+in reality, it can't be analyzed in this way, due to the thin air, low temperatures and risk of ro-
+tation at high altitudes. Direct opening of the parachute at high altitude is very risky, so the 
+first procedure is non-parachute drops. 
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+12 
+ 
+ 
+Figure 9 Changes in acceleration during descencending at different altitudes 
+Fig9 is the load on the skydiver if the main parachute is opened directly without opening 
+the secondary parachute. The load is at least 100G, so it is not reasonable to open the main 
+parachute directly. So, we need to open the secondary parachute before the main parachute. 
+The explanation of this figure is described below 
+7.2 Solution of the process 
+ 
+Figure 10 Air expelled in descending 
+For the descending process, the air expelled is seen as a cylinder and the equation of mo-
+tion can be obtained as follows: 
+ 
+(14) 
+s is the contact area of the spacesuit (cylinder) with the air, ρ is the density of the air, v is 
+the speed of descent without opening the parachute. C is the air drag coefficient of the para-
+chute[14]. These are the equations of motion without the parachute. Since ρ is related to h and 
+the equations of motion are nonlinear second order differential equations. So, this equation is 
+solved numerically. The state of motion during landing without parachute can be obtained: 
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+13 
+ 
+ 
+Figure 11 Movement of the skydiver before opening of the secondary parachute 
+By means of the state of motion, skydiver’s acceleration can be obtained at the moment 
+when the secondary parachute or main parachute is opened (Figure 9 Changes in acceleration 
+during descencending at different altitudes) 
+ 
+(15) 
+The secondary parachute is opened as soon as the acceleration resulting from the open-
+ing of the parachute reaches 8g. Find the speed and altitude of the skydiver when the second-
+ary parachute is opened: 
+Figure 12 Height and speed of skydivers when open the secondary parachute 
+The next thing we'll discuss is the opening time of the main parachute. 
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+14 
+ 
+Taking the point where the secondary parachute is opened as the initial point, the s of the 
+above equation becomes the area of the parachute, which is solved numerically again to ob-
+tain the motion state as follows: 
+Figure 13 Movement of the skydiver after opening of the secondary parachute 
+The opening of the main parachute cannot simply be treated as an instantaneous process. 
+Due to the action of the secondary parachute, the skydiver has descended to a lower speed. 
+Because the speed is low and the size of the main parachute is large, the process of opening 
+the parachute needs to be considered as an non-instantaneous process. To simplify the calcu-
+lation, the opening process of the main parachute is divided into the instant opening of two 
+parachutes, whose area is ssk and sc. ssk =30m2, sc=116m2. The area of the first umbrella ssk is 
+used to equate to the case where the main umbrella is partially opened during the ty time peri-
+od in Fig14, the second umbrella is used to equate to the case where the remaining part of the 
+main umbrella is fully opened during the tm3 time period in Fig14. 
+ 
+Figure 14Analysis of the main parachute opening process[5] 
+The state of motion is known. Combined with equation (15) The acceleration of main 
+parachute opening can be solved. As above, we open the parachute at a predicted acceleration 
+of 8g. But it is possible that the skydiver may have decelerated too slowly in ty time, resulting 
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+15 
+ 
+in an acceleration of more than 8g when the area reaches the sc. 
+ To rule this out, we calculated the time required as 
+, which means after 
+, if the ar-
+ea of parachute reaches the sc, acceleration is less than 8g. 
+Here is a comparison table of 
+ and tm1: 
+Table 3: Main parachute opening time  
+H 
+40km 
+50km 
+60km 
+70km 
+80km 
+90km 
+100km 
+tm1 
+6.2 
+6.5 
+6.7 
+6.8 
+6.9 
+6.98 
+7.05 
+Δt 
+1.5 
+1.43 
+1.4 
+1.37 
+1.35 
+1.33 
+1.32 
+ty>tm1>
+ 
+So, if the acceleration is lower than 8g, we can open the main parachute. 
+The motion image after opening the main parachute is: 
+Figure 15 Movement of the skydiver after opening of the main parachute 
+It can be seen that after two seconds, the speed had been greatly reduced, from 35 metres 
+per second to around 10 meters per second.  
+7.3 Conclusion 
+In the end, we get the motion curves for different starting heights of descent： 
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+16 
+ 
+Figure 16 Movement of the skydiver 
+It can be seen from the figure that different jump heights in the opening of the parachute 
+will soon converge to the same state of motion, this is because the time to open the parachute 
+is always when the acceleration on the skydiver has just dropped to 8g.At the same time, the 
+total area of the parachute is unchanged, which leads to the equilibrium speed is unchanged. 
+It is worth mentioning that the astronauts finally landed on the ground at a speed of 6.5m/s, 
+which means that the parachute to the end of the parachute has not been reduced to equilibri-
+um state of the speed. 
+So, if only the effects of high acceleration and landing speed are taken into account, it 
+will land safely at 100km and below. Risks at this point arise mainly from temperature and 
+rotation. 
+However, our calculations show that the skydiver will not be able to reach the ground 
+safely at 162.7km, due to the inability to open the secondary parachute within the permissible 
+acceleration. 
+8 Model Evaluation and Further Discussion 
+8.1 Strengths 
+1. We discuss the potential hazards that may occur to a skydiver in different stages of 
+descent, perform qualitative calculations and propose solutions accordingly. 
+2. we model the next stage by calculating the motion state of the skydiver in the previ-
+ous stage and make reasonable simplifications. 
+3. we optimize the skydiving process of the skydiver according to the current level of 
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+17 
+ 
+science and technology, and find out the maximum height of his/her permissible 
+skydiving on this basis. 
+8.2 Weaknesses 
+1. We use approximate treatment in solving the heat generation model that determines 
+the maximum height of skydiving, and do not establish the convective heat transfer 
+model between the spacesuit and the air. 
+2. We have optimized the whole skydiving process more, such as opening the parachute 
+at a state where the instantaneous acceleration of opening is 8g, which in fact will 
+make the whole skydiving task more complicated and increase the uncertainty. 
+References 
+[1] https://www.nationalgeographic.com/adventure/article/121014-felix-baumgartner-
+skydive-science-sound-barrier-joseph-kittinger-roswell 
+[2] https://wenku.baidu.com/view/f811fc6bcf7931b765ce0508763231126edb77b2.html?_w
+kts_=1699156825838&bdQuery=%E5%AE%87%E8%88%AA%E6%9C%8D%E8%80
+%90%E6%B8%A9%E5%A4%9A%E5%B0%91 
+[3] https://iask.sina.com.cn/jxwd/6fLgp3eBlzB.html 
+[4] https://wenku.baidu.com/view/2216a5f453e2524de518964bcf84b9d528ea2c67.html?_w
+kts_=1699086269491&bdQuery=%E6%9D%A8%E7%82%B3%E5%B0%89%E6%8F
+%90%E5%87%BA%E7%9A%840%7E91km%E8%8C%83%E5%9B%B4%E7%9A%8
+4%E5%88%86%E6%AE%B5%E5%85%AC%E5%BC%8F 
+[5] JIA Huaming, WANG Wenqiang, LIU Naibin et al. Research on parachute opening pro-
+cess based on parachute multibody dynamics[J]. Manned Spaceflight, 2023, 29(01):36-
+42. 
+[6] https://baijiahao.baidu.com/s?id=1719646196713616804&wfr=spider&for=pc 
+[7] https://zhidao.baidu.com/question/594328140691298605.html 
+[8] Motomu NAKASHIMA[1)] and Ayako AOYAMA[1)].Investigation of Stability in Sky-
+diving by the Derivation of State Equation for Body Behavior and Root Analy-
+sis[J].Journal of Fluid Science and Technology,2011,Vol.6(2): 264-278 
+[9] Feng Yang.39,000 metres skydive[J]. Big Science and Technology (Encyclopedia of 
+New Sayings),2015(07):52-55. 
+[10] Qiu Ling. Unveiling the secret of supersonic skydiving in space[J]. Science and Cul-
+ture,2012(11):4-6. 
+[11] https://wenku.baidu.com/view/f811fc6bcf7931b765ce0508763231126edb77b2.html?_w
+kts_=1699156825838&bdQuery=%E5%AE%87%E8%88%AA%E6%9C%8D%E8%80
+%90%E6%B8%A9%E5%A4%9A%E5%B0%91 
+[12] HUANG Mingxing,GAO Shuyi,WANG Liwu et al. Analysis and experimental study on 
+the material properties of the parachute of "Tianwen-1"[J]. Journal of Deep Space Explo-
+ration,2021,8(05):478-485. 
+[13] Chen Dongxiao. An example of physics investigation based on a real problem--an analy-
+sis of the mechanics of Baumgartner's space parachute jump[J]. Hunan Secondary 
+School Physics,2014,29(06):53-54+8. 
+[14] https://www.zhihu.com/tardis/bd/ans/1078052174 
+ 
+ 
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+18 
+ 
+Appendices 
+Appendix 1 
+Introduce: Yang Bing wei atmospheric density temperature fitting curve code 
+ 
+g=9.80665;rousl=1.225;%kg/m³ 
+R0=6.356766*1e6; 
+h1=0:0.01:11.0191;H1=h1./(1+h1/R0); 
+h2=11.0191:0.01:20.0631;H2=h2./(1+h2/R0); 
+h3=20.0631:0.01:32.1619;H3=h3./(1+h3/R0); 
+h4=32.1619:0.01:47.3501;H4=h4./(1+h4/R0); 
+h5=47.3501:0.01:51.4125;H5=h5./(1+h5/R0); 
+h6=51.4125:0.01:71.8020;H6=h6./(1+h6/R0); 
+h7=71.8020:0.01:85.9999;H7=h7./(1+h7/R0); 
+h8=85.9999:0.01:120;H8=h8./(1+h8/R0); 
+W1=1-H1/44.3308;rou1=W1.^4.2559*rousl;T1=288.15*W1; 
+W2=exp((14.9647-H2)/6.3416);rou2=0.15898*rousl*W2;T2=216.65*ones(1,size(h2,2)); 
+W3=1+(H3-24.9021)/221.552;rou3=0.032722*rousl*W3.^(-35.1629);T3=221.552*W3; 
+W4=1+(H4-39.7499)/89.4107;rou4=3.2618*(1e-3)*W4.^(-
+13.2011)*rousl;T4=250.35*W4; 
+W5=exp((48.6252-H5)/7.9223);rou5=9.492*(1e-
+4)*W5*rousl;T5=270.65*ones(1,size(h5,2)); 
+W6=1-(H6-59.439)/88.2218;rou6=2.528*(1e-4)*W6.^11.2011*rousl;T6=247.021*W6; 
+W7=1-(H7-78.0303)/100.295;rou7=1.7632*(1e-5)*W7.^16.0816*rousl;T7=200.59*W7; 
+W8=exp((87.2848-H8)/5.47);rou8=3.6411*(1e-6)*W8;T8=186.87*ones(1,size(h8,2)); 
+rou=[rou1,rou2,rou3,rou4,rou5,rou6,rou7,rou8]; 
+h=[h1,h2,h3,h4,h5,h6,h7,h8]; 
+T=[T1,T2,T3,T4,T5,T6,T7,T8]; 
+plot(h,rou) 
+ylabel('Atmospheric density(kg/m³)') 
+yyaxis('right'); 
+plot(h,T) 
+ylabel('Atmospheric temperature(K)') 
+xlabel('Height(km)'); 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Team 447 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+         UPC2023 
+19 
+ 
+Appendix 2 
+Introduce: Code for calculating differential equations of motion 
+clear;clc 
+for h0=60000 
+m=190; 
+G=6.67*1e-11; 
+M=5.965*1e24; 
+R0=6.356766*1e6; 
+global S1;global S2;global S3;global C1; 
+S1=4;S2=30;S3=116;C1=1; 
+y0=[h0,0]; 
+opts1=odeset('Events',@Myevents); 
+[t,y,ti,yi,ki]=ode45(@(t,y) funluo(t,y),[0,400],y0,opts1); 
+if ki==2 || ki==3 
+break 
+end 
+y10=[yi(1),yi(2)]; 
+opts2=odeset('Events',@Myevents1); 
+[t1,y1,ti1,yi1,ki1]=ode45(@(t1,y1) funluo1(t1,y1),[ti,ti+500],y10,opts2); 
+if ki1==2 
+break 
+end 
+opts3=odeset('Events',@Myevents2); 
+y20=[yi1(1),yi1(2)]; 
+[t2,y2,ti2,yi2,ki2]=ode45(@(t2,y2) funluo2(t2,y2),[ti1,ti1+1400],y20,opts3); 
+if ki2==2 
+break 
+end 
+opts4=odeset('Events',@Myevents3); 
+y30=[yi2(1),yi2(2)]; 
+[t3,y3,ti3,yi3,ki3]=ode45(@(t3,y3) funluo3(t3,y3),[ti2,ti2+3000],y30,opts4); 
+end 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

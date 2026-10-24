@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2014 题A：环双星行星（Circumbinary Planets） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg:#0a0f1e;--panel:#111a2e;--ink:#e8eef8;--mut:#94a5c0;--line:#22304c;--acc:#4f7dd9;--acc2:#39c2b0;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
+ font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar a:hover{border-color:var(--acc);color:#fff}
+.crumb{color:var(--mut);font-size:13px}
+.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
+h3{font-size:17px;color:#cfe0ff}
+a{color:#7fb0ff} a:hover{text-decoration:underline}
+code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
+pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1em 0;padding:8px 16px;border-left:4px solid var(--acc2);background:rgba(57,194,176,.07);color:#c9d6ea;border-radius:0 10px 10px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#16233c;color:#a9bcda;white-space:nowrap}
+tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
+@media(max-width:700px){.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a href="../../index.html">🏆 总览首页</a>
+  <span class="crumb">07_题目解读</span>
+  <span style="flex:1"></span>
+  
+  <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2014_%E9%A2%98A_%E7%8E%AF%E5%8F%8C%E6%98%9F%E8%A1%8C%E6%98%9F.md">原文 .md</a>
+</div></div>
+<div class="wrap"><div class="card">
+<h1 id="2014-acircumbinary-planets">2014 题A：环双星行星（Circumbinary Planets）</h1>
+<blockquote>
+<p>赛题来源：UPC 2014 Problem A（131 队中 93 队选题 A，金奖 1 队：Jacobs University Bremen 726 队）</p>
+</blockquote>
+<h2 id="1">1. 题目原文与关键数据</h2>
+<p><strong>原文压缩引用</strong>：</p>
+<blockquote>
+<p>Consider two stars, one with 50% of the mass of our Sun and one equal in mass to our Sun. This binary star system has an orbital period of 30 Earth days. <strong>Where could a planet have a stable orbit in this system? Describe the possible stable planetary orbits.</strong></p>
+</blockquote>
+<p><strong>中文翻译</strong>：两颗恒星，一为太阳质量的 50%，一与太阳等质量；双星轨道周期为 30 个地球日。<strong>行星在此系统中何处可能拥有稳定轨道？请描述可能的稳定行星轨道。</strong></p>
+<p><strong>题面给定参数表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>数值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主星质量 $M_1$</td>
+<td>$1.0\,M_\odot$</td>
+<td>主序星，半径 $\approx1\,R_\odot$</td>
+</tr>
+<tr>
+<td>伴星质量 $M_2$</td>
+<td>$0.5\,M_\odot$</td>
+<td>主序星，半径 $\approx0.45\,R_\odot$</td>
+</tr>
+<tr>
+<td>双星周期 $T_{bin}$</td>
+<td>30 天</td>
+<td>题面唯一动力学数据，定标间距的钥匙</td>
+</tr>
+<tr>
+<td>双星偏心率 $\varepsilon$</td>
+<td><strong>未给定</strong></td>
+<td>隐藏自由度，金奖论文扫了 0 / 0.4 / 0.6</td>
+</tr>
+<tr>
+<td>行星质量与初条件</td>
+<td><strong>未给定</strong></td>
+<td>"Where could" 要求给相空间区域而非单点</td>
+</tr>
+</tbody>
+</table>
+<p>由开普勒第三定律反推（本解读独立计算）：$a_{bin}=\left[\dfrac{G(M_1+M_2)T_{bin}^2}{4\pi^2}\right]^{1/3}=0.216\ {\rm AU}\approx46.5\,R_\odot$；两星到质心距离 $a_1=\frac{M_2}{M_1+M_2}a_{bin}=0.072$ AU（15.5 $R_\odot$）、$a_2=0.144$ AU（31 $R_\odot$）。间距 46.5 $R_\odot$ 远大于两星半径之和，是分离双星——行星活动空间完全敞开。</p>
+<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<p>本题是典型的"零判据开放题"，三个模糊词必须先操作化：</p>
+<ol>
+<li><strong>"stable" 怎么编码</strong>：三体问题无解析解，"稳定"必须写成可判定的数值判据。建议三要素：(i) 能量束缚——行星相对双星的能量 $\frac12\dot r^2-\frac{GM_1}{|\vec r-\vec r_1(t)|}-\frac{GM_2}{|\vec r-\vec r_2(t)|}&lt;0$；(ii) 生存——从未进入恒星表面（处理 $r\to0$ 奇点）；(iii) 时长——积分多久才算数（10 年远远不够，见第 5 节反例）。</li>
+<li><strong>"Where could" 的答案形态</strong>：不是一条圆轨道，而是 $(r_0,v_0)$ 二维初值平面上的稳定带状区域（椭圆轨道也算），且带边要有物理解释。此外题目没有限定绕双星：<strong>绕双星的 P 型轨道与绕单星的 S 型轨道</strong>两类拓扑都应覆盖——绝大多数队伍只答了前者。</li>
+<li><strong>"Describe the possible orbits"</strong>：描述 = 稳定带 + 边界成因（上界是逃逸速度曲线、下界是共振与撞星）+ 隐藏参数（偏心率）的敏感性 + 可选的宜居带闭环。</li>
+</ol>
+<h2 id="3">3. 物理建模路线图</h2>
+<p><strong>层次 1：双星解析骨架</strong>。开普勒第三定律 $T_{bin}^2=4\pi^2a_{bin}^3/[G(M_1+M_2)]$ 定间距；质心加权分配 $a_1,a_2$；圆轨道参数化 $\vec r_i(t)=a_i(\cos\omega t,\sin\omega t)$，偏心轨道加 $\sqrt{1-\varepsilon^2}$ 压缩与质心回位修正。此层产出随时间运动的"引力源坐标"。</p>
+<p><strong>层次 2：受限三体数值实验</strong>。行星取 test particle：$\ddot{\vec r}=-GM_1\dfrac{\vec r-\vec r_1(t)}{|\vec r-\vec r_1|^3}-GM_2\dfrac{\vec r-\vec r_2(t)}{|\vec r-\vec r_2|^3}$；在 $(r_0,v_0)$ 平面栅格化扫参，按第 2 节判据标稳定/不稳定。</p>
+<p><strong>层次 3：可选扩展</strong>。双星偏心率扫描；S 型稳定窗口（与 Holman–Wiegert 经验式对照）；宜居带闭环——质光关系 $L\propto M^4$ 给总光度 $1+0.5^4\approx1.06\,L_\odot$，宜居带约 1.05–1.36 AU，检查其是否落在稳定带内。</p>
+<pre><code class="language-mermaid">flowchart TD
+    A[&quot;题面：1 + 0.5 M☉，T = 30 d&quot;] --&gt; B[&quot;Kepler III 定标 a_bin = 0.216 AU = 46.5 R☉&quot;]
+    B --&gt; C[&quot;层次1 双星骨架：质心轨道参数化（圆 / 偏心）&quot;]
+    C --&gt; D[&quot;层次2 受限三体：行星受双星时变引力场&quot;]
+    D --&gt; E[&quot;判据编码：E &lt; 0 且不入恒星表面 且积分 N 年&quot;]
+    E --&gt; F[&quot;短时长全扫：(r0 × v0) 栅格 10 年&quot;]
+    F --&gt; G[&quot;缩域长扫：1000 年复核边界&quot;]
+    G --&gt; H[&quot;解析对照：上界 = 逃逸速度曲线；下界 = 共振 / 撞星&quot;]
+    H --&gt; I[&quot;P 型稳定带（ε = 0 / 0.4 / 0.6 对比）&quot;]
+    D --&gt; J[&quot;S 型窗口：绕主星 &lt; 0.073 AU；绕伴星 &lt; 0.046 AU&quot;]
+    I --&gt; K[&quot;闭环：宜居带 1.05–1.36 AU 是否 ⊂ 稳定带&quot;]
+    J --&gt; K
+</code></pre>
+<h2 id="4">4. 关键物理效应量级表</h2>
+<table>
+<thead>
+<tr>
+<th>效应</th>
+<th>估算量级</th>
+<th>是否必须建模</th>
+<th>估算依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>双星间距定标</td>
+<td>$a_{bin}=0.216$ AU $=46.5\,R_\odot$</td>
+<td>必须（第一步）</td>
+<td>开普勒 III，30 天代入 $GM=1.99\times10^{20}$ m³/s²</td>
+</tr>
+<tr>
+<td>双星场偏离点质量</td>
+<td>$(a_{bin}/r)^2$：0.6 AU 处 13%、1 AU 处 4.7%</td>
+<td>必须（两星分别算，这正是题眼）</td>
+<td>四极展开第二项</td>
+</tr>
+<tr>
+<td>P 型稳定下界</td>
+<td>$\varepsilon=0$ 时 $\approx0.52$ AU（金奖数值扫描 $\approx0.6$ AU）</td>
+<td>必须</td>
+<td>Holman–Wiegert 式 $a_c/a_b=1.60+4.12\mu-5.09\mu^2$，$\mu=1/3$</td>
+</tr>
+<tr>
+<td>偏心率敏感性</td>
+<td>$\varepsilon=0.4\to0.78$ AU；$\varepsilon=0.6\to0.86$ AU</td>
+<td>建议扫描</td>
+<td>同式全项代入</td>
+</tr>
+<tr>
+<td>S 型窗口</td>
+<td>绕主星 $a\lesssim0.073$ AU、绕伴星 $a\lesssim0.046$ AU</td>
+<td>应含（最常漏的半边题）</td>
+<td>HW S 型式 $0.464-0.380\mu$，$\mu=1/3$ 与 $2/3$</td>
+</tr>
+<tr>
+<td>逃逸速度上界</td>
+<td>0.6 AU 处 $v_{esc}\approx14.0$ AU/yr，$v_{circ}\approx9.9$ AU/yr</td>
+<td>必须（稳定带上界的解析对照）</td>
+<td>$\sqrt{2GM_{tot}/r}$ 点质量近似</td>
+</tr>
+<tr>
+<td>与双星共振</td>
+<td>边界 0.52 AU $\approx2.4\,a_{bin}$，紧贴 4:1 外共振（$T_p=120$ d → 0.55 AU）内侧</td>
+<td>讨论（解释边界成因）</td>
+<td>$T_p=4T_{bin}$ 换算半长轴</td>
+</tr>
+<tr>
+<td>test particle 假设</td>
+<td>木星质量行星 $GM_p/GM_{bin}\approx6\times10^{-4}$</td>
+<td>陆地行星可忽略，需书面声明</td>
+<td>质量比</td>
+</tr>
+<tr>
+<td>相对论进动</td>
+<td>$4.6\times10^{-7}$ rad/圈（0.6 AU）</td>
+<td>不需要</td>
+<td>$6\pi GM/[c^2a(1-e^2)]$</td>
+</tr>
+<tr>
+<td>积分时长 vs 混沌泄漏</td>
+<td>10 年仅 ~122 个双星周期；边缘轨道扩散需 $10^3$–$10^4$ 圈</td>
+<td>必须（1000 年量级）</td>
+<td>金奖反例：10 年判稳、326 年坠星</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5">5. 求解算法与数值要点</h2>
+<ul>
+<li><strong>两级扫参</strong>：短时长全扫（如 50 个半径 × 150 个初速，积分 10 年）→ 把稳定域缩窗后做 1000 年长积分复核边界。算力与结论强度兼得。</li>
+<li><strong>积分器</strong>：自适应 RK45 或辛积分器（leapfrog 能量长期漂移小）；步长 $\le T_{bin}/100\approx7$ 小时；全程监测能量相对漂移。</li>
+<li><strong>解析先行框窗口</strong>：以 $v_{circ}(r)=\sqrt{GM_{tot}/r}$ 为初速中心、$v_{esc}=\sqrt2\,v_{circ}$ 为上界撒点，避免盲目扫描；扫完后稳定带上边界应与逃逸速度曲线重合——这是最强的自检。</li>
+<li><strong>撞星处理</strong>：事件停止（$r&lt;R_\star$ 即判死）或金奖的 sigmoid 排斥场连续化，切勿让 $1/r^2$ 奇点炸掉积分器。</li>
+<li><strong>验证</strong>：负对照——把双星退化为单点质量应复现开普勒椭圆；反例搜索——对边缘"稳定"样本加长积分抓晚期坠星。</li>
+</ul>
+<h2 id="6">6. 常见错误与陷阱</h2>
+<ol>
+<li><strong>不定标 $a_{bin}$</strong>：不用 30 天反推 0.216 AU 就开始撒点，全部结论失去锚点。</li>
+<li><strong>只扫半径不扫初速</strong>：稳定区是 $(r_0,v_0)$ 二维带，上边界是逃逸速度曲线；只报一个"最小稳定半径"丢掉一半信息。</li>
+<li><strong>把"10 年不发散"当稳定</strong>：边缘轨道可晚至数百年才坠星，必须做时长递进并承认判据的时长敏感性。</li>
+<li><strong>判据漏"不撞星"或撞星奇点未处理</strong>：$E&lt;0$ 但穿入恒星内部的"束缚"轨迹必须排除。</li>
+<li><strong>只答 P 型</strong>：绕单星 S 型窗口（0.05–0.07 AU 量级）是题目复数表述明示的另一半答案。</li>
+<li><strong>宜居带与稳定性两张皮</strong>：算出宜居带却不检查其是否落在稳定带内，闭环断裂、白送的分不要。</li>
+</ol>
+<h2 id="7">7. 全网参考与延伸</h2>
+<ol>
+<li><strong>Holman &amp; Wiegert 1999</strong>（<a href="http://ui.adsabs.harvard.edu/abs/1999AJ....117..621H/abstract">ADS</a>）——环双星（P 型）与绕单星（S 型）临界稳定半径的经典经验公式，是给自主数值扫描"对答案"的基准线。</li>
+<li><strong>Kepler-16 系统</strong>（<a href="https://en.wikipedia.org/wiki/Kepler-16">Wikipedia</a>、<a href="https://science.nasa.gov/exoplanet-catalog/kepler-16b">NASA 系外行星目录</a>）——首个真实环双星行星：0.69+0.20 $M_\odot$、双星周期 41 天、行星在 0.704 AU，恰好压在 HW 判据（0.645 AU）之外——说明本题 0.5–0.6 AU 量级的答案与真实宇宙自洽，写进论文极有说服力。</li>
+<li><strong>Lam &amp; Kipping 2018</strong>（<a href="https://academic.oup.com/mnras/article/476/4/5692/4795319">MNRAS</a>）——用深度神经网络拟合环双星稳定边界，可作"经验判据 vs 自主数值实验"的方法论对照。</li>
+</ol>
+<h2 id="8">8. 金奖论文思路对比</h2>
+<p>本题金奖唯一一队（Jacobs University Bremen 726 队，25 页）：开普勒 III 定 $a_{bin}$ → $(r_0,v_0)$ 相空间 50×150 扫参、Mathematica NDSolve 积分 10 年 → 缩域积分 1000 年 → 判据"能量束缚 + 不入恒星半径"（附录用 sigmoid 排斥场把撞星连续化）→ 给出 $\varepsilon=0/0.4/0.6$ 三组稳定带，最小稳定半径约 0.6 AU → 附加宜居带分析（$L\propto M^4$、通量判据 1.05–1.36 AU，落在稳定带内闭环）。最大亮点是"短全扫 + 长缩域"的两级实验设计，以及图 15 主动展示"10 年判稳、326 年坠星"的反例——把判据的时长敏感性自己捅破，评委最吃这一套。详细拆解见 <code>05_论文赏析\2014\2014-GM-A-726.md</code>。</p>
+<h2 id="9">9. 评分要点：评委想看什么</h2>
+<ul>
+<li>[ ] 用 30 天周期定标 $a_{bin}$，并画出双星几何（$a_1,a_2$、分离系统判定）。</li>
+<li>[ ] "稳定"判据书面化、可编码：束缚 + 不撞星 + 积分时长三要素缺一不可。</li>
+<li>[ ] 二维相空间扫描图 + 与解析边界（逃逸速度曲线）的对照解释。</li>
+<li>[ ] 多时长递进验证，最好主动展示边缘轨道反例。</li>
+<li>[ ] 对题面未给的偏心率 $\varepsilon$ 做显式声明与敏感性扫描。</li>
+<li>[ ] 超出最低要求的闭环层：S 型窗口或"宜居带 ∩ 稳定带"。</li>
+</ul>
+</div></div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,572 @@
+Team 352
+1
+Space Tower Launch Costs
+Team Number 352
+Problem A
+Abstract
+We determine the eﬀects of changing launch altitude on the total cost of launching
+a 10,000 kg payload on a traditional rocket into low-earth orbit from an from an
+arbitrarily high tower. We address two aspects of this problem: vertical atmospheric
+launch and space-based launch tangent to Earth’s surface.
+In the former case, we
+simulate the atmospheric ﬂight of a representative two-stage medium-launch rocket
+based on SpaceX’s Falcon 9 on the way to a circular orbit with an altitude of 300 km,
+and we compute the savings in ∆v as a function of launch height. In the latter case,
+we compute the requisite fuel mass to take the 10,000 kg payload from the tower to a
+Hohmann transfer orbit terminating in a circular orbit at an altitude of 300 km. In both
+cases, we also compute the cost of lifting the space vehicle to various launch heights.
+We conclude that because the space-based launcher, with a tower height between 100
+and 300 km, has a mass and ∆v much lower than the atmospheric rocket, its elevation
+costs and ∆v savings add up to a monetary cost considerably less than the atmospheric
+launcher. Assuming total mission cost is proportional to the mass of the launcher and
+elevation costs are negligible, at a payload launch cost of $15,000/kg we estimate that
+the cost of launching a rocket from a tower above 100 km is only about $19 million, or
+about $1,900 per kilogram of payload.
+
+Team 352
+2
+1
+Interpretation of Problem A
+Our goal is to determine the total cost of sending a 10,000 kg payload on a traditional
+rocket into a low-Earth orbit (LEO) by launching from towers of diﬀering heights.
+To
+compare these costs, we must design the launch the rocket will take to achieve its ﬁnal orbit
+and calculate the amount of fuel required to carry out such a procedure as a function of
+launch height. We must then estimate total cost of launching the 10,000 kg payload into
+a given low Earth orbit as a function of launch height. We will use the reference cost of
+($15, 000/kg) × (10, 000 kg) = $1.5 × 108 to send a 10,000 kg payload into LEO.
+2
+Assumptions
+First, we take our target LEO to be a circular orbit 300 km above Earth’s surface [5].
+The construction of actual rockets is complex and beyond the scope of this analysis, so we
+chose to base our model on SpaceX’s Falcon 9 (described in [2]), a representative two-stage
+medium-lift rocket capable of transporting the requisite 10,000 kg payload to LEO. We name
+our ﬁctitious spacecraft Falcon 9 Surrogate.
+See Table 1 for the characteristics we chose for Falcon 9 Surrogate. The table includes
+the frontal cross-sectional area Af, the drag coeﬃcient CD, the mass of the payload mp from
+the problem statement, the mass of stage 1 of the rocket when empty m(1)
+e
+and when full of
+fuel m(1)
+f , and the mass of stage 2 of the rocket when empty m(2)
+e
+and when full of fuel m(2)
+f .
+We also assume the World Geodetic System WGS84 values in [7] for such constants as
+Earth’s radius, RE = 6378 km, the Earth’s angular velocity, ΩE = 7.29 × 10−5 rad/s, and
+the product of the gravitational constant and Earth’s mass, which we denote as µ = GM =
+3.986 × 105 km3/s2. In addition we assume that atmospheric density around Earth at a
+Figure 1: Photograph of the Falcon 9 during liftoﬀ.
+
+Team 352
+3
+Af (m2)
+CD
+mp
+m(1)
+e
+m(1)
+f
+m(2)
+e
+m(2)
+f
+π(2.3)2
+0.3
+10,000 kg
+20,000 kg
+342,859 kg
+3000 kg
+54,000 kg
+Table 1: Speciﬁcations of our ﬁctional spacecraft, the Falcon 9 Surrogate.
+radius r from Earth’s center is approximately
+ρ = ρ0 exp
+r −RE
+H
+
+,
+(1)
+where we use H = 8 km as the approximate scale height of Earth’s atmosphere (referring to
+[7]) and ρ0 = 1.225 kg/m3 as the atmospheric density at sea level [1]. Furthermore, when
+we consider the equations of motion for the Falcon 9 Surrogate during launch, we will only
+consider the atmospheric drag eﬀects when the rocket is below the K`arm`an line at 100 km
+above Earth’s surface [4]. This marks the end of the “sensible atmosphere” for our purposes,
+because drag forces are negligible beyond this line. To work this assumption into our code
+later on, we will alter our formula for ρ from the one in equation (1) to
+ρ = ρ0 exp
+r −RE
+H
+
+× Θ(h),
+where Θ(h) is the step function
+Θ(h) =
+(
+1
+if h ≤100 km,
+0
+if h > 100 km.
+3
+Launch Mechanics
+Since we launch the Falcon 9 Surrogate at the equator, we can restrict our attention to the
+plane that contains the trajectory of the rocket. Working in two spatial dimensions, we
+describe the location of the rocket using polar coordinates r, θ where r measures distance
+from the center of Earth and θ is the azimuthal angle, increasing eastwardly. We will also use
+the unit vectors ˆr, ˆθ which point in the directions of increasing r, θ respectively. Throughout
+our analysis of the rocket’s launch trajectory, we let v denote its speed.
+3.1
+External Forces
+During its launch, several forces act on the Falcon 9 Surrogate. First, gravity pulls the rocket
+towards the center of the Earth with ([3])⃗
+Fg = −µ m
+r2 ˆr.
+(2)
+Here, m varies with time since the Falcon 9 Surrogate expels fuel during the launch, and is
+given by
+m(t) = m0 +
+Z t
+0
+˙m dt,
+(3)
+
+Team 352
+4
+where m0 is the total initial mass of the rocket including all its fuel and ˙m is the rate at
+which this total mass changes. Note that ˙m is negative, since total mass decreases as fuel is
+expelled.
+In addition, at relatively low altitudes the Falcon 9 Surrogate experiences considerable
+drag. The drag forces are proportional to square of the velocity of the rocket with respect
+to the atmosphere. We assume the atmosphere rotates with the angular velocity of Earth,
+ΩE, so we calculate the relative velocity of the rocket with respect to the atmosphere as⃗
+vrel = vr ˆr + (vθ −r ΩE) ˆθ,
+(4)
+where vr, vθ are the polar components of the velocity of the rocket. Then the drag force is
+given by⃗
+D = −1
+2ρ(r)AfCDv2
+rel ˆvrel,
+(5)
+where ˆvrel is the unit vector in the direction of⃗vrel [3].
+Furthermore, while the Falcon 9 Surrogate expels fuel, it creates a thrust force parallel to
+the body of the rocket. Now, while the rocket travels through the atmosphere, its orientation
+changes. We let α denote the angle between ˆr and a unit vector pointing along the body
+of the rocket, letting α take a positive value if the rocket has rotated counterclockwise with
+respect to ˆr. Thus, the thrust force⃗T is given by the so-called “rocket equation,”⃗
+T = −ve ˙m(cos α ˆr + sin α ˆθ),
+(6)
+where ve is the velocity of the exhaust relative to the rocket [3]. From equation (6) we can
+calculate the change in speed of a rocket when the only force it experiences is thrust. In that
+case the total external force is⃗T, so change in speed can be found by integrating m˙v = T.
+From the time fuel begins burning until the engine cuts oﬀ
+∆v = ve ln
+ mi
+mf
+
+,
+(7)
+where mi is the total mass of the rocket and fuel and mf is mi minus the mass of the fuel
+burned.
+Moreover, during the ﬂight, if α is nonzero and if the Falcon 9 Surrogate is not pro-
+grammed to keep α constant, then gravity will cause the spacecraft to rotate with ([3])
+˙α = µ sin α
+vr2
+.
+(8)
+This is know as a “gravity turn.”
+3.2
+Equations of Motion
+We will consider several regimes of the launch trajectory. While the Falcon 9 Surrogate is
+below the K`arm`an line with fuel burning, we include the drag and thrust forces to obtain
+the equation of motion,
+m¨⃗r =⃗Fg +⃗D +⃗T,
+(9)
+
+Team 352
+5
+which gives
+¨r = −µ m
+r2 −1
+2 ρ(r) Af CD vrel vr −ve ˙m cos α,
+r¨θ = −1
+2 ρ(r) Af CD vrel (vθ −ΩEr) −ve ˙m sin α.
+If the spacecraft has exited the sensible atmosphere and continues to burn fuel, we dis-
+regard⃗D to obtain the equation
+m¨⃗r =⃗Fg +⃗T,
+(10)
+or
+¨r = −µ m
+r2 −ve ˙m cos α,
+r¨θ = −ve ˙m sin α.
+Above the K`arm`an line, once the rocket engines cut oﬀ,⃗T vanishes and our equation of
+motion reduces to
+m¨⃗r =⃗Fg.
+(11)
+3.3
+Free Fall
+When its behavior is dictated by equation (11), our spacecraft is in free fall and will take
+part in a closed elliptical orbit (since it will never reach escape velocity). In such an orbit,
+we can write the energy of Falcon 9 Surrogate it two ways,
+E = mv2
+2
+−µm
+r
+= −µm
+2a ,
+where a is the semi-major axis of the ellipse [3]. This gives an equation for the spacecraft’s
+speed,
+v =
+s
+µ
+2
+r −1
+a
+
+.
+(12)
+As the rocket orbits Earth, the center of Earth will coincide with one of the foci of the orbit
+ellipse. When the spacecraft has a given energy E and angular momentum L, the eccentricity
+of the orbit ellipse is given by
+e =
+s
+1 + 2EL2
+µ2m3 .
+The apogee ra of the orbit is the distance from Earth’s center to the farthest point on the
+orbit ellipse and is given by
+ra = (1 + e) a,
+(13)
+a function of E and L. When the Falcon 9 Surrogate reaches the apogee of its orbit, it’s
+altitude is given by h = ra −RE.
+
+Team 352
+6
+3.4
+Hohmann Transfer
+Later in the analysis, we will need a method to transfer Falcon 9 Surrogate from one circular
+orbit to another with larger radius. We will use something similar to a “Hohmann transfer.”
+In a Hohmann transfer an instantaneous boost is ﬁred at one point of the initial circular orbit
+with ∆v1 so that the rocket enters an elliptical orbit that will tangentially intersect the target
+circular orbit after one half-period. At the point of intersection, a second instantaneous boost
+is ﬁred with ∆v2 such that the spacecraft enters desired orbit. According to [3], the ∆v’s
+required for this are given by
+∆v1 =
+r µ
+ri
+ s
+2rf
+ri + rf
+−1
+!
+,
+(14)
+∆v2 =
+r µ
+2f
+ 
+1 −
+s
+2ri
+ri + rf
+!
+,
+(15)
+where ri and rf are the radii of the initial and ﬁnal circular orbits of the rocket.
+4
+Launch Design
+We consider two regimes of tower heights and design a distinct launch strategy for each of
+them. First we consider towers that do not extend above the K`arm`an line, and next we
+consider the case of a tower that climbs outside the sensible atmosphere.
+4.1
+Launching from Below the K`arm`an Line
+We design the trajectory Falcon 9 Surrogate will take during each of its two fuel-burning
+stages.
+4.1.1
+Stage 1
+In Stage 1, we burn with ˙m ≈720 kg/s and ve ≈4020 m/s to achieve a thrust of magnitude
+T ≈2890 kN.
+We begin with a vertical liftoﬀfor the ﬁrst ten seconds of ﬂight. During this period, the
+motion of the rocket is dictated by equation (9) with α held at 0.
+At t = 10 s, the spacecraft begins a programmed turn. Since the rocket is still below the
+K`arm`an line during this phase, the trajectory is determined again by equation (9), but here
+α changes at the prescribed rate of ˙α = 0.5◦/s. This continues until α = 8.5◦.
+At that point, we allow the Falcon 9 Surrogate to undergo a gravity turn during which
+˙α is given by equation (8). Before the rocket exits the sensible atmosphere, its motion is
+dictated by equation (9); however, when r −RE exceeds 100 km, we must use equation (10)
+to determine the spacecraft’s motion.
+
+Team 352
+7
+4.1.2
+Between Stages
+The rocket continues to burn fuel above the K`arm`an line until it attains an energy and an
+angular momentum suﬃcient for an elliptical orbit with apogee equal to the target orbit
+radius. That is, the engines cut oﬀwhen E and L are such that ra in equation (13) exceeds
+300 km. At this point the spacecraft free falls in an elliptical orbit, obeying equation (11).
+When Falcon 9 Surrogate reaches the apogee of this orbit, we burn fuel once more, and Stage
+2 begins.
+4.1.3
+Stage 2
+In Stage 2, we burn with ˙m ≈24.3 kg/s and ve ≈4530 m/s to achieve a thrust of magnitude
+T ≈110 kN. This thrust is directed along ˆθ.
+To simplify calculations, we assume that
+Stage 2 occurs as an impulsive burn, neglecting the duration of time during which it takes
+place. At this step, enough fuel must be exhausted to impart to the rocket the ∆v required
+to transfer from its elliptical orbit to the target circular orbit. We calculate the necessary
+∆v from equation (12). When Falcon 9 Surrogate reaches the apogee of its elliptical orbit,
+r = ra, so its speed is given by
+vi =
+s
+µ
+ 2
+ra
+−1
+a
+
+.
+(16)
+In order to transfer to a circular orbit of radius ra, the spacecraft should be moving with
+speed
+vf =
+s
+µ
+ 2
+ra
+−1
+ra
+
+=
+r µ
+ra
+.
+(17)
+Subtracting equation (16) from (17) gives the requirement
+∆v = vf −vi =
+r µ
+ra
+−
+s
+µ
+ 2
+ra
+−1
+a
+
+.
+4.2
+Launching from Above the K`arm`an Line
+When launching Falcon 9 Surrogate from an altitude h outside the sensible atmosphere, we
+use a diﬀerent technique to get the rocket into its target orbit. Since we no longer need to
+consider drag at this stage, we choose a horizontal launch, with liftoﬀtangent to Earth’s
+surface. Before liftoﬀ, our spacecraft is traveling in a circular path around Earth’s center at
+a speed (RE + h)ΩE. We will mimic a Hohmann transfer, ﬁrst boosting with ∆v1 to enter
+an elliptical orbit that will tangentially intersect the desired circular orbit at altitude 300
+km after one half-period, and second boosting with ∆v2 when the intersections occurs to
+enter the target orbit. To write down the equation for ∆v1 we must modify equation (14)
+because the rocket must ﬁrst accelerate to the correct speed for a circular orbit at the launch
+altitude. Since ∆v1 must include this change in velocity, we modify equation (14) to get
+∆v1 =
+r
+µ
+RE + h −(RE + h) ΩE
+
++
+r
+µ
+RE + h
+ s
+2rf
+RE + h + rf
+−1
+!
+,
+
+Team 352
+8
+where rf = RE + 300 km is the radius of the target circular orbit. This simpliﬁes to
+∆v1 =
+r
+µ
+RE + h
+s
+2rf
+RE + h + rf
+−(RE + h) ΩE.
+We take ∆v2 straight from equation (15) to get
+∆v2 =
+r µ
+rf
+ 
+1 −
+s
+2(RE + h)
+RE + h + rf
+!
+.
+5
+Numerical Analysis
+5.1
+Simulation and Results
+Figure 2: Launch trajectories of our Falcon 9 surrogate from various altitudes between 0 and 100 km viewed
+from the south in a co-rotating frame. Each trajectory is plotted from launch until the ﬁrst engine cutoﬀ.
+All trajectories lead to an apogee of 300 km.
+We divide our analysis into two parts: We ﬁrst model the ﬂight of Falcon 9 Surrogate
+at various starting altitudes below the K`arm`an line, propagating its equations of motion
+forward until the state vector is such that the rocket will have a ballistic trajectory with an
+apogee at the target orbit’s altitude. Above the K`arm`an line, the eﬀects of atmospheric drag
+are negligible; thus we modeled launches from above 100 km as impulsive maneuvers in the
+tangential direction using an ideal rocket with a mass commensurate to the ∆v required to
+enter a Hohmann transfer orbit with apogee at the target orbit.
+
+Team 352
+9
+Figure 3: Launch trajectories of Falcon 9 Surrogate from various altitudes between 0 and 100 km viewed
+from the north in an inertial frame. Each trajectory is plotted from launch until the ﬁrst engine cutoﬀ.
+All trajectories lead to an apogee of 300 km. Note the eﬀect of the rotation of Earth on the initial rocket
+velocity.
+Because the equations of motion for the rocket through the Earth’s atmosphere cannot be
+solved analytically, we chose to write a Python integrator to model the ﬂight of the rocket.
+At the start of each atmospheric launch, we give the rocket a thrust in the vertical
+direction. After 10 s, the rocket pitches to the east at 0.5◦/s until its zenith angle is 8.5◦. At
+this point, the rocket begins a gravity turn deﬁned by Equation (8). The values of the pitch
+rate and threshold pitch were determined by manual ﬁne tuning. The model propagated
+the equations of motion until the position and velocity of the rocket were such that it had a
+trajectory with an apogee at the target orbit.
+Above the K`arm`an line, the rocket was modeled as an ideal rocket with only a payload
+and fuel mass. We make no assumptions of empty stage or payload fairing masses. The
+rocket’s trajectory was as a Hohmann transfer orbit between the tower rotating with the
+earth and the target orbit. The rocket’s mass was computed such that it had exactly enough
+fuel to achieve this. This meant that the initial total mass was, on average 51,000 kg.
+5.2
+Cost Analysis
+The cost of building and launching a rocket has ﬁxed costs and variable costs. The ﬁxed
+costs have to do with labor, insurance, etc., while the variable costs depend on the type of
+mission, the rocket, and the payload. This analysis ignores all ﬁxed costs and assumes a
+cost model dependent only on the mass of the spacecraft and the energy used to transport
+it. We also assume that the cost of building and maintaining the tower is a sunken cost and
+
+Team 352
+10
+Figure 4: Acceleration (a), velocity (v), altitude (h) , zenith angle (α), and mass (m) for the Falcon 9
+Surrogate launched from h = 0 km, all versus ﬂight time. In the ﬁrst two ﬁgures, the blue line represents
+radial component while green line shows the azimuthal component.
+does not factor into this analysis. We use
+CT = C0 + C∆v + Cm + C∆h.
+The total cost, CT, is the sum of the ﬁxed cost, C0; the mission-speciﬁc cost, C∆v; the cost
+of manufacturing, assumed to grow linearly with the mass of the launch vehicle, Cm; and
+the cost of elevating the spacecraft, C∆h. With the atmospheric Falcon 9 Surrogate, Cm is
+absorbed into the ﬁxed costs because the spacecraft’s initial mass does not change. Given
+
+Team 352
+11
+Figure 5: Various ∆v vs. launch altitude plots for the tower-launched Falcon 9 Surrogate (h0 < 100 km)
+and the ideal tower-launched rocket h0 > 100 km. The burnout ∆v is an ideal value computed from the
+fuel burned getting the rocket to the requisite altitude and velocity for an apogee at a 300 km altitude. The
+“burnout v” is the actual velocity of the rocket at burnout; the diﬀerence between the burnout v and the
+burnout ∆v illustrates the eﬀects of atmospheric drag and gravity. The apogee ∆v is the ∆v at apogee
+required to circularize the orbit. The sum of the apogee and burnout ∆v is the total ∆v, which decreases
+as a function of launch altitude. Above 100 km, the elevator ∆v is the sum of both ∆vs required to get the
+ideal tower-launched rocket in and out of a Hohmann transfer orbit terminating in a circular orbit with a
+300 km altitude.
+a $ 6.1 million diﬀerence in launch costs for a Falcon 9 between LEO and GEO and that
+the diﬀerence in ∆v is calculated to be about 4 km/s, we adopt a marginal cost of ∆v for
+the Falcon 9 Surrogate of
+dC
+d∆v = $1500 per m/s. The cost of elevation has been estimated
+in work on space elevators at (from [6]) $ 220/kg at a change of about ≈50 MJ/kg of
+potential between the surface and geosynchronous orbit. This means the cost of elevation
+is $4.4 × 10−6 per joule of potential energy gained. From our previous results, we know
+the Falcon 9 Surrogate saves about 3 m/s of ∆v for every additional kilometer of launch
+height. This means that every additional kilometer of height saves the Falcon 9 Surrogate
+about $5,000 worth of ∆v. The cost of elevating the fully-loaded Falcon 9 Surrogate, however,
+increases much more rapidly at about $ 17,000/km. The total cost of elevating and launching
+the Falcon 9 Surrogate is therefore $12,000/km. The tower thus does not save money below
+the K`arm`an line.
+The ideal rocket launched horizontally above the K`arm`an line, however, sees a dramatic
+reduction in calculated mass as its launch height is increased, reﬂecting the increasing velocity
+of the tower due to the rotation of Earth and lower orbital velocities as altitude increases.
+Given that the cost of elevation is directly proportional to the mass of the rocket, which
+ranges between 50,000 and 52,000 kg (roughly 12% of the mass of the Falcon 9 Surrogate)
+
+Team 352
+12
+Figure 6
+the elevation costs grow much more slowly than those of the Falcon 9 Surrogate at about $
+2,000/km. The ∆v savings grow much more slowly and are swamped by the elevation costs.
+Given that changing the altitude of the launch height does not change the total cost by
+more than $ 2 million, a small fraction of the actual launch costs, we drop the Cm and C∆h
+terms from our cost function and make the cost dependent only on mass and ﬁxed cost.
+Given a speciﬁc payload cost of $15,000/kg, a 10,000 kg payload, and a total mass of our
+Falcon 9 Surrogate of 407,000 kg, we compute a cost per unit of bulk launcher mass of $ 368
+/kg. Multiplied by the average mass of the space-based rocket, 51,000 kg, we get a total cost
+of about $ 19 million, about 13% of the cost of the ground-based launch.
+6
+Discussion
+6.1
+Weaknesses
+Our approach to this problem comes with a few weaknesses.
+First, our calculations assume a launch from the equator directly towards the east. In the
+real world, our launch tower would be at least slightly displaced from the equator. In that
+case, the motion of the spacecraft could not be restricted to a plane and a three-dimensional
+analysis would be necessary.
+Next, we assume the Stage 2 fuel-burn creates a signiﬁcant ∆v in an inﬁnitesimal time
+δt. In reality, the engines would be on for a signiﬁcant period of time and a careful treatment
+of the transfer from an elliptical orbit to a circular one would be required.
+In addition, our method of numerical solution of the equations of motion could be better.
+
+Team 352
+13
+We use a basic for-loop with time-step ∆t = 0.1 s
+Most importantly, our approach for towers below the K`arm`anline gives insight into the
+ﬁrst-order energy saving eﬀects of launching Falcon 9 Surrogate from a tower rather than the
+ground. This is because we ﬁx the mass of the spacecraft and compare the ∆v’s we require
+from the fuel during the entire launch trajectory when lifting oﬀfrom towers of diﬀering
+heights. To study higher-order eﬀects, we should also vary the mass of the spacecraft for
+towers of diﬀering heights.
+6.2
+Strengths
+When Falcon 9 Surrogate lifts oﬀfrom a tower instead of the ground, its trajectory changes
+most notably in the low altitude regime of the launch. Our model limits unnecessary ap-
+proximations in this phase of the launch so that we can make the most accurate estimate of
+the cost diﬀerences in lifting oﬀfrom towers of diﬀering heights. To ensure accuracy of our
+model in the atmosphere, we used a two-dimensional analysis instead of using a simple 1D
+liftoﬀ. Also, we take into account the rotation of Earth and the rotation of the atmosphere
+along with it to estimate drag eﬀects most accurately.
+In addition, our model uses a procedure similar to that taken for sending real satellites
+into orbit [3]. Thus, we can claim that we obtain meaningful results that approximate the
+real economic eﬀects of increasing the liftoﬀheight of a real launch.
+Furthermore, when we assume that towers extending above the K`arm`anline could possibly
+be constructed, we adjust our launch trajectory to account for the change in conditions. A
+liftoﬀtangent to Earth’s surface is much more energy eﬃcient than a vertical launch in this
+regime since atmospheric drag is no longer an issue. Thus, our model produces results that
+have meaning in each regime we studied.
+Moreover, we modeled the Falcon 9 Surrogate in the style of a traditional rocket. There-
+fore the costs we estimated can be directly compared to current costs of sending payload
+into LEO.
+7
+Closing Remarks
+We ﬁnd that elevation costs and ∆v savings increase with altitude in both cases, though the
+elevation costs increase much more quickly. These costs, however, are negligible compared to
+the cost savings from the dramatically reduced mass of the space-based launcher. Because
+the space-based launcher does not have to carry its fuel with it be lifted out of Earth’s
+gravity well and through its atmosphere, it can aﬀord to be much less massive than the
+atmospheric launcher. Although the incredible costs and engineering challenges of building
+a tower extending into space cannot be understated, the savings of nearly 90% on launch
+costs make this option undeniably attractive.
+References
+[1] M. Cavcar. The International Standard Atmosphere (ISA), Anadolu University, Turkey.
+(2000) URL: http://home.anadolu.edu.tr/ mcavcar/common/ISAweb.pdf
+
+Team 352
+14
+[2] “Falcon 9 Launch Vehicle Payload User’s Guide”, Rev. 1, Space Exploration Technologies
+Corporation. (2009). URL: http://www.spacex.com/Falcon9UsersGuide 2009.pdf
+[3] F. J. Hale. Introduction To Space Flight, (Pearson Education, New Jersey, 1994).
+[4] “Dryden Flight Research Center”,
+National Aeronautics and Space Administra-
+tion website. 21 October, 2005. URL: http://www.nasa.gov/centers/dryden/news/X-
+Press/stories/2005/102105 Schneider.html
+[5] “NASA Safety Standard 1740.14, Guidelines and Assessment Procedures for Limit-
+ing Orbital Debris”, Oﬃce of Safety and Mission Assurance. 1 August 1995. URL:
+http://www.orbitaldebris.jsc.nasa.gov/library/NSS1740 14/nss1740 14-1995.pdf
+[6] D. Raitt and B Edwards. ”The Space Elevator: Economics and Applications”, 55th
+International Astronautical Congress, Vancouver, Canada. (2004).
+[7] World Geodetic System, 1984, The National Geospatial-Intelligence Agency (2011). URL:
+http://earth-info.nga.mil/GandG/wgs84/index.html.

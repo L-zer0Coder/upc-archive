@@ -1,0 +1,763 @@
+An Optimized Fountain Model
+Team 807 : B
+Abstract
+Our task for the problem was to determine the probability
+density that any molecule ejected from the fountain hits the
+pond at the point (x, y), then the relevant problems can be
+solved. To achieve the goal,we ﬁrst modeled the water ﬂux as
+discrete small drops(with radius 10−3m ∼10−2m), and ﬁnally
+got the analytic solutions. In this simple model, we ignored the
+air resistance and interaction between water drops. We then
+considered the correction of drops’ interaction by correcting
+ejection function E. Then we added a correction for the drag,
+After rough estimate of Reynolds number, we found that the
+air resistance acted on the water drops satisﬁes a quadratic
+form, we got numerical solutions to this problem with the help
+of MatLab.
+1
+
+Team 807
+Page 2 of 17
+Contents
+1
+Introduction
+2
+2
+Models’ Assumptions
+3
+3
+Models in vaccum
+3
+3.1
+Kinematic Theory . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+3.2
+Analyses of δ-like f(v) . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+3.3
+Correction of ejection interaction
+. . . . . . . . . . . . . . . . . . . .
+7
+4
+Models with Air Resistance
+9
+5
+Discussion
+12
+5.1
+The Weakness . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12
+5.2
+The Strength
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12
+A Appendix
+14
+A.1 Codes for section 3 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14
+A.1.1
+Codes for δ-like f(v) . . . . . . . . . . . . . . . . . . . . . . .
+14
+A.1.2
+Codes for Gaussian-like f(v) . . . . . . . . . . . . . . . . . . .
+14
+A.2 Codes for section 4 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+A.2.1
+Codes for parabola . . . . . . . . . . . . . . . . . . . . . . . .
+15
+A.2.2
+Codes for ρ −r graphs . . . . . . . . . . . . . . . . . . . . . .
+15
+A.2.3
+Codes for median circle . . . . . . . . . . . . . . . . . . . . . .
+16
+1
+Introduction
+Projectile motion is a basic problem in kinematics, however, as the ﬁgure shows [4],
+when we consider the situation of plenty of water drops ejected from a water fountain
+in the air, we will be interested in the statistical result of these parabolas(like the
+drops’ density falling into the pond), especially when air resistance correction and
+drops’ interaction are included. In this paper, the ideal case’s result of drop density
+in the pond is derived theoretically with arbitrary ejection distribution, then the
+correction analyses is followed since we cannot ignore the inﬂuence of air resistance
+and drops’ interaction.
+
+Team 807
+Page 3 of 17
+2
+Models’ Assumptions
+In the ﬁrst stage, we assume that there is no air resistance and interaction between
+drops. The analytic coordinates which drops fall down can be calculated. The ejection
+distribution function E(θ, ϕ) and speed distribution function f(v) in our model can
+be taken arbitrarily. The δ-like function f(v) is applied to obtain analytical solution.
+In the second stage, the correction from interaction between water drops can be
+partly included. We assume the fountain ﬂux is small enough such that drops only
+interact with other drops at the beginning of ejection. Since drops diverge in the air,
+any water drop have less chance to reach other ones. Thus we ignore this part of
+interaction and only consider the correction of ejection function E(θ, ϕ).
+In the ﬁnal stage, more practically, air resistance will be considered according to
+the Reynolds Number R of the drops in the air. We will see the result cannot be
+solved analytically. Numerical methods are used in this section. Water drops will
+be assumed to be spheres with radius range 10−3m ∼10−2m, we also set ejection
+velocity magnitude approximately be 10m/s. Further analyses in this paper under
+NPT(normal pressure and temperature) will show the correction of r is not a ignorable
+quantity.
+3
+Models in vaccum
+3.1
+Kinematic Theory
+Since the symmetry of the case, we prefer polar coordinates (r, φ) if we analyse the
+water drop distribution in the pond, and sphere-surface coordinates (θ, ϕ) is conve-
+nient to describe the ejection direction of the fountain. Because of the principle of
+kinematics,
+¨r
+=
+0
+(.)
+¨z
+=
+−g
+(.)
+a parabola solution can be obtained by solving these diﬀerential equations, which is a
+well known fact that projectile motion’s trajactory is a parabola. As the ﬁgure shows,
+we ﬁrst consider a water drop ejected from (0,0) by velocity v0 along the direction
+(θ, φ) and hit the pond by velocity vf at coordinate(r, φ),
+v0r
+=
+v0 sin θ
+(.)
+v0z
+=
+v0 cos θ
+(.)
+vfr
+=
+vf sin θ′
+(.)
+vfz
+=
+vf cos θ′
+(.)
+we take a shortcut here for the beneﬁt of the symmetry of the parabola, which is
+π −θ = θ′, we get:
+v0r
+=
+vfr
+(.)
+−v0z
+=
+vfz
+(.)
+
+Team 807
+Page 4 of 17
+Figure 1: Drops ejection schematic diagram and parabola diagram
+and by (3.2), ˙vz = −g, hence
+vfz −v0z = −2v0z =
+Z t
+0
+−gdt = −gt
+(.)
+therefore, time interval t between ejection and hitting in the pond is
+t = 2v0z
+g
+= 2v0 cos θ
+g
+(.)
+and we ﬁnd the mapping of (θ, ϕ) 7→(r, φ):
+r
+=
+v0rt = v2
+0 sin 2θ
+g
+(.)
+φ
+=
+ϕ
+(.)
+The ﬁrst equation shows a maximum distance of r is v2
+0/g. And for a particular r,
+it is possible to correspond two diﬀerent θ which located in [0, π/4) and (π/4, π/2]
+separately.
+If a arbitrary ejection ﬂux distribution function E(θ, ϕ) under a particular eject
+speed v0 is considered, water drops ejected from dθdϕ hit rdrdφ (ﬁgure 3), we ﬁnd
+E(θ, ϕ)dθdϕ = ρ(r, φ)rdrdφ = ρ(r, φ)r| ∂(r, φ)
+∂(θ, ϕ)|dθdϕ
+(.)
+where ρ(r, φ) is the drop distribution function in the pond, and ∂(r,φ)
+∂(θ,ϕ) is the Jacobian
+determinant, according to (3.11) and (3.12)
+∂(r, φ)
+∂(θ, ϕ) = 2v2
+0 cos 2θ
+g
+= 2
+g
+q
+v4
+0 −r2g2
+(.)
+
+Team 807
+Page 5 of 17
+Figure 2: Drops ejected from general coordinates interval dθdϕ hit interval rdrdφ
+Notice that one particular r corresponds to two θ for most cases (except θ = π/4),
+the inverse function of (3.11) can be written as two parts
+θ1(r, v0)
+=
+1
+2 arcsin(rg/v2
+0)
+(.)
+θ2(r, v0)
+=
+π
+2 −1
+2 arcsin(rg/v2
+0)
+(.)
+here θ1 takes value from 0 to π/4, while θ2 takes value from π/4 to π/2. Hence,
+according to (3.13), ρ(r, φ) can be written as two parts of E:
+ρ(r, φ) = g[E(θ1(r, v), φ) + E(θ2(r, v), φ)]
+2r
+p
+v4
+0 −r2g2
+(.)
+Moreover, if the speed distribution function f(v) of water-drop ejection is consid-
+ered, ρ(r, φ) can be expressed by
+ρ(r, φ) =
+Z g[E(θ1(r, v), φ) + E(θ2(r, v), φ)]
+2r
+p
+v4 −r2g2
+f(v)dv
+(.)
+and (3.17) is just the special case of f(v) = δ(v −v0).
+Now, the equation of drops’ distribution in the pond is obtained, which satisﬁes
+arbitrary angular ejection of the fountain. A step-like function E(θ, ϕ) can be applied
+if we want to conﬁne the fountain angular ejection.
+3.2
+Analyses of δ-like f(v)
+Since we have too many freedom degrees to choose E(θ, ϕ) and f(v), moreover, the
+range of θ is uncertained for the fountain. In order to give examples, we choose a
+
+Team 807
+Page 6 of 17
+velocity magnitude distribution function:
+f(v) = 1
+2
+rπ
+a exp(−a(v −v0)2),
+0 < v < +∞
+(.)
+First, we take a →+∞, that means f(v) is converging to δ function:
+f(v) = δ(v −v0),
+0 < v < +∞
+(.)
+v0 = 10m/s is chosen as a example for following analyses. We also take E(θ, ϕ) as:
+E(θ, ϕ) =
+
+1,
+0 ≤θ ≤θ0
+0,
+θ0 < θ ≤π/2
+(.)
+We simply set function E as 1 where 0 ≤θ ≤θ0, which do not change the relative
+value of the distribution. Because function E(θ, ϕ) is uniform respect to variable ϕ,
+ρ(r, φ) is uniform respect to φ. Respectively, we are interested in the ρ −r graph. By
+taking diﬀerent θ0, we plot out Figure 3 by MatLab.
+Figure 3:
+ρ −r graph when f(v) is a delta function,the unit for ρ(θ, φ) is arbitrary,
+θ0 =
+kπ/16, k=1,2,...,8
+As (3.18) has predicted, Figure 3 shows us ρ →∞when r →0 and r →
+v2
+0/g (when θ0 ≥π/4), which tells us the most probable place for drops falling
+
+Team 807
+Page 7 of 17
+in is central point (r = 0) and the boundary (r = v2
+0/g). The unit here for ρ is
+arbitrary, and the distribution changes as θ0 growing.
+To determine the circle around the fountain inside which exactly half of the water
+lands, a analytic integral can be given according to (3.18)(3.20)(3.21):
+Z
+within r
+ρ(r, φ)rdrdφ =
+Z r
+0
+2πgdr
+p
+v4
+0 −r2g2
+(.)
+where we assume θ0 = π/2. So the water percentage β lands in radius r is :
+β(v0, r) =
+R r
+0 2πgdr/
+p
+v4
+0 −r2g2
+R rmax
+0
+2πgdr/
+p
+v4
+0 −r2g2 = 2 arcsin(r/rmax)
+π
+(.)
+where rmax = v2
+0/g is known from (3.11). Let β be 1/2, then we can ﬁnd
+rhalf = rmax
+√
+2 =
+v2
+0
+√
+2g
+(.)
+which characterized the median circle. For the example we given above,
+rhalf = (10m/s)2/(
+√
+2 × 9.8m/s2) ≈7.215m.
+More generally, if θ0 is random, general form of β can be derived. We denote
+r0 = v2
+0 sin 2θ0/g, then, for 0 < θ0 < π/4
+β(v0, r) =
+R r
+0 2πgdr/
+p
+v4
+0 −r2g2
+R r0
+0 2πgdr/
+p
+v4
+0 −r2g2 = arcsin(r/rmax)
+arcsin(r0/rmax), r < r0, otherwise, β = 1
+(.)
+for π/4 < θ0 < π/2 and r < r0, we have,
+β(v0, r) =
+R r
+0 2πgdr/
+p
+v4
+0 −r2g2
+R rmax
+0
+2πgdr/
+p
+v4
+0 −r2g2 +
+R rmax
+r0
+2πgdr/
+p
+v4
+0 −r2g2 = arcsin(r/rmax)
+2θ0
+(.)
+other wise, in other words, r0 < r < rmax
+β(v0, r) =
+2
+R r
+0 2πgdr/
+p
+v4
+0 −r2g2 −
+R r0
+0 2πgdr/
+p
+v4
+0 −r2g2
+R rmax
+0
+2πgdr/
+p
+v4
+0 −r2g2 +
+R rmax
+r0
+2πgdr/
+p
+v4
+0 −r2g2 = arcsin(r/rmax) + θ0 −π/2
+θ0
+(.)
+Hence, general solution of rhalf which characterized median circle can be
+solved by setting β = 1/2 (under diﬀerent situations):
+(3.25) →rhalf
+=
+rmax sin(1
+2 arcsin( r0
+rmax
+)) = rmax sin θ0
+(.)
+(3.26) →rhalf
+=
+rmax sin θ0
+(.)
+(3.27) →rhalf
+=
+rmax cos(θ0
+2 )
+(.)
+3.3
+Correction of ejection interaction
+It’s obvious that water drops can interact each other. Momentum can be transmitted
+from a drop to another, which leads to a dispersion of velocity distribution. Actually,
+
+Team 807
+Page 8 of 17
+Gaussian distribution for ejection speed is a better approximation than δ function. a
+in (3.19) is chosen as 10 to describe dispersion in the following example.
+f(v) = 1
+2
+r π
+10 exp(−10(v −10)2),
+0 < v < +∞
+(.)
+For the reason that (3,18) cannot be integrated analytically, we obtain the result by
+MatLab: (Figure 4)
+Figure 4: ρ −r graph when f(v) is a Gaussian function,with a = 10,the unit for ρ(θ, φ) is arbi-
+trary, θ0 = kπ/16, k=1,2,...,8
+We can see that the inﬁnite divergence disappears when r is taken to be v2
+0/g,
+instead of inﬁnity, a peak is nearby. This is due to the dispersion of Gaussian distri-
+bution, some water drops are able to breakthrough the ’boundary’ v2
+0/g. For the sake
+of the dispersion of Gaussian distribution, ρ(θ, φ) becomes continuous, which is quite
+diﬀerent from Figure 3 when θ0̸ = π/2. But the same point that both δ-like f(v)
+and Gaussian-like f(v) have is, the most probable place for drops falling
+in is the central point (r = 0) of the fountain. ρ goes to inﬁnity due to E(θ, ϕ)
+is non-zero at θ = 0, that makes ρ ∼1/r at r = 0.
+Since the Figure 4 is the summary(integral) of diﬀerent ejection speed, the water
+
+Team 807
+Page 9 of 17
+percentage β lands in radius r can be written as:
+eβ(r) =
+Z
+β(v, r)f(v)dv
+(.)
+β(v, r) can be seen from (3.25∼27). Obviously
+rhalf = eβ−1(1
+2)
+(.)
+which determines the median circle size.
+4
+Models with Air Resistance
+According to Newton’s 2nd law, if a drag force Fdˆv of resistance applies on a droplet,
+the motion equation becomes:
+m ˙v = −mg −Fdˆv
+(.)
+where ˆv is the unit vector along v.
+In order to determine the exact form of Fdˆv, the hydromechanics of air must be
+concerned. Since we set the radius a range of the water drops is 10−3m ∼10−2m, and
+the ejection speed approximately be 10m/s. Under the circumstance of NPT, we know
+the coeﬃcient of air viscosity η is 1.57×10−5m2/s, air density ρa is 1.184×kg·m−3 [1].
+We are able to ﬁnd Reynolds Number:
+1 < R = 2aρav
+η
+< 105
+hence, drag force has the quadratic form [1]:
+Fd = CDρaAv2
+2
+(.)
+where CD is a experiencing coeﬃcient, which can be determined in Figure 5. It’s
+fortunate to see that Cd correspond to our R is very stable (∼0.5)
+For sphere-like water drop, mass and cross section are:
+m
+=
+4πa3
+3
+ρw
+(.)
+A
+=
+πa2
+(.)
+We denote k as CdAρa/2 and rewrite (4.1) as
+¨r
+=
+−k
+m ˙r
+√
+˙r2 + ˙z2
+(.)
+¨z
+=
+−g −k
+m ˙z
+√
+˙r2 + ˙z2
+(.)
+We set two kinds of drops with radius a1 = 1mm and a2 = 5mm. Then mass
+m1 = 4.189×10−6kg and m2 = 5.236×10−4kg, while coeﬃcient k1 = 9.3×10−7s2·m−2
+
+Team 807
+Page 10 of 17
+Figure 5: CD −R graph [1]
+Figure 6: Drops radius a1 = 1mm
+and k2 = 2.325×10−5s2·m−2.With the help of MatLab, we use RKF45 method(Runge-
+Kutta-Fehlberg Method) [3] to solve the diﬀerential equations (4.5) (4.6). Two sets
+of ﬁgures related to the motions of drops are displayed as follows.
+It’s remarkable that rmax is reduced to 8m for 5mm radius and even 4m for 1mm
+radius, which not a tiny correction for origin rmax ≈10m. As what we have done in
+section 3.2, we plot out histograms as ρ−r graph when θ0 = π/2 (Figure 8 & 9). The
+result is similar to the last picture of Figure 3, since we only consider a particular
+speed v0 = 10m/s here (δ-like f(v)). The most probable place for drop falling
+into the pond, is r = 0 and r = rmax in this case.
+By sum up ρ rδrδφ by
+MatLab, water quantity lands within radius r can be determined. Since Figure 8 &
+
+Team 807
+Page 11 of 17
+Figure 7: Drops radius a2 = 5mm
+Figure 8: ρ −r graph for Drops radius a1 = 1mm
+9 are un-analytical with discrete points, we take the closest point such that
+β =
+rhalf
+P
+r=0
+ρ rδrδφ
+rmax
+P
+r=0
+ρ rδrδφ
+≈1
+2
+(.)
+In this special case, the radius of median circle, is
+rhalf
+=
+3.3024m
+for a1 = 1mm
+(.)
+rhalf
+=
+5.6770m
+for a2 = 5mm
+(.)
+
+Team 807
+Page 12 of 17
+Figure 9: ρ −r graph for Drops radius a2 = 5mm
+5
+Discussion
+5.1
+The Weakness
+1.Since we don‘t have a closed analytic solution of the two order diﬀerential equa-
+tions,then we just obtained some special solutions for certain initial conditions.
+2.We assumed that E(θ, ϕ) is uniform in θ and ϕ for the general model,thus our result
+might deviate from the actual situation.
+5.2
+The Strength
+1. We use Fd ∝v2 to simulate the drag force, actually Fd ∝v is possible only for
+fountains whose height is around 0.02m, this tiny fountain is of course out of interest.
+Thus we obviously decrease the computational error.
+2. We have discussed the proper evaluations of all the parameters and ﬁnally we
+provided the corresponding ﬁgures, it‘s intuitionistic to understand the eﬀect of each
+parameter.
+3. We simpliﬁed the interaction model and just concentrated on the main inﬂuence of
+water drops interaction, that‘s to say, we give up analyzing and calculating the me-
+chanics behind the interaction, since multi-body-interaction will make this problem
+so complicated that no one can get a precise solution, thus we took a statistical view
+of the interaction and ignored the low probable collisions, treating the macroscopic
+eﬀect of interaction as a Gaussian redistribution of ejecting velocity.
+4. Based on the law of large number, we calculated the frequency distribution his-
+togram by computer and then obtained an approximated density distribution of the
+water ﬂux which is much complicated if we calculated directly.
+
+Team 807
+Page 13 of 17
+References
+[1] Wikipedia: http://en.wikipedia.org/wiki/Drag_%28physics%29
+[2] Parker G W. Projectile motion with air resistance quadratic in the speed[J]. Am.
+J. Phys, 1977, 45(7): 606-610.
+[3] John.Mathews, Kurtis D.Fink. Numerical Methods Using MATLAB. P469∼P471,
+Third Edition
+[4] The fountain photo:http://images.hayneedle.com/mgen/imagebywidth.ms?w=500&minh=300&ma
+
+Team 807
+Page 14 of 17
+A
+Appendix
+A.1
+Codes for section 3
+A.1.1
+Codes for δ-like f(v)
+%
+g=9.8;a=10;v0=10;
+r=[0:0.01:v0^2/g];
+rho=zeros(length(r),8);
+A=0.5*sqrt(pi/a);
+syms v F
+for k=1:8
+theta0=pi*(k)/16;
+if theta0<=pi/4 && theta0>=0
+for i=1:length(r)
+judge=(r(i)<=(v0^2*sin(2*theta0)/g));
+F=g/(2*r(i)*sqrt(v0^4-g^2*r(i)^2))*judge;
+rho(i,k)=vpa(F);
+end
+elseif theta0>pi/4 && theta0<=pi/2
+for i=1:length(r)
+judge=(r(i)>=(v0^2*sin(2*theta0)/g));
+F=g/(2*r(i)*sqrt(v0^4-g^2*r(i)^2))*(1+judge);
+rho(i,k)=vpa(F);
+end
+else
+warning(’theta0 should be in the right range’);
+end
+subplot(2,2,k);plot(r,rho(:,k),’-b’,’linewidth’,2);grid on;axis([0,v0^2/g+0.3,0,0.06]
+xlabel(’r(m)’);ylabel(’\rho’);title([’\theta_0=’,num2str(k),’\pi/16’])
+end
+A.1.2
+Codes for Gaussian-like f(v)
+%plot out the graphs when v0=10, a=10, f(v) is Gaussian-like
+g=9.8;a=10;v0=0;
+r=[0:0.25:16];
+rho=zeros(length(r),8);
+A=0.5*sqrt(pi/a);
+syms v F
+for k=1:8
+theta0=(k)*pi/16;
+if theta0<=pi/4 && theta0>=0
+for i=1:length(r)
+F=g/(2*r(i)*sqrt(v^4-g^2*r(i)^2))*A*exp(-a*(v-v0)^2);
+vc1=sqrt(r(i)*g/sin(2*theta0));
+rho(i,k)=vpa(int(F,v,vc1,+inf),5);
+
+Team 807
+Page 15 of 17
+end
+elseif theta0>pi/4 && theta0<=pi/2
+for i=1:length(r)
+F=g/(2*r(i)*sqrt(v^4-g^2*r(i)^2))*A*exp(-a*(v-v0)^2);
+vc2=sqrt(r(i)*g/sin(2*theta0));
+vc3=sqrt(r(i)*g);
+rho(i,k)=vpa(int(F,v,vc3,+inf)+int(F,v,vc3,vc2),5);
+end
+else
+warning(’theta0 should be in the right range’);
+end
+subplot(2,2,k);plot(r,rho(:,k),’-b’,’linewidth’,2);hold on
+grid on;xlabel(’r(m)’);ylabel(’\rho’);title([’\theta_0=’,num2str(k),’\pi/16’]);
+axis([0,12,0,0.01]);
+end
+A.2
+Codes for section 4
+A.2.1
+Codes for parabola
+m=4.1888*10^(-6);k=9.3*10^(-7);g=9.8;
+%parameter m=(water)(4*pi*a^3)/3,k=0.25*pi*a^2*rho(air).
+ts=0:0.001:2;%time
+for i=-pi/2:0.02:pi/2
+%varying theta from -pi/2 to pi/2
+z0=[0;0;10*sin(i10*cos(i)];
+%initial value :r(0)=0 z(0)=0 r’(0)=10*sin(i) z(0)’=cos(i)
+fun=@(t,z)[z(3);z(4);
+-k/m*z(3)*sqrt(z(3)^2+z(4)^2);
+-k/m*z(4)*sqrt(z(3)^2+z(4)^2)-g];
+[t,z]=ode45(fun,ts,z0);
+subplot(121),plot(t,z(:,1:2));
+xlabel(’t(s)’);legend(’r(m)’,’z(m)’);
+title({’The Relationship Between the Horizontal/Vertical Distance and Time’;
+’(a=1mm,v=10m/s, varies from -pi/2 to pi/2)’})
+axis([0 1.48 0 7 ])
+hold on
+subplot(122),plot(z(:,1),z(:,2));
+axis([-5 5 0 3 ])
+title({’The Simulated Tracks of the Projectile Motion of Water Drops’;
+’(a=1mm,v=10m/s)’})
+xlabel(’r(m)’);ylabel(’z(m)’);
+hold on
+end
+A.2.2
+Codes for ρ −r graphs
+function []=probability3
+m=4.1888*10^(-6);k=9.3*10^(-7);g=9.8;%parameters
+
+Team 807
+Page 16 of 17
+N=5000;
+%Divide pi/2 into N parts.
+ts=[0 2];
+fun=@(t,z)[z(3);z(4);...
+-k/m*z(3)*sqrt(z(3)^2+z(4)^2);...
+-k/m*z(4)*sqrt(z(3)^2+z(4)^2)-g];
+op=odeset(’Events’,@evenfun);
+ang=linspace(0,pi/2,N);
+x=nan(size(ang));
+for i=1:length(ang);
+z0=[0;0;10*sin(ang(i)); 10*cos(ang(i))];
+[t,z,TE,ZE]=ode45(fun,ts,z0,op);
+if TE>eps,x(i)=ZE(1);end
+end
+x=x(~isnan(x));
+[nw,xout]=hist(x,100);%Divide x into 100 parts.
+subplot(1,2,1),bar(xout,nw./(2*pi*xout));
+xlabel(’r(m)’);ylabel(’quantity’);
+title({’Frequency Distribution Histogram’;’(a=1mm, v=10m/s)’})
+subplot(1,2,2),plot(xout,nw./(10000*pi*xout));
+xlabel(’r(m)’);ylabel(’probability’);
+title({’Fitted Probability Density Function’;’(a=1mm, v=10m/s)’})
+end
+function [value,isterminal,direction]=evenfun(t,z)
+value=z(2);
+isterminal=1;
+direction=-1;
+end
+A.2.3
+Codes for median circle
+function []=probability1
+m=4.1888*10^(-6);k=9.3*10^(-7);g=9.8;%parameters.
+N=5000;
+%Divide pi/2 into N parts.
+ts=[0 2];
+fun=@(t,z)[z(3);z(4);...
+-k/m*z(3)*sqrt(z(3)^2+z(4)^2);...
+-k/m*z(4)*sqrt(z(3)^2+z(4)^2)-g];
+op=odeset(’Events’,@evenfun);
+ang=linspace(0,pi/2,N);
+x=nan(size(ang));
+for i=1:length(ang);
+z0=[
+0;
+0;
+10*sin(ang(i)); 10*cos(ang(i))];
+[t,z,TE,ZE]=ode45(fun,ts,z0,op);
+if TE>eps,x(i)=ZE(1);end
+end
+x=x(~isnan(x));
+
+Team 807
+Page 17 of 17
+subplot(1,2,1),hist(x,100)
+xlabel(’r(m)’);ylabel(’quantity’);
+title({’Frequency Distribution Histogram’;’(a=1mm, v=10m/s)’})
+[n,xout] = hist(x,100);
+subplot(1,2,2),plot(xout,n/N);
+xlabel(’r(m)’);ylabel(’probability’);
+title({’Fitted Probability Density Function’;’(a=1mm, v=10m/s)’})
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%Solve For Median Circle
+half=0;
+for p=1:1:100
+half=half+n(p);
+if half>2500
+break;
+end
+end
+area=max(x)
+median=area*p/100
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% median value get
+end
+function [value,isterminal,direction]=evenfun(t,z)
+value=z(2)
+isterminal=1;
+direction=-1;
+end

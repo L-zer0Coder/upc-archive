@@ -1,0 +1,986 @@
+2019
+Team 343
+Problem A
+Analysis of deep space radiation protection
+Abstract
+This paper analyzes various options for spacecraft to prevent radiation
+in deep space (the spacecraft is set to a cylindrical shape with a base radius
+of 5.42m, a height of 10.84m, and a volume of approximately 1000m3). We
+propose a solution based on both superconducting magnetic shielding and
+passive protection, which has a total weight of 16.53 tons, and the super-
+conducting material is BSCCO-2212 with a density of 1.8954g/cm3.
+It is an attempt to ﬁnd the relatively feasible conﬁguration for block-
+ing high energy particles, which can be deﬂected by electromagnetic ﬁeld.
+Computer simulation was used to calculate the efﬁciency of possible mag-
+netic ﬁeld structures in 8 plans, and one of the schemes is considered to be
+superior (80% of high-energy particles can be shielded by superconducting
+magnetic ﬁeld with strength B=10T, thickness L=2 m). The blind zone of
+the magnetic ﬁeld structure is considered, and an aluminum plate with a
+radius of 2 m and a thickness of 10 mm is mounted on the top of the space-
+craft. In addition to setting the superconducting magnetic shielding ﬁeld
+to deﬂect high-energy particles, we cover the spacecraft with a 3.75 mm
+aluminum plate to absorb gamma rays.
+The ﬁndings show that in this scheme can block 94% of high-energy
+electrons with energy not exceeding 4Gev/n and 98% of γ-rays with a fre-
+quency of 1020 Hz. In addition, possible problems such as the damage of
+the strong magnetic ﬁeld to the human body and the explosion of SCRs are
+also considered.
+
+Team # 343
+Page 1 of 24
+Contents
+1
+Introduction
+2
+1.1
+Background
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+1.2
+Cosmic radiation environment
+. . . . . . . . . . . . . . . . . . . . .
+2
+1.3
+Radiation prevention method . . . . . . . . . . . . . . . . . . . . . .
+2
+2
+Assumptions and Symbols
+3
+2.1
+Assumptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+2.2
+Notations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+3
+Model
+4
+3.1
+magnetic active protection . . . . . . . . . . . . . . . . . . . . . . . .
+5
+3.1.1
+Principle of deﬂection . . . . . . . . . . . . . . . . . . . . . .
+5
+3.1.2
+Basic structure of shielding magnetic ﬁeld
+. . . . . . . . . .
+7
+3.2
+Design and analysis of shielded magnetic ﬁeld structure
+. . . . . .
+10
+3.2.1
+Eight combined shielding magnetic ﬁeld structures . . . . .
+10
+3.2.2
+Investigate shielding effectiveness of eight different mag-
+netic ﬁeld structures . . . . . . . . . . . . . . . . . . . . . . .
+11
+3.2.3
+Select the best structure
+. . . . . . . . . . . . . . . . . . . . .
+12
+3.3
+Passive protection of materials
+. . . . . . . . . . . . . . . . . . . . .
+13
+3.3.1
+Magnetic shielding blind zone protection . . . . . . . . . . .
+13
+3.3.2
+Cosmic gamma ray protection
+. . . . . . . . . . . . . . . . .
+14
+4
+Model solving and analysis
+15
+4.1
+Model solving . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+4.1.1
+Active protection structure
+. . . . . . . . . . . . . . . . . . .
+15
+4.1.2
+Passive protection structure . . . . . . . . . . . . . . . . . . .
+18
+4.2
+Quality Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+18
+4.3
+Analysis of protection effect . . . . . . . . . . . . . . . . . . . . . . .
+21
+4.4
+Feasibility analysis
+. . . . . . . . . . . . . . . . . . . . . . . . . . . .
+21
+5
+Model advantages and disadvantages
+22
+
+Team # 343
+Page 2 of 24
+5.1
+Advantages
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+22
+5.2
+Disadvantages . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+22
+6
+Conclusions
+23
+References
+23
+1
+Introduction
+1.1
+Background
+Cosmic radiation has negative effect on peoples health. It may lead to the
+damage of astronauts’ genetic material and destroy the normal physiological
+function of human body. In some cases, the cosmic radiation can cause fatal
+diseases (leukemia, cancer). Therefore, cosmic radiation is supposed to be an
+essential issue in manned space ﬂight.[1]
+1.2
+Cosmic radiation environment
+Cosmic radiation consists of two parts: high-energy particle and high-frequency
+electromagnetic radiation(γ-ray).
+High-energy particle is the main components, accounting for approximately
+98%. It comes mainly from Earth’s Radiation Belts (ERBs), Solar Cosmic Radi-
+ation (SCRs), and Galaxy Cosmic Rays (GCRs) [2]. SPEs and GCRs are major
+threats to astronaut safety in deep space exploration of manned spaceﬂight.
+According to NASA reports [3]. GCRs are stable high-energy particle back-
+ground sources with a radiation dose of 0.6 Sv/a and particle energy of about 1
+GeV/n. SPEs are powerful source of particle transients, and the intensity and en-
+ergy spectrum of each SPE is different. Picture 1 shows the GCR proton spectrum
+at solar minimum and solar maximum [4].
+1.3
+Radiation prevention method
+Nowadays, the main approaches in cosmic radiation protection are the pas-
+sive protection (the surface is thickened with radiation resistant materials) and
+magnetic active protection.
+The traditional passive protection methods can effectively reduce the inﬂu-
+ence of high frequency electromagnetic radiation. However, this method ap-
+pears to have little effect in high-energy particle. Therefore, the active protection
+
+Team # 343
+Page 3 of 24
+Figure 1: the GCR proton spectrum at solar minimum and solar maximum [4]
+is supposed to be apply for high-energy particle protection. Magnetic protection
+is to form a magnetic ﬁeld on the surface of the spacecraft which changes the
+trajectory of particle by Lorentz force.
+Nowadays, with the development of superconducting technology, the mag-
+netic protection has become the hotpots of researches.
+2
+Assumptions and Symbols
+2.1
+Assumptions
+1. Cosmic radiation is uniform from all direction
+2. The mass and volume of light insulating materials and refrigeration device
+can be neglected.
+3. Virtually all the particles in the cosmic radiation are positively charged
+4. The magnetic ﬁeld in the shielding area is uniform, and the magnetic ﬁeld
+strength in the non shielding area is zero
+5. The second radiation of high energy particles is not considered
+
+Team # 343
+Page 4 of 24
+2.2
+Notations
+The primary notations used in this paper are listed in Table 3.3.2. There can
+be some other notations to be described in other parts of the paper.
+Symbol
+Deﬁnition
+B
+magnetic ﬁeld intensity
+L
+Magnetic ﬁeld thickness
+H
+the height of the protection area
+q
+Electric quantity of charged particles
+γ
+Lorentz Factor
+θ
+Angle (throwing angle) between incident direction of
+charged particles and shielding magnetic ﬁeld
+m0
+Static mass of charged particles
+T
+Kinetic energy of charged particles
+TC/O
+The minimum kinetic energy (up to kinetic energy)
+required to designate point p through the protection
+zone.
+r0
+the outer diameter of the shielding area
+rp
+the radius of the thicken area in the top end of protec-
+tion area
+ri
+the radius of the protection area
+3
+Model
+In previously research [4], Hoffman had already studied this problem. He
+proposed a ring magnetic ﬁeld conﬁguration.
+It is composed of two nested concentric cylinders. The small cylinder is the
+protection area (protected area). The area between the large and small cylinders
+is full of magnetic ﬁeld. The two ends of the whole structure are called the end
+cover area and the middle is called the barrel area.
+However, passive protection was not considered in this structure. Besides,
+some part of the magnetic ﬁeld conﬁguration cannot block the cosmic radia-
+tion effectively. In this paper, we decided to build the model combined both
+the passive protection and active protection based on the Hoffmans structure,
+which was proved to have better results in cosmic radiation protection under
+ﬁnite mass and volume.
+We designed the protection area which is similar to the Huffuman. The height
+H of the protection area is equal to the bottom diameterD. Therefore, in order to
+
+Team # 343
+Page 5 of 24
+Figure 2: the Hoffman structure [3]
+reach the volume requirement of 1000m3, we designed
+H = D = 10.84m
+3.1
+magnetic active protection
+3.1.1
+Principle of deﬂection
+The motion of high-energy charged particles (GCRs/SCRs) in the shielding
+magnetic ﬁeld is mainly affected by Lorentz force, and the inﬂuence of non-
+electromagnetic force can be neglected in the cosmos. Furthermore, because of
+the high energy the particles in GCRs/SCRs, it is necessary to consider the rela-
+tivistic effect.
+Therefore, the equation of motion of charged particles in the shielding mag-
+netic ﬁeld is
+mdv
+dt = qv × B
+v = dr
+dt
+m = m0 ∗γ
+Here m, q,v, andr are the relativistic mass, charged electric quantity, moving
+speed, and position vector of the charged particle, respectively;m0is the rest mass
+
+Team # 343
+Page 6 of 24
+of the particle; γ is the Lorentz factor; B is the shielding magnetic ﬁeld strength
+at r.
+Under the effect of Lorentz force, the charged particles appear to do approx-
+imately circle motion on the plane of the vertical shielding magnetic ﬁeld. The
+radius of gyration is also called the Larmor radius. The expression is [5]
+rL = γm0v⊥
+qB
+v⊥= vsinθ
+θ is the angle between the charged particle entering direction of v and the
+shielding magnetic ﬁeldB.
+Assuming that the shielding magnetic ﬁeld thickness is L, when L >= 2rL,
+the charged particles will be almost completely shielded. When L < 2rL, part of
+the charged particles are shielded by the magnetic ﬁeld.
+It can be seen from the above formula() that when the kinetic energy of the
+shielding magnetic ﬁeld B and the kinetic energy of GCRs/SCRs are constant,
+the deﬂection effect of shielding magnetic ﬁeld is similar for elements with atom-
+ic number Z ≥2 which have the approximately equal ratio m0/q. Therefore, in
+this paper, H and He elements are selected as typical GCRs/SCRs particles.
+With the given the energy spectrum of GCRs / SCRs, the shielding efﬁciency
+mainly depends on the conﬁguration of shielding magnetic ﬁeld. According to
+the way the magnetic ﬁeld deﬂects the particle motion and the Hoffman model
+[4], in this paper, we considers two magnetic ﬁeld setting methods as shown in
+Figure 2:
+The left picture shows the annular magnetic ﬁeld structure, and the right pic-
+ture shows the linear magnetic ﬁeld structure. Both structures effectively block
+Figure 3: Schematic diagram of the magnetic ﬁeld protection structure
+
+Team # 343
+Page 7 of 24
+the side GCRs/SCRs particles, but have virtually no protective effect in the di-
+rection of the top cover. We discussed the two basic structures below and then
+combine the two structure (with some protection in the direction of the top cov-
+er).
+3.1.2
+Basic structure of shielding magnetic ﬁeld
+1. Linear magnetic ﬁeld structure
+In linear magnetic ﬁeld structure, the magnetic ﬁeld between the large and
+small cylinders is linear type.
+Figure 4: Linear shielded magnetic ﬁeld structure [6]
+For the particles incident on the side of barrel, ﬁgure 4 shows the motion orbit
+of charged particles in the shielding area and the protection area. The velocity of
+particles perpendicular to magnetic ﬁeld. The azimuth angle between the veloc-
+ity of charged particles and the magnetic ﬁeld is deﬁned as α.
+In the shielded area, the electrons make a curve motion because of the Lorentz
+force, and the charged particles in the protection zone make a linear motion.
+Here, we deﬁne the cut-off kinetic energy TC/O as the minimum kinetic ener-
+gy required for incident particles to pass through the shielded magnetic ﬁeld to
+enter the protection area,
+The deﬂection of charged particles on the way is divided into two categories:
+In the ﬁrst type, particles with kinetic energy T ≤TC/O cannot pass through
+the shielded magnetic ﬁeld from all azimuth angle (0 ≤≤180) .
+In the second category, particles with kinetic energy T > TC/O can pass through
+the shielded magnetic ﬁeld from some azimuth angle.
+In conclusion, TC/O is the minimum kinetic energy required to pass the mag-
+netic ﬁeld. The moving orbit cut-off kinetic energy TC/O is called the limit orbit,
+and the radius of the orbit corresponding to the shielding zone is called the crit-
+ical Larmor radius rL,0. [7]
+Assume that the magnetic ﬁeld thickness is L and the magnetic induction
+intensity is B. The velocity of the incident particle is V , the amount of charge is
+
+Team # 343
+Page 8 of 24
+ 
+ݎ௅ǡ଴ 
+ݎ௜ 
+ݎ଴ 
+B 
+ݒ 
+Figure 5: Motion track of charged particles in the shielded areas
+q, and the static mass is m0. In order to prevent the particle from entering the
+protection zone
+r ≤rL,0
+2 ∗rL,0 = L
+γ =
+√
+1 −v2/c2
+T = m0c2(γ −1)
+Therefore:
+B ≥2 × T/C2 + m0
+ql
+If we obtain the particle type, energy, the magnetic ﬁeld thickness and the
+minimum magnetic ﬁeld strength, the minimum B can be calculated as:
+B = 2 × T/C2 + m0
+ql
+However, the ﬂux of magnetic ﬁeld in the two end cover area is reduced to
+zero. Therefore, the high-energy charged particles incident from the two ends of
+the cover area can enter the protection area without limitation.
+2. annular shielded magnetic ﬁeld structure and cut-off kinetic energy
+
+Team # 343
+Page 9 of 24
+As shown in Figure 2(a), the annular magnetic ﬁeld structure is opposite to
+the linear magnetic ﬁeld structure:
+The helical magnetic ﬁeld structure can deﬂect the charged particles and make
+the particles move in the direction around the spacecraft. According to past
+research [7], the annular magnetic ﬁeld structure and the linear magnetic ﬁeld
+structure have virtually the same results for the deﬂection of charged particles.
+Figure 6: Motion track of charged particles in the shielded and protected areas
+However, the charged particles from one end can still enter the protection
+area with little restriction.
+Since the annular magnetic ﬁeld structure and the linear magnetic ﬁeld struc-
+ture, they can deﬂect the particles in different directions. This means that the
+mutual deﬁciencies can be compensated for by improving and combining the t-
+wo basic structures. In 3.2, we will combine the two basic structures for analysis
+in the next section.
+
+Team # 343
+Page 10 of 24
+3.2
+Design and analysis of shielded magnetic ﬁeld structure
+When the magnetic ﬁeld strength B is large enough B ≥2 ×
+T
+C2 +m0
+ql
+the ra-
+diation particles of the entering the protection zone mainly come from the end
+cover area. In this chapter, eight combined magnetic ﬁeld structures are designed
+to reduce the radiation from the end cover area. In addition, we investigate the
+overall shielding efﬁciency of the combination of different basic magnetic ﬁeld
+structures.
+The shielding effect of shielding magnetic ﬁeld structure, strength B and
+thickness L on typical GCRs H and He (2GeV-4GeV) particles was compared
+and the protective effects of H and He spectra in typical GCR events were fur-
+ther investigated.
+3.2.1
+Eight combined shielding magnetic ﬁeld structures
+Different magnetic ﬁeld structures in the barrel and end cover areas will pro-
+duce different shielding effects.
+Figure 7(1) shows the magnetic ﬁeld structure proposed by Hoffman [4] in
+2005. In the top side of the Hoffmans structure, the particles can enter the pro-
+tection area. With some improvements, ﬁgure 7(2) shows the two end sides can
+prevent the particles effectively. However, some charged particles can pass the
+magnetic ﬁeld from the barrel area in ﬁgure 7(4).
+Therefore, we apply the different structures in two different areas (the barrel
+and the end cover area) respectively and design the eight combined structures
+Magnetic ﬁeld
+conﬁguration
+1
+2
+3
+4
+5
+6
+7
+8
+Barrel
+zone
+Bit pattern
+ring
+Linear
+type
+Linear
+type
+ring
+direction
+eθ
+−ez
+−ez
+eθ
+axial
+length
+z
+z+2l
+z
+z+2l
+z
+z+2l
+z
+z+2l
+Thickness
+L
+L
+L
+L
+L
+L
+L
+L
+End
+cap
+area
+Bit pattern
+ring
+ring
+Linear
+type
+Linear
+type
+direction+z
+eθ
+eθ
+−er
+−er
+direction+z
+−eθ
+−eθ
+−er
+−er
+Radius
+ri
+ri +L
+ri
+ri +L
+ri
+ri +L
+ri
+ri +L
+Thickness
+L
+L
+L
+L
+L
+L
+L
+L
+Table 1: Shielding magnetic ﬁeld structure
+
+Team # 343
+Page 11 of 24
+Figure 7: Weak area of different structures
+Where ri represents the radius of the protection zone, Z represents the length
+of the protection zone, L is the thickness of the shielding magnetic ﬁeld, ez is the
+axial direction of the barrel zone, er is the radial direction of the barrel zone, and
+eθ satisﬁes the right hand annular relationship.
+3.2.2
+Investigate shielding effectiveness of eight different magnetic ﬁeld struc-
+tures
+In this part, we use the computer to stimulate the movement of the particle in
+different magnetic ﬁeld structure.
+In order to evaluate the shielding effect of the magnetic ﬁeld, we adopt the
+method used by Hoffman [4] to investigate the shielding efﬁciency of the mag-
+netic ﬁeld by calculating the reduction rate η. The calculation formula is:
+η = 1 −nin2/nin1
+Here, nin1 and nin2 represent the number of particles entering the protection
+zone without and with a magnetic ﬁeld respectively.
+Since the initial particles (GCRs) are Isotropy outside the shielded magnetic
+ﬁeld, we assume that the particles are incident at a spherical source. The paper
+
+Team # 343
+Page 12 of 24
+Figure 8: Eight different structrues of magnetic ﬁeld
+uses a computer simulation method to simulate the incident particle source.
+The sphere radius is set to 6 m, and 20,000 points (10000 H particles, 10000
+He particles) are randomly selected on the sphere, with random direction and
+kinetic energy(2GeV-4GeV). The calculation step ∆t = T/100, (T is the cyclotron
+period of charged particles)
+The different results of reduction rate η of the eight structures are shown in
+ﬁgures 8, 9, and 10:
+3.2.3
+Select the best structure
+In ﬁgure 8,9,10, we can ﬁnd that the structure 2 has the relatively higher re-
+duction rate in most cases. Therefore, the structure 2 is supposed to be the most
+0
+2
+4
+6
+8
+10
+12
+14
+16
+Magnetic field intensity B/T
+-0.2
+0
+0.2
+0.4
+0.6
+0.8
+1
+structure 1
+structure 2
+structure 3
+structure 4
+structure 5
+structure 6
+structure 7
+structure 8
+0
+2
+4
+6
+8
+10
+12
+14
+16
+Magnetic field intensity B/T
+-0.2
+0
+0.2
+0.4
+0.6
+0.8
+1
+structure 1
+structure 2
+structure 3
+structure 4
+structure 5
+structure 6
+structure 7
+structure 8
+0
+2
+4
+6
+8
+10
+12
+14
+16
+Magnetic field intensity B/T
+-0.2
+0
+0.2
+0.4
+0.6
+0.8
+1
+structure 1
+structure 2
+structure 3
+structure 4
+structure 5
+structure 6
+structure 7
+structure 8
+Figure 9: Schematic diagram of the magnetic ﬁeld protection structure
+
+Team # 343
+Page 13 of 24
+effective structure.
+When B is relatively low (B = 2T), the reduction rate η can be negative in
+some structures, which proves that the magnetic ﬁeld may have negative effect
+on the radiation protection.
+Besides, the reduction effect η increases together with B. it rises rapidly after
+B = 4T, until B = 10T. Then the shielding effect remains almost unchanged.
+The shielding effect increases quite slowly with the increase of L, when con-
+sider the size of the structure, we can choose L = 2m Therefore, we will select the
+magnetic ﬁeld thickness L = 2m and the magnetic ﬁeld strength B = 10T as the
+standard in the design of structure. In this condition(B=10T,L=2m),the structure
+2 can prevent about 81% of the radiation.
+3.3
+Passive protection of materials
+In the above analysis, it is found that the all these structures of magnetic ﬁeld
+protection are not perfect due to some blind area of shielding magnetic ﬁeld.
+Some charged particles may enter the protection area because of the effect of
+Lorenz force, which seems to reduce the protection effect in some areas of the
+magnetic ﬁeld. In addition, the high-frequency electromagnetic radiation(-ray)
+cannot be blocked by the magnetic ﬁeld. Therefore, the passive protection ap-
+proaches need to be applied.
+3.3.1
+Magnetic shielding blind zone protection
+In 3.2, structure 2 was selected as a magnetic shielding structure.
+Figure 10: Motion track of charged particles in the shielded and protected areas
+
+Team # 343
+Page 14 of 24
+As shown, the solution has a blind spot on one side of the end cap region.
+Here the shielding efﬁciency is close to zero. According to document [11], The
+absorption of high-energy charged particles by metals can be expressed by equa-
+tions:
+ϕ(E) = ϕ′(e)S(E′)
+S(E) exp(σAd)
+Where d is the thickness of the shielding material, is the macroscopic absorp-
+tion cross section of the particle,ϕ(E), ϕ′(e)respectively represent the particle ﬂux
+of the extra-chamber energy and the energy entering the cabin reduced to E,
+S(E), S(E′) represent the barrier power of the shielding material (here is alu-
+minum) for the two energy particles.
+The energy before and after the particles penetrate the shielding material has
+the following relationship:
+E = R−1[R(E) + d]
+Where R(E) is the range of the particle with energy E, represents a negation
+function. If the particle range is less than d, it is blocked in the shielding material.
+We hope that the aluminum layer can shield 90% S(E′)
+S(E) = 0.1energy particles in
+the end cap area. Calculated:
+d10mm
+This means that the end cap area needs to be mounted with a 10 mm thick alu-
+minum plate to shield 90% of the high energy particles on the area of L2.
+3.3.2
+Cosmic gamma ray protection
+High-frequency electromagnetic radiation can be absorbed by metals, accord-
+ing to the attenuation equation of γ rays in metals [9]:
+I = I0exp(−µx)
+Here I0 represents the initial intensity of the ray, I represents the residual
+strength after passing through a section of the metal with a thickness x, and µ is
+the attenuation coefﬁcient. Generally, µ is a function of the atomic coefﬁcient of
+the substance and the frequency of the rays. According to [8], the frequency of
+the γ ray in the cosmic radiation is about 1020Hz. Table 2 shows the attenuation
+coefﬁcient µ. of γ ray in some common metals [10]
+By comparing the attenuation coefﬁcient and density of different metals, it is
+supposed that aluminum is the most suitable as a passive protective layer mate-
+rial. (Aluminum is competent attenuation coefﬁcient for ray absorption and has
+relatively lighter density)
+In order to protect the safety of astronauts, at least 95% of γ rays are supposed
+to be absorbed:
+I
+I0
+= exp−µx ≤0.05
+
+Team # 343
+Page 15 of 24
+material
+thickness
+δ/mm
+Attenuation
+coefﬁcient µ
+Linear absorption coefﬁ-
+cient κ
+aluminum
+0.2
+0.8
+1
+aluminum
+0.5
+0.8
+1.04
+aluminum
+1
+0.8
+1.08
+iron
+0.2
+1.2
+1.27
+iron
+0.5
+1.2
+1.82
+iron
+1
+1.2
+3.32
+copper
+0.2
+1.8
+1.43
+copper
+0.5
+1.8
+2.46
+copper
+1
+1.8
+6.05
+Tantalum
+0.2
+7.5
+4.48
+Tantalum
+0.5
+7.5
+42.5
+Tantalum
+1
+7.5
+1808
+Table 2: Comparison of attenuation coefﬁcients of four materials with different
+thicknesses
+Therefore, the material thickness x:
+x ≥−ln(0.05)/mu
+The attenuation coefﬁcient of the aluminum material is = 0.8, and x >= 3.75
+mm is obtained. Therefore, if 95% of gamma rays are to be absorbed, the surface
+of the spacecraft must cover at least 3.75 mm of aluminum.
+4
+Model solving and analysis
+4.1
+Model solving
+In general, the protective layer of the spacecraft consists of an active protec-
+tive structure and a passive protective structure. The protection zone is a cylinder
+with a radius of 5.42 m and a height of 10.84m.
+4.1.1
+Active protection structure
+The active protection structure consists of two main parts: the end cover area
+and the barrel area,
+1. The end cover area In order to form the Annular magnetic ﬁeld in the end
+cover area, we design this coil structure:
+
+Team # 343
+Page 16 of 24
+Figure 11: Superconducting coil at both ends
+Figure 12: Superconducting coil at both ends
+The rectangular coil has a length of 5.42m and a width of 2m. The opposite
+coils have opposite current directions, and each end cover area has 20 rectangular
+coils.
+2. The barrel area
+In the barrel region, in order to form the linear magnetic ﬁeld, the structure
+of coils is:
+There are 20 cylinder of light insulating material with the radius of 1m on the
+side of the protection zone. And in each cylinder, there are four turns of coils on.
+Among them, the internal structure of each cylinder is:
+The left ﬁgure is the model of superconducting coils. The ﬁgure in the right
+is the light insulating cylinder.
+In each cylinder, the distance between the coils is 2m.
+
+Team # 343
+Page 17 of 24
+Figure 13: Single side coil and Light insulating cylinder
+Figure 14: Top view of side coil
+
+Team # 343
+Page 18 of 24
+4.1.2
+Passive protection structure
+The passive protective structure consists of two main parts: the thickening
+area in the top and the bulkhead of spacecraft. 1. The bulkhead of spacecraft
+The surface of the spacecraft is covered with 3.75 mm of aluminum. 2. the
+thickening area in the top:
+ 
+10mm 
+Figure 15: thickened area in the top end
+the aluminum plate on one side of the cover was thicker. The aluminum plate
+at top is set to 10 mm and a circular area having a radius of 2 m at the center of
+the end cap.
+In addition, in order to ﬁx the superconducting coil, light foam is used to ﬁll
+between the superconducting coils.
+In conclusion, the structure diagram of the spacecraft protective layer is:
+4.2
+Quality Analysis
+The mass of the spacecraft’s protective layer includes the mass of the excita-
+tion coil in the end cap area, the mass of the excitation coil in the barrel, the mass
+of the anti-gamma ray aluminum layer in the ﬂight cabin and the mass of the
+thickened aluminum layer.
+For a superconducting coil, the spatial magnetic ﬁeld it excites can be calcu-
+lated by Biot-Savart Law:⃗
+B =
+∫
+L
+µ0I
+4π
+dl ×⃗er
+r2
+Where µ0 is the permeability in vacuum, I is the current in the supercon-
+ducting coil, and r is the distance from a point in the space to the coil. dl is the
+micro-element of the superconducting coil segment.
+We select the Superconducting material BSCCO-2212 to make the coil. Ac-
+cording to document [8], the density of BSCCO-2212 ρBSCCO−2212 = 1.8954g/cm3.
+Under the condition of 77K , the superconducting critical current density J =
+7100A/mm2.
+
+Team # 343
+Page 19 of 24
+ 
+thicken area
+ in the top 
+Superconducting 
+coils at the side 
+Bulkhead 
+aluminum
+瀁澔濠濕濭濙濦 
+Superconducting
+ coil at both ends 
+(20 turns) 
+Figure 16: Overall structure of the spacecraft
+
+Team # 343
+Page 20 of 24
+1. Mass of end cap area excitation coil
+The magnetic ﬁeld strength at both ends of the protection zone is B = 10T,
+and the magnetic permeability in vacuum is µ0 = 4π × 10−7T ∗m/A. The current
+intensity I1 can be calculated according to Biot-Savart Law.
+Therefore, the critical surface area of a superconducting wire is:
+S1 = I1/J
+Therefore, the mass of a single-turn superconducting coil is:
+m1 = S1 ∗2 ∗π ∗r0 ∗ρBSCCO−2212
+Where r0 is the outer diameter of the shielding area Calculated that m1 =
+99.041kg There are 20 coil columns on the side of the protection zone, and each
+coil column has 4 turns of coils. The end cap area excitation coil total mass:
+M1 = 20 ∗4 ∗m1 = 3.961 ∗103kg
+2. Mass of barrel area excitation coil
+The magnetic ﬁeld strength on the side of the protection zone is B = 10T. Ac-
+cording to Biot-Savart Law, The current intensity I2 can be calculated. Therefore,
+the critical surface area of a superconducting wire is:
+S2 = I2/J
+The mass of a single-turn superconducting coil is:
+m1 = S1 ∗2 ∗∗r0 ∗ρBSCCO−2212 = 83.8672kg
+There are 20 coil columns at each end of the protection zone, and each coil
+column has 1 coil. The end cap area excitation coil total mass:
+M2 = 20 ∗m2 = 20 ∗2 ∗π ∗S2 ∗r0 ∗ρBSCCO−2212 = 6.709 ∗103kg
+3. Mass of ﬂight cabin anti-gamma ray aluminum layer
+A layer of 3.75mm aluminum layer is evenly mounted on the surface of the
+protection zone to prevent gamma rays. The quality of the aluminum layer is:
+M3 = 2 ∗π ∗ri ∗Ly + 2 ∗π ∗ri2 ∗v ∗∆h
+Where ri is the radius of the protection area, Ly is the length of the guard zone,
+v is the density of aluminum, and ∆h is the thickness of the aluminum layer.
+Brought into the calculation:
+M3 = 5.5065 ∗103kg
+4. Mass of Aluminum layer thickened part
+
+Team # 343
+Page 21 of 24
+The thickened part of the aluminum layer is a circular area with a radius of
+r = 2m, and the thickness is ∆L = 10mm, so the added mass is:
+M4 = π ∗r2 ∗v ∗(L −∆h)
+Obtained M4 = 339.29kg Therefore, the total mass of the guard is
+M = M1 + M2 + M3 + M4 = 16.53 ∗103kg = 16.53t
+4.3
+Analysis of protection effect
+After considering some possible factors, we mathematically calculate the pro-
+tection effect of the system on high-energy charged particles and γ rays.
+1. Protection efﬁciency for high-energy charged particles
+According to Figure 9, it can be found that the structure selected in this paper
+(structure 2) can be shielded at B = 10T.
+About 87% of high-energy charged particles. On this basis, an aluminum
+plate with a radius of 2m and a thickness of 10mm was installed on the top of
+the protection zone. According to [11], the 10mm aluminum plate can basically
+protect all high energy particles below 2Gev/n. Therefore, the defense efﬁciency
+against high-energy charged particles:
+σ1 = [0.87 ∗(S0 −S) + S]/S0 ∗100%
+Among them,S0 is the surface area of the protection zone, and S is the area of
+the thickened zone. Calculated: High-energy charged particle defense efﬁciency
+σ1 = 89%
+2. Protection efﬁciency against gamma rays
+According to the above analysis, in the case where the aluminum plate is
+3.75 mm covering the entire surface of the protection zone, the γ-ray defense
+efﬁciency σ2 is 95%.
+However, in actual conditions, the thickness of the aluminum plate with a
+circular area of 2m is 10mm, which will increase σ2. Therefore, the defense efﬁ-
+ciency against high-energy charged particles:
+σ1 = [0.95 ∗(S0 −S) + S]/S0 ∗100%
+Among them, S0 is the surface area of the protection zone, and S is the area of
+the thickened zone. Calculated: High-energy charged particle defense efﬁciency
+σ1 = 95.3%95%
+4.4
+Feasibility analysis
+We have also considered other feasibility related issues:
+
+Team # 343
+Page 22 of 24
+1. The average ambient temperature of the Earth to Mars is 153K, which can
+reach 77K under the action of refrigerant. Meet the operating temperature of
+the BSCCO superconducting coil.
+2. The magnetic ﬁeld generated by the superconducting coil B=10T is harmful
+to the human body. However, the structure of the coil is analyzed, and the
+magnetic ﬁelds generated by the superconducting coils symmetric about the
+central axis of the protection zone in the protection zone cancel each other out.
+In addition, a small anti-magnetic coil can be added to the spacecraft to ensure
+safety. (The magnetic ﬁeld does not harm the astronauts)
+3. The lightweight insulating plastic is ﬁlled between the superconducting coils
+to enhance the ﬂight stability of the spacecraft.
+4. If the spacecraft encounters an SCR outbreak during ﬂight, it can enhance the
+shielding capability by temporarily increasing the current.
+5
+Model advantages and disadvantages
+5.1
+Advantages
+1. The active protection scheme is set to reduce the weight of the spacecraft’s
+outer casing.
+2. Consider the blind zone of active protection and make up for it by means of
+local passive protection.
+3. Compare 8 different magnetic ﬁeld conﬁguration schemes, choose a better so-
+lution, and enhance the shielding ability of radiation.
+4. The computer simulation method was used to analyze the inﬂuence of mag-
+netic ﬁeld strength B and magnetic ﬁeld thickness L on the shielding effect,
+and the better B and T were selected.
+5.2
+Disadvantages
+1. Protection against high energy uncharged particles is not considered.
+2. The critical current density of BSCCO is not large enough and the operating
+temperature is low. Therefore, the magnetic ﬁeld B generated by the magnetic
+shield may not reach 10T.
+
+Team # 343
+Page 23 of 24
+6
+Conclusions
+In this paper, various options for spacecraft to prevent deep space radiation
+are analyzed (the spacecraft is set to be cylindrical with a base radius of 5.42 me-
+ters, a height of 10.84 meters and a volume of about 1000m3). For the relatively
+feasible structures for blocking high-energy particles, the efﬁciency of possible
+magnetic ﬁeld structures in the eight schemes are calculated by computer sim-
+ulation, of which scheme 2 is considered superior (87% of high-energy particles
+can be shielded by superconducting magnetic ﬁelds with a strength of B = 10T
+and a thickness of L = 2m). Considering the blind area of the magnetic ﬁeld
+structure, an aluminum plate with a radius of 2 m and a thickness of 10 mm
+is installed on the top of the spacecraft. In addition to setting superconducting
+magnetic shielding ﬁelds to deﬂect high-energy particles, we also covered the
+spacecraft with a 3.75mm aluminum plate to absorb gamma rays. The results
+show that the scheme can block 89% of high energy electrons with energy less
+than 2Gev/n and 95% of gamma rays with frequency of 1020 Hz.
+References
+[1] Xu Zhenhua. Radiation environment and radiation protection in manned
+space [C] / / abstracts of the 16th Symposium on space life of the Chinese
+Academy of space sciences. 2005
+[2] Townsend L W, Wilson J W, Shinn J L, et al. Human exposure to large solar
+particle events in space[J]. Advances in Space Research, 1992, 12(2-3): 339-
+348.
+[3] Hoffman J, Fisher P, Batishchev O. Use of superconducting magnet tech-
+nology for astronaut radiation protection[J]. Final Report for NIAC Phase I
+Contract CP, 2005: 04-01.
+[4] Hoffman J, Fisher P, Batishchev O. Use of superconducting magnet tech-
+nology for astronaut radiation protection[J]. Final Report for NIAC Phase I
+Contract CP, 2005: 04-01.
+[5] Grifﬁth D J , Ruppeiner G . Introduction to Electrodynamics[J]. American
+Journal of Physics, 1981, 49(12):1188-1189.
+[6] http://www.chinatex.org/
+[7] Zheng Hongxia. Study on the Mechanism of Magnetic Shielding Protection
+against Space Radiation [D]. Nanjing University of Aeronautics and Astro-
+nautics, 2018.
+[8] Tajmar M, Hense K, Marhold K, et al. Weight Measurements of HighTem-
+perature Superconductors during Phase Transition in Stationary, NonSta-
+
+Team # 343
+Page 24 of 24
+tionary Condition and under ELF Radiation[C]//AIP Conference Proceed-
+ings. AIP, 2005, 746(1): 1290-1297.
+[9] Zhang Lei, Jia Mingchun, Gong Junjun, Xia Wenming. Study on a fast
+method for calculating -ray mass attenuation coefﬁcient based on MCNP
+[J]. journal of naval university of engineering, 2018,30(05):106-112.
+[10] Chen Panxun. Experimental Measurement of X-ray Attenuation Coefﬁ-
+cients of Different Metal Materials for Different Energies [A] ... Annual Sci-
+entiﬁc Report of China Institute of Engineering Physics (2002)[C]: Editorial
+Department of Annual Scientiﬁc Report of China Institute of Engineering
+Physics, 2002:2.
+[11] Ye Zonghai. On the shielding and protection of high-energy charged parti-
+cles [A]. Space Exploration Committee of the Chinese Society of Space Sci-
+ence. Proceedings of the 16th Academic Conference of the Space Exploration
+Committee of the Chinese Society of Space Science (II) [C]. Space Explo-
+ration Committee of the Chinese Society of Space Science: China Society of
+Space Science, 2003:14.

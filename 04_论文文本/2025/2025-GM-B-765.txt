@@ -1,0 +1,3273 @@
+Team 765
+Problem B
+Page 1
+Artillery Trajectory Modeling via Simplified
+Aerodynamic-Kinematic Assumptions and Development of
+Manual Calculation Tools
+Abstract
+This study establishes a theoretical framework for artillery projec-
+tile trajectory modeling based on simplified aerodynamic and kinematic
+assumptions, systematically describing projectile flight behavior under con-
+strained conditions.
+For the first Question, we built a 2D planar motion-based ODE
+system, integrating key trajectory-influencing physical models (atmo-
+spheric model, dynamic drag-coefficient model). With the Dormand-
+Prince numerical integration algorithm, we simulated the projectile’s flight.
+Via parameter scanning and optimization, we obtained 100 elevation angle
+(θ)-initial velocity pairs ensuring target impact, and extracted three typ-
+ical solutions. Among these, the minimum initial velocity is 122 m/s (at
+θ = 41.8◦). Overall, θ and initial velocity show a U-shaped relationship:
+the latter is smallest at 40◦-50◦, consistent with ballistics’ minimum energy
+principle, verifying the model’s rationality.
+For the second Question,within 1000–1500 meters (varying alti-
+tudes/wind), we built a physical model incorporating gravity, air resistance,
+sphere damping coefficient, and air density variations.
+Ignoring Coriolis
+force and Magnus effect, we used Runge-Kutta (ODEs), Levenberg-
+Marquardt (least squares) with three-point finite difference Jacobian ap-
+proximation to get optimal launch angle/velocity. Wind affects azimuth,
+distance impacts initial velocity, and relative altitude influences pitch an-
+gle—these interrelated factors induce complex nonlinear changes, requiring
+precise adjustments in actual combat.
+For the third Question, this paper first derives a preliminary base
+ballistic table for idealized scenarios via real-world simplification, then
+obtains correction tables from the final practical projectile flight model
+developed in Question 2. Additionally, it develops a nomogram suitable for
+artillery officers’ manual plotting from initial firing tables. Finally, it derives
+scenario-specific simplified formulas from the simplified model to assist
+officers in mental calculations, with results corrected via practical experience
+and the correction tables.
+Keywords: ODE system; Runge-Kutta method;Levenberg-Marquardt;Base
+Ballistic Table;Correction Table; Nomogram
+
+Contents
+1
+Introduction
+4
+2
+Problem Restatement
+4
+3
+Notation
+4
+4
+Assumptions and Approximations
+6
+5
+Ballistic Simulation Model for a Spherical Projectile under Calm Wind
+Conditions
+6
+5.1
+The Establishment of Model . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+5.1.1
+Problem Formulation . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+5.1.2
+Construction of the Atmospheric Model . . . . . . . . . . . . . . .
+9
+5.1.3
+Dynamic Drag Coefficient Model
+. . . . . . . . . . . . . . . . . .
+11
+5.2
+Model Solving and Result Analysis
+. . . . . . . . . . . . . . . . . . . . .
+15
+5.2.1
+Formulation of the ODE System . . . . . . . . . . . . . . . . . . .
+15
+5.2.2
+Numerical Integration Method . . . . . . . . . . . . . . . . . . . .
+16
+5.2.3
+Solution Results . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+17
+6
+The impact of windy conditions and altitude changes
+18
+6.1
+Environmental Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+19
+6.1.1
+Gravitational Acceleration with Altitude and Latitude Variation .
+19
+6.1.2
+International Standard Atmosphere Model . . . . . . . . . . . . .
+19
+6.1.3
+Air Dynamic Viscosity (µ) Variation with Altitude
+. . . . . . . .
+20
+6.2
+Physical Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+21
+6.2.1
+Air Resistance . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+22
+6.2.2
+Magnus Force . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+23
+6.2.3
+The Coriolis Force
+. . . . . . . . . . . . . . . . . . . . . . . . . .
+24
+6.2.4
+Equations of Motion
+. . . . . . . . . . . . . . . . . . . . . . . . .
+25
+6.3
+Numerical Solution Method
+. . . . . . . . . . . . . . . . . . . . . . . . .
+25
+6.3.1
+Numerical Integration Method: Runge-Kutta Method . . . . . . .
+25
+6.3.2
+Trajectory Simulation Implementation
+. . . . . . . . . . . . . . .
+27
+6.3.3
+Launch Parameter Optimization . . . . . . . . . . . . . . . . . . .
+28
+6.4
+model result . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+29
+7
+Rapid Estimation Method for Initial Velocity and firing Angle
+34
+7.1
+Rapid Lookup Table Method . . . . . . . . . . . . . . . . . . . . . . . . .
+34
+7.1.1
+Basic Ballistic Table
+. . . . . . . . . . . . . . . . . . . . . . . . .
+34
+7.1.2
+Correction Table
+. . . . . . . . . . . . . . . . . . . . . . . . . . .
+35
+7.2
+Nomogram . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+37
+7.3
+Rapid Formula Method . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+38
+7.3.1
+Initial Velocity Calculation . . . . . . . . . . . . . . . . . . . . . .
+38
+7.3.2
+Elevation Angle Calculation . . . . . . . . . . . . . . . . . . . . .
+39
+7.3.2.1
+Taylor Expansion with Air Resistance
+. . . . . . . . . .
+40
+7.3.3
+Azimuth Deviation Estimation . . . . . . . . . . . . . . . . . . . .
+40
+2
+
+7.3.4
+Ultra-Simplified Field Formulas . . . . . . . . . . . . . . . . . . .
+41
+8
+Conclusions
+41
+9
+Model Limitations and Deficiencies
+42
+10 Model Improvement Directions
+42
+A Appendix
+43
+A.1 A.1 Python Code Excerpt . . . . . . . . . . . . . . . . . . . . . . . . . .
+43
+B Report on the Use of AI
+48
+B.1 Used AI System . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+48
+B.2 The Query . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+48
+B.3 The Full Output
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+48
+B.3.1
+GPT-5 output . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+48
+B.3.2
+Claude 4.5 Sonnet output
+. . . . . . . . . . . . . . . . . . . . . .
+50
+3
+
+Team 765
+Problem B
+Page 4
+1
+Introduction
+In the 19th century , artillery warfare represented a critical component of military op-
+erations, yet artillery officers faced severe computational constraints. Operating without
+computers, calculators, or even slide rules in many cases, these officers relied solely on
+mathematical training, logarithm tables, and trigonometric tables to make life-or-death
+firing decisions under battlefield pressure. The cannons of this era fired spherical cast-iron
+projectiles. Combat scenarios varied dramatically—engagements occurred across moun-
+tainous terrain with significant elevation differences, in valleys, and on plains, all while
+contending with unpredictable wind conditions. The challenge was not merely theoreti-
+cal accuracy but practical speed: an artillery officer needed to calculate firing solutions
+within minutes while under enemy fire, making the difference between victory and defeat.
+2
+Problem Restatement
+This problem requires developing a practical manual calculation methodology for 19th-
+century artillery operations in three progressive stages.
+First, determine the precise
+muzzle velocity and firing angle needed to hit a specific target located 1,200 meters away
+horizontally, with both the cannon and target positioned at 500 meters above sea level.
+Second, extend this solution to create a systematic approach for engaging targets at
+horizontal distances ranging from 1,000 to 1,500 meters, accounting for various altitude
+differences between cannon and target positions, as well as different wind speeds and
+directions. Third, generalize the method to cover the cannon’s full operational range
+under diverse combat conditions. The final deliverable must be a rapid estimation tech-
+nique—such as simplified firing tables, graphical aids, or calculation shortcuts—that a
+mathematically-trained officer can execute in the field using only period-appropriate tools
+(pen, paper, and reference tables) while maintaining tactically acceptable accuracy for
+successful target engagement.
+3
+Notation
+Symbol
+Definition
+Unit
+1. Basic Physical Quantities
+ρ
+Air density
+kg/m3
+µ
+Dynamic viscosity of air
+Pa·s
+A
+Cross-sectional area of the projectile (A = π(d/2)2)
+m2
+2. Aerodynamic Parameters
+Cd
+Drag coefficient
+Dimensionless
+Cd-base
+Re-based drag coefficient
+Dimensionless
+Cd-Ma-factor
+Ma correction factor for Cd
+Dimensionless
+wRe
+Re-Ma coupling weight
+Dimensionless
+Continued on next page
+
+Team 765
+Problem B
+Page 5
+Symbol
+Definition
+Unit
+Cd-Ma-only
+High-Re baseline Cd
+Dimensionless
+Fd
+Aerodynamic drag force
+N
+Fd,y
+Vertical component of aerodynamic drag force
+N
+k
+Drag factor (k = 1
+2CdρAvrel/m, used in ODE system)
+1/m
+Re
+Reynolds number (Re = ρdvrel
+µ , characterizes
+viscous-inertial balance)
+Dimensionless
+Ma
+Mach number
+Dimensionless
+vrel
+Relative wind speed
+m/s
+3. Ballistic and Trajectory Parameters
+x, y, z
+Coordinates in East-North-Up (ENU) system: x
+(East), y (North), z (Up)
+m
+vx, vy, vz
+Velocity components in x, y, z directions
+m/s
+v0
+Initial muzzle velocity
+m/s
+θ
+Launch elevation angle
+degrees
+φ
+Launch azimuth angle
+degrees
+R
+Horizontal range
+m
+t
+Flight time
+s
+h
+Altitude
+m
+∆h
+Altitude difference between launch point and target
+m
+vw
+Wind speed (vector components: vwx (East), vwy
+(North), vwz (Up))
+m/s⃗
+Y
+2D state vector
+-
+4. Model Constants and Coefficients
+ρ0
+Standard air density at sea level (ISA model)
+kg/m3
+µ0
+Standard dynamic viscosity at sea level
+(T0 = 288.15 K)
+Pa·s
+T0
+Standard sea level temperature (ISA model)
+K
+L
+Temperature lapse rate (L = 0.0065 K/m)
+K/m
+Hp
+Density scale height (Hp ≈8500 m)
+m
+S
+Sutherland constant (S = 110.4 K)
+K
+Rgas
+Specific gas constant for dry air
+J/(kg·K)
+Rearth
+Earth’s radius
+m
+ωearth
+Earth’s angular velocity
+rad/s
+λ
+Latitude
+degrees
+5. Numerical Integration Parameters
+hstep
+Time step size
+s
+RelTol
+Relative error tolerance
+Dimensionless
+AbsTol
+Absolute error tolerance
+Dimensionless
+ϵ
+Desired error tolerance
+Dimensionless
+
+Team 765
+Problem B
+Page 6
+4
+Assumptions and Approximations
+→Assumption 1: Treat the artillery projectile as a rigid sphere.
+Justification: Aligns with historical spherical projectile structure and simplifies aero-
+dynamic analysis by avoiding irregular shape - induced complex flow calculations.
+→Assumption 2: Neglect Coriolis force and Earth’s curvature.
+Justification: Their trajectory deviation is negligible compared to air drag and wind
+force for short - flight, limited - range projectiles, meeting battlefield rapid calculation
+needs.
+→Assumption 3: Neglect the Magnus effect.
+Justification: Aerodynamic drag dominates at high speeds, making the Magnus
+force’s cumulative effect insignificant and simplifying 3D force analysis.
+→Assumption 4: Atmospheric parameters vary regularly with altitude.
+Justification: Based on the standard atmospheric model, it quantifies altitude’s
+impact on aerodynamic drag and conforms to actual atmospheric variation.
+→Assumption 5: Air drag follows the quadratic drag law.
+Justification: Suitable for high - speed projectiles in turbulent flow, accurately de-
+scribing drag - velocity squared relationship.
+→Assumption 6: Treat trajectory evolution as a quasi - static process.
+Justification: Fast molecular thermal motion and pressure waves enable timely force
+and thermal balance, supporting numerical integration and simplifying unsteady analysis.
+5
+Ballistic Simulation Model for a Spherical Projec-
+tile under Calm Wind Conditions
+Building upon classical mechanics, we propose an integrated framework for spherical
+projectile trajectory simulation that incorporates gravity, aerodynamic drag, and atmo-
+spheric dynamics. A Reynolds–Mach coupling model for the drag coefficient, enhanced
+through adaptive atmospheric parameter updates, ensures accurate nonlinear trajectory
+prediction. The ODE45 numerical integration method is employed to efficiently bridge
+model development and validation, maintaining both robustness and practical applica-
+bility.
+The flowchart below summarizes the logical procedures of our approach.
+
+Team 765
+Problem B
+Page 7
+Problem Initialization and 
+Parameter Input
+Set Boundary Conditions
+Construction of Physical and 
+Atmospheric Models
+Integration 
+Converged?
+Trajectory Integration and 
+Range Calculation
+Formulation of ODE 
+Equations
+Formulation of ODE 
+Equations
+Parameter Optimization and 
+Multi-Solution Solving
+Results Analysis,
+ Visualization, and Output
+Atmospheric Submodule
+Cd Submodules
+ODE45 Submodule
+ODE45 Submodule
+Converged
+?
+Generate 
+Dynamic 
+Parameters
+Enter 
+Parameter 
+Optimization
+Generate
+ Dynamic 
+Parameters
+Set 
+Boundary 
+Conditions
+Define Differential Equations
+Integration 
+Converged?
+……
+……
+Atmospheric Submodule
+Atmospheric Submodule
+.etc
+.etc
+……
+……
+……
+Atmospheric Submodule
+.etc
+……
+Problem Initialization and 
+Parameter Input
+Set Boundary Conditions
+Construction of Physical and 
+Atmospheric Models
+Integration 
+Converged?
+Trajectory Integration and 
+Range Calculation
+Formulation of ODE 
+Equations
+Formulation of ODE 
+Equations
+Parameter Optimization and 
+Multi-Solution Solving
+Results Analysis,
+ Visualization, and Output
+Atmospheric Submodule
+Cd Submodules
+ODE45 Submodule
+ODE45 Submodule
+Converged
+?
+Generate 
+Dynamic 
+Parameters
+Enter 
+Parameter 
+Optimization
+Generate
+ Dynamic 
+Parameters
+Set 
+Boundary 
+Conditions
+Define Differential Equations
+Integration 
+Converged?
+……
+……
+Atmospheric Submodule
+Atmospheric Submodule
+.etc
+.etc
+……
+……
+……
+Atmospheric Submodule
+.etc
+……
+Figure 1: Logical Procedures of The Approach
+5.1
+The Establishment of Model
+5.1.1
+Problem Formulation
+Firstly, in light of the specific context addressed in this study, we conduct the fol-
+lowing analysis and formulate corresponding physical assumptions.
+Given that the Earth’s rotation induces a Coriolis force, which in turn can cause a de-
+viation in the trajectory of projectile motion, it is necessary to evaluate its potential
+influence. Previous studies[2] indicate that, under identical conditions, the magnitude
+of projectile deviation is directly proportional to its velocity. Considering the histori-
+cal background of this problem—namely, nineteenth-century artillery characterized by
+relatively short ranges, low muzzle velocities, and short flight durations—the resulting
+trajectory deviation is expected to be minimal. Consequently, the effects of both the
+Coriolis force and the Earth’s curvature can be reasonably disregarded in this context.
+Furthermore, as wind effects are not required to be taken into account in the present
+scenario, the projectile motion can be idealized as occurring within a two-dimensional
+plane.
+The two-dimensional plane motion model is illustrated in the following figure:
+
+Team 765
+Problem B
+Page 8
+Figure 2: Two-Dimensional Trajectory Model for a Spherical Projectile
+We now proceed to provide a detailed explanation of the model depicted above.
+In the present problem context, the spherical projectile, during its flight through the
+atmosphere, is subjected to the action of gravity and aerodynamic drag. The aerodynamic
+drag comprises pressure drag and frictional drag. Given the assumption that the projectile
+is perfectly smooth, frictional drag is neglected, and only pressure drag is taken into
+account.
+Since the initial launch velocity of the projectile is relatively high—classifying it as
+a high-speed projectile—the quadratic drag law is adopted for modeling, rather than
+Stokes’ law. The quadratic drag law is expressed as:
+Fd = 1
+2CdρAv2
+(5.1)
+where:
+• ρ: Air density
+• A: Projected area of the object
+• v: Relative fluid velocity
+• Cd: Drag coefficient, a dimensionless quantity that highly depends on the object’s
+shape
+Regarding the gravitational force acting on the projectile, a constant gravitational
+field assumption is employed, i.e., g=9.81m/s2 is considered invariant with altitude. This
+
+Team 765
+Problem B
+Page 9
+assumption is justifiable based on the scientific reality of 19th-century artillery: the
+limited ranges of cannons and the relatively low altitudes reached by projectiles meant
+negligible variation in gravitational acceleration with height.
+By combining the quadratic drag law with Newton’s Second Law of Motion, we can
+preliminarily establish the state vector and governing equations for the two-dimensional
+planar motion as follows:
+1. State Vector Definition
+Y =
+
+
+x
+y
+vx
+vy
+
+
+(Units in order: m, m, m/s, m/s)
+(5.2)
+2. Kinematics Equations
+dx
+dt = vx,
+dy
+dt = vy
+(5.3)
+3. Dynamics Equations
+dvx
+dt = −1
+2mCdρAvrel(vx −vw),
+dvy
+dt = −g −1
+2mCdρAvrelvy
+(5.4)
+Where:
+• Cd (drag coefficient, dimensionless)
+• ρ (air density, kg/m3), A = π(d/2)2 (cross-sectional area, m2)
+• vrel =
+q
+(vx −vw)2 + v2
+y (relative wind speed, m/s)
+• m (projectile mass, kg), vw (wind speed, m/s)
+4. Formulas for Constant Gravity Field Assumption
+g = 9.81 m/s2
+(5.5)
+dvy
+dt = −g −Fd,y
+m
+(5.6)
+Where: Fd,y = 1
+2CdρAvrelvy (vertical air drag force, N).
+This model constitutes the foundational framework for solving the present problem.
+5.1.2
+Construction of the Atmospheric Model
+In the preceding section, we established a two-dimensional planar motion model
+based on the quadratic drag law. From the governing equation, it can be observed that
+the magnitude of aerodynamic drag depends not only on the projectile’s relative velocity
+in the fluid, but also on the atmospheric environment and the drag coefficient. In this
+section, we elaborate on the construction of the atmospheric model.
+During the flight, the projectile’s altitude changes continuously, and correspondingly,
+the atmospheric parameters at different altitudes also vary. These variations influence
+the magnitude of the aerodynamic drag experienced by the projectile. Here, we focus on
+
+Team 765
+Problem B
+Page 10
+two parameters—air density and dynamic viscosity—and describe the methodology by
+which they are treated.
+It is well known that as altitude increases, air becomes progressively thinner. Since
+Fd=ρ, a density model is required to account for the rarefaction effect at high altitudes.
+This study adopts the International Standard Atmosphere (ISA) framework, deriving
+the relevant expressions from the equations of hydrostatic balance and the ideal gas law.
+By simulating the exponential decay of atmospheric pressure with altitude, this method
+achieves a balance between computational accuracy and efficiency. The corresponding
+equation is given as follows:
+Basic formula:
+ρ(h) = ρ0 exp
+ 
+−h
+Hp
+!
+(5.7)
+where
+• ρ0 = 1.225 kg/m3 (standard density at sea level)
+• Hp = 8500 m (density scale height)
+• approximately Hp = RT0
+g , with R = 287 J/(kg·K)
+• T0 = 288.15 K, and g = 9.81 m/s2
+Lower bound constraint:
+ρ = max(ρ, 0.1) kg/m3
+(5.8)
+Table 5.1: Derivation Logic of Atmospheric Pressure and Density Profile
+Step
+Derivation Logic
+Explanations
+1
+Starting from the atmo-
+spheric hydrostatic equi-
+librium equation
+dP
+dh
+=
+−ρg
+P is pressure; gravity in-
+duces vertical pressure gra-
+dient.
+2
+Combining with the ideal
+gas law P = ρRT, lead-
+ing to dP
+P = −g
+RT dh
+Relate pressure to density
+using the ideal gas state
+equation.
+3
+Assuming
+isothermal
+condition
+(T
+con-
+stant)
+and
+integrating
+P(h)
+=
+P0 exp
+
+−h
+H
+
+,
+where H = RT
+g
+Isothermal assumption sim-
+plifies integration to expo-
+nential pressure profile.
+4
+Then deriving the den-
+sity profile ρ(h) = P(h)
+RT =
+ρ0 exp
+
+−h
+Hp
+
+(Hp ≈H)
+Density profile follows from
+pressure profile and ideal
+gas law; Hp approximates
+H.
+Dynamic viscosity captures the frictional effects arising from collisions between air
+molecules, and exhibits significant dependence on temperature. As altitude increases,
+
+Team 765
+Problem B
+Page 11
+the ambient temperature gradually decreases, leading to marked changes in air viscos-
+ity. This variation impacts the computation of the Reynolds number and, consequently,
+the drag coefficient Cd . To address this, a temperature-dependent viscosity model is
+constructed based on kinetic theory of gases, deriving the Sutherland formula from the
+Chapman–Enskog theory. The explicit form of the model is given as follows:
+Basic formula:
+µ(h) = µ0
+ T
+T0
+ 3
+2 T0 + S
+T + S
+(5.9)
+where
+• µ0 = 1.789 × 10−5 Pa·s (sea level dynamic viscosity)
+• T0 = 288.15 K
+• S = 110.4 K (Sutherland constant, representing empirically fitted intermolecular
+forces)
+Lower bound constraint:
+µ = max
+
+µ, 1 × 10−6
+Pa·s
+(to avoid singularities or negative values at low pressure).
+Table 5.2: Derivation Logic of Viscosity Formula
+Step
+Derivation Logic
+Formulas
+1
+From the kinetic theory
+of gases foundation
+µ ∝ρλ¯v, λ ∝T
+ρ (mean free path),
+¯v ∝
+√
+T (average speed), leading
+to µ ∝
+√
+T .
+2
+Considering intermolecu-
+lar attraction (Lennard-
+Jones potential)
+Corrected to µ ∝T 3/2 (collision
+integral Ω∝T −1/2) .
+3
+Introduce
+Sutherland
+term
+to
+correct
+low-
+temperature behavior
+Full form from collision theory:
+µ = µ0
+
+T
+T0
+3/2 T0+S
+T+S .
+Together, these two models incorporate the influence of altitude on projectile aerody-
+namics, thereby enhancing the overall accuracy of the motion model.
+5.1.3
+Dynamic Drag Coefficient Model
+Within the framework of the quadratic drag law, the drag coefficient Cd plays a
+crucial role in determining aerodynamic resistance. In the present study, we establish a
+dynamic model for Cdto capture nonlinear aerodynamic effects, thereby enhancing the
+accuracy of the motion model across different velocities and altitudes.
+The necessity of implementing a dynamic Cd arises from the multi-scale effects in-
+herent in projectile flight: at low velocities, viscous effects dominate (Reynolds number
+
+Team 765
+Problem B
+Page 12
+dependence), resulting in higher Cd values and rapid deceleration; at high velocities,
+compressibility effects prevail (Mach number dependence), where shock formation can
+cause pronounced peaks in Cd. Employing a constant Cd value—such as the classical
+0.47—could lead to range errors of several tens of meters or more, particularly in the
+transonic regime.
+Our proposed model is derived from coupled Reynolds number (Re) and Mach number
+(Ma) formulations, based on fundamental principles in fluid mechanics.
+The overall
+procedure is outlined in the following table.
+Table 5.3: Flowchart of Drag Coefficient Cd Calculation Steps
+Step
+Description
+1
+Calculate Re-based Cd-base (Viscous Effect)
+2
+Calculate Ma Correction Factor Cd-Ma-factor (Compress-
+ibility Effect)
+3
+Introduce Re-Ma Coupling Weight wRe
+4
+Integrate to Calculate Final Cd , Apply physical con-
+straints to ensure validity
+We now present a detailed explanation of its construction.
+The Reynolds number (Re) characterizes the balance between viscous and inertial
+forces, obtained through the non-dimensionalization of the Navier–Stokes equations.
+Since the drag coefficient does not possess a fixed dimensional relationship with Re,
+we employ a segmented modeling approach to describe the variation of Cd with Re, as
+follows:
+• For low Re region (Re < 103, laminar region):
+Cd-base = 24
+Re + 4.5
+√
+Re + 0.42
+(5.10)
+(The base Stokes solution is 24/Re, derived from molecular diffusion; +4.5/
+√
+Re
+is the Oseen correction, accounting for inertial disturbances; +0.42 is an empirical
+high-order term, derived from sphere drag experiments. Physically, Cd ∼10–100
+at low Re, leading to rapid deceleration .)
+• For transition region (103 ≤Re < 2 × 105):
+Cd-base = 0.5 −0.1 log10
+ Re
+103
+!
+(5.11)
+(Derived from boundary layer separation theory; the logarithmic form arises from
+the backward shift of the separation point with increasing Re, reducing Cd; 0.5 is the
+initial value, based on subcritical experiments; the deceleration rate 0.1 comes from
+curve fitting. Physically, Cd ∼0.4–0.5 in this region, suitable for medium-speed
+flight.)
+
+Team 765
+Problem B
+Page 13
+• For high Re region (Re ≥2 × 105, high Re plateau + drag crisis):
+Cd-base = 0.47
+(5.12)
+(Plateau region, derived from turbulent boundary layer; the constant 0.47 is an
+empirical value for spheres.)
+If Re > 3 × 105:
+Cd-base = 0.47 ·
+ 0.2
+0.47 + 0.8 exp
+ 
+−Re −3 × 105
+105
+!!
+(5.13)
+This modeling strategy allows the low- to mid-velocity regime to be dominated by
+Re-dependent viscous effects.
+The Mach number (Ma) represents compressibility effects, derived from the Euler
+equations. By constructing a Cd –Ma correction model, we capture the aerodynamic
+phenomena associated with the transonic regime, including the shock-induced increases
+in Cd. The model is formulated as follows:
+• For Ma ≤0.3 (incompressible region):
+Cd-Ma-factor = 1.0
+(5.14)
+(derived from Bernoulli’s equation).
+• For 0.3 < Ma < 0.8 (subsonic):
+Cd-Ma-factor =
+1
+q
+1 −Ma2
+(5.15)
+(Prandtl-Glauert rule, derived from linearized potential flow equation: Compress-
+ibility increases pressure gradient, raising Cd; β =
+q
+1 −Ma2 is the compressibility
+factor.
+Physically, at Ma = 0.7, the factor is ∼1.4, leading to a slight range
+reduction.)
+• For 0.8 ≤Ma < 1.0 (transonic rising region):
+Cd-Ma-factor = 1.67 + (2.0 −1.67) · Ma −0.8
+0.2
+(5.16)
+(Linear interpolation, derived from experimental curves: At Ma = 0.8, ∼1.67
+(onset of local shock waves); peak at Ma = 1.0 is 2.0 (full shock wave). Physically,
+Cd rises sharply in this region, causing significant energy loss and a 15% range
+reduction.)
+• For 1.0 ≤Ma < 1.2 (transonic falling region):
+Cd-Ma-factor = 2.0 −(2.0 −1.5) · Ma −1.0
+0.2
+(5.17)
+(Linear decrease, derived from shock wave attenuation: At Ma = 1.2, ∼1.5. Phys-
+ically, Cd decreases after the shock wave stabilizes.)
+
+Team 765
+Problem B
+Page 14
+• For Ma ≥1.2 (supersonic region):
+Cd-Ma-factor = 1.5 + 0.3 · (Ma −1.2)2
+(5.18)
+(Quadratic growth, derived from wave drag theory: Wave drag ∝Ma2 −1; the 0.3
+coefficient is fitted from NASA data. Physically, Cd rises to ∼2–3 at high Ma,
+limiting supersonic range.)
+Through the aforementioned model, we are able to capture the Mach-effect-dominated
+high-speed regime. Next, we will couple the two models, following the logic outlined
+below:
+• Weight wRe:
+– If Ma < 0.5: wRe = 1.0 (Re-dominated).
+– If 0.5 ≤Ma < 1.5: wRe = 1.0 −0.8 · Ma−0.5
+1.0
+.
+– If Ma ≥1.5: wRe = 0.2 (Ma-dominated).
+• Fused Cd:
+Cd-Ma-only = 0.47 · Cd-Ma-factor
+(high-Re baseline, no Re correction)
+(5.19)
+Cd = wRe · Cd-base · Cd-Ma-factor + (1 −wRe) · Cd-Ma-only
+(5.20)
+We implemented the coupling process of Re and Ma through programming, and the
+coupling results are shown in the figure below:
+(a)
+(b)
+Figure 3: Visualization of the Reynolds–Mach Coupling Results
+
+Team 765
+Problem B
+Page 15
+Figure 4: Cd-Ma-Re
+From the results, the overall drag coeffi-
+cient curve largely coincides with the Re
+curve. Moreover, when the Cd-Re relation-
+ship deviates, the Ma correction factor ex-
+hibits pronounced fluctuations.
+These ob-
+servations collectively demonstrate that the
+Re-Ma coupling performs effectively.
+5.2
+Model Solving and Result Analysis
+5.2.1
+Formulation of the ODE System
+The formulation of the ODE system constitutes the core step in our ballistic simula-
+tion modeling, as it transforms the previously established physical model into its math-
+ematical representation, thereby facilitating numerical computation. In the preceding
+model, we have defined the state vector
+Y =
+
+
+x
+y
+vx
+vy
+
+,
+which corresponds to a nonlinear system of equations and hence requires numerical meth-
+ods for its solution. Based on the physical model developed earlier, the resulting ODE
+system can be expressed as:
+dY
+dt =
+
+
+vx
+vy
+−k · vrelx
+−g −k · vrely
+
+,
+(5.21)
+where the drag factor is
+k = 1
+2CdρAvrel/m.
+(5.22)
+For the low-speed threshold, i.e.,
+vrel < 10−6,
+the equations reduce to
+dvx
+dt = 0,
+dvy
+dt = −g.
+(5.23)
+Following the completion of the preceding steps, the integration of the dynamic Cd
+calculation can now be carried out, as detailed in the procedure below.
+1. Re-based Cd (Piecewise): Use Stokes’ formula for low Re, and the high-Re
+plateau value for high Re.
+
+Team 765
+Problem B
+Page 16
+2. Ma Correction: Apply Prandtl-Glauert rule for subsonic, linear interpolation for
+transonic, and quadratic growth for supersonic.
+3. Coupling Weight wRe:
+wRe = 1.0 −0.8 · Ma −0.5
+1.0
+(5.24)
+(for Ma < 1.5), where the influence of Re weakens at high Ma.
+4. Final Cd:
+Cd = wRe · Cd,base · Cd,Ma factor + (1 −wRe) · Cd,Ma only
+(5.25)
+where Cd,Ma only = 0.47 · Cd,Ma factor. Apply the physical constraint Cd ∈[0.08, 1.2].
+5.2.2
+Numerical Integration Method
+The numerical integration method is employed to solve the aforementioned initial
+value problem for the ODEs, integrating from the initial state to the point of impact
+where y=0. In this study, we adopt the ODE45 solver, as the problem under consider-
+ation is non-stiff. This solver is based on an embedded Runge–Kutta (RK) algorithm,
+which offers a favorable balance between high accuracy and computational efficiency. A
+simplified flowchart illustrating the solution procedure is presented below, while many
+specific details will be discussed in greater depth in the subsequent section.
+Figure 5: Solution Procedure
+
+Team 765
+Problem B
+Page 17
+5.2.3
+Solution Results
+Based on the entirety of the model established, we implemented a computational
+simulation, yielding the results presented below:
+Figure 6: θ-Cd-v0 relationship
+The figure on the left shows the
+relationship
+between
+launch
+angle, initial velocity, and flight
+time, forming a distinct corre-
+lation curve.
+The blue curve
+highlights a spatial U-shaped
+trend:
+as the launch angle
+increases, the initial velocity
+first decreases and then rises,
+while the flight time steadily
+increases, with a marked exten-
+sion at high angles. This pat-
+tern characterizes high ballistic
+trajectories, which feature pro-
+longed flight durations coupled
+with relatively high initial ve-
+locities.
+Figure 7 illustrates the dynamic evo-
+lution of the projectile drag coefficient
+(Cd ) as a function of horizontal dis-
+tance for different ballistic trajectories.
+It can be observed that, for the trajec-
+tory with the minimum initial velocity,
+the Cd curve is relatively smooth and
+stable, maintaining a value around 0.2.
+This indicates that under this trajec-
+tory the projectile velocity and ambient
+conditions tend toward stability, with
+the flow state approximating laminar or
+steady flow. For the low-elevation tra-
+jectory, Cd exhibits a monotonically de-
+creasing trend, gradually declining from
+a higher value (approximately 0.57) to
+around 0.27 near the terminal stage.
+Figure 7: θ-Cd-v0 relationship
+This reflects the influence of decreasing ambient density and velocity changes with
+increasing flight distance, leading to a gradual reduction in Cd. In contrast, the high-
+elevation trajectory shows pronounced fluctuations, with multiple peaks occurring near
+600m and 800m, and Cd oscillating sharply between 0.2 and 0.6. This suggests that
+the projectile may traverse different aerodynamic regimes, such as passing through the
+transonic critical zone, thereby inducing shock waves and flow separation, which are inher-
+
+Team 765
+Problem B
+Page 18
+ently unsteady phenomena. These observations are consistent with the model established
+earlier.
+Figure 8: Comparison of Three Typical Trajectories
+Figures 8 and 9 present three representative solutions: the lowest trajectory, the
+highest trajectory, and the trajectory with the minimum initial velocity.
+Figure 9: θ-v0 relationship
+In the context of 19th-century applications,
+the minimum-energy solution corresponds to
+the optimal launch angle that achieves the
+target range with a lower initial velocity, em-
+bodying the principle of energy minimization
+and meeting battlefield demands for conserv-
+ing propellant and maximizing resource effi-
+ciency. The lowest-trajectory solution repre-
+sents a rapid, low-elevation path with short
+flight time, suitable for swift strikes but re-
+quiring relatively high initial velocity.
+In
+contrast, the highest-trajectory solution fol-
+lows a high-elevation parabolic path, charac-
+terized by longer flight time and greater alti-
+tude, enabling strikes over obstacles against
+well-concealed targets, albeit with higher en-
+ergy requirements.
+These three representative solutions effectively meet the operational requirements of
+19th-century artillery, highlighting the complementary advantages of different trajectories
+in terms of energy efficiency, range, and tactical applicability.
+6
+The impact of windy conditions and altitude changes
+This part investigates how to determine projectile launch parameters (initial velocity
+v0, elevation angle θ, azimuth angle φ) to accurately hit a specified target point in three-
+dimensional space under wind field conditions.
+
+Team 765
+Problem B
+Page 19
+6.1
+Environmental Model
+6.1.1
+Gravitational Acceleration with Altitude and Latitude Variation
+According to the international formula for gravity:
+g(z, λ) = g0(λ)
+
+1 −
+2z
+Rearth
+
+(6.1)
+where:
+g0(λ) = 9.780327
+
+1 + 0.0053024 sin2 λ −0.0000058 sin2 2λ
+
+m/s2
+Rearth = 6371000 m
+λ is the latitude of the launch point,z represents the altitude.We can obtain the following
+relationship diagram:
+Figure 10: gravity variation
+The gravitational acceleration varies at different latitudes, which in turn affects the
+trajectory of the shell
+6.1.2
+International Standard Atmosphere Model
+Atmospheric density ρ(z) adopts the tropospheric model:
+T(z) = T0 −L · z
+(6.2)
+P(z) = P0
+
+1 −L · z
+T0
+ g0M
+RL
+(6.3)
+ρ(z) =
+P(z)
+RgasT(z)
+(6.4)
+
+Team 765
+Problem B
+Page 20
+The sea level temperature is T0 = 288.15 K; the temperature lapse rate is L =
+0.0065 K/m; the sea level pressure is P0 = 101325 Pa; the molar mass of air is M =
+0.02896 kg/mol; the universal gas constant is R = 8.314 J/(mol·K); and the specific
+gas constant for dry air is Rgas = 287.05 J/(kg·K).
+Derived from the ideal gas law
+(ρ = p/(RaT)) and combined with the atmospheric pressure formula, we have:
+ρ = ρ0 × (1 −h/H0)(g0M/(R∗T0)−1)
+(6.5)
+Parameter Explanations:
+1. ρ0 = 1.205 kg/m3 (standard air density at sea level);
+2. Other parameters are consistent with the atmospheric pressure formula (T is taken
+as 288.15 K);
+The change curve is shown in the following figure:
+Figure 11: ISAmodel variation
+It can be seen that within an altitude of 2,000 meters, the changes in temperature and
+air pressure are not obvious. Therefore, when calculating the air density, the variations
+of the two can be ignored and that is reasonable.
+6.1.3
+Air Dynamic Viscosity (µ) Variation with Altitude
+µ is mainly affected by temperature. As altitude increases, the temperature decreases
+slightly, but the overall influence is moderate. The formula is as follows:
+µ = µ0 × (T0 + C)/(T(h) + C) × (T(h)/T0)(3/2)
+(6.6)
+µ0 = 1.81 × 10−5 Pa·s denotes the dynamic viscosity at sea level at 20°C; T0 = 288.15 K
+is the standard temperature at sea level; T(h) = 288.15 −0.0065h represents the ap-
+proximate temperature formula at altitude h, applicable for the range of 0 10000m with
+a temperature drop of 6.5K per 1000m increase in altitude; and C = 110.4 K is the
+Sutherland constant, a fixed value.The change curve is shown in the following figure
+
+Team 765
+Problem B
+Page 21
+Figure 12: viscosity variation.
+6.2
+Physical Model
+During the flight of a spherical projectile, in addition to gravity, it also interacts
+with the air. The magnitude and direction of gravity are constant, denoted as mg, and
+directed vertically downward. What needs to be discussed is the interaction between
+the sphere and the air. This involves aerodynamic problems and is relatively complex,
+requiring modeling simplification.
+Figure 13: Projectile with Airflow and Spin
+
+Team 765
+Problem B
+Page 22
+The interaction between the sphere and the air can be simplified into three forces:
+the buoyancy force (The buoyancy force is very small compared to the gravitational force
+of the sphere, so it is not considered.), the air drag force FD, and the Magnus force FM
+generated by rotation. The force situation is shown above. (1)
+6.2.1
+Air Resistance
+The direction of air drag FD is always opposite to the velocity direction, and the
+magnitude of FD is related to velocity, as shown below
+Figure 14: Diagram of the airflow on both sides of the disc
+Assume the sphere moves in air with velocity v. Take a differential area element in
+front of the sphere, denoted as 1, with pressure p1 and velocity v1 = v. Take a differential
+area element behind the sphere, denoted as 2, with pressure p2 and velocity v2 = 0.
+According to Bernoulli’s equation:
+p1 + 1
+2ρv2
+1 = p2 + 1
+2ρv2
+2
+(6.7)
+From equation (6.7), we obtain:
+p1 −p2 = 1
+2ρv2
+(6.8)
+Let S be the cross-sectional area of the sphere, then the air drag force is:
+FD = (p1 −p2)S = 1
+2ρSv2
+(6.9)
+Equation (6.9) is only a rough estimate. In reality, the airflow distribution around
+the sphere is complex. The airflow separates at the sphere surface and forms a wake, and
+these factors all affect the magnitude of drag. To describe air resistance more accurately,
+a drag coefficient Cd is introduced. (1)
+
+Team 765
+Problem B
+Page 23
+In this problem, the projectile is modeled as a rigid sphere, and due to its relatively
+high velocity, the entire motion process can be regarded as a turbulent flow process. The
+drag coefficient satisfies the empirical formula Thus, the final calculation formula can be
+derived as follows:
+Cd = 24µ
+ρdv +
+6
+1 +
+q
+ρdv
+µ
++ 0.4
+(6.10)
+Therefore, the air drag force can be expressed as:
+FD = −1
+2CdρSv2ˆv
+(6.11)
+where S is the cross-sectional area of the sphere; ρ is the air density; ˆv is the unit vector
+in the velocity direction. It should be noted that the drag coefficient is related to the
+surface roughness of the sphere; the rougher the surface, the smaller the drag coefficient.
+6.2.2
+Magnus Force
+When the sphere rotates, it generates Magnus force. The mechanism of its generation
+is shown in Figure 3.
+Figure 15: Mechanism of Magnus force generation
+As shown in Figure 3, the sphere moves to the right with velocity v while rotat-
+ing counterclockwise about an axis perpendicular to the paper with angular velocity ω.
+According to Bernoulli’s equation:
+p1 + 1
+2ρv2
+1 = p2 + 1
+2ρv2
+2 = c
+(6.12)
+where:
+v1 = v + ωR,
+v2 = v −ωR
+(6.13)
+ω is the angular velocity, and R is the radius of the sphere.
+Therefore:
+FM = S(p2 −p1) = 1
+2πR2ρ(v2
+1 −v2
+2) = 2πρR3vω
+(6.14)
+
+Team 765
+Problem B
+Page 24
+Similar to the drag coefficient Cd in equation (6.11), introducing a lift coefficient Cl,
+and noting that FM ∼ω × ˆv, the Magnus force can be expressed as:
+FM = 1
+2ClρSv2 ω × ˆv
+|ω × ˆv|
+(6.15)
+In equation (6.15), Cl is related to the angular velocity, surface roughness, velocity,
+and Reynolds number.
+In this model, after estimation, due to the high velocity of the projectile (up to 450
+m/s at maximum), the cumulative effect of the Magnus force is not significant. The
+aerodynamic drag dominates, while the Magnus force relatively small. Therefore, the
+Magnus force is neglected for the sake of simplifying calculations.
+6.2.3
+The Coriolis Force
+Figure 16: Coriolis Force
+The Coriolis force is an apparent inertial force experienced in a rotating reference
+frame, such as the Earth. It arises due to the rotation of the Earth and acts on moving
+objects relative to the Earth’s surface. In vector form, it is expressed as:
+Fc = −2m (ω × v)
+(6.16)
+where m is the mass of the object, v is its velocity relative to the rotating frame, and ω
+is the Earth’s angular velocity vector (∥ω∥≈7.292115 × 10−5 rad/s).
+Physically, the Coriolis force deflects the trajectory of the moving body to the right
+in the Northern Hemisphere and to the left in the Southern Hemisphere. Its magnitude
+depends on both the velocity of the object and the sine of the latitude. In the present
+study, the Coriolis force is neglected because the projectile’s flight time is only a few
+seconds and the range is relatively short, making the resulting deflection due to Earth’s
+rotation negligible compared with dominant aerodynamic effects such as drag variation
+with altitude.
+
+Team 765
+Problem B
+Page 25
+6.2.4
+Equations of Motion
+We adopted the East-North-Up (ENU) coordinate system, where the x-axis points
+East, the y-axis points North, and the z-axis points Up (vertically upward).
+The launch point coordinates are (x0, y0, z0), and the target point coordinates are
+(xt, yt, zt).
+The projectile motion in wind field⃗vw = (vwx, vwy, vwz) is described by the following
+system of ordinary differential equations:
+dx
+dt = vx,
+dy
+dt = vy,
+dz
+dt = vz
+(6.17)
+dvx
+dt = −k(z, v) · vrel · (vx −vwx)
+(6.18)
+dvy
+dt = −k(z, v) · vrel · (vy −vwy)
+(6.19)
+dvz
+dt = −g(z, λ) −k(z, v) · vrel · (vz −vwz)
+(6.20)
+where:
+• Relative wind speed: vrel =
+q
+(vx −vwx)2 + (vy −vwy)2 + (vz −vwz)2
+• Drag coefficient: k(z, v) = ρ(z)Cd(M)A
+2m
+Given launch parameters (v0, θ, φ), the initial velocity components are:
+vx0 = v0 cos θ cos φ
+(6.21)
+vy0 = v0 cos θ sin φ
+(6.22)
+vz0 = v0 sin θ
+(6.23)
+Initial state vector:⃗
+s0 = (x0, y0, z0, vx0, vy0, vz0)
+(6.24)
+6.3
+Numerical Solution Method
+6.3.1
+Numerical Integration Method: Runge-Kutta Method
+The Runge-Kutta (RK) family of methods are explicit numerical schemes for solving
+ordinary differential equations (ODEs) of the form:
+d⃗y
+dt =⃗f(t,⃗y),⃗
+y(t0) =⃗y0
+(6.25)
+The classical fourth-order Runge-Kutta method (RK4) approximates the solution by
+evaluating the derivative at multiple intermediate points within each time step:⃗
+k1 =⃗f(tn,⃗yn)
+(6.26)⃗
+k2 =⃗f(tn + h
+2,⃗yn + h
+2⃗k1)
+(6.27)⃗
+k3 =⃗f(tn + h
+2,⃗yn + h
+2⃗k2)
+(6.28)⃗
+k4 =⃗f(tn + h,⃗yn + h⃗k3)
+(6.29)⃗
+yn+1 =⃗yn + h
+6(⃗k1 + 2⃗k2 + 2⃗k3 +⃗k4)
+(6.30)
+
+Team 765
+Problem B
+Page 26
+where h is the time step size. The local truncation error is O(h5), making RK4 highly
+accurate for smooth problems.The method is as shown in the following figure:
+Figure 17: fourth-order Runge-Kutta method
+The Runge-Kutta-Fehlberg method (RK45) extends RK4 by computing two estimates
+of different orders:
+• A fifth-order accurate solution:⃗y(5)
+n+1 with error O(h6)
+• A fourth-order accurate solution:⃗y(4)
+n+1 with error O(h5)
+The local error estimate is obtained by comparing these two solutions:⃗
+en =⃗y(5)
+n+1 −⃗y(4)
+n+1
+(6.31)
+The step size h is dynamically adjusted to maintain the error below user-specified
+tolerances:
+hnew = hold · min
+
+fmax, max
+
+fmin, s
+ 
+ϵ
+||⃗en||
+!1/5
+
+
+
+(6.32)
+where ϵ is the desired tolerance, s ≈0.9 is a safety factor, and fmin, fmax are bounds on
+step size changes.(3)
+we chosed RK45 method because it offers adaptive step-size control, automatically
+adjusting the time step to match the projectile’s changing dynamics avoiding wasted
+computation from overly small fixed steps and accuracy loss from overly large ones. Its
+fifth-order local accuracy keeps cumulative errors negligible over long simulations (up to
+500s), ensuring precise impact point prediction. RK45 also supports event detection for
+accurately terminating integration at the exact moment of ground impact.
+
+Team 765
+Problem B
+Page 27
+6.3.2
+Trajectory Simulation Implementation
+The six-dimensional state vector is defined as:⃗
+s(t) =
+h
+x(t)
+y(t)
+z(t)
+vx(t)
+vy(t)
+vz(t)
+iT
+(6.33)
+The governing ODE system, derived from Newton’s second law with aerodynamic
+drag and gravitational acceleration, is:
+d⃗s
+dt =
+
+
+vx
+vy
+vz
+−k(z, v) · vrel · (vx −wx)
+−k(z, v) · vrel · (vy −wy)
+−g(z, ϕlat) −k(z, v) · vrel · (vz −wz)
+
+
+(6.34)
+The RK45 integrator is configured with the following parameters to ensure both ac-
+curacy and computational efficiency:
+Parameter
+Value
+Numerical integrator
+scipy.integrate.solve ivp (RK45 method)
+Integration interval
+t ∈[0, 500] s
+Relative error tolerance
+ϵrel = 10−8
+Absolute error tolerance
+ϵabs = 10−8
+Maximum step size
+∆tmax = 0.05 s
+Initial step size
+∆t0 = 10−4 s (auto-adjusted)
+Table 6.1: RK45 integration parameters
+The strict 10−8 error tolerances keep position errors under 1mm over 500s, velocity
+errors under 10−5m/s, and energy conservation errors below 0.01%.
+To precisely determine the moment when the projectile reaches the target altitude zt,
+an event function is defined:
+fhit(t,⃗s) = z(t) −zt
+(6.35)
+The event is triggered when:
+fhit(t∗,⃗s(t∗)) = 0
+and
+dz
+dt
+
+t=t∗
+= 0
+(6.36)
+Upon event detection, the integrator refines t∗to machine precision via root-finding
+(bisection method), terminates integration immediately, and records the impact state
+(ximp, yimp, zimp, vx,imp, vy,imp, vz,imp).
+For each set of launch parameters (v0, θ, φ), the
+RK45 simulation outputs the adaptive-step trajectory data, impact point and veloc-
+ity, flight time, and range. These results are then used to iteratively refine the launch
+parameters in the optimization loop.
+
+Team 765
+Problem B
+Page 28
+6.3.3
+Launch Parameter Optimization
+Given a target location⃗rt = (xt, yt, zt) and launch point⃗r0 = (x0, y0, z0), the goal is
+to find the launch parameters (v0, θ, φ) such that the projectile hits as close as possible
+to the target. This is formulated as a nonlinear least squares problem:
+min
+v0,θ,φ ∥⃗r(v0, θ, φ)∥2
+2
+(6.37)
+where the residual vector includes horizontal impact coordinate errors:⃗
+r(v0, θ, φ) =
+"
+ximp(v0, θ, φ) −xt
+yimp(v0, θ, φ) −yt
+#
+(6.38)
+Note the vertical error zimp−zt is implicitly enforced by the event detection of projectile
+impact at the target elevation, so it is not explicitly minimized.
+Optimization algorithm: Levenberg–Marquardt (L–M) method implemented via
+scipy.optimize.least squares, with 3-point finite difference Jacobian approximation
+offers stable and fast convergence.
+The iteration step is:⃗
+pk+1 =⃗pk −(J⊤
+k Jk + λkI)−1J⊤
+k⃗r(⃗pk)
+(6.39)
+where⃗p = [v0, θ, φ]⊤and λk is an adaptive damping parameter.
+Parameter bounds:
+
+
+
+
+
+
+
+50 ≤v0 ≤v0,max
+(e.g., 450 m/s)
+5◦≤θ ≤85◦
+φinit −45◦≤φ ≤φinit + 45◦
+to ensure physical feasibility and limit search space.
+Initial guess strategy:
+• Compute horizontal displacement and azimuth:
+dx = xt −x0,
+dy = yt −y0,
+dz = zt −z0
+dhoriz =
+q
+dx2 + dy2,
+φinit = arctan 2(dy, dx)
+• Evaluate local gravity glocal at launch altitude.
+• For large vertical offset dz > 50 m, set:
+vguess
+0
+= 0.95 v0,max,
+θguess = 45◦
+• Otherwise estimate flight time and elevation angle:
+vguess
+0
+= 0.85 v0,max
+tguess =
+dhoriz
+vguess
+0
+cos 30◦× 0.6
+θguess = arctan dz + 1
+2glocalt2
+guess
+dhoriz
+clipped within [10◦, 85◦].
+
+Team 765
+Problem B
+Page 29
+6.4
+model result
+Among the three factors of horizontal distance, altitude and wind force, two are fixed
+and only one is changed to observe the influence on the trajectory of the shell, the launch
+elevation Angle, the azimuth Angle and the initial velocity:
+Only change the wind speed:
+Figure 18: impact of different wind
+The launch point we selected is [0, 0, 500], and the target point is [1200, 0, 750]. The
+wind speed adopts the wind combination in the X and Y directions (-15m/s,15m/s). From
+the trajectory, when the wind speed changes from (-15, -15,0) to (15,15,0), the trajectory
+of the shell tilts with the change of wind speed, which is very reasonable.When only the
+influence of wind force was considered, it was found after simulating the trajectory that
+selecting launch points and target points at different altitudes and distances had little
+impact on the results
+
+Team 765
+Problem B
+Page 30
+Figure 19: angle and initial velocity
+From the perspective of launch Angle and initial velocity, the initial velocity is less
+than that with wind when there is no wind, and the azimuth is 0 when there is no wind.
+The pitch Angle is greater than that with wind. That is, when there is no wind, the
+launch can only be aimed at the target, while when there is wind, the launch Angle needs
+to be adjusted considering the influence of wind force. The greater the wind force, the
+greater the influence, which is also very reasonable
+Only change the altitude:
+Figure 20: trajectory when the altitude is changed
+The launch points we have chosen are [0,0,500], the X and Y coordinates of the target
+points are [1200,0], and the altitudes are selected from six points ranging from 400 meters
+to 1000 meters. The wind speed is [0,5,0]. From the perspective of the trajectory, all the
+trajectories shift along the direction of the wind, which is reasonable. The trajectory of
+
+Team 765
+Problem B
+Page 31
+the target point at a higher altitude is significantly higher than that at a lower altitude.
+Through simulation, it is known that the given wind force at this time has little impact
+on the result
+Figure 21: Altitude - Angle and initial velocity
+From a perspective, due to the influence of wind force, the azimuth angles of each
+trajectory do not differ much. However, it can be seen that when the altitude is below
+500 meters, the pitch angle changes very little. When the altitude exceeds 500 meters
+to a certain extent (that is, the altitude of the launch point), the launch pitch angle
+suddenly increases and then remains stable. This indicates that when the target point is
+higher than the launch point by a certain degree, the pitch angle should increase rapidly.
+In terms of initial velocity, when the height of the target point is the same as that of
+the launch point, its initial velocity is the greatest, which is the simplest case. When the
+target is higher than the launch point, the initial velocity drops sharply and then rises,
+which corresponds to the change in pitch angle and is also very reasonable. This indicates
+that when the height of the target increases, the initial velocity should be appropriately
+reduced before rising again.
+only the horizontal distance is changed:
+When only the horizontal distance is changed, the height of the fixed target point does
+have an impact on the result.The altitude of the launch point we chose is 500 meters.
+
+Team 765
+Problem B
+Page 32
+We selected three target points with altitudes of 300 meters, 500 meters, and 700 meters.
+The trajectory is shown in the following diagram.
+Figure 22: The target point is at an altitude of 500 meters.
+Figure 23: The target point is at an altitude of 300 meters.
+
+Team 765
+Problem B
+Page 33
+Figure 24: The target point is at an altitude of 700 meters.
+we can tell from these graph that:
+• Horizontal Distance as a Primary Factor for Initial Velocity: A monotonic
+increase in required initial velocity (v0) is consistently observed as the target’s
+horizontal distance increases. Longer distances invariably necessitate higher muzzle
+velocities to successfully overcome gravity and air resistance, accurately delivering
+the projectile to the target point.
+• Target Altitude’s Profound Influence on Velocity and Angle Trends: The
+target’s altitude, particularly its relationship to the launch point’s altitude, dictates
+distinct trends in both initial velocity and elevation angle.
+– Target Below Launch Point (Figure 23: Target altitude 300m vs.
+Launch point 500m):
+∗Initial Velocity: Relatively lower v0 is required compared to other scenarios
+(approximately 220 m/s for a 1500m distance). The v0 growth curve is
+generally smoother and more monotonic with increasing distance.
+∗Elevation Angle: The elevation angle changes within a relatively smaller
+range, often showing a trend of slight initial decrease followed by a gradual
+increase with distance. Trajectories are typically flatter and more direct,
+effectively leveraging the inherent altitude advantage.
+– Target at Same Altitude as Launch Point (Figure 22: Target altitude
+500m vs. Launch point 500m):
+∗Initial Velocity: Moderate v0 is required (approximately 290 m/s for a
+1500m distance). The v0 and elevation angle curves may exhibit minor
+fluctuations at shorter ranges (1000m to 1100m), potentially indicating the
+optimizer exploring different local optimal ballistic strategies (switching
+between high and low flight paths for efficiency).
+
+Team 765
+Problem B
+Page 34
+∗Elevation Angle: Overall, the elevation angle tends to increase with dis-
+tance, but its trend can be non-monotonic due to optimization nuances.
+– Target Above Launch Point (Figure 24: Target altitude 700m vs.
+Launch point 500m):
+∗Initial Velocity: This scenario demands the highest v0 (e.g., peaking at
+approximately 290 m/s for a 1300m distance).
+∗Elevation Angle: Both v0 and elevation angle curves show the most signifi-
+cant and dramatic fluctuations, notably peaking at intermediate distances
+(e.g., 1300m) before potentially decreasing. To ascend to higher target
+altitudes, the elevation angle must increase significantly (e.g., ap-
+proaching 70 degrees at 1300m), resulting in distinctly higher-arching and
+more ”lofted” trajectories.
+7
+Rapid Estimation Method for Initial Velocity and
+firing Angle
+Building upon the above context, we have derived the relationships between altitude,
+firing initial velocity, firing pitch angle, firing horizontal deflection angle, horizontal dis-
+tance, and wind force. By substituting these relationships, we respectively obtain three
+methods for quickly estimating the launch initial velocity and firing angle from these
+relationships, as detailed below:
+7.1
+Rapid Lookup Table Method
+Artillery officers can make preliminary decisions on the firing status of artillery pieces
+in actual combat by quickly collecting core parameters, locating basic entries in the
+ballistic table, and finally making environmental deviation corrections.
+7.1.1
+Basic Ballistic Table
+The Basic Ballistic Table is a standardized technical document adapted to specific
+combinations of artillery models and projectile types.
+Its core function is to provide
+benchmark firing data, including the artillery elevation angle, horizontal distance, and
+initial artillery velocity, at fixed intervals within the conventional combat distance range,
+with the target’s horizontal distance as the core index. It facilitates artillery officers to
+quickly retrieve basic entries in actual combat and provides accurate and efficient basic
+ballistic data support for the preliminary decision-making on the artillery firing status.
+Based on the factor relationship model in the aforementioned context, we have derived
+the Basic Ballistic Table as follows:
+
+Team 765
+Problem B
+Page 35
+Figure 25: Base Firing Table
+This Basic Ballistic Table is a comprehensive result derived under windless conditions,
+the standard condition with an altitude of 500 meters, and the scenario where the artillery
+firing angle is directly aimed at the target. Since this artillery piece dates back 200 years
+ago, its maximum firing range did not exceed 3 km at that time; thus, the distance range
+of the basic table is from 500 m to 3000 m. Artillery officers can use this table to estimate
+the basic initial firing velocity and elevation angle, thereby providing a reliable basis for
+rapid estimation.
+7.1.2
+Correction Table
+The Correction Table is a standardized technical document used in conjunction with
+the Basic Ballistic Table, whose core function is to address the limitations of the latter’s
+fixed standard conditions. It provides precise parameter correction values for various
+variables that deviate from the standard state (windless conditions, 500m altitude, and
+the artillery directly aiming at the target) in actual combat, making the firing data more
+consistent with the actual battlefield environment and improving hit accuracy.
+When more known conditions are available, artillery officers can further correct the
+basic initial fir ing velocity and elevation angle based on the local altitude, wind speed and
+direction, as well as the altitude difference between the firing position and the target. The
+Altitude Correction Table,Altitude Difference Table and three Wind Correction Tables
+are presented as follows:
+
+Team 765
+Problem B
+Page 36
+Alt(m)
+Elev Corr(◦)
+Vel Corr(m/s)
+500
+-1.2
++2.1
+1000
+-2.5
++5.4
+1500
+-3.8
++8.2
+2000
+-5.1
++11.6
+2500
+-6.4
++14.1
+3000
+-7.7
++17.3
+3500
+-9.0
++20.2
+4000
+-10.3
++23.3
+4500
+-11.6
++26.5
+5000
+-12.9
++29.0
+Table 7.1: Altitude Correction Table
+Tailwind(m/s)
+Elev Corr(◦)
+Vel Corr(m/s)
+2
+-0.6
+0
+4
+-1.3
+0
+6
+-2.1
+0
+8
+-2.6
+0
+10
+-3.2
+0
+Table 7.2: Tailwind Correction Table
+Altitude Difference(m)
+Vel Corr(m/s)
+Elev Corr(◦)
+-200
++5.7
+-1.7
+-150
++4.1
+-1.2
+-100
++2.8
+-0.8
+-50
++1.5
+-0.4
+0
+0.0
+0.0
++50
+-1.3
++0.5
++100
+-2.6
++0.9
++150
+-3.9
++1.4
++200
+-5.1
++1.8
+Table 7.3: Altitude Difference Table
+
+Team 765
+Problem B
+Page 37
+From this, we derive the quick steps for artillery officers to use the table lookup
+method as follows:
+Figure 26: Flowchart for Table Lookup
+This procedure enables mathematically trained artillery officers without access to
+computers or calculators to quickly estimate feasible initial velocities and firing elevation
+angles, providing preliminary support for rapid response in actual combat operations
+7.2
+Nomogram
+A nomogram is a graphical computational tool that can convert complex multivariate
+computational problems into a simple line-drawing and reading operation. In the context
+of this artillery ballistics problem, gunners only need to use a straightedge to connect
+the known parameter points on the corresponding scales; the intersection point allows
+direct reading of the required firing parameters, eliminating the need for complex table
+lookup, interpolation, and cumulative correction calculations. This method is particularly
+suitable for rapid decision-making in battlefield environments, simplifying the original
+table lookup and correction process into a single line-drawing and reading step, which
+significantly improves the fire response speed while reducing the risk of human calculation
+errors. Designed based on the principles of logarithmic scales and geometric projection,
+a nomogram can achieve the two-dimensional visual representation of multi-dimensional
+parameters while maintaining sufficient accuracy.
+Based on the basic firing table presented above, a preliminary nomogram relating
+distance, elevation angle, and initial velocity can be derived as follows:
+
+Team 765
+Problem B
+Page 38
+Figure 27: Range-Elevation-Velocity Alignment Nomogram
+Artillery officers can quickly determine the required firing parameters by drawing lines
+with a straightedge and compass. If time permits, they can further make corrections
+to the initial velocity, elevation angle, and horizontal deflection angle obtained through
+paper-and-pencil drawing by utilizing the content in the correction table section presented
+above.
+7.3
+Rapid Formula Method
+The rapid formula method provides closed-form approximations for calculating ar-
+tillery firing parameters, simplified for mental calculation in field conditions.Since it is
+not feasible to directly derive a simplified formula via equations in the presence of drag
+or wind, to obtain a relatively accurate estimation formula, the following section neglects
+the effects of air drag and wind on the artillery.
+7.3.1
+Initial Velocity Calculation
+Starting from vacuum baseline v0 = √gR with g = 10 m/s2, we obtain v0 =
+√
+10R.
+Progressive corrections yield:
+Drag correction (range in km):
+v0 ≈
+√
+10R × 1.2
+
+Team 765
+Problem B
+Page 39
+General form with all corrections:
+v0 ≈3
+√
+R × 1.2
+(7.1)
+Mental calculation rule: For R = 1000 m, v0 ≈3 × 32 × 1.2 ≈115 m/s. Scale
+linearly: double distance requires
+√
+2 ≈1.4 times velocity.
+7.3.2
+Elevation Angle Calculation
+To address the rapid estimation of initial velocity and launch angle for artillery
+officers with mathematical training but without computational tools, we first establish
+the vacuum trajectory model as a theoretical basis. In an ideal vacuum condition
+where air resistance, altitude difference, and wind speed are neglected, the projectile
+undergoes projectile motion, whose motion equations can be decomposed into horizontal
+and vertical directions:
+• In the horizontal direction, it performs uniform linear motion, with the velocity
+component vx = v0 cos θ and the range R = vxt = v0 cos θ · t.
+• In the vertical direction, it undergoes uniformly variable linear motion, with
+the velocity component vz = v0 sin θ −gt. When the projectile lands, the vertical
+displacement is zero, so the flight time satisfies 0 = v0 sin θ · t −1
+2gt2.
+From the vertical motion equation, we solve for the flight time:
+t = 2v0 sin θ
+g
+Substituting this flight time into the horizontal range expression, we derive the
+range formula:
+R = v0 cos θ · 2v0 sin θ
+g
+= v2
+0 · 2 sin θ cos θ
+g
+= v2
+0 sin(2θ)
+g
+To invert the elevation angle θ, we rearrange the range formula:
+sin(2θ) = Rg
+v2
+0
+Taking the arcsine of both sides and simplifying, we obtain:
+θ = 1
+2 arcsin
+ Rg
+v2
+0
+!
+(7.2)
+This is the theoretical relationship between the elevation angle, range, and initial
+velocity under vacuum conditions.
+
+Team 765
+Problem B
+Page 40
+7.3.2.1
+Taylor Expansion with Air Resistance
+Expand equation (7.2) using Taylor series expansion: θ = 45◦+ k1 · (R/β) + k2 ·
+(R/β)2 + . . .
+(1). Benchmark Solution: Optimal Angle in Vacuum
+When the range R satisfies Rg
+v2
+0 = 1 (i.e., v0 = √Rg), sin(2θ) = 1, and solving it gives
+θ = 45◦, which is the optimal angle under vacuum conditions.
+(2). Introducing Air Resistance Correction
+When air resistance exists in reality, the ballistic coefficient β =
+m
+ρCdA (where m is the
+projectile mass, ρ is the air density, Cd is the drag coefficient, and A is the cross-sectional
+area) characterizes the projectile’s resistance to drag. Drag causes range loss, so the
+optimal angle needs to be corrected.
+(3). Dimensionless Parameter and Taylor Expansion
+Define the dimensionless parameter ϵ = R
+β (the ratio of range to ballistic coefficient,
+characterizing the degree of drag influence). Taking the vacuum optimal angle 45◦as the
+benchmark, expand θ in a Taylor series at ϵ = 0:
+θ(ϵ) = θ0 + θ′
+0ϵ + 1
+2θ′′
+0ϵ2 + . . .
+where:
+• θ0 = 45◦(vacuum optimal angle)
+• The first-order derivative term θ′
+0 = k1, and the second-order derivative term 1
+2θ′′
+0 =
+k2. The coefficients are determined by drag models (such as perturbation analysis,
+numerical simulation, or experimental data fitting).
+(4). Expansion Result
+Substituting ϵ = R
+β , we get:
+θ = 45◦+ k1 ·
+ R
+β
+!
++ k2 ·
+ R
+β
+!2
++ . . .
+where k1 and k2 are constants related to the projectile’s aerodynamic characteristics
+(for example, through drag work analysis or experimental fitting, k1 ≈0.01◦· β/m, and
+the specific values need to be determined based on actual parameters). By neglecting the
+second-order small quantities, we obtain the final calculation formula:
+θ = 45◦+ k1 ·
+ R
+β
+!
+(7.3)
+7.3.3
+Azimuth Deviation Estimation
+In the presence of wind, it is not feasible to derive a valid formula to reasonably
+estimate horizontal deflection. Thus, in practical situations, it can only be achieved by
+the correction table method mentioned above or by correcting the artillery firing direction
+based on experience.
+
+Team 765
+Problem B
+Page 41
+7.3.4
+Ultra-Simplified Field Formulas
+For rapid mental calculation under typical conditions.The approximate formulas for
+initial velocity and elevation angle are as follows:
+v0 ≈3
+√
+R × 1.2
+(7.4)
+θ = 45◦+ k1 ·
+ R
+β
+!
+(7.5)
+It is worth noting that this simplified formula is an empirical formula derived under the
+condition of completely neglecting the effects of air drag and wind on the artillery. It
+may have a relatively large deviation from actual conditions, and part of the errors can
+be corrected through the correction tables mentioned earlier.
+8
+Conclusions
+This study establishes a theoretical framework for artillery projectile trajectory mod-
+eling based on simplified aerodynamic and kinematic assumptions, systematically de-
+scribing the flight behavior of projectiles under constrained conditions. By treating the
+projectile as a rigid sphere, adopting the quadratic drag law, and approximating atmo-
+spheric parameter variations, the model effectively captures core trajectory characteristics
+within its valid scope—including the relationship between drag and velocity, as well as
+altitude-dependent aerodynamic effects—providing a foundational tool for analyzing the
+dynamics of short-to-medium range artillery.
+For such a spherical projectile with a maximum muzzle velocity of 450 m/s, a mass of
+5 kg, and a diameter of 11 cm, where the target is located at a horizontal distance of 1200
+meters and both the artillery and the target are situated at an altitude of 500 meters
+above sea level, the relationship between feasible initial velocities and launch elevation
+angles is illustrated in the following figure:
+Figure 28: Feasible Solution Curve
+
+Team 765
+Problem B
+Page 42
+Considering comprehensively different horizontal distances, varying altitudes, and di-
+verse wind effects, we have derived the final projectile flight model for specific practical
+scenarios. First, we obtained preliminary base firing tables and correction tables through
+simulation calculations. Subsequently, a nomogram suitable for manual plotting by ar-
+tillery officers was developed based on the initial firing tables. Finally, simplified formulas
+under specific conditions were derived from the simplified model to assist in mental calcu-
+lations, with corrections supplemented by practical experience and the correction tables.
+9
+Model Limitations and Deficiencies
+/Simplification of Projectile Geometry and Material: The model treats the
+projectile as a rigid sphere, while actual artillery projectiles have diverse shapes and
+material properties. It ignores shape-induced aerodynamic lift and material deformation
+under high-speed flight, leading to deviations in drag coefficient and trajectory prediction
+for projectiles with complex flight attitudes.
+/Idealization of Atmospheric Parameter Variation: Atmospheric parameters
+are assumed to vary regularly with altitude, but real-world atmospheres involve turbu-
+lence, sudden temperature changes and non-uniform wind fields. These factors disrupt
+the predicted regularity of air density and dynamic viscosity, causing inaccuracies in
+aerodynamic drag calculation and trajectory correction.
+/Neglect of Long-Range Geophysical Effects: The model neglects Coriolis
+force and Earth’s curvature. For long-range artillery or projectiles with extended flight
+time, their effects become non-negligible and may lead to significant target misses.
+/Validity Range of Quadratic Drag Law: The quadratic drag law is assumed to
+hold universally, but the drag coefficient depends on Reynolds number and Mach number.
+Drastic changes in projectile speed cause nonlinear variations in the drag coefficient,
+reducing the law’s accuracy and introducing errors in resistance-related calculations.
+/Quasi-Static Process Approximation: Treating trajectory evolution as a quasi-
+static process ignores transient dynamic effects. Aerodynamic systems require finite time
+to establish force and thermal balance, and this approximation may underestimate un-
+steady aerodynamic forces for projectiles with rapid speed changes, affecting real-time
+trajectory adjustment precision.
+10
+Model Improvement Directions
+,Refine Projectile Aerodynamic and Material ModelingIncorporate actual
+projectile shapes and material properties.
+Establish non-spherical aerodynamic mod-
+els and integrate high-speed deformation mechanisms, calibrated with experimental or
+simulation data.
+,Optimize Atmospheric Environment Dynamic SimulationIntegrate turbu-
+lence, non-uniform wind and sudden temperature changes. Add real-time meteorological
+feedback to dynamically adjust atmospheric parameters.
+,Incorporate Long-Range Geophysical EffectsInclude Coriolis force and Earth’s
+curvature for long-range scenarios. Derive location-dependent geophysical correction for-
+mulas based on latitude and flight parameters.
+
+Team 765
+Problem B
+Page 43
+,Upgrade Drag Coefficient and Resistance Law ModelingRefine drag coef-
+ficient’s nonlinear relationship with Reynolds and Mach numbers. Adopt a segmented
+resistance model for transonic and supersonic regimes.
+,Develop Unsteady Aerodynamic Simulation FrameworkReplace quasi-static
+approximation with unsteady models.
+Capture transient dynamic effects and force-
+thermal balance response time for rapid speed changes.
+References
+[1] Zhao, B. Y., & Chen, Z. H. (2020). Computational simulation of the flight trajectory
+of rotating spheres based on aerodynamics [Jiyu kongqi donglixue de xuanzhuan qiuti
+feixing guiji de jisuan moni] (in Chinese). Physics and Engineering, 30(3), 50-54.
+[2] Zhou, H., Shen, W., Wang, T. F., & Lu, Z. Y. (2025). Study on the influence of
+Coriolis force on the launch of long-range projectiles [Keli’oli li dui yuan shecheng
+paodan fashe de yingxiang yanjiu] (in Chinese). Physics Bulletin, 2025(6), 138-141.
+[3] Fan, L., & Zhou, L. (2024). Research on parallel computation of multiple trajectories
+based on the fourth-order Runge-Kutta method [Jiyu sijie Longge-Kuta fa de duo
+daodan bingxing jisuan yanjiu] (in Chinese). Aeronautical Science and Technology,
+35(9), 101-110.
+A
+Appendix
+A.1
+A.1 Python Code Excerpt
+1
+import
+numpy as np
+2
+from
+scipy.integrate
+import
+solve_ivp
+3
+from
+scipy.optimize
+import
+least_squares
+4
+g0 = 9.80665
+5
+R_earth = 6371000.0
+6
+rho0 = 1.225
+7
+H_scale = 8500.0
+8
+omega_earth = 7.2921e-5
+9 m = 5.0
+10 d = 0.11
+11 A = np.pi * (d / 2) ** 2
+12
+Cd = 0.47
+13
+def
+gravity(z, lat_deg):
+14
+lat_rad = np.deg2rad(lat_deg)
+15
+g_lat = g0 * (1 + 0.0053024 * np.sin(lat_rad) ** 2 -
+0.0000058 * np.sin(2 * lat_rad) ** 2)
+16
+r = R_earth + z
+17
+return
+g_lat * (R_earth / r) ** 2
+18
+def
+air_density(z):
+19
+return
+rho0 * np.exp(-z / H_scale)
+20
+def
+ode_system(t, state , vw , lat_deg):
+
+Team 765
+Problem B
+Page 44
+21
+x, y, z, vx , vy , vz = state
+22
+if z < 0:
+23
+return [0, 0, 0, 0, 0, 0]
+24
+v_rel_x = vx - vw[0]
+25
+v_rel_y = vy - vw[1]
+26
+v_rel_z = vz - vw[2]
+27
+v_rel = np.sqrt(v_rel_x **2 + v_rel_y **2 + v_rel_z **2)
+28
+if v_rel < 1e-6:
+29
+return [vx , vy , vz , 0, 0, -gravity(z, lat_deg)]
+30
+rho = air_density(z)
+31
+F_drag = 0.5 * Cd * rho * A * v_rel **2
+32
+ax_drag = -(F_drag / m) * (v_rel_x / v_rel)
+33
+ay_drag = -(F_drag / m) * (v_rel_y / v_rel)
+34
+az_drag = -(F_drag / m) * (v_rel_z / v_rel)
+35
+g_local = gravity(z, lat_deg)
+36
+ax = ax_drag
+37
+ay = ay_drag
+38
+az = az_drag - g_local
+39
+return [vx , vy , vz , ax , ay , az]
+40
+def
+solve_v0_theta_phi (target_xyz , launch_xyz , vw , lat_deg ,
+v0_max =550.0):
+41
+x0 , y0 , z0 = launch_xyz
+42
+xt , yt , zt = target_xyz
+43
+dx , dy , dz = xt - x0 , yt - y0 , zt - z0
+44
+horizontal_dist = np.hypot(dx , dy)
+45
+phi_init = np.rad2deg(np.arctan2(dy , dx))
+46
+g_local_at_launch = gravity(z0 , lat_deg)
+47
+if dz > 50:
+48
+v0_guess = v0_max * 0.95
+49
+theta_guess = 45.0
+50
+else:
+51
+v0_guess = v0_max * 0.85
+52
+avg_horizontal_speed = v0_guess *
+np.cos(np.deg2rad (30)) * 0.6
+53
+t_guess = horizontal_dist / avg_horizontal_speed if
+avg_horizontal_speed
+> 0 else 10.0
+54
+if horizontal_dist > 0:
+55
+theta_guess_rad = np.arctan ((dz + 0.5 *
+g_local_at_launch * t_guess **2) / horizontal_dist )
+56
+else:
+57
+theta_guess_rad = np.pi / 2
+58
+theta_guess = np.rad2deg( theta_guess_rad )
+59
+theta_guess = np.clip(theta_guess , 10.0, 85.0)
+60
+v0_bounds = (50.0 , v0_max)
+61
+theta_bounds = (5.0 , 85.0)
+62
+phi_bounds = (phi_init - 45, phi_init + 45)
+63
+def
+scaled_residuals (params):
+64
+v0 , theta_deg , phi_deg = params
+65
+theta_rad = np.deg2rad(theta_deg)
+66
+phi_rad = np.deg2rad(phi_deg)
+
+Team 765
+Problem B
+Page 45
+67
+vx0 = v0 * np.cos(theta_rad) * np.cos(phi_rad)
+68
+vy0 = v0 * np.cos(theta_rad) * np.sin(phi_rad)
+69
+vz0 = v0 * np.sin(theta_rad)
+70
+state0 = [x0 , y0 , z0 , vx0 , vy0 , vz0]
+71
+max_flight_time = max(2 * v0 / g_local_at_launch +
+50, 5.0)
+72
+def
+hit_event(t, state , *args):
+73
+if state [2] < 0:
+74
+return 0
+75
+if state [5] > 0:
+76
+return 1.0
+77
+return
+state [2] - zt
+78
+hit_event.terminal = True
+79
+hit_event.direction = -1
+80
+try:
+81
+sol = solve_ivp(
+82
+ode_system , [0, max_flight_time ], state0 ,
+args =(vw , lat_deg),
+83
+events=hit_event , dense_output=True ,
+max_step =0.05 , rtol =1e-6, atol =1e-6
+84
+)
+85
+except:
+86
+return [1e6 , 1e6 , 1e6]
+87
+if sol.status == 1 and sol.t_events
+and
+sol.t_events [0]:
+88
+try:
+89
+final_state = sol.sol(sol.t_events [0][0])
+90
+except:
+91
+return [1e5 , 1e5 , 1e5]
+92
+else:
+93
+final_state = sol.y[:,
+-1]
+94
+max_z_reached = np.max(sol.y[2, :])
+95
+if max_z_reached < zt:
+96
+height_deficit = zt - max_z_reached
+97
+final_x , final_y = final_state [0],
+final_state [1]
+98
+horizontal_error = np.hypot(final_x - xt ,
+final_y - yt)
+99
+scale_x = max(abs(dx), 1.0)
+100
+scale_y = max(abs(dy), 1.0)
+101
+scale_z = max(abs(dz), 1.0)
+102
+return [
+103
+horizontal_error / scale_x + 20,
+104
+horizontal_error / scale_y + 20,
+105
+height_deficit / scale_z + 200
+106
+]
+107
+else:
+108
+return [1e4 , 1e4 , 1e4]
+109
+if not np.all(np.isfinite(final_state)):
+110
+return [1e5 , 1e5 , 1e5]
+
+Team 765
+Problem B
+Page 46
+111
+error_x = final_state [0] - xt
+112
+error_y = final_state [1] - yt
+113
+error_z = final_state [2] - zt
+114
+scale_x = max(abs(dx), 1.0)
+115
+scale_y = max(abs(dy), 1.0)
+116
+scale_z = max(abs(dz), 1.0)
+117
+return [error_x / scale_x , error_y / scale_y , error_z
+/ scale_z]
+118
+res = least_squares (
+119
+scaled_residuals , x0=[ v0_guess , theta_guess ,
+phi_init],
+120
+bounds =([ v0_bounds [0], theta_bounds [0],
+phi_bounds [0]] ,
+121
+[v0_bounds [1], theta_bounds [1],
+phi_bounds [1]]) ,
+122
+ftol =1e-8, xtol =1e-8, gtol =1e-8, max_nfev =400,
+verbose =0
+123
+)
+124
+final_params = res.x
+125
+final_v0 = final_params [0]
+126
+check_flight_time = max(2 * final_v0 / g_local_at_launch
++ 30, 2.0)
+127
+theta_rad = np.deg2rad(final_params [1])
+128
+phi_rad = np.deg2rad( final_params [2])
+129
+vx0 = final_v0 * np.cos(theta_rad) * np.cos(phi_rad)
+130
+vy0 = final_v0 * np.cos(theta_rad) * np.sin(phi_rad)
+131
+vz0 = final_v0 * np.sin(theta_rad)
+132
+state0 = [x0 , y0 , z0 , vx0 , vy0 , vz0]
+133
+def
+event_check(t, state , *args):
+134
+if state [2] < 0:
+135
+return 0
+136
+if state [5] > 0:
+137
+return 1.0
+138
+return
+state [2] - zt
+139
+event_check.terminal = True
+140
+event_check.direction = -1
+141
+try:
+142
+sol_check = solve_ivp(
+143
+ode_system , [0, check_flight_time ], state0 ,
+args =(vw , lat_deg),
+144
+events=event_check , dense_output=True
+145
+)
+146
+except:
+147
+raise
+RuntimeError ()
+148
+physical_error_norm = 1e6
+149
+if sol_check.status == 1 and
+sol_check.t_events
+and
+sol_check.t_events [0]:
+150
+try:
+151
+final_state_check =
+sol_check.sol(sol_check.t_events [0][0])
+
+Team 765
+Problem B
+Page 47
+152
+if np.all(np.isfinite( final_state_check )):
+153
+physical_error_norm =
+np.linalg.norm( final_state_check [:3] - np.array ([xt , yt ,
+zt]))
+154
+except:
+155
+pass
+156
+if __name__ == "__main__":
+157
+launch_xyz = [0, 0, 500]
+158
+target_xyz = [1200 , 0, 600]
+159
+vw = [0,
+-10, 0]
+160
+lat_deg = 45.0
+161
+v0_max = 450.0
+162
+try:
+163
+v0 , theta_deg , phi_deg =
+solve_v0_theta_phi (target_xyz , launch_xyz , vw , lat_deg ,
+v0_max)
+164
+theta_rad = np.deg2rad(theta_deg)
+165
+phi_rad = np.deg2rad(phi_deg)
+166
+vx0 = v0 * np.cos(theta_rad) * np.cos(phi_rad)
+167
+vy0 = v0 * np.cos(theta_rad) * np.sin(phi_rad)
+168
+vz0 = v0 * np.sin(theta_rad)
+169
+state0 = [launch_xyz [0], launch_xyz [1],
+launch_xyz [2], vx0 , vy0 , vz0]
+170
+def
+hit_event_final (t, state , *args):
+171
+if state [2] < 0:
+172
+return 0
+173
+if state [5] > 0:
+174
+return 1.0
+175
+return
+state [2] - target_xyz [2]
+176
+hit_event_final .terminal = True
+177
+hit_event_final .direction = -1
+178
+max_flight_time_final = max(2 * v0 /
+gravity(launch_xyz [2], lat_deg) + 50, 5.0)
+179
+sol_final = solve_ivp(
+180
+ode_system , [0, max_flight_time_final ], state0 ,
+args =(vw , lat_deg),
+181
+events=hit_event_final , dense_output=True ,
+max_step =0.01 , rtol =1e-7, atol =1e-7
+182
+)
+183
+plot_trajectory_3d (sol_final , target_xyz)
+184
+if sol_final.status == 1 and
+sol_final.t_events
+and
+sol_final.t_events [0]:
+185
+impact_time = sol_final.t_events [0][0]
+186
+impact_state = sol_final.sol(impact_time)
+187
+except
+RuntimeError as e:
+188
+print ()
+Listing 1: Python Code for Ballistic Trajectory Calculation
+
+Team 765
+Problem B
+Page 48
+B
+Report on the Use of AI
+B.1
+Used AI System
+The AI systems used in this work include GPT-5 (a generative AI system developed by
+OpenAI) and Claude 4.5 Sonnet (a large language model developed by Anthropic),all
+accessed via their web interfaces.
+B.2
+The Query
+The exact wording input into the AI tool was:
+Table B.1: AI Models and Corresponding Queries Used in This Work
+AI Model
+Query
+GPT-5 (OpenAI)
+”Could you please introduce the ODE45 computa-
+tional module in MATLAB? .”
+Claude 4.5 Sonnet (Anthropic)
+”How to conduct result analysis and visualization for
+Step 6?”
+B.3
+The Full Output
+The complete output generated by the AI tool is as follows:
+B.3.1
+GPT-5 output
+Overview of the Principles , Usage , Common
+Options , and
+Considerations of ode45 in MATLAB for
+Standardized
+Use
+in Ballistic or Other
+Physical
+Model
+Numerical
+Integration
+Introduction
+and
+Algorithm
+Principles
+$ode45$
+implements
+the
+D o r m a n d Prince
+4(5)
+explicit
+R u n g e Kutta
+method (also
+known as RK45). It estimates
+the local
+truncation
+error by simultaneously
+computing
+the
+differences
+between the 4th and 5th -order
+solutions
+and
+adaptively
+adjusts
+the step size to
+satisfy
+given
+relative (RelTol) and
+absolute (AbsTol)
+error
+tolerances.
+It is suitable
+for "non -stiff" ordinary
+differential
+equation (ODE) systems. For
+problems
+exhibiting
+rapid
+decay
+scales or stiffness
+behavior , stiff
+solvers (such
+as ode15s) should be considered.
+Basic
+Usage
+Typical
+call:
+[t, Y] = ode45(@odefun , tspan , y0 , options);
+
+Team 765
+Problem B
+Page 49
+The form of odefun: dYdt = odefun(t, Y) or dYdt = odefun(t,
+Y, params) (parameters
+can be passed via an anonymous
+function).
+tspan = [t0 tf] or specify a vector of specific
+moments to
+obtain
+solutions at particular
+time
+points.
+Returns t as a vector of unequally
+spaced
+time
+points
+determined by the
+adaptive
+step size , and Y as the
+corresponding
+state
+matrix (size(Y) = length(t)
+length(y0)).
+Common
+odeset
+Configurations
+and
+Functions
+Relative/absolute
+error
+control:
+options = odeset(’RelTol ’,1e-6,’AbsTol ’,1e-8);
+Event
+detection (termination
+conditions , zero
+crossing):
+options = odeset(’Events ’,@eventsFcn);
+The event
+function
+can return [value ,isterminal ,direction]
+to detect
+conditions
+such as landing or crossing
+and
+halt
+integration.
+Maximum
+step size/initial
+step size
+control:
+options = odeset(’MaxStep ’ ,0.1,’InitialStep ’,1e-3);
+Output
+function/monitoring:
+’OutputFcn ’ is used for
+callbacks at each step ,
+facilitating
+visualization or statistical
+collection (e
+.g., step size
+distribution).
+Vectorization
+hint:
+options = odeset(’Vectorized ’,’on’) (if odefun
+supports
+vectorized
+evaluation , it can
+enhance
+speed).
+Numerical
+Characteristics
+and
+Practical
+Recommendations
+Adaptive
+step size: Step size may
+significantly
+decrease at
+points of drastic
+dynamics
+change or nonlinear
+transitions (e.g., shock
+wave
+transitions) to ensure
+local
+accuracy , but it may
+increase
+the number of
+function
+calls.
+Robust
+parameter
+passing: Avoid
+using
+global
+variables;
+prefer
+passing
+parameters
+via
+anonymous
+functions:
+ode45(@(t,y) odefun(t,y,params), tspan , y0 , options);
+Trade -offs
+between
+accuracy
+and
+efficiency: Smaller
+RelTol/
+AbsTol
+results in more
+function
+calls; during
+parameter
+sweeps (multiple
+repeated
+integrations), it is
+advisable to relax
+tolerances or perform
+coarse
+filtering
+first.
+Output
+handling: Since t comprises
+adaptive
+points , if post
+-processing on a fixed
+time grid is needed , deval(sol ,
+t_query) can be used or tspan can be specified as the
+desired
+time
+vector
+during the ode45
+call (though
+this
+enforces
+interpolation at these
+points
+while
+still
+integrating
+internally
+with
+adaptive
+step
+sizes).
+Stiff
+problems
+and
+alternatives: For stiff
+systems (rapidly
+decaying
+modes), stiff
+solvers
+such as ode15s , ode23s ,
+etc., should be used , and
+numerical
+Jacobians
+can be
+provided to accelerate
+convergence.
+
+Team 765
+Problem B
+Page 50
+Event
+detection
+accuracy: Event
+detection
+utilizes
+internal
+interpolation to locate
+zero
+crossings , usually
+more
+accurate
+than
+coarse
+sampling , but can be improved by
+adjusting
+tolerances
+and
+MaxStep.
+Brief
+Example (Including
+Events)
+Integration
+with a landing
+event (pseudocode):
+matlab
+function [t,Y] = run_ballistic(params)
+odefun = @(t,y) ballistic_ode(t,y,params);
+options = odeset(’Events ’,@(t,y) landing_event(t,y,params
+), ’RelTol ’,1e-6,’AbsTol ’,1e-8);
+[t,Y] = ode45(odefun , [0 100], y0 , options);
+end
+Common
+Problems
+and
+Debugging
+Integration
+failure or step size
+approaching
+zero: Check
+for
+singularities or discontinuities in the model (e.g
+., Cd discontinuity at critical Ma), transitioning to
+smooth
+variations or reducing
+the
+minimum
+step size
+limit.
+Solutions "skipping" critical
+events at expected
+time
+points: Use Events or reduce
+MaxStep.
+Unstable
+results or oscillations: This may arise
+from
+overly
+wide
+tolerances or equation
+stiffness; it may be
+necessary to use a stiff
+solver or adjust the error
+control
+strategy.
+Conclusion
+ode45 is a versatile
+and
+efficient non -stiff ODE solver in
+MATLAB , well -suited for most
+physical
+modeling
+problems
+(such as ballistic
+simulations) due to its
+adaptive
+step size and local
+error
+estimation. Practical
+usage
+should
+combine
+event
+detection , error control , and
+performance
+optimization
+strategies to ensure the
+physical
+reliability
+and
+computational
+efficiency of
+the
+results. If you need
+example
+code or optimization
+suggestions
+tailored to your model , I can
+provide
+more
+specific
+guidance
+based on your
+existing
+code (e.g.,
+your
+uploaded
+ballistic_ode/landing_event).
+B.3.2
+Claude 4.5 Sonnet output
+Step 6: Result
+Analysis
+and
+Visualization
+Process
+As a scientist
+proficient in various
+physical
+models and
+skilled in using
+MATLAB for modeling , I will
+describe
+the result
+analysis
+and
+visualization
+process in Step
+6. This
+phase
+focuses on handling
+multiple
+solutions (
+effective
+launch
+angle
+and
+initial
+speed v0),
+including
+filtering , statistical
+analysis , typical
+solution
+extraction , tabular
+output , and multi -figure
+
+Team 765
+Problem B
+Page 51
+visualization . Based on MATLAB code , it ensures
+that
+the
+analysis
+reflects
+physical
+significance (such as
+energy
+minimization , low/high
+ballistic
+characteristics
+) and
+visualization is intuitive (such as U-shaped
+curves). Below is a concise
+description of the process ,
+emphasizing
+logic and
+implementation.
+Preparation
+Phase: Filtering
+and
+Typical
+Solution
+Extraction
+Filtering
+Valid
+Solutions: Extract
+convergent
+and non -NaN
+solutions
+from the
+scanning
+results , obtaining
+theta_valid
+and
+v0_valid
+arrays. Calculate
+the number
+of valid
+solutions
+and
+success
+rate (e.g., fprintf
+output "Number of valid
+solutions: %d / %d (Success
+rate: %.1f%%)"), used to assess the
+robustness of the
+scan.
+Typical
+Solution
+Extraction:
+Minimum
+Energy
+Solution: Calculate
+initial
+kinetic
+energy E
+= 0.5 * m * v0ˆ2, identify
+and v0 corresponding to
+the
+minimum E (physically
+represents
+the
+optimal
+efficiency
+launch).
+Low
+Ballistic
+Example: Select the minimum
+(short
+flight
+time , suitable
+for quick
+strikes).
+High
+Ballistic
+Example: Select the maximum
+(high
+trajectory , suitable
+for
+obstacle
+clearance).
+Flight
+Time
+Calculation: Loop
+through
+and call
+compute_trajectory
+to obtain
+t_flight
+for each
+valid
+solution , providing
+progress
+feedback
+every 20 outputs
+(to avoid
+long
+calculation
+blind
+spots).
+Analysis
+Phase: Statistical
+Analysis
+and
+Tabular
+Output
+Statistical
+Analysis: Calculate
+and print key metrics , such
+as minimum/maximum
+feasible
+angles (fprintf
+outputs
+angle
+ranges), average/median
+initial speeds , etc.
+Physical
+significance: reveals
+the
+distribution of
+feasible
+solutions , e.g., boundary
+limits
+leading to no
+solution
+due to angle
+exceeding
+limits.
+Tabular
+Output: Use
+fprintf to print a list of solutions ,
+including
+serial number ,
+, v0 , energy E, flight
+time
+t, range
+error error , and label
+typical
+solutions (e.g
+., "
+Minimum
+energy
+solution "). The table
+header
+includes
+explanations of energy
+definitions
+and the
+meaning of error. Ensure the error
+<1 m to validate
+accuracy.
+Physical
+Insights: Analyze
+the
+differences
+between
+low/high
+ballistic
+trajectories (short
+flight
+time for low
+ballistic , strong
+obstacle
+clearance
+for high
+ballistic
+), supporting
+tactical
+applications.
+Visualization
+Phase: Multi -Subplot
+Layout
+Overall
+Setup: Create a figure (position
+[100 ,100 ,1400 ,800] ,
+white
+background), using a 2 3
+subplot
+layout for
+increased
+professionalism .
+
+Team 765
+Problem B
+Page 52
+Subplot 1: v0 -
+Curve (U-shaped
+curve) : plot(theta_valid ,
+v0_valid , ’b-’), marking
+the
+minimum
+energy
+point (red
+circle), low
+ballistic (green
+square), high
+ballistic
+(purple
+diamond). Title "Variation of Initial
+Speed
+with
+Launch
+Angle (U-shaped
+Curve)" and add legend
+explanations . Physical
+significance: shows the U-shaped
+distribution of multiple
+solutions , with
+minimum v0
+corresponding to energy
+optimal.
+Subplots 2-3: Other
+Analysis
+Graphs (Optional
+Extensions) :
+Such as flight
+time vs. launch
+angle (plot(theta_valid
+, t_flight , ’g-’), marking the
+minimum
+energy
+point
+with a red star). Title "Variation of Flight
+Time with
+Launch
+Angle ." Use grid on to enhance
+readability.
+Subplots 4-6: Comparison of Typical
+Trajectories: Combine
+into a larger
+subplot , plotting
+three
+trajectories (Y
+(: ,1) vs Y(: ,2)):
+Minimum
+Energy: Solid
+blue line.
+Low
+Ballistic: Dashed
+green
+line.
+High
+Ballistic: Dotted
+purple
+line.
+Reintegrate
+each
+trajectory
+using
+ode45 (with
+event
+detection), line
+width 2.5, and add labels
+like "
+Minimum
+Energy:
+=%.1 f
+, v_0 =%.1f m/s, E=%.1f kJ".
+Use hold on to overlay , with
+legends
+for
+explanation.
+Physical
+significance: visually
+compares
+trajectory
+shapes , range
+consistency (around
+1200 m), and height
+differences.
+Style
+Optimization: Uniform
+xlabel/ylabel (font size 12),
+title (bold 13), varied
+colors/line
+styles to avoid
+monotony.
+Post -Processing
+and
+Verification
+Time
+Recording: Use toc to calculate
+total time , output via
+fprintf to ensure
+efficiency (around
+seconds).
+Validation: Check
+range errors , physical
+reasonableness of
+trajectories (e.g., peak
+height of high
+ballistic > low
+ballistic). If extended , could add energy
+distribution
+heat maps or 3D views.
+MATLAB
+Implementation
+Tips: All
+calculations
+are loop -
+friendly
+for parallelism , and if solutions
+are
+numerous
+( >1000) , vectorize
+for
+acceleration. Support
+output
+export (e.g., saveas(gcf , ’ballistic_analysis .png’)).
+This
+process
+seamlessly
+integrates
+from data
+filtering to
+insightful
+visualization , expected to enhance
+understanding of the
+ballistic
+multiple
+solutions. If
+specific
+code
+snippets or parameter
+adjustments
+are
+needed , please let me know!

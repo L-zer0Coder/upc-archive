@@ -1,0 +1,480 @@
+Low-Thrust Orbit Transfer to Saturn with Spiral Raising
+Problem A: Saturn Mission Analysis
+Team 426
+November 9, 2020
+Abstract
+The use of ion thruster electric propulsion has seen considerable attention recently
+for its application in long-distance space travel. Electric propulsion achieves much
+higher fuel efﬁciency due to higher effective exhaust velocities and is therefore ideal
+for conserving payload space and minimizing fuel requirements. In this project, we an-
+alyze the parameters of the trajectory of an ion thruster-boosted spacecraft as it makes
+an orbit transfer from low Earth orbit to orbit around Saturn. We estimate the min-
+imum fuel required to make a journey and the duration of the journey by dividing
+the trajectory into three regions, each of which are treated as a microthrust two-body
+problem: escape from Earth’s orbit, orbit transfer from Earth to Saturn (where the
+Sun is treated as the central body), and capture into Saturn’s orbit. In each region,
+spiral dynamics are explored and justiﬁcations are given for a fuel-minimizing trajec-
+tory. Time of ﬂight, fuel required, and velocities are obtained for the boundaries at
+each region by numerically integrating their respective equations of motion. For the
+heliocentric region, in which the spacecraft traverses from Earth to Saturn, different
+thrusting strategies are investigated to determine a most fuel-efﬁcient strategy. Finally,
+we estimate a fuel requirement of approximately 58.5% of the total mass and a total
+trajectory duration of 20.92 years.
+1
+
+Contents
+1
+Introduction
+3
+2
+Background and Approach
+3
+3
+Analysis of Trajectory
+5
+4
+Conclusions
+12
+5
+Appendix
+13
+Nomenclature
+˙m
+Mass ﬂow rate
+µ
+Standard gravitational parameter of the Sun
+νe
+Exhaust velocity
+Isp
+Speciﬁc impulse
+m
+Mass
+r
+Orbital radius
+T
+Thrust
+2
+
+1
+Introduction
+The use of ion thruster electric propulsion systems for small probes and, in the future,
+manned spacecraft is of great interest. Long-duration ion microthrust engines have al-
+ready seen application in missions like Deep Space and Dawn, which were able to achieve
+signiﬁcant changes in velocity over long periods of time while using small amounts of fuel.
+Ion thrusters are able to achieve much greater speciﬁc impulses than traditional chemical
+rocket engines by expelling fuel at a much greater effective exhaust velocity [2].
+In this project, we seek to analyze the trajectory of a small 5000-kg spacecraft using an
+ion thruster engine as it exits circular low-Earth parking orbit and enters a high circular
+orbit around Saturn by estimating the minimum fuel required and the duration of ﬂight. A
+direct path is considered ﬁrst, neglecting the gravitational ﬁeld of bodies besides Earth, the
+Sun, and Saturn. Then, the effects of trajectory-optimizing techniques like thrust proﬁles
+are considered.
+2
+Background and Approach
+We split the interplanetary trajectory of the spacecraft into three regions, each of which
+are analyzed separately: escape from low-Earth orbit, orbit raising within the Sun’s or-
+bit, and entry into Saturn’s orbit. In each region, only gravitational interactions between
+the spacecraft and the central body are considered. This approach is commonly used to
+simplify optimization of interplanetary orbits and is similarly used here to simplify the
+analysis.
+In all three regions, an analysis of spiral motion is required as a consequence of the very
+low acceleration. Orbit transfer can be simpliﬁed with the assumption of instantaneous im-
+pulses, resulting in optimization schemes such as the Hohmann transfer [4](Figure 1).
+Figure 1: Hohmann transfer orbit with instantaneous impulses.
+3
+
+Figure 2: Dawn mission trajectory.
+However, with low-thrust acceleration we can no longer make the assumption that im-
+pulses to the spacecraft are instantaneous. Rather, we consider the case of a small, con-
+tinuous external force on the orbit. This results in a slowly increasing orbital radius as
+the thrust is applied to the spacecraft. For instance, the Dawn probe which traveled to
+the asteroid belt with microthrust ion propulsion engines traveled in an outward spiral
+trajectory in the heliocentric region (Figure 2).
+For each region, an analysis of the spiral motion is done with the objective of ﬁnding the
+mass of fuel expelled and the time elapsed in that region. The weight of the fuel expelled
+per second can be computed from the speciﬁc impulse:
+weight/s = generated thrust
+Isp
+(1)
+With Isp = 4000 s, the change in mass follows immediately:
+dm = −generated thrust
+g × 4000 s
+dt
+(2)
+The negative sign arises because the mass is expelled from the spacecraft, so the change in
+mass is considered negative. As will be shown in the next section, the analyses of Regions
+1 and 3 are done by numerically solving coupled ODEs in time, from which the duration of
+4
+
+the trajectory follows immediately after specifying an end condition, such as a maximum
+radius or ﬁnal energy level.
+For regions 1 and 3, a numerical approach is taken to ﬁnd the exit conditions by directly
+solving the differential equations of motion. A number of different approaches exist to
+describe the spiral trajectories of orbiting bodies under microthrusts. An analytic approx-
+imation can be made for small constant thrusts, which assumes the shape of the orbit lies
+very close to a circle. This approximation breaks down as the eccentricity of the orbit
+increases towards the exit [3] (Figure 3). Another technique which is used in low-thrust
+trajectory optimization approximates the continuous low thrust into a series of periodic
+instantaneous impulses [6]. This strategy would make numerical optimization of chang-
+ing levels of thrust simpler, but is an unnecessary complication as we seek to estimate the
+fuel consumption and ﬂight duration, not the exact optimal trajectory.
+Figure 3: Example spiral orbit with increasing eccentricity.[5]
+3
+Analysis of Trajectory
+In this section, the spacecraft trajectory is split into the three relevant regions, and separate
+analyses are done for each. For the trajectory in each region, we calculate the mass of fuel
+required, the time elapsed, and an ideal velocity as the spacecraft enters or exits the region.
+The initial conditions for Region 1 and exit conditions for Region 3 are taken from the
+orbit speciﬁcations in the problem statement, and the exit velocity for Region 1 and initial
+velocity for Region 3 are used as approximate boundary conditions for Region 2.
+3.1
+Region 1: Spiral Escape from Earth Orbit
+First, the radius and velocity of the initial circular orbit are computed from the orbital
+period:
+5
+
+GMEm
+r2
+= mω2r
+r0 = (GME
+ω2
+)
+1
+3 = (GMET 2
+4π2
+)
+1
+3 = 6.65257 × 106 m
+(3)
+v0 =
+r
+GME
+r0
+= 7740.6 m/s
+(4)
+From this parking orbit, we assume the ion thrusters begin exerting a constant force of
+F = 0.4 N. We also assume the thrust is constrained to point in the direction of the velocity,
+i.e. a =
+F
+m(t)
+v
+v, where m(t) = m0 −
+F
+4000gt in accordance with equation (2). We can then
+write the gravitational differential equation as
+d2r
+dt2 + GME
+r
+r3 =
+F
+m(t)
+v
+v
+(5)
+Breaking down this equation into its radial and orbital components, we arrive at
+d2r
+dt2 −r(dθ
+dt )2 + GME
+r2
+=
+F
+m(t)v
+dr
+dt
+(6)
+d2θ
+dt + 2
+r
+dr
+dt
+dθ
+dt =
+F
+m(t)v
+dθ
+dt
+(7)
+These coupled differential equations were solved with the numerical tool in Appendix
+A from the initial conditions set by the parking orbit. When the spacecraft exits Earth’s
+sphere of inﬂuence, r = 9.29 × 108 m, we calculate
+v = 710.5 m/s
+m = 4169.9 kg
+time elapsed = 8.1402 × 107 s = 2.579 y
+Before moving on to an analysis of Region 2, it’s worth inspecting how the assumptions we
+placed on the thrusts compare to the thrust of a fuel-minimizing orbit. First, we will justify
+the assumption of constantly maintaining the thrust at the engine capacity of 0.4 N. Recall
+that the mass difference ∆m is proportional to the total impulse, which is proportional to
+the acceleration times the escape time. A careful analysis of the analytic approximation of
+the spiral escape yields [3]:
+6
+
+aθtescape ≈v0(1 −(2aθr0
+v2
+0
+)
+1
+4 )
+This expression rests on the assumption that the spiral orbits remain close to circular, so
+there is some uncertainty around the exact escape time tescape. However, it does accurately
+describe the relationship where the product aθtescape decreases for greater accelerations;
+thus the total impulse to reach escape conditions decreases with greater acceleration, and
+we are justiﬁed in assuming that the thrust stays at its greatest possible value.
+Second, we inspect the assumption that the thrust is constrained to lie along the direction
+of velocity. Several analyses of optimized low-thrust spiral escape trajectories ﬁnd that
+the fuel-minimizing trajectory has an applied thrust which lies not constantly parallel to
+velocity, but at an angle to the velocity vector which oscillates with time [5] [7]. However,
+optimized trajectories which do constrain thrust to the direction of velocity ﬁnd an in-
+signiﬁcant fuel penalty (0.13-0.39% increase in fuel consumption) compared to optimized,
+unconstrained trajectories [5].
+3.2
+Region 2: Orbit Raising to Saturn
+Trajectories for the Earth-Saturn orbit transfer were calculated by numerically integrating
+the equations of motion for the spacecraft over time. Using a polar coordinate system
+centered on the Sun, the equations of motion in the spacecraft reference frame are [8]:
+˙r = vr
+(8)
+˙θ = vθ
+r
+(9)
+˙vr = v2
+θ
+r −1
+r2 + cT cos α
+m
+(10)
+˙vθ = −vrvθ
+r
++ cT sin α
+m
+(11)
+˙m = −cT
+νe
+(12)
+Where vθ and vr are spacecraft’s velocity in the tangential and radial directions respec-
+tively, m is the instantaneous spacecraft mass, and alpha is the angle between the thrust
+vector and radial unit vector. For this analysis, alpha was set to zero.
+A constant c = Tmaxr2
+0
+m0µ
+is introduced to normalize the initial conditions. Radii are normal-
+ized to 1 AU, mass is normalized to m0, and velocities are normalized to Earth’s orbital
+velocity.
+This system of differential equations can be solved numerically to propagate the space-
+craft’s trajectory through time. The spacecraft’s state at any point in time is represented by
+7
+
+the state variable:
+x = [r, θ, vr, vθ, m]
+(13)
+To simplify the initial conditions, we assume that after exiting Earth orbit, the spacecraft
+is in a perfectly circular orbit around the Sun with Earth’s orbital radius. In comparison to
+the vast distance between Earth and Saturn, the difference between the spacecraft’s initial
+orbital radius and Earth’s is small. This assumption allowed us to set r0 = rearth. vr0 = 0,
+and vθ0 = vearth + vescape.
+The MATLAB program we wrote to solve the EOMs and generate plots of the spacecraft’s
+trajectory is included in the appendix.
+3.3
+Finding Minimum-fuel Trajectories
+Finding feasible, minimum-fuel trajectories is a complex optimization problem that is the
+subject of much research. To truly ﬁnd the best trajectory, we would need to consider
+variable thrust proﬁles, thrust angles, launch dates, and gravity assist maneuvers. To con-
+strain the problem and avoid the mathematical and computational complexity involved
+with such an approach, we instead aimed for a ballpark estimate of minimum fuel by con-
+sidering classes of trajectories that can be obtained by only varying the thrust proﬁle.
+The ﬁrst is the case of constant, continuous thrust. The second, continuous thrust that
+decreases with 1/r2. And ﬁnally, a case where the the engines are operated at maximum
+thrust for part of the journey, and then turned off. We found that the last approach con-
+sumed the least fuel and produced trajectories with reasonable transfer times.
+For each case we have generated an example trajectory. These trajectories are not optimal
+solutions, and are included for illustrative purposes. The mass and time estimates are
+approximate. We noticed that varying the parameters of the trajectory slightly did not
+tend to have a large effect on fuel consumption, even if the trajectory had a very different
+shape. Furthermore, we did not impose boundary conditions on the trajectories. The goal
+was to obtain a trajectory that could be feasible for some arbitrary alignment of planets. In
+a later section, we will show that a launch window does indeed exist for the partial-coast
+trajectory.
+3.4
+Constant-Thrust Trajectory
+The simplest case that we looked at was when we constantly applied the thrust. This lead
+to a logarithmic spiral as the spacecraft’s loss of mass due to its fuel depletion lead to a
+constant force applied to the craft during the trip. This resulted in a sharp entry angle for
+the craft into Saturn’s orbital path as shown in Figure 4. The fuel consumption was 50% of
+the initial spacecraft mass, while the duration of travel was about 8 years.
+8
+
+Figure 4: Constant-thrust spiral trajectory (distances in AU)
+3.5
+Decreasing-Thrust Trajectory
+One strategy to minimize usage is to scale the intensity of thrust by 1/r2, where r is dis-
+tance from the Sun. This also constrains the acceleration of the spacecraft as it loses mass,
+producing a more favorable Archimedian spiral which does not overshoot Saturn’s orbit.
+Since the ﬁnal velocity of the spacecraft will be in the direction of Saturn’s orbit, less δV is
+needed for orbit capture.
+Since the spacecraft engine only supplies a constant 400 mN of thrust, we would vary the
+thrust output by rapidly pulsing the engine. Varying the duty cycle would approximate
+an engine with variable thrust.
+For the trajectory shown in 5, total mass usage was roughly 45% of the initial spacecraft
+mass, an improvement on the constant-thrust trajectory because the spacecraft spends less
+time operating at high thrust levels. However, the drawback of this approach is that it
+produces extremely an long and gradual ascent that takes decades to complete. As such,
+it is not the most practical approach for raising an orbit over such a large distance.
+9
+
+Figure 5: 1/r2 Thrust Trajectory
+3.6
+Partial-Coast Trajectory
+The partial-coast strategy involves operating the spacecraft at maximum thrust for the ﬁrst
+part of the journey, and then turning the engine off after a certain cuttoff distance rCT . This
+approach takes advantage of the high engine thrust to quickly exit the inner solar system,
+but if tuned correctly, allows the spacecraft to be placed into an elliptical orbit once it has
+enough energy, which will intersect Saturn’s orbit at it’s apogee.
+In the trajectory shown in Figure. 6, the engine was reduced to 50% output at 2.6 AU,
+and completely turned off at 2.66 AU, indicated by the cross on the diagram (note the the
+engine turns back on if the spacecraft orbit returns below 2.6 AU later on in the trajectory).
+This thrust regime produced the most favorable mass usage, only 32% of initial mass, and
+also a reasonable transfer time of 15.9 years. Another advantage is that the spacecraft
+reaches Saturn orbit with a much lower velocity than the other two methods, minimizing
+propellant usage in orbit capture. This orbit shape was used to generate an entry velocity
+for the spacecraft into Saturn orbit, treated in the next section.
+10
+
+Figure 6: Trajectory where engines are turned off after 2.66 AU.
+3.7
+Region 3: Spiral Capture into Saturn Orbit
+The radius and velocity of the ﬁnal orbit around Saturn are computed with a similar cal-
+culation as in (3) and (4):
+rf = 2.71098 m
+vf = 1182.9 m/s
+The analysis of the spiral capture trajectory is identical to that of the spiral escape, with
+the difference that the mass decreases as the spacecraft moves in toward the central body,
+rather than as the spacecraft exits the orbit. We treat the problem equivalently as that of a
+spacecraft exiting a circular orbit around Saturn with a thrust 0.4 N applied constantly in
+the direction of velocity as for Region 1, whose mass increases rather than decreases but
+at the same rate - effectively, we integrate the equations of motion backwards. The mass
+of the spacecraft in its ﬁnal circular orbit is varied to match the spacecraft’s entry mass to
+the ﬁnal mass from Region 2. The entry point is taken to be where the total energy of the
+orbit obtained by integrating the equations of motion backwards, using the results of the
+partial-coast trajectory. With these constraints, we calculate
+mﬁnal = 2076 kg
+time elapsed = 7.649 × 107 s = 2.424 y
+11
+
+3.8
+Launch Window
+Between late June 2038 and late December 2056 could be a potential window of time that
+the mission could take place. We know that the it will take roughly 2.58 years for the
+probe to escape Earth’s orbit and another 15.92 years for it to intersect Saturn’s orbital
+path. Setting the position of the Earth relative to the Sun (at launch) at zero degrees and
+taking into account Saturn’s 29.457 Earth year orbital period, gives us that Saturn will
+move 62.8 percent along its orbit and 226.08 degrees since the start of our mission. Based
+on a rough estimate of our trajectory, the space craft will intersect Saturn’s orbit around
+the 130 degree mark (still keeping the launch point as the zero degree reference). Using
+ephemerides taken for NASA’s HORIZONS Web-Interface, late June 2038 was determined
+to be a possible mission start time, as 18.5 years from then Saturn will be close to the
+position of where the craft will enter its orbit [1].
+4
+Conclusions
+The mass of the spacecraft when it enters the circular Saturn orbit is 2076 kg, so we estimate
+this trip would require a minimum of 2924 kg of fuel for the 5000 kg spacecraft. Summing
+up the duration of the trajectories in each of Regions 1, 2, and 3, we also estimate a total
+trip time of 20.92 years. These estimates are obtained by analyzing the trajectory taken by
+the spacecraft when it thrusts continuously in the direction of velocity to escape Earth’s
+orbit, undertakes the partial coast trajectory as described in section 3.6, and then thrusts
+continuously in the direction opposite of velocity to slow down into a circular orbit around
+Saturn. This trajectory could be optimized by further optimizing the path taken in Region
+2, as well as unconstraining the magnitude and direction of thrust in Regions 1 and 2. In
+addition, more complicated maneuvers such as gravity assists could further decrease the
+minimum required fuel and total trip time.
+12
+
+5
+Appendix
+5.1
+Appendix A: C++ Numerical Tool to Calculate Earth Escape Orbit Parame-
+ters
+include <iostream>
+include <math.h>
+static float F = 0.4;
+static float GM = 3.98603e14;
+static float g = 9.80665;
+long double r = 6.652567399e6;
+long double v = sqrt(GM/r);
+long double m = 5000;
+int main() {
+long double dr = 0;
+long double om = v/r;
+long double d2r = F/m * dr/v + r*om*om - GM/(r*r);
+long double dom = F/m * om/v - 2/r*dr*om;
+double dt = 0.1;
+double time = 0;
+while (r < 0.929e9) {
+r += dr*dt + 1/2*d2r*dt*dt;
+om += dom*dt;
+dr += d2r*dt;
+v = sqrt(dr*dr + r*r*om*om);
+m -= F/4000/g*dt;
+d2r = F/m * dr/v + r*om*om - GM/(r*r);
+dom = F/m * om/v - 2/r*dr*om;
+}
+}
+13
+
+5.2
+Appendix B: Matlab Region 2 Trajectory Simulator
+r0 = 1.495978770e11;
+mu = 1.3271244e20;
+v0 = sqrt(mu/r0);
+tmax = 400e-3;
+m0 = 4170;
+c = tmax*r0/(m0*mu/r0);
+ve = 4000*9.81;
+alph = pi/2;
+tspan = 0:0.001:200;
+t,x
+= ode45(’propagate’,tspan,x0);
+polarplot(x(:,2),x(:,1))
+hold on
+earthorbit = linspace(0,2*pi,50);
+polarplot(earthorbit, 1+zeros(size(earthorbit)))
+saturnorbit = linspace(0,2*pi,50);
+polarplot(saturnorbit, 9.5+zeros(size(saturnorbit)))
+14
+
+5.3
+Appendix C: Matlab Region 2 Propagation Tool
+function xdot = propagate(t, x)
+r0 = 1.495978770e11;
+mu = 1.3271244e20;
+v0 = sqrt(mu/r0);
+tmax = 400e-3;
+m0 = 5000;
+ve = 4000*9.81/v0;
+alph = pi/2;
+c = r0/(m0*mu/r0);
+tmax = tmax/x(1)2
+xdot = [x(3) ;
+x(4)/x(1) ;
+x(4)2/x(1) −1/x(1)2 + c ∗tmax ∗cos(alph)/x(5);
+−x(3) ∗x(4)/x(1) + c ∗tmax ∗sin(alph)/x(5);
+−c ∗tmax/ve];
+end
+15
+
+References
+[1] Ryan S. Park Alan B. Chamberlin. Nasa jet propulsion laboratory horizon system.
+[2] D.G. Fearn. Technical report 78068: The use of ion thrusters for orbit raising. Technical
+report, Royal Aircraft Establishment, June 1978.
+[3] Paulo Lozano and Manuel Martinez-Sanchez. Mit 16.522 spring 15 lecture 6, 2015.
+[4] J. Peraire and S. Widnall. Mit 16.07 fall 09 lecture 17, 2008.
+[5] Christopher Louis Ranieri. Indirect Optimization of Interplanetary Trajectories Including
+Spiral Dynamics. PhD thesis, University of Texas at Austin, August 2007.
+[6] Jon A. Sims et al. Implementation of a low-thrust trajectory optimization algorithm for
+preliminary design. Number AIAA 2006-6746, August 2006.
+[7] S.R. Vadali et al. Fuel-optimal planar earth-mars trajectories using low-thrust exhaust-
+modulated propulsion.
+Journal of Guidance, Control, and Dynamics, 23(3), May-June
+2000.
+[8] Zhenbo Wang and Michael Grant. Minimum-fuel low-thrust transfers for spacecraft:
+A convex approach. IEEE Transactions on Aerospace and Electronic Systems, PP:1–1, 03
+2018. doi: 10.1109/TAES.2018.2812558.
+16

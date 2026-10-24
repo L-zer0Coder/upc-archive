@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方法论与数值算法总论 · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg:#0a0f1e;--panel:#111a2e;--ink:#e8eef8;--mut:#94a5c0;--line:#22304c;--acc:#4f7dd9;--acc2:#39c2b0;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
+ font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar a:hover{border-color:var(--acc);color:#fff}
+.crumb{color:var(--mut);font-size:13px}
+.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
+h3{font-size:17px;color:#cfe0ff}
+a{color:#7fb0ff} a:hover{text-decoration:underline}
+code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
+pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1em 0;padding:8px 16px;border-left:4px solid var(--acc2);background:rgba(57,194,176,.07);color:#c9d6ea;border-radius:0 10px 10px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#16233c;color:#a9bcda;white-space:nowrap}
+tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
+@media(max-width:700px){.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a href="../../index.html">🏆 总览首页</a>
+  <span class="crumb">08_物理模型综述</span>
+  <span style="flex:1"></span>
+  
+  <a href="../../../08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/08_%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%8E%E6%95%B0%E5%80%BC%E7%AE%97%E6%B3%95%E6%80%BB%E8%AE%BA.md">原文 .md</a>
+</div></div>
+<div class="wrap"><div class="card">
+<h1 id="_1">方法论与数值算法总论</h1>
+<blockquote>
+<p>UPC 全档案库专题综述之八（点睛篇）。素材来源：<code>05_论文赏析/_批次01</code> 至 <code>_批次12</code> 全部 12 份批次对比表（覆盖 2010–2025 年 74 篇金牌论文）、<code>07_题目解读/</code> 各年文件。本篇不重复具体物理，只回答一个问题：<strong>让一篇 48 小时论文变成金牌的，究竟是哪些与题目无关的方法论？</strong></p>
+</blockquote>
+<h2 id="1-upc">1. 该专题在 UPC 中出现全景</h2>
+<p>方法论不专属某道题，但可以按"招式"清点其出场记录（下表每行括号内为实证队伍）：</p>
+<table>
+<thead>
+<tr>
+<th>方法论招式</th>
+<th>代表性出场（年份-队伍）</th>
+<th>一句话概括</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模糊词操作化（判据工程）</td>
+<td>2010-B、2012-B、2013-B、2014-A、2015-A、2016-B、2019-B-190、2021-B、2024-B、2025-A、2025-B-392</td>
+<td>把"更好/更安全/更保真"翻译成带文献出处的可计算判据</td>
+</tr>
+<tr>
+<td>理想→修正→扩展三层模型</td>
+<td>2014-B、2015-B、2016-A-412、2021-A-349、2022-B-471、2025-B-796</td>
+<td>每层引入一个修正，都用同一基准量给出前后对比</td>
+</tr>
+<tr>
+<td>量纲/标度论证与费米估算</td>
+<td>2013-B、2017-B-609、2022-A-460、2025-B-204、2021-B-445</td>
+<td>三行标度律完成别人三页的排除论证</td>
+</tr>
+<tr>
+<td>收敛性检验</td>
+<td>2010-A、2017-A-744、2018-A-295、2022-B-471、2025-B-765</td>
+<td>至少一项"让数值结果可信"的制度化动作</td>
+</tr>
+<tr>
+<td>极限情形自检</td>
+<td>2017-A-670、2017-B-609、2022-B-358、2025-B-496</td>
+<td>参数趋于 0/∞ 或真空/真实两端对表</td>
+</tr>
+<tr>
+<td>灵敏度/线性度分析</td>
+<td>2012-A、2021-B-442、2025-B-155/188/204、2025-B-796</td>
+<td>把"简化合法性"本身当研究对象</td>
+</tr>
+<tr>
+<td>真实数据标定</td>
+<td>2023-A 五队（Baumgartner）、2021-A-349（MAVEN）、2019-B-389（NoLimits 2）、2020-A-426（HORIZONS）、2022-A-425（DART β≈8.4）</td>
+<td>公开数据从背景故事到参数标定源，深度决定可信度层级</td>
+</tr>
+<tr>
+<td>蒙特卡洛与概率外推</td>
+<td>2016-A-331（5 万小行星）、2019-A-343（2 万源点）、2022-A-346（200 碎块风险曲线）、2022-B-358（2 万点热图）</td>
+<td>把不确定性变成分布而非单点</td>
+</tr>
+<tr>
+<td>优化算法</td>
+<td>2017-A-699（PSO+庞特里亚金）、744（SLSQP）、2018-A-295（PSO）、2025-B-392（SLSQP+罚函数）、2022-B-471（单目标规划）</td>
+<td>连续控制离散化为有限参数后再优化</td>
+</tr>
+<tr>
+<td>降维交付（无计算器约束）</td>
+<td>2025-B 全部 13 队</td>
+<td>把数值解谱压缩成口诀/公式/射表/列线图，每步压缩附误差支票</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2">2. 核心方法论逐一解读</h2>
+<h3 id="21">2.1 量纲分析与费米估算：第一小时就该干完的事</h3>
+<p><strong>适用场景</strong>：任何题目的开局——定尺度、定 regime、排除效应。</p>
+<p><strong>做法与方程</strong>：不做积分先做量级。2025-B-204 队是教科书：先立 4 自由度刚体假设，再用数量级分析把浮力、Magnus、Coriolis 逐项砍掉，收敛成质点模型——批次 12 称之为"建模—自删减"叙事，结论因此像定理。2022-A-460 队用一行标度分析 $p/P\sim10^{-6}$ 证明"正面顶停不可能、只能侧推"，奠定了全文方向；2021-B-445 队用三行标度律（冲击波 $\propto1/r^2$、海啸 $\propto1/\sqrt r$、地震能量 &lt;1%）完成别人用三页精算完成的效应排除（对照 442 队的逐项精算排除，两极同获金牌）。2017-B-609 队则把量纲分析做到极致：整个磁导向评估压缩为一个无量纲组合 $weB/mv$ 的取值讨论，"比任何粒子模拟都干净"。</p>
+<p><strong>金牌队的典型处理</strong>：费米估算充当"方案筛选器"——2024-B 用 $\frac12\rho v^3=80\ \mathrm{W/m^2}$ 一票否决火星风能；2023-B-471 用能量审计（总能量增量 214 J 对比肌肉注入 689 J）主动承认可能高估。共同点：量级论证之后必跟一句"所以本文保留/舍弃 X"。</p>
+<p><strong>常见错误</strong>：直接上 ODE 不定 regime（低推力还是冲量式、深水撞击还是成坑、线性还是湍流）；砍掉效应不给数字（"忽略空气阻力"五个字 vs "阻力做功占比 &lt;0.5%"一句话，后者才是建模）。</p>
+<h3 id="22-upc">2.2 "模糊词操作化"：UPC 第一招</h3>
+<p><strong>适用场景</strong>：题面永远含主观词——"更好""安全""实质性破坏""保真""最佳机会"。批次 01 的总结是："四年八题的共同套路是把题面的主观词翻译成可计算的代理量，再做优化或判定"，且此招"在今天仍是 UPC 备赛的核心课程"。</p>
+<p><strong>做法</strong>：三步——选代理量、给判据数值、注文献出处。实例谱系："破坏力最大"→释放时平动速度最大（2010-B）；"更好看的转播"→人眼 30°/s 追踪极限折算的 11.88 m/s 基准（2012-B）；"火山活动水平"→岩浆层释能功率 $\eta=P_{vol}/Q$（2012-A）；"省多少燃料"→燃耗百分比并换算"载荷翻倍"（2013-A）；"生物长什么样"→等应力曲线角点的 30% 缩短量（2013-B）；"稳定"→能量束缚+不碰恒星两条编码判据（2014-A）；"宜居"→273 K/612 Pa 相图条件（2015-A）；"安全/刺激"→过载加权标量 $S=4G_x+5G_y+3G_z+0.05v+0.1H$ 且阈值有 NASA 文献（2019-B-190）；"实质性破坏"→2/7/10 m 波高三选一并各引灾害文献（2021-B 四队）；"错过地球"→角动量不等式/1.5 $R_E$ 最近距/周期提前量（2022-A 各队）；"连续供电"→夜间与沙尘暴口径声明（2024-B）；"保真"→平坦度/THD/群时延七维指标（2025-A）；"最优射击方案"→自创评分 $S_{final}=0.5S_{eco}+0.5S_{time}$（2025-B-392）。</p>
+<p><strong>要点</strong>：判据的选择本身就是建模——2023-A 六队答案从 57 km 到 153 km，离散"并非源于计算错误，而是源于约束选择"；2021-B 四队答案跨两个数量级，第一分歧是阈值。评委奖励的不是"正确数字"而是"判据→方程→数值"链条的自洽（批次 07、08 反复印证）。配套动作是把判据做成<strong>显式工程</strong>：开放题 = 判据定义 + 空间枚举 + 主模型精算 + 副效应/副方案的定量排除，四段缺一不可（批次 07 观察四）。</p>
+<p><strong>常见错误</strong>：判据拍了数不给出处；口径漂移（Gy/Sv、BMR/FMR、装机容量/可用容量）；同一量在摘要与正文两套数（2020-B-380 摘要 5.3678 vs 正文 5.2795 m/s 的前车之鉴）。</p>
+<h3 id="23">2.3 模型分层：理想→修正→扩展</h3>
+<p><strong>适用场景</strong>：一切多效应耦合题。批次 02 称之为"本批次最稳定的三段式结构"，实际上贯穿全部 74 篇。</p>
+<p><strong>做法</strong>：先解一个能手工复核的理想问题，再逐个引入修正，每引入一个都用<strong>同一基准量</strong>报告前后变化。范本：2014-B（真空解析→相互作用高斯修正→阻力数值，基准量 $r_{max}$）；2015-B（无风基准→裕度优化→侧风扩展）；2016-A-412（六方案初筛→两步入轨动力学→四套风险模型）；2021-A-349（基础模型→修正 I/II 的递进叙事）；2022-B-471 的"假设-回收"（先设光滑球常 $C_d$，第 7 节用 Stokes 力矩正式修正为 $\omega&#x27;=\omega_0e^{-9\pi\eta at/m}$，修正后偏差仅 0.0118 m）；2025-B-796 的四层渐进（基线阻力→横风→自旋/Magnus→高差）。2013-A-538 的"锚定已知情形再外推"（水星/地球校验火山模型）与 2012-A-449 的端点校验同属此家族。</p>
+<p><strong>金牌队的典型处理</strong>：层与层之间要"判定而非堆叠"——2023-A-131 队做了全部三条判据（过载 94 km、温度 120 km、激波平旋 78 km）再取交集给保守的 80 km，批次 09 称之为"收敛表述的标准范本"；2022-A-395 队把开放轨迹参数化为单角 $\theta$ 并按椭圆/双曲分支分类讨论，用周期回归性证伪"可解"；2022-B-358 队先解出 $\omega=\omega_0e^{-kt}$ 再用数量级论证"飞行 1 秒内衰减不足 0.1%"而正当取常值——批次 08 总结为"常数近似/量级论证近似/显式建模/事后修正"四种深度都可拿金牌，<strong>差别只在是否把所选深度讲出自洽理由</strong>。</p>
+<p><strong>常见错误</strong>：修正堆到第四层却不回头对比基准（读者已不知道哪层贡献了几个百分点）；把所有物理一次塞进同一个巨型方程组（无法定位哪个假设错了）。</p>
+<h3 id="24">2.4 数值方法谱系：朴素是常态，检验是分野</h3>
+<p><strong>积分器家族（按 74 篇实际使用频次）</strong>：</p>
+<ul>
+<li><strong>一阶 Euler 及其变体</strong>：2010-A/2010-B（自写 C++）、2019-A-289、2020-A-354（Euler-Richardson 中点法，步长 200 s/6 h）、2020-B-380、2022-B-480、2025-B-311。批次 05 的结论值得抄录："数值方法本身（欧拉法、中点法、ode45）在金牌论文里都是最朴素的选择。"</li>
+<li><strong>RK4</strong>：2012-B（C++，$dt=0.001$ s + Scilab 交叉验证）、2021-B-445（Julia）、2025-B-428、2023-A-464。</li>
+<li><strong>RK45/ode45 与事件函数</strong>：2011-B（ode45，RelTol 1e-5，事件驱动分段）、2020-A-340/426、2021-A-200/216、2023-A-131/244/447（事件函数自动捕捉 8g 与开伞时刻）、2025-B-127/765/496（rtol 1e-8）。</li>
+<li><strong>高阶与特型</strong>：DOP853（2023-B-471）、ode113/ode23t（2020-A-340/447）、Cash-Karp RKF45 打靶（2016-A-412）、Verlet 自适应步长（2022-A-425）、二阶 Taylor（2020-A-426）、FFT 谱方法演化波场（2021-B-445，$10^5$–$5\times10^5$ 格点）、自研物理引擎 1 ms 帧（2023-B-138）与领域仿真器 NoLimits 2（2019-B-389）。</li>
+</ul>
+<p><strong>求根与反解</strong>：二分夹逼（2010-A 临界角、2022-A-395 临界撞击点）、Brent（2025-B-127）、多起点 fsolve+去重（2025-B-204）、Levenberg–Marquardt（2025-B-765）、双重迭代数值反解（2021-A-349）。</p>
+<p><strong>蒙特卡洛与扫描</strong>：参数网格穷举是早期金牌标配（2010-B 0.01 m 网格、2013-A 0.0001 rad 步长扫描、2014-A 50×150×3 相空间图）；成熟期转为有统计设计的蒙特卡洛——2016-A-331 用 curl 抓 5 万颗真实小行星做 Poisson 外推、2019-A-343 用 2 万随机源点且步长挂回旋周期（$\Delta t=T/100$）、2022-A-346 把 200 碎块坠地概率画成 30%/7% 风险曲线（"全部五篇中唯一把模型风险做成曲线的"）、2022-B-480 用扰动重采样做鲁棒性检验并反转题目预设。</p>
+<p><strong>优化算法</strong>：PSO（2017-A-699 配动态罚函数、2018-A-295）、SLSQP 非线性规划（2017-A-744、2025-B-392）、庞特里亚金极小值原理把无穷维控制压缩成 5 个标量（2017-A-699）、极小极大优化压通带波纹（2025-A-112）、单目标规划+四轮变步长搜索（2022-B-471）。</p>
+<p><strong>拟合与降维</strong>：最小二乘是数据驱动题的主力——2025-B-155 的经验公式带 $R^2$/交互项显著性检验与随机目标盲测、264 的三步半经验回归（$R^2&gt;0.98$）、464 的一次拟合把等温大气参数压到 λ=7.4621 km 再用 NRLMSIS 叠图验证（批次 09 称之为"简单模型+数据同化+高阶验证"三层结构，"值得每个队伍照抄"）、796 把整条数值解谱蒸馏成多项式手算公式（平均误差 2.23%）。</p>
+<p><strong>分野不在积分器而在检验</strong>：批次 04 的规律——"金牌论文至少有一项'让数值结果可信'的制度化动作：收敛实验、区间验收、文献对照三者必居其一"。2020-B-240 队甚至用"输出是否落在题给温度/湿度区间"做<strong>物理检验</strong>替代数值检验。</p>
+<h3 id="25">2.5 验证文化：从"会算"到"会检验"</h3>
+<p><strong>收敛性检验</strong>：2010-A 的步长减半对比是赛事元年唯一先例；2017-A-744 把帆角离散 1–30 段扫描制成收敛表并反推"无需频繁调姿"的工程结论；2018-A-295 做三组离散规模实验证明 N&gt;45/35/40 后结果不变；2022-B-471 四轮变步长搜索收敛到 0.0363 m；2025-B-765 的步长收敛验证给出截断 ≤0.7 m。</p>
+<p><strong>极限情形自检</strong>：2017-A-670 用 $q\to0,1$ 验证帆角参数化；2017-B-609 用 $weB/mv\to0,1$ 两个极限验证闭式；2025-B-496 做"真空 vs 真实"五维对照表（450 m/s 弹射角 1.67°→3.36°，真空解射程偏 334–449 m）——反事实呈现本身就是验证。</p>
+<p><strong>灵敏度分析</strong>：2012-A-449 专设 "Dependence of Results on Parameters" 小节主动暴露软肋；2021-B-442 对 shoaling 系数列表做敏感性表；2025-B 把"简化合法性本身当研究对象"做成梯度——188 对三个修正系数逐一做 $R^2$ 检验（侧风 1.000000、纵风 0.997、高度仅 0.814 并解释非线性来源），204 在推荐解附近证明 $v_0(U)$ 严格线性并用再积分复核落点 ±0.5 m，155 报告风修 $R^2=0.687$ 并诚实降级有风精度（"无风 0.05°/有风 4°"分级报告）。批次 11 的判语："同一种简化，有没有把'简化合法性'当作研究对象，正是模型严谨性评分的分水岭。"</p>
+<p><strong>真实数据标定</strong>：2023-A 的 Felix Baumgartner 39 km 一跳是年度事实标准数据集，五队用出五种深度（464 定性标注 → 447 时间线表 → 131 定量误差 0.56%/1.5% → 244 逐帧三曲线对照 → 355 从 FB 失控/恢复两点反演阈值 $k_1=2.82$、$k_2=12.36$ N/kg 并复现失控时长 56.1 vs ~52 s 闭环）；批次 09 的结论："同样一份公开数据，利用深度直接决定论文的可信度层级"。同族案例：2021-A-349 用 MAVEN 实测 100 g/s 做线性标度律外推、2019-B-389 用 NoLimits 2 拟合度 94.26% 背书、2020-A-426 用 HORIZONS 星历定发射窗口、2022-A-425 用 DART 实测定标动量传递 $\beta\sim8.4$、2011-B 与 Silverberg 文献交叉验证、2012-B 双软件交叉验证、2013-A 同框架对照实验（98.5% vs 96.8% 燃耗）保证公平。</p>
+<p><strong>前提自检</strong>：395 队用 $F_{sun}/F_e\approx10^4$ 推翻自己的地心假设；346 队做结合能/动能 5 个量级审计；445 队数值复现 $1/\sqrt r$ 理论标度；425 队"周期扰动累积、半长轴扰动不累积"的抓大放小论证。自检的最高形态是<strong>诚实的 Weaknesses</strong>：批次 06 称"一个自我批评到位的模型远比一个假装完美的模型更加分"，216 队点名 Green's law、349 队承认机制覆盖不足、447 队坦承 $S_m$ 缺实验支撑。</p>
+<h3 id="26">2.6 排版与呈现策略</h3>
+<p><strong>篇幅</strong>：25–40 页是效率最优区间（批次 12）；17 页（2025-B-311）与 111 页（2025-B-796）同为金牌，证明篇幅与奖项无单调关系——早期四年正文仅 8–17 页而附录奇重（2010-B 用 11 页装全套代码），2017 年后收敛为"精选代码+参数表"，篇幅让位给收敛检验与方案对比。</p>
+<p><strong>模板与风格</strong>：LaTeX 与 Word、期刊风与美赛风（2022-B-471、2025-B-395 用 MCM/ICM 模板写 UPC）都出过金牌——"排版风格本身不构成门槛，评委可审计性才是共同底线"（批次 02）。可抄走的版式资产：符号表带数值与出处五列（2021-A-200）、每条公式右侧标注操作（2021-B-216）、敏感性四联图（2022-B-471）、六维数据三维可视化（2022-B-480）、验收判据打钩表（2025-A-485）。</p>
+<p><strong>摘要的"三数原则"</strong>：批次 06 发现 5 篇论文"无一例外在摘要或结论的显眼位置给出带单位的最终数值"，2023-A 六篇全部如此，其中 447/464/131 把数值加粗、244 把数值写进关键词。最完整的摘要结论链见 2017-A-670："q=0.46→1080 kg→532 天→8.6 km/s"一气呵成。</p>
+<p><strong>"最后一公里"错误清单</strong>（全部来自金牌论文的真实瑕疵，零成本可规避）：未解析的 "Figure ??"（2011-B）、重复小节号/两个 Graph 5（2012-A、2012-B）、量级笔误 $10^{-6}/10^{6}$（2023-A-227）、摘要与正文数值不一致（2020-B-380）、空引文与图题缺失（2021-A-200）、"(ref)" 占位符与欧式小数逗号（2021-B-445）、"Python 2.6 列为文献 [8]"（2013-A）、页眉残留 "Problem A"（2015-B-108）、公式以图片嵌入导致正文数值空洞（2023-A-464）。批次 01 的判语："这些瑕疵恰好标注了'零成本可得'的分数。"</p>
+<p><strong>合规新组件</strong>：2025 年起 AI 使用声明成为标准组件（112 队 AI Usage Report 限定用途逐条声明；765 队全文附 AI 输出；796 队声明仅辅助编程与翻译）。</p>
+<h3 id="27">2.7 无计算器约束下的"降维交付"</h3>
+<p>2025-B 是方法论的分水岭之题：题面要求为"受过数学训练、无计算机/计算器的炮兵军官"设计快速估算方法。13 支队伍无一例外仍用计算机做 RK4/RK45/ode45 积分——<strong>真正的分野在交付形态</strong>：把连续数值解压缩成什么人工产物。批次 11 按手算负担排出的完整光谱：127 的四步心算口诀（纯加法+二次方程）→ 155/264 的线性/半经验公式 → 796 的多项式蒸馏（式 30/33/35，平均误差 2.23%）→ 428/460 的"等效射程变换查表 + 三/四条修正" → 204/207/392 的多表射表（含 NaN 风险标记、密位整数修正）→ 765 的"射表+修正表+列线图 nomogram+心算公式（$v_0\approx3\sqrt{R}\times1.2$、$\theta=45°+k_1R/\beta$）"四件套 → 496 的整本野战手册（初估 $\theta\approx\sqrt{R/70}+2°$ + 分级括射 ±1.5/3/5/8°）。金奖普遍落在"一张主表+一两次乘加"的中间形态，且都补一张误差验证表自证可用（207 落点平均误差 1.20 m≈0.1%、460 的 0.15%–1.29%、428 的 &lt;0.16 mil）。</p>
+<p>配套的高级动作是 428 队的"修正系数三步法"：理论推导给量级（密度线性化 11.8%/km）→ 数值标定终值（4%/km）→ 解释差异（弹道低、阻力集中在初段）。而 2025-A-485 与 2025-B 各队共享同一获奖密码（批次 11 观察五原文）：<strong>"评委要看到的不是'模型多复杂'，而是'复杂模型被压缩成可执行产品的过程中，每一步压缩都附带了误差支票'。"</strong></p>
+<h2 id="3">3. 跨题目的建模套路总结</h2>
+<ol>
+<li><strong>UPC 金牌语法五件事</strong>（批次 05 提炼并经全库验证）：指标化——可复现——划边界，加上探索空间完整展示（保留落选方案与失败轨迹：447 的失败图、190 的修正讨论、346 的双方案）与诚实的 Weaknesses。</li>
+<li><strong>同题异构是常态</strong>：2022-A 四队答案跨三个数量级、2020-A 四队燃料 1308–2924 kg、2019-A 三队质量差 40 倍，全部金牌——"答案的价值在于'假设→结论'链条的透明度"；与之相对，2023-A 三支热判据队收敛在 61–64 km 窄带，说明当判据做实后答案自然收敛。前者靠口径透明，后者靠判据深度，两条路都通。</li>
+<li><strong>破立结构</strong>：先定量证伪"显然方案"再立主方案（346 的着陆/系绳证伪、289 的 Størmer 否决、204 的数量级自删减、460 的拿破仑直射仰角史实圈定解带）——评委对"为什么不选别的"的最好回答是数字。</li>
+<li><strong>队风可辨但无优劣</strong>：国防科大系的"分解-枚举-检验"系统工程范式（编号子模型、灵敏度专节、两级结论）、欧美队伍的"选型-对标-闭环"文献范式（决策矩阵、工程实证）、早期冠军的"单点巧思"范式——资源与特长决定路线，三条路都有金牌先例。</li>
+<li><strong>中国队伍的崛起轨迹</strong>：2012 年上海交大 449 首金 → 2018–2019 国防科大标准化范式成型 → 2025-B"南理工现象"（同师五队五种零重叠解法，赛前方案分化训练）——方案分化是应对"同题多解"评审生态的理性策略。</li>
+</ol>
+<h2 id="4">4. 备赛建议</h2>
+<h3 id="41">4.1 训练清单</h3>
+<ol>
+<li><strong>第一小时铁律</strong>：定义判据（带文献）→ 费米估算定 regime → 排除次要效应（各给一行数字）→ 立理想模型。这四步做完，论文骨架已值半张金牌。</li>
+<li><strong>数值自检排期</strong>：把"至少一项可信度动作"（收敛实验/区间验收/文献对照）当作与建模同等级的任务排期，而非写完再补。</li>
+<li><strong>每个真实数据集用三层</strong>：定性对照 → 参数标定 → 反演闭环（Baumgartner 五队光谱是练习题答案）。</li>
+<li><strong>降维演练</strong>：任取一道自己做过的题，把数值解压缩成"一条公式 + 一张表 + 一句口诀"，并给每步压缩配误差支票——这是 2025 年之后开放设计题的隐形评分点。</li>
+</ol>
+<h3 id="42-upc-checklist">4.2 UPC 金牌论文写作配方（从摘要到结论的 checklist）</h3>
+<ul>
+<li>[ ] <strong>摘要</strong>：方法一句话 + 判据一句话 + 带单位的最终数值（加粗）+ 关键中间量 + 边界条件/口径；全文所有数字与摘要严格一致。</li>
+<li>[ ] <strong>引言/问题重述</strong>：逐条列出题面模糊词，并预告每个词的操作化方案；题面给的每个数字在此入账（无废参数）。</li>
+<li>[ ] <strong>假设与判据节</strong>：每条假设配一句合法性论证或量级辩护；判据阈值全部带文献；口径（Gy/Sv、热/电、最坏/最概然）声明并全程一致。</li>
+<li>[ ] <strong>符号表</strong>：符号-含义-数值-单位-出处五列（2021-A-200 式）。</li>
+<li>[ ] <strong>模型节</strong>：编号子模型；按"理想→修正→扩展"分层，每层用同一基准量报告前后对比；关键近似旁标相对误差量级（2022-A-460 式）。</li>
+<li>[ ] <strong>数值方法节</strong>：积分器、步长、容差、事件函数写明；配至少一项收敛性证据。</li>
+<li>[ ] <strong>验证节</strong>：无/有屏蔽（或真空/真实、有/无风）对照闭环；文献/实测/独立仿真对标一项；极限情形自检一组。</li>
+<li>[ ] <strong>灵敏度分析专节</strong>：对 2–3 个软参数做扫描；对线性化假设做 $R^2$ 或再积分复核（2025-B-188/204 式）。</li>
+<li>[ ] <strong>方案对比与结论</strong>：决策矩阵或排名表；落选方案一句话交代；结论给"最可能值 + 区间 + 何时失效"。</li>
+<li>[ ] <strong>Strengths &amp; Weaknesses</strong>：写具体的（点名哪条近似、哪个阈值），不写"模型较简单"式空话。</li>
+<li>[ ] <strong>参考文献</strong>：关键数值全有出处；不引维基百科当唯一来源（2013-A 反例）；不把软件当文献（同上）。</li>
+<li>[ ] <strong>附录</strong>：精选可运行代码 + 完整参数表 + 大表（射表/扫描结果）；正文引用附录处编号对应。</li>
+<li>[ ] <strong>合规</strong>：AI 使用声明按当年规则逐条写明（2025 起标配）。</li>
+<li>[ ] <strong>最后一小时校对</strong>：图号/公式编号连续、量级上下标、摘要-正文数字一致性、残留占位符（Figure ??、(ref)）、拼写（CentripitalForce 之类）、参考文献编号重复——用这张清单过一遍，等于白捡批次 01–12 里所有队伍丢过的零散分。</li>
+</ul>
+<h3 id="43">4.3 一句话总纲</h3>
+<p>UPC 评审 16 年的稳定共识可以压缩成一句话：<strong>评委寻找的不是最深的物理，而是一条从题面模糊词出发、经过判据工程与分层模型、由朴素数值方法驱动、被多重检验护送、最终压缩成可复核交付物且每一步都附误差支票的完整逻辑链</strong>——物理深度只有与这条链耦合才变成分数（2017-A 三篇的层级对照是最终注脚）。</p>
+</div></div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+});
+</script>
+</body>
+</html>

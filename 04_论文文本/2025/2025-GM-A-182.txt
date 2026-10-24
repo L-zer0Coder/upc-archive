@@ -1,0 +1,1493 @@
+Preserving the Acoustic Quality of Traditional Sasando
+with Optical Pickup and Biquad Filters
+Team 182, Problem A
+Abstract
+This paper presents a method for reproducing the authentic acoustic sound of a tra-
+ditional sasando instrument for its electric counterpart. The study assumed a gong-type
+sasando with a closed bamboo tube and one string per bridge. Three types of pickups,
+magnetic, piezoelectric, and optical, were investigated and compared on the basis of
+preservation of tone, sensitivity, noise immunity, and invasiveness. Optical pickups
+were determined to be the most optimal, being displacement-sensitive with minimal
+interference. The string motion was derived from the one-dimensional wave equation
+under fixed boundary conditions to determine the optimal pickup location. Analysis
+shows that the pickup should be placed as close to the bridge as possible to preserve
+clarity in tone and greater headroom. To emulate the natural resonance of the leaf
+resonator, a digital biquad band-pass filter with constant 0 db peak gain was designed,
+with cutoff frequencies of 98 Hz and 1047 Hz. The resulting coefficients for the biquad
+transfer function were b = [0.059, 0.0, −0.059] and a = [1.0, −1.9, 0.88]. Resonances of
+the 70 cm closed bamboo tube within the leaf resonance range were modeled with har-
+monics at 245 Hz, 490 Hz, 735 Hz, and 980 Hz. The quality factor of the bamboo tube
+were calculated to be 19 ± 2 from the internal friction of tan δ = 0.053 ± 0.005. Cor-
+responding band-pass filters were determined to reproduce the combined resonance
+profile. Three types of amplifiers were looked into and comparisons show that Class
+AB type amplifier was selected for having the highest efficiency. The final system in-
+cluding optical pickups place immediate below the bridge, digital biquad band-pass
+filters, Class AB amplifier, and a moving-coil loudspeaker successfully retains the am-
+plified range of the leaf resonator and reproduces the authentic acoustic sound of a
+traditional sasando.
+1
+
+Problem A
+Team 182
+2
+Contents
+1
+Introduction
+4
+1.1
+Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+1.2
+Problem Restatement . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2
+Assumptions
+5
+2.1
+Sasando Type and Structure . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+2.2
+Boundary Condition for Strings . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+2.3
+String Condition Assumptions . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+3
+Notations
+6
+4
+Pickup Selection
+6
+4.1
+Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+4.2
+Magnetic Pickups . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+4.3
+Piezoelectric Pickups . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+4.3.1
+Piezoelectric Bimorph Pickups . . . . . . . . . . . . . . . . . . . . . .
+9
+4.4
+Optical Pickups . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+4.5
+Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+5
+Pickup Location
+13
+5.1
+The Wave Function of the String . . . . . . . . . . . . . . . . . . . . . . . . . 13
+5.1.1
+Solving the Time Independent Differential Equation . . . . . . . . . . 15
+5.1.2
+Solving the Time Dependent Differential Equation . . . . . . . . . . . 16
+5.1.3
+Build the 1D Wave Function . . . . . . . . . . . . . . . . . . . . . . . 17
+5.2
+The Ideal Pickup Location Based on the Wave Function . . . . . . . . . . . . 17
+6
+Band-pass Filter
+18
+6.1
+Leaf Resonator
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+6.2
+Bamboo Tube as Resonator
+. . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+7
+Power Amplifier and Speaker
+23
+8
+Strength and Weakness of Approach
+24
+8.1
+Solution Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+8.2
+Strength of Approach . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+8.3
+Weakness of Approach . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+
+Problem A
+Team 182
+3
+9
+Conclusion
+26
+References
+27
+Appendices
+28
+A
+Code used for Figure 12
+28
+
+Problem A
+Team 182
+4
+1
+Introduction
+1.1
+Background
+The sasando is a stringed musical instrument native to the Rote Island of East Nusa
+Tenggara, Indonesia. The instrument consists of a bamboo tube with strings stretched
+along its length. Traditionally, the dried leaves of a lontar are woven into a semicircular,
+shell-like shape and to form an external resonator to that amplifies the musical sounds.
+The earliest versions of the sasando only had a few strings, but over time, the number of
+strings increased to reach a wider range of octaves (Tukan, Ceunfin, & Kian, 2020).
+The growing need for a greater and more even amplification of sound brought forth
+the idea of designing an electric sasando (Bakok, 2014). This electric version replaces the
+leaf resonator with electronic pickups and an amplifier, causing a loss in the original warm
+acoustic tone of this traditional instrument.
+1.2
+Problem Restatement
+The goal of this problem is to develop a method that enables the electronic sasando to
+reproduce the authentic acoustic sound of a traditional sasando, which has a bamboo tube
+that is 70 cm in length and 8 cm in diameter. The electric sasando replaced the traditional
+external resonator of the acoustic sasando with a pickup and speaker. The design and
+configuration of the electronic pickup and amplification system must be selected to preserve
+the acoustic tone and account for the natural amplification of the traditional resonator for
+frequencies between 98 Hz and 1047 Hz.
+
+Problem A
+Team 182
+5
+2
+Assumptions
+2.1
+Sasando Type and Structure
+For this analysis, it is assumed that the sasando sound being replicated is of the gong
+sasando, as it is the earliest and of the simpliest form. The structure of the sasando is also
+assumed to be a tube closed on both ends with only one string on each bridge.
+It is also assumed that only the sections of the strings below the bridge is played, as
+documented playing techniques and and visual observation from performances have not
+suggested otherwise.
+2.2
+Boundary Condition for Strings
+Figure 1: Coordinate system of a string.
+Note. Adapted from from The science of electric guitars and guitar electronics, by J.
+Lähdevaara (2012), Books On Demand. (OCLC: 861737010)f
+Note that the x-axis in the coordinate system is only parallel to the string itself but not
+the ground.
+The string is fixed at x = 0 and x = L, and vibrational motion is only present for
+0 ≤x ≤L. The bridge is located at 0 and L is the lower end of the sasando.
+Define the transverse displacement y(x, t) on [0, L]. The boundary conditions are
+y(0, t) = 0,
+y(L, t) = 0.
+2.3
+String Condition Assumptions
+1. The string is perfectly flexible without internal energy loss.
+2. Both endpoints are fixed and perfectly rigid (no boundary energy loss).
+3. The horizontal force F in Figure 1 is constant at all times.
+4. The motion of the string is restricted to a 2D plane.
+5. The string has a uniform density.
+6. Frictions and gravitational forces are neglected.
+
+Problem A
+Team 182
+6
+3
+Notations
+The main notations used throughout this paper are defined in this section in the order
+that they appear. More specific symbols and variables will be introduced and explained
+contextually when they become relevant.
+Symbol
+Description
+L
+Length of the playable range on a string
+An
+nth order resonance frequency amplitude
+ν
+Transverse velocity of wave function
+C
+Capacitance
+A
+Area
+f
+Frequency
+ε0
+Permittivity of free space
+p
+Position of string being plucked
+ρ
+Density of the string
+µ
+Linear mass density of the string
+P
+The location of pickup
+f0
+Center frequency
+Q
+Quality factor
+ω0
+Normalized angular frequency of the filter
+α
+Ratio of the bandwidth relative to the center frequency
+4
+Pickup Selection
+4.1
+Background
+An electronic pickup is an important element that acts as a sensor of the motion of
+strings and a transducer of that motion into electric signals in typical string instruments
+(Lähdevaara, 2012). The electric signal could then be used to generate the corresponding
+amplified tone (Lähdevaara, 2012). Depending on the types of pickup, they are sensitive
+to displacement or velocity inputs. Below we explore and consider three main types of
+pickup: magnetic, optical, and piezoelectric pickup.
+4.2
+Magnetic Pickups
+Magnetic pickup is the most common pickup by far on musical electric instruments, i.e.
+electric guitars. The pickups are usually built around cylindrical permanent magnets, in-
+cluding Alnico and ferrite magnets. In result a moderately strong magnetic field,⃗B averag-
+ing around 0.1 T is produced, which would readily react with strings made by ferromagnetic
+materials (Lähdevaara, 2012). The strings become magnetized, and their dipole moments⃗
+µ become aligned with the direction of⃗B to form a larger magnetic unit (Lähdevaara,
+2012). A schematic model of the magnetic fields for both the cylindrical magnet and the
+string is shown in Figure 2.
+
+Problem A
+Team 182
+7
+Figure 2: A combined magnetic unit of both the magnetized string and the cylindrical
+magnet.
+Note. Reprinted from The science of electric guitars and guitar electronics, by J. Lähdevaara
+(2012), Books On Demand. (OCLC: 861737010)
+When a string is plucked, it causes a distortion of⃗B, which in turn generates a current
+and induced emf, ϵ, by Faraday’s law of Induction (Red Lion Controls, 2000).
+ϵ = −N dΦB
+dt
+where N is the number of turns in the coil and the magnetic flux is related to the magnetic
+field of the pickup magnet⃗B:
+ΦB =
+Z⃗
+B · d⃗S
+where S represents the surface area enclosed by the pickup winding.
+A typical magnetic pickup in a guitar, for example, would consist of a linear array of
+about six cylindrical magnets wound with a copper wire coil (usually more than 6000
+turns), as shown in Figure 3.
+Figure 3: The components for a single magnetic pickup: the copper wire coil surrounding
+an array of cylindrical magnets.
+Note. Reprinted from Proceedings of the International Symposium on Musical Acoustics
+(ISMA 2014), Mustonen, M., Kartofelev, D., Stulov, A., & Välimäki, V. (2014, July).
+Experimental verification of pickup nonlinearity. (Mustonen, Kartofelev, Stulov, & Välimäki,
+2014)
+The magnitude of the voltage signal is dependent on the speed of approach of the string
+as the magnetic flux rate of change is directly related to the frequency of the string’s vi-
+bration (Lähdevaara, 2012). Thus magnetic pickups are considered to be velocity-sensitive
+
+Problem A
+Team 182
+8
+pickups (Red Lion Controls, 2000). The characteristic of using a velocity-sensitive pickup
+can be seen from differentiating the displacement function defined at Equation (14) with
+respect to time, which would yield
+∂y(x, t)
+∂t
+= −
+∞
+X
+n=1
+√νnπAn
+L
+sin(nπx
+L )sin(
+√νnπt
+L
+)
+(1)
+The more detailed derivation of the 1D displacement wave function could be found later
+in Section 5.1.3.
+It could be seen using this relationship that with the *n multiple the higher spectral
+harmonics would take dominance, implying that higher order harmonics would be more
+dominant than they are in a natural acoustic oscillation, giving electric instruments using
+magnetic pickups a different, often sharper tone (Horton, 2009).
+4.3
+Piezoelectric Pickups
+Piezoelectric pickups are an alternative transducer type for semi-acoustic and electric
+guitars. They are often used for fitting existing musical instruments, mostly stringed ones
+with a cavity, and give them electric properties. Unlike magnetic pickups, piezoelectric
+pickups rely on the piezoelectric effect, where crystalline materials generate electric voltage
+when mechanically stressed (Bera, 2016). This principle is based on the linear relationship
+between the applied force and the induced polarization produced by crystals lacking a
+center of symmetry (Gautschi, 2002) as seen in Figure 4.
+Figure 4: The direct piezoelectric effect.
+Note. Adapted from Piezoelectric Sensorics, by G. Gautschi, 2002, Springer. Retrieved from
+http://link.springer.com/10.1007/978-3-662-04732-3
+This linear relation can be represented by combination of the equations:
+D = dT + ε0E
+S = sT + dtE
+where D is the electric flux density, ε is the permittivity of space, E is the electric field
+strength, S is the linearize strain, s is the stiffness, T is the stress, and d is the piezoelectric
+tensor.
+A typical piezoelectric pickup for a guitar, placed under the saddle can be seen in Fig-
+ure 5. The pickup is placed in direct contact with the strings, so when a string is plucked,
+the bridge transmits pressure variations that produce and electric voltage proportional to
+the instantaneous string displacement (Lähdevaara, 2012). For this reason, piezoelectric
+pickups are considered displacement-sensitive as their output depends on physical displace-
+ment of the strings rather than the rate of change.
+
+Problem A
+Team 182
+9
+Figure 5: Composition of an under-saddle piezoelectric pickup
+Note. Reprinted from The science of electric guitars and guitar electronics, by J. Lähdevaara
+(2012), Books On Demand. (OCLC: 861737010)
+The electric signal generated by a piezoelectric pickup usually exhibits high output
+impedance due to the nature of the crystalline material to act as a capacitor (Lähdevaara,
+2012). As external forces deform the crystalline material, the internal charges are dis-
+placed, resulting in a net surface charge and producing voltage across the electrodes. This
+displacement across the dielectric is what gives the piezoelectric crystals their capacitative
+behaviour.
+The capacitance of the piezoelectric crystal can be calculated using:
+C = εrε0A
+d
+where εr is the relative permittivity of the crystal and d is the thickness. Since the area
+of the dielectric is small compared to the thickness, the piezoelectric crystal has very small
+capacitance.
+The relationship between the impedance of a capacitor, the capacitance, and the fre-
+quency of the signal is given by the equation:
+Z =
+1
+2πfC
+where Z is the impedance.
+From this it can be seen that since the impedance is in-
+versely proportional to the capacitance, the piezoelectric pickup would have high output
+impedance due to its low capacitance. This means that the low input impedance of a typ-
+ical amplifier would distort the frequency response and thus, an additional preamplifier
+buffer would be needed to maintain the full range from a piezoelectric pickup (Lähdevaara,
+2012).
+4.3.1
+Piezoelectric Bimorph Pickups
+A special type of piezoelectric pickups are the piezoelectric bimorph pickups. These
+are the most commonly chosen pickup to be used for bowed instruments such as violin
+and cello. Unlike typical piezoelectric pickups, bimorph pickups consists of two layers of
+piezoelectric material rather than one, with a thin metallic sheet between them as seen in
+Figure 6.
+
+Problem A
+Team 182
+10
+Figure 6: Components of a piezoelectric bimorph pickup.
+Note. Reprinted from Pickups for the vibrations of violin and guitar strings using
+piezoelectric bimorphic bender elements (Tech. Rep.), by M. V. Mathews, 1988, Stanford
+University, Center for Computer Research in Music and Acoustics (CCRMA).
+Instead of being placed as a layer beneath the bridge, this pickup is inserted into the
+bridge itself as seen in Figure 7. In this way, the vibration of the strings bend the pickup,
+compressing one layer and stretching the other. This produces opposite polarizing direc-
+tions, generating an increase in output voltage and improving sensitivity (Mathews, 1988).
+Figure 7: Composition of a violin bridge with piezoelectric bimorph pickups.
+Note. Reprinted from Pickups for the vibrations of violin and guitar strings using
+piezoelectric bimorphic bender elements (Tech. Rep.), by M. V. Mathews, 1988, Stanford
+University, Center for Computer Research in Music and Acoustics (CCRMA)
+4.4
+Optical Pickups
+Optical pickups consist of a rather simplistic coupled system. At least one light source
+and one photodetector are placed on either side of a string, where vibration of the string
+would create a difference in light intensity captured by the photodetector (Kubilary, 2018).
+The difference in light intensity would be transduced into a voltage signal that produces
+the corresponding amplified tone (Kubilary, 2018). The most common type of photode-
+tector used is a photodiode, using LED as the light source. In most scenarios the use of a
+light source like infrared LEDs would generate a relatively weak signal due to weak light
+intensity. Thus, a pre-amp circuit must be coupled along with the photodiode to amplify
+the voltage signal enough for transmitting to a power amplifier, avoiding distortion and
+
+Problem A
+Team 182
+11
+noise (ElProCus, n.d.). Such a system is referred to as a phototransistor.
+A photointerrupter is created by combining a gallium infrared light emitting diode (IR
+LED) with a phototransistor (Lähdevaara, 2012). A figure of the system is shown in Fig-
+ure 8. A standard positioning of the string is such that when it is not vibrating, half of
+the beam is blocked. An experiment conducted by Hanson with optical pickups demon-
+strated that there is a negative linear relationship between the displacement of the string
+and the base voltage signal (Hanson, 1987). Thus, the optical pickup is determined to be
+a displacement sensitive pickup.
+Figure 8: Photointerrupter module (H21B1) with string position. A labeled circuit for the
+module is also shown, where the dashed lines imply components of the module
+Note. Reprinted from The Physics Teacher, Hanson, R. J. (1987). Optoelectronic detection
+of string vibration, 25, 165–166.
+Similar to piezoelectric pickups which are also displacement-sensitive, the fundamental
+frequency is most dominant for optical pickups. High order harmonics typically get cut off
+from the spectrum due to the fast-decaying term of the amplitude, An. The displacement
+equation that is related to the voltage signal output is defined as:
+y(x, t) =
+∞
+X
+n=1
+An cos(
+√νnπ
+L
+t) sin(nπx
+L )
+(2)
+Note: Detailed derivations of the wave equation can be found in Section 5.1.3.
+A visual graph of the spectrum produced with optical pickup at a certain pluck position
+and pickup position is shown in Figure 9. It could be seen that the upper partials, specifically
+the fundamental frequency has dominance in amplitude. From this observation one can
+deduce that optical pickups tend to bring sound and tone closer to natural acoustics.
+
+Problem A
+Team 182
+12
+Figure 9: Amplitude Spectrum from a pluck position of p = L
+6 and pickup position of
+P = 8 mm from left boundary.
+Note. Adapted from The science of electric guitars and guitar electronics, by J. Lähdevaara
+(2012), Books On Demand. (OCLC: 861737010)
+4.5
+Comparison
+The objective is to preserve the acoustic quality of a traditional sasando, thus a pickup
+must be chosen such that little alterations to the original tone quality is made. An optimal
+pickup should also offer an extensive range for materials of string, installation, and barrier
+to noises (often changing magnetic fields).
+For instance, magnetic pickups are only functional when paired with metal strings, and
+single-coil pickups are subjected to the present external electromagnetic radiation arising
+from power transmission networks (Lähdevaara, 2012). The magnetic field contained in
+electromagnetic radiation changes in time, which would also induce an additional current
+on the pickup coil (Lähdevaara, 2012). Of course, there are present remedies to resolve
+this issue of "hum". A "humbucker" pickup is one of the many proposed designs to shield the
+pickup from the external noise of EM radiation. However, magnetic pickups in general are
+not considered in this setting, as the tone of the acoustics is altered due to their velocity-
+sensitive characteristic. As mentioned above, taking the derivative of the wave displacement
+function boosts the higher-order frequency amplitudes because of the decay term 1
+n (an
+extra multiple of n in Equation (1)) instead of
+1
+n2 in Equation (2). A real-life example
+of such alterations could be seen in electric guitars, where higher pitches are more sharp
+and had a different tone quality compared to acoustic guitars. This defeats the goal of
+designing a model that produces tone as close to the acoustic quality of traditional sasandos
+as possible.
+Both piezoelectric and optical pickups are examples of displacement-sensitive transduc-
+ers, which greatly preserve the original tone quality of string acoustics. We then consider
+the installation and sound quality. Both pickup type are not influenced by external electro-
+magnetic radiation, as they measure mechanical movements instead of changes in magnetic
+field (Lähdevaara, 2012). However, piezoelectric pickups are considered to be more "inva-
+
+Problem A
+Team 182
+13
+sive" than the other, primarily because the pickup needs to be installed under the bridge
+stud to measure the pressure caused by string vibration (Englert, 2018). This often implies
+drilling into the bore of musical instruments, which is considered to be a more invasive
+approach (Englert, 2018). Specifically for a sasando where the bridge location varies for
+each string, it is not ideal to install piezoelectric pickups as independent systems are re-
+quired for each string. This would cause complications and there is also possibility that the
+piezoelectric pickup for each string would pick up vibrations from other strings through
+the bamboo tube.
+Based on all the above considerations, optical pickups are most optimal to preserve
+the acoustic quality of a sasando. With the optical pickup, a separate photodetector-LED
+system would still be required to detect vibration for each string. However, the system is
+set up such that the interference and noise from other strings and the environment are
+minimized. The position of optical pickups are not limited to under the bridge, rather, they
+are placed on the surface in the proximity of the bridge in order to minimize noise and
+enhance acoustic property. Such arrangements would also imply a less invasive installation
+and flexible adjustment to location depending on need and tuning.
+5
+Pickup Location
+5.1
+The Wave Function of the String
+Figure 10: Geometry shape of a plucked string.
+Note. Adapted from from The science of electric guitars and guitar electronics, by J.
+Lähdevaara (2012), Books On Demand. (OCLC: 861737010)
+Figure 10 shows the geometry of a plucked string.⃗Fx is the same force as⃗F in Figure 1.
+The net force in this case is simply⃗
+Fnet =⃗Fx +⃗Fy
+Fnet =
+q
+F 2x + F 2y
+The slopes for the two segments of the string can be taken as h
+p and
+h
+L−p. To look deeper
+into this, one could take a small segment of the deflected string and analyze the compound
+forces.
+
+Problem A
+Team 182
+14
+Figure 11: Force diagram of a small segment of string ds, where the mass for ds is dm.
+Note. Adapted from from The science of electric guitars and guitar electronics, by J.
+Lähdevaara (2012), Books On Demand. (OCLC: 861737010)
+As mentioned in the presumption in Section 2.3 the tension is fixed across the entire
+string. Thus the tension forces in the above diagram holds the below equality
+Fx2 = Fx1 = Fx
+Both Fy1 and Fy2 can be expressed in terms of Fx:
+Fy1,2 = Fx tan θ1,2
+To make the string in motion, it has to break the equilibrium state. This means that
+forces in the y direction has to be asymmetric. One could then imply Newton’s second law
+with the difference in Fy.
+Fy2 −Fy1 = Fnet
+Fx tan θx1 −Fx tan θx2 = a · dm
+Fx(∂y
+∂x
+
+x0+dx
+−∂y
+∂x
+
+xo
+) = a · dm
+Since the bracketed term is the infinitesimal change over the first derivative, one could
+derive it into the second derivative using the operator
+∂
+∂x.
+Fx
+∂
+∂x(∂y
+∂x)dx = Fx
+∂2y
+∂x2 dx = a · dm
+Substitute dm = ρdv = ρAdx, where A is the cross sectional area of the string:
+Fx
+∂2y
+∂x2 dx = ∂2y
+∂t2 ρAdx
+∂2y
+∂t2 = Fx
+ρA
+∂2y
+∂x2
+It is known that the transverse wave velocity can be defined as
+ν = T
+µ
+It should be obvious that the constant term in the previous equation is in fact the transverse
+wave velocity, as m(x) = µx = ρAx is linear mass function of the string.
+∂2y
+∂t2 = ν ∂2y
+∂x2
+(3)
+
+Problem A
+Team 182
+15
+To solve the wave function, first assume that it is in the form of separable equation.
+y(x, t) = F(x)G(t)
+(4)
+∂2y
+∂x2 = F ′′G
+∂2y
+∂t2 = FG′′
+Substitute the first and second derivatives back in Equation 3.
+FG′′ = νF ′′G
+G′′
+νG = F ′′
+F
+d2G
+t2
+1
+νG = d2F
+dx2
+1
+F
+Set both sides of the equation equal to a constant k.
+d2G
+dt2
+1
+νG = k
+(5)
+d2F
+dx2
+1
+F = k
+(6)
+From Section 2.2 it is assumed that the string is fixed at 0 and L. Substitute this condi-
+tion into Equation (4) to build boundary conditions.
+0 = y(0, t) = y(L, t) = F(0)G(t) = F(L)G(t)
+By getting the first derivative of the above equation at the same time stamp t, it is
+noticeable that F(x) has to be 0 at distance 0 and L.
+F(0) = F(L) = 0
+(7)
+5.1.1
+Solving the Time Independent Differential Equation
+There are three cases in total: k < 0, k = 0 , and k > 0.
+Calculations and intermediate steps for the last two cases will be briefly summarized
+here as their results are trivial.
+When k = 0,
+d2F
+dx2 = 0
+thus F = Ax + B. After plugging in the boundary condition, A = B = 0.
+When k > 0, take F = erx and substitute it into Equation 6.
+r2erx = kerx
+thus r = ±
+√
+k, and F = Ae
+√
+kx + Be−
+√
+kx. After plugging in the boundary condition,
+A = B = 0.
+From the results from above, k has to be smaller than 0. Continue solving the differential
+equation at k < 0.
+
+Problem A
+Team 182
+16
+Let k = −a2. Repeat the same procedure as when k > 0 and get r = ±ia.
+F1 = eiax = cos ax + i sin ax
+F2 = e−iax = cos ax −i sin ax
+Thus, by linear combination
+F(x) = AF1 + BF2
+= A cos ax + iA sin ax + B cos ax −iB sin ax
+= (A + B)(cos ax) + i(A −B)(sin ax)
+Let A + B = C1 and i(A −B) = C2
+F(x) = C1 cos ax + C2 sin ax
+(8)
+Plug in the boundary condition at x = 0,
+0 = F(0) = C1cos(0) + C2sin(0)
+Thus C1 = 0. At x = L,
+0 = F(L) = C2sin(aL)
+0 = sin(aL)
+aL = nπ
+a = nπ
+L
+
+
+n ϵ Z+
+
+(9)
+Plug in Equation (9) back into F(x),
+F(x) = C2 sin(nπx
+L )
+
+
+n ϵ Z+
+
+(10)
+5.1.2
+Solving the Time Dependent Differential Equation
+One could observe that the time dependent equation in Equation (5) is highly similar
+in structure to the time independent differential equation we solved in Section 5.1.1. Thus
+from Equation (5) use the case of k < 0.
+Let k = −a2 = −n2π2
+L2 where a is solved in Equation (9). Substitute k into Equation (5).
+d2G
+dt2
+1
+Gν = −n2π2
+L2
+d2G
+dt2 = −n2π2ν
+L2
+G
+d2G
+dt2 + n2π2ν
+L2
+= 0
+G( d
+dt + inπ√ν
+L
+)( d
+dt −inπ√ν
+L
+) = 0
+From here, one is able to get that
+dG1
+dt
+= −i
+√νnπ
+L
+G1
+
+Problem A
+Team 182
+17
+dG2
+dt
+= i
+√νnπ
+L
+G2
+Solve the above first order differential equation,
+G1 = e−i
+√νnπ
+L
+(11)
+G2 = ei
+√νnπ
+L
+(12)
+Use Euler’s equation to obtain G(t) knowing that G(t) = A′G1 + B′G2,
+G(t) = A cos(
+√νnπ
+L
+t) + B sin(
+√νnπ
+L
+t)
+
+
+n ϵ Z+
+
+(13)
+Note that A′ and B′ is included in both constants A and B.
+5.1.3
+Build the 1D Wave Function
+Plug in both Equation (10) and Equation (13) into Equation (4).
+y(x, t) = [A cos(
+√νnπ
+L
+t) + B sin(
+√νnπ
+L
+t)] sin(nπx
+L )
+
+
+n ϵ Z+
+
+(14)
+Note that the constant term C2 in Equation (10) is multiplied into the bracket and is a part
+of A and B. Based on the superposition principle, any sum of solutions is also a solution.
+Sum up all possible result from Equation (14) to find a series of solutions.
+y(x, t) =
+∞
+X
+n=1
+[An cos(
+√νnπ
+L
+t) + Bn sin(
+√νnπ
+L
+t)] sin(nπx
+L )
+(15)
+From the boundary condition, the initial speed of the string is 0.
+v(x, t) = ∂y(x, t)
+∂t
+=
+∞
+X
+n=1
+[−An
+√νnπ
+L
+sin(
+√νnπ
+L
+t) + Bn
+√νnπ
+L
+cos(
+√νnπ
+L
+t)] sin(nπx
+L ) (16)
+Substitute t = 0 into Equation (16),
+0 = v(x, 0) =
+∞
+X
+n=1
+Bn
+√νnπ
+L
+sin(nπx
+L )
+It should be obvious that Bn = 0.
+Therefore, the final wave function is
+y(x, t) =
+∞
+X
+n=1
+An cos(
+√νnπ
+L
+t) sin(nπx
+L )
+(17)
+5.2
+The Ideal Pickup Location Based on the Wave Function
+Let the location of the pickup to be P. Plug it into Equation (17).
+y(P, t) =
+∞
+X
+n=1
+An cos(
+√νnπ
+L
+t) sin(nπP
+L )
+
+Problem A
+Team 182
+18
+Thus, amplitude at P will be
+An(P) = An sin(nπP
+L )
+(18)
+Let P = L
+N , then substitute it into Equation (18),
+An( L
+N ) = An sin(nπ
+N )
+(19)
+In Equation (19), one could see that An( L
+N ) = 0 when n = N. This represents the
+physical phenomenal of a node. Let N →∞if to preserve as many orders of harmonic as
+possible. Since P approaches 0 as N →∞, it is the best for the pickup to be placed as close
+to the bridge as possible. This corresponds to the brighter, clearer tone characteristic of the
+acoustic sasando.
+A smaller amplitude at the pickup also provides greater headroom in the subsequent
+signal chain. Because each device has a maximum allowable voltage, keeping the input level
+lower ensures that more of the signal’s dynamic range can be preserved without clipping,
+allowing for more flexibility during later processing.
+6
+Band-pass Filter
+To modify the tone of the pickup signal and reproduce the authentic sound of the in-
+strument, a band-pass filter will be applied to the pickup signal. The biquad band-pass is
+a second order linear recursive filter that can act equivalently to a damped harmonic oscil-
+lator. A digital implementation for this filter was chosen as it is easier to adjust bandwidth
+and resonance, avoids the need to add additional physical circuits for multiple resonances,
+and eliminates concern about the tolerance of physical components. By tuning the center
+frequency and quality factor, the digital biquad can effectively mimic the acoustic charac-
+teristics of the instrument.
+The biquad transfer function is defined as:
+H(z) = b0 + b1z−1 + b2z−2
+a0 + a1z−1 + a2z−2
+(20)
+Using the definition of coefficients for the band-pass filter with constant 0 db peak gain pre-
+serves the conventional -3 dB passband and the natural dynamics of the volume (Bristow-
+Johnson, 2002).
+b0 = α
+b1 = 0
+b2 = −α
+a0 = 1 + α
+a1 = −2 cos ω0
+a2 = 1 −α
+(21)
+where
+ω0 = 2π f0
+Fs
+α = sin ω0
+2Q
+(22)
+
+Problem A
+Team 182
+19
+The filter is implemented using the Direct Form 1 implementation (Bristow-Johnson, 2002):
+y[n] =
+ b0
+a0
+
+x[n] +
+ b1
+a0
+
+x[n −1] +
+ b2
+a0
+
+x[n −2]
+−
+a1
+a0
+
+y[n −1] −
+a2
+a0
+
+y[n −2]
+(23)
+where x[n] and y[n] are the input and output audio samples, respectively. With multiple
+filters, the difference equation above can be summed in parallel to preserve independent
+resonances.
+y[n] = y1[n] + y2[n] + y3[n] + ...
+(24)
+6.1
+Leaf Resonator
+It is given that leaf resonator amplifies frequencies between 98 Hz and 1047 Hz. These
+values will be the upper and lower frequency limit of the filter: fL = 98 Hz and fH = 1047
+Hz.
+The center frequency and bandwidth are calculated from the upper and lower limit as:
+f0 =
+p
+fL · fH
+=
+√
+98 Hz · 1047 Hz
+= 320.3217133 Hz
+= 3.2 × 102 Hz
+BW = fH −fL
+= 1047 Hz −98 Hz
+= 949 Hz
+The corresponding quality factor calculated using the center frequency and the band-
+width:
+Q =
+f0
+BW
+= 3.2 × 102 Hz
+949 Hz
+= 0.3375360519
+= 0.34
+This low quality factor is consistent with the broad range of the overall resonance of the
+leaf resonator.
+The sampling frequency Fs will be taken at the recommended standard of 48 kHz for
+audio production (Audio Engineering Society, 2018). This sampling frequency reduces the
+risk of aliasing from undersampling, and ensures that the filter will be compatible with
+modern audio software.
+
+Problem A
+Team 182
+20
+Using the values above, ω0 and α values are calculated with Equations (22):
+ω0 = 2π f0
+Fs
+= 2π3.2 × 102 Hz
+48 × 103 Hz
+= 0.04193001422 rad
+= 0.042 rad
+α = sin ω0
+2Q
+= sin 0.042
+2(0.34)
+= 0.06209370627
+= 0.062
+Using Equations (21), the filter coefficients are then:
+b0 = α
+= 0.062
+b1 = 0
+b2 = −α
+= −0.062
+a0 = 1 + α
+= 1 + 0.062
+= 1.062
+= 1.1
+a1 = −2 cos ω0
+= −2 cos(0.042)
+= −1.998242131
+= −2.0
+a2 = 1 −α
+= 1 −0.062
+= 0.9379062937
+= 0.94
+To be implemented, these coefficients must be normalized by a0. Doing so for all coefficients
+results in final coefficients of
+b = [0.059, 0.0, −0.059]
+a = [1.0, −1.9, 0.88]
+(25)
+Taking these coefficients and inputting them into audio software using Equation (23) for
+real-time filtering of the pickup signal.
+To verify the model response, a simulated input was fed to the filter function in MAT-
+LAB. Note that the code used is included in Appendix A.
+
+Problem A
+Team 182
+21
+Figure 12: Response of the digital filter from a spectrum of randomized gaussian noise.
+Figure 12 shows a power spectral density plot that exhibits a pronounced attenuation
+of frequency components outside the cutoff region, confirming that the filter effectively
+suppresses out-of-band content. For conciseness, the implementation code is omitted here
+and provided in Appendix A; it is fully annotated, so no additional explanation is required.
+6.2
+Bamboo Tube as Resonator
+It is given that the bamboo tube of the sasando has a length of 70 cm and a diameter
+of 8 cm. Qualitative research suggest that the bamboo tube is closed on both ends.
+For a closed tube standing waves with nodes at both ends, the wavelengths and resonant
+frequencies are:
+λn = 2ℓ
+n
+fn = v
+λn
+n = 1, 2, 3...
+(26)
+Using Equations (26) with v = 343 m/s as the speed of sound and taking ℓ= 0.7 m, the
+first five wavelength and frequencies from n = 1, 2, 3, 4, 5 are:
+n
+λn
+fn
+1
+1.4
+245
+2
+0.70
+490
+3
+0.47
+735
+4
+0.35
+980
+5
+0.28
+1225
+
+Problem A
+Team 182
+22
+It can be seen that the first 4 resonant frequencies of the bamboo tube falls within the
+resonance frequency range of the leaf resonator. This could mean the bamboo tube would
+also amplify these specific frequencies in addition to the amplification of the leaf resonator.
+To reproduce this, four filters corresponding to each frequency can be added.
+The quality factor can be chosen based on the acoustic properties of the bamboo ma-
+terial. From Figure 13 with data by Liu et al. (2012), considering the lower moisture level
+of 8.25% and the average Indonesian temperature of 25◦, the internal friction can be ap-
+proximated to
+tan δ = 0.053 ± 0.005
+Figure 13: Internal friction of the internal section of bamboo as a function of temperature
+at moisture levels of 8.25% and 13.74%.
+Note. Adapted from “Dynamic mechanical thermal analysis of moso bamboo
+(Phyllostachys heterocycla) at different moisture content,” by Z. Liu, Z. Jiang, Z. Cai, B. Fei,
+Y. Yu, and X. Liu, 2012, Bioresources, 7. https://doi.org/10.15376/biores.7.2.1548-1557
+Calculating for the quality factor based on the relation:
+Q =
+1
+tan δ
+=
+1
+0.053
+= 18.86792453
+= 19 ± 2
+δQ = Q(δ(tan δ)
+tan δ )
+= 18.86792453(5 × 10−3
+0.053
+)
+= 1.77999288
+= 2
+The quality factor for the bamboo tube is calculated to be 19 ± 2.
+Using uncertainty propagation, the uncertainty formulas for values needed can be cal-
+culated using standard formulas. The uncertainty formulas for α and an example for the
+uncertainty for a coefficient are:
+δα = αδQ
+Q
+δb0, normalized =
+s
+(δα
+b0
+)2 + (b0δα
+a2
+0
+)2
+
+Problem A
+Team 182
+23
+With the same process as the leaf resonator and including the uncertainty propagation
+for all coefficients, the final, normalized coefficients for each bamboo tube harmonic are:
+1. 245 Hz
+b = [8.4 × 10−4 ± 9 × 10−5, 0.0, −8.4 × 10−4 ± 9 × 10−5]
+a = [1.0, −1.9972 ± 2 × 10−4, 0.9983 ± 1 × 10−4]
+2. 490 Hz
+b = [1.7 × 10−3 ± 2 × 10−4, 0.0, −1.7 × 10−3 ± 2 × 10−4]
+a = [1.0, −1.9925 ± 4 × 10−4, 0.9966 ± 3 × 10−4]
+3. 735 Hz
+b = [2.5 × 10−3 ± 3 × 10−4, 0.0, −2.5 × 10−3 ± 3 × 10−4]
+a = [1.0, −1.9857 ± 5 × 10−4, 0.9950 ± 4 × 10−4]
+4. 980 Hz
+b = [3.4 × 10−3 ± 4 × 10−4, 0.0, −3.4 × 10−3 ± 4 × 10−4]
+a = [1.0, −1.9769 ± 7 × 10−4, 0.9933 ± 5 × 10−4]
+These bamboo tube resonance coefficients along with those of the leaf resonator can
+build a robust digital filter that reproduces the authentic tone of the sasando.
+7
+Power Amplifier and Speaker
+After the voltage signal has been processed with the appropriate tone control by the
+biquad filter, it needs to be processed by an audio amplifier to amplify the signal to be
+enough for driving loudspeakers, thus the projection of the acoustic sounds (Lähdevaara,
+2012). There are three types of amplifiers, where Class AB is the most popular class used
+in audio amplifiers as it enhances the efficiency compared to class A and avoids non-linear
+distortion caused by class B amplifiers (Lähdevaara, 2012). Both positive and negative
+input voltage signals are enhanced partially in Class AB amplifiers, as seen in Figure 14.
+
+Problem A
+Team 182
+24
+Figure 14: Comparison of the three classes of power amplifiers: A, B and AB.
+Note. Adapted from from The science of electric guitars and guitar electronics, by J.
+Lähdevaara (2012), Books On Demand. (OCLC: 861737010)
+The difference between the input and output signals in the power amplifier is referred
+to as the gain of the amplifier, A, which can be defined as (Electronics-Tutorials, 2014):
+Av = Vout
+Vin
+Ai = Iout
+Iin
+Ap = Av
+Ai
+The power gain, Ap, is defined as the multiplication of the voltage gain Av and the current
+gain Ai. Power amplifiers in real life do not have perfect efficiency as some power would
+be lost to heat. The efficiency, η can be calculated based on the relationship below:
+η = Pout
+Pin
+By using Class AB power amplifier the efficiency percentage is about 50 to 70% (Electronics-
+Tutorials, 2014).
+The principle of an ideal amplifier model is to convert an external DC power supply
+into AC voltage signal that mirrors the input signal but amplified (Electronics-Tutorials,
+2014). This signal would then be delivered to an output device like a speaker. Usually a
+moving-coil loudspeaker would be the most-common type of loudspeaker element for music
+instrument amplification (Electronics-Tutorials, 2014).
+8
+Strength and Weakness of Approach
+8.1
+Solution Summary
+Our proposed model of an electric sasando to enhance its acoustic property is to use a
+system of optical pickups, one for each string, placed in the lower region and close to the
+
+Problem A
+Team 182
+25
+bridge. Each optical pickup system would consist of a photointerruptor module (namely
+H21B1), which is an IR LED paired with a photo-transistor. Additionally, a digital biquad
+band-pass filter would be applied to the pickup signal to adjust bandwidth and resonance, a
+selector that simulates the leaf resonantor and amplifies the acoustic resonance frequencies
+between 98 Hz and 1047 Hz. Two converters are placed before the biquad filter (analog-
+to-digital converter) and after the biquad filter (digital-to-analog converter) respectively to
+convert between digital and analog signals. The resonance of the bamboo tube as a closed
+air column is also taken into consideration, where four extra biquad filters are added. Each
+filter corresponds to the resonance frequency that would be amplified by the leaf resonator.
+An overview of the final setup can be found in Figure 15.
+Figure 15: Overview of the final audio processing stream.
+8.2
+Strength of Approach
+The strength of the approach is apparent compared to other possible solutions, for in-
+stance, having choice of pickups. Optical pickups are displacement-sensitive and highly
+resilient to interference due to change in electromagnetic field. It also captures the me-
+chanical vibration of the strings, allowing it to capture the original acoustic characteristics
+of the string itself, as opposed to a ’spiced’ set of amplitude spectrum using magnetic pick-
+ups. Furthermore, it allows for more options of the material of the string, as optical pickups
+are non-contact sensors and do not require interactions of the string with the pickup.
+Using the biquad band-pass filter is effective in that it can be adjusted and set to amplify
+the same set of frequencies that the leaf resonator would be amplifying in a traditional
+sasando. This is a key filter that is lacking in current models of electric sasando, where the
+main goal is simply to amplify sounds, sacrificing the acoustic quality. Applying the filter
+could re-create the leaf resonator electronically. Using a digital biquad filter would also
+offer shielding from external noise and flexibility in altering characteristics to fit different
+sasandos as digital filters are programmed instead of relying on hardware.
+8.3
+Weakness of Approach
+The weakness of the approach mainly lies in the complexities with independent systems
+per string. In the context here only the gong sasando is considered, which is known to have
+only 9 to 11 strings (Bakok, 2014). However, there are other variations of sasando which
+have far more numbers of strings. For instance, the violin sasando, which produces diatonic
+tones, has 32 to 36 strings (Bakok, 2014). If optical pickup were still to be used for a violin
+sasando, the number of pickups that need to be installed increase significantly, leading to
+potential high costs of manufacturing. Especially if every optical pickup were to be placed
+near the bridge, whose position varies for each individual string, the potential error due to
+the complexity of the system would become non-negligible. Furthermore, optical pickup is
+a type of active pickup where a DC power supply must be connected to power the optical
+systems and generation of voltage signals, this would likely cause inconvenience compared
+to other passive pickups such as magnetic or piezoelectric pickups.
+
+Problem A
+Team 182
+26
+Last but not least, using the digital biquad filter would create latency issues. Analog
+circuits are continuous and spontaneous, whereas a digital circuit only takes in discrete
+values and thus voltage signals from the optical pickup needs to be resolved into discrete
+steps by the analog-to-digital converter (ADC) (Lähdevaara, 2012). Depending on the ADC
+technology used, there is a tradeoff between the speed of resolving (sampling frequency)
+and the resolution (the number of steps in total). With audio amplifications in music perfor-
+mance, sampling frequency of an ADC needs to be considerably faster to minimize latency.
+Such choice of technology however, would often sacrifice resolution which could potentially
+cause signal distortions. The same applies to digital-to-analog converter (DAC). Thus using
+a digital filter instead of an analog filter might have latency issues as a disadvantage.
+9
+Conclusion
+In this paper a potential model to enhance current electric sasando designs to recover
+the acoustic quality is discussed. Our solution is based on capturing the resonating and
+amplifying property of the lontar leaf resonator via digital biquad band-pass filter, as well
+as selecting an optical pickup system to avoid distortion of tone.
+Based on analysis of principles of different pickups, we concluded that an optical pickup
+system is the most effective transducer that would minimize distortion of the acoustic qual-
+ity of the string vibrations. This pickup choice is not susceptible to electromagnetic hum
+and would provide a less invasive approach of installation. It is also concluded from our
+derivation of the wave equation in relation to pickup position P, that the optimal location
+for the optical pickup is in near proximity of the bridge, approaching the bridge from below.
+For the primary digital biquad filter, the quality factor Q to replicate the frequency
+amplification range of the lontar leaf is calculated to be Q ≈0.34. The coefficients of
+the transfer function for the digital filter are calculated to be b = [0.059, 0.0, −0.059] and
+a = [1.0, −1.9, 0.88]. The resonance caused by the closed air column created by the hollow
+bamboo tube is also put into consideration, where the specific harmonic order frequency
+that should be amplified are calculated to be: 245 Hz, 490 Hz, 735 Hz and 908 Hz. The
+related quality factor is Q ≈19 ± 2 based on the internal friction of the bamboo tube. The
+entire model of signal processing starts with the photointerruptor module (which consists
+of the IR LED and the phototransistor), then the operational amplifiers that further am-
+plifies the voltage signal, after that the ADC which converts the analog signal to a digital
+signal. The digital signal gets filtered in the arrays of biquad band-pass filters, after that
+the processed signal gets converted back to an analog signal to be sent to a Class AB power
+amplifier, and finally the signal gets broadcasted and translated into mechanical sound.
+This approach, while preserving the acoustic quality, has practical trade-offs. The pri-
+mary disadvantages are the latency and signal distortion due to the analog-to-digital con-
+version required for a digital biquad filter. There is also additional complexity to the system
+of implementing optical pickups when the sasando has a relatively high string count, pri-
+marily because each string has to be paired with one optical pickup system. Despite these
+limitations, it still serves to be a flexible method to preserve the unique acoustic quality of
+a traditional sasando.
+
+Problem A
+Team 182
+27
+References
+Audio Engineering Society. (2018). Aes recommended practice for professional digital audio
+– preferred sampling frequencies for applications employing pulse-code modulation (AES
+Standard No. AES5-2008). Audio Engineering Society. (Retrieved 2010-01-18)
+Bakok,
+Y.
+D.
+B.
+(2014).
+Electric
+sasando
+of
+east
+nusa
+teng-
+gara,
+indonesia.
+,
+1(2),
+84–93.
+Retrieved
+2025-11-08,
+from
+https://journal.isi.ac.id/index.php/IJCAS/article/view/1562
+doi:
+10.24821/ijcas.v1i2.1562
+Bera, B.
+(2016).
+Piezoelectric effect, piezotronics and piezophototronics: A review.
+Imperial Journal of Interdisciplinary Research (IJIR), 2. Retrieved 2025-11-08, from
+https://www.academia.edu/37599716/Piezoelectric_Effect_Piezotronics_and
+_Piezophototronics_A_Review
+Bristow-Johnson,
+R.
+(2002).
+The
+audio
+eq
+cookbook.
+https://webaudio.github.io/Audio-EQ-Cookbook/audio-eq-cookbook.html.
+(Accessed: 2025-11-08)
+Electronics-Tutorials.
+(2014).
+Introduction
+to
+the
+amplifier.
+https://www.electronics-tutorials.ws/amplifier/amp_1.html.
+(Accessed:
+2025-11-09)
+ElProCus.
+(n.d.).
+Preamplifier : Circuit, working, types, differences, how to choose,
+its
+application. https://www.elprocus.com/preamplifier/. (Accessed: 2025-11-08)
+Englert, P. W.
+(2018).
+Analysis of current electric pickup technology utilized in clarinet
+performance and investigation into potential improvements (Unpublished doctoral dis-
+sertation). Arizone State University.
+Gautschi, G.
+(2002).
+Piezoelectric sensorics.
+Springer.
+Retrieved 2025-11-08, from
+http://link.springer.com/10.1007/978-3-662-04732-3
+doi: 10.1007/978-3-
+662-04732-3
+Hanson, R. J. (1987). Optoelectronic detection of string vibration. The Physics Teacher, 25,
+165–166.
+Horton, M. T., N.G. (2009). Modeling the magnetic pickup of an electric guitar. American
+Journal of Physics, 77, 144–150.
+Kubilary, I. A. (2018, September). Optical pickups for string musical instrument. In Inter-
+national conference on science and technology.
+Liu, Z., Jiang, Z., Cai, Z., Fei, B., Yu, Y., & Liu, X. (2012, February). Dynamic mechanical
+thermal analysis of moso bamboo (phyllostachys heterocycla) at different moisture
+content. Bioresources, 7. doi: 10.15376/biores.7.2.1548-1557
+Lähdevaara, J. (2012). The science of electric guitars and guitar electronics. Books On
+Demand. (OCLC: 861737010)
+Mathews, M. V. (1988). Pickups for the vibrations of violin and guitar strings using piezoelec-
+tric bimorphic bender elements (Tech. Rep.). Stanford University, Center for Computer
+Research in Music and Acoustics (CCRMA).
+Mustonen, M., Kartofelev, D., Stulov, A., & Välimäki, V. (2014, July). Experimental verifi-
+cation of pickup nonlinearity. In International symposium on musical acoustics.
+Red Lion Controls,
+I.
+(2000,
+August).
+Magnetic pickups
+in-line preampli-
+fier — bulletin no. mp-h (Technical Report No. MP-H).
+Retrieved from
+https://www.farnell.com/datasheets/2058061.pdf
+(Drawing No. LP0020; Re-
+vised 8/00; available online)
+Tukan, M. K. A. C. S. D., Ceunfin, F., & Kian, M.
+(2020).
+How to play and
+tune sasando in edon style. , 22(1), 21–36.
+Retrieved 2025-11-08, from
+https://www.neliti.com/publications/384544/ (Publisher: Indonesian Institute
+of the Arts, Padang Panjang) doi: 10.26887/ekspresi.v22i1.1038
+
+Problem A
+Team 182
+28
+Appendices
+A
+Code used for Figure 12
+Below is the code for Figure 12 written in MATLAB.
+1
+%RBJ BPF 98
+1047
+Hz @ 48 kHz
+2
+clear; clc;
+3
+4
+Fs = 48000; % standard
+sample
+frequency as mentioned
+before
+5
+fL = 98; fH = 1047;
+6
+f0 = sqrt(fL*fH);
+7
+BW = fH - fL;
+8
+Q
+= f0 / BW;
+9
+10
+w0
+= 2*pi*f0/Fs;
+11
+cw0
+= cos(w0);
+12
+sw0
+= sin(w0);
+13
+alpha = sw0 /(2*Q);
+14
+15
+b = [alpha , 0, -alpha ];
+16
+a = [1 + alpha ,
+-2*cw0 , 1 - alpha ];
+17
+b = b / a(1); %normalize
+them
+18
+a = [1, a(2)/a(1), a(3)/a(1)];
+19
+20
+Nresp = 16384;
+21
+[H, f] = freqz(b, a, Nresp , Fs); %evaluate
+transfer
+function
+using
+the MATLAB
+toolbox
+22
+23
+figure (1); clf;
+24
+semilogx(f, 20* log10(abs(H)+eps), 'LineWidth ', 1.4); grid on;
+25
+xlim ([20
+20000]); ylim ([-60 6]);
+26
+xlabel('Frequency (Hz)'); ylabel('Magnitude |H(f)| (dB)');
+27
+title(sprintf('RBJ Band -Pass (%.0 f
+%.0f Hz), f0 =%.2f Hz , Q=%.3f,
+Fs=%g kHz', ...
+28
+fL , fH , f0 , Q, Fs /1000));
+29
+yl = ylim; hold on; plot ([fL fL], yl , 'k--'); plot ([fH fH], yl , 'k
+--');
+30
+31
+%generate
+gaussian
+noise for 8s with a set seed
+32
+N = Fs * 8;
+33
+rng (0);
+34
+x = randn(N,1);
+35
+y = filter(b, a, x); %implement
+our filter
+with the
+precalculated a
+and b
+36
+37
+%estimate
+input
+with
+Welch
+toolbox
+38
+win
+= hamming (4096 , 'periodic ');
+39
+nover = round (0.5* numel(win));
+40
+nfft
+= 8192;
+41
+42
+[Px , fx] = pwelch(x, win , nover , nfft , Fs , 'psd');
+43
+Px_dB = 10* log10(Px + eps);
+44
+45
+% Theoretical
+output PSD = input PSD + 20* log10 (|H(f)|)
+46
+H_fx
+= freqz(b, a, fx , Fs);
+47
+Py_the = Px_dB + 20* log10(abs(H_fx) + eps);
+
+Problem A
+Team 182
+29
+48
+49
+% plot the input vs output
+50
+figure (2); clf;
+51
+semilogx(fx , Px_dB , 'Color ', [0.5 0.5 0.5]); hold on;
+52
+53
+semilogx(fx , Py_the , 'r--', 'LineWidth ', 1.2);
+54
+grid on; xlim ([20
+20000]); ylim ([ -140
+-20]);
+55
+xlabel('Frequency (Hz)'); ylabel('PSD (dB/Hz)');
+56
+title('Broadband
+Noise: Input vs Output PSD');
+57
+legend('Input PSD', 'Output PSD (theoretical)','Location ','
+SouthWest ');
+58
+yl = ylim;
+59
+hL = xline(fL ,'k--','f_L', 'Interpreter ','tex', ...
+60
+'LabelVerticalAlignment ','top',
+...
+61
+'LabelOrientation ','aligned ',
+...
+62
+'HandleVisibility ','off');
+63
+hH = xline(fH ,'k--','f_H', 'Interpreter ','tex', ...
+64
+'LabelVerticalAlignment ','top', 'LabelOrientation ','
+aligned ', ...
+65
+'HandleVisibility ','off');

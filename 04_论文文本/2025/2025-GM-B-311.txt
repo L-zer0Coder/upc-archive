@@ -1,0 +1,645 @@
+A Method for Quickly Estimating the Trajectory of Spherical
+Projectiles
+Team #311
+November 9, 2025
+Abstract
+This study addresses the precise strike problem of a 5-kg spherical projectile with an 11-cm diameter,
+focusing on the hit requirement for a 1200-meter horizontal distance when both the artillery and
+the target are located at an altitude of 500 meters.
+A ballistic calculation model incorporating
+air resistance, gravity, and environmental interference is established to provide practical technical
+solutions for artillery operations under varying environmental conditions within the 1000-1500 meter
+range.
+The research first clarifies the model assumptions and parameter system. Based on engineering prac-
+tice, a piecewise empirical formula for the drag coeﬀicient is adopted. Combined with Newton’s sec-
+ond law and fluid mechanics principles, the motion equations of the projectile in a three-dimensional
+coordinate system are derived. An exponential model for air density varying with altitude and a
+calculation formula for the frontal area are introduced, and the Euler method with a time step of
+0.01 seconds is used to achieve discrete numerical solution of the ballistics.
+In the baseline scenario without wind influence, a trajectory search algorithm with a step size of
+0.1° for launch angle and 1 m/s for initial velocity is employed to screen multiple sets of optimal
+launch parameters, all of which can achieve precise hits on the 1200-meter target and obtain key
+indicators such as projectile flight time. To address environmental variable interference, the research
+is further extended to a three-dimensional scenario. The effects of wind speed and direction along
+the x/y/z axes, as well as changes in the target’s horizontal distance and altitude on the ballistics,
+are quantitatively analyzed to form clear gun barrel angle correction rules.
+Model evaluation shows that this method balances computational eﬀiciency and reliability in medium-
+range ballistic estimation under standard atmospheric conditions, and can provide decision support
+for rapid artillery deployment.
+However, it has limitations such as the static wind assumption,
+neglect of the Coriolis force, and cumulative errors of the Euler method, making it suitable for non-
+extreme environments and scenarios that do not require ultra-high-precision correction. Through the
+combination of theoretical derivation and numerical simulation, the research results provide a com-
+plete technical framework for trajectory prediction and parameter optimization of artillery spherical
+projectiles, and have important reference value for military operations, engineering simulation, and
+projectile design fields.
+Keywords: Trajectory Estimation Spherical Projectile Drag Force Euler Method Launch Pa-
+rameter Optimization
+1
+
+Contents
+1
+Problem Analysis
+3
+1.1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+1.2
+Problem Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+2
+Model
+4
+2.1
+Model Assumptions
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2.2
+Parameter Setting
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2.3
+Formula Derivation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2.3.1
+Question 1’s Formula Derivation . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+2.3.2
+Question 2’s Formula Derivation . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+3
+Results
+8
+3.1
+Task 1: Solution for precise artillery shelling under no wind influence . . . . . . . . . . . .
+8
+3.2
+Task 2:Solution for precise artillery shelling under complex environment . . . . . . . . . .
+9
+4
+Model Validation
+15
+5
+Model Improvement
+15
+5.1
+Refine Aerodynamic Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+5.2
+Refine Aerodynamic Model
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+5.3
+Upgrade Numerical Calculation Method . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+5.4
+Supplement Secondary Physical Effects . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+16
+6
+Model Evaluation
+16
+6.1
+Strengths
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+16
+6.2
+Weakness
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+16
+6.3
+Applicability Scope
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+16
+7
+Conclusion
+16
+8
+References
+17
+2
+
+1
+Problem Analysis
+1.1
+Introduction
+The shooting problem involves complex and diverse ballistic challenges, where the hit accuracy of artillery
+shells is not solely determined by technical parameters but largely depends on the precise calibration of
+various launch parameters. These parameters include muzzle velocity, launch angle, projectile spin rate,
+and propellant charge quality—each interacting dynamically to govern the projectile’s flight trajectory
+from the barrel to the target.
+In real-world combat scenarios, achieving reliable and precise target
+engagement requires rigorous consideration of numerous environmental and battlefield variables, which
+introduce additional uncertainties into the ballistic model. Atmospheric conditions stand out as a critical
+influencing factor: wind speed and direction (both horizontal and vertical) exert continuous aerodynamic
+forces on the projectile, altering its flight path and terminal velocity. Meanwhile, air density—varying
+with altitude, temperature, and humidity—directly affects the projectile’s air drag coeﬀicient.
+This
+effect is particularly pronounced for supersonic projectiles, where air resistance can drastically reshape
+trajectory characteristics. Against this backdrop, this study proposes a comprehensive and adaptive
+method for optimizing and determining shooting plans, which integrates theoretical ballistic principles
+with the practical constraints of modern battlefields. It incorporates empirical findings from ballistic
+research—including the influence of altitude on trajectory correction and rationalized empirical formulas
+for supersonic air resistance—to enhance model accuracy.
+1.2
+Problem Analysis
+The artillery system fires a 5-kg spherical projectile with 11-cm diameter, achieving muzzle velocities
+up to 450 m/s. The primary challenge involves hitting a target at 1200-meter horizontal distance while
+both cannon and target are positioned at 500-meter altitude. The solution must account for spherical
+projectile ballistics and develop practical methods for engaging targets at 1000-1500 meter ranges under
+varying environmental conditions.
+3
+
+2
+Model
+2.1
+Model Assumptions
+• 1. Resistance is proportional to the square of speed
+• 2. Use the Euler method for ballistic numerical calculations, with a time step ∆t = 0.01s
+• 3. The surface of the shell is smooth, and the shell does not rotate after being fired, disregarding
+the Magnus effect[1][3]
+• 4. The temperature is standard atmospheric temperature
+• 5. The air is dry, and humidity has no effect
+• 6. The observer can accurately report wind speed and direction
+• 7. The Coriolis force (effect of Earth’s rotation) can be neglected within the range
+• 8. The combustion process of gunpowder is instantaneous, and the shell reaches the designated
+initial velocity immediately after leaving the muzzle
+• 9. The wind speed and direction will not change during the injection process
+• 10. Air density varies with altitude
+• 11. The buoyancy of air is much smaller than gravity, and its impact can be ignored[5]
+2.2
+Parameter Setting
+Table 1: Symbols and Physical Meanings in Projectile Simulation
+Symbol
+Physical Meaning
+Units
+T
+Total simulation time
+s
+∆t
+Simulation time step
+s
+M
+Projectile mass
+kg
+Ma
+Speed
+mach
+D
+Projectile diameter
+m
+A
+Frontal area
+m²
+ρ
+Air density
+kg/m³
+θ
+Launch angle
+°
+V
+Velocity vector
+m/s
+v
+Speed magnitude
+m/s
+Cd
+Drag coeﬀicient
+Dimensionless
+k
+Drag acceleration coeﬀicient
+1/m⃗
+af
+Air resistance acceleration
+m/s²⃗
+ag
+Gravitational acceleration
+m/s²
+a
+Total acceleration
+m/s²
+vr
+real velocity
+m/s
+2.3
+Formula Derivation
+The empirical formula for air resistance segmentation:[4]
+Cd(Ma) =
+
+
+
+
+
+
+
+
+
+0.47
+Ma ≤0.3
+0.47 −0.20(Ma −0.3)
+0.3 < Ma ≤0.8
+1.22
+1+0.35(Ma−1)2
+0.8 < Ma ≤2.5
+0.95
+Ma > 2.5
+(1)
+4
+
+It is a simplified fit for the variation of air resistance coeﬀicient of objects (especially blunt objects, such
+as spheres and non-streamlined objects) in the transonic and supersonic ranges in engineering
+Air resistance arises from the transfer of momentum from the projectile to the air during its flight:[6]
+Fd = 1
+2 × ρ × v2 × Cd × A
+(2)
+Air density:
+ρ = 1.225 · e−h/8500
+(3)
+Frontal area:
+A = π ×
+(d
+2
+)2
+= πd2
+4
+(4)
+2.3.1
+Question 1’s Formula Derivation
+According to Newton’s second law, force equals the product of an object’s mass and its acceleration.
+Therefore, the acceleration due to air resistance is equal to the ratio of air resistance to the mass of the
+iron ball
+To simplify the equation, the constant terms unrelated to velocity are combined into a single parameter,
+denoted as k. The k coeﬀicient encompasses all inherent properties of the projectile (mass, size, shape)
+and environmental factors (air density), determining the sensitivity of drag to velocity.
+Drag coeﬀicient formula:
+k = 1
+2 · Cd · ρ · S
+M
+(5)
+Gravitational acceleration:⃗
+ag = [0, −9.8]m/s2
+(6)
+The direction of the acceleration due to drag is opposite to that of the velocity vector.
+In a two-
+dimensional coordinate system, we decompose the velocity and drag into the x and y directions, and
+then obtain the air resistance acceleration
+Air resistance acceleration:[2]⃗
+af = −k · [v2
+x, v2
+y]
+(7)
+Total acceleration:⃗
+a =⃗ag +⃗af
+(8)
+We employ Euler’s Method for numerical integration, using discrete time steps use ∆t to approximate
+continuous time
+Core motion equation (discrete form):
+Speed update equation:⃗
+v(t + ∆t) =⃗v(t) +⃗a(t) · ∆t
+(9)
+Position update equation:⃗
+r(t + ∆t) =⃗r(t) +⃗v(t) · ∆t
+(10)
+Termination and target conditions:
+Landing conditions:
+y(t) < 0
+(11)
+Target hit condition:
+|x(t) −1200| < 0.5m
+and
+y(t) < 0
+(12)
+5
+
+Figure 1: Analysis diagram of object acceleration
+2.3.2
+Question 2’s Formula Derivation
+We intend to calculate the necessary angular adjustments to counteract the impacts of distance variation,
+altitude difference variation, and wind effects along the x, y, and z axes, respectively. Subsequently,
+we will integrate these adjustments to determine the overall angular modification required under the
+combined influence of wind and distance variation.
+Most of the formulas are the same as those in the first question, with the following adjustments:
+X-axis acceleration:
+Establish a Cartesian coordinate system with the muzzle as the origin, the horizontal direction of the
+target as the positive direction of the x-axis, the vertical upward direction as the positive direction of
+the y-axis, and the right direction of the muzzle as the positive direction of the z-axis
+Figure 2: Cartesian coordinate system
+ax = dvx
+dt = −CdρA
+2M vr · (vx −ωx)
+(13)
+Y-axis acceleration:
+ay = dvy
+dt = −g −CdρA
+2m vr(vy −ωy)
+(14)
+Z-axis acceleration:
+az = dvz
+dt = −CdρA
+2M vr(vz −ωz)
+(15)
+Real velocity:
+vr =
+√
+(vx −ωx)2 + (vy −ωy)2 + (vz −ωz)2
+(16)
+Total acceleration:⃗
+a =⃗ax +⃗ay +⃗az
+(17)
+6
+
+To eliminate the influence of the aforementioned wind, we can make the following adjustments to the
+shell’s muzzle angle:
+1
+wind in the X-axis direction:
+By adjusting (increasing or decreasing) the angle of the cannonball’s velocity along the x-axis, the
+influence of the wind component in the x-direction can be eliminated
+Figure 3: the elimination of X-axis wind
+2
+wind in the Y-axis direction:
+By adjusting (increasing or decreasing) the angle of the shell’s velocity on the y-axis, the influence of the
+y-axis component of wind can be eliminated
+Figure 4: the elimination of Y-axis wind
+3
+wind in the Z-axis direction:
+By adjusting (increasing or decreasing) the angle of the shell’s velocity along the z-axis, the influence of
+the wind component in the z-axis direction can be eliminated
+Figure 5: the elimination of Y-axis wind
+4
+Change in altitude difference:
+By adjusting (increasing or decreasing) the angle of the shell velocity on the y-axis, the impact of altitude
+changes can be eliminated
+5
+Change in horizontal distance:
+By adjusting (increasing or decreasing) the angle of the shell velocity on the y-axis, the impact of changes
+in horizontal distance can be eliminated
+7
+
+3
+Results
+3.1
+Task 1: Solution for precise artillery shelling under no wind influence
+Based on the aforementioned formula, we have summarized the artillery trajectory search algorithm.
+By traversing all possible combinations of initial velocity and angle with a step size of 0.1° and 1m/s,
+we ultimately identify the parameter solution that can accurately hit a target at a distance of 1200 meters.
+Illustration of the solution obtained by traversing with a step size of 0.1° and 1m/s:
+Figure 6: Diagram of relationship between launch angle and speed
+Figure 7: All trajectory images with landing points at a distance of 1200m
+Due to the inability to display all results obtained with a step size of 0.1°, the results obtained with a
+step size of 1° are presented in the table below:
+8
+
+Table 2: Ballistic parameters
+Launch angle(°)
+initial velocity(m/s)
+landing distance(m)
+arrival time(s)
+3
+448
+1200.28
+4.69
+7
+260
+1199.91
+6.36
+15
+186
+1200.47
+9.43
+16
+181
+1199.73
+9.75
+20
+166
+1200.31
+10.95
+21
+163
+1199.72
+11.23
+30
+146
+1200.50
+13.61
+33
+143
+1199.73
+14.35
+39
+140
+1199.99
+15.84
+48
+142
+1199.82
+18.14
+65
+173
+1199.81
+23.50
+69
+190
+1199.67
+25.18
+72
+208
+1200.39
+26.64
+82
+389
+1200.38
+32.34
+3.2
+Task 2:Solution for precise artillery shelling under complex environment
+Due to the inability to present all calculation results, we have taken a single speed value(v=300m/s) for
+illustrative purposes. In reality, calculations need to be performed for each speed, ultimately resulting in
+a comparison table that includes wind direction, wind speed, shooting speed, shooting angle, distance,
+and altitude difference. This table is used to quickly calculate the conditions required to hit a specific
+point.
+During the solving process, we found that for a given point, there would be a solution with a high
+emission angle and a solution with a low emission angle. Therefore, in the following process, we divided
+it into two cases: high emission angle and low emission angle.
+As the X-axis wind increases or decreases, in order to hit the designated target, the elevation angle
+of the gun barrel (i.e., the angle at which the shell is fired) needs to be adjusted as shown in the figure:
+For every 1 m/s increase in the x-axis component of the wind, the gun barrel is raised by 0.319° at high
+elevation angles and lowered by 0.0121° at low elevation angles
+Figure 8: Impact of X-asis wind speed on elevation angle
+9
+
+Figure 9: Optimal launch angle under varying X-axis wind speeds
+As the Y-axis wind increases or decreases, in order to hit the designated target, the elevation angle of
+the gun barrel (i.e., the angle at which the shell is fired) needs to be adjusted as shown in the figure:
+For every 1 m/s increase in the y-axis component of the wind, the gun barrel is lowered by 0.095° at
+high elevation angles and raised by 0.0854° at low elevation angles
+Figure 10: Impact of Y-axis wind speed on elevation angle
+10
+
+Figure 11: Optimal launch angle under varying Y-axis wind speeds
+As the Z-axis wind increases or decreases, in order to hit the designated target, the elevation angle
+of the gun barrel (i.e., the angle at which the shell is fired) needs to be adjusted as shown in the figure:
+For every 1 m/s increase in the z-axis component of the wind, the gun barrel is raised by 0.101° at high
+elevation angles and lowered by 0.7928° at low elevation angles
+Figure 12: The deflection angle caused by the wind speed in the z-axis direction
+11
+
+As the Distance increases or decreases, in order to hit the designated target, the elevation angle of
+the gun barrel (i.e., the angle at which the shell is fired) needs to be adjusted as shown in the figure:
+For every 1m increase in target altitude, the gun barrel is raised by 0.0521° at high elevation angles and
+lowered by 0.0023° at low elevation angles
+Figure 13: Angle variation with distance
+Figure 14: Angle variation per 100 meters
+12
+
+As the Altitude increases or decreases, in order to hit the designated target, the elevation angle of
+the gun barrel (i.e., the angle at which the shell is fired) needs to be adjusted as shown in the figure:
+For every 1m increase in target altitude, the gun barrel is raised by 0.0521° at high elevation angles and
+lowered by 0.0023° at low elevation angles
+Figure 15: Low-angle linear relationship
+Figure 16: High-angle linear relationship
+In Summmary:
+1
+For every 1 m/s increase in the x-axis component of the wind, the gun barrel is raised by 0.319° at
+high elevation angles and lowered by 0.0121° at low elevation angles
+2
+For every 1 m/s increase in the y-axis component of the wind, the gun barrel is lowered by 0.095° at
+high elevation angles and raised by 0.0854° at low elevation angles
+13
+
+3
+For every 1 m/s increase in the z-axis component of the wind, the gun barrel is raised by 0.101° at
+high elevation angles and lowered by 0.7928° at low elevation angles
+4
+For every 1m increase in target altitude, the gun barrel is raised by 0.0521° at high elevation angles
+and lowered by 0.0023° at low elevation angles
+5
+For every 1m increase in target altitude, the gun barrel is raised by 0.0521° at high elevation angles
+and lowered by 0.0023° at low elevation angles
+14
+
+4
+Model Validation
+Model Validation Under the premise of an initial velocity of 300m/s, a certain angle was randomly
+selected for simulation, and it was calculated that the impact point of a shell with a firing angle of 73.5
+° was approximately (995.54, 1.97), at the same altitude as the gun. It is now known that the target to
+be hit is 100m above it and 1095.54m away from the gun, with wind speeds of (-10, -5, 10). Based on
+the linear relationship proved in the previous text, taking into account the height difference, distance,
+and wind speed factors, the calculated firing angle should be 71.5 °. As shown in the figure below, the
+actual strike coordinate is (1110.98100.28), with an error of about 5m. Taking into account factors such
+as rough estimation on the battlefield, the error is within an acceptable range. The main reason for the
+error is the linear analysis of the influence of various factors on the angle, and the correlation coeﬀicient
+of the fitted curve cannot be greater than 0.98, especially for the distance factor
+Figure 17: Low-angle linear relationship
+5
+Model Improvement
+5.1
+Refine Aerodynamic Model
+Optimize the drag coeﬀicient Cd calculation by incorporating more precise transonic and supersonic
+fitting data, replacing the segmented empirical formula with a continuous function to reduce numerical
+errors at segment boundaries. Introduce the Magnus effect model to account for projectile rotation (even
+with smooth surfaces, minor rotation may occur), which helps improve trajectory accuracy for long-range
+shots (1000–1500 meters).
+5.2
+Refine Aerodynamic Model
+Add a time-varying wind field model to simulate dynamic wind speed and direction changes, instead of
+the static wind assumption, making the simulation closer to actual battlefield conditions. Improve the air
+density formula by integrating temperature and humidity corrections, replacing the single exponential
+decay model with a comprehensive atmospheric parameter model that considers multi-environmental
+variables.
+5.3
+Upgrade Numerical Calculation Method
+Replace the Euler method with a higher-precision numerical integration method (e.g., Runge-Kutta
+method of order 4) to reduce cumulative errors from discrete time steps, especially for high-velocity
+projectiles with rapid acceleration changes. Optimize the trajectory search algorithm by adopting adap-
+tive step sizes for launch angle and initial velocity (instead of fixed 0.1° and 1m/s), improving solution
+eﬀiciency while maintaining accuracy.
+15
+
+5.4
+Supplement Secondary Physical Effects
+Incorporate the Coriolis force model for long-range engagements (exceeding 1500 meters) to address the
+Earth’s rotation impact on trajectory deviation. Add a rolling resistance model for the projectile’s initial
+flight phase, considering slight surface roughness and air viscosity effects to refine the initial acceleration
+calculation.
+6
+Model Evaluation
+6.1
+Strengths
+The segmented drag coeﬀicient model aligns with engineering practice for blunt objects (spherical projec-
+tiles), ensuring reliable aerodynamic force calculation in different Mach number ranges. Comprehensive
+parameter setting and clear formula derivation cover key physical factors (air resistance, gravity, wind
+effect), forming a complete 2D-to-3D trajectory calculation system. Rigorous numerical simulation with
+trajectory search and wind/altitude/distance sensitivity analysis provides practical guidance for actual
+artillery operations. The Euler method-based discrete motion equations balance computational eﬀiciency
+and accuracy, suitable for rapid trajectory estimation scenarios.
+6.2
+Weakness
+Simplified assumptions (static wind, no rotation, neglecting Coriolis force) limit the model’s applicability
+in complex environmental and long-range engagement scenarios. The fixed time step Euler method leads
+to inevitable cumulative errors, which may affect trajectory accuracy for high-speed projectiles with large
+acceleration variations. The trajectory search algorithm uses fixed step sizes, resulting in redundant
+calculations and lower eﬀiciency when searching for optimal launch parameters. Lack of experimental
+validation data; the model’s accuracy relies solely on theoretical derivation and simulation, without
+comparison with actual firing test results.
+6.3
+Applicability Scope
+The model is highly applicable for medium-range (1000–1500 meters) spherical projectile trajectory
+estimation under standard atmospheric conditions (stable wind, normal temperature and humidity). It
+provides effective decision support for rapid artillery deployment and target engagement in scenarios
+where high-precision trajectory correction is not required. It is not suitable for extreme environments
+(strong dynamic winds, extreme temperatures) or long-range (exceeding 1500 meters) engagements that
+require consideration of secondary physical effects.
+7
+Conclusion
+This study focuses on the rapid trajectory estimation of spherical projectiles, aiming to solve the practical
+problem of precise target engagement under different environmental conditions. Through in-depth theo-
+retical derivation, systematic numerical simulation, and comprehensive sensitivity analysis, the research
+achieves the expected objectives and forms a complete technical method system. In terms of model
+construction, the study establishes a set of trajectory calculation models covering both two-dimensional
+and three-dimensional scenarios. By adopting a segmented drag coeﬀicient formula suitable for spherical
+blunt objects, combining Newton’s second law and fluid dynamics principles, the model accurately char-
+acterizes the key physical effects such as air resistance, gravity, and wind interference during projectile
+flight. The parameter setting is comprehensive and reasonable, and the formula derivation logic is rig-
+orous, laying a solid theoretical foundation for subsequent trajectory simulation. In terms of simulation
+results, the research successfully identifies multiple groups of optimal launch parameter combinations
+(launch angle and initial velocity) that can accurately hit the 1200-meter target under no-wind condi-
+tions. For the influence of environmental variables (wind speed in x/y/z axes) and target parameter
+changes (horizontal distance, altitude), the study quantifies the required muzzle angle adjustment rules
+and reveals the different response characteristics of high and low launch angles to external changes.
+These results provide direct and practical operational guidance for actual artillery deployment and tar-
+get engagement. In terms of technical performance, the model balances computational eﬀiciency and
+result reliability through the Euler method-based discrete numerical calculation. It can quickly complete
+16
+
+trajectory estimation and parameter search, meeting the demand for rapid decision-making in battlefield
+scenarios. Meanwhile, the research clearly defines the model’s strengths, weaknesses, and applicabil-
+ity scope, providing a clear reference for users to select appropriate technical tools according to actual
+needs. Although the current model achieves good results in medium-range (1000–1500 meters) trajectory
+estimation under standard atmospheric conditions, there is still room for improvement in adapting to
+complex environments and enhancing calculation accuracy. Future research can further optimize the
+model by refining the aerodynamic model, upgrading numerical calculation methods, and supplementing
+secondary physical effects as proposed in the model improvement section. Additionally, combining actual
+firing test data to conduct experimental validation will help improve the model’s engineering application
+value. Overall, the trajectory estimation method proposed in this study effectively integrates theoretical
+ballistics and practical constraints, providing a reliable technical solution for precise artillery shelling.
+The research results have important reference significance for related fields such as military operations,
+engineering simulation, and projectile design.
+8
+References
+References
+[1] Xue, K. J., Li, Q. L., Li, D. Y., Zhao, L. Y., & Jiao, L. Y. (2019). Analysis of turbulence models
+and research on the Magnus effect of spinning projectiles and rockets. In Proceedings of the Chinese
+Congress of Theoretical and Applied Mechanics (CCTAM 2019) (pp. 1185–1193). Beijing Institute
+of Technology; Sheﬀield Hallam University; University of Science and Technology Beijing.
+[2] Yang, Y. (2024). Oblique projectile motion considering air resistance. College Physics, 43(12), 11–
+14+27. doi:10.16854/j.cnki.1000-0712.240086
+[3] Si, Y. Z., & Jin, W. (2021). The Magnus effect in powerful jump serves in volleyball. Shandong
+Sports Science & Technology, 43(6), 57–63. doi:10.14105/j.cnki.1009-9840.2021.06.009
+[4] Liu, P., Wang, Y. S., Wen, Q., & Zhang, Z. B. (2016). Rational empirical formula for the supersonic
+segment of the projectile air resistance law. Journal of Projectiles, Rockets, Missiles and Guidance,
+36(2), 119–121+133. doi:10.15892/j.cnki.djzdxb.2016.02.029
+[5] Zhang, X. Y., & Hua, M. J. (2025). Research on a material porosity measurement method based on
+the principle of air buoyancy. Acta Metrologica Sinica, 46(7), 934–939.
+[6] Liu, J. B., Guo, D. L., Ren, Y. Y., Xu, Y. X., & Li, X. D. (2023). Study on the air drag coeﬀicient
+and flight characteristics of spherical fragments. Journal of Beijing Institute of Technology, 43(7),
+676–684. doi:10.15918/j.tbit1001-0645.2022.175
+17

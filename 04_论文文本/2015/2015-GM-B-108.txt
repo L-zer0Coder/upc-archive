@@ -1,0 +1,1436 @@
+Team 108 
+University Physics Competition 
+Problem A 
+Problem B 
+‘Foxy Golf Balls’ 
+TEAM 108 
+Abstract 
+In this solution, we investigate the feasible club/ball interactions that eventually lead the 
+golf ball to go around the tree (cylinder) and land in the given circular region. The presence of 
+the Magnus force is concluded to be the main reason that drives the ball to fly in a circuitous 
+trajectory around the tree. 
+To clarify all the interactions within the process, the motion of the ball is divided into 
+two stages—the Free-flight Stage and the Bouncing Stage. For the Free-flight Stage, four 
+parameters (the loft angle, the drift angle, the azimuthal angle and the initial speed) are 
+introduced to determine the initial interaction between the club and the ball. For the Bouncing 
+Stage, we introduce the restitution coefficient and the frictional coefficient to describe the 
+interaction between the ball and the ground. 
+The dynamic model is established using the Newtonian approach. On a basic level, the 
+trajectory of the ball is numerically solved with a particular set of parameters. To further 
+specify the criteria that lead to satisfying shots, we study the feasible regions in parametric 
+spaces—those regions that incorporate all parameters which result in successful shots—to 
+present a detailed instruction on the golfers’ controls. Therefore, the task presented by the 
+problem is accomplished on a technical level. 
+However, given the fact that absolute accuracies never exist (especially in human 
+controls), we evaluate the margin values of the system. The results reveals that, although 
+some sets of the parameters are viable, the margin values of them are so small that allow for 
+very little deviations in order to lead to the ultimate successful shots. Subsequently, an 
+optimization on margin values is presented, hoping to enhance golfers’ chances of success. 
+Finally, some preliminary results in the presence of wind force are also studies as an 
+extended model. 
+
+Team 108
+University Physics Competition
+Page 1 of 24
+Contents
+1
+Introduction......................................................................................
+2
+2
+Deﬁnitions and Variables ......................................................................
+2
+3
+Interactions between Golf Ball and Club....................................................
+3
+3.1 Assumptions...............................................................................
+3
+3.2 Theoretical Analysis......................................................................
+3
+4
+Free-ﬂight stage.................................................................................
+6
+4.1 Theoretical Analysis......................................................................
+6
+4.2 Differences between Smooth Ball and Dimpled Ball................................
+7
+5
+Bouncing stage..................................................................................
+8
+5.1 Assumptions...............................................................................
+8
+5.2 Theoretical Analysis......................................................................
+9
+6
+Results............................................................................................ 11
+6.1 Parametric space and feasible regions ................................................. 11
+6.2 Margin values of the system............................................................. 12
+6.3 Extended model........................................................................... 13
+7
+Conclusion....................................................................................... 13
+8
+Strengths and Weaknesses..................................................................... 14
+8.1 Strengths ................................................................................... 14
+8.2 Weaknesses ................................................................................ 14
+Reference .............................................................................................. 16
+A
+Matrix Form ..................................................................................... 17
+B
+Mathematica Program.......................................................................... 18
+B.1 Start Condition.nb ........................................................................ 18
+B.2 Possible Track.nb ......................................................................... 19
+B.3 Feasible Region.nb ....................................................................... 21
+B.4 Wind inﬂuence.nb ........................................................................ 22
+C
+Mechanical Parameters ........................................................................ 24
+
+Team 108
+University Physics Competition
+Page 2 of 24
+1
+Introduction
+Nowadays, quantitative physical analysis is becoming an effective way of studying sports
+games such as golf, which in turn helps people enhance their performances in those games[2, 3].
+In problem B, we are required to ﬁnd desirable ball/club interactions that will result in a golf
+ball to go around a tree (modeled as a cylinder with inﬁnite height) and eventually end up in a
+circular region.
+In our solution, the motion of the ball is divided into two stages: (a) the Free-ﬂight Stage,
+which is initiated by the ball/club interaction, and (b) the Bouncing Stage, which is associated
+with the terminal interaction between the golf ball and the ground. For both stages, relevant
+parameters are introduced to describe the interactions.
+To present detailed instructions on how to play the desired shots, dynamic model is estab-
+lished with Newtonian Mechanics and solved numerically. Feasible regions in parametric space
+are calculated, in order to demonstrate the required parameters (such as the initial velocity, the
+loft angle, the drift angle, the azimuthal angle, etc.) that can lead to successful shots. Moreover,
+margin values of the system are deﬁned, and used to optimize golfers’ chances of success in the
+presence of the deviations of those parameters. Finally, the inﬂuence of wind on the golf game
+is also studied.
+2
+Deﬁnitions and Variables
+Table 1: Notation
+Symbol
+Description
+M
+The mass of golf clubhead.
+m
+The mass of golf ball.
+g
+acceleration of gravity.
+R
+The radius of golf ball.
+I
+The rotational inertia of golf call.
+θ
+loft angle.
+ψ
+drift angle.
+γ
+azimuth angle.
+V
+The velocity of the end point of club shaft.
+Vclub/V
+′
+club
+The velocity of the end point of club shaft projected in the X-
+OZ/XOY plane.
+Vclubn/V
+′
+clubn
+the normal component of Vclub/V
+′
+club.
+Vclubp/V
+′
+clubp
+the tangential component of Vclub/V
+′
+club.
+Vcfn/V
+′
+cfn
+the normal component of the club head after hitting in the X-
+OZ/XOY plane.
+Vcfp/V
+′
+cfp
+the normal component of the club head after hitting in the X-
+OZ/XOY plane.
+Vbfp/V
+′
+bfp
+the normal component of the golf ball after hitting in the X-
+OZ/XOY plane.
+
+Team 108
+University Physics Competition
+Page 3 of 24
+Table 1: (continued)
+Vbfp/V
+′
+bfp
+the normal component of the golf ball after hitting in the X-
+OZ/XOY plane.
+ωbf/ω
+′
+bf
+The angular velocity of golf ball.
+CD
+Drag Coeffcient.
+CA
+constant related to Magnus force.
+S
+effective area.
+ρair
+air density.
+v∥
+horizontal component of landing velocity.
+v⊥
+vertical component of landing velocity.
+v
+′
+∥
+horizontal component of the ﬁrst rebound velocity.
+v
+′
+⊥
+vertical component of the ﬁrst rebound velocity.
+e
+restitution Coeffcient.
+µ
+friction Coeffcient.
+Lb
+bounce length.
+Lr
+roll distance.
+L
+the total run of the golf ball.
+ωb/ωs
+backspin/sidespin of the golf ball.
+3
+Interactions between Golf Ball and Club
+3.1
+Assumptions
+As we know, the interaction between a golf ball and club is an extremely violent collision.
+The actual contact time is less than 0.5ms, during which the ball is accelerated from rest to
+the the speed of over 200km/h [6]. Forces exerted on the golf ball are so large (with values
+exceeding 5kN) that solid ball is deformed severely as can be seen in the ﬂash photographs
+shown by Cochran and Stobbs [7]. In order to simplify the problem, we make the assumptions
+as follows:
+• The collision between a golf club and a golf ball is a completely inelastic collision.
+• The club and the ball remains still relative to each other during the interaction.
+• The velocity of the end point of club shaft⃗V is parallel to the ground.
+3.2
+Theoretical Analysis
+According to the experiments done by Cochran and Stobbs, it can be demonstrated that the
+effect of the club shaft during the collision is not so signiﬁcant and is negligible compared to
+the impact force [7]. Assume without loss of generality that x′-axis is along the velocity of the
+end point of club shaft (see Fig. 1(a)), thus⃗V = V⃗ex′. The loft angle θ, which stands for the
+angle between the club shaft and the club head, enables players to launch the golf ball. Also,
+players can rotate the shaft along its central line to make a drift angle, deﬁned as ψ, from the
+
+Team 108
+University Physics Competition
+Page 4 of 24
+x′-axis (see Fig. 1(b)). Therefore, the initial velocity along the x′-axis and the angular velocity
+of the ball are decided by the V , θ and ψ.
+Figure 1 (a) The conﬁguration of the Golf Course. Two coordinate systems are used in this
+solution. The xyz frame is ﬁxed on the Golf Course, whereas the x′-axis of the x′y′z′ frame
+coincides with the velocity of the end point of the club shaft. (b) Illustration of the loft angle θ
+and the drift angle ψ.
+To further clarify the process, we project the surface of the club head and⃗V onto the x′oz′
+plane and x′oy′ planes (see Fig. 2). In each plane, the oblique impact can be divided into two
+kinds interactions: the direct impact (which is normal to the surface of the head) and the rolling
+between the head and the ball (which is tangential to the head surface). In x′oz′ plane, the
+normal and tangential components of vclub are denoted as Vclubn and Vclubp respectively. We
+assuming that the velocity components of the ball are Vbfn and Vbfp when it leaves the club
+head, and the value of the velocities of the club head change to Vcfn and Vcfp (see Fig. 2).
+According to the conservation of linear momentum in both normal and tangential directions,
+we get
+(
+MVcfn + mVbfn = MVclubn
+MVcfp + mVbfp = MVclubp
+(1)
+where M and m are the masses of the club head and the golf ball, respectively. Similarly, the
+conservation of angular momentum yields
+mRVbfp + Iωbf = 0
+(2)
+where R and I are the radius and the rotational inertia of the golf ball, respectively. Due to our
+ﬁrst assumption, club head and the ball share the same speed after collision
+(
+Vcfn −Vbfn = 0
+Vbfp −Vcfp −Rω
+′
+bf = 0
+(3)
+Likewise, in the x′oy′ plane we have
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MV
+′
+cfn + mV
+′
+bfn = MV
+′
+clubn
+MV
+′
+cfp + mV
+′
+bfp = MV
+′
+clubp
+mRV
+′
+bfp + Iω
+′
+bf = 0
+V
+′
+cfn −V
+′
+bfn = 0
+V
+′
+bfp −V
+′
+cfp −Rω
+′
+bf = 0
+(4)
+
+Team 108
+University Physics Competition
+Page 5 of 24
+Figure 2 The velocity and angular velocity components of the club head and the golf ball in the
+x′oy′ and x′oz′ planes before and after the collision. Two components of⃗V are deﬁned as Vclub
+(in the x′oz′ plane) and V
+′
+club (in the x′oy′ plane), respectively.
+To solve Eq. 1 to Eq. 4, we need additional constrains on the x′ components of all the velocities:
+(
+Vcfn cosθ +Vcfp sin θ −V
+′
+cfn cosψ −V
+′
+cfp sin ψ = 0
+Vbfn cosθ +Vbfp sin θ −V
+′
+bfn cosψ −V
+′
+bfp sin ψ = 0
+(5)
+To present Eq. 1 to Eq. 5 in a more concise version, we use the following two column vectors
+to contain all the variables respectively, and a coefﬁcient matrix, denoted as P, to describe the
+ten equation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MVclubx
+0
+MVclubz
+0
+0
+0
+0
+0
+0
+0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+= P
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Vcfn
+Vcfp
+Vbfn
+Vbfp
+ωbf
+V ′
+cfn
+V ′
+cfp
+V ′
+bfn
+V ′
+bfp
+ω′
+bf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(6)
+where the matrix P is provided in the appendix A. Therefore, the ball/club interaction has been
+modeled and clariﬁed till now. By solving Eq. 21, we are able to determine the initial motion
+of the golf ball. The subsequent free-ﬂight motion will be studied in the following section.
+
+Team 108
+University Physics Competition
+Page 6 of 24
+4
+Free-ﬂight stage
+4.1
+Theoretical Analysis
+Once upon the golf ball leaves the surface of the club, its initial conditions, including the
+velocity and the angular velocity, are determined. The subsequent motion of the ball will be
+studied with the Newtonian approach. We assume that there is no wind in the Golf Course, thus
+the golf ball will be affected by gravity, air resistance and Magnus Force.
+
+
+
+y(m)
+x(m)
+z(m)
+(a)
+(b)
+Figure 3 The trajectories of the golf-ball during the Free-ﬂight Stage with parameters of (a)
+θ = π/8, ψ = π/8, γ = −π/4 and V = 58m/s; and (b) θ = π/6, ψ = π/8, γ = −π/4 and
+V = 45m/s
+We denote fair as the air resistance on the ball. It has been demonstrated [2] that the
+resistance on the golf ball is in a quadratic form as follows
+fair = 1
+2CDρairSv2
+(7)
+where CD represents the drag coefﬁcient, ρair represents the air density and S = πR2
+ball repre-
+sents aerodynamic cross-section. The drag coefﬁcient depends on the Reynolds number of the
+system, and the drag coefﬁcient CD depends on the surface condition of the golf ball.
+Other than air resistance fair, the golf ball is impacted by another aerodynamic force, name-
+ly, the Magnus force fMagnus. The Magnus force is caused by the pressure differences around
+an object due to its rotation, and is the main reason here that makes the golf ball to go around
+the tree and, hopefully, hit the circular green. Theoretically, it is in the form of
+fMagnus = CM(w × v)
+(8)
+
+Team 108
+University Physics Competition
+Page 7 of 24
+where CM is identiﬁed as the Magnus coefﬁcient and can be expressed as CM = π2
+2 ρairCAR3
+ball.
+Here CA represents a constant determined by the features of the golf ball’s surface and the
+internal friction and viscosity of the air (usually satisﬁes CA ≤1).
+Qualitatively, the rotations of golf ball can be subdivided into backspin (spin along the
+y-axis) and sidespin (spin along the z-axis), in which Magnus Effect shows different effects.
+Backspin placed on a golf ball will allow the ball to gain lift force, thus it will be able to have
+a much longer ﬂight. Meanwhile, sidespin placed on the ball will allow it to gain side force,
+which will pull the ball back to the green when it ﬂies out.
+On making use of the Newton’s second law, and by combining with 7 and Eq.8, we can
+obtain the dynamic equations during the Free-ﬂight Stage,
+
+
+
+
+
+
+
+
+
+
+
+
+
+m¨x = −1
+2CDρairSvvx + CM(wyvz −wzvy)
+m¨y = −1
+2CDρairSvvy + CM(wzvx −wxvz)
+m¨z = −1
+2CDρairSvvz + CM(wxvy −wyvx) −mg
+(9)
+By solving the above ordinary differential equations numerically, we are able to ﬁgure out the
+trajectories, some examples of which are illustrated in Fig. 3.
+4.2
+Differences between Smooth Ball and Dimpled Ball
+(a)
+(b)
+Figure 4 Illustrations of air ﬂows around (a) smooth ball and (b)dimpled ball.
+As mentioned above, the differences in the surface conditions of golf balls (such as smooth
+ball and dimpled ball) may inﬂuence the aerodynamic properties of it. After reviewing litera-
+tures, we want to brieﬂy summarize how these surface conditions may effect the motion a golf
+ball. Most of these results which are based on the bibliography [1] are not original, but they are
+crucial for rationalizing the dynamic model we established above.
+It is demonstrated [1] that the air ﬂow around smooth ball and dimpled ball are shown in
+ﬁgure 4(a)(b). Since the dimpled ball has many dimples on its surface, they will produce some
+small air vortices. These air vortices will drag the air molecules to the surface of the ball, thus
+such turbulent ﬂow allows for a smaller separation of air ﬂow around the ball, creating a smaller
+
+Team 108
+University Physics Competition
+Page 8 of 24
+area of low pressure behind the ball and causing deceleration at a slower rate than the smooth
+ball. Therefore, the magnitude of the Magnus force declines a lot with the dimples
+The affect of the differences between a smooth ball and a dimpled ball can also be reﬂected
+by their drag coefﬁcient CD. According to previous researches, drag coefﬁcient changes with
+Reynold Number Re, and a dimpled ball has a much smaller drag coefﬁcient than a smooth
+ball[1]. Once upon the drag coefﬁcient declines, the air resistance will consequently decline as
+well, which means the velocity will decline much smaller. Consequently, the dimpled ball will
+have more ﬂight time and ﬂy a much longer distances.
+x(m)
+Dimpled Ball
+Smooth Ball
+z(m)
+Figure 5 Flight distance of a smooth golf ball and a dimpled golf ball. Initial conditions are
+Vx = 40m/s, Vy = 10m/s
+Based on the data in previous works [1], we are able to compared the trajectories of a
+smooth ball and a dimpled ball by controlling all the parameters the same except their surface
+conditions. It is illustrated in Fig. 5 that a dimpled ball ﬂies for a further distance than that of a
+smooth ball.
+5
+Bouncing stage
+5.1
+Assumptions
+After hitting the ground, the golf ball will bounce for several times and then roll for a certain
+distance. The total distance that the ball moves in this stage is largely dependent on landing
+velocity, spin and characteristic of the ground. The following assumptions are made to simplify
+ﬂight model as follows:
+• Major part of the mechanical energy is dissipated during the ﬁrst bounce.
+• The frictional force is so great that the velocity of contact point falls to zero when leaving
+the green, i.e. a state of pure rolling after the collision with the ground.
+• The sidespin will not effect the motion parallel to the ground.
+• The coefﬁcient of restitution and the coefﬁcient of friction that we cited from literatures
+are reasonable.
+
+Team 108
+University Physics Competition
+Page 9 of 24
+5.2
+Theoretical Analysis
+vʌ
+vɳ
+v
+ωd
+ωdȍ
+vɳȍ
+vʌȍ
+vȍ
+Before
+After
+v
+(a)
+(b)
+Figure 6 (a) The angular velocity and the velocity components of the golf ball before and after
+the bounce. The two components of landing velocity are deﬁned as v∥and v⊥, and the two
+components of rebound velocity are deﬁned as v
+′
+∥and v
+′
+⊥. (b) Illustration of the trajectory of
+bouncing and rolling when v
+′
+∥is negative.
+The landing velocity is decomposed into the horizontal component v∥and vertical compo-
+nent v⊥in order to divide the oblique impact into two kinds of interactions (the direct impact
+normal to the surface, and the interaction tangential to the surface). Deﬁne v
+′
+∥and v
+′
+⊥as the
+velocity after the ﬁrst rebound, and Lb and Lr as bounce length and roll distance respective-
+ly. Since the frictional torque does not do any work to the system, the conservation of angular
+momentum before and after each single bounds yields
+mRv∥−Iωr = mRv
+′
+∥+ Iω
+′
+r
+(10)
+where ω
+′
+r = −v
+′
+∥/R. Therefore, the rebound velocities and the angular velocity are given by
+
+
+
+
+
+v
+′
+⊥= e | v⊥|,
+v
+′
+∥=
+5
+7
+
+v∥−
+2
+7
+
+Rωr
+(11)
+We can see that ωr contributes to the the change of v∥after every bounce. But the energy is
+largely dissipated during the ﬁrst bounce and ω
+′
+r becomes small. It is assumed that the horizontal
+velocity is constant after the ﬁrst bounce, i.e. v
+′
+∥.
+The coefﬁcient of restitution e between a golf ball and the ground has been measured by
+Penner[6]. It was found that the value of e decreased with increasing impact speed with the
+following function providing a good ﬁt to the data (see in appendix C):
+
+Team 108
+University Physics Competition
+Page 10 of 24
+(
+e = 0.510 −0.0375 | v⊥| +0.000903 | v⊥|2
+when | v⊥|≤20m/s
+e = 0.120
+when | v⊥|> 20m/s
+(12)
+It has been argued that the coefﬁcient of restitution with larger impact speed is smaller.
+Hence the coefﬁcient of restitution, which is the ratio of impulse of restitution to impulse of
+compression, is little. In spite of hitting the green with high speed, the vertical velocity will
+drastically decrease during the ﬁrst bounce. From the literature we found, the landing velocity
+for a typical drive ranges from 26.8m/s to 35m/s. Furthermore,the sidespin will contribute to
+the deformation of the turf. Consequently e becomes smaller. Therefore, the vertical velocity
+of ﬁrst rebound can be expressed as
+v
+′
+⊥= 0.12 | v⊥|
+(13)
+After the ﬁrst bounce, v
+′
+∥will be relatively small, in which case e will be approximately equal
+to 0.5 for the second and subsequent bounces on green.
+The only difference between discussed case and Daish’s case is that the golf ball have not
+only backspin ωr but also sidespin ωs. In the process of collision, the sidespin of the ball fall to
+zero due to the great friction and it will not contribute to the change of v∥. Hence,the model of
+the run is practical[6]. Ignoring the air drag, it is a oblique projectile motion with initial velocity
+v
+′
+∥and v
+′
+⊥, thus the ﬁrst bounce length will be given by:
+Lb1 =
+2v
+′
+∥v
+′
+⊥
+g
+(14)
+And the subsequent bounce length is a geometric progression with common ratio e(e = 0.5).
+Therefore,the total bounce length is:
+Lb = (
+n
+X
+i=0
+ei)Lb1 = 2Lb1
+(15)
+After the bound phase, the golf ball will be rolling along the green with a initial speed of v
+′
+⊥and
+the acceleration −µg, where µ is the coefﬁcient of friction. The roll distance will be given by
+Lr =
+v
+′2
+∥
+2µg
+(16)
+µ is set to be 1.0, which has a good agreement with the experiment. Finally, the run of the golf
+will be given by L = Lb + Lr.
+In the problem, the backspin ωr is too large that v
+′
+∥can be negative, which can be seen in
+the formula. Fig. 6(b) shows the effect backspin has on the run of the a golf ball when v
+′
+∥is
+negative. When simulating the problem,let
+
+
+
+
+
+vz = v∥
+v2
+x + v2
+y = v2
+∥
+ω2
+x + ω2
+y = ω2
+s
+(17)
+
+Team 108
+University Physics Competition
+Page 11 of 24
+As discussed above, ωx will effect the v
+′
+yand the ωy will effect the v
+′
+x. then
+
+
+
+
+
+
+
+
+
+
+
+
+
+v
+′
+z = 0.12vz
+v
+′
+x =
+5
+7
+
+vx −
+2
+7
+
+R | ωy |
+v
+′
+y =
+5
+7
+
+vy −
+2
+7
+
+R | ωx |
+(18)
+Therefore, the bounce lengths, or alternatively, the displacements after the Bouncing Stage, are
+
+
+
+
+
+
+
+
+
+∆x = 4v
+′
+zv
+′
+x
+g
++ v
+′2
+x
+2µg
+∆y = 4v
+′
+zv
+′
+y
+g
++ v
+′2
+y
+2µg
+(19)
+6
+Results
+6.1
+Parametric space and feasible regions
+A feasible trajectory must go around the tree (cylinder) and land in the given circular region.
+By calculating different trajectories with all possible initial conditions, all feasible parameters
+could be obtained. In Fig. 7(b), we calculate the feasible region with initial conditions −π/2 <
+γ < 0,0 < ψ < π/2,Vclub = 58m/s,θ = π/8.
+Figure 7 All feasible trajectory. (Red line represents the free ﬂight stage. Blue line represents
+the bouncing stage.Light green region represents tree.Dark green region represents green.)
+Still and all, a golfer cannot get enough information to make a successful shoot using results
+in the sections above. He cares more about proper angel and power that results in a feasible
+trajectory.
+
+Team 108
+University Physics Competition
+Page 12 of 24
+We assume that a well-trained golfer can control the power used in every shoot very pre-
+cisely, and that Vclud does not change in our problem. Once a speciﬁc type of club is chose,
+the loft angel is then ﬁxed (which means θ is constant). We consider that, golfer can control
+the drift angel θ and azimuth angel γ to shoot a proper trajectories. By scanning the parametric
+space, the Fig. 7 demonstrates the feasible regions have central symmetry in parametric space.
+By choosing parameters in these regions, the golfer will ultimately lead to a successful shoot.
+6.2
+Margin values of the system
+v=30m/s
+v=35m/s
+v=40m/s
+v=45m/s
+π/6
+0
+-π/3
+-π/6
+0
+π/6
+π/6
+0
+-π/3
+-π/3
+-π/6
+-π/6
+v=50m/s
+v=55m/s
+v=60m/s
+v=65m/s
+v=70m/s
+Figure 8 Feasible regions in parametric space. (The red region represents desirable parameters.)
+One cannot deny the fact that, no matter how well-trained a golfer is, errors do occur when
+his/her controls a club and make a shot. Fig. 8 shows the feasible region is quite narrow in
+the parametric space. Under these circumstances, the golfers have to make their controls so
+precise — the precision that sometimes even impossible achieve — to lead to a desirable shot.
+Therefore, we want to the make problem easier for golfer to shoot successfully. To measure the
+’difﬁculty’ golfers have to face with, we deﬁne the margin value of the system (which is the
+
+Team 108
+University Physics Competition
+Page 13 of 24
+root-mean square of the feasible region)
+M =
+qR
+FeasibleRegion ((ψ −ψ)2 + (γ −γ)2)dτ
+S
+(20)
+Qualitatively speaking, the larger the margin value becomes, the large the feasible regions would
+be. Consequently, albeit some deviations might exist in golfers’ controls, they are still able to
+accomplish the shot and lead the ball to go around the tree. Fig. 9 shows that, the margin value
+under condition of 50 < Vclub < 70 is much larger than that under other conditions. As a
+conclusion, we could determine the most suitable loft angel is around π/8.
+Figure 9 The margin value of the system. It can be observed that the margin value reaches the
+maximum when the velocity is around 50m/s ∼70m/s, within which the golfers’ chances to
+successfully accomplish the task is enhanced.
+6.3
+Extended model
+The real condition is much more complex than the parameters considered in theory,and the 
+most important one is wind. It’s easy to imagine that, with a side wind making a successful 
+shoot becomes easier. Given a wind (speed: 5m/s along y axes) Fig. 10(a) demonstrates a 
+fact that one of the feasible region become much larger than the same region in Fig. 10(b), in 
+which condition parameters are the same except wind speed.
+Fig. 10 shows obviously what influence is caused by wind.
+7
+Conclusion
+As discussed in our article, Magnus force is signiﬁcant to solve the problem. In the free-
+ﬂight bouncing, the Magnus force plays two important roles, one of which caused by backspin
+provide the lift force. Another one caused by sidespin drives the ball to ﬂy in a circuitous
+trajectory around the tree.
+
+Team 108
+University Physics Competition
+Page 14 of 24
+Figure 10 Feasible regions with wind.
+After studying the correlation between feasible trajectories and the way hitting the short, we
+can instruct the golfer in the problem how to hit a successful shot. The golfer is suggested to
+use the club with the loft angle being 22.5◦, rotate the shaft with the drift angle being around
+17band swing in the direction 44◦away from the tree and at the speed of 60 ± m/s.
+8
+Strengths and Weaknesses
+8.1
+Strengths
+• We took all interactions into account including that between ball and club, ball and
+ground, ball and air. The result is accurate and convincing.
+• Knowing the kind of club, drift angel, azimuthal angel and impact power we could tell
+whether the trajectory is proper.
+• Using the ψ −γ diagram we gave instructive suggestion about how to make a successful
+shoot. By investigating ’Margin Value’, the difﬁculty of hitting target can be described
+qualitatively.
+8.2
+Weaknesses
+Our weaknesses are mainly caused by the rough models we use, especially the shortcomings
+and imperfections of our assumptions, which are a little different from the reality.
+• We assume the collision between golf ball and golf club is a completely inelastic collision.
+Actually, the real situation is imperfect inelastic collision, which will give the ball more
+initial velocity during the hit.
+
+Team 108
+University Physics Competition
+Page 15 of 24
+• In the bouncing stage, we assume that the ground is ﬂat. The pressure act on the golf ball
+is vertical and the friction is horizontal. In fact, the golf ball will deform the green surface
+so that the surface of the ground will not be ﬂat during the collision. This inﬂuent on the
+bouncing stage can be further discussed.
+
+Team 108
+University Physics Competition
+Page 16 of 24
+References
+[1] Barber R. Golf Ball Flight Dynamics[R]. Technical report, Cornell University, 2007.
+[2] Naruo T, Mizota T. The Inﬂuence of Golf Ball Dimples on Aerodynamic Characteristic-
+s[J]. Procedia Engineering, 2014, 72: 780-785.
+[3] Smith C E, Beratlis N, Balaras E, et al. Numerical investigation of the ﬂow over a golf ball
+in the subcritical and supercritical regimes[J]. International Journal of Heat and Fluid
+Flow, 2010, 31(3): 262-273.
+[4] Camarano T, Beck J, Li B, et al. Kinematic and dynamic modeling of robot manipulator
+for golf swing training system[C]//Industrial Technology (ICIT), 2015 IEEE International
+Conference on. IEEE, 2015: 309-314.
+[5] Cao N K N, Suh Y S, Dang Q K. 3D dynamics analysis of a golf full swing by fusing
+inertial sensor and vision data[C]//Control, Automation and Systems (ICCAS), 2013 13th
+International Conference on. IEEE, 2013: 1300-1303.
+[6] Penner A R. The physics of golf: The optimum loft of a driver[J]. American journal of
+physics, 2001, 69(5): 563-568.
+[7] Cochran A J, Stobbs J. Search for the perfect swing[M]. Triumph, 2005.
+[8] Aoki K, Muto K, Okanaga H. Aerodynamic characteristics and ﬂow pattern of a golf ball
+with rotation[J]. Procedia Engineering, 2010, 2(2): 2431-2436.
+[9] Schelkunoff S A. A mathematical theory of linear arrays[J]. Bell System Technical Journal,
+1943, 22(1): 80-107.
+[10] Woodward P M, Lawson J D. The theoretical precision with which an arbitrary radiation-
+pattern may be obtained from a source of ﬁnite size[J]. Journal of the Institution of Electri-
+cal Engineers-Part III: Radio and Communication Engineering, 1948, 95(37): 363-370.
+[11] Bouwkamp C J, Bruijn N G. The problem of optimum antenna current distribution[J].
+Philips Research Reports, 1945, 1: 135.
+[12] Zheludev N I. What diffraction limit? [J]. Nature materials, 2008, 7(6): 420-422.
+[13] Wang H, Shi L, Lukyanchuk B, et al. Creation of a needle of longitudinally polarized light
+in vacuum using binary optics[J]. Nature Photonics, 2008, 2(8): 501-505.
+
+Team 108
+University Physics Competition
+Page 17 of 24
+Appendix A
+Matrix Form
+Matrix Form:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MVclubx
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+= P
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Vcfn
+Vcfp
+Vbfn
+Vbfp
+ωbf
+V ′
+cfn
+V ′
+cfp
+V ′
+bfn
+V ′
+bfp
+ω′
+bf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(21)
+Px :
+Py :
+Pz :
+ωy :
+ωz :
+Collision :
+Collision :
+Non −slip :
+Non −slip :
+Vx :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+M cos θ
+M sin θ
+m cos θ
+m sin θ
+0
+M cos ψ
+M sin ψ
+m cos ψ
+m sin ψ
+0
+0
+0
+0
+0
+0
+−M sin ψ
+M cos ψ
+−m sin ψ
+m cos ψ
+0
+M sin θ
+−M cos θ
+m sin θ
+−m cos θ
+0
+0
+0
+0
+0
+0
+0
+0
+mR
+I
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+mR
+I
+1
+0
+−1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+−1
+0
+0
+0
+−1
+0
+1
+−R
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+−1
+0
+1
+−R
+cos θ
+sin θ
+cos θ
+sin θ
+0
+−cos ψ
+−sin ψ
+−cos ψ
+−sin ψ
+0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(22)
+Row (1)-(3) are the conservations of linear momenta along the normal and parallel direc-
+tions. Row (4)-(5) are the conservations of angular momenta. Row (6)-(9) indicate that after
+the collision, the loft and the ball share the same speed and direction. The last equation is the
+velocity constrain in this coordinate.
+
+Team 108
+University Physics Competition
+Page 18 of 24
+Appendix B
+Mathematica Program
+B.1
+Start Condition.nb
+% This program mainly generates initial data.
+ClearAll["Global‘*"];
+R = 4.27*10ˆ-2/2;
+m = 45.9*10ˆ-3;
+M = 0.2;
+i = 0.4*45.9*10ˆ-3*4.27*10ˆ-2*4.27*10ˆ-2/4;
+c = 0.25;
+\[Rho] = 1.29;
+A = \[Pi] Rˆ2;
+S = 5*10ˆ-5;
+g = 9.8;
+\[Mu] = 1;
+(*
+To Calculate the start condition of flying stage using parameters \
+controled by golfer.
+*)
+Matrix = {{M Cos[theta], M Sin[theta], m Cos[theta], m Sin[theta], 0,
+M Cos[psi], M Sin[psi], m Cos[psi], m Sin[psi], 0},
+{0, 0, 0, 0, 0, -M Sin[psi], M Cos[psi], -m Sin[psi], m Cos[psi],
+0},
+{M Sin[theta], -M Cos[theta], m Sin[theta], -m Cos[theta], 0, 0, 0,
+0, 0, 0},
+{0, 0, 0, m R, i, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, 0, 0, m R, i},
+{1, 0, -1, 0, 0, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 1, 0, -1, 0, 0},
+{0, -1, 0, 1, -R, 0, 0, 0, 0, 0},
+{0, 0, 0, 0, 0, 0, -1, 0, 1, -R},
+{Cos[theta], Sin[theta], Cos[theta], Sin[theta],
+0, -Cos[psi], -Sin[psi], -Cos[psi], -Sin[psi], 0}};
+ans = LinearSolve[Matrix, {M V, 0, 0, 0, 0, 0, 0, 0, 0, 0}];
+\[Omega]y[theta_, psi_, V_] :=
+Evaluate[Simplify[
+ans[[5]], (-\[Pi]/2 <
+
+Team 108
+University Physics Competition
+Page 19 of 24
+psi) && (psi < \[Pi]/2) && (theta < \[Pi]/
+2) && (theta > -\[Pi]/2)]];
+\[Omega]z[theta_, psi_, V_] :=
+Evaluate[-Simplify[
+ans[[10]], (-\[Pi]/2 <
+psi) && (psi < \[Pi]/2) && (theta < \[Pi]/
+2) && (theta > -\[Pi]/2)]];
+vx[theta_, psi_, V_] :=
+Evaluate[Simplify[
+ans[[3]]*Cos[theta] + ans[[4]]*Sin[theta] + ans[[8]]*Cos[psi] +
+ans[[9]]*
+Sin[psi], (-\[Pi]/2 <
+psi) && (psi < \[Pi]/2) && (theta < \[Pi]/
+2) && (theta > -\[Pi]/2)]];
+vy[theta_, psi_, V_] :=
+Evaluate[Simplify[-ans[[8]]*Sin[psi] +
+ans[[9]]*
+Cos[psi], (-\[Pi]/2 <
+psi) && (psi < \[Pi]/2) && (theta < \[Pi]/
+2) && (theta > -\[Pi]/2)]];
+vz[theta_, psi_, V_] :=
+Evaluate[Simplify[
+ans[[3]]*Sin[theta] -
+ans[[4]]*
+Cos[theta], (-\[Pi]/2 <
+psi) && (psi < \[Pi]/2) && (theta < \[Pi]/
+2) && (theta > -\[Pi]/2)]];
+B.2
+Possible Track.nb
+(*
+To Calculate a possible track with start condition.
+*)
+\[Gamma] = \[Pi]/4
+equ = {m x’’[t] == -0.5*
+c \[Rho] A Sqrt[(x’[t]ˆ2 + y’[t]ˆ2 + z’[t]ˆ2)] x’[t] +
+
+Team 108
+University Physics Competition
+Page 20 of 24
+S (\[Omega]y[theta, psi, V] z’[t] - \[Omega]z[theta, psi, V] y’[
+t]), m y’’[t] == -0.5*
+c \[Rho] A Sqrt[(x’[t]ˆ2 + y’[t]ˆ2 + z’[t]ˆ2)] y’[t] +
+S (\[Omega]z[theta, psi, V] x’[t]),
+m z’’[t] == -0.5*c \[Rho] A Sqrt[(x’[t]ˆ2 + y’[t]ˆ2 + z’[t]ˆ2)]
+z’[t] + S (-\[Omega]y[theta, psi, V] x’[t]) - m g, x[0] == 0,
+y[0] == 0, z[0] == 0, x’[0] == vx[theta, psi, V],
+y’[0] == vy[theta, psi, V], z’[0] == vz[theta, psi, V]};
+obs[x_, y_, z_, \[Gamma]_] :=
+If[((10 Cos[\[Gamma]] - x)ˆ2 + (10 Sin[\[Gamma]] - y)ˆ2 <=
+10) || (z <= 0), True, False];
+green[x_, y_, \[Gamma]_] :=
+If[((120 Cos[\[Gamma]] - x)ˆ2 + (-120 Sin[\[Gamma]] - y)ˆ2 <= 100),
+True, False];
+temp = Reap[
+NDSolve[equ /. {theta -> \[Pi]/8, psi -> \[Pi]/8, V -> 58}, {x, y,
+z}, {t, 0, 80},
+Method -> {"EventLocator",
+"Event" -> (obs[x[t], y[t], z[t], \[Gamma]]),
+"EventAction" :> Sow[{t, x’[t], y’[t], z’[t]}]}]];
+trac = temp[[1]];
+final = temp[[2]][[1]][[1]][[1]];
+vxf = temp[[2]][[1]][[1]][[2]];
+vyf = temp[[2]][[1]][[1]][[3]];
+vzf = 0.12 temp[[2]][[1]][[1]][[4]];
+\[Omega] = \[Omega]y[\[Pi]/6, -\[Pi]/4, 80];
+vxfn = 5/7 vxf - 2/7 R \[Omega];
+vyfn = 5/7 vyf - 2/7 R \[Omega];
+gTrac = ParametricPlot[{Cos[\[Gamma]] x[t] - Sin[\[Gamma]] y[t],
+Sin[\[Gamma]] x[t] + Cos[\[Gamma]] y[t]} /. trac, {t, 0, final},
+AspectRatio -> Automatic, PlotRange -> {{0, 150}, {-45, 45}},
+Frame -> True, PlotStyle -> {Red, Thick},
+LabelStyle -> Directive[Thick, Black],
+AxesLabel -> {Style["X", 15], Style["Y", 15]}];
+ox = (x[final] /. trac)[[1]];
+oy = (y[final] /. trac)[[1]];
+nx = (x[final] /. trac)[[1]] + 4/g vzf vxfn + vxfnˆ2/(2 \[Mu] g);
+ny = (y[final] /. trac)[[1]] + 4/g vzf vyfn + vyfnˆ2/(2 \[Mu] g);
+gRoll = Graphics[{Thick, Blue,
+
+Team 108
+University Physics Competition
+Page 21 of 24
+Line[{{Cos[\[Gamma]] ox - Sin[\[Gamma]] oy,
+Sin[\[Gamma]] ox + Cos[\[Gamma]] oy}, {Cos[\[Gamma]] nx -
+Sin[\[Gamma]] ny, Sin[\[Gamma]] nx + Cos[\[Gamma]] ny}}]}];
+Show[gTrac, gTree, gGreen, gTrac, gRoll]
+B.3
+Feasible Region.nb
+(*
+Find feasible region in parametric space
+*)
+Ap = {}; Ag = {};
+Do[
+Do[
+temp = Reap[
+NDSolve[equ /. {theta -> \[Pi]/8, V -> 58}, {x, y, z}, {t, 0,
+10}, Method -> {"EventLocator",
+"Event" -> (obs[x[t], y[t], z[t], \[Gamma]]),
+"EventAction" :> Sow[{t, x’[t], y’[t], z’[t]}]}]];
+trac = temp[[1]];
+(*
+The Same code in last paragraph.
+...
+*)
+If[green[nx, ny, \[Gamma]], AppendTo[Ap, psi];
+AppendTo[Ag, \[Gamma]]], {\[Gamma], -\[Pi]/2, -\[Pi]/8,
+0.02}], {psi, 0, \[Pi]/4, 0.02}]
+Show[Graphics[{LightBlue, Rectangle[{0, 0}, {-\[Pi]/2, \[Pi]/2}]},
+Axes -> True,
+AxesLabel -> {Style["\[Gamma]", 15], Style["\[Psi]", 15]},
+AxesStyle -> Directive[Black, 8]],
+ListPlot[Transpose[{Ag, Ap}],
+PlotRange -> {{0, -\[Pi]/2}, {0, \[Pi]/2}},
+PlotMarkers -> Automatic, PlotStyle -> Red],
+AxesStyle -> Directive[Black, 12],
+Ticks -> {{0, -Pi/4, -Pi/2}, {\[Pi]/2, \[Pi]/4, 0}}]
+
+Team 108
+University Physics Competition
+Page 22 of 24
+B.4
+Wind inﬂuence.nb
+(*
+Calculate the track with the influence of wind.
+*)
+w = -5;
+equW = {m x’’[t] == -0.5*
+c \[Rho] A Sqrt[(x’[t]ˆ2 + (y’[t] - w)ˆ2 + z’[t]ˆ2)] x’[t] +
+S (\[Omega]y[theta, psi, V] z’[t] - \[Omega]z[theta, psi,
+V] (y’[t] - w)),
+m y’’[t] == -0.5*
+c \[Rho] A Sqrt[(x’[t]ˆ2 + (y’[t] - w)ˆ2 + z’[t]ˆ2)] y’[t] +
+S (\[Omega]z[theta, psi, V] x’[t]),
+m z’’[t] == -0.5*
+c \[Rho] A Sqrt[(x’[t]ˆ2 + (y’[t] - w)ˆ2 + z’[t]ˆ2)] z’[t] +
+S (-\[Omega]y[theta, psi, V] x’[t]) - m g, x[0] == 0, y[0] == 0,
+z[0] == 0, x’[0] == vx[theta, psi, V], y’[0] == vy[theta, psi, V],
+z’[0] == vz[theta, psi, V]};
+Ap = {}; Ag = {};
+Do[
+Do[
+temp = Reap[
+NDSolve[equW /. {theta -> \[Pi]/8, V -> 58}, {x, y, z}, {t, 0,
+10}, Method -> {"EventLocator",
+"Event" -> (obs[x[t], y[t], z[t], \[Gamma]]),
+"EventAction" :> Sow[{t, x’[t], y’[t], z’[t]}]}]];
+(*
+The Same code in last paragraph.
+...
+*)
+If[green[nx, ny, \[Gamma]], AppendTo[Ap, psi];
+AppendTo[Ag, \[Gamma]]], {\[Gamma], -\[Pi]/3, -\[Pi]/10,
+0.01}], {psi, \[Pi]/20, \[Pi]/7, 0.01}]
+Show[Graphics[{LightBlue, Rectangle[{0, 0}, {-\[Pi]/2, \[Pi]/2}]},
+Axes -> True,
+AxesLabel -> {Style["\[Gamma]", 15], Style["\[Psi]", 15]},
+AxesStyle -> Directive[Black, 8]],
+ListPlot[Transpose[{Ag, Ap}],
+PlotRange -> {{0, -\[Pi]/2}, {0, \[Pi]/2}},
+
+Team 108
+University Physics Competition
+Page 23 of 24
+PlotMarkers -> Automatic, PlotStyle -> Red],
+AxesStyle -> Directive[Black, 12],
+Ticks -> {{0, -\[Pi]/4, -\[Pi]/2}, {\[Pi]/2, \[Pi]/4, 0}}]
+
+Team 108
+University Physics Competition
+Page 24 of 24
+Appendix C
+Mechanical Parameters
+Figure 11 Related mechanical parameters obtained by experiments [1, 6].

@@ -1,0 +1,749 @@
+Using Magnetic Fields to Direct Exhaust from Ion
+Thrusters
+Question B
+Team 609
+November 13, 2017
+Abstract
+This paper considers the feasibility of using a magnetic ﬁeld to conﬁne the trajectories of
+dispelled ions from an electric ion thruster. We considered the physical demands of designing
+a magnetic plume collimator at two locations relative to the ion thruster: directly at the end
+of the grate accelerator, and at reasonable distances beyond the thruster. The demands were
+developed under the pretext that the ﬁrst priority in these deliberations was to increase thrust
+to propellant eﬃciency. A second priority, which is not treated extensively in this paper due
+to its dependence on speciﬁc spacecraft designs, is to mitigate sputter eﬀects associated with
+ware on the spacecraft.
+In lieu of laboratory data, this paper seeks to develop a rigorous physical understanding of
+the diﬃculties associated with creating such an apparatus, and discuss the issues one might
+face given speciﬁc design possibilities. We also develop a simple model of an ideal magnetic
+lens in order to estimate the strength, position, and size of such a lens.
+The paper mathematically develops a set of physical constraints a magnetic collimator must
+abide by to be deemed a reasonable design option. The physical constraints we developed
+indicated magnetic ﬁelds were an impractical mechanism for reducing beam divergence in
+electric ion thrusters.
+1
+
+1
+Nomenclature
+Symbol
+Description
+Isp
+Speciﬁc Impulse of the ion thruster
+T
+Thrust of the Xenon ion thruster
+M
+Mass of the Xenon particles
+P
+Power of the Xenon ion thruster
+ηm
+propellant utilization eﬃciency.
+α
+Thrust correction factor for presence of doubly charged species in the thrust
+Ib
+Ion beam current
+Vb
+Voltage between the two grids
+I+
+Ion beam current due to singly charged Xenon ion
+I++
+Ion beam current due to doubly charged Xenon ion
+˙mi
+Mass ﬂow rate
+qore
+Charge of the Xenon ions
+ηe
+Electrical eﬃciency of the thruster
+ηT
+Total eﬃciency of the thruster
+T/P
+Thrust to total input power ratio
+K
+Boltzmann’s Constant
+ρ(r)
+Ion density function
+Table 1: All important variables
+The thruster axis, throughout this paper, is deﬁned as in the axial direction in the ﬁgure above.
+2
+
+2
+Introduction
+Ion thrusters oﬀer great advantages over chemical propulsion systems in many space travel scenar-
+ios. In recent decades, physicists have spent considerable time designing ion thrusters capable of
+acting as the primary propulsion mechanism on spacecraft. The high exhaust velocities achieved
+by these devices greatly enhance their fuel eﬃciency as compared to chemical alternatives, creating
+massive weight savings, and potentially opening the door to longer distance missions. Despite this
+promise, some pressing design concerns still remain.
+Some of the challenges ion thrusters face involve the large divergence of their exhaust plume.
+This is primarily an issue for two reasons: ﬁrstly, the radial component of an ion’s momentum
+does not contribute to the forward momentum of the payload, constituting a waste of energy,
+and secondly, the divergent plume, which is comprised of high energy ions, can bombard nearby
+components of the spacecraft and either corrode or bond with those surfaces, compromising the
+integrity of those components with time.
+In this paper we investigate whether an additional
+magnetic ﬁeld could eﬃciently solve either of these problems associated with beam divergence.
+We ﬁrst consider whether a magnetic ﬁeld can eﬀectively improve the thrust to power ratio of
+a ion propulsion system, for if a magnetic ﬁeld can be designed to collimate the beam and decrease
+the divergence half-angle, then, incidentally, the ion bombardment issue should also be alleviated.
+Our theoretical work follows a conservative line of thought; given the ideal magnetic ﬁeld, what is
+the best job we could possibly do at collimating the beam, and is it good enough.
+If it is determined that using magnetic ﬁelds to improve the thrust to power ratio is ineﬃcient,
+then we shall proceed in determining whether an apparatus can be designed for the sole purpose
+of avoiding ion bombardment.
+The structure of the paper proceeds as follows. First we provide some background information
+on ion thrusters and calculate some basic quantities and properties of the thruster in question.
+Then, we prescribe certain operational requirements for the distinct cases of a magnetic collimator
+placed at the thruster, and one placed beyond the thruster.
+Then it seeks to apply feasible
+apparatuses to these to scenarios.
+3
+Assumptions
+In this section we will discuss the assumptions we made while modeling the motion of the particles
+in the Xenon ion thruster.
+• We assume that the acceleration grids are ﬂat. That is, the grid optics is such that the grids
+are neither concave nor convex in shape. This has an important implication in that the Xenon
+ions leaving the grids immediately after have velocities that are parallel to the thrust axis.[KR] Of
+course, this does not mean that the the beam will remain uniform in the direction of the thrust
+axis. The pressure gradient force, and the collisions between the particles cause the plume to
+diverge.
+• We assume that the beam, upon leaving the ﬁnal grid of the thruster, diverges uniformly.
+That is to say, the average half angle of the divergent beam remains constant. Speciﬁcally, for our
+case, we assume that the average half angle is 20◦. [Wan]
+• We assume that the propellant utilization of Xenon ion thruster is 90% [HKMA]. This is a
+fairly good approximation in that most of the industrial standard Xenon thrusters operate on the
+same propellant utilization eﬃciency.
+3
+
+• Another assumption we make is that the fraction of doubly charged Xenon ion current in the
+beam is 0.1. That is, I++
+I+ = 0.1 and that presence of triply charged Xenon ions is negligible. This
+small fraction of doubly charged ion current will change T and Isp by at most only 5%.[EB03]
+• We also assume that the beam in our Xenon ion thruster is nearly mono-energetic. That is,
+the speed of every particle is nearly the same. This is not a bad assumption, since the fraction of
+doubly charged Xenon ion current is signiﬁcantly less than that of singly charged ion current.
+4
+Spacecraft Thrust Fundamentals
+4.1
+Thrust and speciﬁc momentum
+The thrust of the spacecraft, due to the ion beam current, is given by [GK08].(see appendix 8.1
+for derivations):
+T =
+s
+2MVb
+q
+Ib
+[N]
+(1)
+However, this equation is for a uniform, singly ionized beam leaving the thruster. We know
+that the beam does not just contain singly ionized Xe ions, and it also diverges. Only the velocity
+component that is parallel to the thruster axis contributes to the net momentum gained by the
+spacecraft. Therefore, we add a correction factor of cos(θ), to give us the velocity component
+parallel to the thrust axis, where θ is the average angle of velocity of all the particles.
+There also exist diﬀerently charged Xenon ions in the ion thruster. Assuming that the Xenon
+ion thruster contains only two diﬀerently charged Xenon ions, that is, Xe+ and Xe++, then we
+must introduce a thrust correction factor, α (See appendix 8.2 for details). After accounting for
+the divergent beam and the presence of diﬀerently charged particles, the thrust equation assumes
+the general form:
+T = α cosθ
+s
+2MVb
+q
+Ib.
+(2)
+We now attempt to calculate the voltage diﬀerence between the two grids, as well as ﬁnd out
+the beam current coming out of the thruster. The speciﬁc momentum of an electric thruster is
+deﬁned by (see appendix 8.3 for details):
+Isp = α × cosθ × ηm
+g
+r
+2eVb
+M
+(3)
+For a speciﬁc impulse of 5100s, Xenon ions with an atomic mass of 131.29, ion charge of
+1.6 × 10−19C, assuming the fraction of doubly charged Xenon ion current to be 0.1, the average
+divergent beam angle to be 20 °, and the propellant utilization eﬃciency to be 0.9, we have: [GK08]
+Isp = 123.6 × cos(20) × (0.9) ×
+p
+Vb =⇒Vb ≈2400V.
+(4)
+Using equation 2, we can also calculate the ion beam current, given the thrust of 350 mN:
+T = 1.65 × Ib ×
+√
+2400 =⇒Ib ≈4.3A.
+(5)
+4
+
+This ion beam current is the total amount of current being lost through the ejected ions. It is
+useful because we can ﬁnd the total power used in accelerating the ions by multiplying it by the
+voltage of the accelerating mesh. We will discuss this further now.
+4.2
+Xenon Ion Thruster Eﬃciency
+In this section we consider the eﬃciency of the Xenon ion thruster. The electrical eﬃciency of the
+thruster is given by [GK08] :
+ηm =
+IbVb
+IbVb + Po
+(6)
+where ηe is the electrical eﬃciency and Po is the other power input to the thruster that is
+needed for the formation of the thrust beam.
+The total eﬃciency of the ion thruster, ηT , is given by [GK08] :
+ηT = α2 cos2θ ηe ηm
+(7)
+And the thrust per unit input power is given by [GK08]:
+T
+P = 2 ηT
+g Isp
+(8)
+5
+Design Criterion
+In designing a magnetic beam collimator, there are a few basic criterion that we set out to meet.
+Firstly, because thrust follows a cos(θ) half-angle relation, we rule out apparatuses that only reduce
+the half angle slightly. 35cm diameter thrusters generally have a plume half angle between 15 and
+20 degrees [Wan], meaning that thrust can only be increase by a maximum of approximately
+6 percent if the plume is perfectly collimated (no radial velocity). As a crude, but reasonable
+approximation, we say that the cost, and power losses associated with a magnetic apparatus that
+only collimated the beam slightly would far outweigh any gains in thrust. Hence we only look for
+solutions that signiﬁcantly increase thrust (meaning they collimate the beam signiﬁcantly).
+A fundamental question when designing such an apparatus is, "where will it be placed?" In
+such deliberations, one must ask: "How costly would it be to build an apparatus here?", "Does the
+apparatus require that components on the existing thruster be redesigned, and to what degree?",
+and "Where can the beam be most eﬃciently collimated?" A ﬁeld placed right at the end of the
+thruster, in proximity to the plasma conﬁnement chamber, might be the most eﬃcient placement
+for increasing thrust, but could compromise the functioning of the magnetic ﬁelds used to conﬁne
+the plasma, thereby requiring some signiﬁcant redesign [GRF11]. These questions must be treated
+with care, and will be considered later when investigating feasible designs.
+5.1
+Optimizing Magnetic Collimator at Thruster
+There are very few conceivable designs that would allow a magnetic collimator to be placed at the
+thruster without warranting serious redesign on the plasma conﬁnement mechanism. Nonetheless,
+there are some ideas to be had here, so an analysis of the forces at the thruster mouth is still useful.
+5
+
+When considering a collimating beam placed at the thruster, we must consider the dispersion
+forces we must counter in order to keep the beam from diverging. There are two ﬂuid-like interac-
+tions that cause the ion beam to disperse when it leaves the thruster. Firstly, a pressure gradient
+causes the ions to disperse radially and secondly, random particle collisions between the two species
+of ions scatter the beam. If we make the reasonable approximation that the ions have a uniform
+axial velocity when leaving the thruster, then they will be subject to a radial dispersion force due
+to the following radial dispersion forces:[Wie]
+Fp = −KT ∇ρ(r)
+N
+Fc = Na
+mamb
+ma + mb
+vab(vb −va)
+(9)
+Where in the ﬁrst expression, K is the Boltzmann constant, T is temperature, ρ(r) is the ion
+density function, and N is the ion population, and in the second expression, Fc is the force on
+type a ions caused by type b ions where vab is the frequency of collisions between the two species.
+Thus, if we can ﬁnd the gradient of the density function ρ(r), we can calculate the necessary ﬁeld
+B to perfectly collimate the ion plume. If we take a cross-sectional slice of the ion beam just as it
+leaves the thruster, we ﬁnd it has an ion density given by the Gaussian distribution
+ρ(r) = ρo
+h(t) exp(
+−r2
+2R2h(t)2 )
+(10)
+Where ρo is the ion density at the origin, R is the radius of the thruster, and h(t) describes
+the plume’s radial motion such that r(ro, t) = roh(t). The ﬂattening eﬀect of h(t) is shown in the
+ﬁgure below. If we wish to apply a magnetic ﬁeld such that the radial forces on each ion are net
+zero (i.e. Fp + Fc −FB = 0) then it is to say that h(t) becomes frozen at h(0) which we deﬁne to
+be unity. Then we can take the gradient of the density function according equation (9) and set it
+equal to the Lorentz force as follows
+−KT ∇ρ(r)
+N
+= KTρo
+NR2 r exp(
+−r2
+2R2h(t)2 )
+(11)
+Then equating our forces we get
+KTρo
+NR2 r exp(
+−r2
+2R2h(t)2 ) + Na
+mamb
+ma + mb
+vab(vb −va) = q(va × B)
+B =
+1
+qva
+[KTρo
+NR2 r exp(
+−r2
+2R2h(t)2 ) + Na
+mamb
+ma + mb
+vab(vb −va)]
+(12)
+Before we get too bogged down by the complexity of this expression, lets consider the graphical
+renderings below. The second term on the right is independent of radius, so we get a force proﬁle
+like the one below, plus some constant.
+6
+
+This is the generic force proﬁle of a B ﬁeld that would perfectly counter the dispersive forces
+in the plume due to the pressure gradient and ion collisions. Note this approximation does not
+take into account the dispersive forces caused by the fringe ﬁeld of the grates (for which we would
+see another spike in dispersion force around the radius (≈17cm). What this curve does tell us
+tough, is that ions very close to the center experience lower dispersion forces than those closer to
+the rim. It also tells us that the greatest dispersive forces (apart from fringe ﬁeld forces) actually
+occur slightly inward from the outer radius of the thruster. This force proﬁle can thus inform
+the design of a magnetic ﬁeld both in terms of magnitude and position.
+An eﬃcient magnetic
+collimating ﬁeld ought to roughly match this dispersion force proﬁle. Otherwise some ions would
+be deﬂected too much while others wouldn’t be deﬂected enough. These are the constraints we
+place on a feasible apparatus located at the thruster.
+5.2
+Optimizing Magnetic Collimator Beyond Thruster
+The overall goal of a magnetic lens some distance beyond the thruster would be to redirect stray
+ions so that they are launched directly behind the thruster, and not out radially at all.
+This
+is because the actual impulse that helps to accelerate the thruster only depends on the axial
+component of the ions’ velocity. More exactly, if vex is the exhaust velocity, mxe is the mass of a
+xenon atom, and θ is the angle of an ion’s velocity in respect to the fore-aft axis, then the impulse
+to the thruster supplied by that ion is:
+Ii,axial = mxevex cos θ
+(13)
+Our goal therefore is to increase Iaxial (maximize ∆Iaxial = mxevex(cos θ2 −cos θ1)) by creating
+some magnetic ﬁeld which will bend ions towards the fore-aft axis. Notice that the velocity of an ion
+is not changed by the magnetic ﬁeld, since magnetic ﬁelds perform no work on particles. Therefore,
+taking all of the ions into consideration, we want to maximize:
+7
+
+Figure 1: The trajectory of a xenon ion through a slab of azimuthal magnetic ﬁeld. Note that this
+is the optimal direction of the magnetic ﬁeld, which bends the ion towards the main axis as much
+as possible.
+∆Iaxial = mxevex
+X
+all ions
+cos θi2 −cos θi1
+(14)
+where θi1 is the initial angle of the ith ion’s velocity and θi2 is the ﬁnal angle of the ith ion’s
+velocity after going through our magnetic ﬁeld (both angles measured from the fore-aft axis).
+What we will now show is that it is futile to try to design such a magnetic ﬁeld: Even if we
+would be able to sculpt the "most eﬃcient" ﬁeld possible (one which causes the greatest ∆Iaxial
+from a given volume and magnitude of⃗B) we will ﬁnd that this will cause an insigniﬁcant increase
+in axial impulse.
+The "most eﬃcient"⃗B is the one which increases the axial component of an ion’s velocity the
+fastest, which means that⃗F = q(⃗v ×⃗B) from the biot-savart law should point as much axially as
+possible.⃗v has no azimuthal component, since the ions never experience an azimuthal force since
+the thruster is radially symmetric. This means that⃗v only has radial and axial components, and
+thus to convert that radial velocity to axial velocity the most eﬃciently,⃗B should point in the
+azimuthal direction (Figure 1). Note that we are not saying that we should actually try to make
+an azimuthal⃗B: at any point in space there will be ions going in diﬀerent directions at diﬀerent
+times, and any⃗B we deﬁne will help some ions, but might even harm others. Merely, we are saying
+that if we could deﬁne a diﬀerent⃗B for each ion, and that ion was oﬀ-axis, this is what it would
+be.
+We will show that it is impossible to meaningfully impact vaxial with a reasonably strong and
+reasonably sized⃗B. Imagine that we could create the⃗B in Figure 1, with a ﬁnite thickness w in
+the axial direction, and inﬁnite extent in the radial direction. Say an ion approaches this⃗B at an
+oﬀ-axis angle of θ1. What is the ions ∆vaxial from interacting with the⃗B?
+First let’s think about this qualitatively. The stronger the⃗B and the thicker the slab of it
+8
+
+(larger w), the more the ion will be curved. Also signiﬁcant, but out of our control, is e and mxe,
+the charge and mass of an ion. If e were larger and mxe smaller, the more the the particle would
+be curved as well. What about the velocity of the incoming particle? You might think that this
+would not be a factor in the curvature, since the strength of the Lorentz force (⃗F = q(⃗v ×⃗B))
+is proportional to v, but the amount of time that this force is impacting the particle (t ≈
+w
+v )
+proportional to inverse v. However, this is not the case: To maintain a particular curvature of
+radius R, the particle needs to feel a force of magnitude mxev2
+R
+in order to receive enough centripetal
+acceleration. Thus, as v increases, the radius of curvature also increases.
+Now, for a given curvature, determined by⃗B, w, e, mex, and v, how does θ1 actually aﬀect the
+∆vaxial? As you can imagine from Figure 1, as θ1 gets bigger, ∆vaxial also increases, since the
+particle will spend a longer time in the⃗B, and during that time it will feel a force more aligned
+with the axis.
+OK, now let’s do some math to actually quantify ∆vaxial given a certain⃗B, w, e, mex, v, and
+θ1. The following math is only valid when 0° < θ1, θ2 < 90°. As you can see from Figure 1,
+∆vaxial = v cos θ2 −v cos θ1 = v(cos θ2 −cos θ1)
+(15)
+Now let’s ﬁnd θ2 in terms of the other terms we know. First , using some similar angles (drawn
+in the Figure), we can get it in terms of the radius of curvature and θ1.
+w = y1 −y2 = R cos θ1 −R cos θ2 = R(sin θ1 −sin θ2)
+(16)
+From here we can ﬁnd R using the Lorentz force and centripetal acceleration. We drop the
+vectors and just use magnitudes halfway through because⃗v is perpendicular to⃗B⃗
+F = m⃗a
+(17)
+e(⃗v ×⃗B) = mv2
+R
+ˆin
+(18)
+evB = mv2
+R
+(19)
+qeB = mv
+R
+(20)
+⇒R = mv
+eB
+(21)
+Combining this with (16), we can ﬁnd an expression for θ2:
+w = R(sin θ1 −sin θ2)
+(22)
+⇒θ2 = sin−1(sin θ1 −w
+R)
+(23)
+θ2 = sin−1(sin θ1 −weB
+mv )
+(24)
+plugging this back into (15), we can ﬁnd the fractional increase in impulse ∆vaxial
+v
+. The last
+step uses the trig identity cos(sin−1(x)) =
+√
+1 −x2:
+∆vaxial = v(cos θ2 −cos θ1)
+(25)
+∆vaxial
+v
+= cos(sin−1(sin θ1 −weB
+mv )) −cos θ1
+(26)
+=
+r
+1 −(sin θ1 −weB
+mv )2 −cos θ1
+(27)
+Let’s analyze this expression a bit. The weB
+mv term is related to the rate at which the particle curves.
+As it gets bigger, the particle curls faster, and ∆vaxial
+v
+increases. When the radius of curvature is
+the same as the width of the slab (R = w), then weB
+mv = 1. In this situation, if we shot the particle
+into the bottom of the slab at an angle of θ1 = 90° (parallel to the surface of the slab), then the
+particle would curl around a quarter of a circle and exit perfectly vertically, and all of it’s velocity
+9
+
+Figure 2: The increase in impulse from a particle traveling through a slab of uniform slab of
+azimuthal magnetic ﬁeld at several diﬀerent incident angles. The width of the slab is assumed to
+be 10cm and the velocity of the xenon ions 50 km/s
+would be converted from horizontal to vertical, so ∆vaxial
+v
+= 1. We don’t want to make weB
+mv any
+larger than 1, or we will be turning the trajectory back to the side. The extreme other end of this is
+when weB
+mv = 0, which happens when there is no magnetic ﬁeld or the width of the slab is 0. Then,
+the particle isn’t curled at all, and the entire expression simpliﬁes to 0 (using 1 −sin2 x = cos2 x).
+What values of weB
+mv could we reasonably expect to create? Let’s say that our slab is 10 cm
+thick, which is already a fairly thick⃗B to create. Then
+weB
+mv = B (6.979 × 108 teslas−1)
+(28)
+With the radius of curvature caused by this weB
+mv , in Figure 5.2 we can see the impulse boost caused
+by a⃗B of varying strength at a few diﬀerent incident angles. As expected, ∆vaxial
+v
+is larger for a
+given B at larger angles. Also, the maximum amount of impulse boost is at these large angles.
+What this means in a practical sense is that if we are actually trying to implement a magnetic lens,
+and want to get the best bang for our buck (largest ∆vaxial
+v
+for a given strength of⃗B), we should
+place it in the locations within the exhaust plume that contain ions traveling as much oﬀ-axis as
+possible.
+Where in the plasma plume does this occur? Near the outlet of the thruster it is possible to
+model the particles as traveling in a straight line from a point source a little ways behind the
+thruster. If you take a cross section radially at any axial distance from the thruster, the axial
+component of the current density is a normal distribution. [HSH+12]. This is plotted in Figure
+5.2 . Since we are assuming that every particle has the same charge and that they are all traveling
+at the same speed, the current density is proportional to the the actual density of particles. Thus,
+when choosing the best location for our magnetic lens, we should try to place it in a location that
+has the best combination of high density and high angle.
+6
+Engineering electromagnets.
+6.1
+Proposal: Implementing Toroid coil at thruster to focus divergent
+ion beam
+Upon initial inspection, a Toroid apparatus seems capable of roughly ﬁtting the force proﬁle de-
+scribed in section 5.1. Consider the arrangement below:
+10
+
+Figure 3: The current density at diﬀerent positions within the plasma plume. Generated from
+the assumption that the current density in the axial direction forms a gaussian distribution over a
+radial cross-section, and that particles travel in a straight line from a point source.
+Figure 4: Ion thruster with hollow toroid at surface.
+11
+
+The immediate advantage of using a toroid is that the magnetic ﬁeld is almost entirely contained
+within the coils so interference with the plasma conﬁning ﬁelds in the ionization chamber is unlikely.
+Notice that the Toroid only needs to cover sections of the beam where we found the dispersion forces
+were high, leaving the densely populated center unobstructed by any new material. Additionally,
+we know the ﬁeld in a Toroid is given by:
+µoNI
+2πr
+ˆφ
+(29)
+This would seem to be a useful relation because, if we adjust the number of coils and current
+properly, we can roughly map the 1/r magnetic ﬁeld to the r exp(−r2/a) force proﬁle we prescribed
+in section 5.1.
+Figure 5: toroid ﬁeld strength compared to force proﬁle
+Keep in mind that we only care to put the toroid over a particular interval (perhaps from 10cm
+to 15cm), so we only care about part of the ﬁt over a particular interval. In theory, two or three
+toroids of diﬀerent strength could be put at incremental radii to better ﬁt the force proﬁle.
+The
+toroid seems among one of the best options for an ’at the thruster’ magnetic collimator, but its
+shortcomings likely prevent it from being of much practical use. The most obvious shortcoming of
+the toroid is that it is a physical obstacle for the ions to collide with as they leave the acceleration
+grate.
+Collision rates with the toroid can be mitigated by reducing the number of coils so as
+to decrease exposed surface area, but only with great losses to the electromagnet’s eﬃciency.
+Whatever ﬁeld strength is lost in reducing the coil numbers must be made up for by increasing the
+current which in turn will result in heat losses.
+Beside from the diﬃcult balancing between toroid eﬃciency and ion-toroid collisions lies the
+issue of toroid corrosion. With such high exposure to the high energy ions coming from the thruster,
+the lifetime of such a device likely disqualiﬁes it from being implemented in a thruster design. It
+would be a diﬃcult task to shield the toroid from these ions in a way that didn’t further obstruct
+the ion’s path or hurt the magnitude of the toroid’s ﬁeld.
+12
+
+6.2
+Proposal: Implementing plasma lens to focus the divergent ion beam
+beyond thruster.
+For the case of a magnetic collimator beyond the thruster, one possible solution is to use a plasma
+lens to reduce the beam divergence. An electrostatic plasma lens is placed at a certain distance
+outside the grids, in order to focus the ion beam, so that the Gaussian proﬁle of the beam becomes
+narrower after passing through the lens.
+That is, the angle from the centerline of the normal
+distribution of the current density decreases. This packs or focuses the ions into a more tightly
+Gaussian packet, and also increases the current density in the center of the proﬁle. The net eﬀect
+of this is to increase the momentum of the ions in the direction of the thrust axis, so that the
+thrust increases. [GRF11].
+The plasma lens operates on the principle of creating a region of crossed electric and magnetic
+ﬁelds using a magnetic coils and electrodes [spa14]. As the ion beam passes through this region,
+the ions are accelerated by the electric ﬁeld so that they are focused to a point. [GRF11]. Figure
+3 [GRF11] shows the setup:
+Figure 6:
+set up to use plasma lens to collimate and/or focus the ion beam
+The plasma lens generates a magnetic ﬁeld as a protruding "outward spiral", as shown in ﬁgure
+4.[GRF11]
+13
+
+Figure 7: magnetic ﬁeld line of the plasma lens. Z is the distance along the thruster axis. R is the
+radial position at which the ion trajectory intersects the plane of the Plasma lens.
+The magnetic ﬁeld of the plasma will lens cause the ions to focus, by the Lorentz force law.
+This in turn will decrease the average half angle divergent beam. Although it seems that this
+implementation might be beneﬁcial in generating more thrust, the system is of less practical value
+due to some reasons:
+• The plasma lens must not be placed immediately above the thruster, and at some distance
+away from the thruster. This is because the magnetic ﬁelds from the plasma lens mess up the
+magnetic ﬁelds inside the thruster. As a result, the peak ion current density, and the discharge
+current density will decrease. But when we place it at some radii away from the thruster, the
+drawback of that is, it will not be able to enclose all of the plume, and only a portion of the ion
+current will be able to pass through the plasma lens and get focused. It might be possible to
+increase the ﬁeld of the plasma lens, and placing them close to the grids, but the thruster channel
+conﬁgurations would have to be changed, so that the magnetic ﬁeld from the plasma lens does not
+aﬀect the ﬁelds inside the channel.[GRF11]
+• The decrease in the half angle for the beam that goes through the plasma lens might not
+be signiﬁcant. This could also be due to the fact that the Plasma Lens electrode depletes the
+electrons in the plume. This will, then, cause the plume to diverge after the plasma because of
+space charge repulsion. We might need to add another cathode, after the plasma lens, to solve this
+problem.[GRF11]
+• Although the power consumption of this setup could be decreased by collecting less current,
+which could be implemented by reducing the size of the electrode, or by increasing the radius of
+the plasma lens, the power consumption of the electrodes will outweigh the increase in the thrust.
+This makes this design practically less feasible.[GRF11]
+14
+
+7
+Discussion
+After Developing spacecraft rocket equations, we come to the conclusion that it is the cos θ term
+in the thrust that actually will increase the thrust of the spacecraft.
+We then came up with
+engineering solutions that would generate magnetic ﬁelds that will decrease theta, and hence
+increase the thrust. However, after analyzing diﬀerent ways to generate a magnetic ﬁelds outside
+the thrust chamber, in order to make the outgoing divergent beam more uniform, we conclude
+that it is not practical to generate such a magnetic ﬁeld. This is because we found, through our
+research and analysis, that the thrust to power ratio will not increase as much and, in some cases,
+may even decrease. This limits the practicality of using magnetic ﬁelds to collimate the ion beam.
+• We proposed a solution that if we use plasma lens outside the thruster, we might be able to
+increase the thrust by reducing the angular width of the Gaussian ion beam. However, we were
+not able to carry out a quantitative discussion, as to how much the lens will be able to focus the
+ion beam, and how much additional power is required to operate the plasma lens. This is primarily
+due to the fact that we do not know how far away to put the lens from the thruster, so that it will
+not mess up with the magnetic conﬁgurations of the inside of the thruster chamber. Generally,
+we found through our research that the electrodes consume more power than the plasma lens
+can increase thrust. Power losses outweigh thrust increase. One of the main reasons is that the
+current that electrode draws is not just due to the ion current, but some other phenomenon, too.
+[spa14]. Therefore, we cannot accurately determine how much power the electrodes will draw. It
+will,nevertheless, be a good idea to optimize the distance the plasma lens is placed from the thruster
+(without messing the inside conﬁgurations), ﬁgure out exactly how much of the ion beam passes
+through the lens, ( while the Gaussian ion beam proﬁle is still intact and has not totally spread,
+using the current density proﬁle calculations), and determine either experimentally or through a
+numerical simulation as to how much the beam’s angular width decreases, after passing through
+the lens, by changing the magnetic ﬁelds and the electrode potential. And then ﬁnally compute
+the thrust to power ratio of the system to determine whether or not it is practically feasible.
+• Similarly, the toroid also presents physical challenges because it is a physical obstruction in
+the way of the ion beam current. This makes the toroid geometry actually not practical because,
+even though it is collimating the ion beam, it is also decreasing the thrust, which is exactly the
+opposite of what we want in the end.
+• Our paper focused on increasing the thrust, by decreasing the divergence of the beam. But
+that is not the only advantage it oﬀers. Depending on the structure of the spacecraft, reducing
+beam divergence will decrease the sputtering aﬀect, that will in the long run increase the lifetime
+of the grids and the spacecraft in general.
+8
+Appendix
+8.1
+Thrust equation
+Consider how the thrust of the spacecraft is related to the exhaust velocity.The thrust, T, is given
+by the rate of change of momentum. [GK08]
+15
+
+T = ˙mvex
+(30)
+Where m is the mass of the spacecraft at any time t, and vex is the exhaust velocity of the
+ions coming out of the ﬁnal grid. For Xenon ion thruster, the ions are accelerated through a high
+electric ﬁeld between the grids. Therefore, the velocity of these ions is much greater than the
+velocity of any neutral Xenon particle that might escape out of the grids. Hence,
+T ≈˙mivi.
+(31)
+where ˙mi is the mass ﬂow rate and vi is the ion velocity. By the law of conservation of energy,
+the work done by the ﬁeld on the Xenon ions must be converted into the kinetic energy of the ions.
+Therefore,
+Mv2
+i
+2
+= qVb.
+vi =
+r
+2qVb
+M
+(32)
+where Vb is the potential diﬀerence between the plates and q is the charge on the Xenon
+ions.Also, the mass ﬂow rate is related to the ion beam current, by [GK08]
+˙mi = IbM
+q
+(33)
+where Ib is the beam current, M is the mass of the ions, and q is their charge. Now, if we
+substitute equation (32) and equation (33) into equation (30), we get equation (1).
+8.2
+Correction factor for multiply charged species
+If the beam contains only singly and doubly charged ions, then, the total beam current is given
+by: [GK08]
+Ib = I++ + I+
+(34)
+where I+ is the singly ionized, and I++ is the doubly ionized species. We deﬁne the correction
+factor, α as:
+α =
+1 +
+I++
+√
+2I+
+1 + I++
+I+
+(35)
+where I++
+I+ is the fraction of the doubly charged Xenon ion current in the beam.
+16
+
+8.3
+Speciﬁc impulse
+The speciﬁc impulse for any thruster is given by: [GK08]
+Isp = vex
+g
+(36)
+Similarly as for thrust, substituting in the ion velocities, and incorporating angle correction,
+presence of doubly charged species, and propellant utilization eﬃciency, we are able to get equation
+(3).
+8.4
+Code to generate ﬁgures
+8.4.1
+Figure 5.2
+Mathematica
+v = Quantity [50 , " KilometersPerSecond " ] ;
+q = Quantity [" ElementaryCharge " ] ;
+m =ElementData [" Xenon" , "AtomicMass " ] ;
+k := w q B / (m ∗v)
+k /. w−> Quantity [10 , " Centimeters "]
+dvOverV = Sqrt [1 −( Sin [ theta ] −k )^2] −Cos [ theta ] ;
+dvOverVProp = dv /. B−>Quantity [B,
+" Teslas " ] ;
+thetas = {Pi /8 , Pi /4 ,3 Pi /8 , Pi /2};
+func = dvOverVProp /.{ theta−>thetas , w−>Quantity [10 , " Centimeters " ] } ;
+p = Plot [ func ,
+{B,
+0 ,
+.8} ,
+PlotLabels −>"\[Theta]="+ thetas ,
+AxesLabel−>{"B ( t e s l a s )" ,
+8.4.2
+Figure 5.2
+Mathematica
+axialComp:= PDF[ NormalDistribution [0 , y∗m] , x ] ;
+radialComp = axialComp ∗(x/y ) ;
+vel = {radialComp , axialComp };
+VectorPlot [ vel /.m−>.5, {x, −6 ,6} , {y ,2 ,5} ,
+FrameLabel−>{"r a d i a l
+distance " , " a x i a l
+dista
+8.4.3
+Figures 1
+Python:
+import matplotlib . pyplot
+as
+plt
+import numpy as np
+import seaborn
+a = 1
+b = (35/2)∗∗2
+c = 1
+P = 100
+r = np . linspace (0 ,35 ,100)
+rho = a∗r ∗np . exp(−r ∗∗2/b) + c
+B = P/ r
+fig , ax = plt . subplots (1)
+ax . plot ( r ,B,
+’−−r ’ )
+ax . plot ( r , rho ,
+’−b ’ )
+ax . set_ylabel ( r ’ $Dispersive ␣Force$ ’ )
+ax . set_xlabel ( r ’ $radius (cm) $ ’ )
+17
+
+ax . set_ylim (0 ,
+50)
+ax . set_yticklabels ( [ ] )
+#ax . s e t _ x t i c k l a b e l s ( [ ] )
+plt . show ()
+References
+[EB03]
+Jerold W. Emhoﬀand Iain D. Boyd. Grid erosion modeling of the next ion thruster
+optics. volume NASA/CR—2003-212595. NASA, Sep 2003.
+[GK08]
+Dan M Goebel and Ira Katz.
+Fundamentals of electric propulsion:
+ion and Hall
+thrusters, volume 1. John Wiley & Sons, 2008.
+[GRF11]
+Martin E Griswold, Yevgeny Raitses, and Nathaniel J Fisch. Plasma lens focusing of
+the hall thruster plume. In 32nd Int. Electric Propulsion Conf., 2011.
+[HKMA]
+Shoji
+Kitamura
+Yukio
+Hayakawa,
+Hideki
+Yoshida
+Yuuko
+Yamamoto
+Kat-
+suhiro Miyazaki, Kenichi Kajiwara, and Kouseki Akai. Results of a 35-cm xenon ion
+thruster endurance test.
+[HSH+12] Wensheng Huang, Rohit Shastry, Daniel A Herman, George C Soulas, and Hani
+Kamhawi. Ion current density study of the nasa-300m and nasa-457mv2 hall thrusters.
+In Proceedings of the 48th AIAA/ASME/SAE/ASEE Joint Propulsion Conference and
+Exhibit, 2012.
+[KR]
+Kaufman and Robinson. Gridded ion beam sources gridded ion beam sources.
+[spa14]
+spacemath. Cross-ﬁeld plasma lens for focusing of the hall thruster plume. 2014.
+[Wan]
+Joseph Wang. Ion thruster plume plasma interactions in the solar wind.
+[Wie]
+K. Wiesemann. A Short Introduction to Plasma Physics, volume 1. arxiv.
+18

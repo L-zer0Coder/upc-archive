@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Efficient Artillery Trajectory Approximation Method（2025 题B 队伍188） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg:#0a0f1e;--panel:#111a2e;--ink:#e8eef8;--mut:#94a5c0;--line:#22304c;--acc:#4f7dd9;--acc2:#39c2b0;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
+ font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar a:hover{border-color:var(--acc);color:#fff}
+.crumb{color:var(--mut);font-size:13px}
+.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
+h3{font-size:17px;color:#cfe0ff}
+a{color:#7fb0ff} a:hover{text-decoration:underline}
+code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
+pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1em 0;padding:8px 16px;border-left:4px solid var(--acc2);background:rgba(57,194,176,.07);color:#c9d6ea;border-radius:0 10px 10px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#16233c;color:#a9bcda;white-space:nowrap}
+tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
+@media(max-width:700px){.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html">🏆 总览首页</a>
+  <span class="crumb">05_论文赏析/2025</span>
+  <span style="flex:1"></span>
+  <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2025/Problem%20B/2025-GM-B-188.pdf">📄 论文 PDF</a>
+  <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2025/2025-GM-B-188.md">原文 .md</a>
+</div></div>
+<div class="wrap"><div class="card">
+<h1 id="efficient-artillery-trajectory-approximation-method2025-b-188">Efficient Artillery Trajectory Approximation Method（2025 题B 队伍188）</h1>
+<p><strong>页数</strong>: 69 页 ｜ <strong>对应题目</strong>: 题B 火炮（Artillery，无计算器条件下的射角/初速快速估算）</p>
+<h2 id="1">1. 论文速览</h2>
+<p>这是本批次篇幅最长的一篇（正文 26 页 + 附录 43 页），走"高保真物理模型 + 查表修正系数"的双层路线：建模侧集成国际标准大气 ISA（温度/密度/声速/黏度随高度变化，式 4-4 至 4-7）、基于 Mach 数与 Reynolds 数的球形弹动态阻力系数（采用 Loth 等 2021 年 AIAA Journal 的分段复合公式，式 4-11 至 4-14）以及二维/三维弹道 ODE 组（式 4-22、4-26），用 MATLAB ode113（Adams–Bashforth–Moulton）积分；应用侧把复杂物理预先折叠成四个修正系数（射程 $C_X$、高度 $C_H$、纵风 $C_W$、侧风 $C_Z$）与一张射表，军官只需"查标准角 + 三次乘加"即可完成修正。数值结论：$V_0=400$ m/s 打 1200 m/500 m 目标需低角 $\theta=3.5453°$；阻力使最小初速从真空的 108.44 m/s 升至 142.06 m/s；场地心算示例完整演示 1300 m/800 m/逆风 5 m/s/侧风 10 m/s 工况得 $\theta_{final}=4.02°$、横移 13.1 m。</p>
+<h2 id="2">2. 建模体系逐层拆解</h2>
+<p><strong>基础模型（4.1）</strong>：真空抛体，式 (4-3) $\theta=\frac12\arcsin(gx/V_0^2)$，算得 $x=1200$ m、$V_0=450$ m/s 时 $\theta\approx1.67°$、$V_{min}=108.50$ m/s，作为后续对照基线。</p>
+<p><strong>大气与阻力修正（4.2–4.3，本文最大亮点）</strong>：对流层取温度直减率 $\lambda=-0.0065$ K/m，$T=T_0+\lambda Y$（式 4-4）、$\rho=\rho_0(T/T_0)^{-(g_0/R\lambda)^{-1}}$（式 4-5）、$c_0=\sqrt{\gamma R T}$（式 4-6）、Sutherland 黏度公式（式 4-7）。阻力 $F_D=\frac12\rho V^2AC_D$（式 4-8）中的 $C_D$ 不取常数，而是 $M=V/c_0$（式 4-9）与 $Re=\rho V d/\mu$（式 4-10）的二元函数，采用 Loth 等（2021）跨亚/跨/超音速（M 0.2–10）复合关联式（式 4-11），其中 $H_M$（黏性压缩性修正）、$C_M$（压差阻力 Mach 依赖）、$G_M$ 皆为分段函数（式 4-14），并设 $C_D\ge0.01$ 保数值稳定。这直接回应了 450 m/s ≈ M1.3 的超音速工况——其余多数队伍用 $C_D=0.47$ 常数，本文的 $C_D(M)$ 在跨音速区升到约 1.0（Figure 5-1），物理保真度显著更高。第 7 章还补了"为什么不能从 NS 方程（式 7-2）解析求 $C_D$"的溯源讨论与 NASA 球阻力资料佐证，论证闭环。</p>
+<p><strong>动力学方程（4.4–4.5）</strong>：二维四元 ODE（式 4-15/4-16），引入阻力加速度因子 $\Phi=-\rho A C_D V/2m$（式 4-21）把系统压缩为 (4-22)；三维扩展（式 4-23–4-26）支持侧风；终止条件为事件函数 $E(t,\mathbf Y)=y-Y_{initial}$ 的过零检测（式 4-28）。</p>
+<p><strong>风场假设（4.6）</strong>：均匀常值风、忽略垂直分量（式 4-29/4-30），阻力用相对速度 $\mathbf V_{rel}=\mathbf V-\mathbf W$ 计算；风向由方位角 $\phi$ 参数化（式 4-31/4-32）。</p>
+<p><strong>应用层：线性修正系数（5.2 与 7.3）</strong>。以标准工况（$V_0=400$ m/s、$X_{std}=1200$ m、$H_{std}=500$ m）为中心做三项线性度检验：侧风 $C_Z$ 拟合 $R^2=1.000000$（斜率 1.314 m/(m/s)）、纵风 $C_W$ $R^2=0.997$（斜率 −0.0113 °/(m/s)）、高度 $C_H$ $R^2=0.814$（斜率 −0.0094 °/HM，并解释密度指数变化导致非线性但工程可接受）。最终程序化为式 (7-3)–(7-8)：$\theta_{final}=\theta_{std}+\Delta\theta_X+\Delta\theta_H+\Delta\theta_W$，侧风单独给横移 $Z=C_Z\times W_{side}$。</p>
+<h2 id="3">3. 数学方法与算法</h2>
+<p>数值上用 ode113 变阶 Adams–Bashforth–Moulton 求解器 + 事件函数终止，角度反解用 fminbnd 最小化负射程定位最大射程角、再二分扫描两支角度（附录 D 代码含 isa_model、improved_C_D、shell_dynamics、find_launch_angles 等模块，约 200 行）。检验体系完备：与真空模型对照（$V_{min}$ 108.44→142.06 m/s，自证阻力项生效）、速度时空分布的物理自洽性讨论（Figure 5-3 升段减速快于降段）、$C_D$–$M$ 曲线与文献比对、三个修正系数的线性度 $R^2$ 检验。结果呈现为一张 1°×70 行×4 档初速的射表（附录 B）与四系数表（附录 A）。自评短板罕见地具体："Excel 射表数字精度过高、不适合人工查表内插，未设计简化版图表"——这句话本身就是改进路线图。</p>
+<h2 id="4">4. 排版与图表赏析</h2>
+<p>标题页（p1 图）：三段式页眉（Problem B ｜ 赛事-队号 ｜ 页码），标题两行居中，摘要为一整段长文（约 400 词），三大模块与三类修正系数逐一列名，粗体关键词收尾——信息全但段落偏长，可读性逊于分段式摘要。全文公式采用"章-序"编号（4-1、4-14、7-3），与本批次其他队的连续编号不同，便于定位；图表编号同式（Figure 5-1 至 5-9、7-1、7-2）。正文 12 幅图：Figure 3-1 引用公版南北战争 12-pounder Napoleon 照片、Figure 3-2 弹壳受力示意、Figure 5-1 的 $C_D$–$M$ 曲线与 Figure 5-2 双弹道图（图表页所示 p.14：红色高角 76.67° 大弧顶点约 2400 m，蓝色低角 3.86° 几乎贴地直达 (1200, 500) 星标目标）构成核心视觉证据；Figure 5-7/5-8/5-9 三张线性度散点-拟合图支撑修正系数合法性。附录占全文六成：系数表、70° 射表、Trajectory_Analysis.m 与 Ballistic_Simulation.m 全部带行号收录。瑕疵：6.2.1 自评称"假设环境参数（密度、声速、黏度）恒定"与第 4.2 节 ISA 模型直接矛盾（疑为模板残留）；4.1 节式 (4-2) 的 $V_0\sin\theta=gt$ 与 $x=2V_0\cos\theta\, t$ 写法不规范（应为 $v_y=V_0\sin\theta-gt$）；"Free resistance model"命名易误解。</p>
+<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<ol>
+<li><strong>阻力建模的代差优势</strong>：Mach–Reynolds 双参数动态 $C_D$ + ISA 大气，把 450 m/s 超音速球弹的真实气动（跨音速阻力激增）纳入模型，物理深度超出"常数 $C_D$"队一档；</li>
+<li><strong>历史考证驱动建模</strong>：由 11 cm≈4.2/4.62 英寸推断 9/12-pounder 滑膛炮、直瞄射击战术对应 0–8° 俯仰范围（3.1 节），从武器史角度约束解空间，扣题极紧；</li>
+<li><strong>"线性度检验先行"的可计算性设计</strong>：先证明 $C_Z$/$C_W$/$C_H$ 在作战包线内近似线性（$R^2$ 全部报告），再把物理折叠成查表系数——修正方法的使用前提被显式验证，而非默认成立；</li>
+<li><strong>完整心算示例</strong>（7.3.3）：从查表到三次乘加到横移量，一步一步演算给评委看，"无计算器可用"被落实为可执行程序；</li>
+<li><strong>多层自洽性检验</strong>：真空对照、末速分析、$C_D$–$M$ 文献比对、线性度 $R^2$，形成验证矩阵；</li>
+<li><strong>坦诚且具体的弱点</strong>（射表精度不适于手查），显示对方法可用边界的清醒认知。</li>
+</ol>
+<h2 id="6">6. 可借鉴清单</h2>
+<ol>
+<li>涉及高速弹丸/强气动问题时，用 $C_D(M,Re)$ 动态系数替代常数阻力，并给出 $C_D$–$M$ 曲线与文献出处（Loth 2021 AIAA 即可复用）；</li>
+<li>大气性质用 ISA 分层公式（4-4 至 4-7 一套即可），比"密度指数衰减"更专业且实现成本相同；</li>
+<li>任何"简化为线性"的经验修正，都必须先做线性度检验并报告 $R^2$，同时解释非线性的物理来源（如高度项 $R^2=0.814$ 归因于密度的指数变化）；</li>
+<li>手工估算方法要配一个全流程心算示例（标准角→距离修正→高度修正→风修正→横移），步骤编号化；</li>
+<li>真空模型留作基线对照（$V_{min}$ 差值 33.6 m/s）是最廉价有力的模型自检；</li>
+<li>射表设计要面向用户：为人工查表保留 2–3 位有效数字与内插指引，而不是把求解器原始精度整表粘贴（本文自评的教训）。</li>
+</ol>
+</div></div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+});
+</script>
+</body>
+</html>

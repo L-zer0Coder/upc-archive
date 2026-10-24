@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2015 题B：绕树高尔夫——马格努斯曲线球（Golfing Around a Tree） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg:#0a0f1e;--panel:#111a2e;--ink:#e8eef8;--mut:#94a5c0;--line:#22304c;--acc:#4f7dd9;--acc2:#39c2b0;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
+ font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar a:hover{border-color:var(--acc);color:#fff}
+.crumb{color:var(--mut);font-size:13px}
+.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
+h3{font-size:17px;color:#cfe0ff}
+a{color:#7fb0ff} a:hover{text-decoration:underline}
+code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
+pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1em 0;padding:8px 16px;border-left:4px solid var(--acc2);background:rgba(57,194,176,.07);color:#c9d6ea;border-radius:0 10px 10px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#16233c;color:#a9bcda;white-space:nowrap}
+tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
+@media(max-width:700px){.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a href="../../index.html">🏆 总览首页</a>
+  <span class="crumb">07_题目解读</span>
+  <span style="flex:1"></span>
+  
+  <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2015_%E9%A2%98B_%E7%BB%95%E6%A0%91%E9%AB%98%E5%B0%94%E5%A4%AB.md">原文 .md</a>
+</div></div>
+<div class="wrap"><div class="card">
+<h1 id="2015-bgolfing-around-a-tree">2015 题B：绕树高尔夫——马格努斯曲线球（Golfing Around a Tree）</h1>
+<blockquote>
+<p>赛题来源：UPC 2015 Problem B（150 队中 73 队选题 B，金奖 1 队：南京大学 108 队）</p>
+</blockquote>
+<h2 id="1">1. 题目原文与关键数据</h2>
+<p><strong>原文压缩引用</strong>：</p>
+<blockquote>
+<p>A golfer hits an errant shot and finds the ball directly behind a tree, 120 meters from the green. The tree is too close and too tall to hit the ball over the tree, so the golfer is forced to hit the ball either to the left or to the right of the tree. Let us model the tree as a cylinder, with its center 10.0 meters from the ball, with branches extending in all directions to give our cylinder a radius of 5.0 meters. <strong>Describe the ball/club interaction that will result in a shot that will go around the tree and end up on the green.</strong> Assume the green is circular, 10.0 meters in diameter, and the center of the green is directly behind the center of the tree, as seen from the location of the ball.</p>
+</blockquote>
+<p><strong>中文翻译</strong>：球手一杆失误，球停在树的正后方，距果岭 120 m。树太近太高，无法从树顶打过，只能从左/右绕过。把树建模为圆柱：中心距球 10.0 m，枝叶向四周伸展使圆柱半径 5.0 m。<strong>描述球/杆的相互作用，使球绕过树并停上果岭。</strong>果岭为直径 10.0 m 的圆，圆心在树中心正后方（从球的位置看）。</p>
+<p><strong>题面给定参数表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>数值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>球–树轴距离</td>
+<td>10.0 m</td>
+<td>圆柱竖直，半径 5.0 m</td>
+</tr>
+<tr>
+<td>树半径</td>
+<td>5.0 m</td>
+<td>"too tall" → 越顶被排除，必须水平绕行</td>
+</tr>
+<tr>
+<td>球–果岭距离</td>
+<td>120 m</td>
+<td>果岭圆心与树轴、球三者共线</td>
+</tr>
+<tr>
+<td>果岭半径</td>
+<td>5.0 m</td>
+<td>落点判据</td>
+</tr>
+<tr>
+<td>球参数</td>
+<td>未给</td>
+<td>R&amp;A/USGA 标准：$R=21.35$ mm、$m=45.93$ g</td>
+</tr>
+<tr>
+<td>风 / 标高</td>
+<td>未给</td>
+<td>基线无风平地；扩展侧风 5 m/s</td>
+</tr>
+<tr>
+<td>杆</td>
+<td>未给</td>
+<td>需给出杆头速度、loft、瞄准角 → 初条件的完整映射</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<ol>
+<li><strong>先证明"直线不可能"</strong>——这是题目的几何陷阱，也是全部建模的出发点。设球在原点、飞行方向为 $x$ 轴：任何终于果岭盘内的直线满足 $y(120)=y_L,\ |y_L|\le5$ m，在 $x=10$ 处 $|y(10)|=|y_L|/12\le0.42$ m $&lt;5$ m——<strong>全部直线都穿树</strong>。换算成张角：树半张角 $\arcsin(5/10)=30°$ ≫ 果岭半张角 $\arcsin(5/120)\approx2.4°$。10 m 处要躲开、120 m 处要回中，轨迹必须弯——<strong>需要一个持续的侧向力，唯一可控的物理机制就是侧旋的马格努斯力</strong>。</li>
+<li><strong>"Describe the ball/club interaction"</strong>：题眼不是"给出一条轨迹"，而是"杆面参数 → 球初条件"的映射：杆头速度、loft（产生 backspin）、瞄准/杆面角（产生 sidespin），经斜碰撞模型输出 $(\vec v_0,\vec\omega)$，再经飞行/弹跳映射到落点。</li>
+<li><strong>"end up on the green"</strong>：落点判据必须含弹跳与滚动——第一次弹跳就滚出 5 m 圈的方案是假方案。</li>
+<li><strong>开放题的完整交付物</strong>：不是单条魔法轨迹，而是可行域（哪些杆法能上果岭）+ 容差量化（裕度）+ 教练式建议（具体角度与速度）。</li>
+</ol>
+<h2 id="3">3. 物理建模路线图</h2>
+<p><strong>层次 1：几何可行性</strong>。侧偏约束 $y(10)\gtrsim5.1$ m（留球半径余量）、回中约束 $|y(120)|\le5$ m。取常数侧向加速度 $a_M$ 的两点估计：$y(x)=x\tan\psi+\dfrac{a_Mx^2}{2v_0^2\cos^2\psi}$，联立两式得瞄准偏角 $\psi\approx30°$、$a_M\approx26$ m/s²（$v_0=60$ m/s）→ 所需 $C_L\approx0.39$、自旋 $\omega\sim10^4$ rpm（自旋参数 $S=R\omega/v\approx0.35$）——与实验可达范围自洽，量级估算先行定盘。</p>
+<p><strong>层次 2：杆–球斜碰撞（&lt;0.5 ms 冲击近似）</strong>。法向/切向动量守恒 + 角动量守恒 $mRV+I\omega=0$（$I=\tfrac25mR^2$）+ 无滑动/共速约束，联立为 10 元线性方程组 $\mathbf b=P\mathbf v$，由杆面几何（loft $\theta$、drift $\psi$）解出碰后 $\vec v_0,\vec\omega$。</p>
+<p><strong>层次 3：自由飞行</strong>。三维 ODE：二次阻力 $f_d=\tfrac12C_D\rho_{air}Sv^2$（凹坑球 $C_D\sim0.25$）+ 马格努斯力 $f_M=C_M(\vec\omega\times\vec v)$；backspin 轴水平提供竖直升力延长滞空，sidespin 轴近竖直提供水平侧力绕树。</p>
+<p><strong>层次 4：落地与滚动</strong>。Penner 恢复系数 $e(v_\perp)$（$|v_\perp|&gt;20$ m/s 取 0.12）+ Daish 反弹 $v&#x27;_\parallel=\tfrac57v_\parallel-\tfrac27R\omega_r$；弹跳总长为公比 $e$ 的几何级数，滚动 $L_r=v&#x27;^2_\parallel/2\mu g$；注意 backspin 过大时 $v&#x27;_\parallel&lt;0$ 球会回滚。扩展：侧风进入相对速度项。</p>
+<pre><code class="language-mermaid">flowchart TD
+    A[&quot;几何判定：直线全被封死（30° vs 2.4°）&quot;] --&gt; B[&quot;必须曲线球 → 侧旋 Magnus&quot;]
+    B --&gt; C[&quot;层次2 杆-球斜碰撞：10 元线性方程组 → (v0, ψ, ω)&quot;]
+    C --&gt; D[&quot;层次3 三维 ODE：二次阻力 + Magnus（backspin / sidespin）&quot;]
+    D --&gt; E[&quot;事件函数：碰树圆柱 / 落地即中断&quot;]
+    E --&gt; F[&quot;层次4 弹跳几何级数 + 滚动 → 终点&quot;]
+    F --&gt; G[&quot;(ψ, γ) 参数空间扫可行域&quot;]
+    G --&gt; H[&quot;裕度 M = RMS 距离 → 反推最稳打法&quot;]
+    H --&gt; I[&quot;教练式建议：loft 22.5°、v ≈ 60 m/s、偏树 ~44° 方向&quot;]
+</code></pre>
+<h2 id="4">4. 关键物理效应量级表</h2>
+<table>
+<thead>
+<tr>
+<th>效应</th>
+<th>估算量级</th>
+<th>是否必须建模</th>
+<th>估算依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>直线被封死</td>
+<td>树半张角 30° vs 果岭半张角 2.4°</td>
+<td>必须（论证起点）</td>
+<td>$\arcsin(5/10)$、$\arcsin(5/120)$</td>
+</tr>
+<tr>
+<td>侧向 Magnus 加速度需求</td>
+<td>~15–26 m/s²（1.5–2.6 g）</td>
+<td>必须（题眼）</td>
+<td>两点几何估计 + $C_L=2ma/(\rho Av^2)$</td>
+</tr>
+<tr>
+<td>自旋速率需求</td>
+<td>~$10^4$ rpm（$S\approx0.35$）</td>
+<td>必须</td>
+<td>$S=R\omega/v$；挖坑球 $C_L$–$S$ 实验曲线</td>
+</tr>
+<tr>
+<td>二次阻力</td>
+<td>凹坑 $C_D\sim0.25$（光滑 ~0.5）；真空射程 260 m → 实际 ~150–200 m</td>
+<td>必须</td>
+<td>$\tfrac12\rho C_DAv^2$</td>
+</tr>
+<tr>
+<td>backspin 升力</td>
+<td>滞空延至 5–7 s；无升力则 120 m 需更大 $v_0$</td>
+<td>必须</td>
+<td>滞空观测与实验</td>
+</tr>
+<tr>
+<td>反向 Magnus</td>
+<td>落段 $Re\approx7\times10^4$ 临界（实验阈值 $Re&lt;7\times10^4$ 时升力行为反转）</td>
+<td>扩展讨论</td>
+<td>$Re=vd/\nu$，$v$ 从 60 衰减到 ~25 m/s</td>
+</tr>
+<tr>
+<td>侧风 5 m/s</td>
+<td>5–6 s 滞空 → 横移可达 ~20–30 m（果岭半径才 5 m）</td>
+<td>扩展（真实比赛必须）</td>
+<td>相对速度修正</td>
+</tr>
+<tr>
+<td>弹跳 + 滚动</td>
+<td>首弹 $e\approx0.12$–0.5（随撞速），弹跳总长 $\approx2L_{b1}$，滚动数 m</td>
+<td>必须（落点判据）</td>
+<td>Penner / Daish 公式</td>
+</tr>
+<tr>
+<td>避树净空</td>
+<td>树缘 5 m − 球半径 0.021 m → 余量 ~5.07 m；参数误差吃掉米级</td>
+<td>裕度量化</td>
+<td>几何 + 误差传播</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5">5. 求解算法与数值要点</h2>
+<ul>
+<li><strong>阶段划分定工具</strong>：碰撞 = 线性代数（矩阵 $\mathbf b=P\mathbf v$ 逐行注物理含义）、飞行 = 事件驱动 ODE、弹跳 = 几何级数解析——每段用最合适的数学工具。</li>
+<li><strong>事件函数</strong>：积分到"与树圆柱相交"或"$z=0$"即中断并记录状态（Mathematica EventLocator / MATLAB ode45 Events），避免定步长过冲穿树。</li>
+<li><strong>扫参可行域</strong>：在（瞄准角 $\psi$、侧旋 $\gamma$）平面栅格化（步长 0.01–0.02），落进果岭记可行；再算裕度 $M=\sqrt{\frac1S\int[(\psi-\bar\psi)^2+(\gamma-\bar\gamma)^2]\,d\tau}$，把"容不容得失误"变成一个标量并反推最优杆速。</li>
+<li><strong>验证</strong>：负对照——去掉侧旋后轨迹必须撞树（几何判据的数值复核）；碰撞矩阵用能量/角动量守恒核对；步长收敛检验；$C_D,C_L$ 引实验曲线并区分光滑/凹坑球。</li>
+<li><strong>陷阱</strong>：$\vec\omega\times\vec v$ 的轴向与符号（sidespin 轴近竖直、力水平；backspin 轴水平、力竖直）；把 $a_M$ 当常数外推会高估远端弯曲（力 $\propto v^2$ 且随 $v$ 衰减）；恢复系数 $e$ 随撞速变化，不能取常数。</li>
+</ul>
+<h2 id="6">6. 常见错误与陷阱</h2>
+<ol>
+<li><strong>不证明直线不可能、不解释为何必须侧旋</strong>：直接"数值试出"一条弯轨迹，物理归因缺失——本题最大的区分度就在这一步。</li>
+<li><strong>只答轨迹不答杆</strong>：题眼是 ball/club interaction，缺"杆面参数 → 初条件"映射等于答非所问。</li>
+<li><strong>Magnus 力用错</strong>：轴向/符号错，或忘记力随速度平方衰减，用恒定 $a_M$ 外推全程。</li>
+<li><strong>气动系数拍脑袋</strong>：$C_D/C_L$ 必须引文献并区分凹坑/光滑与 Re 区间，还要留意低速反向 Magnus 的适用边界。</li>
+<li><strong>落地即停</strong>：忽略弹跳与滚动（或忽略 backspin 过大导致回滚 $v&#x27;_\parallel&lt;0$ 的情形），落点判据失真。</li>
+<li><strong>单点答案无容差</strong>：真实球手需要"偏几度、慢几米每秒还能上果岭"的鲁棒性结论。</li>
+</ol>
+<h2 id="7">7. 全网参考与延伸</h2>
+<ol>
+<li><strong>Lyu et al. 2020《The reverse Magnus effect in golf balls》</strong>（<a href="https://link.springer.com/article/10.1007/s12283-020-0318-1">Sports Engineering</a>）——$Re&gt;7\times10^4$ 时 $C_L$ 随转速稳定上升，更低 Re 出现反向 Magnus：为落段升力行为与模型适用区间提供文献依据。</li>
+<li><strong>Li et al. 2017《Numerical Investigation of the Flow Past a Rotating Golf Ball》</strong>（<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6044256">PMC 全文</a>）——CFD 给出挖坑球更高升力、更低阻力的定量数据，可用于标定 $C_D(Re,S)$、$C_L(Re,S)$。</li>
+<li><strong>Lyu et al. 2018《Aerodynamics of Golf Balls in Still Air》</strong>（<a href="https://www.mdpi.com/2504-3900/2/6/238">MDPI</a>）——实测 $C_D$ 从低速 ~0.5 降至高速 ~0.2、$C_L$ 与转速正相关，是"系数不拍脑袋"的直接出处。</li>
+</ol>
+<h2 id="8">8. 金奖论文思路对比</h2>
+<p>本题金奖唯一一队（南京大学 108 队，24 页）：两阶段拆分（Free-flight / Bouncing）→ 杆–球斜碰撞写成 10 元线性方程组矩阵 $\mathbf b=P\mathbf v$（附录逐行标注物理含义）→ 飞行段为带二次阻力与 Magnus 力的三维 ODE，用事件定位器在碰树/落地时中断衔接 → 弹跳用 Penner 恢复系数 + Daish 反弹公式解析处理、几何级数求弹跳总长 → 在 $(\psi,\gamma)$ 平面扫可行域，并原创定义"系统裕度 $M$"反推最优打法，最终建议 loft 22.5°、drift ~17°、偏树 ~44° 方向、速度 ~60 m/s → 附录扩展 5 m/s 侧风。亮点是"可行域 + 裕度"把解题升级为设计建议，三种相互作用（杆–球、球–空气、球–地）各有专属模型与文献系数。详细拆解见 <code>05_论文赏析\2015\2015-GM-B-108.md</code>。</p>
+<h2 id="9">9. 评分要点：评委想看什么</h2>
+<ul>
+<li>[ ] 几何必然性论证：直线全被封死、必须侧向持续力（30° vs 2.4° 的张角对比）。</li>
+<li>[ ] ball/club interaction 正面回答：杆面参数 → 初条件的斜碰撞模型。</li>
+<li>[ ] Magnus 力轴向/符号正确；$C_D,C_L$ 有文献出处与凹坑说明。</li>
+<li>[ ] 落点判据含弹跳 + 滚动（恢复系数随撞速变化、回滚情形）。</li>
+<li>[ ] 可行域图 + 容差/裕度量化，而非单条轨迹。</li>
+<li>[ ] 三阶段用事件函数精确衔接，并做负对照与收敛性检验。</li>
+</ul>
+</div></div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+});
+</script>
+</body>
+</html>

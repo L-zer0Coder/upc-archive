@@ -1,0 +1,1304 @@
+Team 358
+Problem B
+The Best Strategy for Penalty Kicks
+Abstract
+Exploring the optimal penalty kicks strategies has practical significance for football players.
+In this paper, we study the motion of a spinning soccer ball based on aerodynamics during
+its flight. Taking air buoyancy, gravity, air resistance and Magnus force into consideration, we
+provide the motion equations of the ball and solve the set of ordinary differential equations
+numerically. Given any initial velocity value and initial angular velocity value and direction,
+we can obtain the trajectory of soccer.
+We can also calculate the range of the reasonable
+direction angles θ and ϕ in the spherical coordinate system which can reach upper corners.
+Taking v0 = 25m/s,⃗ω = 15⃗k as an example, we find the the range of θ is [76.7◦, 79.8◦] and the
+range of ϕ is [75.5◦, 84.5◦] and [100.0◦, 110.5◦]. Fixing⃗ω, we gain the minimum value of initial
+velocity v0min = 20.17m/s. We then consider two modes of defense of the goalkeeper:vertical
+movement defense and diving save. We firstly present the success probability distribution of
+defense by Monte Carlo Simulation. Subsequently we analysis the cases that the shooting player
+will definitely avoid the goalkeeper by finding the dead angles.It’s found that the dead angle
+area is two symmetrical rectangles. Taking v0 = 25m/s,⃗ω = 15⃗k as an example again, the range
+of θ is [76.95◦, 78.95◦]and the range of ϕ is [75.5◦, 75.9◦] and [110.3◦, 110.6◦].
+Keywords: upper corner, Aerodynamics, Ordinary differential equation
+
+Team 358
+Page 2 of 24
+Contents
+1
+Introduction
+3
+1.1
+Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+1.2
+Problem Restatement . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+1.3
+Problem Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+2
+Assumptions and Notations
+4
+2.1
+Assumptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2.2
+Notations
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+3
+Model
+5
+3.1
+The Flight Trajectory of a Spinning Soccer . . . . . . . . . . . . . . . . . . . . . . . .
+5
+3.1.1
+Air Buoyancy and Gravity . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+3.1.2
+Air Resistance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+3.1.3
+Magnus Force . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+3.1.4
+The Effect of Air Resistance on Ball Spin . . . . . . . . . . . . . . . . . . . . .
+7
+3.1.5
+Derivation of Motion Equation
+. . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+3.1.6
+Solution to the Motion Equation
+. . . . . . . . . . . . . . . . . . . . . . . . .
+8
+3.2
+The Best Way of Avoiding the Goalkeeper and Making the Goal
+. . . . . . . . . . .
+10
+3.2.1
+Probability Distribution of Successful Defense . . . . . . . . . . . . . . . . . .
+10
+3.2.2
+The Dead Angle of the Goalkeeper’s Defense . . . . . . . . . . . . . . . . . . .
+14
+4
+Discussion
+17
+4.1
+Advantages
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+17
+4.2
+Disadvantages . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+17
+5
+Conclusion
+17
+Reference
+18
+Appendix
+18
+
+Team 358
+Page 3 of 24
+1
+Introduction
+1.1
+Background
+Penalty kick, awarded when an offence punishable by a direct free kick is committed by a player
+in their own penalty area or a draw after extra time occurs , is sometimes seen in soccer matches.
+When a penalty kick is taken, a soccer player will take a shot at the goal from the penalty mark
+defended only by the opposing team’s goalkeeper. As penalty kick sometimes plays an critical role
+in scores, soccer players might emphasize their training in penalty kick skills. The skills involve not
+only kick skills but also some strategies to mislead the opposing goalkeeper.
+The force and flight trajectory is always analysed based on aerodynamics. Learning the rule of
+soccer’s movement have practical significance for kickers to improve their success rate of penalty
+kicks. And some researches on soccer movement have be conducted by previous scholars.
+1.2
+Problem Restatement
+When a penalty kick is taken, one player takes a single shot which is defended by one goalkeeper
+of the opposing team. The shooting player kicks the ball at the penalty mark, which is centered 11
+meters from the goal. The goal is regarded as a rectangle 7.32 meters wide and 2.44 meters tall. The
+shooting player prefers to aim for an upper corner of the goal to avoid being defended. Our main
+task is to consider the initial ball velocity and spin for a successful shot to an upper corner. We also
+have to consider how to create the optimal initial ball velocity and spin to have the best probability
+to avoid the goalkeeper.
+1.3
+Problem Analysis
+Firstly we need to set up the situation for kicking a penalty. The image of the penalty area is
+shown below:
+Figure 1: The penalty area[1]
+To solve the first question, we have to define the upper corners of the goal. In general, we divide
+the area of the goal into nine equal parts, and consider the upper left corner and the upper right
+corner as the upper corners, which are shown in the figure below.
+
+Team 358
+Page 4 of 24
+Figure 2: The upper corners
+In order to obtain the initial ball velocity and spin for a successful shot to an upper corner,
+we have to analyze the motion of the ball and find the trajectory by analyzing the forces based on
+aerodynamics and solving dynamic equation system. The reasonable initial velocity and spin angular
+velocity should be a range.
+To solve the second question, we have to consider the defense of the goalkeeper. Firstly we consider
+the probability of the goalkeeper’s success in defending different areas. The shooting player tends
+to kick the ball towards the areas with a relatively lower probability of being defended successfully.
+Then we consider the areas that cannot be defended by the goalkeeper which will ensure the success
+of shooting.
+2
+Assumptions and Notations
+2.1
+Assumptions
+• The parameters of soccer are determined according to standards set by the FIFA(International
+Federation of Association Football).
+• Assuming that both the kicker and the goalkeeper are high level football players, which means
+that the kicker can accurately hit the ball to the target position and there is no possibility that
+the goalkeeper predict a totally wrong direction of the ball.
+• The goalkeeper stands in the middle of the goal line at the start.
+• We assume that the air is even and the situation is at normal temperature and pressure as air
+density varies at different temperatures and pressures.
+• Environment does not change much during the flight of the ball, so we do not consider the
+change of temperature and the influence of natural wind.
+
+Team 358
+Page 5 of 24
+2.2
+Notations
+Table 1: Notations
+Symbol
+Definition
+Numeric Value
+r
+The radius of soccer
+108mm
+m
+The mass of soccer
+430g
+g
+The gravitational acceleration
+9.8m/s2
+ρ0
+The mass density of air
+1.27kg/m3
+Ca
+An air resistance coefficient
+0.4
+H
+The height of the goal
+2.44m
+W
+The width of the goal
+7.32m
+3
+Model
+3.1
+The Flight Trajectory of a Spinning Soccer
+In order to find out the proper initial ball velocities and spins which will result in a successful
+shot to an upper corner,we firstly consider the flight trajectory of a spinning soccer. In addition to
+being affected by gravity, the ball also interacts with the air during the flight. In our Model, the
+interaction of the football with the air includes air resistance, air buoyancy and the Magnus force
+generated by rotation.
+Before solving the problem, we establish a spatial Cartesian coordinate system. The penalty mark
+is the coordinate origin, while the positive direction of y-axis points to the center of the goal. When
+facing the goal, the positive direction of x-axis points to the right, and that of z-axis is straight up
+vertically. The example image is shown below:
+Figure 3: The spatial Cartesian coordinate system
+3.1.1
+Air Buoyancy and Gravity
+As both air buoyancy and gravity are constants in the vertical direction, it is easy to gain their
+expressions. According to Archimedes principle, air buoyancy can be calculated:
+
+Team 358
+Page 6 of 24⃗
+Ffloat = −ρ0⃗gV = −4
+3πr3ρ0⃗g
+(1)⃗
+G = m⃗g
+(2)
+3.1.2
+Air Resistance
+The relationship between air resistance and flying speed can be obtained through a simplified
+model. We consider a round disk which is the maximum cross-section of the sphere and is orthogonal
+to the direction of velocity[2]. The example image is as follows:
+Figure 4: The airflow on both sides of the disk
+The airflow on the right is not passed through by the ball, whose relative flow velocity is v1 = v
+and gas pressure is p1 , while that on the left is blocked by the ball with the relative flow velocity
+v2 = 0 and gas pressure p2. From Bernoulli’s principle, we can find an equation:
+p1 + 1
+2ρ0v2
+1 = p2 + 1
+2ρ0v2
+2
+(3)
+The pressure difference between the two sides is:
+p1 −p2 = 1
+2ρ0v2
+(4)
+The effective area of action of pressure is S = πr2, so the resistance to the disk is:
+Ff = (p1 −p2)S = 1
+2ρ0Sv2
+(5)
+This is a simplified expression of resistance. In reality, the situation is more complicated because
+the ball is not a disk, and the air rubs against the surface of the ball. We introduce an air resistance
+coefficient Ca to correct the equation, and according to relevant document[3], we find that Ca = 0.4.
+Finally, we gain the vector form of the equation:⃗
+Ff = −1
+2Caρ0Sv2⃗v
+v = −0.2πr2ρ0v⃗v
+(6)
+
+Team 358
+Page 7 of 24
+3.1.3
+Magnus Force
+Due to the combined influence of the spinning of the soccer ball and air viscosity, a circulation
+is generated around the soccer ball. On the side where the air flow is in the same direction as the
+direction of spinning, the air flow rate accelerates, while on the other side in the opposite direction,
+the air flow rate slows down.
+Figure 5: The Magnus effect[4]
+According to Bernoulli principles, the pressure decreases on the side where the flow rate increases,
+while the pressure rises on the side where the flow rate slows down[5]. As a result, the pressure
+difference between the two sides exerts a lateral force on the football called the Magnus force. From
+Kutta–Joukowski theorem, we obtain the expression of Magnus force[6]:⃗
+Fm = −8
+3πr3ρ0⃗ω ×⃗v
+(7)
+3.1.4
+The Effect of Air Resistance on Ball Spin
+Due to the tangential friction between the ball and the air as it rotates, the angular velocity of
+the soccer actually changes with time rather than being a constant. Like the normal friction which
+impacts the velocity of the ball, the effect of tangential friction can be written as dw
+dt = −kw, where
+k is a coefficient related to radius of ball, density of air and Reynolds number of air. So the law of
+angular velocity changing with time is ω = ω0e−kt.
+As the rate of angular velocity change is proportional to the moment of tangential friction and
+the moment is cross product of radius and friction, the coefficient k is proportional to the cube of
+the radius. The radius of soccer is 0.108m, so the order of magnitude of k is the negative cube of 10.
+Plus, the flight time of the football is less than one second. So the final angular velocity is less than
+ω0 and larger than ωe−10−3 = 0.999ω0, which can be regarded as a constant ω0. Therefore, we can
+conclude that the change of angular velocity due to tangential friction can be neglected.
+3.1.5
+Derivation of Motion Equation
+As we have obtained the expressions of gravity, air buoyancy, air resistance and Magnus force,
+the motion equation can be present:
+md2⃗r
+dt2 =⃗G +⃗Ffloat +⃗Ff +⃗Fm
+= m⃗g −4
+3πr3ρ0⃗g −0.2πr2ρ0v⃗v −8
+3πr3ρ0⃗ω ×⃗v
+(8)
+
+Team 358
+Page 8 of 24
+Figure 6: Forces analysis
+We decompose velocity and angular velocity into three directions (⃗i,⃗j,⃗k are the unit vectors of
+x,y,z axes):⃗
+v = vx⃗i + vy⃗j + vz⃗k⃗
+ω = ωx⃗i + ωy⃗j + ωz⃗k
+(9)
+Then we can decompose the vector motion equation into three component forms:
+
+
+
+
+
+
+
+
+
+md2x
+dt2 = −0.2πr2ρ0
+q
+vx2 + vy2 + vz2 · vx + 8
+3πr3ρ0 (vy · ωz −vz · ωy)
+md2y
+dt2 = −0.2πr2ρ0
+q
+vx2 + vy2 + vz2 · vy + 8
+3πr3ρ0 (vz · ωx −vx · ωz)
+md2z
+dt2 = −0.2πr2ρ0
+q
+vx2 + vy2 + vz2 · vz + 8
+3πr3ρ0 (vx · ωy −vy · ωx) −mg + 4
+3πr3ρ0g
+(10)
+3.1.6
+Solution to the Motion Equation
+The motion equation is a set of second-order ordinary differential equations and there is no
+symbolic solution. We write Python codes to solve it numerically, and we can easily obtain the flight
+trajectory as long as giving the initial velocity⃗v0 and angular velocity⃗ω0.
+According to Ravenscroft’s research[7], the ball initial velocity can reach 23.9 ±1.2(Unit :
+m/s)(average player). So our calculation is based on this data. Here we provide an example to
+show the trajectory (⃗v0 = −3.40⃗i + 19.27⃗j + 4.16⃗k(Unit : m/s),⃗ω0 = 15⃗k(Unit : rad/s)):
+Figure 7: A trajectory as an example
+
+Team 358
+Page 9 of 24
+Due to the value and direction of initial velocity, as well as the value and direction of initial
+angular velocity are unknown, it is difficult to judge the landing point of the trajectory. To simplify
+the solution, we suppose the value of initial velocity is constant and the direction is variable, and
+suppose the angular velocity is also a constant. In this case, we can get the range of initial velocity
+direction angles that the ball can be kicked into the upper corner.
+Considering that the value of initial velocity is v0 = 25(Unit : m/s), we transform Cartesian
+coordinates into spherical coordinates and using θ and ϕ to express the direction:
+
+
+
+
+
+vx0 = u0 sin θ cos φ
+vy0 = u0 sin θ sin φ
+vz0 = u0 cos θ
+(11)
+When it comes to the angular velocity of spinning, we present two possible cases specifically.
+Case1: The angular velocity contains only z-direction component
+We fix the angular
+velocity at⃗ω = 15⃗k(Unit : rad/s). The goal area is divided into nine rectangles of the same shape,
+with the upper corners including the upper left corner and the upper right corner. According to the
+above initial conditions, we change θ and ϕ to obtain the range of direction angles in which the ball
+can be shot into the upper corners.
+We solve the problem by writing Python programs, and finally we obtain an image of the reason-
+able direction angles.
+Figure 8: The trajectories with reasonable initial direction angles with⃗ω = 15⃗k
+The range of θ is [76.7◦, 79.8◦] and the range of ϕ is [75.5◦, 84.5◦] and [100◦, 110.5◦].
+We then change the value of the initial velocity, and traversed a set of initial velocity values
+through Python programming to obtain the minimum initial velocity that can reach the upper
+corners. We finally find out that when the value of initial velocity is less than v0min = 20.17m/s,
+there is no possibility of the ball to hit the upper corners.
+Case2: The angular velocity contains x,y,z-direction components
+We assume the angular
+velocity as⃗ω = 6⃗i + 6⃗j + 6⃗k(Unit : rad/s). we obtain an image of the reasonable direction angles as
+follow.
+
+Team 358
+Page 10 of 24
+Figure 9: The trajectories with reasonable initial direction angles with⃗ω = 6⃗i + 6⃗j + 6⃗k
+The range of θ is [75.29◦, 79◦] and the range of ϕ is [73.5◦, 84.0◦] and [98◦, 108.5.5◦]. When the
+value of initial velocity is less than v0min = 20.18m/s, there is no possibility of the ball to hit the
+upper corners.
+It is worth noting that, comparing with⃗ω = 15⃗k, the trajectory of⃗ω = 6⃗i + 6⃗j + 6⃗k is more
+asymmetric, which is the effect of the initial angular velocity.
+To sum up, in the condition of the given value of initial velocity and initial angular velocity, the
+ball can reach the upper corners if the shooting player kicks it in the range of orientation angles
+shown in the image above. As the reasonable orientation angles can’t be expressed by mathematical
+language such as equation and inequalitywe only give the range of reasonable orientation angles here.
+The specific value range of the direction angle can be obtained by using the code in the appendix.
+3.2
+The Best Way of Avoiding the Goalkeeper and Making the Goal
+To simplify the calculation, the height of the goalkeeper is assumed to be 1.90m, which is recog-
+nized as the best height of goalkeepers, and denoted as h. According to relevant document [8],the dis-
+tance between shoulders and chin is the 1
+2 length of head and the length of head is 1
+8 of the whole body.
+Therefore the height of the goalkeeper’s shoulder center, denoted as hl, is:hl = h· 8−1−1/2
+8
+= 154.375cm.
+Also from the document[8], the length of a person’s arms outstretched is equal to his height.So the
+length of goalkeeper’s arm, denoted as l,is l = h · 1
+2 = 0.95m.
+After getting all the required parameterswe can discuss several different defense methods of goal-
+keeper, and calculate the corresponding range that the goalkeeper can reach.
+In the following discussion, we will analysing two defense modes:vertical movement defense and
+diving save. Vertical movement defence means the goalkeeper stands still, jumps up or squats down
+with arms opened. Diving save means the goalkeeper jump left or right to block the ball.
+3.2.1
+Probability Distribution of Successful Defense
+In order to avoid the goalkeeper and make the goal, the first thing is to figure out the probability
+distribution of the goalkeeper’s defense. Kickers should shoot the area with relatively small defense
+probability. In the following discussion, we will analyse the probability distribution of Successful
+Defense and visualize it.
+From the former model, the minimum reasonable velocity is 20.17m/s, and the we can calculate
+the corresponding maximum flight time 0.65s with Python program. So we assume the maximum
+
+Team 358
+Page 11 of 24
+time for goalkeeper to block the soccer is tmax = 0.65s.
+Vertical movement defense
+Let’s first discuss the vertical movement defense. If the goalkeeper
+stand still with arms opened, then in the middle upper part of the goal, the reachable area consists
+of a circle drawn by arms.If the goalkeeper squats down, then the area under the former circle can
+all be reached. With a maximum descent acceleration g, the time consumption of squatting down is
+q
+2hl
+g = 0.56s, which is feasible because it is shorter than tmax.
+Figure 10: The area reached by vertical movement defense without jump
+From the above graph and results, we can find that with a jump higher than 0.90m, the goalkeeper
+can reach all the area above the bar. Then we analyze the possibility of a jump higher than 0.9m
+and in reasonable time. A professional athlete can jump 1 meter high. And we can estimate the time
+as √2 · g · ∆h = 0.43s, which is a reasonable time. Therefore, a jump higher than 0.90m is feasible.
+So in vertical movement defense mode, the reachable area inside the goal is a rectangle 2l = 1.9m
+wide and H = 2.44m tall.
+Figure 11: The area reached by vertical movement defense
+Diving save
+Next, we discuss the diving save. Again we assume the goalkeeper can jump to 1
+meter high. And the acceleration distance, which is replaced with the estimated squat height 40cm,is
+
+Team 358
+Page 12 of 24
+denoted as sa. Then the take off speed v0 can be calculated as v0 = √2g∆h = 4.43m/s. The force
+FN on the ground when taking off and the acceleration time t0 satisfy the equation set:
+v2
+0 = 2(FN
+m −g)Sa
+v = (FN
+m −g)t0
+(12)
+After solving the equation set, we get:FN
+m = 34m/s2, t0 = 0.181s. The goalkeeper may jump either to
+the left or to the right. The angle between the acceleration force from the ground FN and the ground
+is denoted as α. Consider FN and the gravity mg, we get the horizontal and vertical acceleration as
+ax = FN
+m · cosα, az = FN
+m · sinα −g.
+Figure 12: Force analysis of goalkeeper when taking off
+After multiplying t0, we get the taking off speed:
+(
+vx = FN
+m · cosα · t
+vy = (FN
+m · sinα −g) · t
+(13)
+So the coordinates of the goalkeeper is:
+(
+x = vxt
+y = y0 + vyt −1
+2gt2
+(14)
+where y0 is the initial height of the shoulders. Eliminating time t, we get the trajectory of goalkeeper’s
+shoulder as:
+y = y0 + vy
+x
+vx
+−1
+2g
+ x
+vx
+2
+(15)
+Up to now, all the variables such as vx, x is determined only by the angle α. What we need to
+do now is find the α maximizes the area below the trajectory and also in reasonable time, which is
+relative to the reachable area by diving save mode.
+The area can be calculated as:
+S =
+Z xt
+0
+ 
+y0 + vy
+x
+vx
+−1
+2g
+ x
+vx
+2!
+dx = y0xt + 1
+2
+vyx2
+t
+vx
+−1
+6gx3
+t
+v2
+x
+(16)
+where xt is the largest x the goalkeeper’s shoulder can reach in tmax and xt = vx · tmax.
+We writing python codes to get the α that maximizes S. α = 0.64rad. And we can plot the
+trajectory as follow.
+
+Team 358
+Page 13 of 24
+Figure 13: The trajectory of goalkeeper’s shoulders
+We can also obtain xt = 3.235m.
+Considering the arms of goalkeeper, we draw the farthest points arms can reach, and interpolate
+them. After interpolation, we can get the reachable area by diving save mode.
+Figure 14: The area reached by diving save
+Considering the two defense modes, the probability distribution is the sum of them. We assume
+that the success probability of a goalkeeper’s defense is a two-dimensional normal distribution in x
+and z directions.
+At the same time, we give different weights to different areas in the goal, considering that different
+defensive approaches of goalkeepers have different defense areas and they overlap. The weighting
+method is based on the overlaps of the different defensive areas. The more times the defense areas
+
+Team 358
+Page 14 of 24
+overlap, the greater the weight is. So, we can define r(x, z) to denotes the success possibility:
+r(x, z) = nfxz(x, z)
+(17)
+Here, n denotes the number of times the defensive area overlaps. fxz(x, z) is the normal function on
+the xOz plane. We can use the Monte Carlo simulation method to study the the distribution of the
+success possibility, shown in Figure 15. The lighter the color appears, the higher the probability of
+successful defense is .
+Figure 15: Distribution of success possibility
+3.2.2
+The Dead Angle of the Goalkeeper’s Defense
+Instead of seeking to shot the points with small probabilities that a goalkeeper can reach, we
+shot the points that goalkeeper can’t reach any way due to constraints such as physical limitation.
+However, we neglect the time limit tmax = 0.65s as we are pursuing the absolute died angle area.
+Also we discuss these two defense methods of goalkeeper, and calculate the corresponding range
+that the goalkeeper can reach. Then, we find the intersection of all the ranges that can be reached,
+and find the difference between the reachable range and the goal range, which is the dead angle zone.
+Vertical movement defense
+The vertical movement defense mode is the same as above, so we
+directly use the result of the above model, that is , in vertical movement defense mode, the reachable
+area inside the goal is a rectangle 2l = 1.9m wide and H = 2.44m tall.
+Diving save
+However, the diving save mode is different from the above one. The integral upper
+limit xt changes because there is no time limit.
+We can calculate xt with the following method.When y = 0, xt =
+vxvy+vx√
+v2y+2gy0
+g
+, so we get :
+S =
+Z xt
+0
+ 
+y0 + vy
+x
+vx
+−1
+2g
+ x
+vx
+2!
+dx = y0xt + 1
+2
+vyx2
+t
+vx
+−1
+6gx3
+t
+v2
+x
+(18)
+We also write python codes to get the α that maximizes S. α = 0.92rad. And we can plot the
+trajectory as follow.
+
+Team 358
+Page 15 of 24
+Figure 16: The trajectory of goalkeeper’s shoulders in dead angle situation
+We can get time of movement ts = xt
+vx = 0.972s.
+Also, we draw the farthest points arms can reach, and interpolate them. After interpolation, we
+can get the reachable area by diving save mode.
+Figure 17: The area reached by diving save in dead angle situation
+Considering the two defense methods, there are only two corners left inside the goal, which is the
+absolute dead angle area.
+Let’s have a look at the dead angle area:
+
+Team 358
+Page 16 of 24
+Figure 18: The dead angle area
+It can be simplified as a triangle. The intersections of reachable area(or dead angle area) and the
+goal can be calculated with the interpolated area function. Their coordinates are (±2.84, 2.44),(±3.66, 1.648).
+And considering the radius of football, the actual dead angle area is a rectangle smaller than the
+triangle above, but it is still large enough for the ball to pass through.
+Again we assume the angular velocity as⃗ω = 15⃗k(Unit : rad/s) and initial velocity as v0 =
+25((Unit) : m/s). Using Python programs, we obtain an image of the reasonable direction angles.
+Figure 19: The trajectory of soccer with reasonable initial direction angles
+The ball can reach the upper corners if the shooting player kicks it in the range of orientation
+angles shown in the image above. The specific value range of the direction angle can be obtained by
+using the code in the appendix. The range of reasonable orientation angles are as follows. The range
+of θ is [76.95◦, 78.95◦] and the range of ϕ is [75.5◦, 75.9◦] and [110.3◦, 110.6◦].
+
+Team 358
+Page 17 of 24
+4
+Discussion
+4.1
+Advantages
+• We consider the issue comprehensively.
+When analysing the force on soccer, we take forces into account as much detail as possible.
+And also, we analyse two defense modes of the goalkeeper.
+•
+The universality of our model is strong.
+With a random initial conditions(including direction and value of velocity and angular velocity),
+we can calculate and obtain the trajectory of the soccer, and therefore determine whether the
+ball can enter the target area.
+• The solution is of high accuracy.
+With suitable numerical analysis methods and Python programming, we obtain results of high
+accuracy. For example, when calculating the reasonable direction range, we traverse enough
+points to obtain the set of solution.
+• Our assumptions and parameters are close to actual fact.
+All of our parameters are not our subjective assumptions, but are obtained based on official or
+recognized information.
+• Our visualization is illustrative.
+During the analysis, we draw a lot of schematic diagrams to help understand and result diagrams
+to make the results more intuitionistic.
+• Our model is innovative.
+We use the Monte Carlo simulation method to study the the distribution of the success possi-
+bility.
+4.2
+Disadvantages
+• Less convincing data
+Although we endeavor to find more data about soccer players for making a better theoretical
+analysis, our data is still limited and cannot accurately measure the players, which may lead
+to the inaccuracy of the initial velocity interval.
+• Ignorance of some factors
+To make our model easier to compute, we ignore some factors. For example, we neglect the
+variation of air density and simplify defensive strategy of the goalkeeper. Also, perhaps in the
+actual environment where the goal is located, the player does not have a good grasp of the
+speed and direction of ball, and therefore can’t kick soccer to the target point.
+5
+Conclusion
+After the analysis of the first question, we establish a model of the trajectory of the ball based
+on aerodynamics. With random initial velocity and angular velocity, we can obtain the trajectory of
+soccer. We find that the reasonable value of initial velocity should be more than v0min = 20.17m/s.
+Given an angular velocity at⃗ω = 15⃗k(Unit:rad/s), the range of θ is [76.7◦, 79.8◦] and the range of ϕ
+
+Team 358
+Page 18 of 24
+is [75.5◦, 84.5◦] and [100.0◦, 110.5◦]. While given an an angular velocity at⃗ω = 6⃗i+6⃗j +6⃗k, the range
+of θ is [75.29◦, 79◦] and the range of ϕ is [73.5◦, 84.0◦] and [98◦, 108.5.5◦]. We can also obtain the
+range of direction angles when given any set of initial velocity values and angular velocities through
+our codes.
+When taking the defense of the goalkeeper into consideration, we consider two defense modes:
+vertical movement defense and diving save. We gain the success probability distribution of defense
+through Monte Carlo Simulation. We then consider the cases that the shooting player will definitely
+make the goal by finding out the areas that the goalkeeper cannot reach, which is found as a rectangle.
+Again we provide the angular velocity as⃗ω = 15⃗k(Unit : rad/s) and initial velocity as v0 =
+25((Unit) : m/s). In this case the range of θ is [76.95◦, 78.95◦]and the range of ϕ is [75.5◦, 75.9◦] and
+[110.3◦, 110.6◦].
+In all, if the shooting player follows the strategy provided by our task, he will have the best
+chance of avoiding the goalkeeper and making the goal.
+References
+[1] Wikimedia Commons. File:goal area and penalty area green.png — wikimedia commons, the free
+media repository, 2020. [Online; accessed 6-November-2022].
+[2] F Li. Motion analysis and equation derivation of banana kicks. SILLICON VALLEY, 2013.
+[3] M. J. Carr´e, S. R. Goodwill, and S. J. Haake. Understanding the effect of seams on the aerody-
+namics of an association football. P I MECH ENG C-J MEC, 219(7):657–666, 2005.
+[4] Wikimedia Commons. File:sketch of magnus effect with streamlines and turbulent wake.svg —
+wikimedia commons, the free media repository, 2021. [Online; accessed 6-November-2022].
+[5] Thorsten Kray, J¨org Franke, and Wolfram Frank. Magnus effect on a rotating soccer ball at high
+reynolds numbers. Journal of Wind Engineering and Industrial Aerodynamics, 124:46–53, 2014.
+[6] D W Liu. Discussion of spherical flight trajectory anomalies. COLLEGE PHYSICS, pages 43–45,
+1987.
+[7] James C Ravenscroft and Nicholas P Linthorne. Effect of the location of the foot impact point
+on ball velocity in a soccer penalty kick. 2015.
+[8] Joseph Sheppard. Anatomy: A complete guide for artists. 1992.
+Appendix
+A
+Codes
+Code1
+1 # c a l c u l a t i n g
+the range
+of
+theta and phi and the
+t r a j e c t o r y
+of
+the
+b a l l
+2
+from
+mpl toolkits . mplot3d import Axes3D
+3
+import numpy as np
+4
+from scipy . integrate
+import
+odeint
+
+Team 358
+Page 19 of 24
+5
+import
+matplotlib . pyplot as
+plt
+6
+from
+mpl toolkits . mplot3d import axes3d
+7
+from math import
+radians
+8
+9 m = 0.4
+10
+k = 0.2∗np . pi ∗1.29∗0.11∗∗2
+11
+g = 9.8
+12
+wx = 0
+13
+wy = 0
+14
+wz = 15
+15
+r = 0.108
+16 G = 8/3∗np . pi ∗1.29∗0.11∗∗3
+17
+v0 = 25
+18
+rho0 = 1.29
+19
+20
+21
+def
+d i f f e q u a t i o n ( s o l l i s t ,
+t ) :
+22
+23
+x , xx , y , yy , z ,
+zz = s o l l i s t
+24
+return np . array ( [ xx ,
+25
+−k∗np . sqrt ( xx ∗∗2+yy ∗∗2+zz ∗∗2) ∗
+26
+xx+G∗(yy∗wz−zz ∗wy) ,
+27
+yy ,
+28
+−k∗np . sqrt ( xx ∗∗2+yy ∗∗2+zz ∗∗2) ∗
+29
+yy+G∗( zz ∗wx−xx∗wz) ,
+30
+zz ,
+31
+−k∗np . sqrt ( xx ∗∗2+yy ∗∗2+zz ∗∗2) ∗
+32
+zz+G∗(xx∗wy−yy∗wx)−m∗g+3/4∗np . pi ∗r ∗∗3∗rho0∗g ] )
+33
+34
+35
+ax = plt . axes ( projection=’ 3d ’ )
+36
+ax . s e t x l a b e l ( ’X’ )
+37
+ax . s e t y l a b e l ( ’Y’ )
+38
+ax . s e t z l a b e l ( ’Z ’ )
+39
+40
+vx = [ ]
+41
+vy = [ ]
+42
+vz = [ ]
+43
+44
+45
+46
+def
+theta phi sweep ( v0=25):
+47
+p = [ ]
+48
+pmin=[]
+49
+pmax=[]
+50
+i = 0
+51
+for
+theta
+in np . arange (76.6 ,
+79.9 ,
+0 . 1 ) :
+
+Team 358
+Page 20 of 24
+52
+p . append (0)
+53
+pp = [ ]
+54
+for
+phi
+in np . arange (70 ,
+8 5 , 0 . 5 ) :
+55
+vx0 = v0∗np . sin ( radians ( theta ))∗np . cos ( radians ( phi ))
+56
+vy0 = v0∗np . sin ( radians ( theta ))∗np . sin ( radians ( phi ))
+57
+vz0 = v0∗np . cos ( radians ( theta ))
+58
+t = np . linspace (0 ,
+0.6 , num=100)
+59
+sol0 = [0 , vx0 ,
+0 , vy0 ,
+r ,
+vz0 ]
+60
+r e s u l t = odeint ( diff equation ,
+sol0 ,
+t )
+61
+# plt . plot ( t ,
+r e s u l t [ : ,
+0] ,
+l a b e l =’x ’)
+# x
+62
+# plt . plot ( t ,
+r e s u l t [ : ,
+2] ,
+l a b e l =’y ’)
+# y
+63
+64
+x = r e s u l t [ : ,
+0]
+65
+y = r e s u l t [ : ,
+2]
+66
+z = r e s u l t [ : ,
+4]
+67
+i f
+np . argwhere (y > 11+r ) . size >0:
+68
+69
+id = np . argwhere (y > 11+r ) [ 0 ]
+70
+i f
+z [ id ] > 1.7346666666666668 and z [ id ] < 2.332:
+71
+i f
+−3.552<x [ id ] < −1.328 or
+1.328 < x [ id ] < 3.552:
+72
+ax . plot3D (x , y , z , color=’ l i g h t s t e e l b l u e ’ )
+73
+pp . append ( phi )
+74
+vx . append ( vx0 )
+75
+vy . append ( vy0 )
+76
+vz . append ( vz0 )
+77
+for
+phi
+in np . arange (91 ,115 ,0.5):
+78
+vx0 = v0∗np . sin ( radians ( theta ))∗np . cos ( radians ( phi ))
+79
+vy0 = v0∗np . sin ( radians ( theta ))∗np . sin ( radians ( phi ))
+80
+vz0 = v0∗np . cos ( radians ( theta ))
+81
+t = np . linspace (0 ,
+0.6 , num=100)
+82
+sol0 = [0 , vx0 ,
+0 , vy0 ,
+r ,
+vz0 ]
+83
+r e s u l t = odeint ( diff equation ,
+sol0 ,
+t )
+84
+85
+x = r e s u l t [ : ,
+0]
+86
+y = r e s u l t [ : ,
+2]
+87
+z = r e s u l t [ : ,
+4]
+88
+i f
+np . argwhere (y > 11+r ) . size >0:
+89
+90
+id = np . argwhere (y > 11+r ) [ 0 ]
+91
+i f
+z [ id ] > 1.7346666666666668 and z [ id ] < 2.332:
+92
+i f
+−3.552<x [ id ] < −1.328 or
+1.328 < x [ id ] < 3.552:
+93
+ax . plot3D (x , y , z , color=’ l i g h t s t e e l b l u e ’ )
+94
+pp . append ( phi )
+95
+vx . append ( vx0 )
+96
+vy . append ( vy0 )
+97
+vz . append ( vz0 )
+98
+
+Team 358
+Page 21 of 24
+99
+# i f
+pp == [ ] :
+100
+#
+print ( theta )
+101
+p [ i ] = pp
+102
+i f
+pp ! = [ ] :
+103
+pmin . append (pp [ 0 ] )
+104
+pmax . append (pp[ −1])
+105
+i+=1
+106
+return
+[ p , pmin , pmax ]
+107
+108
+print ( ’ $\\ theta$ minimum : ’ ,np . arange (76.6 ,
+79.9 ,
+0 . 1 ) [ 1 ] )
+109
+print ( ’ $\\ theta$ maximum: ’ ,np . arange (76.6 ,
+79.9 ,
+0.1)[ −2])
+110
+print ( ’ $\phi$ minimum : ’ ,min( theta phi sweep ( ) [ 1 ] ) )
+111
+print ( ’ $\phi$ maximum: ’ ,max( theta phi sweep ( ) [ 2 ] ) )
+112 # draw rectangle
+113
+ax . plot ([ −7.32/2+r ,−7.32/2+r ,−7.32/6−r ,−7.32/6−r ,−7.32/2+ r ] ,
+114
+[11 ,11 ,11 ,11 ,11] ,[2.44∗2/3+ r ,2.44 −r ,2.44 −r ,2.44∗2/3+ r ,2.44∗2/3+ r ] )
+115
+ax . plot ([7.32/2 −r ,7.32/2 −r ,7.32/6+ r ,7.32/6+ r ,7.32/2 −r ] ,
+116
+[11 ,11 ,11 ,11 ,11] ,[2.44∗2/3+ r ,2.44 −r ,2.44 −r ,2.44∗2/3+ r ,2.44∗2/3+ r ] )
+117
+ax . plot ([ −7.32/2 , −7.32/2 ,7.32/2 ,7.32/2] ,
+118
+[ 1 1 , 1 1 , 1 1 , 1 1 ] , [ 0 , 2 . 4 4 , 2 . 4 4 , 0 ] )
+119
+plt . xlim ( −4 ,4)
+120
+plt . ylim (0 ,11)
+121
+122
+plt . gca ( ) . set box aspect ((8 ,
+11 ,
+2 . 5 ) )
+123
+plt . show ()
+Code2
+1 # c a l c u l a t i n g
+the minimun value
+of
+v e l o c i t y
+2
+v0min=0
+3
+for v0 in np . arange ( 2 0 . 1 , 2 0 . 2 5 , 0 . 0 1 ) :
+4
+p= theta phi sweep ( v0 ) [ 0 ]
+5
+for
+i
+in p :
+6
+i f
+i ! = [ ] :
+7
+v0min=v0
+8
+print ( ’ v0min : ’ , v0 )
+9
+break
+10
+i f
+v0min !=0:
+11
+break
+Code3
+1 # D i s t r i b i t i o n
+2
+import pandas as pd
+3
+import
+matplotlib . pyplot as
+plt
+
+Team 358
+Page 22 of 24
+4
+import numpy as np
+5
+import sympy as sp
+6
+from scipy . optimize import fmin
+7
+from scipy . i n t e r p o l a t e
+import
+lagrange
+8
+import
+scipy . i n t e r p o l a t e
+as
+i n t e r p o l a t e
+9
+import
+matplotlib . patches as mpathes
+10
+11
+sa =0.4
+12
+a=34.33
+13
+g=9.8
+14
+hl =1.54375
+15
+t =0.181
+16
+r =0.108
+17
+arm=0.95#arm length
+18
+19 # %%
+20
+def
+goal (x , z ) :
+21
+22
+i f
+−7.32/2+r<x<7.32/2−r and r<z<2.44−r :
+23
+return True
+24
+e l s e :
+25
+return
+False
+26
+27
+def vmd(x , z ) : #v e r t i c a l movement defense
+28
+l =1.9/2
+29
+30
+i f −l<x<l and z <2.44:
+31
+return True
+32
+e l s e :
+33
+return
+False
+34
+35
+def
+diving save (x , z ) :
+36
+37
+alpha =0.67324219
+38
+def
+fun (x ) :
+39
+y0=hl
+40
+vx=a∗np . cos ( alpha )∗t
+41
+vy=(a∗np . sin ( alpha)−g )∗t
+42
+y=y0+vy∗x/vx−1/2∗g ∗(x/vx)∗∗2
+43
+return y
+44
+45
+xx=np . linspace ( −3.66 ,3.66 ,1000)
+46
+47
+xs , ys = sp . symbols ( ’x y ’ )
+48
+dfun=sp . d i f f ( fun ( xs ) , xs )
+49
+50
+x array = np . linspace (0 ,3.66 ,50)
+
+Team 358
+Page 23 of 24
+51
+y array =[]
+52
+for member in
+x array :
+53
+y array . append ( fun (member ))
+54
+55
+temp = [ ]
+56
+57
+for
+i
+in
+range ( 5 0 ) :
+58
+fun x = f l o a t ( dfun . e v a l f ( subs={xs : x array [ i ] , ys : y array [ i ] } ) )
+59
+temp . append ( fun x )
+60
+61
+dfun array = np . array (temp)
+62
+#tan ( theta )
+63
+64
+65
+rx =[]
+66
+ry =[]
+67
+for
+i
+in
+range ( 5 0 ) :
+68
+k=−1/dfun array [ i ]
+69
+i f
+k>0:
+70
+rx . append ( x array [ i ]+1∗arm/np . sqrt (k∗∗2+1))
+71
+ry . append ( y array [ i ]+k∗arm/np . sqrt (k∗∗2+1))
+72
+e l s e :
+73
+rx . append ( x array [ i ]−1∗arm/np . sqrt (k∗∗2+1))
+74
+ry . append ( y array [ i ]−k∗arm/np . sqrt (k∗∗2+1))
+75
+76
+true rx =[]
+77
+minus rx =[]
+78
+true ry =[]
+79
+for
+i
+in
+range ( 5 0 ) :
+80
+i f
+rx [ i ]>0 or rx [ i ]==0:
+81
+true rx . append ( rx [ i ] )
+82
+true ry . append ( ry [ i ] )
+83
+minus rx . append(−rx [ i ] )
+84
+85
+86
+87
+f f=i n t e r p o l a t e . splrep ( true rx , true ry , s=0)
+88
+89
+i f
+z<i n t e r p o l a t e . splev ( abs (x ) , ff , der =0):
+90
+return True
+91
+e l s e :
+92
+return
+False
+93
+94
+95
+96
+97 # %%
+
+Team 358
+Page 24 of 24
+98
+import random
+99
+import numpy as np
+100
+from scipy . s t a t s
+import norm
+101 %matplotlib
+i n l i n e
+102
+import
+matplotlib . pyplot as
+plt
+103
+104
+105
+106
+def
+score (x , z ) :
+107
+global w
+108
+i f
+goal (x , z ) :
+109
+w=1
+110
+i f vmd(x , z ) :
+111
+w+=1
+112
+113
+i f
+diving save (x , z ) :
+114
+w+=1
+115
+w=w∗norm . pdf (x , loc =0, s c a l e =7.32/2)∗norm . pdf ( z , loc =1.22 , s c a l e =1.22)
+116
+return w
+117
+118
+119
+120 # %%
+121
+color =[]
+122
+xx =[]
+123
+zz =[]
+124
+125
+126 # %%
+127
+for
+i
+in
+range (20000):
+128
+x=np . random . uniform ( −7.32/2 ,7.32/2)
+129
+z=np . random . uniform (0 ,2.44)
+130
+color . append ( score (x , z ))
+131
+xx . append (x)
+132
+zz . append ( z )
+133
+134 # %%
+135
+136
+137
+plt . s c a t t e r (xx ,
+zz ,
+c=color , s=35)
+138
+plt . t i t l e ( ’Monte Carlo Simulation ’ )
+139
+140
+plt . show ()

@@ -1,0 +1,1339 @@
+Simplified Cannonball Trajectory Model
+Team No. 264
+Problem B: Artillery
+November 9, 2025
+Abstract
+This study presents a systematic analysis and modeling of the ballistic characteristics
+of typical 19th-century artillery. The research focuses on three main aspects:
+(1) Development of a two-dimensional ballistic model considering air resistance
+and altitude variation. By accounting for the change of air density with altitude and
+the Reynolds-number-dependent drag coeﬀicient, the projectile motion equations were
+solved using the fourth-order Runge–Kutta method. Under calm-air conditions, the
+minimum launch velocity was found to be 117.55 m/s with an optimal elevation angle
+of 43.5◦.
+Compared with the ideal vacuum model (108.5 m/s, 45◦), air resistance
+slightly reduces the optimal angle and increases the required launch velocity by ap-
+proximately 8.3%, demonstrating its significant impact on range and stability.
+(2) Construction of a three-dimensional ballistic model incorporating wind
+field and terrain elevation effects. The model describes projectile motion under vary-
+ing wind components, horizontal distances, and target altitudes, analyzing the corre-
+sponding minimum initial velocity and optimal launch angle for headwind, tailwind,
+and crosswind conditions. Numerical simulations confirmed that the vertical wind
+component can be neglected with negligible error, enabling a substantial simplification
+of the model. Based on this, a semi-empirical formula suitable for manual estimation
+by historical artillery oﬀicers was derived, linking wind speed, wind direction, terrain
+elevation difference, and horizontal distance with the launch parameters.
+Keywords: artillery ballistics; aerodynamic drag; wind effects; multivariate regression;
+numerical simulation
+1
+
+Contents
+1
+Problem Analysis
+3
+1.1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+1.2
+Problem Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+2
+Assumptions and Symbols
+5
+2.1
+Model Assumptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+2.2
+Notations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+3
+Task 1
+7
+3.1
+Model Establishment . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+3.2
+Formula Derivation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+3.2.1
+Air Density Model . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+3.2.2
+Drag Coeﬀicient Model . . . . . . . . . . . . . . . . . . . . . . . .
+8
+3.3
+Numerical Solution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9
+4
+Task 2
+11
+4.1
+Model Development
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11
+4.1.1
+Simplification of the Vertical Wind Component . . . . . . . . . .
+13
+4.1.2
+Quantization of Wind Speed and Direction . . . . . . . . . . . . .
+14
+4.2
+Analytical Derivation . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+4.2.1
+Step A: Ideal Model (No Air Resistance) . . . . . . . . . . . . . .
+15
+4.2.2
+Step B: Wind Correction . . . . . . . . . . . . . . . . . . . . . . .
+16
+4.2.3
+Step C: Air Density Correction . . . . . . . . . . . . . . . . . . .
+16
+4.3
+Model Validation and Regression Fitting . . . . . . . . . . . . . . . . . .
+16
+5
+Model Verification
+17
+5.1
+Validation Methodology and Scheme . . . . . . . . . . . . . . . . . . . .
+17
+5.2
+Validation Results Under Wind-Free Conditions . . . . . . . . . . . . . .
+18
+5.3
+Quantitative Error Analysis . . . . . . . . . . . . . . . . . . . . . . . . .
+19
+6
+Conclusions
+20
+A MATLAB
+21
+2
+
+1
+Problem Analysis
+1.1
+Introduction
+The nineteenth to early twentieth century marked a crucial period in the rapid develop-
+ment of modern artillery technology[1]. With the advancement of smokeless powder and
+the widespread adoption of metal breech-loading guns, significant progress was achieved
+in firing range, accuracy, and structural design. However, during this era, ballistic calcu-
+lations still relied primarily on empirical formulas and idealized projectile models under
+highly limited computational conditions. Early ballistic theories commonly neglected air
+resistance and wind effects, estimating the relationship between range and launch angle
+using simplified parabolic equations.
+By the mid-nineteenth century, scientists and military engineers gradually recog-
+nized the substantial influence of aerodynamic drag, air density variation, and wind fields
+on projectile trajectories. Consequently, various correction theories and empirical firing
+tables were developed, yet their construction remained complex and diﬀicult to apply
+rapidly under field conditions[2].
+In this study, a representative nineteenth-century cannon is investigated. The weapon
+fires a 5 kg spherical projectile with a diameter of 11 cm and a maximum muzzle velocity
+of 450 m/s. Under these conditions, the impact requirements for targets at different hori-
+zontal ranges and altitudes are analyzed. By incorporating wind speed and direction into
+the aerodynamic resistance model, a modified ballistic dynamic system is established. Nu-
+merical simulations and clustering methods are then employed to determine the minimal
+required muzzle velocity and corresponding launch angle under varying wind conditions.
+The objective is to develop a simplified estimation approach that enables mathematically
+trained artillery oﬀicers—without access to computational tools—to rapidly determine
+appropriate firing parameters from pre-calculated tables, thereby improving historical
+firing accuracy and operational eﬀiciency.
+This research not only provides insight into how environmental factors constrained
+nineteenth-century artillery performance but also offers a quantitative reference for re-
+constructing early ballistic computation methods and understanding the evolution of
+empirical firing theory.
+1.2
+Problem Analysis
+This paper addresses the problem of determining firing parameters for a classic spher-
+ical projectile cannon from 150–200 years ago (projectile mass 5 kg, diameter 11 cm,
+3
+
+maximum muzzle velocity 450 m/s). The study is organized around two complemen-
+tary objectives—accurate analysis of baseline conditions and construction of a practical
+estimation method—so as to balance historical weapon characteristics with operational
+usability.
+First, a high-fidelity model is developed for the idealized baseline scenario: the can-
+non and target are located at the same altitude of 500 m, the horizontal range is 1200
+m, and wind effects are neglected. The projectile’s forces are thereby limited to gravity
+acting vertically downward and aerodynamic drag opposing the instantaneous velocity.
+Because muzzle velocities for this class of cannon lie in a relatively high-speed regime and
+the projectile is spherical, simple drag models are insuﬀicient to capture the relevant aero-
+dynamics. Accordingly, the drag law is modified to reflect the aerodynamic properties of
+a sphere, and the resulting corrected drag term is incorporated into the two-dimensional
+equations of motion. The required muzzle velocity and corresponding horizontal launch
+angle that satisfy the hit condition are obtained by numerical integration of these gov-
+erning differential equations.
+Building on this baseline, the analysis is extended to more realistic operational con-
+ditions: horizontal ranges from 1000 m to 1500 m, nonzero altitude differences between
+cannon and target, and varying wind speeds and directions. The wind field is decomposed
+into components along the projectile’s horizontal and vertical directions to quantify its
+effect on the projectile’s air-relative velocity; this, in turn, modifies both the magnitude
+and direction of aerodynamic drag. The complete equations of motion—including gravity
+and the corrected aerodynamic drag—are thus formulated and solved by an explicit Euler
+integration scheme. Guided by the operational objective of conserving materiel, the study
+focuses on the minimal muzzle velocity and its associated launch angle that achieve a hit,
+thereby ensuring that the solutions are both tactically sensible and resource-eﬀicient.
+Finally, to accommodate historical battlefield conditions where no computers or cal-
+culators are available, a rapid-estimation procedure suitable for mathematically trained
+artillery oﬀicers is developed.
+Using the numerical solver described above, a dataset
+of randomized scenarios is generated, sampling the key parameters: horizontal distance
+(1000–1500 m), altitude difference, wind speed, and wind direction. Nonlinear regres-
+sion techniques are then used to derive analytic expressions relating launch angle and
+minimal muzzle velocity to the input parameters. The resulting formulae are validated
+against the baseline (equal-altitude, 1200 m, no-wind) case and distilled into concise,
+hand-computable estimation models that support rapid decision-making in the field.
+4
+
+2
+Assumptions and Symbols
+2.1
+Model Assumptions
+• The projectile surface is smooth.
+• The influence of crosswind on the projectile’s tumbling or yaw is neglected.
+• Air flow is assumed to be steady and incompressible within the projectile’s flight
+altitude range (500–2000 m).
+• Gravitational acceleration is treated as a constant (g = 9.80665 m/s2) since the
+altitude variation is small compared to the Earth’s radius.
+5
+
+2.2
+Notations
+Symbol
+Definition
+Unit
+m
+Mass of the spherical projectile
+kg
+L
+Horizontal distance between the
+cannon and target
+m
+h0
+Altitude of the cannon
+m
+ht
+Altitude of the target
+m
+z
+Altitude difference
+m
+heff
+Effective flight altitude (heff =
+(h0 + ht)/2)
+m
+v0
+Muzzle velocity
+m s−1
+θ
+Firing elevation angle
+◦
+v
+Velocity components
+m s−1⃗
+W
+Wind velocity vector
+m s−1
+ϕ
+Wind direction angle (relative to
+x-axis)
+◦
+ρ
+Air density
+kg/m3
+ν
+Kinematic viscosity of air
+m2/s
+T0
+Sea-level standard temperature
+(ISA model)
+K
+p0
+Sea-level standard pressure (ISA
+model)
+Pa
+Lb
+Temperature
+lapse
+rate
+(ISA
+model)
+K m−1
+R
+Specific gas constant for dry air
+J/(kg · K)
+Fρ
+Air density correction factor
+Dimensionless
+β
+Empirical coeﬀicient for density
+correction
+Dimensionless
+Table 1: Definition of key symbols and their units
+6
+
+3
+Task 1
+3.1
+Model Establishment
+In Task 1, we focus on a cannon deployed at an altitude of h0 = 500 m, with a target
+located at the same elevation and a horizontal distance of L = 1200 m. The objective is
+to determine the required initial velocity and corresponding launch angle that ensure the
+projectile hits the target.
+In this scenario, wind effects are neglected. The projectile is subjected to two dominant
+forces during its flight: gravity⃗G = −mg ˆy and aerodynamic drag⃗FD = −1
+2CDρ(h)Av⃗v.
+The trajectory and corresponding force analysis are illustrated in Fig. 1.
+Figure 1: Diagram of force analysis
+Accordingly, the equations of motion can be expressed as:
+
+
+
+
+
+
+
+
+
+
+
+mdvx
+dt = −1
+2CDρ(h)Avvx,
+mdvy
+dt = −mg −1
+2CDρ(h)Avvy,
+dx
+dt = vx,
+dy
+dt = vy,
+(1)
+where v = pv2
+x + v2
+y denotes the magnitude of the velocity vector.
+3.2
+Formula Derivation
+Since the projectile undergoes significant variations in vertical position and velocity dur-
+ing flight, both the drag coeﬀicient CD and air density ρ(h) vary with Reynolds number
+7
+
+Re and altitude h, respectively. Therefore, a refined aerodynamic model is established to
+enhance computational accuracy.
+3.2.1
+Air Density Model
+The air density is computed using the International Standard Atmosphere (ISA) model
+for the troposphere, which applies for h ≤11 km:
+ρ(h) = p0
+RT0
+
+1 −Lbh
+T0
+ g0
+RLb −1
+,
+(2)
+where parameters are determined based on ISA data and literature: T0 = 288.15 K
+(sea-level standard temperature), p0 = 101325 Pa (sea-level pressure), Lb = 0.0065 K/m
+(temperature lapse rate), R = 287.05 J/(kg · K) (specific gas constant for dry air), and
+g0 = 9.80665 m/s2 (gravitational acceleration at sea level).
+3.2.2
+Drag Coeﬀicient Model
+The Reynolds number is defined as Re = vD
+ν , where D = 0.11 m is the projectile diameter
+and ν = 1.5 × 10−5 m2/s is the kinematic viscosity of air under standard conditions.
+For a spherical projectile, Morrison et al. [3] proposed a widely accepted empirical
+correlation between CD and Re:
+CD = 24
+Re +
+2.6
+Re
+5.0
+
+1 +
+Re
+5.0
+1.52 +
+0.411
+
+Re
+2.63 × 105
+−7.94
+1 +
+
+Re
+2.63 × 105
+−8.00 +
+0.25
+ Re
+106
+
+1 +
+ Re
+106
+ .
+(3)
+However, this expression is only valid for Re < 106. Given the maximum muzzle
+velocity v0 = 450 m/s, the corresponding Reynolds number is Re = 7.72 × 106, which
+exceeds the valid range.
+To address this, we referred to the drag characteristics of spherical bodies in the
+transonic and supersonic regimes (see Fig. 2) and integrated empirical relations from
+related studies to construct a piecewise definition for CD(Re):
+CD(Re) ≈
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+24
+Re +
+2.6
+Re
+5.0
+
+1 +
+Re
+5.0
+1.52 +
+0.411
+
+Re
+2.63 × 105
+−7.94
+1 +
+
+Re
+2.63 × 105
+−8.00 +
+0.25
+ Re
+106
+
+1 +
+ Re
+106
+ ,
+Re ≤106,
+0.145 + 0.04 log10
+ Re
+106
+
+,
+106 < Re ≤3 × 107,
+0.20,
+Re > 3 × 107.
+(4)
+8
+
+To validate the accuracy of Eq. (4), the fitted curve was compared with the NASA
+experimental dataset [4], showing strong consistency. Therefore, this model is adopted
+in subsequent calculations.
+Figure 2: Variation of CD with Reynolds number
+In the ideal (drag-free) case, the minimum required velocity is v0,min = 108.5 m/s,
+corresponding to Re = 7.72 × 105 and CD = 0.11. At v0,max = 450 m/s, CD increases to
+0.16. Since CD varies slowly within this interval (as observed in Fig. 2), we approximate
+its mean value by the mean-value theorem of integration, obtaining CD ≈0.15. This
+value is adopted for subsequent numerical computations.
+Substituting the refined expressions into Eq. (1), we derive the final simplified form
+of the motion equations:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+dvx
+dt = −CD(Re) · ρ(h) · A · pv2
+x + v2
+y · vx
+2m
+,
+dvy
+dt = −g −CD(Re) · ρ(h) · A · pv2
+x + v2
+y · vy
+2m
+,
+dx
+dt = vx,
+dy
+dt = vy,
+(5)
+where v = pv2
+x + v2
+y represents the projectile speed, and (x(t), y(t)) denote its horizontal
+and vertical coordinates, respectively.
+3.3
+Numerical Solution
+Given the strong nonlinearity of Eq. (5), an analytical solution is not feasible. We thus
+employ the fourth-order Runge–Kutta method with a time step of ∆t = 0.02 s to numeri-
+cally integrate Eq. (1). At each time step, the air density ρ(h) and drag coeﬀicient CD(v)
+9
+
+are updated based on the current state. Integration terminates when y(t) < 0, indicating
+that the projectile has reached the ground. The corresponding horizontal displacement
+ximpact is then recorded.
+For each launch angle θ, a binary search is used to determine the minimum initial
+velocity v0 satisfying:
+ximpact(v0, θ, h0) = L,
+(6)
+where a tolerance of |ximpact −L| < 0.05 m is used to denote a successful hit.
+By scanning θ ∈[2◦, 88◦], we obtain the complete relationship between the launch
+angle and the minimum required initial velocity, as illustrated in Fig. 3.
+Figure 3: Relationship between initial velocity V0 and launch angle θ
+As shown, the function v0(θ) exhibits a characteristic U-shaped distribution: at small
+angles, longer flight times lead to greater drag loss, while at large angles, excessive vertical
+components increase gravitational energy loss. The minimum value occurs near θ = 43.5◦,
+yielding:
+v0,min = 117.55 m/s.
+The corresponding trajectory and parameter variations at this condition are shown
+in Fig. 4.
+10
+
+Figure 4: Trajectory and dynamic variation at v0,min = 117.55 m/s
+Table 2 lists selected results for different launch angles:
+Table 2: Minimum initial velocity at different launch angles
+θ (°)
+10
+20
+30
+43.5
+60
+v0 (m/s)
+195.4
+134.5
+120.7
+117.6
+134.2
+Compared with the ideal (drag-free) projectile motion, the minimum initial velocity
+increases from 108.5 m/s to 117.5 m/s, approximately an 8.3% rise. The gradual decrease
+of air density with altitude slightly reduces drag during the ascent phase, extending the
+overall range. As a result, the optimal launch angle shifts from 45◦(ideal case) to 43.5◦,
+indicating that aerodynamic drag tends to lower the angle corresponding to maximum
+range.
+Therefore, considering altitude-dependent air density and realistic aerodynamic drag,
+the final results are:
+v0,min = 117.55 m/s,
+θmin = 43.5◦.
+4
+Task 2
+4.1
+Model Development
+Compared with the idealized conditions in Task 1, Task 2 requires consideration of varying
+wind directions and speeds.
+In addition, the target’s horizontal distance is extended
+to the 1000–1500 m range, and the altitudes of the gun and target may differ. Based
+on classical exterior ballistics theory, the wind field primarily affects the projectile by
+11
+
+altering its velocity relative to the air, thereby changing the magnitude and direction of
+aerodynamic drag. Consequently, the original two-dimensional model must be extended
+into three-dimensional space for further analysis.
+To quantify the modeling parameters, the following coordinate system is established:
+the x-axis is defined along the horizontal line from the gun to the target (positive to-
+ward the target), the z-axis is vertical and positive downward (aligned with gravity), and
+the y-axis follows the right-hand rule, perpendicular to the x–z plane. The key physical
+quantities are defined as follows: the wind velocity vector⃗W = (wx, wy, wz) ,the cor-
+rosponding defination of wind speed is as follows 3 corresponds to the components along
+the x, y, and z axes, respectively.
+Table 3: Definitions of wind velocity components
+Variable Name
+Direction
+Descrip-
+tion
+Sign Convention
+Wx
+Tailwind compo-
+nent
+Along the firing direc-
+tion (x-axis)
+Wx > 0: tailwind (assistive
+direction);
+Wx < 0: headwind (oppos-
+ing direction)
+Wy
+Crosswind com-
+ponent
+Horizontal
+direction
+perpendicular to firing
+line (y-axis)
+Wy > 0: wind from the left
+(blowing right);
+Wy < 0:
+wind from the
+right (blowing left)
+Wz
+Vertical compo-
+nent
+Along
+the
+gravi-
+tational
+direction
+(z-axis)
+Neglected in this model; set
+Wz = 0
+The gun position is P(0, 0, h0), where h0 denotes the gun altitude, and the target
+position is M(L, 0, ht), where L is the horizontal range and ht is the target altitude.
+According to aerodynamic drag correction theory [5], the drag force acting on the
+projectile is proportional to the square of its velocity relative to the air and acts in the
+opposite direction. Based on Newton’s second law, the projectile’s motion equations in
+12
+
+three-dimensional space are expressed as follows:
+Horizontal x-direction:
+mdvx
+dt = −1
+2ρCdA |⃗vrel|(vx −wx),
+(7)
+Horizontal y-direction:
+mdvy
+dt = −1
+2ρCdA |⃗vrel|(vy −wy),
+(8)
+Vertical z-direction:
+mdvz
+dt = −mg −1
+2ρCdA |⃗vrel|(vz −wz),
+(9)
+where⃗vrel = (vx−wx, vy−wy, vz−wz) represents the velocity of the projectile relative to the
+air, and |⃗vrel| =
+p
+(vx −wx)2 + (vy −wy)2 + (vz −wz)2 is its magnitude. Here, m = 5 kg
+is the projectile mass, ρ is air density, Cd is the drag coeﬀicient, A = π(D/2)2 with
+D = 0.11 m is the reference cross-sectional area, and g = 9.80665 m/s2 is the gravitational
+acceleration.
+From these equations, it is evident that the launch angle θ and muzzle velocity v0
+depend on multiple parameters, including wind speed, wind direction, target distance,
+and altitude difference. However, given the core objective of this study—to provide a
+practical and rapid estimation method for artillery oﬀicers operating 150–200 years ago
+without computational tools—it is essential to simplify the model as much as possible
+while maintaining acceptable accuracy. The following subsections analyze the rationale
+and feasibility of each simplification.
+4.1.1
+Simplification of the Vertical Wind Component
+In the full three-dimensional model, the vertical wind component wz introduces significant
+mathematical complexity. From a physical standpoint, horizontal motion in the x–y plane
+is mainly influenced by aerodynamic drag, while vertical motion is dominated by gravity;
+hence, the contribution of wz to the projectile’s motion is minor compared with the
+gravitational force.
+To verify this assumption, numerical simulations were performed under controlled
+conditions, comparing trajectories with and without wz while keeping horizontal wind
+components constant.
+13
+
+Wx=5￿Wy=5￿Wz=10
+Wx=3￿Wy=7￿Wz=9
+Wx=9.12￿Wy=8￿Wz=7
+Figure 5: Wz-conparing
+The results, shown in Fig. 5, indicate that the two trajectories almost overlap, with a
+maximum impact point deviation of less than 0.5%. This demonstrates that the vertical
+wind component has a negligible effect on impact accuracy. Therefore, subsequent analy-
+ses can be simplified to a two-dimensional x–z plane problem, considering only horizontal
+wind effects.
+4.1.2
+Quantization of Wind Speed and Direction
+Given that precise anemometers were unavailable 150–200 years ago, wind conditions on
+the battlefield had to be estimated empirically. Following the Beaufort wind scale [6],
+soldiers could approximate wind speed based on observable environmental phenomena
+such as smoke drift, tree branch motion, or surface waves.
+A partial excerpt of the
+Beaufort scale is shown in Fig. 6.
+Figure 6: Caption
+14
+
+To balance practicality and computational simplicity, wind speed and direction are
+discretized as follows:
+• Wind speed classification: Based on the Beaufort scale and the effective range
+of artillery operations, four levels are defined:
+1. Light breeze (0–3 m/s): Smoke rises almost vertically or drifts slightly; no
+visible branch movement.
+2. Gentle breeze (3–6 m/s): Leaves rustle slightly; smoke drifts steadily.
+3. Moderate breeze (6–10 m/s): Small branches sway; flags extend and flutter.
+4. Fresh breeze (10–15 m/s): Large branches move; dust is raised from the ground.
+• Wind direction quantization: The wind direction angle ϕ is defined as the angle
+between the wind vector and the x-axis (the gun–target line), ranging from 0◦to
+180◦. A value of ϕ = 0◦indicates headwind (from target to gun), ϕ = 90◦indicates
+crosswind, and ϕ = 180◦indicates tailwind. The angle can be roughly estimated by
+observing smoke drift, with an error typically within ±15◦, suﬀicient for battlefield
+applications.
+4.2
+Analytical Derivation
+Based on the simplified two-dimensional model (neglecting wz) and the discretized wind
+parameters, a “stepwise correction” approach is employed to derive a rapid estimation
+formula. Starting from the ideal (vacuum) model, wind-speed and air-density corrections
+are introduced sequentially, yielding a semi-empirical expression that balances simplicity
+and accuracy.
+Key definitions:
+• Gun altitude h0 and target altitude ht, with altitude difference ∆h = ht −h0;
+• Horizontal range L, wind speed W, and wind direction angle ϕ, with the effective
+x-component Wx = W cos ϕ (positive for headwind, negative for tailwind).
+4.2.1
+Step A: Ideal Model (No Air Resistance)
+Neglecting drag and wind, the projectile undergoes ideal projectile motion:
+L = v0 cos θ t,
+∆h = v0 sin θ t −1
+2gt2,
+15
+
+where t is the flight time. Eliminating t yields:
+v2
+0,vac(θ) =
+gL2
+2 cos2 θ(L tan θ −∆h).
+The condition L tan θ −∆h > 0 ensures that the projectile reaches the target altitude.
+Thus, the minimum required muzzle velocity in vacuum is:
+v0,vac(θ) =
+s
+gL2
+2 cos2 θ(L tan θ −∆h).
+4.2.2
+Step B: Wind Correction
+The wind primarily alters the projectile’s horizontal relative velocity, thereby affecting
+flight time and drag. Considering the effective horizontal wind component Wx, the relative
+horizontal velocity becomes vx,rel = v0 cos θ−Wx. To maintain the same range, the muzzle
+velocity must be adjusted accordingly:
+v0,wind(θ) ≈v0,vac(θ) + Wx
+cos θ.
+Physically, this correction restores the horizontal velocity component to its vacuum equiv-
+alent. The simplified form maintains accuracy within 3%, adequate for rapid field com-
+putation.
+4.2.3
+Step C: Air Density Correction
+Air density ρ varies with altitude, while the drag coeﬀicient Cd depends on the Reynolds
+number Re. To simplify, an effective altitude heff = (h0+ht)/2 is introduced, representing
+the mean flight height. The air density at this altitude, ρ(heff), is calculated using the
+International Standard Atmosphere (ISA) model. A correction factor for density variation
+is then expressed as:
+Fρ(heff) =
+ρ(heff)
+ρ0
+−β
+,
+where ρ0 = 1.225 kg/m3 is sea-level standard density [7], and β = 0.10 is an empirical
+coeﬀicient valid for 500–2000 m altitudes. Thus, the corrected muzzle velocity is:
+v0,corr(θ) ≈v0,wind(θ) · Fρ(heff).
+4.3
+Model Validation and Regression Fitting
+To verify the accuracy of the simplified equations and construct the dataset for regression,
+a numerical solution of the full differential equations was obtained using a fourth-order
+16
+
+Runge–Kutta scheme. Air density ρ(h) was dynamically updated via the ISA model,
+and Cd was modeled as a function of Reynolds number, covering laminar, turbulent, and
+transonic regimes.
+For each parameter combination (L, ∆h, Wx), the minimum muzzle velocity v0 re-
+quired to reach the target was determined via a binary search, with a convergence crite-
+rion of ∆v < 0.1 m/s. The resulting dataset was then fitted by nonlinear regression to
+derive the following empirical formulas:
+v0 = 4.294 × 101 + 6.750 × 10−2L + 7.169 × 10−2z −3.927 × 10−6L2
++ 1.303 × 10−5z2 −1.571 × 10−5Lz + 3.379 × 10−2Wx + 3.600 × 10−15Wy
+−1.940 × 10−4(LWx) −3.398 × 10−18(LWy) −5.965 × 10−6(zWx),
+(10)
+θ = 4.577 × 101 −2.611 × 10−3L + 4.533 × 10−2z + 6.944 × 10−7L2
++ 4.167 × 10−6z2 −1.917 × 10−5Lz + 2.625 × 10−2Wx −1.284 × 10−16Wy
++ 1.667 × 10−5(LWx) −3.149 × 10−19(LWy) −6.250 × 10−5(zWx),
+(11)
+The fitted coeﬀicients (R2 > 0.98) demonstrate high predictive accuracy. The result-
+ing formula involves only elementary arithmetic operations, enabling artillery oﬀicers to
+rapidly determine the required launch parameters v0 and θ from measured or estimated
+inputs (L, ∆h, Wx) without numerical computation tools.
+5
+Model Verification
+5.1
+Validation Methodology and Scheme
+To systematically verify the reliability, accuracy, and engineering applicability of the
+derived empirical formulas for rapid estimation of muzzle velocity and firing elevation an-
+gle, a ”comparative validation method between numerical simulation values and empirical
+estimation values” is adopted.
+The validation process is designed as follows: 1. Based on the comprehensive ballis-
+tic dynamics model established in Task 2 (accounting for altitude-dependent air density,
+piecewise drag coeﬀicient, and wind field effects), a numerical simulation database cov-
+ering the core parameter range is generated.
+The parameter values are specified as:
+horizontal distance L ∈[1000, 1500] m, height difference z ∈[−200, 200] m, wind speed
+components Wx ∈[−15, 15] m/s, and Wy ∈[−15, 15] m/s; 2. Typical operating condition
+samples are randomly extracted from the simulation database. With input parameters
+17
+
+(L, z, Wx, Wy) kept consistent with those in numerical simulations, empirical estimation
+values are calculated by substituting the parameters into the empirical formulas; 3. The
+estimation accuracy of the formulas is evaluated by quantifying the deviation between em-
+pirical estimation values and numerical simulation values; 4. The validation is conducted
+in phases: first, basic validation is performed under wind-free conditions (Wx = 0 m/s,
+Wy = 0 m/s) to eliminate wind field interference and focus on the fitting accuracy of
+the formulas with respect to distance and altitude difference; subsequently, validation is
+extended to wind-affected conditions to comprehensively verify the adaptability of the
+formulas in complex scenarios. This section focuses on presenting the validation results
+under wind-free conditions, and the validation logic for complex conditions remains con-
+sistent.
+5.2
+Validation Results Under Wind-Free Conditions
+Under wind-free conditions, 12 groups of typical samples are selected within the ranges
+of horizontal distance L ∈[1000, 1500] m and height difference z ∈[−200, 200] m. The
+corresponding muzzle velocity v0 and firing elevation angle θ are computed via numerical
+simulations and empirical formulas, respectively. The comparison results are illustrated
+in Fig. 7:
+Figure 7: Comparison between empirical estimation values and numerical simulation
+values under wind-free conditions
+As observed in Fig. 7, the curves of v0 and θ estimated by the empirical formulas
+are highly consistent with the numerical simulation results. Whether facing parameter
+fluctuations induced by horizontal distance variations or impacts arising from altitude
+differences, the empirical estimation values can accurately track the variation trend of
+18
+
+the numerical simulation values without significant deviations or systematic errors. This
+initially validates the fitting effectiveness and trend consistency of the empirical formulas.
+5.3
+Quantitative Error Analysis
+To accurately quantify the estimation accuracy of the empirical formulas, the relative
+error indicators are defined as follows:
+δv0 =
+
+v0,emp −v0,sim
+v0,sim
+ × 100%,
+δθ =
+
+θemp −θsim
+θsim
+ × 100%,
+where v0,emp and θemp denote the muzzle velocity and firing elevation angle estimated
+by the empirical formulas, respectively; v0,sim and θsim represent the muzzle velocity and
+firing elevation angle obtained from numerical simulations, respectively.
+Relative errors are calculated for all validation samples, and the error distribution
+curves are plotted in Fig. 8:
+Relative error curve of muzzle velocity
+Relative error curve of firing elevation angle
+Figure 8: Relative error distribution curves of empirical formula estimation
+The error analysis results indicate that: 1. The relative errors of muzzle velocity are
+all constrained within 12. The relative errors of firing elevation angle are also less than
+13. The errors of both parameters fall within the high-precision range acceptable for
+engineering applications, without systematic deviations. This demonstrates that the em-
+pirical formulas can accurately characterize the nonlinear mapping relationship between
+input and output parameters, and the fitting effect is reliable.
+19
+
+6
+Conclusions
+This study uses a representative nineteenth-century cannon as its subject and, from the
+perspectives of aerodynamics and numerical analysis, systematically investigates the the-
+oretical foundations and simplification strategies of early ballistic calculations. The core
+contribution lies in combining modern physical modeling methods with the historical
+technical context to reconstruct a simplified system capable of rapidly solving firing pa-
+rameters without computational tools. This approach not only reveals the mathematical
+logic behind classical artillery empirical formulas but also illustrates early precursors of
+modern scientific computing thinking. Methodologically, the research implements a lay-
+ered modeling approach to bridge high-fidelity numerical simulation and empirical fitted
+models: the former is used to validate and calibrate theoretical reliability, while the latter
+is distilled into practical formulas. This “two-tier” modeling framework can serve as a
+reference paradigm for other historical engineering problems. The multivariate regression
+formulas established in the paper achieve high goodness-of-fit with only a limited set of
+input variables, demonstrating the effectiveness of statistical regression in physically sim-
+plified modeling. From a scientific standpoint, the study exposes how aerodynamic drag,
+wind-field components, elevation differences, and horizontal distance are coupled in deter-
+mining the minimum muzzle velocity and required elevation angle. It shows that ballistic
+optimization is not the result of a single parameter but rather a dynamic balance among
+gravitational potential energy, energy losses due to air resistance, and the allocation of
+velocity components. This finding offers a new quantitative perspective for early ballistic
+correction theories. On the engineering and application side, the rapid-estimation mod-
+els developed are structurally simple and parameter-light, enabling near-accurate firing
+solutions under conditions lacking modern computational tools. The method is applicab.
+References
+[1] A. B. Caruana, A Treatise on Artillery, 1780–1900, Naval and Military Press, London,
+2017, historical development of European artillery technology.
+[2] A. Krupp, On the influence of air resistance on the flight of projectiles, Zeitschrift für
+Artillerie und Ingenieurwesen 4 (1873) 221–238, discusses drag effects and empirical
+correction methods.
+20
+
+[3] F.
+A.
+Morrison,
+Data
+correlation
+for
+drag
+coeﬀicient
+for
+sphere,
+Tech.
+rep.,
+Department
+of
+Chemical
+Engineering,
+Michigan
+Tech-
+nological
+University,
+Houghton,
+MI
+49931,
+USA,
+available
+at
+https://www.chem.mtu.edu/ fmorriso/DataCorrelationForSphereDrag2016.pdf
+(November 2016).
+[4] NASA
+Glenn
+Research
+Center,
+Drag
+of
+a
+sphere,
+https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/drag-of-a-sphere/,
+accessed: 2025-11-09 (2025).
+[5] P. S. Chudinov, Projectile motion in a medium with quadratic drag at constant hor-
+izontal wind, arXiv preprint arXiv:2206.02397Available online at arXiv:2206.02397
+[physics.class-ph] (2022).
+URL https://arxiv.org/abs/2206.02397
+[6] Met Oﬀice, National Meteorological Library and Archive, Factsheet 6 – the beaufort
+scale, https://www.metoffice.gov.uk/learning/library/archive-hidden-treasures/beaufor
+pDF factsheet; includes discussion of Francis Beaufort’s original log entry (13 Jan
+1806) and later standardisation. Accessed: 2025-11-10 (2023).
+URL https://www.metoffice.gov.uk/binaries/content/assets/mohippo/pdf/research/libr
+the −beaufort −scale2023.pdf
+[7] Standard atmosphere, ￿￿￿￿￿￿￿￿￿￿￿￿￿￿￿(1975).
+URL https://web.archive.org/
+A
+MATLAB
+1
+% ===============================================================
+2
+% Compute v0(theta) for launch altitude h0=500 m, target at same altitude
+3
+% Using Cd(Re) model and instantaneous rho(h)
+4
+% ===============================================================
+5
+clear; clc; close all;
+6
+7
+% -----------------------
+8
+% Constants and parameters
+9
+% -----------------------
+10
+T0 = 288.15;
+% K
+11
+p0 = 101325.0;
+% Pa
+12
+g0 = 9.80665;
+% m/s^2
+21
+
+13
+Lb = 0.0065;
+% K/m
+14
+R
+= 287.05;
+% J/(kg*K)
+15
+16
+D = 0.11;
+% projectile diameter (m)
+17
+m = 5.0;
+% mass (kg)
+18
+A = pi*(D/2)^2; % cross-section area (m^2)
+19
+g = 9.81;
+% m/s^2
+20
+nu = 1.5e-5;
+% kinematic viscosity (m^2/s)
+21
+L = 1200.0;
+% target range (m)
+22
+h0 = 500.0;
+% launch altitude (m)
+23
+24
+% -----------------------
+25
+% Functions definitions
+26
+% -----------------------
+27
+28
+rho_ISA = @(h) ISA_density(h, T0, p0, g0, Lb, R);
+29
+Cd_of_v = @(v) Cd_Re(v, D, nu);
+30
+31
+% -----------------------
+32
+% Simulation parameters
+33
+% -----------------------
+34
+dt = 0.02;
+35
+max_t = 500;
+36
+37
+% -----------------------
+38
+% Main calculation loop
+39
+% -----------------------
+40
+thetas_deg = 2.0:0.5:88.0;
+41
+n_theta = length(thetas_deg);
+42
+v_required = nan(size(thetas_deg));
+43
+44
+fprintf('Computing v0(theta) ...\n');
+45
+for i = 1:n_theta
+46
+theta = deg2rad(thetas_deg(i));
+47
+v_required(i) = required_v0_for_theta(theta, h0, L, ...
+48
+D, m, A, g, nu, rho_ISA, Cd_of_v, dt, max_t);
+49
+fprintf('￿= %.1f° →v0 = %.2f m/s\n', thetas_deg(i), v_required(i));
+50
+end
+22
+
+51
+52
+% -----------------------
+53
+% Save results
+54
+% -----------------------
+55
+T = table(thetas_deg', v_required', 'VariableNames', {'theta_deg', '
+v0_required_m_s'});
+56
+csv_path = fullfile(pwd, 'v0_vs_theta_h0_500_CdRe.csv');
+57
+writetable(T, csv_path);
+58
+fprintf('Saved CSV: %s\n', csv_path);
+59
+60
+% -----------------------
+61
+% Plot
+62
+% -----------------------
+63
+figure('Color','w');
+64
+plot(thetas_deg, v_required, 'o-', 'MarkerSize', 3);
+65
+xlabel('Launch angle ￿(deg)');
+66
+ylabel('Required initial speed v_0 (m/s)');
+67
+title('v_0￿() to hit target at 1200 m (launch altitude 500 m)');
+68
+grid on;
+69
+plot_path = fullfile(pwd, 'v0_vs_theta_h0_500_CdRe.png');
+70
+saveas(gcf, plot_path);
+71
+fprintf('Saved plot: %s\n', plot_path);
+72
+73
+% -----------------------
+74
+% Display first few rows
+75
+% -----------------------
+76
+disp('First 12 rows of result:');
+77
+disp(T(1:12,:));
+78
+79
+% ===============================================================
+80
+% Subfunctions
+81
+% ===============================================================
+82
+83
+function rho = ISA_density(h, T0, p0, g0, Lb, R)
+84
+if h < 0, h = 0; end
+85
+if h > 11000, h = 11000; end
+86
+T = T0 - Lb*h;
+87
+p = p0 * (T / T0)^(g0/(R*Lb));
+23
+
+88
+rho = p / (R*T);
+89
+end
+90
+91
+function Cd = Cd_Re(v, D, nu)
+92
+if v <= 0
+93
+Cd = 0.47;
+94
+return;
+95
+end
+96
+Re = v * D / nu;
+97
+if Re < 1.0
+98
+Cd = 24.0 / Re;
+99
+elseif Re < 3e5
+100
+Cd = 0.47;
+101
+elseif Re < 5e5
+102
+t = (Re - 3e5) / (2e5);
+103
+Cd = (1-t)*0.47 + t*0.15;
+104
+else
+105
+Cd = 0.15;
+106
+end
+107
+end
+108
+109
+function [x_at_zero, landed, t] = simulate_impact_x_with_rho(v0, theta, h0,
+...
+110
+D, m, A, g, nu, rho_ISA, Cd_of_v, dt, max_t)
+111
+112
+vx = v0*cos(theta);
+113
+vy = v0*sin(theta);
+114
+x = 0; y = 0; t = 0;
+115
+prev_x = x; prev_y = y;
+116
+117
+while t < max_t
+118
+prev_x = x; prev_y = y;
+119
+v = hypot(vx, vy);
+120
+h_inst = h0 + y;
+121
+rho = rho_ISA(h_inst);
+122
+Cd = Cd_of_v(v);
+123
+ax = -0.5 * rho * Cd * A / m * v * vx;
+124
+ay = -g -0.5 * rho * Cd * A / m * v * vy;
+24
+
+125
+126
+% --- RK4 integration ---
+127
+vx2 = vx + ax*dt/2; vy2 = vy + ay*dt/2;
+128
+v2 = hypot(vx2, vy2); h2 = h0 + (y + vy*dt/2);
+129
+rho2 = rho_ISA(h2); Cd2 = Cd_of_v(v2);
+130
+ax2 = -0.5 * rho2 * Cd2 * A / m * v2 * vx2;
+131
+ay2 = -g -0.5 * rho2 * Cd2 * A / m * v2 * vy2;
+132
+133
+vx3 = vx + ax2*dt/2; vy3 = vy + ay2*dt/2;
+134
+v3 = hypot(vx3, vy3); h3 = h0 + (y + vy2*dt/2);
+135
+rho3 = rho_ISA(h3); Cd3 = Cd_of_v(v3);
+136
+ax3 = -0.5 * rho3 * Cd3 * A / m * v3 * vx3;
+137
+ay3 = -g -0.5 * rho3 * Cd3 * A / m * v3 * vy3;
+138
+139
+vx4 = vx + ax3*dt; vy4 = vy + ay3*dt;
+140
+v4 = hypot(vx4, vy4); h4 = h0 + (y + vy3*dt);
+141
+rho4 = rho_ISA(h4); Cd4 = Cd_of_v(v4);
+142
+ax4 = -0.5 * rho4 * Cd4 * A / m * v4 * vx4;
+143
+ay4 = -g -0.5 * rho4 * Cd4 * A / m * v4 * vy4;
+144
+145
+x = x + dt*(vx + 2*vx2 + 2*vx3 + vx4)/6;
+146
+y = y + dt*(vy + 2*vy2 + 2*vy3 + vy4)/6;
+147
+vx = vx + dt*(ax + 2*ax2 + 2*ax3 + ax4)/6;
+148
+vy = vy + dt*(ay + 2*ay2 + 2*ay3 + ay4)/6;
+149
+t = t + dt;
+150
+151
+if y < 0 && t > 1e-6
+152
+dy = y - prev_y;
+153
+if abs(dy) < 1e-12
+154
+x_at_zero = x;
+155
+else
+156
+alpha = -prev_y / dy;
+157
+x_at_zero = prev_x + alpha * (x - prev_x);
+158
+end
+159
+landed = true;
+160
+return;
+161
+end
+162
+end
+25
+
+163
+x_at_zero = x;
+164
+landed = false;
+165
+end
+166
+167
+function v = required_v0_for_theta(theta, h0, L, D, m, A, g, nu, rho_ISA,
+Cd_of_v, dt, max_t)
+168
+v_lo = 1.0;
+169
+v_hi = 900.0;
+170
+tol = 0.05;
+171
+max_iter = 60;
+172
+173
+[x_lo, land_lo, ~] = simulate_impact_x_with_rho(v_lo, theta, h0, D, m, A, g
+, nu, rho_ISA, Cd_of_v, dt, max_t);
+174
+[x_hi, land_hi, ~] = simulate_impact_x_with_rho(v_hi, theta, h0, D, m, A, g
+, nu, rho_ISA, Cd_of_v, dt, max_t);
+175
+176
+if (~land_hi) || (x_hi < L)
+177
+v = NaN;
+178
+return;
+179
+end
+180
+if (land_lo) && (x_lo >= L)
+181
+v = v_lo;
+182
+return;
+183
+end
+184
+185
+for i = 1:max_iter
+186
+vm = 0.5*(v_lo + v_hi);
+187
+[x_m, land_m, ~] = simulate_impact_x_with_rho(vm, theta, h0, D, m, A, g
+, nu, rho_ISA, Cd_of_v, dt, max_t);
+188
+if (~land_m) || (x_m < L)
+189
+v_lo = vm;
+190
+else
+191
+v_hi = vm;
+192
+end
+193
+if v_hi - v_lo < tol
+194
+v = v_hi;
+195
+return;
+196
+end
+26
+
+197
+end
+198
+v = 0.5*(v_lo + v_hi);
+199
+end
+27

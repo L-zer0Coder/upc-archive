@@ -1,0 +1,693 @@
+Lasercraft Dynamics and Design for Proxima
+Centauri b Flyby
+Team 158
+Problem A
+Abstract
+This paper analyses the combinations among various kinds of sail shapes,
+materials and laser beam shapes to be used in a laser propelled spacecraft
+meant to reach relativistic speeds. It is an attempt to ﬁnd the best possible
+conﬁguration for sending a probe on a ﬂyby mission to the exoplanet Proxima
+Centauri b.
+The best conﬁguration is taken to be one that allows for stability, directional
+precision and maximum speed for a given mass.
+An attempt to explain the dynamics of the sail and its underlying physics has
+been made. Analysis of the motion through the parameter space has been
+done to determine the possibility of a successful mission. Various parameters
+have been identiﬁed and diﬀerent iterations of combinations of them have
+been considered.
+We have tried to optimize these parameters under the
+constraints of the problem statement so that our spacecraft may reach high
+enough speeds required for interstellar travel.
+In terms of stability, disregarding power eﬃciency and material limitations,
+a spherical sail with a multimodal Gaussian beam appears to be the best
+option. However, we conduct an analysis of dynamics using a uniform beam,
+with the square sail performing best in this limited comparison. We also
+attempt to make estimations about the kind of error that would be permitted
+in the laser beam precision arriving at a value of the order of 10-10 radians.
+1
+
+Team 158 Problem A
+Contents
+1
+Introduction
+3
+2
+Notations used
+3
+3
+Laser Array Speciﬁcations
+4
+4
+Sail Fabrication
+4
+4.1
+Material . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+4.2
+Correlation of Shape and Stability . . . . . . . . . . . . . . . . . . .
+5
+5
+Physics of Laser Propulsion
+8
+5.1
+Non-Relativistic Case . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+5.2
+Relativistic Case
+. . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9
+5.3
+Diﬀering Sail Dynamics for Uniform Beam . . . . . . . . . . . . . .
+11
+6
+Acceleration Dynamics
+13
+7
+Laser Precision
+15
+8
+Conclusions
+16
+2
+
+Team 158 Problem A
+1
+Introduction
+Breakthrough Starshot is a project with an aim to send an ultra-light nanocraft
+consisting of a space probe attached to a light sail of only a few grams, acceler-
+ated using the thrust of high power lasers for 10-20 minutes to achieve relativistic
+speeds, to the Alpha Centauri star system.
+The laser array required for this endeavour has an output of of 50 GW. Because of
+the recoil generated due to this power, the laser array is taken to be ground based.
+An initial sailcraft displacement of 60 000 km is used, consistent with a low-thrust
+non Keplerian orbit that keeps the sailcraft (and associated spacecraft) stationary
+in the sky relative to the target. [4]
+The ﬂyby, required here, is to the planet Proxima Centauri b at a minimum dis-
+tance not more than the distance between Earth and Moon. Additionally, a light-
+sail of an area of 10 square meters has been prescribed for this purpose.
+A highly reﬂecting sail is required for eﬃcient generation of thrust. At the man-
+dated goal of near 20% of the speed of light, the nanocraft heats up rapidly. Thus,
+the sail also has to be of a material that can easily radiate in the range of mid-
+infrared while reﬂecting the incident laser.
+The sail shape and laser wavefront combination has to be self-stabilizing, with a
+high degree of precision required in laser directionality.
+2
+Notations used
+Symbol
+Meaning
+Numerical Value
+d
+length of side of laser array
+10 km
+D
+diameter of reﬂector
+3.16 m
+m
+mass of lightsail
+2 g
+λ
+wavelength of laser
+1064 nm
+c
+speed of light
+3x108 ms-1
+Po
+power of laser array
+50 GW
+Lo
+distance at which laser spot size equals sail size
+β
+ratio of velocity of sail to c
+γ
+1/(1 −β2)0.5
+3
+
+Team 158 Problem A
+3
+Laser Array Speciﬁcations
+As proposed by Lubin [1], a full scale DE-STAR 4 phase locked laser array that is
+10km along one side is proposed using Nd:YAG lasers with wavelength 1064 nm.
+This wavelength allows for minimal deviation by atmospheric disturbances. In
+certain cases discussed below we shall also look at a circular laser array having the
+same power output and a diameter of 10km. Various sail shapes are discussed for
+these two laser array conﬁgurations. Additionally, the laser array can be conﬁgured
+to produce several varying types of beams including a uniform ’top-hat’ beam, a
+Gaussian beam, or a multimodal beam designed for a particular sail shape.
+Discussion on this uniformity of cross-section of the beam is necessarily interwoven
+with the choice of sail shape for optimization and is discussed with the same.
+Divergence θ is seen to be
+θ = αλ
+d
+(1)
+Here α = 1 for square DE system, 1.22 for circular system
+4
+Sail Fabrication
+While investigating the margin of error in sail fabrication, it is necessary to ﬁnd the
+best possible case and then derive deviations away from it. Hence, we investigate
+both the laser beam and the sail structure and their combinations to obtain the
+most eﬃcient combination under the given limitations.
+4.1
+Material
+Various materials have been suggested for use in the lightsail for a laser-propelled
+mission to the Alpha Centauri system.
+The use of low near-infrared beams to reduce atmospheric disturbance for a ground-
+based array requires that the material of the sail would have to be able to reﬂect
+such wavelengths of light. These wavelengths would then require a material that
+reaches a compromise between reﬂectivity, weight and heat generation.
+The current solar reﬂectors have thickness in the range of 1-10 µm. But future
+work in this technology is expected to allow us to greatly reduce the thickness of
+the reﬂector material and extend the capabilities of our sail.
+Additionally, reﬂectivity has been considered to be unity in all subsequent demon-
+strated calculations. This has not yet been achieved, though there exist fabricated
+materials that have close to this value.
+4
+
+Team 158 Problem A
+Below, we describe some of the reﬂector technologies in existence today. [1]
+1. Multi layer dielectric on metalized plastic ﬁlm: These systems can achieve
+reﬂectivities as high as 99.995% which can be tuned only to a very narrow
+linewidth. These systems are prone to high levels of error if the linewidth of
+the laser is wide.
+2. Multi layer dielectric on metalized glass: This technology can achieve “the
+5 nines” of reﬂectivity i.e. reﬂectivities as high as 99.999%. The absorp-
+tion through this material would be less than 10ppm. This, again, has the
+limitation of being operational on very narrow linewidths.
+It is worth noting here that absorption levels as less as 0.5 ppm have also been
+achieved but the thickness of the mirrors used would have to be in the order of
+centimeters which is the reason they would not be suitable in our sail.
+Hence, even using existing technology, our assumption of taking ϵ to be 1 is quite
+reasonable.
+Lubin [1] has consistently used a reﬂector thickness of 1000 nm with a density of
+1400 g/m3. In this paper, we move beyond these limitations, eﬀectively varying
+both parameters to within reasonable limits of future innovation. Sails as thin as
+10 nm with a density in the order of micrograms per square meter have not been
+established as feasible at this point in time, and so we do not go near these limits
+while varying our parameters for optimization.
+4.2
+Correlation of Shape and Stability
+For stable ﬂight, the combination of sail shape and laser beam shape play an
+essential role. At the acceleration the sail experiences, deformation may easily
+take place. Encountering even minor debris has the potential to send the sail oﬀ
+its path. The laser beam can be multimodal, uniform, or Gaussian, and each of
+these conﬁgurations would interact with individual sail shapes in diﬀerent ways.
+Thus, the beam-sail combination should be one that is self-stabilizing to a large
+extent.
+The total force applied by a beam incident on a perfectly reﬂective sail of area
+S is given by
+d⃗F
+dt =
+Z
+S
+2P(x)⃗b.⃗n(x)
+c⃗
+n(x)dS
+(2)
+5
+
+Team 158 Problem A
+where the domain of integration is the surface of the sail,⃗n(⃗x) is the unit vector
+normal to the sail surface at the point⃗x. P(⃗x) is the beam power ﬂux at the point⃗
+x,⃗b is a unit vector parallel to the beam axis and c is the speed of light. Similarly,
+the total torque applied by the beam to the sail is given by
+d⃗τ
+dt =
+Z
+S
+2P(x)⃗b.⃗n(x)
+c
+(⃗r(⃗x) ×⃗n(⃗x))dS
+(3)
+The sails can be convex, concave or ﬂat.
+Convex sails would not be able to
+maintain their structure due to beam pressure. This same pressure would hold up
+the concave sail by keeping it under tension. If the sail is assumed to be rigid, its
+motion can be described by Newton’s second law, and Euler’s equation:
+I d⃗ω
+dt +⃗ω × I⃗ω =⃗τ
+(4)
+Three sail shapes were analysed - spherical, conical and ﬂat with a ﬂat laser
+beam with sharp radial proﬁle [6]:
+1. Spherical :
+(a) Non-collapsible sail - Considering the spherical shape to be rigid, for
+the craft to be stable, the distance between the centre of mass of the
+craft and the the vertex of the sail should be more than the diameter of
+the sail. This requires the payload to be suspended at a large distance
+from the sail. For stability when the above condition is not fulﬁlled, the
+sail needs to be rotated along its axis. This would require an additional
+torque, which would be diﬃcult to produce.
+(b) Collapsible sail - For a non-rigid sail, at the acceleration which we would
+subject the it to, the spherical sail would get deformed into an oblate
+spheroid. This would ruin its symmetry and therefore, its stability. At
+speeds approaching c, most currently available materials would not hold
+up to the strain of ﬂight. [8]
+2. Conical : In this case, a perturbation would take the edge of the sail out
+of the beam column. Similar to the spherical case, for stability, the distance
+between the vertex and the centre of mass of the nanocraft should be more
+than twice the slant height of the cone. For a conical sail, we also have to
+ensure that multiple reﬂections do not occur, so angle from horizontal cannot
+be more than 30 degrees. Simulations at JPL and University of New Mexico
+[10] showed stability for sail shapes with the conical surface at angles from
+the horizontal of 25 to 30 degrees, a very small range.
+3. Flat : A planar sail under uniform illumination (I(x,y)=const) and angle
+independent reﬂection (R(v,α)=const) is shown to be unstable
+6
+
+Team 158 Problem A
+A preliminary conclusion is that the most stable and the simplest sail conﬁgura-
+tion would be a spherical sail [6], but the suspended chip at such a large distance
+predicts that a single collision with an external particle may lead to the loss of the
+associated chip, eﬀectively putting an end to the mission.
+Concurrently, two models were suggested, this time using a Gaussian beam. [7]
+The ﬁrst one was a rotating conical sail riding on a Gaussian beam. The instability
+of a conical sail discussed above holds in this scenario, and so we shall not consider
+this further.
+In the second model, a hollow donut-shaped beam was suggested. The hollow
+beam would consist of 4 Gaussian beams. The payload would be inside a spherical
+sail, which would remain in the hollow of the beam. This sphere would oscillate,
+but these oscillations would be restricted to the potential well created by the beam.
+However, in this model, 80% of the laser energy would be lost. Thus, this model,
+while allowing stability, loses practicality.
+Figure 1: Key design considerations for the stability of a laser propelled spacecraft.
+[9] Here red arrows denote schematically laser beam illumination, blue arrows
+correspond to local and total laser induced forces.
+7
+
+Team 158 Problem A
+5
+Physics of Laser Propulsion
+Working towards a comprehensive solution, a non-relativistic case is presented and
+then extended to a relativistic frame.
+While a discussion on the optimal beam shape and sail conﬁguration combination
+with regards to stability has already been detailed above, the simplest case to
+computationally analyze and compare across both frames under the limitations
+that the
+• craft’s terminal velocity approaches 0.2c
+• surface area of the craft is 10 square meters
+• laser array power is 50GW
+• sail material is (as explained above) within reasonable limits of future inno-
+vation
+is that of the square sail propelled using a uniform beam.
+As a result, the stability is approached independently of the subsequent analysis
+of dynamics of the square sail propelled on a uniform beam. During analysis of
+dynamics it is assumed that the craft remains stable and is undeviated from its
+intended path.
+5.1
+Non-Relativistic Case
+Carrying out an analysis as given in [1]:
+Laser thrust on payload with laser power P0 with reﬂectivity ϵr while laser spot is
+smaller than sail
+F = P0(1 + ϵr)
+c
+(5)
+where ϵr=0 for no reﬂection (all absorbed) and 1 for complete reﬂection. For our
+purpose, ϵr 1
+Acceleration
+a = F
+m = P0(1 + ϵr)
+mc
+(6)
+Total mass = base payload + total mass of sail
+m = m0 + msail
+(7)
+msail = D2hρ
+(8)
+8
+
+Team 158 Problem A
+where D=sail size, h=sail thickness, ρ=sail density
+D(m) =
+rmsail
+hρ
+= 31.6
+s
+msail(kg)
+h(µ)ρ(g/cc)
+(9)
+Speed at point where laser spot = sail size
+v0 =
+ P0(1 + ϵr)dD
+cλ(D2hρ + m)
+1/2
+(10)
+Distance L0 at which laser spot = sail size
+L0 = Dd
+2λ
+(11)
+The time taken to where the laser spot equals the sail size is:
+t0 =
+cdD(D2hρ + m)
+P0(1 + ϵr)λ
+1/2
+(12)
+After this point, the force is no longer constant. The laser beam does not fall
+completely on the sail but some portion of the beam overﬂows from the sail; this
+power is essentially lost.
+With continued illumination, the speed increases by
+√
+2
+v∞=
+2P0(1 + ϵr)dD
+cλ(D2hρ + m)
+1/2
+(13)
+It can be shown that the maximum speed occurs when the sail mass = the payload
+mass
+5.2
+Relativistic Case
+In this approach [2], initially it is observed that the momentum of the photons and
+the nanocraft, is conserved before and after the collision. This is a simple Compton
+scattering phenomena. Considering that the source of the laser (Directive energy
+system) is stationary, and the energy of a single photon is small compared to the
+rest energy of the sail, the individual collisions can be smoothed over.
+Due to relative motion between the sail and DE system, the rate at which the
+9
+
+Team 158 Problem A
+photons are emitted from the system is not the same as the rate at which they
+strike the sail.
+Ef =
+1 −β
+1 + β
+
+Ei
+(14)
+(due to 2 Doppler shift factors)
+Ei is initial energy of photons
+Ef is energy after reﬂection from sail
+Rate of change of β =
+˙β =
+2P
+mc2γ3
+1 −β
+1 + β
+
+(15)
+As photons reﬂect oﬀthe sail, they get redshifted, transferring their energy to the
+sail. The eﬃciency of a collision can be deﬁned as the fraction of energy transferred
+at each collision.
+η = ∆E
+Ei
+=
+2β
+1 + β
+(16)
+As the speed of the sail increases, the photons take longer to strike the sail. Thus,
+more of the energy from the DE system is used in the forward photon beam rather
+than in acceleration of the sail.
+For distance greater than L0, power reduces with distance according to the inverse
+square law. Thus, an equilibrium is established and a terminal velocity is reached.
+Observing the nanocraft in the relativistic frame has thus allowed us to con-
+clude that it reaches its terminal velocity within the mandated timeframe of 20
+minutes.
+The relevant conclusion we can derive from this graph is that the sails with
+smaller mass reach their terminal velocity faster than the larger masses because of
+greater acceleration. Also, they have a larger terminal velocity than the heavier
+sails.
+Additionally, we observe that the 1 km DE system has more divergence than the
+10km one. L0 is smaller for the 1km system, thus, the time taken for them to
+reach terminal velocity is smaller than for the other one. The terminal velocity is
+lesser for the sail accelerated by 1km system.
+10
+
+Team 158 Problem A
+Figure 2: Taken from [2], this graph shows the implications of a relativistic frame
+5.3
+Diﬀering Sail Dynamics for Uniform Beam
+Above, we have observed the diﬀerence of the relativstic and non-relativistic frames.
+These calculations have all been done using a square laser array and a square sail
+shape combination. We now obtain data from [3] keeping in mind the limitations
+of the problem and the intended voyage, and observe the diﬀerence between the
+two frames to showcase the importance of the extension.
+From the graph in ﬁgure two it is visible that the payload at which the limiting
+parameters allow us to approach 0.2c is 2 grams. At this low mass, the increased
+deviation of the relativistic case from the non-relativistic case is also seen.
+We now move away from a square laser array to a circular one. The use of a
+circular array allows the comparison of diﬀerent sail shapes for the same payload.
+This also becomes a factor in choosing a sail for optimum performance.
+On comparison of the diﬀerent sail shapes for the same circular laser array, the
+incremental beneﬁt of using the circular sail for this conﬁguration becomes visible.
+However, we do not yet know whether the circular sail’s performance for a circular
+laser array is better than that of a square sail of the same area for a comparable
+square array.
+11
+
+Team 158 Problem A
+Figure 3: Variation of the limiting speed for a square sail propelled by a square
+DE-STAR 4 laser array of 50 GW for diﬀering payloads. The surface area of the
+craft has been kept constant at 10 square meters in accordance with the problem
+statement.
+This question is addressed in the next graph, by plotting their relative perfor-
+mances side by side.
+12
+
+Team 158 Problem A
+Figure 4: Variation of the limiting speed for diﬀerent sail shapes in the relativistic
+frame propelled by a circular DE-STAR 4 laser array of 50 GW for diﬀering pay-
+loads. The surface area of the craft has been kept constant at 10 square meters
+while varying the areal density.
+6
+Acceleration Dynamics
+On viewing the graphs we can take the highest mass to achieve close to 0.2c as 2g.
+We can now calculate the constants derived under the non-relativistic frame.This
+gives us the values
+L0 = 1.49 ∗107km
+t0 = 9.97minutes
+v0 = 4.99 ∗107
+β0 = 0.166
+We are illuminating the sail for 20 minutes and during that acceleration, our
+sail speed reaches close to its maximum speed on continued illumination beyond
+13
+
+Team 158 Problem A
+Figure 5: A plot of the two better performing sail shapes to clarify the relationship
+between array shape and sail shape
+t0, as proved in our analysis above.
+The laser is switched on only for the ﬁrst 20 minutes and then switched oﬀ. We
+operate under the assumption that the nanocraft is stable on the beam (an as-
+sumption which has been discussed in early sections), and that the nanocraft will
+travel undeviated by external gravitational ﬁelds until it reaches the vicinity of
+Proxima Centauri. This is a reasonable assumption to make as Proxima Centauri
+B is the closest known exoplanet to Earth and Proxima Centauri is the nearest
+star, mitigating the possibility of interference by other astronomical objects.
+Basis for disregarding the Sun’s gravitational ﬁeld in comparison to laser acceler-
+ation:
+Gravitational force of Sun: 0.00002 N
+Force due to laser: 333.33 N
+14
+
+Team 158 Problem A
+Thus the gravitational force of the sun is seven orders of magnitude less than
+the force given to the lightcraft by the laser, and will also decrease further accord-
+ing to the inverse square law as the lightsail moves away from the elliptic plane.
+Hence it is disregarded.
+The acceleration dynamics thus eﬀectively reduce to the problem of choosing the
+right time and initial nanocraft positioning in orbit such that a linear impulse
+given by the laser photons will send it directly in the direction of the Proxima
+Centauri system.
+7
+Laser Precision
+There is sparse data on the inclination of the elliptic plane of orbit of the Proxima
+Centauri System, perhaps due to the relatively recent discovery of the terrestrial-
+like planet from the analysis of Doppler measurements in 2016. Under the as-
+sumption that the lightcraft will ﬁrst come in the vicinity of the exoplanet before
+passing closer to the star.
+We know that:
+Distance from earth to proxima centauri = 4.105 x 1013 km
+Earth moon distance = 384,400 km
+Radius of expoplanet = 0.8-1.5 Re = 5096-9557 km
+Proxima B orbits the star at 7.5 x 106 km
+In order to pass at a distance less than 384,400 km to Proxima Centauri b, the
+maximum allowable half deviation angle of the laser from its optimum value (with
+the origin line directed at the expolanet) is
+θdev = 3.844 × 105
+4.105 × 1013 = 9.364 × 10−9
+(17)
+If the laser array provides with any lesser precision, the nanocraft will pass outside
+of the mandated required ﬂyby distance.
+In order to further optimize the stability of the path, we also limit the precision
+of the laser such that the laser beam cannot deviate to an extent more than that
+which takes the centre of the beam outside the spectral area of the nanocraft on
+a non-deviated path until the craft is at a distance Lo (which has been calculated
+above)
+θ = D/2
+Lo
+= 1.061167 × 10−10
+(18)
+15
+
+Team 158 Problem A
+If the laser is constructed in line with the more stringent parameter of the order
+of -10 above, it eﬀectively ensures that the spacecraft will reach the intended
+destination.
+We also calculate the angle of divergence of the laser beam itself.
+θ = λ
+d = 1.064 × 10−6
+107
+= 1.064 × 10−13
+(19)
+This shows that the spreading of the laser beam, assuming that the laser points
+exactly where we want it to, will take the nanocraft well within the mandated
+distance for a ﬂyby. However, deviations and disturbances in the direction of the
+laser beam itself need to be accounted for separately, as has been done above.
+8
+Conclusions
+The square sail, by pure parametric analysis during externally stabilized motion
+on a uniform beam, is arguably the best choice among those examined. However,
+when examining solely stability of the setup while disregarding the parameters of
+power eﬃciency and material strength, it becomes apparent that the spherical sail
+using a multimodal Gaussian beam is optimum.
+However, in reality the spherical sail, whose thickness is in the order of microns,
+would become ablated at high relativistic speeds. Another geometry considered,
+conical, is not ﬁt to use due the trade-oﬀit needs to make between the eﬃciency
+of the laser beam incident on it and the stability of the sail.
+Another thing to note is that this work does not take into account the rota-
+tion of the earth over these 20 minutes due to which the laser ﬁxed on the ground
+would also deviate from pushing the sail exactly from its centre and thus providing
+a torque which could throw the probe oﬀits required path.
+Further examining the square sail, we have shown its margin of improvement
+for diﬀering payloads as opposed to circular and spherical sails for a perfectly
+uniform laser beam (further clariﬁed in the appendix below). But there are still
+various problems with that geometry which we have ignored during our analysis
+of dynamics, prominent among which is the stability of such a system, which our
+prior analysis has shown to be low.
+The precision of the laser system has been examined with the maximum angle
+deviation being 1.06 × 10−10 radians in the two-dimensional plane. Beam diver-
+gence has also been examined.
+16
+
+Team 158 Problem A
+There is still a signiﬁcant amount of work required to solve the problem of
+stability of probe sail, laser precision, and the best material to make the sail out of
+before such a spacecraft could be invested in and sent on expeditions. The param-
+eter space to be explored is huge and to pick out the optimum values from that
+space is one of the largest obstacles to overcome. To make even better optimiza-
+tions of the parameters associated and achieve them with the required precision
+in real life using large computational power is absolutely essential to completing
+the proposed journey spanning decades.
+Further extension of this work and more innovation is required to think of a
+mission to land the spacecraft onto bodies of the likes of Proxima Centauri b in
+addtion to performing ﬂybys. The prominent diﬃculty in landing such nanocraft
+is the means to decelerate a spacecraft that barely carries anything but the sail
+which drives it. For now, this spacecraft is a promising idea to venture into places
+unreachable before.
+References
+[1] P. Lubin. A Roadmap to Interstellar Flight. JBIS, Vol. 69, pp. 40–72, 2016
+[2] N. Kulkarni, P. Lubin, Q. Zhang. Relativistic Spacecraft Propelled by Directed
+Energy. Proc. SPIE 9981, Planetary Defense and Space Environment Applica-
+tions, 2016.
+[3] unknown,
+University
+of
+California
+Santa
+Barbara
+Laser
+Propulsion.
+http://www.deepspace.ucsb.edu/wp-content/uploads/2015/04/
+Relativistic-Laser-Propulsion-Classical-1D-Standalone.html.
+[4] K. L. G. Parkin. The Breakthrough Starshot System Model, Acta Astronaut
+[5] R. L. Forward. Roundtrip interstellar travel using laser-pushed lightsails, Jour-
+nal of Spacecraft and Rockets 21(2), pp. 187–195, 1984
+[6] H. Popova, M. Efendiev, I. Gabitov, On the stability of a space vehicle riding
+on an intense laser beam https://arxiv.org/abs/1610.08043 (2016)
+[7] Z. Manchester, A. Loeb, Astrophys. J. 837, L20 (2017)
+[8] P.
+Gilster,
+2017,
+www.centauri-dreams.org/2017/06/23/
+beam-riding-and-sail-stability
+17
+
+Team 158 Problem A
+[9] H. A. Atwater, A. R. Davoyan, O. Ilic, D. Jariwala, M. C. Sherrott, C. M.
+Went., W. S. Whitney, J. Wong, Materials challenges for the Starshot lightsail.
+Nat. Mater. 2018, DOI: 10.1038/s41563-018- 0075-8.
+[10] G. Benford, O. Goronostavea and J. Benford, Experimental Tests Of Beam-
+Riding Sail Dynamics, Beamed Energy Propulsion, AIP Conf. Proc. 664, pp.
+325, A. Pakhomov, ed., 2003
+18
+
+Team 158 Problem A
+Appendix
+Table 1: Relativistic vs. Non-relativisitic limiting speeds
+varying with payload mass (with square laser array)
+Payload(g)
+β%(Relativistic)
+β%(Non-Relativistic)
+1
+26.6
+33.3
+2
+20.1
+23.5
+3
+18.1
+19.2
+4
+14.9
+16.6
+5
+13.3
+14.9
+6
+12.1
+13.6
+7
+11.3
+12.6
+8
+10.7
+11.8
+9
+10.3
+11.1
+10
+9.82
+10.5
+Table 2: Relativistic Limiting Speeds for sails of diﬀerent
+geometries(with circular laser array)
+Payload(g)
+β%(Square)
+β %(Circular)
+β%(Spherical)
+1
+24.6
+25.8
+19.4
+2
+18.3
+22.6
+14.3
+3
+15.4
+16.2
+11.7
+4
+13.4
+14.3
+10.4
+5
+12
+12.7
+9.44
+6
+11.1
+11.7
+8.67
+7
+10.5
+11
+8.12
+8
+9.94
+10.4
+7.6
+9
+9.37
+9.96
+7.17
+10
+8.91
+9.44
+6.81
+19

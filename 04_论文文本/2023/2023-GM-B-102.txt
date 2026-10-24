@@ -1,0 +1,395 @@
+Trampoline Jumping Analysis
+Team 102
+Problem B
+abstract
+Trampoline is a competitive sport that uses the bouncing power of a trampo-
+line to perform acrobatic tricks in the air. It can also be a popular recreation
+for children.
+To begin with, we built a model of a trampoline and calculated its ex-
+pressions for elastic force, air resistance, friction force, and damping force.
+In order to calculate the maximum height that each child can achieve,
+we first established an ideal model, regarded each child as a Particle, did
+not do external work, used Hooke’s law to represent the elasticity of the
+trampoline, ignored various resistance factors, simulated with MATLAB, and
+by analyzing its image, we can get the energy transfer relationship in the
+process of this movement. When each child compresses the lowest point of
+the trampoline and is bounced, the next child just arrives and continues
+to bring the trampoline down, then the third child repeats the process, in
+this way, the energy of the first two children is transferred to the third child
+through the trampoline, so that the third child will reaches the highest height.
+Then we improved the model, in this new model we introduced the pre-
+vious trampoline model, and estimate each child’s jumping ability by their
+maximum height when jumping individually.
+Again, we listed the corre-
+sponding differential equations and calculated them in MATLAB, but in-
+stead of directly calculating the theoretical maximum value that each child
+could reach, we controlled for different initial conditions and found the high-
+est height reached by each child through exhaustive methods. The end result
+was the 25kg child could jump to 3.67 meters, the 40kg child could jump to
+2.54 meters, and the 50kg child could jump to 2.09 meters.
+1
+
+Contents
+1
+Introduction
+3
+2
+Problem analysis
+3
+3
+Theoretical model
+3
+3.1
+Trampoline Static and Dynamic Analysis . . . . . . . . . . . .
+3
+3.1.1
+Static Analysis of Trampoline . . . . . . . . . . . . . .
+3
+3.1.2
+Dynamic Analysis of Trampoline . . . . . . . . . . . .
+5
+3.2
+The most ideal model
+. . . . . . . . . . . . . . . . . . . . . .
+5
+3.3
+Simulation and analysis to ideal model . . . . . . . . . . . . .
+6
+3.4
+Adjustment to the model . . . . . . . . . . . . . . . . . . . . .
+9
+4
+Discussion and conclusion
+13
+2
+
+1
+Introduction
+The trampoline is a professional and recreational facility not only can bring
+happiness to players and also plays an important role in balance resilience
+exercise. However, there are risks when engaging in physical activity espe-
+cially when there is more than one person. For single players, the risk of it is
+lower because they can control their height, but for shared players, the risk
+of it is hard to prevent. In shared trampolines, one can transfer his energy
+to others. In detail, the potential energy of one player can be transferred to
+trampoline when landing earlier than another player. And the energy stored
+by trampoline will transfer to another person which make him bounce higher.
+We consider the case when there are three kids share the same trampoline
+and aim to find the highest each one can reach.
+2
+Problem analysis
+The main task is to find the maximum height each one can reach.
+For
+this problem three kids A, B, C respectively weighs 25kg, 40kg, 50kg. The
+diameter of trampoline is 5m. A alone can bounce to a maximum height
+of 0.5m, while B, C can alone bounce to a maximum height of 0.8m, 1.2m.
+Firstly, we want to analysis the dynamic characteristics of trampoline, then
+we can know the interaction between kids and trampoline.
+To make the problem clearly, we first want to simplify the forces between
+kids and trampoline, just consider it following Hook’s low. Knowing how the
+simplified cases works, we want to adjust the model and consider the more
+reality cases.
+Finally, we can solve the maximum height in complex cases.
+3
+Theoretical model
+3.1
+Trampoline Static and Dynamic Analysis
+3.1.1
+Static Analysis of Trampoline
+[1]The Trampoline is consisted of many springs around the central mat. We
+take a specific and common trampoline for analysis. Below is the parameter
+of the trampoline:
+3
+
+Table 1: Parameter of the trampoline
+Parameter
+Meaing
+Value
+unit
+R
+Trampoline radius
+2.5
+m
+Mm
+Mat mass
+1
+kg
+Ns
+Number of spring
+55
+1
+Ks
+Stiffness of spring
+3000
+N/m
+If we make a small distance x from the horizontal, the train of one spring
+is :
+△L =
+√
+R2 + x2 −R ≈x2
+2R
+(1)
+Actually, we predict the largest of x to be 0.5m, and
+x
+2R = 0.1. The spring
+force is:
+Fs = Ks△L = Ks(
+√
+R2 + x2 −R)
+(2)
+The total force can be divided into the horizontal part and the vertical part,
+let the vertical part to be Fv:
+Fv = NsKs(
+√
+R2 + x2 −R)
+R
+√
+R2 + x2
+(3)
+The graph of Fv is demonstrated below:
+Figure 1: Fv(x)
+4
+
+3.1.2
+Dynamic Analysis of Trampoline
+When someone is jumping in the trampoline there will be some energy loss.
+There are three factors, the air resistance on the mat Fa, the damping re-
+sistance Fd and frictions f. We use calculus to calculate the Fa, divide the
+mat into many pieces, and let the velocity in the center to be v, the piece is
+r from the center, then velocity of each piece is:
+vr = R −r
+R
+v
+(4)
+We can get the air resistance to this piece:
+dFa = Ca
+R
+√
+R2 + x2(R −r
+R
+v)22πrdr
+(5)
+We project the total resistance to the vertical direction, so the total air
+resistance is:
+Fa =
+∫R
+0
+Ca
+R
+√
+R2 + x2(R −r
+R
+v)22πrdr =
+πCaR3
+6
+√
+(R2 + x2)
+v2
+(6)
+The damping resistance is proportional to central velocity:
+Fd = Cdv
+(7)
+To put it easily, we use the statistics below which are proved to be consistent
+to reality to calculate:
+Table 2: Resistance parameter
+Parameter
+Meaing
+Value
+unit
+Ca
+Air resistance constant
+2.3
+Ns2/m4
+Cd
+Damping resistance constant
+16
+Nsm
+f
+Stiffness of spring
+2.5
+N
+3.2
+The most ideal model
+To understand the energy transfer of trampoline problem, let’s start with the
+simplest model:
+5
+
+1.Treat each child as a particle.
+2.Treat the highest potential energy children can get to be the
+initial energy of each one.
+3.The elastic force provided by the trampoline satisfies Hooke’s
+law Fv = −kx. We predict x less than 0.5m, reference to figure 1,
+we let k = 8000N/m.
+4.Regardless of other drag factors.
+In this way, when a child touches the trampoline and compresses it, he is
+subjected to his own gravity G = mg and trampoline elastic force Fv = −kx.
+Only the child who is at the bottom can get the trampoline force. After
+building the model according to this assumption, for each of the children we
+can list the differential equation below:
+md2xi
+dxi2 =
+{ −mg
+if xi̸ = a
+−mg −kxi
+if xi = a
+a = min{xi, 0}
+We can solve the differential equations in MATLAB.
+3.3
+Simulation and analysis to ideal model
+To get the central physical ideas in the process, Let’s start by analyzing
+the energy transfer process when there are two children jumping. Suppose
+them fall from different height at the same time. Intentionally set the initial
+conditions, we can get figure 2.
+At the beginning, they do a freefall movement, firstly B touches the tram-
+poline and compress it. The trampoline exerts a force that hinders B’s move-
+ment, while A continues to fall freely, so A falls faster than B and will catch
+up with B. Here is what interesting happens. If A catches B when B slightly
+bounce up. Then, A compresses the trampoline downwards and is subjected
+to the resistance provided by the trampoline, while B begins to bounce up
+freely. The majority of energy of B is stored in trampoline and will transfer
+to A when A bounces up. The result is A get the majority energy from B
+and B remains relatively low energy. A will bounce up significant high.
+6
+
+Figure 2: double damping
+The problem is more complicated when there are three children jumping,
+but the physical idea is the same. Below is the initial statistics. We get
+it from the maximum they can reach. We set initial condition in this way,
+initially all of children are above the trampoline and their kinetic energy and
+potential energy are equal to their initial energy, so they can release from
+different height with accordingly velocity.
+Table 3: Initial condition
+Children
+Mass(kg)
+Initial Energy(J)
+A
+25
+122.5
+B
+40
+313.6
+C
+50
+588.0
+What we want is that when someone slightly bounces up, another one
+catches him and push the trampoline done. Then when this one slightly
+bounces up, the last one catches and eventually can get the majority energy
+and bounce up higher than what he can alone.
+We use MATLAB to stimulate and we get the following graph: Figure 3
+to Figure 5.
+7
+
+Figure 3: C reaches highest
+Figure 4: B reaches highest
+8
+
+Figure 5: A reaches highest
+As we can see, if they jump together, every one of them can get the height
+they cannot do alone.
+Table 4: Add caption
+Children
+Alone maximum height(m)
+Together maximum height(m)
+A
+0.5
+2.9
+B
+0.8
+2.2
+C
+1.2
+2.1
+Through trampoline, work can be stimulated in one person. Table 4 is
+the maximum height calculated by MATLAB. Actually, these are not the
+only conditions can lead to the highest.
+3.4
+Adjustment to the model
+Next, we want to adjust our model.
+Elastic Force:The force is not linearly to x as Hook’s low, equation(3)
+gives the accurate formula.
+Considering distance x is a lot smaller than
+radius R, we can use more accurate simplification:
+9
+
+Fv ≈NsKs
+2R x2
+(8)
+Figure 6: Comparison between accurate and simplified force
+This simplification is quite well when x < 0.5.
+Energy Loss: The energy loss is due to damping resistance, air resis-
+tance and fraction. All of them have been discussed above.
+Energy gain: Actually, if the child don’t use his strength, he will stop
+quickly as stated in figure 7.
+We predict that when one kid gets to his
+maximum, the energy gain equals to the energy loss. So, we consider his
+strength to be the energy loss divided by the distance from bottom to x = 0,
+which compensates the loss. We take the first bounce in figure 7 to calculate
+energy loss and distance. We calculate the force and demonstrate below:
+Table 5: Strength of each child
+Children
+Strength
+Unit
+A
+122.7
+N/m
+B
+187.6
+N/m
+C
+239.5
+N/m
+10
+
+Figure 7: Energy Loss
+Using the more accurate model, we get figure 8 to 10 to be the maximum
+height, Table 6 demonstrates statistics:
+Table 6: Adjust modle
+Children
+Alone maximum height(m)
+Together maximum height(m)
+A
+0.5
+3.67
+B
+0.8
+2.54
+C
+1.2
+2.09
+11
+
+Figure 8: A reaches highest
+Figure 9: B reaches highest
+12
+
+Figure 10: C reaches highest
+4
+Discussion and conclusion
+We first use many simplifications, which can give a clear nature of the prob-
+lem. To make it more close to reality, we consider many factors which may
+affect. But because of the complexity of reality, there must be some fac-
+tors we don’t fully consider such as the specific process of one kid using his
+strength, hoping we can do experiment to determine them.
+At the same time, we also thought that for these children, judging by their
+weight, they may still be very young, especially the 25kg child, the height
+of the jump alone is only 0.5m, but when the three children jump together,
+they can reach a height of more than 3 meters, which is very dangerous for
+them. It can be seen that trampoline sports may produce some potential
+safety hazards, and we must pay attention to safety when using trampoline
+sports and games.
+References
+[1] D. Eager, S. Zhou, K. Ishac, I. Hossain, A. Richards, and L.N. Sharwood.
+Investigation into the trampoline dynamic characteristics and analysis of
+double bounce vibrations. Sensors, 22(8):2916, 2022.
+13
+
+Appendix
+Figure 11: Ideal model
+14
+
+Figure 12: Ideal model
+Figure 13: Adjusted model
+15
+
+Figure 14: Adjusted model
+16

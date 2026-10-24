@@ -1,0 +1,1420 @@
+Problem B
+Design and Dynamic Analysis of a Roller Coaster
+Team # 389
+November 3,2019
+Abstract
+This paper analyses the track and motion of a roller coaster.Our main task can be
+divided into three parts:
+(1)Design a roller coaster that meets both security and stimulation.
+We make the following analysis: While riding a roller coaster, however, being
+overweight or weightless and changing direction can cause changes in acceleration,
+resulting in a sense of excitement. However, excessive acceleration is bound to cause
+damage to the health of passengers. Normal adults can withstand 4~5g vertical
+acceleration with a duration of no more than 0.1s.According to the theoretical
+calculation, the maximum vertical acceleration in this design scheme is 4.1g, and the
+duration is 0.01s, which occurs at the first downhill. The rest of the vertical
+acceleration is less than 4g. The time of overweight and weightlessness accounts for
+87% of the total time. Therefore, this design scheme can continuously bring
+passengers a sense of tension and stimulation under the premise of ensuring safety.
+(2)Analyze the dynamics of roller coaster and calculate the total duration.
+The roller coaster track is divided into 9 segments. In each segment, we use
+Kinetic energy theorem to analyse its motion, and then obtain velocities between
+every two adjacent segments. These velocities correspond well with results of
+simulation. With the help of simulation softwares, we figure out the total duration of
+the ride is 1 minute and 2.67seconds.
+(3)Accurately describe the motion trajectory of roller coaster in three
+dimensions.
+According to (1) and (2), we can precisely describe the path that the roller
+coaster track would follow.
+Keywords:
+Roller coaster, Simulation, Kinetic energy theorem, Dynamical
+analysis
+
+Team#389
+2
+Contents
+1 Problem Analysis.................................................................................... 3
+1.1 Introduction......................................................................................3
+1.2 Problem Analysis.............................................................................3
+2 Model........................................................................................................5
+2.1 Model assumption............................................................................5
+2.2 Parameter setting............................................................................. 6
+2.3 Model Establishment.......................................................................8
+2.4 Formula Derivation........................................................................10
+3 Results.................................................................................................... 17
+3.1 Task 1.............................................................................................17
+3.2 Task 2.............................................................................................18
+3.3 Task 3.............................................................................................20
+4.Model Verification................................................................................21
+5.Model Improvement.............................................................................23
+6.Model Evaluation..................................................................................23
+7.Conclusion............................................................................................. 24
+8.References..............................................................................................24
+9.Appendix................................................................................................26
+
+Team#389
+3
+1. Problem Analysis
+1.1Introduction
+Roller Coaster is an exciting activity, which brings riders a lot of
+fun, excitement and thrill. Aboard on a roller coaster, the sense of
+weightless and overweight when the roller coaster up and down is
+why we feel excited of thrilled. However, there are some accidents
+causing injuries or deaths, a few of which may result from some
+unreasonable design. What’s more, the up-and-down roller coaster
+could possibly make us feel sick if the sense of acceleration is too
+excessive. In this paper, we try to analyse how a roller coaster works
+and try to design a roller coaster safe enough as well as exciting. We
+design different parts of its path, including riser, vertical ring, arc
+segments and so on. The dynamic analysis of each part will be posted
+in this paper.
+1.2Problem Analysis
+The roller coaster is required to start from a horizontal section of
+20 meters and rise to the highest point of a mountain under the action
+of external forces. The height of the highest point is 30 meters, and its
+gravitational potential energy is the only energy source of the roller
+coaster motion. The roller coaster track should be closed and not
+
+Team#389
+4
+lower than the initial height.
+Our main task can be divided into three parts:
+(1)Design a roller coaster that meets both security and
+stimulation.
+(2)Analyze the dynamics of roller coaster and calculate the total
+duration.
+(3)Accurately describe the motion trajectory of roller coaster in
+three dimensions.
+Firstly, we start with roller coaster track design. Through
+consulting materials, we know that the track of roller coaster is usually
+combination of a series of mechanical models, which make the car body
+climb, fall, reverse and other actions along the track. Track systems
+should be considered for safety and stimulation. We make the following
+analysis: roller coaster stimulation mainly depends on the acceleration,
+through the appropriate overweight, weightlessness, impact, vibration
+and other sensory stimulation to the passengers. However, excessive
+acceleration will cause harm to human body, if affect vestibular organ,
+make human body produces the undesirable physiology reaction such as
+dizziness, vomiting. Accelerated passage can also cause stress on the
+heart, blood pressure, etc.
+Therefore, we must come up with a feasible plan to keep the
+roller coaster's acceleration within a certain range, which is both
+
+Team#389
+5
+exciting and safe. We use the combination of clothoid loop, circular arc
+track and spiral track to design a roller coaster track system that meets
+the requirements.
+According to the track model, we will analyze the force and
+motion of each part of the car, and complete the dynamic analysis and
+the solution of the total motion time with the help of the simulation
+software.
+Combined with the above dynamic analysis, we can accurately
+describe the motion process of roller coaster in three dimensions.
+2.Model
+2.1 Model assumption
+This model is established on the basis of actual roller coaster track.
+In order to facilitate theoretical modeling and calculation, some practical
+conditions need to be limited and some minor parameters need to be
+reasonably simplified. Based on this model, the following assumptions
+are made.
+[Assumption1]
+When calculating wind resistance, only the windward of roller
+coaster is considered, not the transverse wind resistance.
+[Assumption2]
+The roller coaster started at the top of the mountain with an initial
+
+Team#389
+6
+speed of zero.
+[Assumption3]
+The wheel of the car is only subject to rolling friction. The
+maximum rolling friction moment is used to calculate the power
+consumption in the process of motion. The rolling friction coefficient of
+the track is equal everywhere.
+[Assumption4]
+Roller coasters pass through certain small arcs that are
+approximately free of drag (wind resistance and rolling friction).
+Figure 1 carriage
+[Assumption5]
+The carriage wheels are upright.
+2.2 Parameter setting
+The empirical value of some parameters can be obtained by referring
+to the data, which can be directly substituted into the theoretical
+
+Team#389
+7
+derivation as a known quantity.
+See the table below for specific values.
+Table 1 constant
+Symbol
+Physical meaning
+
+
+1,2,...,5
+ir
+i 
+Radius of arcs
+v (i
+1,2,...,10)
+i
+
+The initial or final velocity of every section
+v (j
+Ⅰ,Ⅱ,...,Ⅵ)
+j
+
+The average velocity of every section
+(i
+1,2,...,7)
+iW
+
+The resistance work of every section
+(i
+1,2)
+il
+
+The length of every straight section
+(i
+1,2)
+ih
+
+The height of every parts of the riser
+wF
+The resistance work of air-resistance
+f
+The rolling friction between the wheels of the roller
+coaster and the track
+
+The indensity of air
+DA
+The windward area
+D
+C
+Air resistance coefficient
+K
+Rolling friction coefficient
+s
+arc length
+θ
+Variable angle
+α
+The specific angle
+m
+The total mass of passengers and carriages
+
+Team#389
+8
+The unknowns involved in the model are shown in the table 2.
+Table 2 variable
+symbol
+value
+1r
+3 meters
+2r
+5 meters
+3r
+5 meters
+4r
+50 meters
+5r
+30 meters
+1l
+15 meters
+2l
+30 meters
+
+1.3 kilograms per cubic meter
+DA
+1.5 square meters
+D
+C
+0.3
+K
+0.05
+g
+9.8 newton per meter
+α
+6
+
+m
+2.2 ton
+2.3 Model Establishment
+Using Nolimts Ⅱ: Roller Coaster Simulation software for the
+design of a Roller Coaster model kinematics Simulation, first of all in
+strict accordance with the design specifications of a Roller Coaster
+
+Team#389
+9
+track modeling, using block design train of thought, each segment
+will orbit parameters such as dimension, Angle and height of the input,
+the orbital diagram.Here are the views of five directions.
+Figure 2 front view
+Figure 3 rear view
+Figure 4 left view
+
+Team#389
+10
+Figure 5 right view
+Figure 6 top view
+
+Team#389
+11
+2.4 Formula Derivation
+In accordance with kinetic energy theorem，there have
+2
+2
+tan
+1
+1
+2
+2
+gravity
+resis
+ce
+t
+o
+W
+W
+mv
+mv
+
+
+
+(1)
+gravity
+W
+is gravitational potential energy,
+tan
+resis
+ce
+W
+is
+consumed energy
+against resistance, m is the total mass of passengers and carriages,
+tv is
+final velocity,
+ov
+is initial velocity.
+Based on the theory of aerodynamics, The wind resistance formula can be
+expressed as
+2
+w
+j
+1
+F =
+A C v
+2 
+D
+D
+(2)
+w
+F
+is wind resistance, is the indensity of air(
+3
+1.3
+/
+kg m ),
+AD is the
+windward area(
+2
+1
+1.5
+1.5
+D
+A
+m
+m
+m
+
+
+
+),
+CDis Air resistance coefficient(0.3),
+jv is
+The average velocity of every section.
+Especially
+1
+2
+i
+i
+j
+v
+v
+v
+
+
+
+(3)
+According to [Assumption3], The rolling friction
+f
+KN
+
+(4)
+total friction
+tan
+resis
+ce
+w
+F
+F
+f
+
+
+(5)
+Then,consumed energy against resistance
+tan
+tan
+W
+= F
+= (F + )
+resis
+ce
+resis
+ce
+W
+ds
+f ds
+
+
+(6)
+simultaneous equations (1)~(6),acquire the model 1
+
+Team#389
+12
+2
+2
+tan
+tan
+tan
+W
+2
+1
+w
+j
+1
+1
+2
+2
+= F
+= (F + )
+1
+F =
+A C v
+2
+2
+gravity
+resis
+ce
+t
+o
+resis
+ce
+resis
+ce
+i
+i
+D
+D
+j
+W
+W
+mv
+mv
+W
+ds
+f ds
+v
+v
+v
+f
+KN
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(7)
+The track is divided into nine segments for dynamic analysis.
+[segment1]
+Figure 7 segment1
+2
+1
+2
+1
+w
+0
+1
+cos -W =
+mv -0
+2
+(F + )
+cos
+w
+mg
+W
+f dS
+r
+F
+r
+mg
+d
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+π
+(8)
+
+Team#389
+13
+[segment2]
+Figure 8 segment2
+
+
+
+
+2
+1
+1
+1
+2
+2
+2
+2
+1
+1
+2
+2
+2
+w
+2
+1
+8.5
+10
+27+1.5 3
+1.5
+10
+27+1.5 3
+1
+1
+2
+2
+2
+8.5
+8.5
+1
+1
+(
+cos
+)
+cos
+cos
+2
+2
+h
+h
+h
+h
+mgh
+W
+mv
+mv
+v v
+v
+mgh
+mg
+K
+F
+mv
+mv
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ⅰ
+(9)
+
+Team#389
+14
+[segment3]
+Figure 9 segment3
+2
+2
+2
+3
+3
+3
+2
+2
+3
+3
+2
+3
+1
+1
+(r
+r )
+W
+2
+2
+0
+2
+mg
+mv
+mv
+r
+r
+W
+v v
+v
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ⅱ
+(10)
+[segment4]
+Figure 10 segment4
+2
+2
+4
+4
+3
+4
+3
+4
+1
+1
+2
+2
+(kmg
+)
+2
+w
+W
+mv
+mv
+W
+F
+l
+v v
+v
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ⅲ
+(11)
+
+Team#389
+15
+[segment5]
+Figure 11 segment5
+
+
+1
+2
+2
+2
+3
+2
+2
+5
+5
+4
+2
+5
+2
+5
+4
+5
+5
+6
+50
+2
+20
+0.1
+(10
+r
+r
+)
+22.5
+1
+(
+)
+2
+1
+A C
+2
+1
+A C
+2
+2
+2
+s
+1
+0.04(x 35)
+D
+D
+D
+D
+y
+x
+l
+W
+m v
+v
+W
+v
+ds
+W
+v
+ds
+v
+v
+v
+v
+v
+v
+S
+d
+dx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ⅳ
+Ⅴ
+Ⅳ
+Ⅴ
+(12)
+[segment6]
+Figure 12 segment6
+
+Team#389
+16
+
+
+2
+2
+6
+7
+6
+6
+4
+W
+6
+7
+1
+1
+-
+= 2
+2
+F +Kmg
+2
+W
+mv
+mv
+W
+r
+v
+v
+v
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ⅵ
+(13)
+[segment7]
+Figure 13 segment7
+Figure 14 segment7_clothoid loop
+
+7
+8
+v
+v
+(14)
+V8
+V7
+
+Team#389
+17
+[segment8]
+\
+Figure 15 segment8
+
+
+
+
+
+
+
+
+
+
+
+cos
+sin
+x
+a
+y
+a
+z
+b
+(15)
+[segment9]
+Figure 16 segment9
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2
+2
+7
+10
+9
+7
+5
+2
+W
+10
+1
+1
+2
+2
+F +Kmg
+0
+W
+mv
+mv
+W
+r
+l
+v
+(16)
+
+Team#389
+18
+3. Results
+3.1 Task 1
+The thrill of a roller coaster is caused by being overweight on a cli
+mb and weightless on a descent, as well as by spinning and turning up
+side down.Under normal circumstances, a person would experience a
+vertical acceleration of 1g and would not experience a horizontal acce
+leration.While riding a roller coaster, however, being overweight or w
+eightless and changing direction can cause changes in acceleration, re
+sulting in a sense of excitement.However, excessive acceleration is bo
+und to cause damage to the health of passengers.Studies have shown t
+hat excessive and prolonged acceleration on roller coasters can signifi
+cantly increase the risk of injury.Normal adults can withstand 4~5g ve
+rtical acceleration with a duration of no more than 0.1s. Excessive acc
+eleration will make passengers' brain congestion.At the same time, ho
+rizontal acceleration exceeding 3g will greatly increase the possibility
+of spinal injury.Through the calculation of the theoretical model, we
+modify the design scheme, so as to obtain final design scheme, and
+
+Team#389
+19
+obtain the change of the acceleration of the scheme.
+According to the theoretical calculation, the maximum vertical
+acceleration in this design scheme is 4.1g, and the duration is 0.01s, w
+hich occurs at the first downhill. The rest of the vertical acceleration i
+s less than 4g, and the mean value is 0.4132g.The maximum theoretic
+al value of transverse acceleration is 0.7g, which occurs in the rising p
+art of the vertical ring. The time of overweight and weightlessness acc
+ounts for 87% of the total time. Therefore, this design scheme can con
+tinuously bring passengers a sense of tension and stimulation under th
+e premise of ensuring safety.
+3.2 Task 2
+In the previous chapters, we have got some equations by anaylising
+the process of each part, and some data are defined and shown in tables.
+Now we just bring these data into equations and calculate them. Below
+are some critical results we have figured out.
+
+Team#389
+20
+Table 3 Instantaneous Velocity
+Signal
+Value(m/s)
+1
+v
+4.486
+2
+v
+24.31
+3
+v
+19.874
+4
+v
+20.28
+5
+v
+20.16
+6
+v
+20.04
+7
+v
+15.32
+8
+v
+15.32
+9
+v
+15.32
+10
+v
+10.37
+From this table, we can see the velocity of the roller coaster
+in different positions. The table also roughly reflects the
+changing trend of its velocity.
+Figure 17 Instantaneous acceleration diagram
+The full length of track and the total motion time of roller coaster are
+obtained by model simulation. The final result is shown in the table
+
+Team#389
+21
+below.
+Table 4 total duration and length
+Total duration
+Lenth
+01’02.67’’
+518.16 meter
+3.3 Task 3
+According to 2.3 Model Establishment as well as 2.4 Formula
+Derivation, We can draw a simple diagram of the orbit,which connected
+with 9 segments. According to the schematic diagram of the track model
+and the derivation of the formula, the exact description of the roller
+coaster's motion along the track can be obtained.
+Next, we will introduce the track of roller coaster in detail according to
+figure 4.
+Step1: The roller coaster will begin with a 20 meter horizontal segment,
+where passengers board, then climb up a hill to its highest point, taking it
+to an altitude 30 meters above the starting location.
+Step2: When the roller coaster is lifted to the top of the mountain, its
+instantaneous speed is zero, followed by a circle with a central Angle of
+30° and a radius of 3 meters, followed by a straight line tangent to the
+circle, which is ʹʹ 庣ξ͵ long.
+Step3: It then slides into one half of the arc, then reaches the other end of
+the arc and moves upwards along a quarter of the arc with a central Angle
+of 45°. Then enter a straight section of 15 meters long.
+
+Team#389
+22
+Step4: The roller coaster goes up and then down along the parabola. After
+descending to the end of the parabola on the other side, it passes through
+a semi-arc with a radius of 50 meters. At this time, it moves in the
+opposite direction.
+Step5: The roller coaster then follows a vertical loop at an altitude of 20
+and a corkscrew formula.
+Step6: Finally, after a section of the right curve back to the starting point,
+forming a closed loop.
+4.Model Verification
+Figure 18 Instantaneous Velocity Image
+Using Nolimts Ⅱ: Roller Coaster Simulation software for the design
+of a Roller Coaster model kinematics Simulation, first of all in strict
+accordance with the design specifications of a Roller Coaster track
+modeling, using block design train of thought, each segment will orbit
+parameters such as dimension, Angle and height of the input, the orbital
+diagram.Next using simulator for the design of orbital kinematics
+simulation, according to the result of calculation and assumptions set
+
+Team#389
+23
+parameters such as the quality of the roller coaster, volume, and estimate
+its parameters, for the environment, with reference to experience wind
+resistance and friction coefficient, velocity and acceleration of the roller
+coaster is obtained by the simulator in runtime, etc., so as to verify the
+feasibility of the design, security, and stimulation, and comparing with
+the theoretical calculation value, institute set up a description of the
+mathematical model of roller coaster movement process and the stress
+distribution is feasible.
+Figure 19 Speed comparison
+The calculated average error is 2.1m/s, and the fitting degree of the
+two groups of data is as high as 94.26%. Therefore, it can be proved that
+the mathematical model proposed in this paper to describe the kinematic
+process of roller coaster is accurate and feasible in engineering
+application.
+
+Team#389
+24
+5.Model Improvement
+The rolling friction could be calculated more precisely.
+To make the model more closer to real situations, rolling friction in
+some sections of should be taken into consideration.
+The average velocity in this paper is approximated as the arithmetic
+mean. However, the velocity of a roller coaster doesn’t changes
+linearly, so we’ll use other ways to calculate the average velocity.
+We can do a more detailed analysis of the acceleration, so we could
+interpret the safety and excitement of the roller coaster more vividly
+and specifically.
+6.Model Evaluation
+Strength
+The model in this paper shows analysis of each section of track
+in detail, and try to make out its variation during the whole process. It
+has not only the calculation in theory, but also a simulation of the
+roller coaster’s motion. Through simulation, we can visually see the
+motion of roller coaster and evaluate its level of safety and excitement
+more easily and clearly.
+Weakness
+The analysis of the roller coaster’s motion is still not thorough or
+precise enough. In some sections of its track, the situations are
+
+Team#389
+25
+simplified so greatly, that the results could have relatively much
+deviation from reality.
+7.Conclusion
+We analyse each section of the roller coaster’s motion and figure
+out the velocity in theory in some positions. Then we know the rough
+variation of velocity during the motion. We simulate this motion so
+we see how it works in real situations. Comparing the velocity in
+theory and in real situations, we can see the model is relatively proper.
+By simulating the roller coaster’s motion, we get the total duration of
+the ride. Through the changing of its acceleration, we conclude that
+the roller coaster is safe but especially exciting.
+8.References
+[1] Li Zhengxue．A Method for Calculation of the Kinetic Sliding Friction
+Factor ［J ］．Journal
+of
+Wuhan
+Institute
+of
+Chemical
+Technology,1998,20(3)：80－82．
+[2]
+Wu
+Chunjun,Wang
+Guoping,Wang
+Quanxian,ZHANG
+Jinli,Ye
+Jun．Establishment of Dynamical Model of the Ten-Ring Roller Coaster
+Based on ADAMS［J］.Mechanical Research & Application,2016(5)：24
+－26．
+[3] Wang Ku,XingHaijun,Xu Mengchao,Zhang Linhao ．Simplified
+
+Team#389
+26
+Modeling and Simulation of Multi Rigid Body Dynamics Based on
+ADAMS［J］．Journal of Graphics,2019,40(4)：733－738．
+［4］Chen Li,Guan Wei．Dynam icalsim ulation analysison four-ring
+rollercoasters［J］．Chinese Journal of Construction Machinery,2010,8(4)：
+400－403．
+[5] Liang Zhaohu,Shen Yong,E Lijun,Zhang Yong ．Analysis and
+Criterion on the G-acceleration of Amusement Device［J］.China Safety
+Science Journal,2008,18(11)：31－35．
+[6]
+Liang
+Zhaohu,Shen
+Yong,Ding
+Keqin,Chen
+Gang,Huang
+Wei ．Reseach on Roller Coaster Dynamic Modeling and Simulation
+［J］．Journal of System Simulation,2006,18(Suppl.1)：280－282．
+[7]
+Xu Huabing ．Deeply Consideration about Rolling Friction
+［J］．Journal of Physics Teaching,2019(4)：56－57．
+
+Team#389
+27
+9.Appendix
+1.The
+theoretical
+and
+simulation
+values
+of
+the
+instantaneous velocity of the characteristic points
+2.Data table of vertical and horizontal acceleration
+1
+0.5
+0
+2
+0.5
+0
+3
+0.5
+0
+4
+0.5
+0
+5
+0.5
+0
+6
+0.5
+0
+7
+0.5
+0
+8
+0.5
+0
+9
+0.5
+0
+10
+0.5
+0
+11
+0.5
+0
+12
+-1.2
+-0.1
+13
+-1.8
+-0.2
+Signal
+Value(m/s)
+Calculate
+Value(m/s)
+Simulate
+1
+v
+4.486
+6.26
+2
+v
+24.31
+22.11
+3
+v
+19.874
+18.22
+4
+v
+20.28
+19.83
+5
+v
+20.16
+19.27
+6
+v
+20.04
+19.06
+7
+v
+15.32
+14.36
+8
+v
+15.32
+14.02
+9
+v
+15.32
+12.63
+10
+v
+10.37
+9.86
+
+Team#389
+28
+14
+-2.6
+0.1
+15
+-3.4
+0.3
+16
+-4.1
+0.1
+17
+-2.3
+0.1
+18
+0.9
+0
+19
+1
+0
+20
+1.2
+0
+21
+1.5
+0
+22
+1
+0
+23
+0.8
+0
+24
+0.3
+0
+25
+-0.6
+0
+26
+-1.5
+0
+27
+-0.6
+0
+28
+0.9
+0.5
+29
+1
+0.5
+30
+0.9
+0.5
+31
+0.9
+0.5
+32
+0.9
+0.5
+33
+0.9
+0.5
+34
+0.9
+0.5
+35
+0.9
+0.5
+36
+0.9
+0.5
+37
+1.3
+-0.7
+38
+1.8
+-0.6
+39
+2.4
+-0.4
+40
+1.6
+0.2
+41
+0.9
+0.3
+42
+0.7
+0.4
+43
+-0.5
+0.1
+44
+-1.3
+0
+45
+0.4
+0.2
+46
+0.7
+0.1
+47
+0.9
+0.1
+48
+0.9
+0
+49
+1.5
+-0.4
+50
+1.9
+-0.5
+51
+1.1
+-0.2
+52
+0.7
+0.1
+53
+0.2
+0.1
+54
+-0.5
+0
+55
+0.9
+0
+56
+0.9
+0
+
+Team#389
+29
+57
+0.9
+0
+58
+0.9
+0
+59
+0.4
+0
+60
+0.5
+0
+61
+0.6
+0
+62
+0.7
+0
+63
+0.8
+0
+64
+0.9
+0
+65
+0.9
+0
+66
+0.9
+0
+3.EN13814《Amusement park safety of machinery and
+construction》

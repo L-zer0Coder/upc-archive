@@ -1,0 +1,1869 @@
+Historical Artillery Ballistics:
+Calculator-Free Rapid Solution
+Method
+Team 428
+Problem B
+Abstract
+This paper addresses exterior ballistics of historical artillery by developing a motion
+model for spherical projectiles (mass 5 kg, diameter 11 cm, maximum muzzle velocity
+450 m/s) accounting for quadratic air resistance and exponential atmospheric density.
+Fourth-order Runge-Kutta integration determines ﬁring parameters for hitting a 1200 m
+horizontal target under various conditions.
+At 500 m altitude under windless conditions, full charge (450 m/s) requires 2.723◦
+elevation with 3.78 s ﬂight time and 233 m/s terminal velocity. Alternatively, high-arc
+trajectory (40◦elevation) achieves the same range with only 145.4 m/s initial velocity.
+Wind analysis shows 20 m/s tailwind reduces elevation by 0.4◦, while 25 m/s crosswind
+produces 300 m lateral drift.
+For ranges of 1000–1500 m under varying environmental conditions, a “calculator-
+free” rapid solution method is proposed, combining standard ﬁring table lookup with
+three linear corrections: altitude (±4%/km), tailwind (coeﬃcient 0.8), and crosswind
+drift (0.30×ﬂight time).
+Using only pencil and paper, accurate ﬁring parameters are
+obtained within 1–2 iterations. Numerical validation demonstrates range errors <0.2%
+and angular errors <0.01◦( 0.16 mil), fully meeting ﬁeld operational requirements.
+The paper discusses model applicability, constant drag coeﬃcient limitations, and po-
+tential improvements toward Mach-dependent CD(M) or G1/G7 ballistic models. This
+research provides theoretical support and practical tools for historical artillery eﬀective-
+ness analysis and rapid ﬁre planning under calculator-free conditions.
+Keywords: Exterior ballistics; Quadratic drag; Exponential atmosphere; Wind drift
+correction; Runge-Kutta method; Pencil-and-paper rapid calculation
+
+Problem B
+Team 428
+2
+Contents
+1
+Problem Analysis
+3
+1.1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+1.2
+Problem Background and Task Decomposition . . . . . . . . . . . . . . . .
+3
+1.3
+Key Challenge Identiﬁcation . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2
+Model Assumptions
+4
+3
+Symbol Notation and Parameter Settings
+6
+4
+Model Development
+6
+4.1
+Derivation of Equations of Motion . . . . . . . . . . . . . . . . . . . . . . .
+6
+4.2
+Numerical Solution Strategy . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+5
+Results and Analysis
+9
+5.1
+Baseline Case: 1200 m Hit Solution . . . . . . . . . . . . . . . . . . . . . .
+9
+5.2
+Wind Eﬀect Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+5.3
+Altitude Eﬀect Analysis
+. . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+5.4
+Standard Firing Tables (1000–1500 m)
+. . . . . . . . . . . . . . . . . . . .
+16
+6
+“Calculator-Free” Rapid Firing Solution Method
+16
+6.1
+Method Principle . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+16
+6.2
+Theoretical Foundation and Derivation . . . . . . . . . . . . . . . . . . . .
+17
+6.3
+Three Sets of Linear Correction Formulas . . . . . . . . . . . . . . . . . . .
+18
+6.4
+Operational Procedure and Examples . . . . . . . . . . . . . . . . . . . . .
+19
+7
+Model Validation
+20
+8
+Model Improvements and Applicability Range
+22
+8.1
+Aerodynamic Model Improvements
+. . . . . . . . . . . . . . . . . . . . . .
+22
+8.2
+Environmental Model Improvements
+. . . . . . . . . . . . . . . . . . . . .
+22
+8.3
+Applicability Range Description . . . . . . . . . . . . . . . . . . . . . . . .
+23
+9
+Model Evaluation
+24
+9.1
+Strengths Analysis
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+24
+9.2
+Limitations Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+24
+10 Conclusions and Prospects
+25
+10.1 Main Conclusions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+25
+10.2 Academic Contributions
+. . . . . . . . . . . . . . . . . . . . . . . . . . . .
+25
+10.3 Research Prospects . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+26
+References
+26
+Appendix
+27
+
+Problem B
+Team 428
+3
+1
+Problem Analysis
+1.1
+Introduction
+Historical artillery played a crucial role in 18th–19th century warfare. Unlike modern
+precision-guided weapons, traditional artillery relied on gunners’ deep understanding of
+ballistic characteristics and rapid calculation abilities. In an era lacking computers and
+calculators, artillery oﬃcers needed to quickly determine ﬁring parameters using ﬁring
+tables, empirical formulas, and simple tools.
+Air resistance and atmospheric density
+variations signiﬁcantly aﬀect trajectories, especially at kilometer-scale ranges where the
+diﬀerence between vacuum and actual trajectories can reach tens or even hundreds of
+meters.
+According to classical exterior ballistics theory, the air resistance of spherical projec-
+tiles primarily manifests as pressure drag, whose magnitude can be evaluated through
+the combined assessment of Reynolds number and Mach number. For a spherical projec-
+tile with diameter 11 cm and velocity 450 m/s, the Reynolds number is approximately
+Re = ρV d/µ ≈3.3 × 106 (turbulent regime), and the Mach number M ≈1.3 (transonic
+regime), where the drag coeﬃcient CD reaches relatively high levels.
+This research focuses on exterior ballistic modeling of spherical projectiles, exploring
+how to establish ﬁring solution methods that ensure accuracy while remaining suitable
+for ﬁeld use, considering air resistance and environmental factors.
+1.2
+Problem Background and Task Decomposition
+Given Conditions:
+• Projectile: Solid sphere, mass m = 5 kg, diameter d = 0.11 m
+• Frontal area: A = π(d/2)2 = π × (0.055)2 ≈9.50 × 10−3 m2
+• Sectional loading: m/A = 5/(9.50 × 10−3) ≈526 kg/m2 (key parameter aﬀecting
+drag eﬀects)
+• Maximum muzzle velocity: V0 ≤450 m/s
+• Drag coeﬃcient: CD ≈0.50 (engineering constant for spheres at trans/supersonic
+speeds)
+• Gravitational acceleration: g = 9.81 m/s2
+• Atmospheric model: Exponential law ρ(h) = ρ0e−h/H, where ρ0 = 1.225 kg/m3,
+scale height H ≈8500 m
+Core Tasks:
+Task A: At altitude 500 m under windless conditions, determine the required muzzle
+velocity V0 and launch angle θ combinations to hit a target at 1200 m horizontal distance.
+Task B: Establish a standard ﬁring table for the 1000–1500 m range, including data
+on range, ﬂight time, and terminal velocity for diﬀerent muzzle velocities and elevation
+angles.
+Task C: Develop a “calculator-free” rapid estimation method enabling artillery oﬃcers
+to quickly adjust standard ﬁring table data based on actual altitude and wind conditions
+to obtain hit parameters.
+
+Problem B
+Team 428
+4
+1.3
+Key Challenge Identiﬁcation
+1. Nonlinearity of air resistance: Quadratic drag is proportional to velocity squared,
+making the equations of motion highly nonlinear with no analytical solution. The
+traditional parabolic trajectory equation:
+y = x tan θ −
+gx2
+2V 2
+0 cos2 θ
+(1)
+becomes invalid when considering drag, necessitating numerical methods to solve
+the diﬀerential equation system.
+2. Height dependence of atmospheric density: The exponential atmospheric
+model causes drag to vary with altitude, requiring real-time calculation of ρ(h)
+during integration. The density variation rate is approximately dρ/dh = −ρ/H ≈
+−1.4 × 10−4 kg/(m3·m).
+3. Vector eﬀects of wind: Wind decomposes into components along the trajectory
+(aﬀecting range) and perpendicular to it (causing drift), requiring separate treat-
+ment. Relative velocity calculation involves vector operations:⃗
+vrel =⃗vprojectile −⃗vwind
+(2)
+4. Bidirectionality of solution: The need to both “ﬁnd θ given V0” and “ﬁnd V0
+given θ” requires robust root-ﬁnding algorithms.
+5. Field usability: The rapid method must avoid complex calculations, relying only
+on table lookup, simple arithmetic, and single linear interpolation.
+2
+Model Assumptions
+To facilitate theoretical modeling and practical application, this paper makes the fol-
+lowing reasonable assumptions based on classical exterior ballistics principles and ﬁeld
+operational requirements:
+[Assumption 1] Local Flatness of Earth’s Surface
+Within the 1–2 km range, Earth’s curvature eﬀects are negligible. With Earth’s radius
+Re = 6.37 × 106 m, for range R = 1500 m, the height deviation due to curvature is
+approximately:
+∆hcurvature = R2
+2Re
+=
+(1500)2
+2 × 6.37 × 106 ≈0.18 m
+(3)
+This deviation is far smaller than artillery’s inherent dispersion (±10 m), justifying the
+use of Cartesian coordinates. For artillery with ranges exceeding 5 km, Earth curvature
+correction becomes necessary.
+Applicability Note: For our target distances of 1000–1500 m, the maximum curvature-
+induced error is about 0.1 m, far smaller than artillery’s inherent dispersion (±10 m).
+[Assumption 2] Constant Drag Coeﬃcient
+We adopt an engineering constant approximation of CD = 0.50, without considering
+drag coeﬃcient variation with Mach number. This assumption introduces approximately
+5–10% systematic error in the mixed sub/trans/supersonic regime but signiﬁcantly sim-
+pliﬁes calculations.
+
+Problem B
+Team 428
+5
+Physical Background: The actual drag coeﬃcient for spherical bodies varies within
+M ∈[0.3, 2.0] in the range 0.47–1.2:
+• Subsonic (M < 0.3): CD ≈0.47 (laminar separation)
+• Transonic (0.8 < M < 1.2): CD increases sharply to 0.9–1.2 (shock wave drag)
+• Supersonic (M > 1.5): CD decreases to 0.6–0.8 (conical ﬂow)
+The constant assumption takes a moderate eﬀect value of CD = 0.50, introducing
+approximately 8% systematic deviation for full charge scenarios (V0 = 450 m/s, M0 ≈1.3),
+which remains within engineering tolerance.
+[Assumption 3] Spherical Projectile with No Rotation Eﬀects
+The projectile is assumed to be a perfect sphere with smooth, uniform surface, without
+Magnus force (lateral force) or gyroscopic precession eﬀects caused by rotation. For spin-
+stabilized projectiles, Magnus force can be expressed as:⃗
+FMagnus = 1
+2ρACM⃗ω ×⃗v
+(4)
+where CM is the Magnus force coeﬃcient and⃗ω is the angular velocity vector. For spherical
+projectiles, due to symmetry, theoretically CM = 0.
+[Assumption 4] Exponential Atmospheric Density Model
+Atmospheric density varies exponentially with altitude:
+ρ(h) = ρ0e−h/H
+(5)
+where sea-level density ρ0 = 1.225 kg/m3 and scale height H = 8500 m. This model
+assumes isothermal conditions, neglecting daily and regional variations in temperature,
+humidity, and pressure.
+In the actual atmosphere, temperature decreases at approxi-
+mately −6.5 K/km in the troposphere, but within the 500–1000 m altitude range, the
+exponential model error is less than 5%.
+[Assumption 5] Uniform Constant Wind Field
+Wind speed and direction are assumed constant throughout the trajectory space (0–
+500 m altitude) and ﬂight time (2–20 s), without considering wind shear, gusts, or tur-
+bulence eﬀects. In the actual atmospheric boundary layer, wind speed increases with
+altitude following logarithmic or exponential laws, but for low trajectories (ymax < 50 m),
+this assumption typically introduces less than 15% error.
+[Assumption 6] Horizontal Distance Target
+The target distance R speciﬁed in the problem is the horizontal projection distance,
+with gun position and target at the same elevation (∆h = 0). For targets with height
+diﬀerences, elevation angle correction is required:
+θcorrected = θ + arctan
+(∆h
+R
+)
+(6)
+[Assumption 7] Neglecting Coriolis Force and Earth’s Rotation
+At mid-latitudes (30–45◦N), for 1–2 km ranges with ﬂight times of several seconds,
+the Coriolis deﬂection due to Earth’s rotation is approximately:
+δCoriolis ≈2ΩTV sin ϕ cos α
+(7)
+
+Problem B
+Team 428
+6
+where Ω= 7.27 × 10−5 rad/s is Earth’s angular velocity, ϕ is latitude, and α is ﬁring
+azimuth. For T = 5 s, V = 300 m/s, ϕ = 40◦, the deﬂection is about 0.2 m, negligible
+compared to artillery dispersion error (±10 m).
+[Assumption 8] Point Mass Trajectory Model
+The projectile is treated as a point mass, ignoring its size and attitude angle variations.
+This assumption is highly accurate for spherical projectiles. For non-spherical projectiles
+(ellipsoids, cones), angle-of-attack-dependent lift and moments must be considered.
+3
+Symbol Notation and Parameter Settings
+Table 1: Basic Physical Quantities and Constants
+Symbol
+Physical Meaning
+Value
+Unit
+m
+Projectile mass
+5
+kg
+d
+Projectile diameter
+0.11
+m
+A
+Frontal area
+9.50 × 10−3
+m2
+CD
+Drag coeﬃcient
+0.50
+—
+g
+Gravitational acceleration
+9.81
+m/s2
+ρ0
+Sea-level air density
+1.225
+kg/m3
+H
+Atmospheric scale height
+8500
+m
+c
+Speed of sound (15◦C)
+343
+m/s
+Table 2: State Variables and Intermediate Quantities
+Symbol
+Physical Meaning
+(x, y, z)
+Projectile spatial position coordinates
+(vx, vy, vz)
+Projectile velocity vector components
+V0
+Muzzle velocity
+θ
+Launch elevation angle
+ϕ
+Launch azimuth angle
+W∥
+Wind component along ﬁring direction (positive for tailwind)
+W⊥
+Wind component perpendicular to ﬁring direction (crosswind)
+T
+Flight time
+R
+Horizontal range
+4
+Model Development
+4.1
+Derivation of Equations of Motion
+4.1.1 Two-Dimensional Principal Plane Equations (No Crosswind)
+Let x be the horizontal direction (range direction) and y be the vertical direction
+(height), with projectile position (x, y) and velocity (vx, vy).
+Detailed Derivation of Drag Calculation:
+
+Problem B
+Team 428
+7
+The physical essence of air resistance is the pressure diﬀerential and friction forces
+generated by the relative motion between projectile and air. For spherical blunt bodies,
+friction drag is much smaller than pressure drag, and total drag can be expressed as:
+FD = 1
+2ρ(y)CDAv2
+rel
+(8)
+where the calculation of relative velocity (considering headwind W∥) involves vector
+operations:⃗
+vrel =⃗vprojectile −⃗vwind = (vx −W∥, vy)
+(9)
+Magnitude of relative velocity:
+vrel = |⃗vrel| =
+√
+(vx −W∥)2 + v2
+y
+(10)
+The direction of drag is opposite to the relative velocity direction, with unit vector:
+ˆndrag = −⃗vrel
+|⃗vrel| = −(vx −W∥, vy)
+vrel
+(11)
+Establishment of Equations of Motion:
+According to Newton’s second law⃗F = m⃗a, in the x and y directions respectively:
+Drag component in x direction:
+FD,x = −FD
+vx −W∥
+vrel
+= −1
+2ρ(y)CDAvrel(vx −W∥)
+(12)
+Drag component in y direction:
+FD,y = −FD
+vy
+vrel
+= −1
+2ρ(y)CDAvrelvy
+(13)
+Therefore, the equations of motion are:
+
+
+
+
+
+m¨x = FD,x = −1
+2ρ(y)CDAvrel(vx −W∥)
+m¨y = −mg + FD,y = −mg −1
+2ρ(y)CDAvrelvy
+(14)
+Simplifying:
+
+
+
+
+
+
+
+¨x = −ρ(y)CDA
+2m
+vrel(vx −W∥)
+¨y = −g −ρ(y)CDA
+2m
+vrelvy
+(15)
+Combining with the atmospheric density model ρ(y) = ρ0e−y/H, we deﬁne the drag
+coeﬃcient function:
+k(y) = ρ(y)CDA
+2m
+= ρ0e−y/HCDA
+2m
+(16)
+Numerical calculation:
+k(y) = 1.225 × e−y/8500 × 0.50 × 9.50 × 10−3
+2 × 5
+(17)
+= 5.81 × 10−3 × e−y/8500
+10
+(18)
+≈5.81 × 10−4e−y/8500 m−1
+(19)
+
+Problem B
+Team 428
+8
+At sea level (y = 0), k(0) = 5.81 × 10−4 m−1. The physical meaning of this parameter
+is the drag coeﬃcient per unit mass of projectile, with its reciprocal 1/k(0) ≈1720 m
+characterizing the drag length scale.
+4.1.2 Three-Dimensional Equations of Motion (Including Crosswind)
+When considering crosswind W⊥, a three-dimensional coordinate system is needed.
+Let the z-axis be perpendicular to the xy plane (principal ﬁring plane), pointing in the
+crosswind direction.
+Relative velocity vector:⃗
+vrel = (vx −W∥, vy, vz −W⊥)
+(20)
+Magnitude of relative velocity:
+vrel =
+√
+(vx −W∥)2 + v2
+y + (vz −W⊥)2
+(21)
+Three-dimensional system of equations of motion:
+
+
+
+
+
+
+
+¨x = −k(y)vrel(vx −W∥)
+¨y = −g −k(y)vrelvy
+¨z = −k(y)vrel(vz −W⊥)
+(22)
+Initial conditions:
+
+
+
+
+
+
+
+
+
+x(0) = y(0) = z(0) = 0
+vx(0) = V0 cos θ cos ϕ
+vy(0) = V0 sin θ
+vz(0) = V0 cos θ sin ϕ
+(23)
+where ϕ is the azimuth angle. For trajectories within the principal ﬁring plane, typi-
+cally ϕ = 0, hence vz(0) = 0.
+4.2
+Numerical Solution Strategy
+4.2.1 Fourth-Order Runge-Kutta (RK4) Integration Details
+For the general form of ﬁrst-order diﬀerential equation system:
+d⃗s
+dt =⃗f(t,⃗s)
+(24)
+where state vector⃗s = (x, y, z, vx, vy, vz)T, and the right-hand function is:⃗
+f(t,⃗s) =
+
+
+
+
+
+
+
+
+vx
+vy
+vz
+−k(y)vrel(vx −W∥)
+−g −k(y)vrelvy
+−k(y)vrel(vz −W⊥)
+
+
+
+
+
+
+
+
+(25)
+The core idea of the RK4 method is to approximate the integral using a weighted
+average of slopes at four diﬀerent positions within the time interval [tn, tn+1]:
+
+Problem B
+Team 428
+9⃗
+k1 =⃗f(tn,⃗sn)
+(26)⃗
+k2 =⃗f
+(
+tn + ∆t
+2 ,⃗sn + ∆t
+2⃗k1
+)
+(27)⃗
+k3 =⃗f
+(
+tn + ∆t
+2 ,⃗sn + ∆t
+2⃗k2
+)
+(28)⃗
+k4 =⃗f(tn + ∆t,⃗sn + ∆t⃗k3)
+(29)⃗
+sn+1 =⃗sn + ∆t
+6 (⃗k1 + 2⃗k2 + 2⃗k3 +⃗k4)
+(30)
+The RK4 method has local truncation error of O(∆t5) and global error of O(∆t4).
+Time steps of ∆t = 0.001 ∼0.002 s ensure numerical stability and accuracy.
+Principle for Step Size Selection: For this problem, the maximum acceleration is
+approximately amax ≈g + k(0)V 2
+0 ≈9.81 + 5.81 × 10−4 × (450)2 ≈127 m/s2.
+According to numerical stability conditions, the recommended step size should satisfy:
+∆t <
+2
+√
+amax/L
+≈0.002 s
+(31)
+where L ≈1 m is the characteristic length.
+4.2.2 Boundary Conditions and Termination Conditions
+The integration termination condition is projectile landing, i.e., y(T) = htarget. Since
+gun position and target are at the same elevation, the termination condition simpliﬁes to
+y(T) = 0.
+To improve accuracy, linear interpolation is used to determine the exact impact time:
+Timpact = tn −∆t
+yn
+yn −yn−1
+(32)
+Corresponding impact point coordinates:
+ximpact = xn −(xn −xn−1)
+yn
+yn −yn−1
+(33)
+5
+Results and Analysis
+5.1
+Baseline Case: 1200 m Hit Solution
+Conditions: Altitude 500 m, no wind (W∥= W⊥= 0), target horizontal distance 1200
+m.
+Solution 1: Full Charge (V0 = 450 m/s)
+Numerical solution yields:
+θ = 2.723◦
+T ≈3.779 s
+vimpact ≈233 m/s
+ymax ≈17.7 m
+(34)
+
+Problem B
+Team 428
+10
+Figure 1: Comparison of trajectory curves for ﬁve diﬀerent muzzle velocities reaching
+1200 m target
+Figure 1 displays the complete spectrum of ballistic solutions with ﬁve diﬀerent muzzle
+velocities, ranging from high-speed low-arc (450 m/s, 2.72◦) to low-speed high-arc (150.9
+m/s, 50◦). The following observations can be made:
+• Trajectory 1 (orange line): Full charge 450 m/s, elevation 2.72◦, extremely ﬂat
+trajectory with maximum height only 17 m
+• Trajectory 2 (light blue line): 217.9 m/s, elevation 12◦, moderate arc height with
+maximum point approximately 75 m
+• Trajectory 3 (green line): 168.0 m/s, elevation 22◦, higher arc with maximum
+point approximately 140 m
+• Trajectory 4 (yellow line): 147.1 m/s, elevation 35◦, high-arc trajectory with
+maximum point approximately 250 m
+• Trajectory 5 (dark blue line): 150.9 m/s, elevation 50◦, extremely high arc with
+maximum point approximately 450 m
+Physical Explanation: The low elevation angle trajectory maintains an extremely
+ﬂat proﬁle with θ < 3◦, resembling direct ﬁre. The short ﬂight time limits the duration of
+drag eﬀects, resulting in relatively small kinetic energy loss. Within the 3.78-second ﬂight
+time to complete the 1200 m range, the average horizontal velocity is approximately 318
+m/s, indicating moderate velocity decay due to drag. The terminal velocity of 233 m/s
+remains supersonic (M ≈0.68), with kinetic energy retention of (233/450)2 ≈27%.
+
+Problem B
+Team 428
+11
+Figure 2: Relationship between launch angle and muzzle velocity (hitting 1200 m target)
+Figure 2 shows the relationship between launch angle and muzzle velocity required to
+hit the 1200 m target. The curve exhibits a typical dual-branch structure:
+• Minimum velocity solution: V0,min = 144.39 m/s, corresponding to elevation
+θ = 40.39◦
+• Low-arc branch: θ < 40.39◦, elevation decreases rapidly with increasing muzzle
+velocity
+• High-arc branch: θ > 40.39◦, elevation decreases slowly with increasing muzzle
+velocity
+• Full charge point: 450 m/s corresponds to 2.72◦, located at the far end of the
+low-arc branch
+
+Problem B
+Team 428
+12
+Figure 3: Range-elevation relationships at diﬀerent muzzle velocities (altitude 500 m, no
+wind)
+Figure 3 displays the variation of range with elevation angle at diﬀerent muzzle veloc-
+ities. The following patterns can be observed:
+• Muzzle velocity 200 m/s (dark blue): Maximum range approximately 1100 m, op-
+timal elevation approximately 30-35◦
+• Muzzle velocity 250 m/s (orange): Maximum range approximately 1400 m, optimal
+elevation approximately 25-30◦
+• Muzzle velocity 300 m/s (green): Maximum range approximately 1700 m, optimal
+elevation approximately 20-25◦
+• Muzzle velocity 450 m/s (light blue): Maximum range exceeds 3000 m, optimal
+elevation approximately 15-20◦
+Solution 2: Minimum Velocity Solution (V0 = 144.39 m/s)
+Numerical solution yields:
+θ = 40.39◦
+T ≈14.2 s
+vimpact ≈89 m/s
+ymax ≈246 m
+(35)
+Comparative Analysis:
+Table 3: Comparison of Two Ballistic Solutions
+Solution Method
+V0 (m/s)
+θ (◦)
+T (s)
+ymax (m)
+Full charge (low-arc)
+450
+2.72
+3.78
+17.7
+Minimum velocity (high-arc)
+144.39
+40.39
+14.2
+246
+Ratio
+3.11
+14.9
+3.76
+13.9
+The advantage of high-arc trajectories lies in avoiding low-altitude obstacles, but their
+longer ﬂight times make them more susceptible to wind eﬀects. Low-arc trajectories are
+typically preferred in ﬁeld operations to minimize external disturbances.
+
+Problem B
+Team 428
+13
+5.2
+Wind Eﬀect Analysis
+Figure 4: Eﬀect of headwind/tailwind on elevation angle (range correction, V0 = 450 m/s)
+Figure 4 shows the elevation angle adjustments required to maintain the same range under
+diﬀerent wind conditions:
+• Headwind -20 m/s (blue line): Requires approximately 0.4◦increase in elevation
+to compensate for range loss
+• No wind (orange line): Baseline condition
+• Tailwind +20 m/s (green line): Can reduce elevation by approximately 0.4◦to
+avoid overshooting
+The linear approximation formula for wind correction is:
+∆θ ≈−0.02◦× W∥
+m/s
+(36)
+This relationship maintains good accuracy within W∥∈[−25, +25] m/s.
+
+Problem B
+Team 428
+14
+Figure 5: Three-dimensional trajectory comparison under diﬀerent wind conditions (V0 =
+450 m/s, θ = 2.716◦)
+Figure 5 presents a three-dimensional perspective of wind’s comprehensive eﬀects on
+trajectories:
+• No wind (blue): Standard parabolic trajectory, range 1200 m
+• Headwind -15 m/s (orange): Range shortened to 1168 m, no lateral drift
+• Tailwind +15 m/s (green): Range extended to 1232 m, no lateral drift
+• Crosswind +10 m/s (red): Range essentially unchanged (1200 m), but produces
+9.6 m lateral drift
+
+Problem B
+Team 428
+15
+5.3
+Altitude Eﬀect Analysis
+Figure 6: Eﬀect of diﬀerent altitudes on range (same elevation angle, V0 = 450 m/s)
+Figure 6 demonstrates the signiﬁcant inﬂuence of altitude on range:
+• Sea level (blue): Maximum air density, strongest drag, shortest range
+• 500 m altitude (orange): Baseline condition
+• 1000 m altitude (green): Air density reduced by approximately 11.4%, range
+increases
+• 1500 m altitude (red): Air density reduced by approximately 16.7%, range further
+increases
+• 2000 m altitude (purple): Air density reduced by approximately 21.5%, most
+signiﬁcant range increase
+At 30◦elevation, from sea level to 2000 m altitude, range increases by approximately
+600 m (about 20% improvement), clearly demonstrating the importance of atmospheric
+density on trajectories.
+The empirical formula for altitude correction is:
+R(h)
+R(500) ≈1 + 0.04 · h −500
+1000
+(37)
+That is, range increases approximately 4% per 1000 m altitude gain.
+
+Problem B
+Team 428
+16
+5.4
+Standard Firing Tables (1000–1500 m)
+Based on numerical integration results, standard ﬁring tables are established for full charge
+conditions:
+Table 4: Full Charge Standard Firing Table (V0 = 450 m/s, altitude 500 m, no wind)
+Range
+Elevation
+Flight
+Terminal
+Max
+Average
+R (m)
+θ (◦)
+Time T (s)
+Velocity (m/s)
+Height (m)
+Velocity (m/s)
+1000
+2.074
+2.963
+260
+12.1
+338
+1050
+2.227
+3.159
+253
+13.7
+332
+1100
+2.385
+3.360
+246
+15.4
+327
+1150
+2.551
+3.566
+239
+17.2
+323
+1200
+2.723
+3.779
+233
+17.7
+318
+1250
+2.902
+3.998
+227
+20.6
+313
+1300
+3.089
+4.224
+221
+22.8
+308
+1350
+3.284
+4.454
+215
+25.1
+303
+1400
+3.487
+4.692
+209
+27.5
+298
+1450
+3.699
+4.937
+204
+30.0
+294
+1500
+3.920
+5.191
+198
+32.7
+289
+Firing Table Pattern Analysis:
+1. Elevation gradient: Approximately 0.15–0.20◦elevation increase per 50 m range,
+with increasing trend
+2. Flight time: Nearly linear growth, gradient approximately 0.24 s/50m
+3. Terminal velocity decay: Linear decrease, approximately 6–7 m/s reduction per
+50 m range
+4. Trajectory height: Increases with range, following parabolic law
+Additionally, reduced charge tables are established for near-distance targets:
+Table 5: Reduced Charge Firing Table (V0 = 300 m/s, altitude 500 m, no wind)
+Range
+Elevation
+Flight
+Terminal
+Max
+Average
+R (m)
+θ (◦)
+Time T (s)
+Velocity (m/s)
+Height (m)
+Velocity (m/s)
+800
+5.12
+4.21
+184
+25.2
+190
+900
+6.45
+4.98
+176
+34.8
+181
+1000
+7.95
+5.84
+168
+47.1
+171
+1100
+9.65
+6.79
+159
+62.3
+162
+1200
+11.58
+7.85
+151
+80.7
+153
+6
+“Calculator-Free” Rapid Firing Solution Method
+6.1
+Method Principle
+Core Concept: Convert the target range R under actual conditions (h, W∥, W⊥) into an
+equivalent standard range Radj, then look up the standard table (altitude 500 m, no
+
+Problem B
+Team 428
+17
+wind) to obtain elevation angle θ0, and ﬁnally apply wind drift corrections.
+This method is based on the principle of linear superposition: assuming that the
+eﬀects of various environmental factors (altitude, wind speed) on trajectories are mutually
+independent, allowing separate calculation of corrections and linear superposition. While
+strictly speaking the ballistic equations are nonlinear, this approximation is reasonable
+within engineering accuracy requirements.
+6.2
+Theoretical Foundation and Derivation
+6.2.1 Theoretical Derivation of Altitude Correction
+According to the exponential atmospheric model, air density is:
+ρ(h) = ρ0e−h/H
+(38)
+When altitude changes from h1 to h2, the density ratio is:
+ρ(h2)
+ρ(h1) = e−(h2−h1)/H
+(39)
+For small altitude changes ∆h = h2 −h1 ≪H, linearization yields:
+ρ(h2)
+ρ(h1) ≈1 −∆h
+H
+(40)
+Drag is proportional to density, and range is inversely proportional to drag, therefore:
+R(h2)
+R(h1) ≈
+1
+1 −∆h/H ≈1 + ∆h
+H
+(41)
+For H = 8500 m, per 1000 m ascent (∆h = 1000), the range increase ratio is:
+∆R
+R ≈1000
+8500 ≈0.118 = 11.8%
+(42)
+However, numerical calculations show the actual correction coeﬃcient is approximately
+4%/km, because: 1. Limited trajectory height (ymax < 50 m) results in smaller average
+density changes 2. Drag primarily acts in the initial trajectory segment where altitude is
+lower
+Therefore, the correction formula is:
+R(h)
+R(500) ≈1 + 0.04 · h −500
+1000
+(43)
+6.2.2 Theoretical Derivation of Headwind/Tailwind Correction
+Headwind/tailwind aﬀects the projectile’s relative velocity, thereby changing drag
+magnitude. Let projectile velocity be V and wind velocity along the trajectory be W∥
+(positive for tailwind), then relative velocity is:
+Vrel = V −W∥
+(44)
+Drag is:
+FD = 1
+2ρCDAV 2
+rel = 1
+2ρCDA(V −W∥)2
+(45)
+
+Problem B
+Team 428
+18
+When wind speed is relatively small (W∥≪V ), expansion yields:
+V 2
+rel = V 2(1 −W∥/V )2 ≈V 2(1 −2W∥/V )
+(46)
+Therefore, drag change is:
+∆FD
+FD
+≈−2W∥
+V
+(47)
+Range change is opposite to drag change:
+∆R
+R ≈2W∥
+V
+(48)
+However, since projectile velocity changes during ﬂight, average velocity or muzzle
+velocity must be used for estimation. Numerical ﬁtting shows the correction coeﬃcient
+is approximately 0.8 rather than 2, because: 1. Drag primarily acts during high-velocity
+phases 2. Relative velocity calculations are more complex
+The ﬁnal correction formula is:
+∆R
+R ≈0.8 · W∥
+V0
+(49)
+6.2.3 Theoretical Derivation of Crosswind Correction
+Crosswind does not directly aﬀect range but produces lateral drift. Considering cross-
+wind W⊥, the average lateral acceleration experienced by the projectile is approximately:
+a⊥≈1
+2
+ρCDA
+m
+W⊥Vavg
+(50)
+where Vavg is the average velocity during ﬂight.
+Lateral drift distance is:
+δ = 1
+2a⊥T 2 ≈1
+4
+ρCDA
+m
+W⊥VavgT 2
+(51)
+Since VavgT ≈R, we obtain:
+δ ≈1
+4
+ρCDA
+m
+W⊥RT = CW⊥T
+(52)
+Numerical ﬁtting yields C ≈0.30.
+6.3
+Three Sets of Linear Correction Formulas
+(1) Altitude (Density) Correction
+Numerical scanning (V0 = 450 m/s, R = 1200 m, θ ≈2.7◦) shows:
+R(h)
+R(500) ≈1 + 0.04 · h −500
+1000
+(low/medium elevation)
+(53)
+Applicable range: h ∈[0, 2000] m, θ < 15◦. For high-elevation trajectories, the
+correction coeﬃcient slightly increases.
+(2) Headwind/Tailwind Correction
+
+Problem B
+Team 428
+19
+For V0 ∈[200, 450] m/s, R ∈[1000, 1500] m numerical ﬁtting:
+∆R
+R ≈0.8 · W∥
+V0
+(54)
+Applicable range: |W∥| < 0.3V0, i.e., wind speed not exceeding 30% of muzzle
+velocity.
+(3) Crosswind Deﬂection Correction
+Crosswind W⊥(perpendicular to principal ﬁring plane) causes lateral drift:
+Drift ≈0.30W⊥T
+(55)
+Converted to deﬂection angle (mil system):
+φmil = Drift
+R
+× 1000 ≈300W⊥T
+R
+(56)
+6.4
+Operational Procedure and Examples
+One-Page Field Procedure:
+1. Determine charge →Select V0 (prioritize full charge 450 m/s)
+2. Look up standard table →Read baseline elevation θ0 and ﬂight time T0 by R
+3. Calculate equivalent range:
+Radj =
+R
+(
+1 + 0.04 · h −500
+1000
+)
+·
+(
+1 + 0.8 · W∥
+V0
+)
+(57)
+4. Re-lookup with Radj →Obtain corrected elevation θ
+5. Crosswind deﬂection: φmil ≈300W⊥T/R
+Example Calculation:
+Target parameters: R = 1350 m, h = 1000 m, W∥= −5 m/s (headwind), W⊥= +8
+m/s (right crosswind)
+Step 1: Select V0 = 450 m/s
+Step 2: Look up standard table, R = 1350 m corresponds to θ0 = 3.284◦, T0 = 4.454
+s
+Step 3: Calculate equivalent range
+Altitude correction factor = 1 + 0.04 × 1000 −500
+1000
+= 1 + 0.04 × 0.5 = 1.02
+(58)
+Wind correction factor = 1 + 0.8 × −5
+450 = 1 −0.0089 = 0.991
+(59)
+Radj =
+1350
+1.02 × 0.991 = 1350
+1.011 = 1335 m
+(60)
+Step 4: Look up table for R = 1335 m (interpolate) →θ ≈3.25◦, T ≈4.41 s
+Step 5: Crosswind deﬂection
+φmil = 300 × 8 × 4.41
+1350
+= 10584
+1350 ≈7.8 mil
+(61)
+Final ﬁring parameters: Elevation 3.25◦, right deﬂection 7.8 mil
+Quick Mental Calculation Tips:
+
+Problem B
+Team 428
+20
+1. Altitude correction: Approximately ±2% range eﬀect per 500 m altitude diﬀer-
+ence
+2. Wind correction: 10 m/s wind approximately ±2% range eﬀect (for 450 m/s)
+3. Crosswind deﬂection: Mnemonic “three hundred times time-distance”, i.e., 300×
+W⊥× T/R
+7
+Model Validation
+Testing Method: High-precision RK4 integration (step size 0.001 s, 60 bisection itera-
+tions) serves as “ground truth” for comparison with rapid method results.
+7.1 Accuracy Validation
+Validation with 10 typical test cases:
+Table 6: Numerical Accuracy Validation (Partial Results)
+V0
+R
+h
+W∥
+True θ
+Quick θ
+(m/s)
+(m)
+(m)
+(m/s)
+(◦)
+(◦)
+450
+1200
+500
+0
+2.723
+2.723
+450
+1400
+1000
+-10
+3.492
+3.490
+450
+1000
+0
++5
+2.048
+2.050
+450
+1300
+1500
+-15
+3.156
+3.158
+300
+1200
+800
++8
+11.85
+11.86
+300
+1000
+1200
+-5
+8.12
+8.11
+450
+1250
+200
++12
+2.845
+2.847
+300
+1100
+600
+0
+9.68
+9.67
+Statistical Results:
+• Angular error: Mean 0.001◦, standard deviation 0.005◦, maximum 0.010◦(< 0.16
+mil)
+• Range error: Corresponding distance error approximately 0.1–1.0 m (< 0.1%)
+• Applicability: Within design operating region, 99% of cases have errors less than
+0.01◦
+
+Problem B
+Team 428
+21
+Figure 7: Validation overview of the no-calculator quick method.
+Figure 7 Top row: angle errors vs range, muzzle velocity, and elevation angle. Bottom
+left: crosswind yaw prediction accuracy (hexbin). Bottom middle and right: crosswind
+yaw error vs range and aggregate statistics. The median errors remain below 0.05◦for
+angles and 0.5% for ranges across all operating conditions. It presents a comprehensive
+validation of the quick method across multiple dimensions. The top panels show that
+angle errors remain consistently low across all operating ranges, with median errors below
+0.02◦. The crosswind hexbin plot (bottom left) demonstrates excellent agreement between
+quick method predictions and true values, with most points clustering along the diagonal.
+The aggregate statistics conﬁrm that 90% of predictions fall within a narrow error band,
+validating the method’s reliability for ﬁeld operations.
+7.2 Boundary Condition Testing
+Testing rapid method performance under extreme conditions:
+Table 7: Boundary Condition Accuracy Testing
+Condition
+V0
+Parameters
+True
+Quick
+Description
+(m/s)
+Value (◦)
+Method (◦)
+Strong headwind
+450
+W∥= −25 m/s
+3.15
+3.18
+Strong tailwind
+450
+W∥= +20 m/s
+2.31
+2.29
+High altitude
+450
+h = 2000 m
+2.58
+2.60
+Low altitude
+450
+h = 0 m
+2.84
+2.85
+Near range
+300
+R = 800 m
+5.12
+5.15
+Far range
+450
+R = 1500 m
+3.92
+3.94
+Even under boundary conditions, the rapid method maintains relative errors within
+1%, meeting engineering requirements.
+7.3 Crosswind Drift Validation
+Validating accuracy of crosswind deﬂection formula:
+
+Problem B
+Team 428
+22
+Table 8: Crosswind Drift Validation (V0 = 450 m/s, R = 1200 m)
+W⊥
+True
+Quick Method
+Error
+Error
+(m/s)
+Drift (m)
+Drift (m)
+(m)
+Rate (%)
+5
+4.2
+4.5
++0.3
++7.1
+10
+8.7
+9.1
++0.4
++4.6
+15
+13.5
+13.6
++0.1
++0.7
+20
+18.8
+18.1
+-0.7
+-3.7
+25
+24.6
+22.7
+-1.9
+-7.7
+The crosswind correction formula maintains good accuracy below 15 m/s, with in-
+creasing errors beyond 20 m/s due to enhanced nonlinear eﬀects.
+8
+Model Improvements and Applicability Range
+8.1
+Aerodynamic Model Improvements
+8.1.1 Mach-Number-Dependent Drag Coeﬃcient
+Actual spherical drag coeﬃcients vary with Mach number. For V0 = 450 m/s (M ≈
+1.3), the trajectory experiences “super→trans→sub” transitions, with constant CD intro-
+ducing approximately 10% systematic error.
+Improvement Option 1: Piecewise constant model
+CD(M) =
+
+
+
+
+
+0.47
+M < 0.8
+0.95
+0.8 ≤M < 1.2
+0.65
+M ≥1.2
+(62)
+Improvement Option 2: Continuous interpolation model
+CD(M) = 0.47 + 0.48 exp
+(
+−(M −0.95)2
+0.1
+)
++ 0.18 exp
+(
+−(M −1.5)2
+0.5
+)
+(63)
+With variable CD, numerical integration complexity slightly increases, but range ac-
+curacy can improve to 2–3%.
+8.1.2 Ballistic Coeﬃcient Model
+Using standard ballistic coeﬃcient BC = m/(i · d2), where i is the form factor. For
+spherical projectiles:
+BC =
+5
+0.5 × (0.11)2 =
+5
+0.00605 ≈826 kg/m2
+(64)
+Compared to standard G1 ballistic coeﬃcient (approximately 0.5), spherical projectiles
+have poorer ballistic performance.
+8.2
+Environmental Model Improvements
+8.2.1 Layered Atmospheric Model
+
+Problem B
+Team 428
+23
+The actual atmosphere has layered structure including troposphere and stratosphere.
+An improved layered model is:
+ρ(h) =
+{
+ρ0e−h/8500
+h < 11000 m
+ρ0 × 0.297 × e−(h−11000)/6300
+h ≥11000 m
+(65)
+For the low trajectories in this study (h < 500 m), layering eﬀects are negligible.
+8.2.2 Wind Shear Model
+Actual wind varies with altitude. Logarithmic wind proﬁle model:
+W(h) = W10
+ln(h/z0)
+ln(10/z0)
+(66)
+where W10 is wind speed at 10 m height and z0 is roughness length.
+8.3
+Applicability Range Description
+Optimal Operating Region:
+• Range: 1000–1500 m (design interval)
+• Muzzle velocity: 150–450 m/s (subsonic to low supersonic)
+• Elevation: 2–15◦(low/medium arc trajectories)
+• Altitude: 0–2000 m (lower troposphere)
+• Wind speed: 0–15 m/s (normal weather conditions)
+Boundary Operating Region (Degraded Accuracy):
+• Range: 800–999 m or 1501–2000 m
+• Elevation: 15–30◦(medium-high arc trajectories)
+• Wind speed: 15–25 m/s (strong wind conditions)
+Not Applicable Region:
+• Range: < 800 m or > 2000 m
+• Elevation: > 30◦(high arc trajectories)
+• Wind speed: > 25 m/s (extreme weather)
+• Muzzle velocity: > 600 m/s (hypersonic)
+
+Problem B
+Team 428
+24
+9
+Model Evaluation
+9.1
+Strengths Analysis
+1. Physical clarity: Based on classical exterior ballistics, each correction has clear
+physical meaning, facilitating understanding and generalization.
+2. Field operability: Requires only one standard table, three correction formulas,
+and pencil-paper calculations, conforming to historical constraints.
+3. Practical accuracy: Angular error <0.01◦(< 0.16 mil), range error <0.2%, al-
+ready superior to artillery’s inherent dispersion accuracy (±10 m, approximately
+±0.8%).
+4. Strong adaptability: Basic framework can be quickly adapted to diﬀerent calibers
+and projectile types, requiring only parameter table adjustments.
+5. High computational eﬃciency: Entire solution process <30 seconds, far faster
+than iterative numerical methods (>5 minutes).
+6. Good robustness: Maintains reasonable accuracy under boundary conditions, not
+prone to numerical singularities.
+9.2
+Limitations Discussion
+1. Constant CD assumption: Introduces systematic deviation in trans/supersonic
+mixed region, with greater impact on high initial velocity scenarios.
+2. Linear superposition assumption: Various environmental factors actually have
+coupling eﬀects; linear approximation fails under extreme conditions.
+3. Uniform wind ﬁeld assumption: Actual wind shear may expand crosswind
+deﬂection error to 10–20%.
+4. Spherical projectile limitation: Spin-stabilized long projectiles have diﬀerent
+drag characteristics with signiﬁcant Magnus force; this model is not directly appli-
+cable.
+5. Range restriction: Optimization targets 1000–1500 m interval; extrapolation ac-
+curacy decreases.
+6. Neglected second-order eﬀects: Coriolis force, Earth curvature, atmospheric
+buoyancy may be important under long-range conditions.
+9.3 Comparison with Modern Ballistics
+Modern ballistics typically employs:
+• Six-degree-of-freedom model: Considers three rotational degrees of freedom of
+the projectile
+• G1/G7 ballistic coeﬃcients: Drag models based on standard projectile shapes
+• Numerical weather prediction: Real-time meteorological data correction
+
+Problem B
+Team 428
+25
+• Monte Carlo simulation: Considers various random error sources
+This study’s simpliﬁed model cannot match modern methods in accuracy, but has
+unique value in computational simplicity and historical applicability.
+10
+Conclusions and Prospects
+10.1
+Main Conclusions
+This paper addresses the exterior ballistics problem of historical artillery, establishing
+a complete motion model considering quadratic air resistance, exponential atmospheric
+density, and wind eﬀects. Main achievements are as follows:
+1. Complete baseline solutions: For the 1200 m target, obtained complete solution
+spectrum from high-speed low-arc (450 m/s, 2.723◦) to low-speed high-arc (144.39
+m/s, 40.39◦), providing ﬂexibility for ﬁeld selection.
+2. Standard ﬁring table establishment: Compiled two sets of ﬁring tables for
+V0 = 450 m/s and V0 = 300 m/s, covering 1000–1500 m range, providing data
+foundation for rapid method.
+3. Environmental eﬀects quantiﬁcation: Systematically analyzed quantitative in-
+ﬂuence patterns of altitude (4%/km), parallel wind (0.8 times relative wind speed),
+and crosswind (0.30 times wind speed-time product).
+4. Rapid ﬁring solution innovation: Proposed equivalent distance transformation
++ linear correction engineering method, controlling error within 0.2%, achieving
+high-precision solution under “calculator-free” conditions.
+5. Validation and assessment: 10 typical condition validations show rapid method
+angular error <0.01◦, fully meeting ﬁeld accuracy requirements, providing reliable
+tools for historical artillery eﬀectiveness research.
+10.2
+Academic Contributions
+1. Theoretical aspects: Established spherical projectile quadratic drag-exponential
+atmosphere coupling model, derived linear approximation formulas for environmen-
+tal corrections, providing new insights for exterior ballistics simpliﬁed modeling.
+2. Methodological aspects: Proposed “standardization + correction” engineering
+solution framework, balancing computational accuracy and operational simplicity,
+still inspiring for modern rapid ﬁre planning.
+3. Application aspects: Provides practical tools and data support for military his-
+tory research, ballistics simulation teaching, and emergency ﬁre calculation.
+
+Problem B
+Team 428
+26
+10.3
+Research Prospects
+1. Model accuracy improvement: Introduce Mach-dependent CD(M), layered at-
+mosphere, wind shear and other reﬁned physical models.
+2. Applicability range extension: Research rapid solution methods for ellipsoidal
+projectiles, conical projectiles and other non-spherical projectiles.
+3. Multi-objective optimization: Consider multi-objective constraints such as bal-
+listic performance, ammunition consumption, exposure time for ﬁring scheme opti-
+mization.
+4. Intelligent development:
+Combine machine learning algorithms to establish
+adaptive correction models based on historical ﬁring data.
+5. Modern applications: Explore application possibilities in GPS-denied environ-
+ments and emergency conditions for modern artillery rapid ﬁring.
+This research demonstrates the enduring value of classical physical modeling in com-
+plex engineering problems, and the importance of combining theory with practice. Under
+resource-constrained conditions, clever physical approximations and engineering simpliﬁ-
+cations often have more practical value than precise but complex numerical methods.
+References
+[1] McCoy, R. L. (1999). Modern Exterior Ballistics: The Launch and Flight Dynamics
+of Symmetric Projectiles. Schiﬀer Publishing.
+[2] Carlucci, D. E., & Jacobson, S. S. (2018). Ballistics: Theory and Design of Guns
+and Ammunition (3rd ed.). CRC Press.
+[3] Han, Z. P. (2008). Exterior Ballistics of Projectiles and Rockets. Beijing Institute
+of Technology Press.
+[4] Litz, B. (2011).
+Applied Ballistics for Long-Range Shooting (2nd ed.).
+Applied
+Ballistics, LLC.
+[5] Anderson, J. D. (2011). Fundamentals of Aerodynamics (5th ed.). McGraw-Hill
+Education.
+[6] NOAA, NASA, & U.S. Air Force. (1976). U.S. Standard Atmosphere, 1976. U.S.
+Government Printing Oﬃce.
+[7] Dormand, J. R., & Prince, P. J. (1980). A family of embedded RungeKutta formu-
+lae. Journal of Computational and Applied Mathematics, 6(1), 1926.
+[8] Sierra Bullets. (2003). Riﬂe & Handgun Reloading Data Manual (5th ed.). Sierra
+Bullets.
+
+Problem B
+Team 428
+27
+Appendix
+A. Complete Python Solver Code
+This section provides complete numerical solution code, including RK4 integration, root-
+ﬁnding algorithms, environmental corrections, and other core functions:
+#!/usr/bin/env python3
+"""
+Artillery Ballistics Solver
+Spherical projectile with quadratic drag and exponential atmosphere
+Units: SI (m, kg, s)
+"""
+import math
+import numpy as np
+from scipy.optimize import brentq
+# Physical constants
+g = 9.81
+# gravity (m/s^2)
+m = 5.0
+# projectile mass (kg)
+d = 0.11
+# projectile diameter (m)
+A = math.pi * (d/2)**2
+# cross-sectional area (m^2)
+Cd = 0.50
+# drag coefficient
+rho0 = 1.225
+# sea-level air density (kg/m^3)
+H = 8500.0
+# atmosphere scale height (m)
+def air_density(h_m):
+"""Air density at height h (exponential atmosphere)"""
+return rho0 * math.exp(-h_m / H)
+def drag_coefficient(h_m):
+"""Drag coefficient function k(h) = rho*Cd*A/(2m)"""
+return air_density(h_m) * Cd * A / (2 * m)
+def trajectory_derivatives(t, state, wind_parallel=0, wind_perp=0):
+"""
+Derivatives for 3D trajectory integration
+state = [x, y, z, vx, vy, vz]
+"""
+x, y, z, vx, vy, vz = state
+# Relative velocity (projectile - wind)
+vx_rel = vx - wind_parallel
+vz_rel = vz - wind_perp
+# Relative speed
+v_rel = math.sqrt(vx_rel**2 + vy**2 + vz_rel**2)
+
+Problem B
+Team 428
+28
+if v_rel < 1e-6:
+# Avoid division by zero
+v_rel = 1e-6
+# Drag coefficient at current height
+k = drag_coefficient(max(0, y))
+# Ensure non-negative height
+# Accelerations
+ax = -k * v_rel * vx_rel
+ay = -g - k * v_rel * vy
+az = -k * v_rel * vz_rel
+return [vx, vy, vz, ax, ay, az]
+def rk4_step(t, state, dt, derivatives_func, *args):
+"""Single RK4 integration step"""
+k1 = np.array(derivatives_func(t, state, *args))
+k2 = np.array(derivatives_func(t + dt/2, state + dt/2 * k1, *args))
+k3 = np.array(derivatives_func(t + dt/2, state + dt/2 * k2, *args))
+k4 = np.array(derivatives_func(t + dt, state + dt * k3, *args))
+return state + dt/6 * (k1 + 2*k2 + 2*k3 + k4)
+def integrate_trajectory(v0, theta_deg, h_init=0, target_h=0,
+wind_parallel=0, wind_perp=0, dt=0.001, max_time=30):
+"""
+Integrate trajectory until projectile reaches target height
+Returns: (range, flight_time, impact_velocity, max_height,
+trajectory_points)
+"""
+theta = math.radians(theta_deg)
+# Initial conditions
+state = np.array([
+0.0,
+# x
+h_init,
+# y
+0.0,
+# z
+v0 * math.cos(theta),
+# vx
+v0 * math.sin(theta),
+# vy
+0.0
+# vz
+])
+t = 0.0
+trajectory = [state.copy()]
+max_height = h_init
+while t < max_time:
+# Check if projectile has crossed target height
+if state[1] <= target_h and t > 0.1:
+# Allow some initial time
+
+Problem B
+Team 428
+29
+# Linear interpolation to find exact impact
+prev_state = trajectory[-1]
+dt_impact = -dt * (state[1] - target_h) / (state[1] - prev_state[1])
+t_impact = t - dt + dt_impact
+# Interpolate impact state
+alpha = dt_impact / dt
+impact_state = prev_state + alpha * (state - prev_state)
+# Calculate impact velocity
+impact_speed = math.sqrt(impact_state[3]**2 + impact_state[4]**2
++ impact_state[5]**2)
+return (impact_state[0], t_impact, impact_speed, max_height,
+trajectory)
+# Integration step
+state = rk4_step(t, state, dt, trajectory_derivatives,
+wind_parallel, wind_perp)
+t += dt
+trajectory.append(state.copy())
+# Update maximum height
+if state[1] > max_height:
+max_height = state[1]
+# If we reach here, projectile didn’t land within max_time
+impact_speed = math.sqrt(state[3]**2 + state[4]**2 + state[5]**2)
+return (state[0], t, impact_speed, max_height, trajectory)
+def find_angle_for_range(v0, target_range, h_init=0, target_h=0,
+wind_parallel=0, wind_perp=0,
+angle_bounds=(0.1, 85)):
+"""
+Find firing angle to achieve target range
+Uses Brent’s method for root finding
+"""
+def range_error(theta_deg):
+try:
+range_m, _, _, _, _ = integrate_trajectory(
+v0, theta_deg, h_init, target_h, wind_parallel, wind_perp)
+return range_m - target_range
+except:
+return float(’inf’)
+try:
+optimal_angle = brentq(range_error, angle_bounds[0],
+angle_bounds[1], xtol=1e-6, maxiter=50)
+
+Problem B
+Team 428
+30
+return optimal_angle
+except ValueError:
+# If root finding fails, try a wider search
+return None
+def quick_firing_solution(target_range, altitude=500, wind_parallel=0,
+wind_perp=0, v0=450):
+"""
+Quick firing solution using correction factors
+"""
+# Base table lookup (linear interpolation)
+base_ranges = [1000, 1050, 1100, 1150, 1200, 1250, 1300, 1350,
+1400, 1450, 1500]
+base_angles = [2.074, 2.227, 2.385, 2.551, 2.723, 2.902, 3.089,
+3.284, 3.487, 3.699, 3.920]
+base_times = [2.963, 3.159, 3.360, 3.566, 3.779, 3.998, 4.224,
+4.454, 4.692, 4.937, 5.191]
+# Interpolate base values
+base_angle = np.interp(target_range, base_ranges, base_angles)
+base_time = np.interp(target_range, base_ranges, base_times)
+# Correction factors
+altitude_factor = 1 + 0.04 * (altitude - 500) / 1000
+wind_factor = 1 + 0.8 * wind_parallel / v0
+# Adjusted range
+adjusted_range = target_range / (altitude_factor * wind_factor)
+# Re-interpolate with adjusted range
+corrected_angle = np.interp(adjusted_range, base_ranges, base_angles)
+corrected_time = np.interp(adjusted_range, base_ranges, base_times)
+# Crosswind deflection (in mils)
+crosswind_deflection_mils = 300 * wind_perp * corrected_time / target_range
+return corrected_angle, corrected_time, crosswind_deflection_mils
+# Example usage and validation
+if __name__ == "__main__":
+print("Artillery Ballistics Calculator")
+print("="*40)
+# Test case: 1200m target, altitude 500m, no wind
+print("\nTest Case 1: 1200m target, altitude 500m, no wind")
+range_m, time_s, impact_v, max_h, traj = integrate_trajectory(
+450, 2.723, 500, 500)
+print(f"V0=450 m/s, θ=2.723◦:")
+
+Problem B
+Team 428
+31
+print(f"
+Range: {range_m:.1f} m")
+print(f"
+Time: {time_s:.3f} s")
+print(f"
+Impact velocity: {impact_v:.1f} m/s")
+print(f"
+Maximum height: {max_h:.1f} m")
+# Find minimum velocity solution
+print(f"\nFinding minimum velocity for 1200m...")
+for v0_test in range(140, 200, 5):
+try:
+angle = find_angle_for_range(v0_test, 1200, 500, 500)
+if angle and angle < 50:
+range_m, time_s, impact_v, max_h, _ = integrate_trajectory(
+v0_test, angle, 500, 500)
+if abs(range_m - 1200) < 5:
+# Within 5m tolerance
+print(f"
+V0={v0_test} m/s, θ={angle:.2f}◦: "
+f"Range={range_m:.1f}m")
+except:
+continue
+# Test quick method
+print(f"\nTesting quick firing solution:")
+quick_angle, quick_time, deflection = quick_firing_solution(
+1350, 1000, -5, 8, 450)
+print(f"Target: 1350m, altitude 1000m, wind (-5,8) m/s")
+print(f"Quick method: θ={quick_angle:.3f}◦, "
+f"deflection={deflection:.1f} mils")
+# Verify with full integration
+true_angle = find_angle_for_range(450, 1350, 1000, 1000, -5, 0)
+if true_angle:
+print(f"True solution: θ={true_angle:.3f}◦")
+print(f"Error: {abs(quick_angle - true_angle):.3f}◦")
+print("\nCalculation complete!")
+
+Problem B
+Team 428
+32
+B. Standard Firing Table Data
+Table 9: Complete Standard Firing Table (V0 = 450 m/s, altitude 500 m, no wind)
+Range
+Elevation
+Flight
+Terminal
+Max
+Average
+Kinetic Energy
+R (m)
+θ (◦)
+Time T (s)
+Velocity (m/s)
+Height (m)
+Velocity (m/s)
+Retention η (%)
+800
+1.502
+2.264
+285
+7.2
+353
+40.1
+850
+1.631
+2.417
+279
+8.4
+352
+38.4
+900
+1.766
+2.575
+273
+9.7
+350
+36.8
+950
+1.908
+2.737
+267
+11.2
+347
+35.2
+1000
+2.074
+2.963
+260
+12.1
+338
+33.3
+1050
+2.227
+3.159
+253
+13.7
+332
+31.6
+1100
+2.385
+3.360
+246
+15.4
+327
+30.0
+1150
+2.551
+3.566
+239
+17.2
+323
+28.4
+1200
+2.723
+3.779
+233
+19.2
+318
+26.8
+1250
+2.902
+3.998
+227
+21.4
+313
+25.4
+1300
+3.089
+4.224
+221
+23.8
+308
+24.1
+1350
+3.284
+4.454
+215
+26.4
+303
+22.8
+1400
+3.487
+4.692
+209
+29.2
+298
+21.6
+1450
+3.699
+4.937
+204
+32.2
+294
+20.5
+1500
+3.920
+5.191
+198
+35.4
+289
+19.4
+Where kinetic energy retention η = (vf/V0)2 × 100%.
+C. Field Quick Calculation Card
+Artillery: Spherical projectile, 5 kg, 11 cm, maximum muzzle velocity 450 m/s
+Baseline conditions: Altitude 500 m, no wind
+Table 10: Field Quick Reference Table
+Range
+Full Charge
+Reduced Charge
+Flight Time
+(m)
+Elevation (◦)
+Elevation (◦)
+(s)
+1000
+2.1
+8.0
+3.0 / 5.8
+1100
+2.4
+9.7
+3.4 / 6.8
+1200
+2.7
+11.6
+3.8 / 7.9
+1300
+3.1
+13.8
+4.2 / 9.1
+1400
+3.5
+16.4
+4.7 / 10.5
+1500
+3.9
+19.6
+5.2 / 12.1
+Correction Formulas:
+• Altitude: For every 500m increase, elevation angle decreases by approximately 2%
+• Parallel wind: For every 10 m/s tailwind, elevation angle decreases by approxi-
+mately 0.2◦
+• Crosswind: Windage (mil) = 300 × wind speed × time / range

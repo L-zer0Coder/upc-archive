@@ -1,0 +1,1830 @@
+The analysis of three people bouncing on a trampoline problem.
+Team 471
+Problem B: Trampoline Jumping
+Abstract
+In this paper we have found a solution to a problem regarding three people jumping on a
+trampoline. We have created a theoretical model using which we have found approximations of
+the parameters required for each person to reach their maximum height jump. Afterwards we have
+created a numerical simulation of the problem which we used to get an even better approximation
+of the parameters.
+To analyse the three body on the trampoline problem we have used these
+parameters and we have found the optimal strategy of jumping in order to launch one person as
+high as it is possible. Simulating three people jumping on the trampoline according to our strategy,
+we have found out that the person of mass 25 kg could jump as high as 3.2 m, around 2.7 meters
+higher than by themselves. For the person of mass 40 kg it was 2.74 m, around 2 meters higher
+than by themselves and accordingly for the heaviest person – 50 kg – it was 2.39 m, the lowest
+height of them all despite being the best jumper on their own.
+1
+
+1
+Introduction
+It is a well known fact, that when multiple people jump on a trampoline at the same time, the maximal
+heights they can obtain are much greater than when jumping alone. The aim of this paper is to analyse
+the problem of three people bouncing on a round trampoline, and ﬁnd the maximal heights each of
+them can obtain, knowing that their masses are 25, 40 and 50 kg, and when jumping alone they can
+reach maximally 0.5, 0.8 and 1.2 m respectively.
+2
+Trampoline model of one player
+It is necessary to build a working model of a trampoline. We will assume it is cylindrically symmetric.
+The optimal place for bouncing in order to achieve maximal height is the center of the trampoline. It
+is the case, because when jumping on a stiﬀsurface (like ground), we don’t bounce on it, but rather
+cushion the fall with our legs, and then jump. On an elastic and highly deformable surface however, we
+don’t have to cushion the fall, and we can add energy to the already present in the system. So as the
+trampoline’s center is the most deformable, and the further we get from it the stiﬀer the trampoline’s
+surface gets on impact, it is then the center that has the smallest energy losses due to this cushioning.
+This eﬀect won’t be analysed in our models separately, but the fact that we model bouncing in the
+trampoline’s center is the eﬀect of it.
+We will model the player as a material point at the middle of the trampoline. Forces acting on the
+player are due to gravity and loaded springs. The second of these forces is approximated by
+Ft(z) = Nkz
+(
+1 −
+R
+√
+R2 + z2
+)
+,
+(1)
+where N is the number of strings, k is their spring constant (we assume that the springs are identical),
+R is the radius of the trampoline, and z is the coordinate of the jumping person (the z axis is directed
+upwards). We set that z = 0 at the center of an undeformed surface.
+Due to air resistance, a drag force acts on the surface of the trampoline:
+Fa(z, ˙z) = ca
+π
+6
+R2
+√
+1 + z2
+R2
+˙z2sgn( ˙z),
+(2)
+where ca is the air resistance coeﬃcient. There is also a damping force, originating from hysteresis
+and heating of springs. We will assume that it is linearly proportional to the velocity:
+Fd(z, ˙z) = cd ˙z.
+(3)
+This derivation of forces was inspired by [1]. Together those equations give the equation of motion for
+the jumping person:
+(m + 1
+3M)¨z = −Ft(z) −Fa(z, ˙z) −Fd(z, ˙z),
+what can be rewritten as:
+(m + 1
+3M)¨z = −Nkz
+(
+1 −
+R
+√
+R2 + z2
+)
+−ca
+π
+6
+R2
+√
+1 + z2
+R2
+˙z2sgn( ˙z) −cd ˙z.
+(4)
+The coeﬃcient before the mat’s mass M is obtained by integration over the whole mat, as follows:
+We know that for central stretching the velocity of a point in distance r from the mat’s center is
+v(r) = v0
+(
+1 −r
+R
+)
+,
+(5)
+2
+
+where v0 is the velocity of the mat’s center. Thus we can write the acceleration as a(r) = a0
+(
+1 −r
+R
+)
+where a0 is the acceleration of the center. Using that we can write the mat’s equation of motion:
+∫
+S
+ρa(r) = 2πρ¨z
+∫R
+0
+r(1 −r
+R)dr = 1
+3πρR2¨z = 1
+3M ¨z.
+(6)
+We neglect the fact, that density changes due to stretching, because this change is small, and the factor
+before M is only approximate.
+2.1
+Stationary solution
+A ball falling from certain height will bounce lower and lower due to damping and air resistance. A
+player on the other hand can jump while on the trampoline, generating energy ∆E with his leg muscles.
+For the stationary solution, we know that this generated energy will be equal to the losses of energy in
+one jumping cycle. We want to approximate this energy. In order to do that we can observe that the
+trampoline movement of the player can be approximated as a harmonic oscillator. At the beginning of
+the cycle, when the player is directly above the trampoline, he has maximal velocity, thus his velocity
+can be approximated by v(t) = v0cos(ωt), where ω is its characteristic frequency. Jumping on the
+trampoline takes half of the period π
+ω thus we can approximate the energy losses as:
+−∆E1 =
+∫
+0.5cycle
+(Fa + Fd)(−ˆez) · ˆezdz = −
+∫
+π
+ω
+0
+(
+ca
+π
+6
+R3
+√
+R2 + z2 ˙z3sgn( ˙z) + cd ˙z2
+)
+dt
+(7)
+Now we can approximate that
+R3
+√
+R2+z2 ≈R2, because we want only order of magnitude approximate
+and deformation of typical trampoline for light players is smaller than the radius, thus we will ignore
+z2
+R2 terms.
+If we now input our anzatz ˙z = v0cos(ωt), we get:
+∆E1 = 2ca
+π
+6 R2 v3
+0
+ω
+∫
+π
+2
+0
+cos3(x)dx + 2cd
+v2
+0
+ω
+∫
+π
+2
+0
+cos2(x)dx =
+(4
+3
+ca
+6 R2v0 + 1
+2cd
+) πv2
+0
+ω
+(8)
+We also should include the kinetic energy of the mat which density velocity is equal to v(r) =
+v0
+(
+1 −r
+R
+)
+. This energy is lost after launching the player due to dumping of trampoline:
+∆E2 = 1
+2
+∫
+S
+ρv(r)2 = Mv2
+0
+12
+(9)
+Only unknown for a given trampoline is v0 - the escape velocity of a player. We ommit the drag during
+free-fall phase, thus it can be approximated with the energy conservation rule v0 = √2ghmax. Where
+hmax is the maximal height above trampoline surface equilibrium the player reaches.
+Finally, we get energy expenditure of the player during one jump ∆E as a function of his maximal
+height hmax:
+∆E = ghmax
+(M
+6 +
+(4ca
+9 R2√
+2ghmax + cd
+) π
+ω
+)
+(10)
+This approximation for energy that the player needs to generate during one cycle can be tested with
+a simulation solving diﬀerential equation. The stationary solution should be an attractor - thus not
+depend on the initial conditions. For it, the maximal height can be measured and compared with the
+one given at the beginning. ω was calculated numerically for simulation of the ball bouncing freely
+(without kick) and measuring time spent on the trampoline during the ﬁrst bounce.
+3
+
+3
+Simulation of a single player
+In order to test the theoretical model developed in sec.
+2, we developed a simulation solving an
+IVP (initial value problem) for ODE of evolution given by eq. 6. The implementation was created
+in python, using the solve_ivp function from the scipy package, with Runge-Kutta of 8th order method.
+3.1
+Non-resonant fall from certain height
+The movement of the player was divided into stages. First, there was a part of free fall, upon contact
+with the trampoline the model with eq. 6 overtakes, to ﬁnally return to free fall phase upon leaving
+the trampoline. We treat the collision with the mat as conserving energy, because the vast majority
+of the energy losses has source in air resistance and spring heating.
+The trampoline’s parameters shown in table 1 were chosen by scaling up the parameters given in
+the reference [1], assuming that the spring elasticity constant and the mat’s density won’t change.
+This simulation resulted in obtaining a damped oscillation we could expect, shown in ﬁgure 1.
+Parameter
+Value
+Unit
+R
+2.5
+m
+M
+6.25
+kg
+N
+150
+-
+ca
+2.3
+Ns2/m4
+cd
+16
+Ns/m
+k =
+{
+96 kN/m,
+∆L < 1.5 mm
+2.7 kN/m,
+∆L ≥1.5 mm
+Table 1: Parameters assumed for the trampoline, where ∆L is the elongation of the spring
+0
+2
+4
+6
+8
+10
+Time t
+0.4
+0.2
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Position in vertical axis to trampoline surface z
+Body of mass 25 kg on a trampoline
+Trajectory of body in z axis
+Figure 1: The non- resonant oscillation of the player with the mass of 25 kg
+4
+
+3.2
+Resonant jumping
+In reality, a player jumping on a trampoline doesn’t act like a stiﬀmaterial point, but during every
+contact with the mat he adds to the system some energy produced by his muscles. Knowing that, we
+can stop the solving of the equation of motion when the player stops in minimal z, change his kinetic
+energy by this ∆E with velocity directed upwards, and resume solving the equation.
+We implemented this technique with a manually written event for solve_ivp.
+We have indeed
+obtained an attractor (as shown in ﬁgure 3.2), and in order to ﬁnd the correct values of ∆E we ﬁrst
+computed its values using the theoretical model 10, and by manual tweaks we optimised its value for
+every player separately in order for their maximal jumping height while bouncing alone hmax to be
+close to the given values.
+Thus, we obtained ∆E for every player, as shown in table 2.
+Player’s mass, (kg)
+∆E0, (J)
+∆E, (J)
+Obtained hmax, (m)
+25
+123.25
+126
+0.496
+40
+215.04
+220
+0.799
+50
+347.03
+343
+1.202
+Table 2: The theoretically obtained values of jump energy ∆E0 and the values ∆E obtained from the
+resonant jumping simulation
+It is worthy to emphasise the fact that the theoretically obtained values of ∆E are within 3% of
+the values obtained in the simulation. It shows the correctness of both the model and the simulation.
+The comparison of the computed trajectories beginning in z = 0 with no initial velocity for diﬀerent
+players is shown on ﬁgure 3.2.
+0.0
+2.5
+5.0
+7.5
+10.0
+12.5
+15.0
+17.5
+Time t
+0.50
+-0.4
+-0.2
+0.0
+0.2
+0.4
+Position in vertical axis to trampoline surface z
+Body of mass 25 kg on a trampoline
+Trajectory of body in z axis
+Maximum height reached 
+0
+5
+10
+15
+20
+Time t
+0.4
+0.2
+0.0
+0.2
+0.4
+0.6
+0.8
+Position in vertical axis to trampoline surface z
+Body of mass 40 kg on a trampoline
+Trajectory of body in z axis
+Maximum height reached 
+0
+5
+10
+15
+20
+Time t
+0.50
+0.25
+0.00
+0.25
+0.50
+0.75
+1.00
+1.25
+Position in vertical axis to trampoline surface z
+Body of mass 50 kg on a trampoline
+Trajectory of body in z axis
+Maximum height reached 
+Figure 2: The comparison of the resonant trajectories with z(t = 0) = 0, v(t = 0) = 0
+We have also analysed whether we will reach this value with diﬀerent initial conditions, as such
+starting height z = 1 but for all initial conditions we have found that our trajectory will stabilise
+around the same hmax for a given jump energy.
+5
+
+4
+Model of three players
+The trampoline’s radius R = 2.5 m is big in comparison with the human size, and the greatest height
+one can obtain is while jumping on the trampoline’s center, so the optimal solution for the problem
+shouldn’t be much diﬀerent than the solution obtained with the assumption that all three players are
+jumping in the center of the mat, and cannot collide with each other.
+The idea of the solution is based on [2]. When we consider a two-player static (no leg work) prob-
+lem, we can observe that if contact with the trampoline times are far apart, every player is described
+by one player bouncing model 2. On the other hand, if times of contact are similar, they can transfer
+the energy between themselves using the trampoline. In a simple model if player A is making contact
+with the trampoline surface ﬁrst he will be gradually slowed down. In the meantime player B who
+is near him is falling freely, thus accelerating. If the distance between them is small, there will be a
+moment when player B catches up to A, while having greater speed, thus he will be slowed down by
+the trampoline, while player A will start accelerating in free fall. They will switch positions, up to the
+point when both their velocities will be close to zero. Now the reverse process, where the trampoline
+accelerates them in turns will take place. During this process, at some point one of the players will
+leave the trampoline and never come back in this cycle, and due to the presence of the second player
+his escape velocity will be smaller than if the second player was not present. It will result in energy
+transfer to the second player. According to [2] if the players will keep bouncing, they will randomly
+transfer energy between each other.
+It is the main diﬀerence between the single and multiple player problems. As we can see, 3 players
+(kids) can keep bouncing not interfering with each other, until all of them have reached their maximal
+heights. Thus they can pool together a lot of energy in order to launch one of them.
+In the next step they need to focus on transferring as much energy as possible toward one of the
+players. We developed a simple model of optimizing such a transfer. First, one player lands on the
+trampoline and stretches it until he stops moving. Then, as he has no more energy that he could insert
+into the trampoline, he can jump, and on his place another player lands, exactly in the moment of
+jumping (ﬁg. 3). This means that instead of accelerating the ﬁrst player, the trampoline gets further
+deformed. The second player freely fell from his maximal height and has maximal kinetic energy,
+which is now transmitted into the trampoline. And when the second player stops, he jumps like the
+ﬁrst one, and on his place in this exact moment lands the third player, preventing the trampoline from
+transferring any energy into the second player. Now the third player waits until he stops, then he jumps,
+and this time the trampoline accelerates him with all of the energy stored in it (except eventually some
+small part, transferred possibly to the second player if the third player with the trampoline accelerates
+enough to get ahead of him before reaching z=0, but it is already after the majority of the energy got
+transferred). It is easy to observe, that the acceleration is higher, when strings are more streched, thus
+majority of the energy stored in springs will be transferred to the intended target.
+5
+Simulation of three players
+The algorithm mentioned in the previous paragraph has been implemented using the earlier written
+program simulating one player, and indeed, the height the last player jumping obtains much exceeds
+the heights of the other players, as shown in table 3.
+6
+
+Figure 3: The schematic of a trampoline with balls separated in a way, allowing maximal transfer of
+energy towards one player. By engaging with the trampoline in the moment, when previous kid stops
+to a halt, players can store the greatest amount of energy in the trampoline, to eject one of them.
+Player 1 (kg)
+Player 2 (kg)
+Player 3 (kg)
+h1 (m)
+h2, (m)
+h3, (m)
+40
+50
+25
+0.028
+0.812
+3.200
+50
+40
+25
+0.116
+1.019
+2.940
+25
+50
+40
+0.050
+0.278
+2.744
+50
+25
+40
+0.098
+0.608
+2.534
+25
+40
+50
+0.050
+0.112
+2.386
+40
+25
+50
+0.024
+0.241
+2.374
+Table 3: The jump heights obtained while simulating the sequential trampoline stretching by players
+in given order
+On the following ﬁgures 4, 5 and 6 the trajectories and velocities are shown in function of time for
+every player when he jumps last (the higher of the two jumps in each case was chosen).
+7
+
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+Time t
+0.5
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+Position in vertical axis to trampoline surface z
+40 kg
+50 kg
+25 kg
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+Time t
+6
+4
+2
+0
+2
+4
+6
+8
+Velocity in vertical axis to trampoline surface z
+40 kg
+50 kg
+25 kg
+Figure 4: The optimal jump for the 25 kg player, locations and velocities in the function of time
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+Time t
+0.5
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+Position in vertical axis to trampoline surface z
+25 kg
+50 kg
+40 kg
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+Time t
+6
+4
+2
+0
+2
+4
+6
+8
+Velocity in vertical axis to trampoline surface z
+25 kg
+50 kg
+40 kg
+Figure 5: The optimal jump for the 40 kg player, locations and velocities in the function of time
+8
+
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+Time t
+0.5
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+Position in vertical axis to trampoline surface z
+25 kg
+40 kg
+50 kg
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+Time t
+6
+4
+2
+0
+2
+4
+6
+Velocity in vertical axis to trampoline surface z
+25 kg
+40 kg
+50 kg
+Figure 6: The optimal jump for the 50 kg player, locations and velocities in the function of time
+9
+
+6
+Problems and discussion
+6.1
+Problem with energy
+It is a well-known fact that many people jumping on a trampoline at the same time can reach much
+greater heights than when jumping alone, so the results seem to be of the correct form, increasing
+the height by the order of 3. It is unlikely that they are close to the exact values, because for the
+50 kg player the system’s total energy grows from 1025 J by 214 J, which is of the same order of
+magnitude as the sum of energies added by the muscles Σ∆E = 689 J. It is possible, that the model of
+instantaneous jump does not reﬂect reality well, and ﬁnal velocity of the escaping player is too large,
+thus the maximal height is overestimated. The total energy of players after ejecting one of them is
+pretty much the same in every variation of order. It may be possible that in reality damping and drag
+forces do not balance the 3 players giving energy into the system. Most of the energy is in the ejected
+player, the smallest one will achieve the highest altitude, what is conﬁrmed by our simulation.
+6.2
+Discussion and implications
+The results although big are the correct order of magnitude and are in alignment with simple models
+of energy transfer omitting energy losses [2] and experimental results [1]. Some interesting conclusions
+may arise from our work.
+First, what is intuitive energy generated by a player ∆E is an increasing function of mass of the player
+- greater muscle mass leads to higher generated power.
+Second, single-player movement on the trampoline is given by the attractor, which does not depend
+on the initial conditions. No matter how certain player starts jumping after some time he jump with
+his maximal height.
+Adding multiple players on one trampoline leads to chaotic behavior and energy transfers between
+them. Thus it is easy to see, that using the trampoline in a group can be way more interesting and
+fun, than jumping alone.
+In the case of multiple players, it is possible for them to accidentally eject one of them way higher, than
+his maximal height. Maybe not by a factor of 3, as we calculated for an optimal situation, but it can
+still be dangerous for trampoline users. Falling from a height of more than 2 meters can cause twisted
+ankles and other injuries. Thus it is important to ﬁnd ways to reduce possible maximum ejecting
+height while keeping the same maximum height for each player. From our model it can observed,
+that in the process of ejection, much higher maximal speeds are achieved (in some cases almost 8 m
+s ),
+thus the air drag on the trampoline starts to play a dominant role compared to dumping. It may be
+beneﬁcial to design the trampoline in a way, that has a larger drag coeﬃcient ca, rather than damping
+one cd.
+Finally we can observe, that the lightest player was ejected the highest. This phenomenon can be
+explained intuitively, all the players store their energy in the trampoline, lightest player may have
+lowest power generating abilities ∆E, thus lowest single-bouncing maximal height hmax, but if all the
+players store their energy in the trampoline, the maximal height given by:
+h = Etotal
+mg
+(11)
+Will be highest for smallest players if the total energy is the same. Of course, we cannot assume that
+all the energy is transferred into him, what can be observed in our simulation, but the intuition is
+right, thus while multiple people are playing on the trampoline it is really important to take safety of
+smaller kids seriously. In the same time it may be advantageous for breaking height records, to eject
+the smallest player.
+10
+
+7
+Summary
+In this paper a model of a single player bouncing on a trampoline was proposed. Both simulation and
+theoretical calculations gave a similar result for the energy produced by the muscles of each player
+during one jump (table 2), which is an important proof of the model’s accuracy.
+A model of three players bouncing simultaneously was proposed, and a strategy for obtaining the
+highest possible jump for a chosen player was constructed. It was then implemented in a simulation,
+and computed for every possible order in which the players can land on the trampoline (table 3). The
+highest jumps for the players weighing 25, 40 and 50 kg are respectively 3.200, 2.744 and 2.386 m.
+The trajectories and velocity plots for these highest jumps were drawn (ﬁgures 4, 5 and 6).
+11
+
+8
+Appendix
+To this paper there are added two scripts written in Python, the ﬁrst one used to numerically model a
+ball dropped on a trampoline and to ﬁnd the correct parameters for each person for them to be able to
+reach their maximum height. The second one was used to numerically simulate a three body jumping
+process on a trampoline and to ﬁnd out how far can each person jump using a strategy described in the
+paper. More about scripts is written inside them using comments. In these scripts we are searching
+for the evolution of our system by simply solving the diﬀerential equations given by our theoretical
+model with forces acting on the bodies on the trampoline. To solve such diﬀerential equations we
+use command from the library scipy to python. There is more to these scripts besides simply solving
+diﬀerential equations, to ﬁnd out which body is in contact with the trampoline we check the positions
+of each body during every part of solving the diﬀerential equations. Based on this which body is in
+contact with the trampoline, the equations for such body change, because when they are away from the
+trampoline they are simply free falling and when they are on the trampoline, the diﬀerential equations
+are the same as given by us in the theoretical model. When the body hits the trampoline we have to
+use the conservation of the energy law to ﬁnd the velocity after the hit. To introduce bouncing from
+the trampoline we have to quit solving the diﬀerential equations, change the condition by adding some
+value to the velocity of a body bouncing and once again solve the diﬀerential equations right now with
+new initial conditions.
+import numpy as np
+import matplotlib . pyplot
+as
+plt
+import math as m
+from scipy . i n t e g r a t e import solve_ivp
+#parameters
+of
+the
+trampoline and air
+R = 2.5 #radius
+of
+the
+trampoline
+Mm = (2.5)∗∗2 #trampoline ’ s mat mass
+Ns = 150 #number of
+springs
+Ca = 2.3 #air
+r e s i s t a n c e
+c o e f f i c i e n t
+Cd = 16 #damping
+c o e f f i c i e n t
+g = 9.81 #standard
+g r a v i t y
+constant
+mass = [25 ,40 ,50] #mass of
+each person
+energy = [126 ,220 ,343] #amount of
+energy each person
+uses
+while
+jumping
+hmax = [ 0 . 5 , 0 . 8 , 1 . 2 ] #maximum height
+reached by a person
+while
+jumping
+alone
+order = [1 ,
+2 ,
+0] #here we choose
+order
+of
+bodies
+dropping on the
+trampoline
+for
+l i s t a
+in mass ,
+energy , hmax :
+help = np . copy ( l i s t a )
+for
+i
+in range( len ( l i s t a ) ) :
+l i s t a [ i ] = help [ order [ i ] ]
+print ( mass , hmax , energy )
+def dL(H) : #change
+of
+length
+of
+springs
+while
+s t r e t c h i n g
+the
+trampoline
+return m. sqrt (R ∗∗2 + H ∗∗2) −R
+def ks (H) : #change
+of
+springs
+c o e f f i c i e n t
+due to
+s t r e t c h i n g
+i f dL(H) < 1.5 e −3:
+return 96000
+else :
+return 2700
+def Ft (H) : #v e r t i c a l
+force
+of
+a l l
+the
+springs
+return Ns ∗ks (np . abs(H)) ∗(m. sqrt (R ∗∗2 + H ∗∗2)−R)∗
+(H / (m. sqrt (R ∗∗2 + H ∗∗
+2)))
+def Fa(H) : #air
+r e s i s t a n c e
+return (2 ∗np . pi ∗Ca) / R / m. sqrt (R ∗∗2 + H ∗∗2) ∗((R ∗∗4) / 4 −
+2 ∗R ∗R ∗∗3 / 3 + R ∗∗2 ∗R ∗∗2 / 2)
+12
+
+def onebody ( t ,
+z , mass=mass [ 0 ] ) : #equations
+describing
+evolution
+of a system with one body
+x , v = z
+dx = v
+i f
+x > 0:
+dv = −g
+else :
+dv = −Ft (x) −mass ∗g −Fa(x) ∗v∗∗2 ∗np . sign (v) −Cd∗v
+dv = dv/( mass+(1/3)∗Mm)
+return np . array ( [ dx , dv ] )
+def
+threebodies ( t ,
+z ) : #equations
+describ ing
+evolution
+of a system
+with
+three
+bodies
+p o s i t i o n s = z [ : 3 ]
+v e l o c i t i e s = z [ 3 : ]
+v1 , v2 , v3 = v e l o c i t i e s
+positionequations = [ 0 , 0 , 0 ]
+v e l o c i t i e s e q u a t i o n s = [ 0 , 0 , 0 ]
+positionequations [ 0 ] = v1
+positionequations [ 1 ] = v2
+positionequations [ 2 ] = v3
+i f min( p o s i t i o n s ) > 0:
+v e l o c i t i e s e q u a t i o n s [ 0 ] = −g
+v e l o c i t i e s e q u a t i o n s [ 1 ] = −g
+v e l o c i t i e s e q u a t i o n s [ 2 ] = −g
+else :
+v e l o c i t i e s e q u a t i o n s [ 0 ] = −g
+v e l o c i t i e s e q u a t i o n s [ 1 ] = −g
+v e l o c i t i e s e q u a t i o n s [ 2 ] = −g
+index = np . where ( p o s i t i o n s == min( p o s i t i o n s ) ) [ 0 ]
+for
+i
+in range( len ( index ) ) :
+v e l o c i t i e s e q u a t i o n s [ index [ i ] ] =
+−Ft ( p o s i t i o n s [ index [ i ] ] ) −mass [ index [ i ] ]
+∗
+g −Fa( p o s i t i o n s [ index [ i ] ] )
+∗
+v e l o c i t i e s [ index [ i ] ] ∗∗2
+∗np . sign ( v e l o c i t i e s [ in
+Cd∗v e l o c i t i e s [ index [ i ] ]
+v e l o c i t i e s e q u a t i o n s [ index [ i ] ] =
+v e l o c i t i e s e q u a t i o n s [ index [ i ] ] / ( mass [ index [ i ]]+(1/3)∗Mm)
+return np . array ( [ positionequations [ 0 ] , positionequations [ 1 ] , positionequations [ 2 ] , v e l o
+def twobodies ( t ,
+z ) : #equations
+describ ing
+evolution
+of a system
+with two
+bodies
+p o s i t i o n s = z [ : 2 ]
+v e l o c i t i e s = z [ 2 : ]
+v1 , v2 = v e l o c i t i e s
+positionequations = [ 0 , 0 ]
+v e l o c i t i e s e q u a t i o n s = [ 0 , 0 ]
+positionequations [ 0 ] = v1
+positionequations [ 1 ] = v2
+i f min( p o s i t i o n s ) > 0:
+v e l o c i t i e s e q u a t i o n s [ 0 ] = −g
+v e l o c i t i e s e q u a t i o n s [ 1 ] = −g
+else :
+v e l o c i t i e s e q u a t i o n s [ 0 ] = −g
+v e l o c i t i e s e q u a t i o n s [ 1 ] = −g
+index = np . where ( p o s i t i o n s == min( p o s i t i o n s ) ) [ 0 ]
+for
+i
+in range( len ( index ) ) :
+13
+
+v e l o c i t i e s e q u a t i o n s [ index [ i ] ] =
+−Ft ( p o s i t i o n s [ index [ i ] ] ) −mass [ index [ i ] ]
+∗g −Fa( p o s i t i o n s [ index [ i ] ] )
+∗
+v e l o c i t i e s [ index [ i ] ] ∗∗2
+∗np . sign ( v e l o c i t i e s
+−Cd∗v e l o c i t i e s [ index [ i ] ]
+v e l o c i t i e s e q u a t i o n s [ index [ i ] ] = v e l o c i t i e s e q u a t i o n s [ index [ i ] ] / ( mass [ index [ i ]]
+return np . array ( [ positionequations [ 0 ] , positionequations [ 1 ] , v e l o c i t i e s e q u a t i o n s [ 0 ] , v e
+’ ’ ’
+For two and more bodies
+our
+algorithm
+works
+in a way ,
+that when one of
+the
+bodies
+reaches
+the
+p ositi on
+under
+0 ( i t
+means
+i t
+reaches
+the
+trampoline
+at
+the
+equilibrium
+with no mass on
+i t ) , we are
+scanning
+the
+p o s i t i o n s
+to
+find
+the
+lowest one ,
+the
+lowest
+one body
+i s
+in a contact
+with
+the
+tramp
+for
+t h i s
+body we apply
+the
+equations
+for
+v e l o c i t y
+as
+i t
+follows , and the
+other
+bodies
+are
+in a fre e
+f a l l ;
+the
+trampoline moves with
+the
+v e l o c i t y
+of a body on
+i t
+’ ’ ’
+#functions
+used as
+events
+in
+solve_ivp
+functions
+to
+find
+times
+at
+which
+certain
+values
+a
+def
+v e l o c i t y 1 ( t , z ) : #find
+time when
+v e l o c i t y
+of
+the
+f i r s t
+body
+i s
+equal
+to
+zero
+return z [ 3 ]
+def
+v e l o c i t y 2 ( t , z ) : #find
+time when
+v e l o c i t y
+of
+the
+second body
+i s
+equal
+to
+zero
+return z [ 4 ]
+def
+v e l o c i t y 3 ( t , z ) : #find
+time when
+v e l o c i t y
+of
+the
+t h i r d
+body
+i s
+equal
+to
+zero
+return z [ 5 ]
+def
+velocity1twobodies ( t , z ) : #find
+time when
+v e l o c i t y
+of
+the
+f i r s t
+body
+i s
+equal
+to
+zero
+return z [ 2 ]
+def
+velocity2twobodies ( t , z ) : #find
+time when
+v e l o c i t y
+of
+the
+second body
+i s
+equal
+to
+zero
+return z [ 3 ]
+def velocityonebody ( t , z ) : #find
+time when
+v e l o c i t y
+of
+the
+only
+body
+i s
+equal
+to
+zero
+( on
+return z [ 1 ]
+def
+c o l l i s i o n 1 ( t , z ) : #find
+time when p osition
+of
+the
+t h i r d
+body
+i s
+equal
+to
+p osi tion
+of
+return z [ 2 ] −z [ 0 ]
+def
+c o l l i s i o n 2 ( t , z ) : #find
+time when p osition
+of
+the
+t h i r d
+body
+i s
+equal
+to
+p osi tion
+of
+return z [ 2 ] −z [ 1 ]
+def
+positionfunc ( t , hmax , ti , hi ) : #function
+to
+find
+position
+of a fre e
+f a l l l i n g
+body
+befor
+return hmax −g/2 ∗( t −(ti −m. sqrt (2∗(hmax−hi )/ g )))∗∗2
+def
+ve l o city fu n c ( t , hmax , ti , hi ) : #function
+to
+find
+v e l o c i t y
+of a fre e
+f a l l l i n g
+body
+befor
+return −g ∗( t−t i+m. sqrt (2∗(hmax−hi )/ g ))
+’ ’ ’
+We imagine
+that
+a l l
+the
+bodies
+s t a r t
+at a certain maximum height ,
+which
+i s
+reached by each body when jumping
+alone and then from
+i t
+i t
+f a l l s
+on a trampoline
+during a fr ee
+f a l l .
+According
+to
+our paper ,
+we
+w i l l
+reach
+the
+h i g h e s t jump , when every
+next
+body
+h i t s
+the
+trampoline
+the moment the
+previous one reaches maximum depth
+for
+the
+trampoline
+( i t s
+v e l o c i t y
+reaches
+0).
+That ’ s why we s t a r t
+our
+simulation
+with
+only one body
+at
+the
+l e v e l
+of
+trampoline and
+v e l o c i t y
+gained from a f re e
+f a l l
+from maximum height ,
+m u l t i p l i e d
+by a
+c o e f f i c i e n t
+connected
+to
+conservation
+of momenta .
+’ ’ ’
+z01 = [0. , −m. sqrt (( mass [ 0 ] / ( mass [0]+Mm))∗(2∗g∗hmax [ 0 ] ) ) ]
+res = solve_ivp ( onebody , ( 0 . 3 , 1 5 . ) , z01 , method=’DOP853 ’ , events=velocityonebody , dense_outpu
+’ ’ ’
+Using
+events we find
+the
+time
+at
+which
+v e l o c i t y
+of
+14
+
+the
+body
+reaches
+0 ,
+i t ’ s
+the moment when we want our
+second body
+to
+h i t
+the
+trampoline . We find
+TIME1 of
+t h i s
+event and height
+of
+t h i s
+body HMIN1
+’ ’ ’
+TIME1 = res . t_events [ 0 ] [ 0 ]
+HMIN1 = res . y_events [ 0 ] [ 0 ] [ 0 ]
+’ ’ ’
+Now we s t a r t
+the
+evolution
+of
+the two body system ,
+we suppose
+that
+the
+second body
+h i t s
+the
+trampoline
+when the
+v e l o c i t y
+of
+the
+f i r s t
+one
+i s
+zero
+that ’ s why our
+i n i t i a l
+conditions
+are as
+i t
+follows ,
+we change
+the
+speed
+of
+the
+f i r s t
+body by a boost from
+using
+i t s
+l e g s
+on the
+trampoline
+surface
+to
+launch
+himself
+even
+f u r t h e r up ,
+the
+v e l o c i t y
+of
+the
+second body comes from
+fre e
+f a l l
+from
+i t s maximum height
+to
+the
+lo c at io n
+of
+trampoline
+surface
+’ ’ ’
+z02=[HMIN1,HMIN1,0+np . sqrt (2∗energy [ 0 ] / ( mass [0]+Mm))
+,−m. sqrt (( mass [ 1 ] / ( mass [1]+Mm))∗(2∗g ∗(hmax[1] −HMIN1) ) ) ]
+res1 = solve_ivp ( twobodies , ( TIME1, 1 5 . ) , z02 , method=’DOP853 ’
+, dense_output=True , events=(velocity1twobodies , velocity2twobodies ))
+’ ’ ’
+We use
+events
+once again ,
+t h i s
+time
+to
+find
+the
+time
+when
+v e l o c i t y
+of
+the
+second body ( the one on the
+trampoline )
+reaches
+0 , so our
+t h i r d
+body
+can
+h i t
+the
+trampoline
+to
+gain maximum height
+’ ’ ’
+A = res1 . t_events
+B = res1 . y_events
+TIME2 = res1 . t_events [ 1 ] [ 0 ]
+HMIN2 = res1 . y_events [ 1 ] [ 0 ] [ 1 ]
+’ ’ ’
+Now we simulate
+the
+evolution
+of a three
+body system ,
+generating
+the
+t h i r d
+body
+at
+the
+position
+of
+the
+second one ,
+with
+v e l o c i t y
+gained
+during
+the
+f re e
+f a l l
+and
+m u l t i p l i e d
+by a
+c o e f f i c i e n t
+connected
+to
+the
+conservation
+of momenta
+’ ’ ’
+z03 = [B [ 1 ] [ 0 ] [ 0 ] , HMIN2,HMIN2,B[ 1 ] [ 0 ] [ 2 ] , 0 +
+np . sqrt (2∗energy [ 1 ] / ( mass [1]+Mm)) ,
+−m. sqrt (( mass [ 2 ] / ( mass [2]+Mm))∗(2∗g ∗(hmax[2] −HMIN2) ) ) ]
+res2 = solve_ivp ( threebodies ,
+(TIME2, 1 . 6 ) , z03 , method=’DOP853 ’ ,
+events=( v e l o c i t y 3 ) , dense_output=True )
+’ ’ ’
+We evolve
+our system up
+u n t i l
+the moment the
+t h i r d
+body
+( the one we want to
+launch )
+reaches
+v e l o c i t y
+equal
+to
+zero ,
+to
+find
+the moment when we
+w i l l
+instantaneously
+push
+i t
+from the
+trampoline
+with
+the
+energy dE
+’ ’ ’
+A = res2 . t_events
+B = res2 . y_events
+15
+
+TIME3 = A[ 0 ] [ 0 ]
+z04 = [B [ 0 ] [ 0 ] [ 0 ] , B [ 0 ] [ 0 ] [ 1 ] , B [ 0 ] [ 0 ] [ 2 ] , B [ 0 ] [ 0 ] [ 3 ] , B [ 0 ] [ 0 ] [ 4 ] , B[ 0 ] [ 0 ] [ 5 ] + np . sqrt (2∗energy
+res3 = solve_ivp ( threebodies ,
+(TIME3, 1 . 6 ) ,
+z04 , method=’DOP853 ’ , events=( c o l l i s i o n 1 , c o l l i s i
+’ ’ ’
+The
+l a s t
+part
+of
+our
+evolution
+i s
+equipped
+with
+the
+events
+that
+check
+the
+p o s i t i o n s
+of
+the
+body on
+the
+trampoline and the
+previous
+two bodies ,
+so
+when the
+trampoline
+reaches one of
+the
+bodies ,
+the
+v e l o c i t y
+of
+t h i s
+system
+changes
+according
+to
+the
+r u l e s
+of momentum conservation , we didn
+i t
+for
+the
+previous
+c o l l i s i o n s ,
+because
+the
+v e l o c i t i e s
+where
+similar
+and we could
+j u s t
+approximate
+that
+the
+v e l o c i t y
+of
+the
+trampoline
+i s
+e x a c t l y
+the same as
+the
+v e l o c i t y
+of a body
+h i t t i n g
+i t
+’ ’ ’
+A1 = res3 . t_events [ 0 ]
+A2 = res3 . t_events [ 1 ]
+TIMES = [A1 [ 0 ] , A2 [ 0 ] ]
+TIME4 = min(TIMES)
+TIMEINDEX = TIMES. index (min(TIMES))
+B=res3 . y_events [TIMEINDEX ] [ 0 ]
+v e l o c i t y a f t e r c o l l i s i o n = B[TIMEINDEX+3]
+∗m. sqrt (1 + Mm∗(B[5]∗∗2 / B[TIMEINDEX+3]∗∗2 −1)
+/(6∗( mass [TIMEINDEX]+Mm) ) )
+z05 =[B[ 0 ] ,B[ 1 ] ,B[ 2 ] ,B[ 3 ] ,B[ 4 ] ,B [ 5 ] ]
+z05 [TIMEINDEX+3] = v e l o c i t y a f t e r c o l l i s i o n
+#f r e e
+evolution
+of a three
+body system
+res4 = solve_ivp ( threebodies ,
+(TIME4, 1 . 6 ) ,
+z05 ,
+method=’DOP853 ’ , dense_output=True )
+#L i s t s
+where we
+w i l l
+append
+p o s i t i o n s
+and momenta of
+bodies
+X1=[]
+X2=[]
+X3=[]
+V1=[]
+V2=[]
+V3=[]
+’ ’ ’
+Times at
+which we want to
+evaluate
+the
+p o s i t i o n s
+and momenta ,
+the
+f i r s t
+three
+t1dod ,
+t2dod and t3dod
+are used
+for
+the
+fr e e
+f a l l
+evolution
+before
+the
+simulation
+’ ’ ’
+#There can be an error
+regarding
+the
+shapes
+because
+of
+the m. f l o o r
+function ,
+then we
+have to add one more element in the np . li nspace ()
+t1dod = np . l in s p a ce (0 ,0.3 ,m. f l o o r (2000∗0.3/1.5))
+t2dod = np . l in s p a ce (0 ,TIME1,m. f l o o r (2000∗TIME1/1.5))
+t3dod = np . l in s p a ce (0 ,TIME2,m. f l o o r (2000∗TIME2/1.5))
+t1 = np . lin sp a ce ( 0 .3 ,TIME1,m. f l o o r (2000∗(TIME1−0.3)/1.5))
+t2 = np . lin sp a ce (TIME1,TIME2,m. f l o o r (2000∗(TIME2−TIME1) / 1 . 5 ) )
+t3 = np . lin sp a ce (TIME2,TIME3,m. f l o o r (2000∗(TIME3−TIME2) / 1 . 5 ) )
+t4 = np . lin sp a ce (TIME3,TIME4,m. f l o o r (2000∗(TIME4−TIME3) / 1 . 5 ) )
+16
+
+t5 = np . lin sp a ce (TIME4, 1 . 6 ,m. f l o o r (2000∗(1.6 −TIME4) / 1 . 5 ) )
+#Here we append
+the
+fre e
+f a l l
+evolution
+for
+i
+in range( len ( t1dod ) ) :
+X1. append ( positionfunc ( t1dod [ i ] , hmax [ 0 ] , 0 . 3 , 0 ) )
+V1. append ( velo cityfunc ( t1dod [ i ] , hmax [ 0 ] , 0 . 3 , 0 ) )
+for
+i
+in range( len ( t2dod ) ) :
+X2. append ( positionfunc ( t2dod [ i ] , hmax [ 1 ] , TIME1,HMIN1))
+V2. append ( velo cityfunc ( t2dod [ i ] , hmax [ 1 ] , TIME1,HMIN1))
+for
+i
+in range( len ( t3dod ) ) :
+X3. append ( positionfunc ( t3dod [ i ] , hmax [ 2 ] , TIME2,HMIN2))
+V3. append ( velo cityfunc ( t3dod [ i ] , hmax [ 2 ] , TIME2,HMIN2))
+#Here we append elements coming from the
+evolution
+inside
+the
+d i f f e r e n t i a l
+equations
+for
+i
+in range( len ( t1 ) ) :
+X1. append ( res . s o l ( t1 ) [ 0 ] [ i ] )
+V1. append ( res . s o l ( t1 ) [ 1 ] [ i ] )
+for
+i
+in range( len ( t2 ) ) :
+X1. append ( res1 . s o l ( t2 ) [ 0 ] [ i ] )
+X2. append ( res1 . s o l ( t2 ) [ 1 ] [ i ] )
+V1. append ( res1 . s o l ( t2 ) [ 2 ] [ i ] )
+V2. append ( res1 . s o l ( t2 ) [ 3 ] [ i ] )
+for
+i
+in range( len ( t3 ) ) :
+X1. append ( res2 . s o l ( t3 ) [ 0 ] [ i ] )
+X2. append ( res2 . s o l ( t3 ) [ 1 ] [ i ] )
+X3. append ( res2 . s o l ( t3 ) [ 2 ] [ i ] )
+V1. append ( res2 . s o l ( t3 ) [ 3 ] [ i ] )
+V2. append ( res2 . s o l ( t3 ) [ 4 ] [ i ] )
+V3. append ( res2 . s o l ( t3 ) [ 5 ] [ i ] )
+for
+i
+in range( len ( t4 ) ) :
+X1. append ( res3 . s o l ( t4 ) [ 0 ] [ i ] )
+X2. append ( res3 . s o l ( t4 ) [ 1 ] [ i ] )
+X3. append ( res3 . s o l ( t4 ) [ 2 ] [ i ] )
+V1. append ( res3 . s o l ( t4 ) [ 3 ] [ i ] )
+V2. append ( res3 . s o l ( t4 ) [ 4 ] [ i ] )
+V3. append ( res3 . s o l ( t4 ) [ 5 ] [ i ] )
+for
+i
+in range( len ( t5 ) ) :
+X1. append ( res4 . s o l ( t5 ) [ 0 ] [ i ] )
+X2. append ( res4 . s o l ( t5 ) [ 1 ] [ i ] )
+X3. append ( res4 . s o l ( t5 ) [ 2 ] [ i ] )
+V1. append ( res4 . s o l ( t5 ) [ 3 ] [ i ] )
+V2. append ( res4 . s o l ( t5 ) [ 4 ] [ i ] )
+V3. append ( res4 . s o l ( t5 ) [ 5 ] [ i ] )
+#Here we p l o t
+everything ,
+before
+p l o t t i n g we should
+change
+the
+l a b e l s ,
+here
+they
+are
+set
+plt . f i g u r e ()
+plt . plot (np . concatenate (( t1dod , t1 , t2 , t3 , t4 , t5 )) ,X1,
+l a b e l=f ’ {mass [ 0 ] } ␣kg ’ , linewidth =1.6)
+plt . plot (np . concatenate (( t2dod , t2 , t3 , t4 , t5 )) ,X2,
+l a b e l=f ’ {mass [ 1 ] } ␣kg ’ , c=’ red ’ , l i n e s t y l e=
+plt . plot (np . concatenate (( t3dod , t3 , t4 , t5 )) ,X3,
+l a b e l=f ’ {mass [ 2 ] } ␣kg ’ , c=’ orange ’ , l i n e s t y l e=
+plt . ylabel ( ’ Position ␣in ␣v e r t i c a l ␣axis ␣to␣trampoline ␣surface ␣$z$ ’ )
+plt . xlabel ( ’Time␣$t$ ’ )
+plt . legend ()
+17
+
+plt . show ()
+plt . f i g u r e ()
+plt . plot (np . concatenate (( t1dod , t1 , t2 , t3 , t4 , t5 )) ,V1,
+l a b e l=f ’ {mass [ 0 ] } ␣kg ’ , linewidth =1.6)
+plt . plot (np . concatenate (( t2dod , t2 , t3 , t4 , t5 )) ,V2,
+l a b e l=f ’ {mass [ 1 ] } ␣kg ’ , c=’ red ’ , l i n e s t y l e=’ −. ’ , linewidth =1.6)
+plt . plot (np . concatenate (( t3dod , t3 , t4 , t5 )) ,V3,
+l a b e l=f ’
+{mass [ 2 ] } ␣kg ’ , c=’ orange ’ , l i n e s t y l e=’−−’ , linewidth =1.6)
+plt . ylabel ( ’ Velocity ␣in ␣v e r t i c a l ␣axis ␣to␣trampoline ␣surface ␣$z$ ’ )
+plt . xlabel ( ’Time␣$t$ ’ )
+plt . legend ()
+plt . show ()
+#Here we can check
+the maximum values
+of
+the
+height
+of
+bodies
+during
+the
+whole
+evolution
+print (max(X1))
+print (max(X2))
+print (max(X3))
+[language=Python]
+import numpy as np
+import matplotlib . pyplot
+as
+plt
+import math as m
+from scipy . i n t e g r a t e import solve_ivp
+’ ’ ’
+Code used
+to
+numerically
+simulate a
+b a l l
+f a l l l i n g
+on a trampoline
+without
+extra
+energy
+bounces
+to
+reach a certain maximum energy and in
+the
+next
+loop
+we add the
+p o s s i b l i t y
+of
+using
+the
+energy dE by
+the
+body
+to
+bounce
+i t s e l f
+higher
+than
+previously
+and reach
+i t s maximum energy .
+All
+v a r i a b l e names are
+the same as
+in
+the
+other
+code
+’ ’ ’
+Rm = 2.5
+Rf = 2.7
+Mm = (2.5)∗∗2
+Ns = 150
+Ca = 2.3
+Cd = 16
+Fc = 2.5
+g = 9.81
+Mb = 25
+dE = 126
+def dL(H) :
+return m. sqrt ( Rf ∗∗2 + H ∗∗2) −Rf
+def ks (H) :
+i f dL(H) < 1.5 e −3:
+return 96000
+else :
+18
+
+return 2700
+def Ft (H) :
+return Ns ∗ks (np . abs(H)) ∗
+(m. sqrt ( Rf ∗∗2 + H ∗∗2)−Rf )
+∗(H / (m. sqrt ( Rf ∗∗2 + H ∗∗
+2)))
+def Fa(H) :
+return (2 ∗np . pi ∗Ca) / Rf / m. sqrt ( Rf ∗∗2 + H ∗∗2)
+∗(
+(Rm ∗∗4) / 4 −2 ∗
+Rf ∗Rm ∗∗3 / 3 + Rf ∗∗2 ∗Rm ∗∗2 / 2)
+def
+function ( z ,
+t ) :
+x , v = z
+dx = v
+i f
+x > 0:
+dv = −g
+else :
+dv = −Ft (x) −Mb ∗g −Fa(x) ∗v∗∗2 ∗np . sign (v) −Cd∗v
+dv = dv/(Mb+Mm/3)
+return np . array ( [ dx , dv ] )
+def
+function1 ( t ,
+z ) :
+x , v = z
+dx = v
+i f
+x > 0:
+dv = −g
+else :
+dv = −Ft (x) −Mb ∗g −Fa(x) ∗v∗∗2 ∗np . sign (v) −Cd∗v
+dv = dv/(Mb+Mm/3)
+return np . array ( [ dx , dv ] )
+def
+v e l o c i t y ( t , z ) :
+return z [ 1 ]
+"""
+Part
+of
+code used
+to
+numerically
+simulate a
+b a l l
+f a l l i n g
+on a trampoline ,
+not
+pushing
+i t s e l f
+from the
+surface
+"""
+t1=0
+t3 = np . lin sp a ce (0 ,
+17.48728557571967 ,
+200000)
+t = np . lin s p ace ( t1 ,
+11 ,
+10000)
+z0 = [0 ,
+0]
+res = solve_ivp ( function1 ,
+(0 ,11) ,
+z0 , method=’DOP853 ’ ,
+events=velocity , dense_output=True )
+F = res . s o l ( t ) [ 0 ]
+plt . f i g u r e ( f i g s i z e =(14 ,
+8))
+plt . t i t l e ( ’Body␣of ␣mass␣25␣kg␣on␣a␣trampoline ’ )
+plt . plot ( t , res . s o l ( t ) [ 0 ] ,
+l a b e l=’ Trajectory ␣of
+body␣in ␣$z$␣axis ’ )
+plt . ylabel ( ’ Position ␣in ␣v e r t i c a l ␣axis ␣to␣trampoline
+19
+
+surface ␣$z$ ’ )
+plt . xlabel ( ’Time␣$t$ ’ )
+plt . legend ()
+plt . show ()
+X=[]
+V=[]
+’ ’ ’
+Part
+of
+code used
+to
+numerically
+simulate a person
+as a point ,
+f a l l i n g
+on a trampoline and boosting
+i t s e l f
+( using
+l e g s ) from
+i t s
+surface
+by
+gaining some dE together
+with
+the
+trampoline .
+’ ’ ’
+for
+i
+in range ( 2 0 ) :
+values =[]
+times =[]
+A=0
+B=0
+res=0
+res = solve_ivp ( function1 ,
+( t1+1e −5 ,300) , z0 , method=’DOP853 ’ , events=velocity , dense_o
+A = res . t_events
+B = res . y_events
+for
+i
+in range( len (A[ 0 ] ) ) :
+i f B [ 0 ] [ i ] [ 0 ] < 0:
+values . append (B [ 0 ] [ i ] )
+times . append (A[ 0 ] [ i ] )
+t2 = t1
+t1 = times [ 0 ]
+print ( t2 , t1 )
+t4 = np . li n sp a ce ( t2 , t1 ,10000)
+X. append ( res . s o l ( t4 ) [ 0 ] )
+V. append ( res . s o l ( t4 ) [ 1 ] )
+z0=[ values [ 0 ] [ 0 ] , values [ 0 ] [ 1 ] + np . sqrt (2 ∗dE / (Mm+Mb) ) ]
+X1 =[]
+V1 =[]
+for
+i
+in range( len (X) ) :
+for
+j
+in range (10000):
+X1. append (X[ i ] [ j ] )
+V1. append (V[ i ] [ j ] )
+granica =[]
+x t i k i =[ −0.4 , −0.2 ,0.0 ,0.2 ,0.4]
+for
+i
+in range( len (X1 ) ) :
+granica . append (0.803639780522247)
+plt . f i g u r e ( f i g s i z e =(14 ,
+8))
+plt . t i t l e ( ’Body␣of ␣mass␣25␣kg␣on␣a␣trampoline ’ )
+plt . plot ( t3 ,X1,
+l a b e l=’ Trajectory ␣of ␣body␣in ␣$z$␣axis ’ )
+plt . ylabel ( ’ Position ␣in ␣v e r t i c a l ␣axis ␣to␣trampoline ␣surface ␣$z$ ’ )
+plt . xlabel ( ’Time␣$t$ ’ )
+plt . yticks ([0.50]+ xtiki , [ " 0.50 " ]+ x t i k i )
+#p l t . p l o t ( t3 , granica ,
+’−−’, c=’red ’ ,
+l a b e l =’Maximum height
+reached
+’)
+plt . axhline (0.5031372855361776 ,
+l i n e s t y l e=’−−’ ,
+color=’ r ’ , l a b e l=’Maximum␣height ␣reached␣’ )
+plt . legend ( loc=’ lower␣right ’ )
+20
+
+plt . show ()
+print (max(X1))
+[language=Python]
+21
+
+References
+[1]
+David Eager et al. “Investigation into the Trampoline Dynamic Characteristics and Analysis of
+Double Bounce Vibrations”. In: Sensors 22.8 (2022). issn: 1424-8220. doi: 10.3390/s22082916.
+url: https://www.mdpi.com/1424-8220/22/8/2916.
+[2]
+Manoj Srinivasan, Yang Wang, and Alison Sheets. “People Bouncing on Trampolines: Dramatic
+Energy Transfer, a Table-Top Demonstration, Complex Dynamics and a Zero Sum Game”. In:
+PLOS ONE 8.11 (Nov. 2013), pp. 1–13. doi: 10.1371/journal.pone.0078645. url: https:
+//doi.org/10.1371/journal.pone.0078645.
+22

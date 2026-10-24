@@ -1,0 +1,2213 @@
+Team 699                                                         Page 1 / 28 
+1 
+ 
+University Physics Competition 2017 
+Problem A Solar Sailing to Mars 
+Optimization of the solar sail’s voyage from Earth to 
+Mars 
+Team 699 
+November 12, 2017 
+ 
+Abstract 
+This paper analyzed the voyage of the solar sail from Earth to Mars. Three partial models 
+were established to describe the process: Solar Sail Thrust Model, Ideal Solar Sail Time Optimal 
+Transfer Orbit Model and Orbital Transfer Optimization Model Based on PSO. 
+In the Solar Sail Thrust Model, the formula (
+2
+2
+2
+0
+1
+2cos
+/
+F
+P
+A
+L
+r
+
+
+
+
+
+) was established 
+to describe the sun pressure of the solar sail. 
+In the Ideal Solar Sail Time Optimal Transfer Orbit Model, the differential equations were 
+set up to describe the motion of the spacecraft. And the initial constrains and final constrains 
+were provided. Adopting Hamiltonian operator, the covariate variable
+1
+2
+3
+4
+[
+]T
+
+
+
+
+
+
+ 
+were built. Applying the pontryagin minimum principle to find optimal control input that 
+minimizes Hamilton's function, the optimal angle
+*
+, which can be expressed by covariate 
+variables, can be calculated. The orbital transfer problem of solar sail can be converted into an 
+optimization problem of multi constrains and multivariable. 
+In the Orbital Transfer Optimization Model Based on PSO Model, particle swarm 
+optimization algorithm was adopted to calculate a more accurate answer. Also, dynamic 
+penalty function constraint was added and the penalty function of orbital transfer was defined 
+as F
+J
+M S
+
+
+
+. 
+By changing the area of the solar sail (
+2
+2
+2
+2
+10000
+50000
+100000
+200000
+m
+m
+m
+m 
+respectively), graphs of orbital transfer, direction adjustment and velocity were drawn to 
+satisfy the problem’s demand. Finally, When 
+2
+100000
+,
+700
+s
+A
+m
+m
+kg
+
+
+, payload reaches 
+a relatively large value of 1300kg and transfer time reduces to 504d(about 116 days less than 
+the flight plan in reference [8]). And the final velocity (8.3
+/
+km s ) smaller than 9
+/
+km s is 
+within the safe landing velocity range. 
+
+Team 699                                                         Page 2 / 28 
+2 
+ 
+Contents 
+1. 
+Introduction ................................................................................................................... 3 
+2. 
+Assumptions and Notations ........................................................................................... 3 
+2.1 Basic Assumptions for Our Models. ............................................................................... 3 
+2.2 Notations ........................................................................................................................ 4 
+3. 
+Physical Analysis of Model ............................................................................................. 5 
+3.1 
+Solar Sail Thrust Model........................................................................................... 6 
+3.1.1 
+Analysis of Solar Sail Thrust Model ..................................................................... 7 
+3.1.2 
+The Main Parameters of Solar Sail ..................................................................... 8 
+3.2 
+Ideal Solar Sail Time Optimal Transfer Orbit .......................................................... 9 
+3.2.1 
+Equation of motion ............................................................................................. 9 
+3.2.2 
+Restrictions ....................................................................................................... 10 
+3.2.3 
+Optimal Conditions ........................................................................................... 11 
+3.3 
+Orbital Transfer Optimization Model Based on PSO ............................................ 12 
+3.3.1 
+Algorithm Parameters Analysis ........................................................................ 14 
+3.3.2 
+Disposal of The Condition of Constraint: .......................................................... 14 
+3.3.3 
+Constraints Processing Method Based on Penalty Function ............................ 15 
+4. 
+Results and Discussion ................................................................................................. 15 
+5. 
+Strengths and Weaknesses .......................................................................................... 23 
+5.1 
+Strengths .............................................................................................................. 23 
+5.2 
+Weaknesses .......................................................................................................... 23 
+6. 
+Conclusion .................................................................................................................... 24 
+Reference ............................................................................................................................ 25 
+Appendix I ............................................................................................................................ 26 
+ 
+ 
+ 
+
+Team 699                                                         Page 3 / 28 
+3 
+ 
+1. Introduction 
+The success of JAXA’s IKAROS and NASA’s Nanosail-D has demonstrated the 
+technological capability of deploying and actively controlling a photonic solar sail in 
+the interplanetary space. The solar sail is a thruster that obtains the thrust by reflecting 
+photons from its ultralight sail and through the momentum exchange between 
+photons and the sail surface. Since solar sail spacecraft are free from carrying fuels and 
+have low cost, they are superior in long cycle missions like landing on Mars. 
+According to the assignment, our work begins at the point when the solar sail 
+escapes the earth and ends when it can land on Mars with a safe relative velocity. As 
+for solar-powered spacecraft, the acceleration comes from the solar sail (In fact, the 
+solar attraction also contributes to the acceleration) and is proportional to the size of 
+the sail. The bigger the sail is, the faster the spacecraft can speed and thus the shorter 
+the flight time will be. However, since the total mass is limited and the final speed must 
+be less than or equal to 9
+/
+km s , adding the area of the sail means reducing the 
+payload and increasing the final speed. So to optimize the flight plan, we find it 
+necessary to obtain a balance between payload and the size of the sail. 
+To realize the voyage from Earth to Mars, we established three partial models to 
+describe the process and they are: Solar Sail Thrust Model, Ideal Solar Sail Time 
+Optimal Transfer Orbit and Orbital Transfer Optimization Model Based on PSO. With 
+the combination of the three partial models, the optimal flight plan can hopefully be 
+found after calculation run on computers.  
+2. Assumptions and Notations 
+2.1 Basic Assumptions for Our Models. 
+ Assume that there is only specular reflection of sunlight on the solar sail. On the 
+one hand, the model can be simplified because specular reflection ensures that 
+the value of the tangential acceleration of light pressure is always zero. On the 
+other hand, by choosing proper material, we can indeed approximate this effect. 
+ Suppose the light pressure acts on the spacecraft's center of mass. If it does not 
+
+Team 699                                                         Page 4 / 28 
+4 
+ 
+act on the center of mass, there will be additional angular acceleration, and it is 
+not conducive to the stability of the spacecraft, also the simulation of flight state. 
+Of course, it can simplify the model. 
+ Assume that the spacecraft is only exposed to the sun's gravity and light pressure 
+during the flight. Because after the spacecraft is free from earth bondage and 
+before it is captured by Mars, the gravities from both the earth and Mars are very 
+small. And ignoring the two gravities can simplify the calculation and facilitate the 
+model establishment. 
+ Suppose the solar sail does not require time to adjust. In another word, the change 
+of the acceleration is abrupt. We know the effect of this adjustment is weakness. 
+So, comparing with the whole process we can absolutely ignore this influence. If 
+we do not deal with it in this way, the possibility of solving problems will be 
+reduced. 
+ Assume that the size of the solar sail makes no difference to the shape of it, 
+especially during the process of acceleration. And its shape can be kept forever. 
+After disregarding the shape changes due to acceleration, then, the value of the 
+optical force is only related to the distance between the sun and the spacecraft 
+and the angle between the normal and the light path. 
+ Assume that when the spacecraft’s speed drops to 9km/ s , it just enters the 
+landing orbit of Mars. Because in this model, we don’t care the way how the 
+spacecraft land on Mars. 
+2.2  Notations 
+Table 1 Notations 
+Variable 
+Explanations 
+P( )
+r
+ 
+The sun pressure when the distance from Sun is r 
+(
+2
+/
+N m ) 
+R 
+The radius of Sun (m) 
+0I 
+The specific intensity of the integrated 
+frequency(
+7
+0
+2.04 10
+/
+I
+W
+m
+
+
+) 
+iF 
+The light pressure(N) 
+
+Team 699                                                         Page 5 / 28 
+5 
+ 
+A 
+The effective area of sail(
+2
+m ) 
+L 
+The distance between Sun and Earth( AU ) 
+0P 
+The light pressure at 1AU(
+6
+2
+0
+4.56 10
+/
+P
+N m
+
+
+
+) 
+s
+ 
+The mass per unit area of the sail(
+2
+/
+kg m ) 
+ca 
+Characteristic acceleration(
+2
+/
+m s ) 
+,0( )
+eff
+P
+P 
+The effective light pressure acting on a non-ideal 
+solar sail from 1AU(
+2
+,0( )
+8.288
+/
+eff
+P
+P
+N m
+
+
+) 
+0a 
+2
+0
+5.95
+/
+1
+a
+m s at
+AU
+
+ 
+ 
+Light pressure factor, the ratio of solar pressure 
+acceleration to the solar gravitational acceleration 
+0
+ca
+a
+
+ 
+ 
+The collaborative variable 
+3. Physical Analysis of Model 
+To realize the voyage from Earth to Mars, we established three partial models to 
+describe the process and they are: Solar Sail Thrust Model, Ideal Solar Sail Time 
+Optimal Transfer Orbit and Orbital Transfer Optimization Model Based on PSO. 
+
+Team 699                                                         Page 6 / 28 
+6 
+ 
+3.1 Solar Sail Thrust Model  
+  
+Fig 1. A picture showing the process of reflection of light on an ideal solar sail, and the 
+mechanical effect. It can tell us that the light pressure is always perpendicular to the surface of 
+the solar sail, and the tangential force disappears. 
+ 
+It is assumed that the solar sail is ideal, that is, the solar sail is a perfect reflector 
+and does not absorb any photons.  
+Sun pressure is expressed as [1]: 
+ 
+3
+2
+0
+2
+2
+P( )
+1 [1 (
+) ]
+3
+I
+R
+r
+c
+r
+
+
+
+
+
+
+
+
+
+
+
+ 
+(1) 
+Rrefers to the radius of Sun. 
+The light pressure generated by incident photons is: 
+ 
+P( )
+(cos
+sin
+)
+iF
+r A
+n
+t
+
+
+
+
+
+ 
+(2) 
+Ais the effective area of sail, is the angle between the incident ray and the 
+unit normal line of the solar sail n . The normal line of the solar sail n is perpendicular 
+to the sail and away from the sun. t is the unit vector perpendicular to the normal n , 
+and its counterclockwise direction is positive.  
+ 
+Then the light pressure generated by reflection photons is: 
+
+Team 699                                                         Page 7 / 28 
+7 
+ 
+ 
+P( )
+(cos
+sin
+)
+iF
+r A
+n
+t
+
+
+
+
+
+ 
+(3) 
+The effective area is where the surface of the sail is projected on a plane 
+perpendicular to the sun’s rays. 
+cos
+A
+A
+
+
+
+ So the values of optical force acting on 
+the ideal sail is 
+ 
+2
+2 ( ) cos
+i
+t
+F
+F
+P r A
+n
+
+
+
+ 
+(4) 
+That is why the optical force always has the same direction with n , both of them 
+are away from the sun. From the equation, we can also find that Light exerts a pressure 
+equal to twice its energy density when reflected from a surface. 
+ 
+The power F obtained by the solar sail is always along the normal direction, its 
+size is 
+ 
+2
+2
+2
+2
+2
+0
+0
+0
+2
+2
+2
+2
+1
+1
+1
+2
+2cos
+cos
+2
+cos
+/
+P L
+P L
+m
+F
+A
+P A
+r
+r
+r
+L
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+(5) 
+ 
+Among them, L is the distance between Sun and Earth, 
+1r is the distance from 
+the sun to the solar sail, 
+0P is the sun pressure at 1 AU . 
+3.1.1  Analysis of Solar Sail Thrust Model 
+Solar-powered spacecraft, powered solely by reflected solar photons, has a thrust 
+range that is only a "quasi-circular" small area located on the surface of the sail in 
+Figure 2 and always pointing away from the sun. In addition, it can be seen from the 
+analysis that by changing the orientation of the sail, the orbital angular momentum of 
+the solar sail spacecraft can be reduced so as to make it move relative to the inner 
+helix of the sun, and the orbital angular momentum of the solar sail spacecraft can 
+also be increased, making external spiral movement relative to the sun.  
+The question shows solar sailing from Earth to Mars, thus this is a process away 
+from the sun. What we need to do is to reduce the orbital angular momentum. 
+6
+2
+0
+4.56 10
+/
+P
+N m
+
+
+
+
+Team 699                                                         Page 8 / 28 
+8 
+ 
+ 
+Fig 2. A picture showing two different kinds of motion depending on the angle of the sail. 
+The external spiral motion can generate smaller resistance, while the internal spiral motion 
+makes the resistance larger. 
+3.1.2  The Main Parameters of Solar Sail 
+The main parameters of solar sail are: total solar sail load, solar sail payload, 
+characteristic acceleration, light pressure factor. 
+(1) Total solar sail load 
+Defined as the mass per unit area of a sail (including the sail surface and the mass 
+of structure required to deploy, stretch and sail the sail) 
+ 
+s
+s
+m
+A
+
+ 
+(6) 
+s
+ is an important parameter to show the effectiveness of solar sail structure design. 
+(2) Solar sail payload 
+ 
+s
+p
+p
+s
+m
+m
+m
+m
+A
+A
+A
+
+
+
+
+
+
+
+ 
+(7) 
+It is an important parameter that indicates the pressure factor of the sail, defined 
+as the mass per unit area of the solar sail spacecraft, "P" means the entire spacecraft 
+mass except the sail mass. 
+(3) Characteristic acceleration   
+It is defined as the maximum acceleration of solar sail obtained at 1AU from the 
+sun: 
+
+Team 699                                                         Page 9 / 28 
+9 
+ 
+ 
+,0
+0
+,0
+( )
+2
+(0, )
+( )
+eff
+c
+eff
+p
+s
+P
+P
+S
+A
+A
+a
+q
+P
+P
+P
+m
+c
+m
+m
+A
+
+
+
+
+
+
+ 
+(8) 
+,0( )
+eff
+P
+P is the effective light pressure acting on a non-ideal solar sail from 1AU from 
+the sun[2]. 
+(4) Light pressure factor  
+It represents the ratio of the solar pressure acceleration of a solar sail 
+perpendicular to the sun's rays to the solar gravitational acceleration of the solar sail[3] 
+(
+2
+0
+5.95
+/
+1
+a
+m s at
+AU
+
+) 
+ 
+0
+ca
+a
+
+ 
+(9) 
+Light pressure factor is an important parameter of solar sail. Since both solar 
+pressure and solar gravitation are inversely proportional to the square of the distance, 
+the pressure factor has nothing to do with the distance but only relates to the solar 
+sail spacecraft load. For the ideal solar sail, for 
+ 
+2
+1.53
+(
+/
+)
+g m
+
+
+
+ 
+(10) 
+The ideal solar sail light pressure type can also be written 
+ 
+2
+cos
+SRP
+m
+F
+n
+r
+
+
+
+
+ 
+(11) 
+Where
+sun
+GM
+
+, G is the Gravitational constant, 
+sun
+M
+ is the weight of the Sun, 
+m is the whole weight of the sun sail, because of
+sun
+m
+M
+,
+.
+sun
+GM
+
+ 
+3.2 Ideal Solar Sail Time Optimal Transfer Orbit 
+3.2.1 Equation of motion 
+The system model is shown in figure 3, where the x-axis points in the vernal 
+equinox direction. The spacecraft is modeled as a perfectly flat solar sail with mass m 
+and area A and can be considered as a particle on the dynamics. Define solar sail 
+coordinate system
+b
+b
+s
+x y
+
+. The
+b
+b
+s
+x y
+
+ axis defines the normal direction of the solar 
+sail. The solar sail  (
+2
+)
+
+
+
+
+
+
+ is defined as the angle between the 
+bx axis 
+and the sun's rays striking the sail. The solar sail's initial and target orbits are the orbits 
+
+Team 699                                                         Page 10 / 28 
+10 
+ 
+of the solar system's planets (Earth and Mars), modeled here as a heliocentric coplanar 
+orbit. 
+ 
+Fig 3. A picture showing the coordinate and the meaning of parameters 
+ 
+Given the polar form of the solar sail equation of motion, the position vector is 
+( , )
+r
+r , the velocity vector 
+(
+,
+)
+r
+v
+v v, where 
+,
+r
+r
+v
+v
+r
+t
+t
+
+
+
+
+
+
+
+, then the solar 
+sail two-dimensional heliocentric orbital equation of motion is as follows[4]: 
+ 
+2
+3
+2
+2
+2
+2
+(12.1)
+(12.2)
+cos
+(12.3)
+sin
+cos
+(12.4)
+r
+r
+r
+r
+v
+t
+v
+t
+r
+v
+v
+t
+r
+r
+r
+v
+v v
+t
+r
+r
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+(12) 
+ where  is the light pressure factor, 
+2r
+
+
+is the contribution of the sun’s the 
+universal gravitation to the solar sail’s acceleration. 
+3.2.2 Restrictions 
+The above equations of motion can be written in the form of
+( , , )
+x
+f x u t
+t
+
+
+, where 
+the state vector and the control input are respectively defined as 
+[
+]T
+r
+x
+r
+v
+v
+
+
+ 
+
+Team 699                                                         Page 11 / 28 
+11 
+ 
+andu
+
+
+. 
+The initial conditions of the solar sail transfer orbit are
+0
+0
+0
+0
+( )
+, ( )
+r t
+r
+t
+
+
+
+
+0
+0
+0
+1
+( )
+11.2
+/ ,
+( )
+rv t
+km s v t
+r
+
+
+
+.   
+Terminal constraints after entering the target orbit: 
+1
+(
+)
+, (
+)
+,
+(
+)
+0,
+(
+)
+f
+f
+f
+f
+r
+f
+f
+f
+r t
+r
+t
+v t
+v t
+r
+
+
+
+
+
+
+
+ 
+Where, 
+0t and
+ft , respectively, departure time and arrival time, 
+0r And 
+fr are the 
+orbital radii of the initial planet and the target planet, respectively. The mission of departing 
+from Earth to Mars requires 
+0
+0
+( )
+t
+
+
+
+ and (
+)
+f
+f
+t
+
+
+
+. 
+3.2.3 Optimal Conditions 
+The objective function of optimal control of solar sail time is 
+ 
+0
+ft
+t
+J
+dt
+
+ 
+(13) 
+The Hamilton function of the system is [5]: 
+ 
+2
+3
+2
+2
+1
+3
+4
+2
+2
+2
+( , , , )
+1
+( , , )
+cos
+sin
+cos
+1
+(
+)
+(
+)
+T
+r
+r
+H x u
+t
+f x u t
+v
+v
+v v
+v
+r
+r
+r
+r
+r
+r
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ (14) 
+Where
+1
+2
+3
+4
+[
+,
+,
+,
+]T
+
+
+
+, the collaborative variables. 
+The corresponding co-equation equation can be obtained by solving
+H
+t
+x
+
+
+
+
+
+
+. 
+ 
+2
+2
+3
+2
+2
+1
+3
+4
+2
+3
+2
+3
+3
+2
+cos
+2
+2 sin
+cos
+(
+)
+(
+)
+r
+v
+v
+v v
+t
+r
+r
+r
+r
+r
+r
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ (15) 
+ 
+2
+0,If and only if
+(
+)
+f
+f
+t
+t
+
+
+
+
+
+
+
+ 
+(16) 
+ 
+3
+4
+1
+v
+t
+r
+
+
+
+
+
+
+
+
+ 
+(17) 
+ 
+3
+4
+2
+4
+2
+r
+v
+v
+t
+r
+r
+r
+
+
+
+
+
+
+
+
+
+
+ 
+(18) 
+According to Pontryagin minimum principle, the optimal control inputu
+
+
+
+
+, 
+minimizing Hamilton function: 
+ 
+arg min
+(
+, ,
+, ),
+0
+u U
+u
+H x u
+t
+t
+
+
+
+
+
+
+
+ 
+(19) 
+Where x and represent the optimal state and the co-ordination vector. That 
+
+Team 699                                                         Page 12 / 28 
+12 
+ 
+is, the optimal direction angle  can be obtained from
+0
+H
+
+
+
+
+. 
+ 
+2
+2
+3
+3
+4
+4
+4
+4
+3
+4
+3
+3
+9
+8
+arctan(
+)
+0
+4
+0
+0,
+0
+0,
+0
+2
+while
+while
+while
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+(20) 
+From the co-equation equation (15) ~ (19) can be seen, Optimal control input can 
+be completely determined by the initial value of co-variant. Therefore, the initial value 
+of co-kinetic variables can be used as the optimal variable, so the solar-transfer orbit 
+optimization problem can be transformed into a multi-constrained multivariable 
+optimization problem with optimal parameters: 
+ 
+0
+1
+2
+3
+4
+[
+]T
+f
+Y
+t
+t
+
+
+
+
+
+ 
+(21) 
+3.3 Orbital Transfer Optimization Model Based on PSO 
+Since we have converted the optimal control problem into parameter optimization 
+problem, particle swarm optimization can be used to optimize the parameters and get 
+optimal transfer trajectory. 
+Particle Swarm Optimization (PSO) is an evolution computing technology based 
+on theory of swarm intelligence [6]. PSO optimizes the search intelligently by the group 
+generating from the cooperation and competition among particles. PSO has a strong 
+versatility and the characteristic of global optimization. 
+PSO is a population evolutionary algorithm proposed by simulating the predatory 
+behavior of birds in nature. It has the mechanism of information sharing among 
+particles, and the ability to remember the best position of particles. It is based on 
+unique search mechanism. In the feasible solution space and velocity space, the 
+particle swarm can be initialized randomly. That is to determine the initial position and 
+velocity of particles. The position is used to represent the solution of the problem. 
+The velocity and position of each particle are updated according to the following two 
+formulas [7]: 
+ 
+,
+,
+1 1
+,
+,
+2 2
+,
+,
+(
+1)
+( )
+[
+( )]
+[
+( )]
+i j
+i j
+i j
+i j
+g j
+i j
+v
+t
+wv
+t
+c r p
+x
+t
+c r p
+x
+t
+
+
+
+
+
+
+ 
+(22) 
+
+Team 699                                                         Page 13 / 28 
+13 
+ 
+ 
+,
+,
+(
+1)
+(
+1),
+1,2,
+,
+i j
+i j
+x
+t
+x
+t
+j
+d
+
+
+
+
+…
+ 
+(23) 
+The graph below vividly shows how the particle position is updated: 
+ 
+Fig 4. A picture showing the influence of self-memory, the group, and current velocity to a 
+new position 
+ 
+The detailed flow chart of the basic particle swarm algorithm is as follows: 
+ 
+Fig 5. A flow chart of the basic particle swarm algorithm 
+
+Team 699                                                         Page 14 / 28 
+14 
+ 
+3.3.1 Algorithm Parameters Analysis 
+The parameters of the standard PSO algorithm include: inertia weight factor, 
+positive acceleration constant
+1
+2
+,
+c c , maximum velocity
+max
+v
+ , population size n , the 
+maximum number of iterations
+max
+T
+. 
+ 
+(1) Inertia weight factor[8]（w ） 
+w is used to control the effect of current particle velocity on the next generation’s 
+velocity. It can affect the capabilities of the global and local search. 
+(2) The positive acceleration constant（
+1
+2
+,
+c c ） 
+The acceleration constants
+1
+2
+,
+c c  respectively represent the weight of the 
+statistical acceleration item of each particle toward the position of pbest and gbest. 
+Their reasonable settings can improve the convergence speed and avoid local minima. 
+(3) Maximum velocity (
+max
+v
+) 
+It decides the maximum distance the particle can reach in one flight 
+(4) Population size (n ) 
+The larger the number of particles is, the larger the search space will be and the 
+easier it is to find the global optimal solution. However, the elapsed time is increased 
+accordingly. 
+(5) The maximum number of iterations (
+max
+T
+) 
+Usually, it is the condition of stopping algorithm. 
+ 
+3.3.2 Disposal of The Condition of Constraint: 
+Constraints optimization problems can be expressed as follows [9]: 
+ 
+min
+( )
+f x 
+(24) 
+ 
+. . ( )
+0(
+1,2,
+,n)
+i
+st g x
+i
+
+
+…
+ 
+(25) 
+ 
+( )
+0(
+1,2,
+, )
+jh x
+j
+p
+
+
+…
+ 
+(26) 
+ 
+(
+1,2,
+, )
+k
+k
+k
+l
+x
+u k
+d
+
+
+
+…
+ 
+(27) 
+Where, x is the decision vector
+1
+2
+[x ,x ,...,x ]T
+d
+x 
+, d is the dimension of decision 
+vector. 
+
+Team 699                                                         Page 15 / 28 
+15 
+ 
+When solving the constraint optimization problem, it is necessary to satisfy the 
+inequality constraint condition and the equality constraint condition. In the range of 
+values, the optimal decision variable is searched to minimize the target function value. 
+ 
+3.3.3 Constraints Processing Method Based on Penalty Function 
+Aiming at the terminal constraints in the solar sail trajectory optimization problem, 
+a constraint processing technique is adopted, that is, the trajectory optimization 
+problem is equivalently transformed into a constrained optimization problem. Our 
+model mainly uses penalty function method 
+Using the penalty function, map the original problem as: 
+min
+( )
+( )
+( )
+fitness x
+f x
+x
+
+
+
+ 
+( )
+f x is the objective function value. 
+( )
+x
+
+is the penalty function. 
+( )
+fitness x is 
+the fitness value function. 
+ 
+In this model, we define penalty function of the transfer orbit as： 
+ 
+( )
+fitness x
+J
+MS
+
+
+ 
+(28) 
+J is i he i sde  i undthsnd(13).i
+( 0)
+M 
+is i he i e dlth i ulthn..i
+(
+)
+f
+f
+S
+x t
+x
+
+
+ii s i he i
+tnd h.lsdhitndeshsndinuihe i ntl.i lstih.ld u .in.bsh. 
+ 
+When the condition meets its constraints, S=0, then, no matter how much M is, it 
+is always true that
+( )
+fitness x
+J
+
+. That means there is no penalty. However, when it 
+doesn’t satisfy the condition, S>0, and the more serious this kind of damage is, the 
+larger the value of S is. Also, 
+( )
+fitness x
+J
+MS
+
+
+ is larger. It means damaging the 
+condition is also a kind of penalty. The penalty is increased with the growing of M. 
+According to the experience, it is proper to make
+1
+,
+[10,1000]
+i
+i
+M
+cM c
+
+
+. 
+ 
+4. Results and Discussion 
+During the process of the transition from Earth to Mars, the solar sail transforms 
+from Earth’ orbit to Mars’ orbit in the sun-centered ecliptic. Because the distance from 
+
+Team 699                                                         Page 16 / 28 
+16 
+ 
+Mars to Sun is further than that from the Earth to Sun. The solar sail needs to spiral 
+out to escape the sun (left part in fig 2).  
+The terminal constraint condition is reflected in the performance indicator 
+function by using the orbit transfer algorithm based on the minimum value of 
+Pontryagin, and the penalty function. Then we use PSO to search and optimize the 
+optimal solution, find out the minimum transfer time. We find the optimal orbit 
+according to the kinematic relations. 
+The terminal constraint condition is : 
+( )
+1.524
+, ( )
+,
+( )
+1/ 1.524,
+( )
+0
+f
+f
+f
+f
+r
+f
+r t
+AU
+t
+v t
+v t
+
+
+
+
+
+
+
+. 
+Choosing an ideal solar sail whose specific acceleration is 
+2
+1
+/
+k
+mm s
+
+. The simulation 
+is based on PSO. The radiuses of earth and Mars are 1AU and 1.524AU respectively. 
+The optimization parameter is 
+0
+1
+2
+3
+4
+[ ,
+,
+,
+,
+,
+]T
+f
+Y
+t t
+
+
+. As for the calculating the time 
+interval, it is necessary to reduce one optimal variable, 0t ,because it is no relation with 
+the launch time. 
+Although the upper and lower bounds of the covariate variable initial value can 
+take positive and negative infinity, the actual calculation time is generally given 
+reasonably, taking ± 5 in our model. After repeated debugging, the running time and 
+convergence of the algorithm are balanced. The parameters of PSO are eventually set 
+as:
+0.5
+w 
+,
+1
+2
+2
+c
+c
+
+
+,
+3
+max
+v
+
+,
+200
+n 
+,
+1000
+max
+T
+
+. 
+ 
+The question gives that the sail is made of material of mass 7
+2
+/
+g m and the mass 
+of the sail plus payload is 2,000 kg. 
+  
+So,  
+2
+7
+/
+s
+s
+m
+g m
+A
+
+
+  
+7
+p
+p
+s
+m
+m
+A
+A
+
+
+
+
+
+
+  
+2
+1.53
+1.53
+(
+/
+)
+7
+p
+m
+g m
+A
+
+
+
+
+
+
+ 
+According to the differential equations (12),   will affect the acceleration in 
+the radial direction and the angular acceleration. Therefore, if we choose different A , 
+different optimization results can be got from PSO simulation. 
+Through the access to information [10], we found that the general area of the solar 
+sail is about 
+2
+70000m (The radius of the circle is 150m). Therefore, we chose A as
+2
+2
+2
+2
+10000
+50000
+100000
+200000
+m
+m
+m
+m . 
+Here are our simulation results: 
+
+Team 699                                                         Page 17 / 28 
+17 
+ 
+1. When A=
+2
+10000m . 
+After the simulation, the solar sail’s flight time is 1600d, and the initial value of 
+the co-variant is  
+0
+1.799 1.224 2.652
+1.
+[
+5 ]
+9 3
+
+
+,
+2
+2
+3
+3
+4
+0
+4
+3
+9
+8
+arctan(
+)
+66.1
+4
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+Fig 6. The voyage of the solar sail when A=
+2
+10000m The voyage time is so long, 
+because the solar sail has to run a lot of circles. And after each circle, the radial distance 
+from the solar sail to Mars is changed inappearantly. 
+ 
+
+Team 699                                                         Page 18 / 28 
+18 
+ 
+Fig 7. The adjustment of the solar sail’s angle following the change of time (A=
+2
+10000m ) The 
+direction angle is gradually declining. It declined very fast in the beginning and became 
+almost horizontal after fast decline. 
+ 
+Fig 8. The change of the solar sail’s velocity following the change of time (A=
+2
+10000m )  
+This voyage is a process of slowing down. And the acceleration is smaller, when the distance 
+from the solar sail to the sun is further. When it reaches the destination, the speed is about 
+6.7 km/s (lower than 9 km/s). 
+ 
+2. When A=
+2
+50000m . 
+After the simulation, the solar sail’s flight time is 782d, and the initial value of the 
+co-variant is 
+0
+1.572 1.304 2.325
+1.
+[
+904]
+
+
+
+,
+2
+2
+3
+3
+4
+0
+4
+3
+9
+8
+arctan(
+)
+64.2
+4
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+Team 699                                                         Page 19 / 28 
+19 
+ 
+ 
+Fig 9. The voyage of the solar sail when A=
+2
+50000m Comparing with Fig 6, the time is 
+less. And after each circle, the change of distance is obvious. It is better than the first 
+scheme. 
+ 
+Fig 10. The adjustment of the solar sail’s angle following the change of time (A=
+2
+50000m ) 
+The direction angle is gradually declining. It declined very fast in the beginning and became 
+almost horizontal after fast decline. 
+
+Team 699                                                         Page 20 / 28 
+20 
+ 
+ 
+Fig 11. The change of the solar sail’s velocity following the change of time (A=
+2
+50000m ) When it reaches the destination, the speed is about 7.2 km/s (lower 
+than 9 km/s). 
+3. When A=
+2
+100000m . 
+After the simulation, the solar sail’s flight time is 504d, and the initial value of 
+the co-variant is  
+0
+1.609 0.042
+0.160
+1.597
+[
+]
+
+
+
+
+
+,
+2
+2
+3
+3
+4
+0
+4
+3
+9
+8
+arctan(
+)
+32.5
+4
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+Fig 12. The voyage of the solar sail when A=
+2
+100000m Comparing with Fig 6 and Fig 9, the 
+
+Team 699                                                         Page 21 / 28 
+21 
+ 
+time is less. And after each circle, the change of distance is more obvious. It is better than 
+the first scheme, also the second one. 
+ 
+Fig 13. The adjustment of the solar sail’s angle following the change of time (A=
+2
+100000m ) 
+The direction angle increased first and then decreased, and the rate of rise is faster than the 
+rate of descent 
+ 
+Fig 14. The change of the solar sail’s velocity following the change of time (A=
+2
+100000m ) 
+When it reaches the destination, the speed is about 8.3 km/s (lower than 9 km/s). 
+ 
+4. When A=
+2
+200000m . 
+After the simulation, the solar sail’s flight time is 480d, and the initial value of 
+the co-variant is  
+0
+1.564 0.012
+0.154
+1.632
+[
+]
+
+
+
+
+
+,
+2
+2
+3
+3
+4
+0
+4
+3
+9
+8
+arctan(
+)
+32.3
+4
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+Team 699                                                         Page 22 / 28 
+22 
+ 
+ 
+Fig 15. The voyage of the solar sail when A=
+2
+200000m Comparing with Fig 6, Fig 9 and Fig 
+12, the time is least. And after each circle, the change of distance is much more obvious. 
+Seeing in this way, it is better than all the other schemes. 
+ 
+Fig 16. The adjustment of the solar sail’s angle following the change of time (A=
+2
+200000m ) 
+The direction angle increased first and then decreased, and the rate of rise is faster than the 
+rate of descent 
+ 
+
+Team 699                                                         Page 23 / 28 
+23 
+ 
+ 
+Fig 17. The change of the solar sail’s velocity following the change of time (A=
+2
+200000m ) 
+The figure tell us that when A=
+2
+200000m or larger, the solar sail cannot land on the 
+Mars safely. So, though the time spent is least, it is infeasible. 
+ 
+ 
+5. Strengths and Weaknesses 
+5.1  Strengths 
+1. In this model, we think the solar sail is ideal and can reflect the light completely. 
+By ignoring these parts difficult to predict and calculate, to a large extent, the model 
+is simplified. Because, sometimes, these parts are unexpected and random. Then we 
+can solve the problem efficiently. 
+2. By using Hamilton’s equation to transform the orbit optimization problem into a 
+multi-restriction problem, the abstract problem goes specific. After this 
+transformation, we can use mathematical method to deal with it. 
+3. Using Hamilton’s equation makes the result more accurate. Because Hamilton’s 
+equation uses the integration principle and differential stationary point to make the 
+change of time clear. Then we can find the orbit spending the shortest time. 
+5.2 Weaknesses 
+1. When the size of the solar sail is increasing, its shape is inevitably following to 
+
+Team 699                                                         Page 24 / 28 
+24 
+ 
+change. Then the light pressure acting on the solar sail is also changed a lot, especially 
+when there is acceleration. So it will make the result of this model different from the 
+fact. 
+2. This is only an ideal model. The reflection is regarded to be absolutely specular 
+reflection. And there is no absorption of the sunlight. But we know that there is no 
+material can realize this point. So error is larger after dealing with the model in this 
+way. 
+3. In the process of establishing our model, we think the orbits of Earth and Mars in 
+the shape of circle. In fact, there are many differences between our model and the fact. 
+First, the velocity of Earth and Mars is always changing, but it is invariable in the model. 
+Second，the direction of the sunlight is changing asymmetrically, while in our model 
+it is symmetrical. 
+6. Conclusion 
+We analyzed the process of the voyage from earth to Mars. There are two main 
+forces acting on the solar sail, the sunlight pressure and solar gravity. And based on 
+our assumption, the light pressure is always perpendicular to the surface of the solar 
+sail. That is our model about light pressure. The feasible method to arrive at Mars is 
+using external spiral motion. Then in order to solve the problem about the shortest 
+time, we use PSO to optimize the orbit. The result we should get is the size of the solar 
+sail which could optimize the time of the voyage and the orbits. By using Hamilton’s 
+equation and the particle swarm optimization, optimize and solve the problem. 
+ In our result, the spacecraft should have the ability to maintain the original speed. 
+In another word, the speed should slow down slowly. Also, the final velocity should be 
+lower than 9km/s, and the closer will be better. Finally, after comparing different 
+process with different parameters, we get an optimized result, when
+2
+100000
+,
+700
+s
+A
+m
+m
+kg
+
+
+, payload is relatively large 1300kg, transfer time is 504d. 
+At the beginning of the voyage, the angle of the solar sail is 32.5°. Then adjust the 
+angle following the time as Fig 13 shows, and the solar sail can reach Mars in 504 days. 
+It spends 116 days less than the plan in reference [8]. And when it reaches Mars, the 
+speed will slow down at 8.3km/s. 
+
+Team 699                                                         Page 25 / 28 
+25 
+ 
+Reference 
+[1] Bernd Dachwald. Optimal Solar-Sail Trajectories for Missions to the Outer Solar 
+System [J]. Journal of Guidance, Control, and Dynamics, 2005, 28(6): 1187-1193. 
+[2] T. J. Waters, C. R. Mc Innes. Invariant Manifolds and Orbit Control in the Solar Sail 
+Three-Body Problem [J]. Journal of Guidance, Control, and Dynamics, 2008, 31(3): 554-
+562.  
+[3] Mori 0, Tsuda Y, Sawada H, eta. World’s first demonstration of solar power sailing 
+by IKAROS [R]．The 2nd International Symposium on Solar Sailing, New York, USA, July 
+20-22, 2010 
+[4] Kim M. Continuous low-thrust trajectory optimization: techniques and applications 
+[D]. Virginia Polytechnic institute and State University, 2005 
+[5] Kim M, Hallc D. Symmetries in the optimal control of solar sail spacecraft [J]. 
+Celestial Mechanics and Dynamical Astronomy, 2005, 92:273-293 
+[6] Gong S P, Gao Y F, Li J F. Solar sail time-optimal interplanetary transfer trajectory 
+design [J]. Research in Astron. Atrophy’s, 2011, 11(8): 981-996 
+[7] Baoyin H X, Mclnnes, C R. 2006. Solar sail halo orbits at the Sun-Earth artificial L1 
+point [J]. Celestial Mechanics and Dynamical Astronomy, 94(2): 155-171 
+[8] Mclnnes C R. Solar sailing: technology, dynamics, and mission applications [M]. 
+London: Springer Verlag, 1999, 112-151 
+[9] Jia L W, Zhang Y, Wang Y. Trajectory optimization of solar sail for synchronous orbit 
+base on particle swarm optimization algorithm [J]. Electronics R&D, 2010(7): 11-14 
+[10] Wu S N, Sun X Y, Sun Z W, eta. Robust sliding mode control for spacecraft global 
+fast-tracking manoeuvre [J]. The Institution of Mechanical Engineers, Part G: Journal 
+of Aerospace Engineering, 2011, 225(G7): 749-760. 
+ 
+ 
+
+Team 699                                                         Page 26 / 28 
+26 
+ 
+Appendix I 
+Code written in python 
+# coding: utf-8   
+import numpy as np     
+import random      
+import matplotlib.pyplot as plt 
+from math import pi,sqrt,cos,sin 
+   
+#--------------------------parameters-----------------------------     
+class PSO():     
+    def __init__(self,pN,dim,max_iter):     
+        self.w = 0.5                #Inertia weight factor，[0.1] 
+        self.c1 = 2                 #positive acceleration constant 
+        self.c2 = 2                 #positive acceleration constant 
+        self.r1= 0.6                #random constant 
+        self.r2= 0.3                #random constant 
+        self.pN = pN                #number of particle     
+        self.dim = dim              #searching dimensionality 
+        self.max_iter = max_iter    #number of iterations    
+        self.X = np.zeros((self.pN,self.dim))       #location     
+        self.V = np.zeros((self.pN,self.dim))       #velocity 
+        self.pbest = np.zeros((self.pN,self.dim))   #personal optimal    
+        self.gbest = np.zeros((1,self.dim))         #total optimal 
+        self.p_fit = np.zeros(self.pN)              #personal historical optiaml     
+        self.fit = 1e10             #total best finess 
+        self.r0 = 1.0 
+        self.u0 = 0.0 
+        self.v0 = 1/sqrt(self.r0) 
+         
+        self.rs = 1.524 
+        self.us = 0.0 
+        self.vs = 1/sqrt(self.rs) 
+ 
+        self.rf = self.r0 
+        self.uf = self.u0 
+        self.vf = self.v0 
+ 
+    def getparameters(self): 
+        return self.gbest 
+ 
+     
+    def getrf(self): 
+        self.rf = self.rf + self.uf 
+
+Team 699                                                         Page 27 / 28 
+27 
+ 
+        return self.rf 
+ 
+    def getuf(self,x): 
+        uu = 6.67*1.99e10 
+        k = 2 
+##        q = x[random.randint(1,self.dim-1)] 
+        q = x[0] 
+        self.uf = self.vf*self.vf/self.rf-uu/self.rf/self.rf+k*cos(q)*\ 
+                    cos(q)*cos(q)/self.rf/self.rf 
+        return self.uf 
+ 
+    def getvf(self,x): 
+        k = 2 
+##        q = x[random.randint(1,self.dim-1)] 
+        q = x[0] 
+        self.vf = -self.uf*self.vf/self.rf+k*sin(q)*cos(q)*cos(q)/self.rf/self.rf 
+        return self.vf 
+         
+#----------------------------fitness-----------------------------     
+    def getfit(self,x):     
+        q1 = 12.5 
+        q2 = 15 
+        q3 = 40 
+        cfit = q1*abs(self.rs-self.getrf()) + q2*abs(self.vs-self.getvf(x)) + \ 
+               q3*abs(self.us-self.getuf(x)) + x[self.dim-1] 
+         
+        return cfit  
+#---------------------initialzation----------------------------------     
+    def init_Population(self):     
+        for i in range(self.pN):         
+            for j in range(self.dim):   
+                self.X[i][j] = random.uniform(0,1)   
+                self.V[i][j] = random.uniform(0,1) 
+            self.pbest[i] = self.X[i]     
+            tmp = self.getfit(self.X[i])     
+            self.p_fit[i] = tmp     
+            if(tmp < self.fit):     
+                self.fit = tmp     
+                self.gbest = self.X[i]     
+         
+#----------------------refresh----------------------------------     
+    def iterator(self):     
+        fitness = []     
+        for t in range(self.max_iter):     
+
+Team 699                                                         Page 28 / 28 
+28 
+ 
+            for i in range(self.pN):                #refresh gbest\pbest     
+               temp = self.getfit(self.X[i])     
+               if(temp<self.p_fit[i]):              #refresh personal optimal     
+                   self.p_fit[i] = temp     
+                   self.pbest[i] = self.X[i]     
+                   if(self.p_fit[i] < self.fit):    #refresh total optimal     
+                       self.gbest = self.X[i]     
+                       self.fit = self.p_fit[i]     
+            for i in range(self.pN):     
+                self.V[i] = self.w*self.V[i] +\ 
+                            self.c1*random.uniform(0,1)*(self.pbest[i] - self.X[i]) +\ 
+                            self.c2*random.uniform(0,1)*(self.gbest - self.X[i])     
+                self.X[i] = self.X[i] + self.V[i]     
+            fitness.append(self.fit)     
+            print(self.fit)                         #display     
+        return fitness     
+    
+#----------------------simulation-----------------------     
+run_sim=1000 
+run_dim=6 
+run_n=200 
+my_pso = PSO(pN=run_n,dim=run_dim,max_iter=run_sim) 
+my_pso.init_Population()     
+fitness = my_pso.iterator()   
+#-------------------draw--------------------     
+plt.figure(1)        
+t = np.array([t for t in range(0,run_sim)])     
+fitness = np.array(fitness) 
+plt.plot(t,fitness, color='b',linewidth=3) 
+plt.title("Figure1")     
+plt.xlabel("iterators", size=14)     
+plt.ylabel("fitness", size=14) 
+plt.show() 

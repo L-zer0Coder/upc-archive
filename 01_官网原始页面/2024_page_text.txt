@@ -1,0 +1,210 @@
+The University Physics Competition
+The University Physics Competition
+Home
+Contest Rules
+Register a Team
+2026 Contest
+2025 Contest
+2024 Contest
+2023 Contest
+2022 Contest
+2021 Contest
+2020 Contest
+2019 Contest
+2018 Contest
+2017 Contest
+2016 Contest
+2015 Contest
+2014 Contest
+2013 Contest
+2012 Contest
+2011 Contest
+2010 Contest
+About Us
+Home
+Contest Rules
+Register a Team
+2026 Contest
+2025 Contest
+2024 Contest
+2023 Contest
+2022 Contest
+2021 Contest
+2020 Contest
+2019 Contest
+2018 Contest
+2017 Contest
+2016 Contest
+2015 Contest
+2014 Contest
+2013 Contest
+2012 Contest
+2011 Contest
+2010 Contest
+About Us
+The 2024 University Physics Competition
+The University Physics Competition began on Friday, November 1, 2024, at 6pm MDT (Mountain Daylight Time), which is 8pm EDT, when the contest problems were posted here.
+Problem A: Space Station
+Air Evacuation Time
+A space station is approximately
+shaped like a cylinder with an interior length of 50 meters, and a diameter of
+4 meters. The air inside the space
+station is at a temperature of 20 C and a pressure of 1 atmosphere (101.3
+kPa). A micrometeorite makes a hole 1 cm
+in diameter in the center of one end of the space station. How much time would it take until the air
+pressure in the space station was only 0.3 atmosphere? How would this time be different for holes of
+different diameters?
+Problem B: Mars Electrical Power
+A base on Mars will require a power system that can
+continuously provide 150 KW for at least 2 Earth years. We need to design this power system with the
+smallest amount of mass to minimize the cost of sending this to Mars. What is the minimum mass that such a power
+system could have? Assume that the crew
+of the base can do work for assembly and maintenance of the power system.
+Results of the 2024 University Physics Competition were posted on January 17, 2025.
+To download a printable pdf award certificate for your team, set your browser to: http://www.uphysicsc.com/certificates2024/*.pdf
+Here * is your team number. For example if your team number is 200, this is: http://www.uphysicsc.com/certificates2024/200.pdf
+Full results announcement and complete listing of all medals in the 2024 University Physics Competition
+We are very pleased to announce the results of the fifteenth
+annual University Physics Competition. The
+University Physics Competition is an international contest for undergraduate
+students, who worked in teams of up to three students at their home colleges
+and universities all over the world, and spent 48 hours during the weekend of
+November 1, 2, & 3, 2024, analyzing a scenario using the principles of
+physics, and writing a formal paper describing their work.
+In this
+year’s competition 681 teams submitted papers for judging. 534 teams selected “Problem A – Space Station
+Air Evaculation Time” and 147 teams selected “Problem B – Mars Electrical Power.”
+For Problem
+A, the Gold Medal Winning Teams were:
+Team
+380: Kenneth Luo, Samuel Ho, Simon Shen
+Institution: University of Toronto
+Faculty Sponsor: Patrick McGraw
+Team
+422: Hongyi Jiang, Haoyang Luan, Zhicong
+Hong
+Institution: Shanghai Jiao Tong University Joint Institute
+Faculty Sponsor: Zijie Qu
+Team
+427: Xu Ruan, Zhengwei Gong, Jincheng Ye
+Institution: Shanghai Jiao Tong University Joint Institute
+Faculty Sponsor: Zijie Qu
+Team
+494: Muhammad Arif Hussain, Md. Badhan
+Mridha, Emon Hossain
+Institution: University of Dhaka
+Faculty Sponsor: Md. Tareq Mahmud
+Team
+520: Wenxin Chen, Mingye Lu, Runzhe
+Zhang
+Institution: Shanghai Jiao Tong University Joint Institute
+Faculty Sponsor: Zijie Qu
+Team
+541: Lei Xu
+Institution: Tongji University
+Faculty Sponsor: Fang Kai
+Team
+568: Hou Huaxuan, Lin Junjie, Liu Yuxing
+Institution: Tongji University
+Faculty Sponsor: Zhang Jianwei
+Team
+646: Yaoxing Lu, Zhengyang Li, Xinyi He
+Institution: ShanghaiTech University
+Faculty Sponsor: Kangning Wang
+Team
+660: Wu Honghan, Liu Hongtao, Li Zijie
+Institution: National University of Defense Technology
+Faculty Sponsor: Xu Xinrong
+Team
+662: Ma Zilin, Ma Xinyu, Xu Weifeng
+Institution: National University of Defense Technology
+Faculty Sponsor: Liu Yonglu
+Team
+674: Chen Qianhui, Liu Yiming, Chen Siyu
+Institution: National University of Defense Technology
+Faculty Sponsor: Peng Gang
+Team
+824: Tanmay Gupta, Angelina Zhang, Seth
+Brunner
+Institution: Georgia Institute of Technology
+Faculty Sponsor: Edwin Greco
+For problem B, the Gold Medal Winning
+Teams were:
+Team
+128: Kan Linjie, Liu Yuxuan, Zhu Jiayi
+Institution: Nanjing University of
+Aeronautics and Astronautics
+Faculty Sponsor: Kan Caixia
+Team
+367: JiaTao Hu, ZiKuan Luo, QianFa Tang
+Institution: Nanjing University of Aeronautics and
+Astronautics
+Faculty Sponsor: XingZhong Zhu
+Team
+659: Tang Yao, Ding Hongen, Qin Yanglin
+Institution: National University of Defense Technology
+Faculty Sponsor: Liu Yonglu
+Of the 681
+papers submitted in this year’s University Physics Competition, 15 teams (2.2%)
+were ranked as Gold Medal Winners, 118 teams (17%) were ranked as Silver Medal
+Winners, 201 teams (30%) were ranked as Bronze Medal Winners, and 347 teams (51%)
+were ranked as Accomplished Competitors.
+We
+extend our sincerest congratulations to each of the competing teams for their
+excellent work and their enthusiasm for physics!
+Kelly
+S. Cline
+Carroll
+College; Helena, Montana, United States
+Director
+of the University Physics Competition
+www.uphysicsc.com
+Above, 2024 Gold Medal Winners
+Team 128: Kan Linjie, Liu Yuxuan, Zhu Jiayi
+Institution: Nanjing University of Aeronautics and Astronautics
+Faculty Sponsor: Kan Caixia
+Above, 2024 Gold Medal Winners
+Team 380: Kenneth Luo, Samuel Ho, Simon Shen
+Institution: University of Toronto
+Faculty Sponsor: Patrick McGraw
+Above, 2024 Gold Medal Winners
+Team 422: Hongyi Jiang, Haoyang Luan, Zhicong Hong
+Institution: Shanghai Jiao Tong University Joint Institute
+Faculty Sponsor: Zijie Qu
+Above, 2024 Gold Medal Winners
+Team 494: Muhammad Arif Hussain, Md. Badhan Mridha, Emon Hossain
+Institution: University of Dhaka
+Faculty Sponsor: Md. Tareq Mahmud
+Above, 2024 Gold Medal Winners
+Team 520: Wenxin Chen, Mingye Lu, Runzhe Zhang
+Institution: Shanghai Jiao Tong University Joint Institute
+Faculty Sponsor: Zijie Qu
+Above, 2024 Gold Medal Winners
+Team 568: Hou Huaxuan, Lin Junjie, Liu Yuxing
+Institution: Tongji University
+Faculty Sponsor: Zhang Jianwei
+Above, 2024 Gold Medal Winners
+Team 646: Yaoxing Lu, Zhengyang Li, Xinyi He
+Institution: ShanghaiTech University
+Faculty Sponsor: Kangning Wang
+Above, Gold Medal Winners
+Team 659: Tang Yao, Ding Hongen, Qin Yanglin
+Institution: National University of Defense Technology
+Faculty Sponsor: Liu Yonglu
+Above, 2024 Gold Medal Winners
+Team 660: Wu Honghan, Liu Hongtao, Li Zijie
+Institution: National University of Defense Technology
+Faculty Sponsor: Xu Xinrong
+Above, 2024 Gold Medal Winners
+Team 662: Ma Zilin, Ma Xinyu, Xu Weifeng
+Institution: National University of Defense Technology
+Faculty Sponsor: Liu Yonglu
+Above, 2024 Gold Medal Winners
+Team 674: Chen Qianhui, Liu Yiming, Chen Siyu
+Institution: National University of Defense Technology
+Faculty Sponsor: Peng Gang
+Above, Gold Medal Winners
+Team 824: Tanmay Gupta, Angelina Zhang, Seth Brunner
+Institution: Georgia Institute of Technology
+Faculty Sponsor: Edwin Greco
+Web Hosting powered by Network Solutions®

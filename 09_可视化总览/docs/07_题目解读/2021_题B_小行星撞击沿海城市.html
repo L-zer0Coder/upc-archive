@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2021 题B：小行星撞击沿海城市（Asteroid Ocean Impact） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg:#0a0f1e;--panel:#111a2e;--ink:#e8eef8;--mut:#94a5c0;--line:#22304c;--acc:#4f7dd9;--acc2:#39c2b0;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
+ font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar a:hover{border-color:var(--acc);color:#fff}
+.crumb{color:var(--mut);font-size:13px}
+.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
+h3{font-size:17px;color:#cfe0ff}
+a{color:#7fb0ff} a:hover{text-decoration:underline}
+code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
+pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1em 0;padding:8px 16px;border-left:4px solid var(--acc2);background:rgba(57,194,176,.07);color:#c9d6ea;border-radius:0 10px 10px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#16233c;color:#a9bcda;white-space:nowrap}
+tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
+@media(max-width:700px){.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a href="../../index.html">🏆 总览首页</a>
+  <span class="crumb">07_题目解读</span>
+  <span style="flex:1"></span>
+  
+  <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2021_%E9%A2%98B_%E5%B0%8F%E8%A1%8C%E6%98%9F%E6%92%9E%E5%87%BB%E6%B2%BF%E6%B5%B7%E5%9F%8E%E5%B8%82.md">原文 .md</a>
+</div></div>
+<div class="wrap"><div class="card">
+<h1 id="2021-basteroid-ocean-impact">2021 题B：小行星撞击沿海城市（Asteroid Ocean Impact）</h1>
+<blockquote>
+<p>赛题来源：UPC 2021 Problem B（当年 324 队投稿；题 B 金奖 4 队：Harvey Mudd 216、国防科技大学 385、华沙大学 442 与 445）</p>
+</blockquote>
+<h2 id="1">1. 题目原文与关键数据</h2>
+<p><strong>原文压缩引用</strong>：</p>
+<blockquote>
+<p>Consider the impact of an asteroid in the ocean, <strong>1,000 km from a coastal city</strong>. What is the <strong>minimum mass</strong> the asteroid would require in order to cause <strong>substantial damage</strong> to this city?</p>
+</blockquote>
+<p><strong>中文翻译</strong>：考虑一颗小行星在距沿海城市 1000 km 处撞击海洋。要对城市造成"实质性破坏"，这颗小行星最小需要多大质量？</p>
+<p><strong>题面给定参数表</strong>——题面只给了两个信息，其余全是自由参数：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>取值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>撞击点距城市</td>
+<td>1000 km</td>
+<td>题给（唯一的空间尺度）</td>
+</tr>
+<tr>
+<td>破坏判据</td>
+<td>"substantial damage"</td>
+<td><strong>全题题眼</strong>，必须翻译成带文献的数值阈值</td>
+</tr>
+<tr>
+<td>小行星密度</td>
+<td>石质 2500–3000 / 铁质 7800 kg/m³</td>
+<td>自选；"最小质量"应偏向有利组合</td>
+</tr>
+<tr>
+<td>入射速度</td>
+<td>11–30 km/s（最概然 ~17–19.3）</td>
+<td>自选并给出处</td>
+</tr>
+<tr>
+<td>入射角</td>
+<td>45° 最概然；90° 对成波最有利</td>
+<td>自选并声明口径</td>
+</tr>
+<tr>
+<td>海洋深度</td>
+<td>深水 4–5 km</td>
+<td>需论证处于深水撞击（DWI）区</td>
+</tr>
+<tr>
+<td>自取常数</td>
+<td>$\rho_w=1027\ {\rm kg/m^3}$，$g=9.8$</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<ol>
+<li><strong>"substantial damage" 必须先变成波高阈值</strong>——这是开放题的胜负手。四支金奖队四种选择：2 m（216，引 Tinti 1993 / Reese 2007 / Ruangrassamee 2006 三篇灾害调查：2 m 毁木屋/砖房）、7 m（442，ITIS-2012 量表 D 类建筑 3–4 级破坏）、10 m（385，Watanabe 海啸等级 3 级）、10 m（445，自定并附历史数据讨论）。<strong>阈值差 5 倍，答案就差一个量级</strong>。</li>
+<li><strong>"minimum mass" 有口径问题</strong>：要么取"最有利于破坏"的参数组合（铁质、高速、垂直入射——385/442 的做法），要么取最概然值并声明——两种口径都对，但不声明就是缺陷。</li>
+<li><strong>破坏通道要先排序</strong>：热辐射、冲击风（超压）、地震震动、海啸四个候选，谁在 1000 km 处说了算？445 队的三行标度律论证最漂亮——冲击波球对称、强度 $\propto1/r^2$；海啸柱对称、振幅 $\propto1/\sqrt r$（或经验 $1/r$）；二者源能量相近 → 远场海啸必胜。442 队则逐一精算排除（热辐射需直径 &gt;4.61 km、超压 ~1 kPa &lt; 阈值、PGV &lt;3 cm/s）。</li>
+<li><strong>隐含物理链</strong>：大气减速 → 撞击成腔 → 成波 → 色散传播 → 浅水放大 → 爬岸。每一环都有"是否可以忽略"的量级判断要做。</li>
+</ol>
+<h2 id="3">3. 物理建模路线图</h2>
+<p><strong>层次 1：解析骨架（能量链 + 两条经验波幅律）</strong></p>
+<ul>
+<li><strong>大气段先判 regime</strong>：大气柱质量 $\rho_0H\approx10^4\ {\rm kg/m^2}$ 对比小行星面密度 $(4/3)\rho_a r$。指数大气解析减速（385 式(7)）：$v/v_0\approx\exp[-\tfrac34 C_d(\rho_0/\rho_a)(H/d)\sin^{-1}\theta]$，取 $C_d=0.9$、$H=8$ km：<strong>石质 r=100 m 仅损 ~2%，r=20 m 损 ~10%，r=3 m 损半</strong>。即本题答案区间（≥$10^9$ kg）基本处于"全速入水"区，但小质量端必须检查。</li>
+<li><strong>撞击能量</strong>：$E=\tfrac12mv^2$；$10^{10}$ kg @ 20 km/s = $2\times10^{18}$ J ≈ 480 Mt TNT。</li>
+<li><strong>成腔</strong>：Collins–Melosh–Marcus (CMM05) 经验式 $D_{tc}=1.365(\rho_a/\rho_w)^{1/3}d^{0.78}v^{0.44}g^{-0.22}\sin^{1/3}\theta$——<strong>示例复算</strong>：200 m 石陨石、20 km/s、45° → $D_{tc}\approx5.1$ km；Ward 抛物面腔模型（$\epsilon\approx0.15$）是替代方案（445）。</li>
+<li><strong>波幅（最大不确定源，两条文献定律并存）</strong>：CMM 边缘波 $A(r)=\min(D_{tc}/14,H)\cdot\frac{3D_{tc}}{4r}$（$\propto1/r$；崩塌波衰减更快可略）；Ward 线性远场 $\propto1/\sqrt r$；实验室律（Gault &amp; Sonett）$A=9700\sqrt{E_{kt}}/r$（$E$ 单位 kt，$r$ 单位 m）。两条定律在 1000 km 处可差 ~一个量级——<strong>必须报告对定律选择的敏感性</strong>。</li>
+<li><strong>浅化与爬岸</strong>：Green 定律 $A\propto h^{-1/4}$：4 km → 100 m 水深放大 $\times2.5$；run-up 再 ×2–3。</li>
+<li><strong>判据闭合</strong>：$A(1000\ {\rm km})\times K_{shoaling}\ge$ 阈值 → 反解 $m$。385 队的"逆向链"（等级 → 岸边波幅 → 1000 km 波幅 → 动能 → 质量）配合流程图是最清晰的呈现方式。</li>
+</ul>
+<p><strong>层次 2：必要修正</strong>：入水速度取 $\max(v, v_{terminal})$ 截断（442，防小质量端外推失真）；空腔触底处理（445：腔深 &gt; 水深时海底成坑）；烧蚀（445 从变质量牛顿定律自推并对接 Chyba 1993）；波的色散传播（445 用 FFT 谱方法按 $\omega^2=gk\tanh(kH)$ 演化，并在双对数图上数值复现 $1/\sqrt r$）。</p>
+<p><strong>层次 3：可选扩展</strong>：Van Dorn 效应（撞击海啸在陆架外破碎/陷波，可能高估）；Coriolis；斜入射与空爆分支；地形与淹没纵深（445 额外给出 715 m，"第三输出量"加分）。</p>
+<pre><code class="language-mermaid">flowchart TD
+    P[&quot;题设: 1000km外撞海, 最小质量→substantial damage&quot;] --&gt; C0[&quot;阈值工程: 波高阈值2/7/10m + 文献&quot;]
+    P --&gt; C1[&quot;层1 能量链&quot;]
+    C1 --&gt; F1[&quot;大气regime: 石r=100m仅损2%, r=3m损半&quot;]
+    C1 --&gt; F2[&quot;E=½mv²: 1e10kg@20km/s = 480 Mt&quot;]
+    C1 --&gt; F3[&quot;成腔: CMM05 Dtc≈5.1km (200m石) / Ward抛物面腔&quot;]
+    C1 --&gt; F4[&quot;波幅: 边缘波∝1/r vs Ward∝1/√r (差~30×) → 敏感性必报&quot;]
+    C1 --&gt; F5[&quot;Green浅化×2.5 + run-up&quot;]
+    C0 --&gt; S[&quot;判据闭合: A·Ksh ≥ 阈值 → 逆向链反解 m&quot;]
+    F1 --&gt; S
+    F3 --&gt; S
+    F4 --&gt; S
+    F5 --&gt; S
+    P --&gt; C2[&quot;层2 修正: v_t截断 / 触底 / 烧蚀 / FFT色散传播&quot;]
+    P --&gt; C3[&quot;层3 扩展: Van Dorn / Coriolis / 淹没纵深&quot;]
+    C2 --&gt; V[&quot;验证: 无阻力极限 / DWI封顶(r≤H/13) / 双对数斜率&quot;]
+    C3 --&gt; V
+</code></pre>
+<h2 id="4">4. 关键物理效应量级表</h2>
+<table>
+<thead>
+<tr>
+<th>效应</th>
+<th>估算量级</th>
+<th>是否必须建模</th>
+<th>估算依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>大气减速 regime</td>
+<td>石质 r=100 m 损 ~2%、r=20 m ~10%</td>
+<td>必须（先判）</td>
+<td>$\exp[-\tfrac34C_d(\rho_0/\rho_a)(H/d)]$，柱质量 $10^4$ kg/m²</td>
+</tr>
+<tr>
+<td>撞击能量</td>
+<td>$10^{10}$ kg @20 km/s = $2\times10^{18}$ J ≈ 480 Mt</td>
+<td>必须</td>
+<td>$\tfrac12mv^2$</td>
+</tr>
+<tr>
+<td>瞬态腔径</td>
+<td>200 m 石 @20 km/s、45° → $D_{tc}\approx5.1$ km</td>
+<td>建议</td>
+<td>CMM05 代入复算（见 §3）</td>
+</tr>
+<tr>
+<td>初始边缘波幅</td>
+<td>$\min(D_{tc}/14,H)\approx370$ m（腔缘处）</td>
+<td>建议</td>
+<td>CMM05；1000 km 处按 $1/r$ 得 ~1.4 m</td>
+</tr>
+<tr>
+<td><strong>衰减定律分歧</strong></td>
+<td>$1/r$ vs $1/\sqrt r$：1000 km 处差 ~$\sqrt{1000}\approx30$ 倍</td>
+<td>必须（主导不确定度）</td>
+<td>CMM/实验室律 vs Ward 线性理论</td>
+</tr>
+<tr>
+<td><strong>复现 216 链条（验证示范）</strong></td>
+<td>$m=10^9$ kg、$v_f=19.34$ km/s → $E=4.5\times10^4$ kt → $A=9700\sqrt E/r=2.0$ m @1000 km = 其 2 m 阈值</td>
+<td>必须（自检范本）</td>
+<td>实验室律逐字复算，与其结果自洽</td>
+</tr>
+<tr>
+<td>Green 浅化</td>
+<td>$\times(4000/100)^{1/4}=2.5$</td>
+<td>建议</td>
+<td>$A\propto h^{-1/4}$</td>
+</tr>
+<tr>
+<td>传播时间</td>
+<td>$c=\sqrt{gh}\approx200$ m/s → 1.4 h</td>
+<td>可选</td>
+<td>深水重力波</td>
+</tr>
+<tr>
+<td>阈值文献</td>
+<td>2 m 毁木屋 / 7 m D 类建筑 3–4 级 / 10 m Watanabe 3 级</td>
+<td>必须</td>
+<td>三套量表对应三档答案</td>
+</tr>
+<tr>
+<td>答案区间</td>
+<td>$10^9$–$1.7\times10^{11}$ kg（四支金奖队）</td>
+<td>必须</td>
+<td>阈值×衰减定律主导；区间即结论</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5">5. 求解算法与数值要点</h2>
+<ul>
+<li><strong>主线几乎全解析</strong>（幂律 + 逐步反解），数值只出现在三处：大气减速 ODE（<code>ode45</code>，配无阻力能量守恒上限 $v_e=\sqrt{v_0^2-2GM_E(1/r_E-1/(r_E+y_0))}$ 做渐近校验——216 队大质量端数值解收敛到同一 19340 m/s）；参数网格扫描（密度 × 角度 × 质量 log 网格，442）；波场 FFT 演化（445，$10^5$–$5\times10^5$ 空间格点）。</li>
+<li><strong>反解用"逆向链"</strong>：阈值 → 岸边波幅 → 1000 km 波幅 → 腔径 → 动能 → 质量，每步一个可独立检验的代数式；配一张流程图（385 的 Figure 6 范式）评委 30 秒抓住主线。</li>
+<li><strong>验证四件套</strong>：① 无阻力极限校核大气 ODE；② DWI 判据封顶（$r_A\le$ 水深/13，216 用它把扫描上限定在 $10^{12}$ kg——先论证有效域再遍历）；③ 双对数图核对衰减斜率（1/r 还是 1/√r）；④ 阈值上下各取一个质量做"越界/不越界"对照图。</li>
+<li><strong>数值陷阱</strong>：波高 = 2×振幅，阈值用的哪个要统一；经验公式常数的单位约定（216 的 9700 隐含 E 用 kt、r 用 m）；log 网格上反解的插值精度；把撞击点水深当成岸边水深。</li>
+</ul>
+<h2 id="6">6. 常见错误与陷阱</h2>
+<ol>
+<li><strong>"substantial damage" 不定义或无文献</strong>——答案失去可评判性；只用一句"取 2 m"而不引灾害文献，阈值工程不及格。</li>
+<li><strong>用地震海啸直觉套撞击波</strong>：地震海啸波长极长、能量 $\propto1/r$ 稀释；撞击波是色散波列，边缘波 $1/r$ 与线性远场 $1/\sqrt r$ 的适用范围要交代，不能混用。</li>
+<li><strong>忘记"最小"</strong>：不取有利参数组合（铁、高速、垂直）也不声明口径，"minimum"无从谈起。</li>
+<li><strong>小质量端不查大气减速</strong>：$10^7$–$10^9$ kg 石陨石已进入减速区，末速不再是 20 km/s，能量账全错。</li>
+<li><strong>振幅/波高/run-up 三者混用</strong>；或能量-波耦合效率（385 取 20% 入水）拍脑袋无出处。</li>
+<li><strong>只答一个魔法数字</strong>：不报对阈值、密度、角度、衰减律的敏感性——本题金奖答案横跨两个量级，敏感性就是结论本身。</li>
+</ol>
+<h2 id="7">7. 全网参考与延伸</h2>
+<ol>
+<li><strong>Robertson &amp; Gisler 2019（Planet. Space Sci.）：Near and far-field hazards of asteroid impacts in oceans</strong>（<a href="https://www.sciencedirect.com/science/article/pii/S0094576517314996">sciencedirect.com</a>）——现代数值模拟：远场波幅更接近 $1/r$ 衰减、500 m 以下小天体深水撞击的危害低于早期线性理论估计。用于对冲 Ward $1/\sqrt r$ 的高估，是"敏感性讨论"的现成弹药。</li>
+<li><strong>Korycansky &amp; Chapman 2005：Offshore breaking of impact tsunami: the Van Dorn effect</strong>（<a href="https://www2.boulder.swri.edu/~cchapman/tsukl05.pdf">boulder.swri.edu</a>）——撞击海啸在陡陆架外缘破碎/能量陷存，线性外推到岸边可能高估波高——写 caveat 与扩展节的最好素材（442 队也点名了此效应）。</li>
+<li><strong>Ward &amp; Asphaug：Asteroid impact tsunami of 2880 March 16</strong>（<a href="https://www.academia.edu/110289095/Asteroid_impact_tsunami_of_2880_March_16">academia.edu</a>，另见亚利桑那大学 Chesley &amp; Ward 概率评估页 <a href="https://experts.arizona.edu/en/publications/asteroid-impact-tsunami-a-probabilistic-hazard-assessment">experts.arizona.edu</a>）——抛物面空腔 + Fourier 积分解 + 深水色散关系 $\omega^2=gk\tanh(kH)$ 的原始出处（445 队主干），想走"真波场模拟"路线从这里入手。</li>
+<li><strong>Kharif &amp; Pelinovsky 2005（C. R. Physique）：Asteroid impact tsunamis</strong>（<a href="https://comptes-rendus.academie-sciences.fr/physique/item/10.1016/j.crhy.2004.12.016.pdf">academie-sciences.fr</a>）——综述：生成机制分类与远场最大波幅 $r^{-1}$ 衰减的结论，适合做引言与"多机制排序"的权威支撑。</li>
+</ol>
+<h2 id="8">8. 金牌论文思路对比</h2>
+<ul>
+<li><strong>216（Harvey Mudd，2 人队）</strong>：变速入大气 ODE（16 颗实测小行星密度加权拟合 2481 kg/m³、标准大气 $R^2=0.9975$）+ 实验室波幅律 + 三文献交叉定义 2 m 阈值 + DWI 封顶扫描域 → $10^9$ kg。数据驱动与守恒上限校验是范本。详见 <code>05_论文赏析\2021\2021-GM-B-216.md</code>。</li>
+<li><strong>385（国防科大）</strong>：逆推链可视化（Watanabe 3 级 10 m → 1000 km 处 1.3 cm → 波能积分 → 动能 → 质量），铁质垂直入射、烧蚀解析律（入大气前质量为落海时 2.03 倍）、Stokes 二阶波浅化 → $4.05\times10^{10}$ kg。解题路线图呈现的典范。详见 <code>2021-GM-B-385.md</code>。</li>
+<li><strong>442（华沙）</strong>：四效应逐一排除（热辐射需 d&gt;4.61 km、超压 ~1 kPa、PGV&lt;3 cm/s）→ 锁定海啸；CMM05 公式体系 + 7 m（ITIS D 类）阈值 + 密度×角度参数网格 → 最有利条件 $1.7\times10^{11}$ kg。论证架构最严密，"为什么只算海啸"从假设升级为定理。详见 <code>2021-GM-B-442.md</code>。</li>
+<li><strong>445（华沙）</strong>：变质量烧蚀自推并对接 Chyba 1993 + Ward 抛物面腔 + FFT 谱方法演化波场并数值复现 $1/\sqrt r$ + Green 爬岸 → $10^{10}$ kg（r≈97 m），附淹没纵深 715 m。数值含量最高、标度律排除法最省笔墨。详见 <code>2021-GM-B-445.md</code>。</li>
+<li><strong>四队答案跨 $10^9$–$1.7\times10^{11}$ kg 两个量级</strong>，根源是阈值（2/7/10 m）与衰减定律（1/r vs 1/√r）——这本身就是本题最深的物理教训：开放题的"答案"是区间加论证。</li>
+</ul>
+<h2 id="9">9. 评分要点：评委想看什么</h2>
+<ul>
+<li>[ ] "substantial damage" → 带文献出处的波高阈值，且说明选该建筑类别/等级的理由。</li>
+<li>[ ] 多效应排序或排除（海啸 vs 冲击波 vs 热 vs 地震）：量级论证即可，但要形成闭环。</li>
+<li>[ ] 大气段 regime 判定（减速与否）+ 入水速度有出处；小质量端有终端速度截断。</li>
+<li>[ ] 波幅定律注明出处与适用范围，答案对定律/阈值/角度做敏感性（网格或曲线）。</li>
+<li>[ ] "最小"口径声明（最优参数组合 vs 最概然值），扫描前用物理判据（DWI）封顶有效域。</li>
+<li>[ ] 验证证据：无阻力极限校核、双对数斜率核对、阈值上下夹逼；有余力给第二输出量（半径、到达时间、淹没纵深）。</li>
+</ul>
+</div></div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+});
+</script>
+</body>
+</html>

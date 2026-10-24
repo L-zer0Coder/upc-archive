@@ -1,0 +1,1588 @@
+Problem A
+The University Physics Competition, Team 131
+1
+Maximum Height of Space Diving
+Team 131, Problem A
+November 5, 2023
+Abstract
+In our study, we investigate the critical initial altitude for safe skydiving operations.
+Employing a rigorous set of assumptions, our focus centers on pinpointing the maxi-
+mum altitude that can induce hazardous levels of acceleration leading to potential harm.
+We construct a comprehensive model, accounting for supersonic phenomena, and rig-
+orously validate its accuracy using empirical data gathered from Felix Baumgartner’s
+remarkable 39-kilometer jump. Through our model, we derive intricate relationships
+between velocity, acceleration, and the corresponding descent distances. Subsequently,
+we assess the upper bounds of acceleration associated with different initial altitudes,
+thereby determining the maximum altitude at which a skydiver can descend without
+facing life-threatening levels of acceleration. Considering these insights in conjunction
+with other pertinent factors, we unveil our ultimate ﬁndings. Our analysis culminates in
+the critical revelation that the safety threshold for initial jump height in skydiving must
+not exceed 94 kilometers to ensure the successful return of the diver to Earth’s surface,
+thus mitigating the risks associated with excessive acceleration.
+Key Words: Supersonic, Acceleration, Initial height, skydive
+
+Problem A
+The University Physics Competition, Team 131
+2
+Contents
+1
+Introduction
+4
+1.1
+Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+1.1.1
+History . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+1.1.2
+Supersonic speed . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+1.2
+Problem Restatement . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2
+Notations
+5
+3
+Assumptions
+5
+3.1
+Temperature . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+3.2
+Acceleration and Body Position
+. . . . . . . . . . . . . . . . . . . . .
+6
+3.3
+Flat Spinning Prevention . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+3.4
+Terminal Velocity . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+3.5
+Exception of other dangers . . . . . . . . . . . . . . . . . . . . . . . .
+7
+3.6
+Premises of Supersonic fall . . . . . . . . . . . . . . . . . . . . . . . .
+7
+3.6.1
+Speed of sound . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+3.6.2
+Neglect Coriolis force
+. . . . . . . . . . . . . . . . . . . . . .
+8
+4
+Modelling
+8
+4.1
+Earth’s Atmosphere . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+4.1.1
+Atmospheric temperature . . . . . . . . . . . . . . . . . . . . .
+8
+4.1.2
+atmospheric density
+. . . . . . . . . . . . . . . . . . . . . . .
+9
+4.2
+Terminal Safety Veriﬁcation
+. . . . . . . . . . . . . . . . . . . . . . .
+10
+4.3
+Supersonic Fall . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11
+4.3.1
+Basic assumptions
+. . . . . . . . . . . . . . . . . . . . . . . .
+12
+4.3.2
+Aerodynamic drag . . . . . . . . . . . . . . . . . . . . . . . .
+12
+4.3.3
+Base model . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+4.3.4
+different stages . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+5
+Model Veriﬁcation
+14
+5.1
+Atmosphere Density
+. . . . . . . . . . . . . . . . . . . . . . . . . . .
+14
+5.2
+Supersonic Fall . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14
+6
+Strength and Weaknesses
+17
+6.1
+Strength . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+17
+6.2
+Weakness . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+17
+
+Problem A
+The University Physics Competition, Team 131
+3
+7
+Discussion
+17
+7.1
+Shock Wave . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+17
+7.2
+Flat Spin Assessment . . . . . . . . . . . . . . . . . . . . . . . . . . .
+18
+7.3
+Graph of max acceleration vs. initial height and discontinuity explained
+20
+8
+Results
+22
+8.1
+Acceleration restriction . . . . . . . . . . . . . . . . . . . . . . . . . .
+22
+8.2
+Temperature restriction . . . . . . . . . . . . . . . . . . . . . . . . . .
+23
+8.3
+Flat spin restriction . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+23
+9
+Conclusion
+24
+References
+25
+A Supersonic Fall.m
+26
+B
+Mach.m
+32
+
+Problem A
+The University Physics Competition, Team 131
+4
+1
+Introduction
+1.1
+Background
+1.1.1
+History
+In 2012, Austrian parachutist Felix Baumgartner broke the highest skydive records
+since 1960. Fallen from an altitude of 38.969 kilometers, he became the ﬁrst person to
+reach one Mach in a skydiving. This remarkable achievement ignites people’s passion
+for exploring the limits of humans. Following in his footsteps, we want to explore
+whether a space dive is achievable theoretically. And furthermore, what is the highest
+limit for space diving? What factor will constrain the maximum altitude for a safe space
+dive?
+1.1.2
+Supersonic speed
+The sound barrier or sonic barrier is the large increase in aerodynamic drag and
+other undesirable effects experienced by an aircraft or other object when it approaches
+the speed of sound. When aircraft ﬁrst approached the speed of sound, these effects
+were seen as constituting a barrier, making faster speeds very difﬁcult or impossible.
+However, reaching enough height, the atmospheric temperature and the air density can
+no longer be approximated as constants and should change accordingly. This can lead
+to possibility of a long duration of supersonic ﬂight.
+1.2
+Problem Restatement
+According to the question, we are supposed to confront with a physical scenery, that
+a space diver is carried to a certain height, jumping down toward the earth. We should
+take into account possible impacts and dangers the space diver will encounter during
+different periods in the entire process, modelling this physical scenery and solve the
+model to gain the maximum height from which the space diver can land successfully.
+In this article, we are going to explore the theoretical maximum altitude of a safe
+space dive. We will ﬁrst check the potential dangerous factors in a long space dive
+and bring out speciﬁc safety criteria. Then, we will establish a physical model of the
+space dive process from kinematic and ﬂuid mechanic formulas. We can then get the
+velocity and the acceleration during the falling process. Based on the physical model
+and the safety criteria, we are able to explore, under extreme circumstances, whether
+vertical acceleration, ﬂat spin, and temperature will hurt the skydiver. Finally, through
+careful consideration, we can assess the maximum altitude from which the skydiver
+could successfully descend to the surface.
+
+Problem A
+The University Physics Competition, Team 131
+5
+2
+Notations
+Symbols
+Description
+ρ
+Density of air
+Cs
+speed of sound
+γ
+Adiabatic index
+R∗
+molar gas constant
+TM
+atmospheric temperature
+M0
+molar mass taken as 29g/mol
+CD
+Drag coefﬁcient
+A
+cross section area of human body
+h
+Initial height
+Me
+Mass of the earth
+Re
+Average radius of the earth
+T
+Temperature of the air
+MA
+Average molar mass of the air
+x
+Space diver free-fall displacement
+v
+Velocity of the space diver
+a
+Acceleration of the space diver
+s
+Shock wave angle
+M
+Mach
+Pt0
+Total upstream pressure
+Pt1
+Total downstream pressure
+R
+Cylindrical human model radius
+ωd
+Dangerous spinning angular velocity
+tr
+Reaction time of human
+Here the main notations are deﬁned while their speciﬁc values will be discussed and
+given later.
+3
+Assumptions
+Note: In order to simplify the space-diving process and to get an abstract physical
+model without losing practical meaning, we will make some assumptions about the
+space-diving process in this subsection.
+We assume the weather at the time of the space dive is clear, meaning that there will
+be no severe airﬂow or even storm in the troposphere.
+
+Problem A
+The University Physics Competition, Team 131
+6
+3.1
+Temperature
+Once the skydiver is in the space, he/she has to wear a space suit to protect him/her
+from low pressure, extreme temperature and cosmic rays. But the space suit itself has
+a tolerance of temperature. Based on an article published by NASA in 2019 [1], a
+spacewalk space suit can withstand the temperature range from −250◦F (−156◦C) to
+250◦F (121◦C). Therefore, the atmospheric temperature can not exceed that range.
+3.2
+Acceleration and Body Position
+During the falling process, the most dangerous factor to the human body is the
+acceleration. In astronautics, we usually use Gx, Gy, Gz to describe the acceleration
+the human body endures. G value is the ratio between the acceleration in one direction
+and the gravitational acceleration.
+G = a
+g
+Positive Gx is pointing from chest to back, positive Gy is pointing from right shoul-
+der to left shoulder and positive Gz is pointing from head to toe.
+As recommended by James M. Pattarini et al. (2013) [2], the most stable position
+in a high-altitude free fall is the "Delta" position, with the skydiver’s head downwards.
+So, the acceleration in the transitional motion in the space dive should be majorly Gz.
+Figure 1: Belly-down" and "Delta" position.
+Based on extensive studies on human acceleration tolerance done by NASA in 1992
+[3], the human acceleration tolerance limit for +Gz acceleration is 4G for 5 seconds
+and 10G for 0.1 seconds. −Gz acceleration tolerance is −5G for 5 seconds and −7G
+
+Problem A
+The University Physics Competition, Team 131
+7
+for 0.1 seconds. So we assume the transitional motion in a "safe" space dive should not
+exceed ±5Gz.
+In order to complete a space dive mission, we assume the space diver has to adjust
+his/her body position from "Delta" position to "Belly-down" position at a certain point.
+Also, we denote the cross-sectional area of the diver at "Delta" position with A0, A1.
+3.3
+Flat Spinning Prevention
+Based on M. Nakashima and A. Aoyama’s simulation on the stability in skydiving
+[5], even a small interference on a skydiver will lead to rolling and spinning.
+It is proved that spinning can increase the effect of Gz[1], which is deadly to the
+space diver. Pattarini et al. provided that spinning with 50 rpm is approximately equal
+to −0.9Gz and 100 rpm approximately −3.5Gz [2].
+Because an important factor in skydiving (not only space diving!) is to avoid ﬂat
+spinning, an expert in skydiving must know how to adjust body position to correct ﬂat
+spinning generated by small interference. Besides, there is some other equipment like
+drogue parachute to avoid deadly ﬂat spin. Therefore, we will not consider spinning in
+our physical model.
+3.4
+Terminal Velocity
+The space diving process can be divided into mainly two parts: free fall and parachute
+time. At a certain height from the ground, the diver shoots the parachute.
+Because the main focus of this essay is to explore the maximum altitude a safe space
+dive can achieve, we will not discuss the parachute time in the essay. This parachute
+time includes position adjustment and landing point navigation.
+However, a safe parachute opening should depend on the velocity when the diver
+shoots the parachute. If the velocity is too fast, the diver cannot land safely to the
+ground.
+3.5
+Exception of other dangers
+The equipment is ﬁne made and protective that it could withstand high pressure and
+resist high energy waves.
+We assume the weather condition during the dive is ideally good.
+3.6
+Premises of Supersonic fall
+We want to build a physical model of the supersonic fall during a space dive. We
+ﬁrst assume that the space diver has no initial velocity with respect to the ground.
+
+Problem A
+The University Physics Competition, Team 131
+8
+3.6.1
+Speed of sound
+- non-dispersive medium
+- idea gas
+- adiabatic process
+- no ultrasonic effects like a(1 Hz and 5 MHz)
+Formula:
+Cs = (γ · R∗· TM
+M0
+)1/2
+3.6.2
+Neglect Coriolis force
+After some calculaion we found that Coriolis force can be neglected.⃗
+Fcor = −2m(⃗ω ×⃗v)
+Here we assume it falls in plane of equator and neglect the parallel velocity. The
+acceleration due to coriolis force is
+acor = 2ωv ≈0.15m/s2 ≪g
+Thus it can be neglected.
+Discussion:
+the shock wave is detached from the human body, thus, the its impact to the space
+diver can reasonably be neglected.
+4
+Modelling
+4.1
+Earth’s Atmosphere
+4.1.1
+Atmospheric temperature
+Because we are exploring a "space dive," the atmospheric environment is quite dif-
+ferent from that of sea level. The Earth’s atmosphere varies in height. Generally, air
+pressure and air density decrease with height, but temperature has a more complicated
+pattern with regard to height.
+Knowing from NASA’s deﬁnition in 2015 [4], the earth’s atmosphere has four pri-
+mary layers:
+• Thermosphere 53-375 miles (84.8-600 km)
+• Mesosphere 31-53 miles (49.6-84.8 km)
+
+Problem A
+The University Physics Competition, Team 131
+9
+Figure 2: Atmosphere of Earth (layer illustration).
+• Stratosphere 10-31 miles (16-49.6 km)
+• Troposphere 0-10 miles (0-16 km)
+Because the temperature of the earth has a complex relationship with height above
+the Earth surface. There is neither usable experimental data of the atmospheric tempera-
+ture at different height nor simple formula to calculate their relationship. Therefore, we
+use NRLMSIS (2.0) Atmosphere Model to simulate the atmospheric temperature at the
+height from 0-150km above the surface, with an interval of 1 km. The result we access
+from simulation is shown in Figure 3.
+From the temperature data, we know that if the space diver enters thermosphere (above
+84.8 km). The atmospheric temperature will raise sharply. At a height of 121 km above
+the Earth’s surface, the temperature will raise to 402.2K (129.05◦C). The temperature
+continues to increase above. This temperature exceed the temperature tolerance of the
+space suit. Therefore, the maximum altitude of a space dive should not exceed 120 km.
+4.1.2
+atmospheric density
+In the calculation of atmospheric density, we assume that the air at high altitude is
+ideal gas.
+If we assume the cumulative weight of atmosphere should equal to the pressure at the
+distance r to the center of the earth
+∫
+Ω
+ρ(r)GM
+r2 dτ = P(r)A(r)
+
+Problem A
+The University Physics Competition, Team 131
+10
+100
+200
+300
+400
+500
+600
+700
+Atmospheric temperature[K]
+0
+50
+100
+150
+Altitude[km]
+Atmospheric temperature
+Figure 3: The relationship between atmospheric temperature and altitude. The data is
+acquired on NRLMSIS (2.0)
+taking derivative of both sides:
+ρ(r) = −2rP(r) + r2P ′(r)
+GM
+Assume the temperature is constant.Let P(r) = kρ(r) with initial value P(R) = P0,
+substituting r = R + s
+The density of the atmosphere of Earth at a certain height s from the Earth’s surface
+is calculated by:
+ρ(s) = ρ0R2
+ee−
+GMρ0s
+P0R(Re+s)
+(Re + s)2
+(1)
+4.2
+Terminal Safety Veriﬁcation
+Newton’s second law
+F = mg −FD
+FD = 1
+2ρCDAv2
+The total decending height is relatively little, therefore we can assume a quadratic rela-
+tionship of FD and v2
+
+Problem A
+The University Physics Competition, Team 131
+11
+FD = kv2
+where k = 1
+2ρCDA ≈0.5 × 1.23 × 1 × 0.2 ≈0.5
+dv
+dt = g −kv2
+m
+dv
+dxv = g −kv2
+m
+Let vt and v0 denote terminal speed and the initial speed entering troposphereThe
+height of deceleration is
+h =
+∫vt
+v0
+vdv
+g −kv2
+m
+h = −m
+2kln(g −kv2
+t
+m
+g −kv2
+0
+m
+)
+Assume the terminal speed is vt = 100m/s
+h ≈190ln(0.5v2
+0 −1900
+3100
+)
+It is hard to maintain a speed larger than sound, so here we simply assume v0 =
+400m/s
+h ≈613m
+Therefore, the distance is so little that there should be enough space for the skydiver
+to decelerate. And we have also shown that the former assumption is valid.
+4.3
+Supersonic Fall
+In Felix’s case, he experienced a short supersonic wave. From our point of view, the
+reason is that when he reaches the supersonic stage, the resulting force brought by the
+sharp increase in CD is large enough to stop him in seconds. In our hypothesis, however,
+reaching a certain height, the diver is able to accelerate on supersonic condition that
+could result in a hazardous speed. Before diving into more details, we ﬁrst review some
+basic assumptions.
+
+Problem A
+The University Physics Competition, Team 131
+12
+4.3.1
+Basic assumptions
+• non-dispersive medium
+• idea gas
+• adiabatic process
+• no ultrasonic effects like a(1 Hz and 5 MHz)
+• Neglect coriolis force. All the v in following discussion is pointing directly to-
+ward center of the earth
+• The composition of atmophere doesn’t change much.
+Formula for speed of sound:
+Cs = (γ · R∗· TM
+M0
+)1/2
+4.3.2
+Aerodynamic drag
+The general aerodynamic drag force formula is given by
+FD = 1
+2ρCDAv2
+Note that ρ is a function of height due to relatively large change in height, namely
+equ.(1).
+In our model, we will assume the difference between stages will only result in the
+change in coefﬁcient of air drag, speciﬁcally CD. We thus make the assumption that in
+transonic stage, CD = 5, while in other subsonic stages except the last one CD remains
+1. Since when space diver enters into the last subsonic stage or upper troposphere,
+assuming to have height 25 kilometers from the ground, he has been relatively close
+to the ground layer where air density maintains a relatively high value, the air drag
+coefﬁcient will be affected by this issue and increase as a result, then we will assume
+that CD = 1.2 when the distance between the diver and the ground is shorter than 25
+kilometers. What’s more, the value of cross section area will remain 0.18m2 due to the
+necessity of maintaining stable position in all subsonic regions except the last one, while
+in supersonic region, it will be hard for space diver to control his body postures, leading
+to cast larger projected area, so we assumed A = 0.2m2 in supersonic region. For the
+last subsonic stage or distance shorter than 25 kilometers, space diver is supposed to
+shift his body posture to prepare for parachute-opening and landing, that he should have
+his belly pointing down to the ground. Under this circumstance, his sectional area below
+
+Problem A
+The University Physics Competition, Team 131
+13
+height of 25 kilometers will be 0.8m2 These assumptions correspond to the result shown
+in Felix’s 39km jump [7].
+we can establish a model of dynamics in transonic-supersonic phase.
+4.3.3
+Base model
+Newton’s second law gives
+ma = G −FD
+Let h be the initial height
+a =
+GMe
+(Re + h −x)2 −1
+2mCDAρ(h −x)v2
+we then obtain the differential equation
+d2x
+dt2 =
+GMe
+(Re + h −x)2 −1
+2mCDAρ(h −x)(dx
+dt )2
+by chain rule and substitution we have
+d( v2
+2 )
+dx
+=
+GMe
+(Re + h −x)2 −1
+2mCDAρ(h −x)v2
+Plugging in ρ
+The numeric form is
+d( v2
+2 )
+dx
+=
+3.979 × 1014
+(6.371 × 106 + h −x)2−1
+190×CD×0.18×5.236×1013×
+e
+−805.525×(h−x)
+(6.371×106+h−x))
+(6.371 × 106 + h −x)2×v2
+CD is left undetermined due to its variation across different phases.
+4.3.4
+different stages
+In the ﬁrst stage of falling, the diver is assumed to be in "Delta" position (Figure 1).
+The cross section of the diver is then set as 0.18 [7].
+According to the formula for speed of sound, the value varies according to the
+height. We can treat it as another function vs(x)
+After calculating speed in each time interval, a comparison will be made between
+the velocity of the diver and the speed of sound in corresponding height. In this model,
+
+Problem A
+The University Physics Competition, Team 131
+14
+we set the entering and leaving speed in transonic region to be 0.8 mach (Figure 4),
+consistent with the data from the 39km jump [7].
+If the velocity is indeed greater than the speed of the sound at that stage, the program
+will enter "transonic phase" in motion. In such a phase, the value of CD will abruptly
+be adjusted to 5. Apart from this, the motion obey the base model.
+Solving the ODE numerically, we then have the relationship between velocity and
+falling distance. One result is plotted using Matlab (Figure 5).
+Now we could have a function of acceleration a over falling distance x and initial
+height h.
+a(x, h) =
+GMe
+(Re + h −x)2 −1
+2mCDAρ(h −x)v(x)2
+By and we can have the maxima of a during the fall as am(h). then we could get the
+limit height s.t. am(hm) = 5g.
+For a more intuitive displacement, the relationship between maximum acceleration
+in diving process and the initial height is graphed in Figure 6.
+5
+Model Veriﬁcation
+5.1
+Atmosphere Density
+We plot the using two sets of data, the one we obtain from the NRLMSIS model and
+the other calculated with the formula derived. The result is shown below. We can then
+conclude that our density model is appropriate.
+5.2
+Supersonic Fall
+Based on the falling model we formed in previous section, we obtain different sets
+of statistics of velocity and acceleration of the skydiver with corresponding free-fall
+displacement, when entering different values of initial height. To verify the correctness
+of the model and the generated graphs, we are supposed to test and compare the model
+with real circumstances, and Felix Baumgartner’s space diving can serve as a perfect
+contrast.
+According to videos, provided statistics of research article ( [7]) and graphs plotted
+in previous research, we collect the following information about Felix Baumgartner’s
+space diving. Initially, he had his initial height before diving as roughly 39 kilometers
+away from the ground, without velocity parallel to the ground relative to the earth’s mo-
+tion in general as assumption. Then after his jumping, he went through three processes:
+ﬁrst subsonic stage with his head pointing down toward the earth surface, transonic-
+supersonic stage where Baumgartner’s velocity was roughly between 0.8 Mach and 1.25
+
+Problem A
+The University Physics Competition, Team 131
+15
+0
+50
+100
+150
+altitude[km]
+0
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+1.4
+density[kg/m3]
+Data From NRLMSIS (2.0)
+Calculated
+Figure 4: The relationship between density of air and altitude. The graph contains two
+curves. The blue one is generated with data from empirical model while the yellow one
+is from formula derived
+Mach, and the second subsonic stage with his belly down ( [7]). According to video and
+Colino’s report, the ﬁrst circumstance maintained from 0s to 25s approximately count-
+ing from his jumping, while the supersonic stage occurred between 25s and 75s, and he
+didn’t reach to velocity close to speed of sound again after this period. The information
+of Baumgartner’s acceleration during this process was also ﬁtting by previous research,
+with maximum absolute value of his acceleration being about 10m/s2, 1G when he
+entered the supersonic stage for the ﬁrst time.
+
+Problem A
+The University Physics Competition, Team 131
+16
+(a) Model velocity (v-x plot)
+(b) Model acceleration (a-x plot)
+Figure 5: Supersonic model with initial height 39km
+Then we start to evaluate our model and results. Inputting initial height 39000m into
+our program, we plot out the graph regarding the relation between velocity and free-fall
+displacement as follows. According to our graph, we claim that the space diver enters
+the supersonic region, the shadow area in the graph, when he is 35.8 kilometers above
+the ground. He then reaches his largest velocity of 467.7343m/s, then has velocity re-
+duction and exits the supersonic region at the height of 20.3 kilometers. He has terminal
+velocity of 59.1172m/s when he is one kilometer above the ground, certainly enough for
+him to travel back to ground under safety velocity with parachute. When we come to the
+acceleration, we ﬁnd that the man has maximum acceleration of 9.6841m/s2 and mini-
+mum acceleration −5.1594m/s2. For the entire process, we conclude that the diver has
+a relatively steady acceleration in the ﬁrst subsonic region which is closed to gravity ac-
+celeration, then experiences a sharp decrease in acceleration when entering the subsonic
+region for about 0.5 kilometers. After that, he has a slower rate of the change of acceler-
+ation, and his acceleration increases slowly after he has his minimum acceleration and
+before stepping into the second subsonic area. When he enters the second subsonic area,
+he has an abrupt increase in acceleration initially, then this physical quantity becomes
+steady again and converges to 0 after diver shifts his posture.
+Compared to the previous research, we can state that we have achieved a good ap-
+proximation to Baumgartner’s real circumstance in the relation between velocity and the
+height. For the positions where diver enters the supersonic region, the standard error be-
+tween previous researches value and ours is only 36−35.8
+36
+= 0.56%, while the one for the
+position where diver exits the region is 20.3−30
+20
+= 1.5%, both of which are acceptable.
+For the acceleration, though according to the graph of other research, the minimum ac-
+celeration of Baumgartner was roughly equal to the gravity acceleration ( [7]), having
+discrepancies with our value, the general shape of the acceleration plotted by us is cor-
+rect, verifying our selection and assumptions for air drag coefﬁcients Cd and projected
+
+Problem A
+The University Physics Competition, Team 131
+17
+sectional areas A for each stage are quite reasonable.
+6
+Strength and Weaknesses
+6.1
+Strength
+1. In our modeling, we did a veriﬁcation utilizing the database of the experimental
+space dive of red bull.
+2. We utilize the newest meteorologic model to analyse and verify our model.
+6.2
+Weakness
+1. One of our weaknesses is that we didn’t dive into the factors of CD but rather sim-
+ply chose two constants in different phases. This may lead to absurd discontinuity
+in v −x or a −x relationship just like Figure 8 has shown. This can be attributed
+to the assumed sharp increase in CD cause the discontinuity in the acceleration.
+2. Due to our way of modeling, we didn’t obtain the relationship between acceler-
+ation and time. This may bring inconvenience in analysing the duration of the
+large acceleration in supersonic status.
+7
+Discussion
+So far, our model about supersonic fall is based on a "best" condition. Namely, we
+assume no spinning will happened during the "free fall" period. But only consider the
+two models above is not enough, for safety reasons, we have to consider more danger
+threats and based our ﬁnal results on the "worst" case.
+7.1
+Shock Wave
+We know that when an object moving in the air surpasses the speed of the sound,
+the gas molecules’ deﬂection from the object becomes so intensive that the distances
+between gas molecules are shortened. In such a sense, we consider the space diver to
+surpass the speed of sound. The air around him is so compressed that a shock wave is
+generated.
+According to NASA [6], if the space diver has a supersonic velocity, shock wave is
+generated in front of his/her moving direction. In order to get an estimation about what
+could happen at supersonic velocity, we assume the shock wave to be oblique shock
+wave.
+
+Problem A
+The University Physics Competition, Team 131
+18
+Figure 6: Oblique shock wave illustration.
+We will estimate the pressure ratio between upstream area and downstream area.
+This pressure ratio changes signiﬁcantly with Mach.
+Pt1
+Pt0
+= [
+(γ + 1)M 2 sin2 s
+(γ −1)M 2 sin2 s + 2]γ/γ−1[
+γ + 1
+2γM 2 sin2 s −γ + 1]1/γ−1
+(2)
+γ stands for adiabatic index of the air. s is the shock angle of the shock wave, we
+now assume it to be 60◦. Pt1 and Pt0 are the total pressure in downstream area and
+upstream area, respectively.
+Mach
+Pressure ratio Pt1/Pt0
+1
+1.004
+2
+0.842
+3
+0.461
+4
+0.220
+5
+0.105
+Table 1: Pressure ratio between upstream and downstream at different Mach
+From the table below, we can have an estimation that if the speed of the diver reaches
+5 Mach, the Pressure ratio will increase to dangerous Pt0 = 9.52Pt1!
+7.2
+Flat Spin Assessment
+There are very few quantitative research or simulation on spinning problem in sky-
+dive, and even fewer article discuss about ﬂat spin in the upper atmosphere. Therefore,
+
+Problem A
+The University Physics Competition, Team 131
+19
+we can only assess the ﬂat spinning effect in a rough way.
+We assume diver’s body, when descending in "Delta" position is a cylinder, with a
+radius R = 0.24m and height 1.9m. Suppose the cylinder will rotate by its central axis
+(correspond to spinning), the moment of inertia I is given by:
+I = 1
+2mR2 = 5.472kg · m2
+Now we can build a spinning modal based on some rough assumptions below:
+• The torque that leads to a deadly spinning is cause by pressure difference between
+upstream and downstream areas.
+• The pressure difference is calculated by Equ. (2), which means that we assume
+that it is still valid even under hypersonic speed.
+• The pressure difference acts on an area of S = 0.01m2 of human body.
+• The shape of the space diver is a cylinder. The space diver has 1 second of reaction
+time tr. Dangerous spinning speed for the space diver is 60 rpm, ωd = 2π.
+• The downstream pressure is estimated by ideal gas formula, where we assume
+ˆρ = 1.237 × 10−3, ˆT = 252K are both constant.
+So we can build the relationship between the maximum Mach during a space dive
+and the
+Iωd = L = R × (trF)
+So we can calculate that dangerous Force Fd = 171.9N
+F = pdifS
+The pressure difference pdif can be approximated by:
+pdif = (Pt0
+Pt1
+−1)p0 = (Pt0
+Pt1
+−1) ˆρR ˆT
+M
+From 70 km to 90km, we calculate the maximum velocity and sound speed ratio
+(Mach) based on Supersonic Fall model. Then using the equations above we can check
+whether it is possible to have enough pressure difference to generate dangerous force.
+
+Problem A
+The University Physics Competition, Team 131
+20
+7.4049
+8.5385
+9.7851
+11.1629
+12.6142
+14.1934
+15.8216
+7
+7.5
+8
+8.5
+9
+H(m)
+104
+0
+2
+4
+6
+8
+10
+12
+14
+16
+18
+Mach
+Max Mach
+(a) Max Mach vs. initial height
+39.0636
+73.3126
+135.9927
+250.1914
+444.5313
+779.4488
+1313.6059
+7
+7.5
+8
+8.5
+9
+H(m)
+104
+0
+200
+400
+600
+800
+1000
+1200
+1400
+1600
+1800
+2000
+Force(N)
+Estimate force
+Dangerous line
+(b) Estimate force caused by pressure difference
+at supersonic speed
+Figure 7: Flat spin assessment
+Under our assumptions, we can directly see that when the initial height is larger that
+78 km, the pressure difference caused by shock waves will be large enough to create
+dangerous force.
+In conclusion, we assess the danger of shock waves causing potential deadly spin.
+We ﬁnd out that when the initial height is larger than 78 km, the shock wave at super-
+sonic speed may cause deadly ﬂat spin to the space diver.
+7.3
+Graph of max acceleration vs. initial height and discontinuity
+explained
+To further explain the relationship of initial height and maximum acceleration, we
+graph the two variables. From the graph we observe a peak at around 16km, which
+means that the diver experienced a relatively large acceleration starting at 16km above
+the ground. This seems to be a unreasonable discontinuity in the result. Exporting the
+velocity diagram, we ﬁnd that he exceeds the speed of sound during the diving process.
+And the acceleration experiences an impulse around the supersonic point.
+This is reasonable. When he reaches the speed of sound, although his velocity is
+not that large compared to that diving from 95km, he somehow experienced a relatively
+large drag force due to large atmospheric density. The same analysis goes for the area
+around the peaking point. In that sense, this region forms a danger zone that require
+caution of the skydivers. Falling from this height makes the diver experience much
+greater acceleration in the process.
+
+Problem A
+The University Physics Competition, Team 131
+21
+0
+2
+4
+6
+8
+10
+12
+H(m)
+104
+0
+20
+40
+60
+80
+100
+120
+Maximum acceleration(m/s2)
+36.2357
+Max acceleration vs. initial height
+1.6
+Figure 8: The relationship between density of air and altitude.
+(a) Model velocity (v-x plot)
+(b) Model acceleration (a-x plot)
+Figure 9: Supersonic model with initial height 16km
+From the graphs of acceleration of falling from 16km high (Figure 8 a), we observe
+an impulse at 10km above the ground. This is the phenomenon of entering supersonic
+wave and quickly exiting it. In addition, the discontinuity of the velocity graph may be
+due to a sharp increase of air density [?]. This analysis further supports the validity of
+our model.
+
+Problem A
+The University Physics Competition, Team 131
+22
+8
+Results
+8.1
+Acceleration restriction
+After the model veriﬁcation for the correctness, we can apply our model regarding
+space-diving velocity and acceleration to the determination of the highest safety height
+for releasing the diver. Inputting the program with initial height increasing with an in-
+terval of one kilometer, we terminate the program processing when ﬁnding the absolute
+value of acceleration greater than ﬁve times of gravity acceleration, 5G, according to
+the statement in assumption section. Simultaneously, we let the program report the cor-
+responding height above the ground, the velocity and the acceleration at this instant,
+where the height should be the highest safety height that space diver shall not pass.
+Based on the statistics gained from program, we claim that the highest safety height
+should be 94 kilometers, while height of 95 kilometers leads to the danger of space
+diver. When we have initial height of 95 kilometers, the acceleration can reach to the
+value of −47.6549m/s2 at the height above the ground as 57.4 kilometers, where the
+acceleration is greater than ﬁve times of gravity acceleration at the same height for the
+ﬁrst time. Furthermore, by monitoring we ﬁnd that the statement of acceleration passing
+5G maintains throughout 3.1 kilometers, until 54.4 kilometers.
+The following are the graphs concerning velocity and acceleration with initial re-
+leasing height of 95 kilometers respectively. We can then conclude that velocity has its
+maximum value as 6.13 × 103m/s, and the diver has its velocity increased till this point
+relatively rapidly and then slows down to roughly 60m/s when it is one kilometer above
+the earth surface. For its acceleration, we ﬁnd that it decreases rapidly to roughly small-
+est value, throughout which the acceleration causes space diver in danger, and maintains
+a steady value about −46m/s2 then increases rapidly till its velocity back to the range
+of subsonic region. Eventually, its acceleration gradually converges to 0. As a matter
+of fact, the maximum velocity has reached to around 10 Mach, which is actually im-
+possible for human body to load. Detailed information related to human body structure,
+functions and so forth should be taken into account in real circumstances, as well as
+more accurate value of physical quantities including air drag coefﬁcient, air density and
+air pressure. More concrete and precise value of highest safety height for releasing can
+be gained by applying model of ﬂat spinning. In general, with the previous assumptions,
+we have the highest safety height for releasing restricted by space diver’s acceleration
+as 94 kilometers.
+
+Problem A
+The University Physics Competition, Team 131
+23
+(a) Model velocity (v-x plot)
+(b) Model acceleration (a-x plot)
+Figure 10: Supersonic model with initial height 95km
+8.2
+Temperature restriction
+In order to explore the temperature restriction on initial height, We build a concept
+model of the earth’s atmosphere. We then use NRLMSIS (2.0) Atmosphere Model to
+simulate the atmospheric environment and get atmospheric temperature data at different
+height.
+By comparison and analyze, we ﬁnd that restricted by the heat tolerance of a space
+suit the the maximum altitude of a space dive should not exceed 120 km.
+8.3
+Flat spin restriction
+Even though ﬂat spin effect is hard to analyze and model numerically, through a
+series of assumptions, we ﬁnally assess the threat of ﬂat spin during a high jump.
+We ﬁrst model the shock wave during the supersonic fall. Though a vital formula,
+we can approximate the pressure difference in front and behind a shock wave at different
+Mach. Then we assume that a little interference can leads to uncontrollable ﬂat spin.
+This spin can be caused by shock wave pressure difference acting on human body model.
+Only when Mach is large enough, the pressure difference can cause deadly spin in a
+short time.
+Though assuming and modelling, we estimate that if a space diver falls from 78 km
+above sea level, pressure difference cause by supersonic effect will leads to dangerous
+ﬂat spin.
+
+Problem A
+The University Physics Competition, Team 131
+24
+9
+Conclusion
+In this paper, various dangers that space diver may encounter throughout the process
+of jumping are analyzed and discussed, including large acceleration, high temperature,
+shock wave and ﬂat spin. Among them, we mainly focus on the restriction due to ac-
+celeration, and assume that ﬁve times of gravity acceleration can bring danger to space
+diver. With data modeling and equation deducing, we obtained equations or sets of
+statistics including temperature, air density and speed of sound with respect to distant
+to the ground. With these basic information, we form the model of space diver’s veloc-
+ity and acceleration, consisting of three states known as ﬁrst subsonic stage, supersonic
+stage and second subsonic stage, affected by both the gravity and the drag force pro-
+duced by air. Solving the model, we have the statistics of values and accelerations with
+interval of 100 meters starting from the releasing position to one kilometer above the
+earth surface, corresponding to different initial height. Comparing the values of acceler-
+ation with gravity acceleration at corresponding height, we conclude that 94 kilometers
+will be the highest safe height for releasing for space diver, with the assumption that
+space diver can have perfect control of his body postures throughout the entire process.
+Since this model focus on an ideal circumstance, where the assumption of diver’s con-
+trol of body postures is nearly impossible in real situation based on our discussion, we
+have the rough modelling and deducing to discuss the effect of shock wave and ﬂat
+spin. Under shock wave affecting, 5 Mach of velocity will result in pressure ratio of
+9.52 Pt which is dangerous for space diver, while ﬂat spin discussion state that 78 km
+will roughly be the highest initial height for a safe dive.
+Considering main factors together, the maximum altitude from which a person could
+successfully descend to the surface is approximately 80 km.
+
+Problem A
+The University Physics Competition, Team 131
+25
+References
+[1] K. Vasantha Kumar, William T. Norﬂeet, Issues on Human Acceleration Tolerance
+After Long-Duration Space Flights, NASA Technical Memorandum (1992), pages
+2-6, 25
+[2] P ATTARINI JM, B LUE RS, A IKINS LT, L AW J, W ALSHE AD, G ARBINO
+A, T URNEY MW, C LARK JB, Flat Spin and Negative Gz in High-Altitude
+Free Fall: Pathophysiology, Prevention, and Treatment, Aviat Space Environ Med
+2013; 84:961 70.
+[3] NASA Communication Spacewalk Spacesuit Basics, NASA OCT 04, 2019.
+https://www.nasa.gov/centers-and-facilities/johnson/
+spacewalk-spacesuit-basics/ Accessed 04 Nov. 2023.
+[4] Zell,
+Holly
+(2015-03-02).
+Earth’s
+Upper
+Atmosphere,
+NASA.
+https:
+//www.nasa.gov/image-article/earths-upper-atmosphere/
+#.VHg5AzHF8vY Accessed on 04 Nov. 2023.
+[5] U.S. Government Printing Ofﬁce, Washington, D.C.(1976). Standard Atmosphere,
+NASA. https://ntrs.nasa.gov/citations/19770009539
+[6] NASA, Oblique Shock Wave. https://www.grc.nasa.gov/www/k-12/
+airplane/oblique.html
+[7] José M Colino and Antonio J Barbero 2013 Eur. J. Phys. 34 841.
+[8] Community Coordinated Modeling Center https://ccmc.gsfc.nasa.
+gov/ Accessed on 04 Nov. 2023.
+
+Problem A
+The University Physics Competition, Team 131
+26
+A
+Supersonic Fall.m
+Code of the physical model of the entire space diving process.
+1
+clearvars,clc;
+2 T1 = [280.5 274.6 269.7 265.0 259.8 253.5 246.1 238.3 230.9 224.6 ...
+3 220.0 217.4 216.2 215.9 216.0 216.0 215.5 214.5 213.2 212.0 211.0 ...
+4 210.3 210.0 209.9 210.0 210.3 210.7 211.3 212.0 213.0 214.4 216.2 ...
+5 218.4 220.9 223.6 226.4 229.1 231.8 234.6 237.4 240.2 243.2 246.2 ...
+6 249.0 251.6 253.8 255.3 256.2 256.6 256.6 256.2 255.5 254.6 253.6 ...
+7 252.4 251.2 249.8 248.5 247.0 245.4 243.7 241.9 239.9 237.8 235.6 ...
+8 233.2 230.8 228.2 225.6 222.9 220.3 217.7 215.1 212.7 210.3 208.0 ...
+9 205.9 203.9 202.2 201.1 200.7 201.3 202.8 205.1 207.8 210.5 212.8 ...
+10 214.2 214.7 214.4 213.3 211.6 209.4 206.7 203.7 200.4 197.2 194.2 ...
+11 191.5 189.2 187.6 186.7 186.6 187.6 189.8 193.4 198.5 205.0 212.9 ...
+12 222.4 233.3 245.6 259.4 274.4 290.4 306.7 323.2 339.6 355.8 371.7 ...
+13 387.2 402.2 416.6 430.5 443.8 456.7 469.3 481.6 493.6 505.2 516.6 ...
+14 527.6 538.4 548.9 559.2 569.1 578.9 588.3 597.6 606.6 615.4 623.9 ...
+15 632.3 640.4 648.3 656.0 663.5 670.9 678.0 685.0];
+16 T = transpose(T1);
+17 Alt = [0];
+18 Alt0 = 0;
+19 for i=1:149
+20
+Alt0 = Alt0+2;
+21
+Alt = [Alt,Alt0];
+22 end
+23 %xspan = [0,1000];
+24 xspan = [0,1,2].*100;
+25 %V0 = 0;
+26 U0=0;
+27 Cd = 1;
+28 A = 0.18;
+29 Index = 0;
+30 NIndex = 0;
+31 N2Index = 0;
+32 iexit1 = 1000000;
+33 iexit2 = 1000000;
+34 flag = 0;
+35 U = [U0];
+36 U10 = U(end);
+37 %h = 39000;
+38 Maxa = [];
+39 Maa = [];
+40 Mia = [];
+41 MaxMach = [];
+42 for j=70:1:90
+43
+h = j*1000;
+44
+Cs = [sqrt(1.4*8.314*T(h/1000))];
+45 for i=2:(h/100-10)
+
+Problem A
+The University Physics Competition, Team 131
+27
+46
+Cs0 = sqrt(1.4*8.314*T(h/1000-floor((i-1)/10))/(29*10^(-3)));
+47
+Cs = [Cs,Cs0];
+48
+if Index==0 && sqrt(U10)<=0.8*sqrt(1.4*8.314*T(h/1000-floor((i-1)
+/10))/(29*10^(-3)))
+49
+[x,U] = ode45(@(x,U) 2.*(3.979*10^14./(6.371*10^6 + h - x).^2
+- ((1/380).*Cd.*A*5.236*10^13).*exp(-805.525.*(h - x)
+./(6.371*10^6 + h - x))./((6.371*10^6 + h - x).^2).*U),xspan,U0);
+50
+U10 = U(end);
+51
+a = 3.979*10^14./(6.371*10^6 + h - x).^2 - ((1/380).*Cd.*A
+*5.236*10^13).*exp(-805.525.*(h - x)./(6.371*10^6 + h - x))
+./((6.371*10^6 + h - x).^2).*U;
+52
+xspan0 = xspan(end);
+53
+xspan = [xspan,xspan0+100];
+54
+U1 = U;
+55
+a1 = a;
+56
+Num = length(U1);
+57
+Nxspan = [Num-1,Num,Num+1].*100;
+58
+elseif sqrt(U10)>0.8*sqrt(1.4*8.314*T(h/1000-floor((i-1)/10))
+/(29*10^(-3)))
+59
+iexit1 = i;
+60
+if Index~=2 && Index~=1
+61
+[x,U13] = ode45(@(x,U13) 2.*(3.979*10^14./(6.371*10^6 + h
+- x).^2 - ((1/380).*Cd.*A*5.236*10^13).*exp(-805.525.*(h - x)
+./(6.371*10^6 + h - x))./((6.371*10^6 + h - x).^2).*U13),Nxspan,
+U10);
+62
+U10 = U13(2);
+63
+Index = 1;
+64
+U = [];
+65
+a = [];
+66
+Cd = 5;
+67
+A = 0.2;
+68
+continue
+69
+end
+70
+if Index == 1
+71
+U10 = U1(end);
+72
+[x,U11] = ode45(@(x,U11) 2.*(3.979*10^14./(6.371*10^6 + h
+- x).^2 - ((1/380).*Cd.*A*5.236*10^13).*exp(-805.525.*(h - x)
+./(6.371*10^6 + h - x))./((6.371*10^6 + h - x).^2).*U11),Nxspan,
+U10);
+73
+U12 = U11(2:end);
+74
+x12 = x(2:end);
+75
+a12 = 3.979*10^14./(6.371*10^6 + h - x12).^2 - ((1/380).*
+Cd.*A*5.236*10^13).*exp(-805.525.*(h - x12)./(6.371*10^6 + h - x12
+))./((6.371*10^6 + h - x12).^2).*U12;
+76
+U1 = [U1;U12];
+77
+a1 = [a1;a12];
+78
+U10 = U1(end);
+79
+Nxspan0 = Nxspan(end);
+80
+Nxspan = [Nxspan,Nxspan0+100];
+
+Problem A
+The University Physics Competition, Team 131
+28
+81
+Index=2;
+82
+else
+83
+[x,U11] = ode45(@(x,U11) 2.*(3.979*10^14./(6.371*10^6 + h
+- x).^2 - ((1/380).*Cd.*A*5.236*10^13).*exp(-805.525.*(h - x)
+./(6.371*10^6 + h - x))./((6.371*10^6 + h - x).^2).*U11),Nxspan,
+U10);
+84
+U12 = U11(end);
+85
+x12 = x(end);
+86
+a12 = 3.979*10^14./(6.371*10^6 + h - x12).^2 - ((1/380).*
+Cd.*A*5.236*10^13).*exp(-805.525.*(h - x12)./(6.371*10^6 + h - x12
+))./((6.371*10^6 + h - x12).^2).*U12;
+87
+U1 = [U1;U12];
+88
+a1 = [a1;a12];
+89
+U10 = U1(end);
+90
+Nxspan0 = Nxspan(end);
+91
+Nxspan = [Nxspan,Nxspan0+100];
+92
+end
+93
+U2 = U1;
+94
+a2 = a1;
+95
+NNum = length(U1);
+96
+NNxspan = [];
+97
+NNxspan = [NNum-1,NNum,NNum+1].*100;
+98
+elseif Index~=0 && sqrt(U10)<=0.8*sqrt(1.4*8.314*T(h/1000-floor((
+i-1)/10))/(29*10^(-3))) && h-(i*100)>25000
+99
+iexit2 = i;
+100
+if NIndex~=2 && NIndex~=1
+101
+[x,U23] = ode45(@(x,U23) 2.*(3.979*10^14./(6.371*10^6 + h
+- x).^2 - ((1/380).*Cd.*A*5.236*10^13).*exp(-805.525.*(h - x)
+./(6.371*10^6 + h - x))./((6.371*10^6 + h - x).^2).*U23),Nxspan,
+U10);
+102
+U10 = U23(2);
+103
+Cd = 1;
+104
+A = 0.18;
+105
+NIndex = 1;
+106
+continue
+107
+end
+108
+if NIndex==1
+109
+U10 = U2(end);
+110
+[x,U21] = ode45(@(x,U21) 2.*(3.979*10^14./(6.371*10^6 + h
+- x).^2 - ((1/380).*Cd.*A*5.236*10^13).*exp(-805.525.*(h - x)
+./(6.371*10^6 + h - x))./((6.371*10^6 + h - x).^2).*U21),NNxspan,
+U10);
+111
+U22 = U21(2:end);
+112
+x22 = x(2:end);
+113
+a22 = 3.979*10^14./(6.371*10^6 + h - x22).^2 - ((1/380).*
+Cd.*A*5.236*10^13).*exp(-805.525.*(h - x22)./(6.371*10^6 + h - x22
+))./((6.371*10^6 + h - x22).^2).*U22;
+114
+U2 = [U2;U22];
+115
+a2 = [a2;a22];
+
+Problem A
+The University Physics Competition, Team 131
+29
+116
+U10 = U2(end);
+117
+NNxspan0 = NNxspan(end);
+118
+NNxspan = [NNxspan,NNxspan0+100];
+119
+NIndex=2;
+120
+else
+121
+[x,U21] = ode45(@(x,U21) 2.*(3.979*10^14./(6.371*10^6 + h
+- x).^2 - ((1/380).*Cd.*A*5.236*10^13).*exp(-805.525.*(h - x)
+./(6.371*10^6 + h - x))./((6.371*10^6 + h - x).^2).*U21),NNxspan,
+U10);
+122
+U22 = U21(end);
+123
+x22 = x(end);
+124
+U2 = [U2;U22];
+125
+a22 = 3.979*10^14./(6.371*10^6 + h - x22).^2 - ((1/380).*
+Cd.*A*5.236*10^13).*exp(-805.525.*(h - x22)./(6.371*10^6 + h - x22
+))./((6.371*10^6 + h - x22).^2).*U22;
+126
+a2 = [a2;a22];
+127
+U10 = U2(end);
+128
+NNxspan0 = NNxspan(end);
+129
+NNxspan = [NNxspan,NNxspan0+100];
+130
+end
+131
+U1 = U2;
+132
+a1 = a2;
+133
+Num = length(U1);
+134
+Nxspan = [];
+135
+Nxspan = [Num-1,Num,Num+1].*100;
+136
+elseif Index~=0 && sqrt(U10)<=0.8*sqrt(1.4*8.314*T(h/1000-floor((
+i-1)/10))/(29*10^(-3))) && h-(i*100)<=25000
+137
+if N2Index~=2 && N2Index~=1
+138
+if iexit1<iexit2
+139
+N3xspan = NNxspan;
+140
+else
+141
+N3xspan = Nxspan;
+142
+end
+143
+[x,U33] = ode45(@(x,U33) 2.*(3.979*10^14./(6.371*10^6 + h
+- x).^2 - ((1/380).*Cd.*A*5.236*10^13).*exp(-805.525.*(h - x)
+./(6.371*10^6 + h - x))./((6.371*10^6 + h - x).^2).*U33),Nxspan,
+U10);
+144
+U10 = U33(2);
+145
+Cd = 1.2;
+146
+A = 0.8;
+147
+N2Index = 1;
+148
+continue
+149
+end
+150
+if N2Index==1
+151
+U10 = U1(end);
+152
+[x,U31] = ode45(@(x,U31) 2.*(3.979*10^14./(6.371*10^6 + h
+- x).^2 - ((1/380).*Cd.*A*5.236*10^13).*exp(-805.525.*(h - x)
+./(6.371*10^6 + h - x))./((6.371*10^6 + h - x).^2).*U31),N3xspan,
+U10);
+
+Problem A
+The University Physics Competition, Team 131
+30
+153
+U32 = U31(2:end);
+154
+x32 = x(2:end);
+155
+a32 = 3.979*10^14./(6.371*10^6 + h - x32).^2 - ((1/380).*
+Cd.*A*5.236*10^13).*exp(-805.525.*(h - x32)./(6.371*10^6 + h - x32
+))./((6.371*10^6 + h - x32).^2).*U32;
+156
+a2 = [a2;a32];
+157
+U2 = [U2;U32];
+158
+U10 = U2(end);
+159
+N3xspan0 = N3xspan(end);
+160
+N3xspan = [N3xspan,N3xspan0+100];
+161
+N2Index=2;
+162
+else
+163
+[x,U31] = ode45(@(x,U31) 2.*(3.979*10^14./(6.371*10^6 + h
+- x).^2 - ((1/380).*Cd.*A*5.236*10^13).*exp(-805.525.*(h - x)
+./(6.371*10^6 + h - x))./((6.371*10^6 + h - x).^2).*U31),N3xspan,
+U10);
+164
+U32 = U31(end);
+165
+x32 = x(end);
+166
+U2 = [U2;U32];
+167
+a32 = 3.979*10^14./(6.371*10^6 + h - x32).^2 - ((1/380).*
+Cd.*A*5.236*10^13).*exp(-805.525.*(h - x32)./(6.371*10^6 + h - x32
+))./((6.371*10^6 + h - x32).^2).*U32;
+168
+a2 = [a2;a32];
+169
+U10 = U2(end);
+170
+N3xspan0 = N3xspan(end);
+171
+N3xspan = [N3xspan,N3xspan0+100];
+172
+end
+173
+U1 = U2;
+174
+a1 = a2;
+175
+Num = length(U1);
+176
+end
+177 end
+178 Csfinal = sqrt(1.4*8.314*T(h/1000-floor((h/100-10)/10))/(29*10^(-3)))
+;
+179 Cs = [Cs,Csfinal];
+180 Cs = transpose(Cs);
+181 V = sqrt(U1);
+182 Mach = V./Cs;
+183 MaxMach = [MaxMach,max(Mach)];
+184 %S = [h:-100:1000];
+185 %plot(S,V);
+186 %plot(S,a1);
+187 disp(h);
+188 aNum = length(a1);
+189 aAbs = abs(a1);
+190 Maxa = [Maxa,max(aAbs)];
+191 Maa = [Maa,max(a1)];
+192 Mia = [Mia,min(a1)];
+193 Times = 0;
+
+Problem A
+The University Physics Competition, Team 131
+31
+194 for k = 1:aNum
+195 if a1(k)<=-5*(3.979*10^14./(6.371*10^6 + h - (k-1)*10)^2)
+196
+Times = Times+1;
+197
+disp(h);
+198
+disp((k-1)*100);
+199
+disp(h-(k-1)*100);
+200
+disp(sqrt(U2(k)));
+201
+disp(a1(k));
+202
+flag = 1;
+203
+break
+204 elseif a1(k)>-5*(3.979*10^14./(6.371*10^6 + h - (k-1)*10)^2) && Times
+~=0
+205
+break
+206 end
+207 end
+208 xspan = [0,1,2].*100;
+209 a1 = [];
+210 a2 = [];
+211 V = [];
+212 U1 = [];
+213 U2 = [];
+214 U0=0;
+215 Cd = 1;
+216 A = 0.18;
+217 Index = 0;
+218 NIndex = 0;
+219 N2Index = 0;
+220 iexit1 = 1000000;
+221 iexit2 = 1000000;
+222 U = [U0];
+223 U10 = U(end);
+224 end
+225
+226
+
+Problem A
+The University Physics Competition, Team 131
+32
+B
+Mach.m
+Code of Mach calculating and ﬂat spinning model.
+1
+clearvars, clc;
+2 M = [7.40489543367327 7.76218304495451 8.11772458138331
+8.53847045648394 ...
+3
+8.9201542450429 9.37072425154140 9.78510649681305
+10.2177871605247 ...
+4
+10.7052900916285 11.1628561506380 11.6329635935257
+12.1190359235425 ...
+5
+12.6142263294677 13.1812581750441 13.6459671421466
+14.1934478412229 ...
+6
+14.7322269761828 15.3062212491345 15.8215793325490
+16.4094197087820 ...
+7
+17.0156325965005]; %
+8 Ratio = zeros(21,1); %upstream p and downstream p ratio
+9 F = zeros(21,1);
+10 X = 70000:1000:90000;
+11 Y = 171.9*ones(21,1);
+12
+13 for i = 1:21 %-
+14
+Ratio(i) = 1/(((2.4*M(i)*M(i)*0.75)/(0.4*M(i)*M(i)*0.75+2))^(3.5)
+* ...
+15
+((2.4)/(2*1.4*M(i)*M(i)*0.75 - 0.4))^(2.5));
+16 end
+17
+18 for p = 1:21
+19
+F(p) = 0.01* (Ratio(p) - 1) * 89.51488;
+20 end
+21
+22 figure
+23 B = bar(X,M,0.5);
+24 for f = 1:3:21
+25
+text(X(f),M(f),num2str(M(f)),...
+26
+’Fontsize’,10,’HorizontalAlignment’,’center’,...
+27
+’VerticalAlignment’,’bottom’);
+28 end
+29
+30 %
+31 B.FaceColor = [109 109 210]./255;
+32 B.LineWidth = 0.5;
+33 xlabel( ’H(m)’,’Fontsize’,12,’Interpreter’, ’none’ );
+34 legend({’Max Mach’},’Fontsize’,12,’Location’, ’NorthWest’, ’
+Interpreter’, ’none’);
+35 ylabel( ’Mach’,’Fontsize’,12,’Interpreter’, ’none’ );
+36 grid on
+37
+38 figure
+
+Problem A
+The University Physics Competition, Team 131
+33
+39 Bb = bar(X,F,0.5);
+40 for f = 1:3:21
+41
+text(X(f),F(f),num2str(F(f)),...
+42
+’Fontsize’,10,’HorizontalAlignment’,’center’,...
+43
+’VerticalAlignment’,’bottom’);
+44 end
+45
+46 %
+47 Bb.FaceColor = [252 202 12]./255;
+48 Bb.LineWidth = 0.5;
+49 hold on
+50 plot(X,Y,’LineWidth’,1.5,’Color’,[0 0 0.75])
+51 xlabel( ’H(m)’,’Fontsize’,12,’Interpreter’, ’none’ );
+52 legend({’Estimate force’,’Dangerous line’})
+53 set(legend,’Fontsize’,12,’Location’, ’NorthWest’, ’Interpreter’, ’
+none’);
+54 ylabel( ’Force(N)’,’Fontsize’,12,’Interpreter’, ’none’ );
+55
+56
+57 grid on
+58
+59

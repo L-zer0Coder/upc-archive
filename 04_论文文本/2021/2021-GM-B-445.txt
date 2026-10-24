@@ -1,0 +1,598 @@
+Asteroid ocean impact and its relationship with the
+mass of the object.
+Team 445
+Problem B
+Abstract
+In this paper the relationship between an asteroid impact into water and mass of
+the asteroid was discussed. The main goal was to find the smallest mass of the asteroid
+whose impact could threaten remote coastal city. To achieve this goal the theoretic
+model was discussed. Because of the conclusion that the leading factor of causing
+damage to the city were tsunami waves, only their propagation was modelled and the
+model was also discussed. The smallest possible asteroid mass for generating tsunami
+waves about 10 metres was estimated to be about 1010 kg. Such mass corresponds to
+an asteroid with radius of about 97 metres. To show the scale of damage caused also
+range of the tsunami was calculated. This value was estimated at about 715 metres.
+These results have been considered to be possible. Possible ways to increase accuracy
+of the model were also discussed.
+1
+
+Contents
+1
+Introduction
+3
+2
+Problem analysis
+3
+3
+Made assumptions
+3
+4
+Theoretical model
+4
+4.1
+Atmospheric entry
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+4.1.1
+Forces acting on the asteroid . . . . . . . . . . . . . . . . . . . . . .
+4
+4.1.2
+Ablation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+4.1.3
+Solution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+4.1.4
+Fragmentation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+4.2
+Impact . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+4.2.1
+Energy transfer . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+4.2.2
+Tsunami wave . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+4.2.3
+Air blast wave . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+4.2.4
+Seismic wave
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+4.3
+Propagation of tsunami waves . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+4.4
+Run-up of tsunami wave . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+5
+Simulation
+9
+5.1
+Atmospheric entry
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9
+5.2
+Deep water propagation of tsunami waves
+. . . . . . . . . . . . . . . . . .
+9
+5.3
+Run-up of tsunami wave . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12
+6
+Results discussion
+13
+7
+Summary
+15
+2
+
+1
+Introduction
+Asteroid impacts are one of the most hazardous astronomical phenomena that can nowa-
+days happen on Earth. We can divide them into two categories: an impact into land and an
+impact into ocean. Each of them requires different theoretical approach and needs different
+theoretical model to predict what happens during and after the impact. In this paper we
+will only discuss marine impacts and their effects, such as generation of air blast waves,
+tsunami waves and seismic waves. We will also discuss how these impacts can threaten
+coastal cities.
+2
+Problem analysis
+The main task is to estimate the smallest mass that can cause significant damage to a
+coastal city. For this problem the city is about 1000 km from the impact site. Firstly, a good
+idea is to simulate, how much kinetic energy would the asteroid transfer to environment
+upon the impact. Therefore we need to calculate kinetic energy loss during traversing
+through the atmosphere and from that, the velocity of the asteroid upon impact.
+Knowing approximately how much energy was transferred to air, water and the ocean
+bed, we can simulate propagation of waves generated due to the impact. We will base it
+on existing models of wave propagation in each medium. Having working simulations, it
+is possible to obtain physical parameters of these waves.
+Then, physical parameters of these waves will be used to estimate factors, such as
+height of the tsunami wave, energy of the air blast wave and amplitude of seismic waves,
+which are direct cause of destruction of the city. Given that, we can define what is a
+substantial damage in that case. By substantial damage we can assume damage made by
+tsunami wave about 10 metres high, blast wave that destroys smaller building or seismic
+wave with magnitude of about 7 Richter. Each of these factors has been defined based on
+destruction caused by each of these waves in the past. For the seismic and the blast wave
+we estimated value based on appropriate tables, for the tsunami wave, based on historical
+data, we estimated that wave 5 metres high is high enough to cause substantial damage
+to building and harm people inside. For the tsunami wave we can also estimate how deep
+inland it can go.
+Given the conditions and physical parameters of waves dependent on mass of the as-
+teroid we can find smallest mass for which one of these conditions will be met.
+3
+Made assumptions
+To compute a simulation in a really short time, a lot of assumptions is needed to be made.
+Most of them has its own explanation in the Theoretical model section. All of them are
+listed below:
+• the asteroid is a spherical body up to impact
+3
+
+• the asteroid motion is perpendicular to Earth
+• changes of gravitational field are negligible
+• in the best case scenario fragmentation doesn’t occur
+• Earth’s curvature is neglected
+• the deep ocean bed is flat and has constant depth
+• density of water is uniform
+• density of air in Earth’s atmosphere changes exponentially
+• impact cavity is radially symmetrical and has parabolic cross section
+• impact cavity diameter to depth ratio is fixed
+• tsunami wave propagation is cylindrically symmetrical
+• blast wave propagation is spherically symmetrical
+• heat radiation impact on the city is negligible
+• ocean water is an incompressible medium
+4
+Theoretical model
+4.1
+Atmospheric entry
+In this section we provide theoretical model for asteroid’s motion from the moment of
+entering atmosphere up to the impact with the ocean surface. In particular we derive how
+mass, size and velocity of the projectile change during that process.
+We assume that the asteroid is a spherical body with initial mass m0, constant density
+ρast and its motion in Earth’s atmosphere is perpendicular to Earth’s surface.
+4.1.1
+Forces acting on the asteroid
+During the atmospherical entry there are two forces acting on the body: drag force Fd and
+gravitational force Fg, which are described by equations
+Fd = 1
+2CdSρatm ˙x2,
+(1)
+Fg = −mg
+(2)
+where m, S and x are mass, cross section area and height above the ocean of the projectile,
+g is gravitational acceleration, ρatm is density of the atmosphere and Cd is drag coefficient
+4
+
+of the asteroid. Changes in g are negligible in our region of interest (Earth’s atmosphere),
+so we will assume that g is constant.
+From Newton’s second law we derive the equation of motion of the projectile
+d
+dt(m ˙x) = ˙m ˙x + m¨x = −mg + 1
+2CdSρatm ˙x2,
+(3)
+where after substituting η = 1
+2CdSρatm for simplicity we get
+˙m
+m ˙x + ¨x = −g + η
+m ˙x2.
+(4)
+In order to solve this differential equation we need to find relation between ˙m and x, which
+is obtain in the next paragraph.
+4.1.2
+Ablation
+In order to account for mass loss due to ablation, let’s consider mechanical energy Q of
+the asteroid in a given moment
+Q = 1
+2m ˙x2 + mgx.
+(5)
+This energy is converted into heat with rate
+˙Q = ˙m
+ ˙x2
+2 + gx
+
++ m ˙x(¨x + g).
+(6)
+Now, notice that during ablation some vaporised mass ˙m detaches from the asteroid keeping
+its mechanical energy ˙m
+
+˙x2
+2 + gx
+
+. Remaining energy is the energy needed to vaporise
+this mass, which is described by the second part m ˙x(¨x + g), so we get
+Cp ˙m = m ˙x(¨x + g)
+(7)
+where Cp is heat of vaporisation of the asteroid material.
+4.1.3
+Solution
+Substituting ˙m from equation (7) into equation (4) and solving for ¨x gives us following
+formula
+¨x = −g +
+η ˙x2
+m(1 + ˙x2
+Cp)
+(8)
+This allows us to rewrite equation (7) for mass loss due to vaporisation in explicit form
+Cp ˙m = m ˙x
+η ˙x2
+m(1 + ˙x2
+Cp) = −η ˙x3
+1 + ˙x2
+Cp
+.
+(9)
+Obtained formula agrees with results from [1] and generalises that result in case, when the
+mass lost during the entry is not negligible compared to the initial mass of the asteroid.
+We will use the formula (8) to calculate the final velocity of the impactor.
+5
+
+4.1.4
+Fragmentation
+During traversing through the atmosphere due to differential atmospheric pressure, frag-
+mentation can occur. Atmospheric pressure on the leading face is much greater than on
+the tailing face when the pressure on the leading face exceeds characteristic strength of the
+material. In this process the asteroid is fragmented into smaller objects and because of
+that ablation rate and deceleration increases and it is less likely for the asteroid to reach
+the surface and energy dissipates only in air. Fragmentation doesn’t occur for objects with
+diameter much greater than 1 km. In our case we assume best case scenario – fragmenta-
+tion doesn’t occur and the asteroid reaches the surface [1] which allows the biggest amount
+of energy to dissipate in water, air and the ocean bed.
+4.2
+Impact
+In this section we provide theoretical model of the impact of the asteroid with the ocean
+surface.
+The model is based on cited papers [2] and [3].
+We also won’t discuss heat
+radiation emitted during impact, because it dissipates really quickly into water and if it
+should affect the city in any way, first it would have to vaporise all of the ocean on its way.
+4.2.1
+Energy transfer
+The impact velocity of the asteroid is for most cases big enough for the ocean surface to
+behave like a solid and thus for asteroids impact velocities moment of the impact into water
+looks in a big approximation like the impact into land. Due to the impact air blast wave is
+generated because of rapid increase of air temperature and pressure. Upon the impact an
+ocean cavity forms instantaneously, which collapses moments later and generates tsunami
+waves. Then the asteroid traverses through water and is slowed down by the water drag
+force. The asteroid losses its kinetic energy which is transferred to water and amplifies
+generated tsunami waves. Upon hitting the ocean bed the asteroid generates seismic waves
+and, if it has enough velocity, even a crater [3].
+4.2.2
+Tsunami wave
+As was previously stated, upon hitting the ocean surface the asteroid creates impact cavity.
+As proposed by Ward [2] the cavity for the moderate size asteroids has a radially symmetric,
+parabolic shape of depth DC and inner and outer radii RC and RD. After Ward [2] we will
+assume that RD =
+√
+2RC, because in that way we minimise energy loss due to splashed
+water not contributing to tsunami waves generation. In this case the formula for DC is
+DC =
+s
+2ϵρastv2
+IR3
+ρwgR2
+C
+(10)
+where ϵ is a fraction of the kinetic energy of the asteroid which contributes to generating
+the tsunami, vI is the impact velocity of the asteroid, R is its radius and ρw is the density
+6
+
+of water. According to Ward [2], ϵ holds rather constant and its value is ϵ ≈0, 15. That
+value was calculated based on data from tests conducted with explosives which simulated
+the asteroid impact. Following the data from experiments shown by Ward [2], we can make
+simplification of fixing the diameter to depth ratio. Equation (10) then reduces to
+DC = dC
+3 =
+8ϵρastv2
+I
+9ρwg
+ 1
+4
+R
+3
+4
+(11)
+where dC is the diameter of the cavity. It is also a good idea to consider what would
+happen if the depth of the cavity was greater than the depth of the ocean bed. For a deep
+ocean that would happen only for really massive asteroids. In this scenario the depth of
+the real cavity equals depth of the ocean bed and the crater in the ocean bed is made, as
+suggested in [3].
+4.2.3
+Air blast wave
+Air blast wave is generated at the moment when the asteroid hits the ocean surface. About
+15% to 20% of kinetic energy of the asteroid contributes to air blast wave generation [5].
+First, we want to only estimate wave intensity near the city. We do this to determine
+which wave would cause substantial damage to city for the smallest possible mass. For air
+blast wave parameter that we want to estimate is its intensity. For this simple estimation
+we assume that almost none energy is lost during propagation, propagation is spherically
+symmetrical and waves reflected from the ocean surface don’t affect the rest.
+We can
+assume that because we want only estimation which doesn’t have to be as accurate as
+possible. Because of propagation being a 3 dimensional problem the air blast wave intensity
+changes like
+1
+r2. According to Ward [2] we know that the amplitude of the tsunami wave,
+which is its parameter defining destructive capabilities, changes like
+1
+√r. Because energy
+which contributes to generation of both waves is similar, we can conclude that for greater
+distances, like 1000 km, tsunami waves will have bigger impact on the city than air blast
+waves and thus we don’t need to model their propagation accurately.
+4.2.4
+Seismic wave
+Seismic waves are generated when the asteroid hits the ocean bed. Because of most energy
+being transferred to water and air earlier, only a small fraction of impact kinetic energy
+contributes to seismic waves generating. According to calculations less than 1% of kinetic
+energy is transformed into seismic waves energy [5]. Considering that we can deduce that
+seismic waves will play minor role in our simulation, because their energy is much smaller
+than that of the other waves.
+4.3
+Propagation of tsunami waves
+Without loss of generality we can assume that propagation of tsunami waves is cylindrically
+symmetrical and we can reduce the wave propagation to a 2 dimensional problem. In
+7
+
+general we need to solve system of nonlinear differential equations when we encounter this
+type of problem, but instead of that we will try to simplify problem using linearised set
+of equations. In our solution we will try to find a solution for set of basic initial functions
+and then compose our general solution as linear combination of basic solutions. Following
+Ward in his lecture [4] where he derives formula for ocean surface elevation from wave
+equation, elevation as a function of distance, depth and time is given
+u(x, 0, t) = Re
+Z ∞
+−∞
+dku0(k)
+2π
+exp(i(kx −ω(k)t))
+
+(12)
+where u0(x) are elevation initial conditions, k is a wave number, ω = 2πf and f is a wave
+frequency. In Ward’s derivation of formula (12) one crucial assumption has been made.
+We assume that ocean bed has uniform depth, which allows us to neglect small changes in
+depth that could cause disturbances in wave propagation which could highly complicate
+simulation, but wouldn’t affect our estimations in any significant way.
+Ward [2] also derives from equation (12) the formula for maximum height (amplitude)
+for a given distance r from the impact site and depth h. It is given by
+u(r, h)max = DC
+ 
+1
+1 +
+r
+RC
+!
+0,5+(γ1−0,5) exp(γ2
+RC
+h )
+
+(13)
+where γ1 and γ2 are constants calculated by fitting the function to the experimental data.
+According to Ward [2] their values are γ1 = 1, 075 and γ2 = −0, 035.
+Additionally, we can assume that ocean water is incompressible, which effectively says,
+that we neglect all the overtones, as described by Ward [4].
+That leads to dispersion
+equation for gravitational waves in deep water
+ω2 = gk tanh(kH)
+(14)
+which can be solved numerically both for ω(k) and k(ω) and used in equation (12).
+As the wave propagation formula (12) assume constant ocean depth, it doesn’t hold
+for the continental shelf, where the depth changes rapidly. Hence, we have to use another
+model for that part of motion.
+While research was conducted, another tsunami wave propagation model has been
+found.
+It is called shallow water wave model and is based on similar assumptions as
+Ward’s model [6]. For a significant distance from the impact site, where wave propagation
+stabilises, tsunami wave propagation behaves really similar to the model used in this paper.
+However it doesn’t account for effect of the impact on initial tsunami wave amplitude and
+velocity. Because of that we decided no to use that model in our estimations.
+4.4
+Run-up of tsunami wave
+When the tsunami wave approaches the continental shelf, Ward’s wave propagation formula
+(12) starts to overestimate wave’s height. That part of movement of the tsunami wave is
+8
+
+crucial to modelling how hazardous it is as in this part the process called run-up occurs. The
+run-up is a rapid increase of wave’s amplitude at expense of wave’s velocity. Because water
+wave’s energy depends on its amplitude and ocean bed depth, given the approximation that
+the wave’s energy is conserved, which holds true in most cases, with decrease of depth,
+wave’s amplitude raises [2]. On the other hand wave’s kinetic energy depends on velocity,
+so if mechanical energy is constant and amplitude raises, the wave has to slow down. Ward
+[2] approaches the problem in a similar manner and using Green’s theorem he estimates
+tsunami height as
+H = A
+4
+5(r)h
+1
+5(r)
+(15)
+where we take amplitude A and depth h at any near shore distance where A < h. Moreover
+we can estimate how deep inland such a wave can go. Following Ward’s estimation [7],
+assuming that the land is flat, we are given formula for the inland distance
+X(R, H) ≈10
+p
+gH(2R)
+3
+8
+(16)
+5
+Simulation
+5.1
+Atmospheric entry
+Equations (8) and (9) form a system of differential equations. With given initial values m0,
+v0 = ˙x(0) and x0 = 100km (which is commonly agreed height of Earth’s atmosphere) we
+evolve values of m, x, ˙x using Runge-Kutta method implemented and calculated in Julia
+programming language.
+To account for aerodynamic drag a simple model of isothermic atmosphere is used (ref),
+in which density of air changes exponentially with height
+ρatm(x) = ρsea exp
+
+−x
+xK
+
+(17)
+where ρatm = 1.3 kg
+m3 is atmosphere density at sea level and xK = 10km is an empirical
+constant.
+We use heat of vaporisation expected for iron and stony asteroids Cp = 8·106 J
+kg [1] and
+drag coefficient typical for a rough sphere of Cx = 0.5 .
+5.2
+Deep water propagation of tsunami waves
+In order to solve our problem we will use sampling to represent our initial situation as
+set of initial solutions. Simulation of evolution of u(x, 0, t) from equation (12) is possible
+by using Fast Fourier Transform to find coefficients u0(k) . Then, each coefficient evolves
+independently following the equation
+u0(x, t, k) = u0(k)ei(kx−ω(k)t)
+(18)
+9
+
+where k and ω are related by equation (14) and after time ti we combine the functions
+u0(x, ti, k) using Inverse Fast Fourier Transform to get results. In reality we approximate
+u0 by a discrete function A[x] and use discrete forward and inverse transforms. This allows
+to get credible results in reasonable time.
+Notice that solution is assumed to be periodical, so in order to get proper result for our
+problem we must solve the equation when all interesting phenomena happen near small
+x compared to the domain. We can use our simulation to learn more about propagation
+of the waves in the ocean.
+In all of our simulations we used model with ocean depth
+H = 4 km. As we can see on the plots typical tsunami wave is composed from various
+waves with different pulsations. Because our dispersion relation is not linear, waves evolve
+with different velocities what we can easily see on Figure 2. We can also confirm, that
+maximal amplitude changes with distance from impact place r like
+1
+√r, what was postulated
+previously.
+10
+
+Figure 1: Propagation of tsunami wave after moments after impact of asteroid with mass
+m = 1010kg. Timestep between subsequent plots is 10 s. For simulation we used 105 points
+equally spaced over (−1000, 1000) range.
+11
+
+Figure 2: Propagation of tsunami wave after impact of asteroid with mass m = 1010kg.
+Timestep is 4000 s. Uses 5 · 105 points equally over (−5000, 5000) range.
+5.3
+Run-up of tsunami wave
+Earlier we assumed uniform ocean depth far from the coast. Around 5 kilometres from
+the coast there is rapid depth decrease as we reach the continental shelf. The slope of the
+continental shelf is about 0, 1◦and in the deepest point it is about 500 metres deep [8]. At
+this point the amplitude of the tsunami wave starts increasing following (15). To calculate
+run-up wave height we can choose any point on the continental shelf, so we will choose the
+point at the begging of the shelf with h = 500 m. Knowing wave height we will calculate
+how far inland the wave will go and we will find the mass that generates wave height of
+about 10 metres.
+12
+
+6
+Results discussion
+First thing to notice is that traversing through the atmosphere, as we expected for high
+velocity objects, does not really affect object’s mass or its speed. With initial velocity of
+about 22 km
+s (which is the value for most of the asteroids in the Solar System that could hit
+the Earth), its impact velocity was calculated to be about 20 km
+s . Example plot of mass,
+height, and velocity during entry can be seen in the Figure 3. As we can observe, for such
+high velocity object the change in velocity and mass are negligible.
+Figure 3: Examples of plots of velocity, height and asteroid’s mass as a functions of time
+during its travel through the atmosphere.
+The maximum wave height calculated from the equation (13) as a function of mass
+at fixed distance of 995 km and depth of 5 km can be seen in the figure 4. As expected
+the function has the asymptote. Knowing the function of the amplitude we calculate the
+tsunami height as a function of mass. The function is shown in the figure 5. As we can
+see the wave height of about 10 metres is produced when the asteroid has mass of about
+1010 kg. Such mass corresponds to the asteroid’s radius R ≈97 m. We also calculate how
+far inland our tsunami wave will go. For tsunami height of about 10 m and the asteroid’s
+radius of about 97 m, the distance travelled by the tsunami is X ≈715 m.
+Tsunami
+waves of about 10 metres can destroy smaller building, kill people who didn’t find shelter
+13
+
+and displace cars and other objects of similar weight. So we can finally conclude that
+the smallest asteroid mass for which ocean impact will cause substantial damage is about
+1010 kg.
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Mass [kg]
+1e10
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+3.5
+Amplitude [m]
+Figure 4: Amplitude of the tsunami wave at fixed distance of 995 km and depth of 5 km
+as a function of mass.
+14
+
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Asteroid mass [kg]
+1e10
+0
+2
+4
+6
+8
+10
+Wave height [m]
+Figure 5: Tsunami wave height near the shore as a function of mass.
+7
+Summary
+While building our theoretical model, we made a lot of assumptions that simplified calcu-
+lations and rendered the problem possible to simulate in a rather short time, but on the
+other hand because of these assumptions and simplifications our answer is quite inaccurate.
+To increase accuracy we should either create better numerical model of wave propagation
+or use simulations called hydrocodes. Unfortunately neither of them could be computed
+during competition so we opted for inaccurate and quantitative solution which has given
+us only an estimation of the exact value.
+There is still a lot of work to be done to find the mass accurately. Moreover during
+research we found other models of water wave propagation, asteroid impact into the ocean
+and energy transfer during the impact. A good idea would be to check these different
+models and compare them with the one used in this paper.
+15
+
+References
+[1] Chyba, C. F., Thomas, P. J., & Zahnle, K. J. (1993). The 1908 Tunguska ex-
+plosion:
+atmospheric disruption of a stony asteroid. Nature, 361(6407), 40–44.
+doi:10.1038/361040a0
+[2] Ward, S. (2000). Asteroid Impact Tsunami: A Probabilistic Hazard Assessment. Icarus,
+145(1), 64–78. doi:10.1006/icar.1999.6336
+[3] Wünnemann, Kai & Collins, Gareth & Weiss, Robert. (2010). Impact of a Cosmic
+Body into Earth’s Ocean and the Generation of Large Tsunami Waves: Insight from
+Numerical Modeling. Reviews of Geophysics. 48. 4006-. 10.1029/2009RG000308.
+[4] Ward, S. (2008). Tsunami Theory (a la Ward). Lecture 1: Nuts and Bolts.
+[5] Rumpf, Clemens & Lewis, Hugh & Atkinson, Peter. (2017). Asteroid Impact Effects
+And Their Immediate Hazards For Human Populations. Geophysical Research Letters.
+accepted. 10.1002/2017GL073191.
+[6] Andrew
+Chadwick
+(2021):
+Shallow-water
+wave
+theory.
+Available
+from
+http://www.coastalwiki.org/wiki/Shallow-water_wave_theory
+[accessed
+on
+7-11-
+2021]
+[7] Chesley, Steven & Ward, Steven. (2006). A Quantitative Assessment of the Human
+and Economic Hazard from Impact-generated Tsunami. Natural Hazards. 38. 355-374.
+10.1007/s11069-005-1921-y.
+[8] Britannica, The Editors of Encyclopaedia. "continental shelf". Encyclopedia Britan-
+nica, 3 Feb. 2012, https://www.britannica.com/science/continental-shelf. Accessed 7
+November 2021.
+16

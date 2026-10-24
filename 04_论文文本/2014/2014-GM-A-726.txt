@@ -1,0 +1,715 @@
+University Physics Competition 2014
+Topic A: Circumbinary Planets
+Team 726
+November 17, 2014
+Abstract
+This paper investigates the stability of planetary orbits around
+a binary star system. We constructed a simulation of the system’s
+behavior over time based on Kepler’s and Newton’s laws of mechan-
+ics and gravitation.
+The resulting system of equations was solved
+numerically using Mathematica and the results were analyzed using
+Mathematica and Matlab. From the results, we can conclude that the
+shortest distance from the center of mass of the given system where
+orbits are still consistently stable after 1000 years is 0.6 AU.
+1
+
+1
+Background
+Stars can exist as single stars or as components of a system of multiple stars
+gravitationally bound to each other and orbiting around their center of mass.
+When pairs of stars are bound in such a way, they are called binary stars.
+Observational studies in the last few decades have shown that there are at
+least as many binary stars in the observable universe as single ones [2] [6].
+This naturally makes it of interest whether or not planetary orbits are stable
+around such star systems. Through the observation of circumbinary planets,
+it is known that these are possible [8]. However, the parameters for stability
+are not very well known.
+A planet in a binary star system is a three body problem and analytical
+solutions for the general case are not possible with our present mathematical
+tools.
+Of particular interest are planets in the habitable zone of the binary star
+system. For circumbinary planets, the irradiance of the star system ﬂuctuates
+more strongly as a function of time than for a similarly located planet in a
+single star system and this must be taken into account.
+2
+Introduction
+This paper looks at the orbit of a planet around a binary star consisting of
+one star with one solar mass and the other with half a solar mass. The period
+of the star system is 30 Earth days.
+The scope of this paper is further narrowed down to planetary motion in
+the plane of the star system, eﬀectively making this a 2-dimensional problem.
+Planets may be found orbiting the entire star system, one of the two stars or
+at the Lagrange points L4 and L5 [4]. This paper focuses on P-type orbits,
+i.e., planets orbiting the entire star system.
+We have used a numerical integration method to model the motion of the
+planet. We deﬁned the time dependent gravitational ﬁeld of the star system.
+Then we formulated the diﬀerential equations describing the motion of the
+planet. We solved these diﬀerential equations for diﬀerent initial conditions
+and ran our simulation up to a time period of 10 years, and for a smaller
+range of values up to 1000 years. At the end of the simulation, we checked
+whether the planet was still in orbit around the star system.
+2
+
+3
+Theory
+3.1
+Equations of motion of the binary star system
+First, we look at the equations of motion of the stars in the star system.
+This is a two body problem that can be converted into an equivalent one
+body problem by placing one of the stars at the origin. Kepler’s third law of
+motion for elliptical orbits is obtained from the equations that follow [10, p
+12]:
+T 2 =
+4π2a3
+G(M1 + M2)
+(1)
+where M1 and M2 are the masses of the two stars.
+Fixing the time period T ﬁxes the separation a between the stars in
+accordance with (1):
+a =
+3
+r
+G(M1 + M2)T 2
+4π2
+(2)
+Transforming back to the center of mass system, one ﬁnds that both stars
+move in elliptical orbits of period T given by (1), with the center of mass at
+one focus. The semi-major axes of each orbit is weighted by the mass of each
+star and adds up to a [10, p 14].
+a1 =
+M2
+M1 + M2
+a
+(3)
+a2 =
+M1
+M1 + M2
+a
+(4)
+With the deﬁnition of the center of mass, we must require that the ec-
+centricities of both the orbits are the same and that the two stars are always
+opposite in phase.
+3.1.1
+Circular orbits
+For a star system with no eccentricity, we ﬁnd that the two stars orbit the
+center of mass in circular orbits. The radii of the orbits are simply the semi
+major axes given by (3).
+The equation of motion of the stars in Cartesian coordinates are then
+written down as:⃗
+r1(t) = a1 cos
+2π
+T t
+
+ˆx + a1 sin
+2π
+T t
+
+ˆy
+(5)
+3
+
+and setting the phase shift on M2 as π:⃗
+r2(t) = −a2 cos
+2π
+T t
+
+ˆx −a2 sin
+2π
+T t
+
+ˆy
+(6)
+3.1.2
+Eccentric orbits
+The semi-major axes of the elliptical orbits are given by (3). A constant term
+is added to the x coordinate to put the center of mass at the origin.
+Then the equations of motion of the stars in Cartesian coordinates, are
+given by:⃗
+r1(t) =
+
+a1 cos
+2π
+T t
+
++ a1ε
+
+ˆx +
+√
+1 −ε2a1 sin
+2π
+T t
+
+ˆy
+(7)⃗
+r2(t) = −
+
+a2 cos
+2π
+T t
+
+−a2ε
+
+ˆx −
+√
+1 −ε2a2 sin
+2π
+T t
+
+ˆy
+(8)
+3.2
+Gravitational ﬁeld of the binary star system
+The gravitational ﬁeld of the two stars can be found at any point around the
+star system using the superposition principle. Under the assumption that
+the planet’s ﬁeld is weak compared to the ﬁeld of the two stars, the ﬁeld at
+the position of the planet⃗r(t) at time t is given by:⃗
+E(t) = G
+M1
+|⃗r1(t) −⃗r(t)|2 + G
+M2
+|⃗r2(t) −⃗r(t)|2
+(9)
+This allows us to write the diﬀerential equations describing the motion of
+the planet around the star system:
+¨⃗r(t) =⃗E(t)
+(10)
+4
+Method
+Ordinary diﬀerential equation (10) was solved numerically using Mathemat-
+ica for various initial conditions up to a time period of 1000 years. Orbits
+were considered stable if:
+1. At ﬁnal time tf, the planet had not reached escape velocity
+1
+2( ˙r(t))2 −G
+M1
+|⃗r1(t) −⃗r(t)| −G
+M2
+|⃗r2(t) −⃗r(t)| < 0
+(11)
+4
+
+2. At any time in its trajectory, the planet was never within one solar
+radius of the position of either of the stars
+For initial conditions, the smallest distance from the center of mass con-
+sidered in the simulation was R2 + 10 solar radii. All smaller distances were
+deemed too close to the outer star to have stable orbits1.
+The largest distance considered was 2 AU. At this distance, the ﬁeld
+calculated by taking the two stars separately is within 3% of the simpliﬁed
+ﬁeld with the mass of both stars located at the center of mass. It was assumed
+that since the system can be approximated as a two-body system, a stable
+conﬁguration exists.
+50 values of planet distances were used starting from 0.19 AU in steps of
+0.04 AU.
+In this simulation, the initial velocities were always chosen to have no
+radial component with respect to the center of mass.
+For each radius, a
+rough estimate for initial velocity that would give a stable conﬁguration was
+found by approximating all the mass of the star system at the center of mass.
+vestimate =
+s
+G(M1 + M2)
+|⃗r(0)|
+(12)
+The range of initial velocities were chosen such that the vestimate for each
+radius was included with a grace interval on either side. The range of initial
+velocities used were 5.0-20.0 AU/yr.
+150 values of initial velocity were taken starting from 5.0 AU/yr in steps
+of 0.1 AU/yr.
+To reduce computation time for the simulation up to 1000 years, the range
+of the radii was reduced to 0.19 - 0.75 AU and the step size in velocities was
+increased by a factor of 3.
+The above was implemented using Mathematica 9. Annotated code has
+been included in Appendix A.
+Plots were made using Mathematica 9 and Matlab R2013b.
+5
+Results
+The following are Mathematica created plots for some speciﬁc conﬁgurations
+at a given time that illustrate three general cases of orbits that we obtained:
+1This was veriﬁed by the results a posteriori.
+5
+
+Figure 1: Snapshot of a stable orbit at t = 1 yr: initial distance from center
+of mass = 0.4 AU, initial velocity = 12.0 AU/yr.
+Figure 2: Snapshot of an unstable orbit at t = 2.6 yr: initial distance from
+center of mass = 0.4 AU, initial velocity = 7.5 AU/yr. Eventually planet
+slingshots around star system and reaches escape velocity.
+6
+
+Figure 3: Snapshot of an unstable orbit at t = 0.351 yr: initial distance from
+center of mass = 0.4 AU, initial velocity = 8.0 AU/yr. Planet collides with
+the smaller star shortly after snapshot.
+7
+
+5.1
+Binary star with circular orbits
+Figure 4: Stable conﬁgurations in the r0-v0 phase space after simulation of
+10 years. Black squares represent data points still considered stable after a
+simulation period of 10 years.
+8
+
+Figure 5: Stable conﬁgurations in the r0-v0 phase space after simulation
+over 1 month, 1 year and 10 years. Black squares represent data points still
+considered stable after a simulation period of 10 years.
+Figure 6: Stable conﬁgurations in the r0-v0 phase space for ε = 0 after
+simulation of 1000 years. Black squares represent data points still considered
+stable after a simulation period of 1000 years.
+9
+
+5.2
+Binary star with ε = 0.4
+Figure 7: Stable conﬁgurations in the r0-v0 phase space for ε = 0.4 after
+simulation of 10 years. Black squares represent data points still considered
+stable after a simulation period of 10 year.
+10
+
+Figure 8: Stable conﬁgurations in the r0-v0 phase space for ε = 0.4 after
+simulation over 1 month, 1 year and 10 years. Black squares represent data
+points still considered stable after a simulation period of 10 years.
+Figure 9: Stable conﬁgurations in the r0-v0 phase space for ε = 0.4 after
+simulation of 1000 years. Black squares represent data points still considered
+stable after a simulation period of 1000 years.
+11
+
+5.3
+Binary star with ε = 0.6
+Figure 10: Stable conﬁgurations in the r0-v0 phase space for ε = 0.6 after
+simulation of 10 years. Black squares represent data points still considered
+stable after a simulation period of 10 years.
+12
+
+Figure 11: Stable conﬁgurations in the r0-v0 phase space for ε = 0.6 after
+simulation over 1 month, 1 year and 10 years. Black squares represent data
+points still considered stable after a simulation period of 10 years.
+Figure 12: Stable conﬁgurations in the r0-v0 phase space for ε = 0.6 after
+simulation of 1000 years. Black squares represent data points still considered
+stable after a simulation period of 1000 years.
+13
+
+6
+Data analysis
+The same trends are seen in plots of all three values of eccentricity. Lower
+radii have stable orbits at higher velocities. The band of stable conﬁgurations
+gets thinner for smaller radii. This corresponds to the fact that eccentric
+orbits are less stable, particularly at smaller radii. A smaller range of initial
+velocities lead to stable orbits.
+The upper bound on each plot is a well deﬁned curve. This is because
+the upper limit is deﬁned by conﬁgurations where the initial conditions give
+the planet escape velocity. This curve is simply given by (11).
+The lower bound displays asymptotic behaviour near initial radius = 0.3
+AU. This would be the minimum radius for which the a planetary orbit could
+be stable. From ﬁgure 6, 9 and 12, we see that the minimum radius for stable
+conﬁguration is further pushed up to 0.45 AU.
+Comparing the conﬁgurations for stable data around star systems with
+diﬀerent eccentricities, we observe that the upper bound is identical. How-
+ever, the band of stable conﬁgurations is thinner for higher eccentricities,
+indicating that there are fewer stable orbits when the star system is more
+eccentric.
+7
+Planets in the habitable zone of the binary
+star system
+Our binary star system has stars with ﬁxed masses and ﬁxed separation.
+This allows us to deﬁne limits for a habitable zone around the star system.
+From our earlier results on whether a stable planetary orbit is possible in
+the region of interest, we can deduce whether or not habitable planets are
+possible in the system.
+We assume that both stars are in their main sequence. For simplicity we
+assume zero eccentricity for the binary star system.
+From literature, a good approximate for the habitable zone of a star is
+given by the following [7]:
+Inner radius =
+r
+Lstar
+1.1
+(13)
+Outer radius =
+r
+Lstar
+0.53
+(14)
+with the radii in astronomical units, and L denoting the absolute luminance.
+14
+
+From this, we derived the maximum and minimum ﬂux that deﬁne the
+boundaries of the habitable zone:
+Fluxmin =
+L
+4πr2
+min
+= 1.1
+4π
+(15)
+Fluxmax =
+L
+4πr2
+max
+= 0.53
+4π
+(16)
+with ﬂux in units associated with AU.
+Good approximates for the luminosity of the two stars can be found
+in terms of solar luminosity, Lsol, using the mass-luminosity relation. The
+luminosity of a star with mass close to half of the solar mass is given by
+( M
+Msol)4Lsol [3, p 458] [7].
+L1 = Lsol
+(17)
+L2 = Lsol
+16
+(18)
+This allows us to calculate the ﬂux at the planet at various positions, or
+speciﬁcally, the maximum and minimum ﬂux at a certain distance from the
+center of mass depending on the relative position of the stars.
+15
+
+Figure 13: The vector (r, φ) represents the position of the planet.
+Using polar co-ordinates and setting M1 at (a1, 0) and M2 at (a2, π), we
+found the range of irradiance values at the planet located at (r, φ) for a given
+r and φ ranging from 0 to 2π.
+Flux(r, φ) =
+L1
+4π(r2 + a2
+1 −2ra1 cos(φ)) +
+L2
+4π(r2 + a2
+2 −2ra2 cos(π −φ)) (19)
+The following graph records the ﬂux in r −φ phase space.
+16
+
+Figure 14: Graph of ﬂux in phase space r −φ. The boundaries of the light
+purple band are the equipotentials corresponding to the minimum and max-
+imum ﬂux. The region in the light purple band is the habitable zone.
+Figure 14 shows the habitable zone around the binary system, with the
+light purple band representing the habitable zone. The plot shows the far-
+thest habitable zone, with higher inside and outside radius, at the position
+φ = 0, whilst the closest habitable zone, smallest inside and outside radius,
+is found at φ = π. As habitable planets should be inside the habitable zone
+at all times, the habitable region will be adjusted such that the inner radius
+will be the maximum value of the inner radius (at φ = 0), and the outer
+radius will be the minimum value of the outer radius (at φ = π) . Inserting
+these values into equation (19), this results in an inner radius of 1.05AU and
+an outer radius of 1.36AU for the habitable zone. Comparing this to the
+habitable zone from our sun, with inner radius of 0.95 AU and outer radius
+1.15 AU [5]. Our habitable zone is shifted outwards, which is reasonable as
+the total luminosity from our binary star system is larger.
+We conclude that there are stable conﬁgurations in the habitable region
+(1.05–1.36 AU) of the star system in question. The range of valid orbital
+17
+
+speeds in this region for all three plots is roughly between 5 and 12 AU/yr
+which is comparable with Earth’s orbital speed of 2π AU/yr (approximately
+6 AU/yr).
+8
+Scope and limitations
+8.1
+The stars do not interact with the planet’s ﬁeld
+The simulation assumes the star system to be static over time and, in partic-
+ular, unaﬀected by the gravitational ﬁeld of the planet. This doesn’t conform
+to conservation of energy as the planet can gain a lot of energy from the star
+system without any change in the star system.
+In most cases, the eﬀect
+should not be very signiﬁcant since most planets are much less massive than
+half a solar mass.
+This assumption is shaky in the case of bigger planets (such as gas giants).
+Our simulation recorded cases of close ﬂybys which would result in the planet
+getting slingshot around the star system. With a massive enough planet, this
+could cause signiﬁcant eﬀects in the dynamics of the star system.
+8.2
+Limited time frame
+Limitations of computing power and time meant that the maximum period
+for which the simulation could be run was only 1000 years. On the astro-
+nomical scale, this is a relatively short period and the stability of a dynamic
+system cannot be unquestionably determined.
+18
+
+Figure 15: Snapshot of a unstable orbit for ε = 0.6 at t = 325 yr: initial
+distance from center of mass = 0.75 AU, initial velocity = 11.0 AU/yr.
+Figure 15 shows an obit that collides with the star system at roughly
+t = 326 yrs. Simulation up to 10 years still returned stable. It is likewise
+also possible that orbits returning stable after 1000 years are unstable in the
+longer run.
+Simulation over a longer period would be preferable for thoroughness.
+8.3
+Limited starting positions
+Our initial conditions are not strictly exhaustive. Under the assumption that
+our initial position and velocity grid is adequately tight to show the signiﬁcant
+results, we are only considering one particular orientation explicitly. Our
+initial conditions always have both stars and the planet in one line on the
+plane and initial velocity perpendicular to that line. The validity of this lies
+in the expectation that the other starting conditions will be represented in
+the subsequent time steps for at least one of the other orbits tested. Even so,
+there is no result (stable or not stable conclusion) for these initial conditions
+from other starting orientations.
+This study can be extended to include the starting orientation as another
+free parameter to check for diﬀerences.
+8.4
+The characteristics of stable orbits are not known
+Although we can conclude from these results which starting conditions lead
+to stable orbits, these are not necessarily the deﬁning characteristics of the
+stable orbits that they lead to. The stable orbits may be elliptic, having a
+19
+
+range of radii and orbital speeds. In the case of small initial radii, this is
+less problematic since non circular orbits are inherently unstable here. The
+periapsis brings the planet too close to the dynamic star system causing
+signiﬁcant trajectory alterations every period.
+This study can be extended to track the trajectories of the orbits found to
+be stable and identify the shape and possibly parameters (radii/semi-major
+axis, average orbital speed).
+8.5
+S-type orbits
+S-type orbits are those with planets that orbit around one of the component
+stars of a binary star system. The same method and program can be extended
+to include these kind of orbits. The radii of S-type orbits are naturally much
+smaller relatively (roughly between a few solar radii and the shortest distance
+between the two stars) and the velocities relatively higher. For our given
+system, the stable radii are much smaller than the habitable zone.
+Figure 16: Snapshot of a stable p-type orbit at t = 0.07 yr: initial distance
+from center of mass = 0.77 AU, initial velocity = 30.0 AU/yr.
+9
+Conclusion
+Stable orbits are more likely to be found further away from the binary star
+where the combined eﬀect of the two stars closely resembles that of a single
+star. Closer in, the relative motion of the stars and the resultant changing
+ﬁeld leads to the destabilization of orbits. A stable conﬁguration is reached
+20
+
+by smaller intervals of velocity (the remaining free parameter) for smaller
+radii.
+There are many temporarily stable conﬁgurations that go around the
+star system in volatile orbits and collide with the stars or escape the system’s
+gravitational pull over longer periods. In this simulation, a drastic decrease in
+the number of stable conﬁgurations was observed from the 10 year simulation
+to the 1000 year simulation.
+For our given system, after 1000 years, the smallest consistently stable
+radii were around 0.6 AU for all three values of eccentricities.
+In general, it was observed that there were fewer stable conﬁgurations
+available for higher eccentricities of the star system.
+Lastly, it was found that the habitable zone for this star system is between
+1.05 and 1.36 AU and that there are in fact stable conﬁguration available in
+this region.
+21
+
+Appendix A
+Mathematica Code with annotations
+ClearAll@"Global`*"D
+H* All units in astronomical units *L
+H* Input instrinsic system parameters *L
+m := 1 H* mass of planet*L
+M1 := 1 H* mass of star 1*L
+M2 := 0.5 H* mass of star 2*L
+G := I4 Π2M H* gravitational constant *L
+Ω:=
+2 Π
+T
+H* angular frequency *L
+T :=
+30
+365.25
+H* orbital period *L
+a :=
+30
+365.25
+2
+1.5
+13
+H* semi-major axisseparation distance *L
+R1 :=
+1
+3
+a H* center of mass radius Star 1 *L
+R2 :=
+2
+3
+a H* center of mass radius Star 2 *L
+Ε := 0.4 H* eccentricity *L
+b := a
+1 - Ε2 H* semi-minor axis *L
+rstar := 0.005; H* approximate radius of the stars *L
+H* Parameterized motion of stars *L
+x1@t_D :=
+1
+3
+a * Cos@ΩtD +
+1
+3
+a2 - b2 H*Position of Star 1 x- component*L
+y1@t_D :=
+1
+3
+b * Sin@ΩtD H*Position of Star 1 y- component*L
+x2@t_D := -
+2
+3
+a * Cos@ΩtD -
+2
+3
+a2 - b2
+H*Position of Star 2 x- component*L
+y2@t_D := -
+2
+3
+b * Sin@ΩtD H*Position of Star 2 y- component*L
+H* Mechanism for planetary collision *L
+H* These terms create force fields around the position of the stars
+which will deflect the planet to infinty in the case of collision *L
+H* The influence on the motion of the planet
+outside the stars surface is zero *L
+cp1@t_D :=
+103 *
+G HM1 * M2L
+rstar2
+
+
+II1 + E-100 000 H-Hx@tD-x1@tDL+rstarLM I1 + E-100 000 Hx@tD-x1@tD+rstarLMM *
+103 *
+G HM1 * M2L
+rstar2
+ II1 + E-100 000 H-Hy@tD-y1@tDL+rstarLM I1 + E-100 000 Hy@tD-y1@tD+rstarLMM *
+1
+1 + E-100 000 Hx1@tD-x@tDL -
+1
+1 + E100 000 Hx1@tD-x@tDL
+*
+1
+1 + E-100 000 Hy1@tD-y@tDL -
+1
+1 + E100 000 Hy1@tD-y@tDL
+cp2@t_D :=
+103 *
+G HM1 * M2L
+rstar2
+
+II1 + E-100 000 H-Hx@tD-x2@tDL+rstarLM I1 + E-100 000 Hx@tD-x2@tD+rstarLMM *
+103 *
+G HM1 * M2L
+rstar2
+ II1 + E-100 000 H-Hy@tD-y2@tDL+rstarLM I1 + E-100 000 Hy@tD-y2@tD+rstarLMM *
+1
+1 + E-100 000 Hx2@tD-x@tDL -
+1
+1 + E100 000 Hx2@tD-x@tDL
+*
+1
+1 + E-100 000 Hy2@tD-y@tDL -
+1
+1 + E100 000 Hy2@tD-y@tDL
+H* Input initial conditions *L
+H* The test planet will be positioned on the positive x-
+axis with a positive initial velocity along the y direction *L
+initialy0 := y@0D  0
+initialvx0 := x'@0D  0
+H* Simulation parameters *L
+ti = 0; H* Initial time of simulation *L
+tf = 1000; H* Final time of simulation Hin yearsL *L
+maxstep = 30 000; H* maximum number of steps used by the NDSolve algorithm *L
+cf = 50; H* Number of trials for radius *L
+vf = 150; H* Number of trials for velocity *L
+Success = Table@2, 8i, 1, cf<, 8j, 1, vf<D; H* Final table for results *L
+H* Zero = planet was not on a stable orbit *L
+H* One = planet was on a stable orbit *L
+i = 1;
+j = 1;
+WhileBi £ cf,
+initialx0 := x@0D  0.15 + i * 0.04;
+H* parameters for the mesh grid spacing - initial position *L
+WhileBj £ vf,
+initialvy0 := y'@0D  4.9 + j * 0.1;
+H* parameters for the mesh grid spacing - initial velocity *L
+2    Appendix A.nb
+
+H* Force terms in x and y components *L
+fx3@t_D := G
+m M1
+IHx@tD - x1@tDL2 + Hy@tD - y1@tDL2M
+1
+1 + J y@tD-y1@tD
+x@tD-x1@tD N
+2
+1
+1 + E-100 000 Hx1@tD-x@tDL -
+1
+1 + E100 000 Hx1@tD-x@tDL
++ G
+m M2
+IHx@tD - x2@tDL2 + Hy@tD - y2@tDL2M
+1
+1 + J y@tD-y2@tD
+x@tD-x2@tD N
+2
+1
+1 + E-100 000 Hx2@tD-x@tDL -
+1
+1 + E100 000 Hx2@tD-x@tDL
++ cp1@tD + cp2@tD;
+H* The terms containing the exponential effectively model a sign
+function but without discontinuous behavior at the origin *L
+fy3@t_D := G
+m M1
+IHx@tD - x1@tDL2 + Hy@tD - y1@tDL2M
+Abs@Hy@tD - y1@tDLD
+Hx@tD - x1@tDL2 + Hy@tD - y1@tDL2
+1
+1 + E-100 000 Hy1@tD-y@tDL -
+1
+1 + E100 000 Hy1@tD-y@tDL
++
+G
+m M2
+IHx@tD - x2@tDL2 + Hy@tD - y2@tDL2M
+Abs@Hy@tD - y2@tDLD
+Hx@tD - x2@tDL2 + Hy@tD - y2@tDL2
+1
+1 + E-100 000 Hy2@tD-y@tDL -
+1
+1 + E100 000 Hy2@tD-y@tDL
++ cp1@tD + cp2@tD;
+difequx := m x''@tD  fx3@tD; H* Newtons second law *L
+difequy := m y''@tD  fy3@tD;
+H* Numerical solution by NDSolve algorithm *L
+NAx = x . First@NDSolve@8difequx, difequy, initialx0, initialy0,
+initialvx0, initialvy0<, 8x, y<, 8t, ti, tf<, MaxSteps ® maxstepD D;
+NAy = y . First@NDSolve@8difequx, difequy, initialx0, initialy0,
+initialvx0, initialvy0<, 8x, y<, 8t, ti, tf<, MaxSteps ® maxstepDD ;
+H* Condition to evaluate whether the orbit was stable at the end of
+the simulation base on potential and kinetic energy of the planet *L
+IfB-G
+M1
+HNAx@tfD - x1@tfDL2 + HNAy@tfD - y1@tfDL2
+-
+G
+M2
+HNAx@tfD - x2@tfDL2 + HNAy@tfD - y2@tfDL2
++
+1
+2
+INAx'@tfD2 + NAy'@tfD2M < 0,
+Success@@i, jDD = 1, Success@@i, jDD = 0F;
+j++F;
+j = 1;
+i++F
+Export@"Results.dat", SuccessD
+Appendix A.nb    3
+
+References
+[1] Mathematica 9.
+[2] Helmut A Abt. The companions of sunlike stars. Scientiﬁc American,
+236:96–104, 1977.
+[3] Roger Freedman, Robert Geller, and William J Kaufmann. Universe:
+The solar system. Macmillan, 2010.
+[4] Matthew J Holman and Paul A Wiegert. Long-term stability of planets
+in binary systems. The Astronomical Journal, 117(1):621, 1999.
+[5] James F Kasting, Daniel P Whitmire, and Ray T Reynolds. Habitable
+zones around main sequence stars. Icarus, 101(1):108–128, 1993.
+[6] Shude Mao and Bohdan Paczynski. Gravitational microlensing by dou-
+ble stars and planetary systems. The Astrophysical Journal, 374:L37–
+L40, 1991.
+[7] Tom E. Morris. Calculating the habitable zone.
+[8] NASA.
+Kepler mission.
+Kepler-47: Our First Binary Star 2-Planet
+System.
+[9] Matlab R2013b.
+[10] William Kenneth Rose. Advanced stellar astrophysics. Cambridge Uni-
+versity Press, 1998.
+25

@@ -1,0 +1,675 @@
+Problem Chosen
+A
+2022
+MCM/ICM
+Summary Sheet
+Team Control Number
+395
+Planetary Defense Based on kinetic Energy Impact
+Summary
+In this article, we according to the topic given by spacecraft kinetic energy of impact aster-
+oid planetary defense program, to carry on the reasonable guess assumptions, analyses
+the asteroid in the universe may have special properties, explores the possible trajecto-
+ries, an asteroid hit the earth and in the presence of can take kinetic energy impact plan,
+through analysis and calculation, The shortest time from launch to impact asteroid is
+given if the Earth misses the impact.
+We found that, depending on how asteroids are formed, asteroids can be divided into
+those made of rubble and those that can be regarded as compact balls of rock. After a brief
+analysis of the first case, this paper mainly explores the second case where the spacecraft
+and the asteroid can be regarded as a completely inelastic collision, the spacecraft needs
+from 58 days to 139 days to make the Earth miss the asteroid.
+Keywords: asteroid;Kinetic energy of impact;spacecraft
+
+Team # 395
+Page 1 of 35
+Contents
+1
+Introduction
+2
+1.1
+problem statement
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+2
+Assumption and Notation
+2
+2.1
+Assumptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+2.2
+Notations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+3
+Physical And Analysis
+3
+3.1
+Analysis of Asteroid Characteristics
+. . . . . . . . . . . . . . . . . . . . . . .
+3
+3.2
+The Earth or the Sun
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+3.3
+The velocity and mass of the spacecraft after the acceleration process are
+discussed . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+3.4
+To explore the original motion of the asteroid . . . . . . . . . . . . . . . . . .
+7
+3.5
+Explore collisions in two asteroid motion states . . . . . . . . . . . . . . . . .
+8
+3.5.1
+The original motion of the asteroid is elliptical . . . . . . . . . . . . .
+8
+3.5.2
+The original orbits of asteroids are hyperbolic
+. . . . . . . . . . . . .
+10
+3.6
+Consider the case of asteroids made of broken rock
+. . . . . . . . . . . . . .
+14
+4
+Conclusion
+14
+5
+Strengths And Weaknesses
+15
+5.1
+Strengths . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+5.2
+Weakness . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15
+6
+References
+16
+Appendices
+16
+Appendix A MATLAB Scripts
+16
+
+Team # 395
+Page 2 of 35
+1
+Introduction
+1.1
+problem statement
+In addition to the eight planets and other massive bodies in the solar system, there are also
+a large number of asteroids distributed between the orbits of Mars and Jupiter. Therefore,
+with the deepening of people’s understanding of the potential hazards of asteroids, the
+research on planetary defense issues has been increasingly paid attention to, and a va-
+riety of planetary defense schemes such as nuclear detonation deviation, gravitational
+tug and kinetic energy impact have been proposed successively. The problem is to calcu-
+late the number of times we send a spacecraft that hits an asteroid that’s going to collide
+with earth, and make it miss the earth. Starting from the problem, we will try and track
+asteroids and the earth in the solar system modeling, we mainly explored in our solar
+system’s asteroid along the hyperbolic orbit, is planning to launch with the impact of a
+spacecraft, on this basis to estimate the from launch to the time needed for a collision with
+an asteroid.
+2
+Assumption and Notation
+2.1
+Assumptions
+• The asteroid is perfectly spherical. This assumption is made due to the wide vari-
+ability in the shapes of asteroid, which leads to an over-complex model but with
+likely insignificant changes in the final result.
+• In considering the collision process between Earth and asteroid, the influence of
+Earth’s orbit around the sun is slight within a certain Angle. For simple calculation,
+it can be assumed that the Earth’s orbit around the sun is circular.
+• To simplify the calculation, we need to make some assumptions about the range of
+collisions that can be taken as Earth-asteroid collisions.Since the radius of the Earth
+is about 6.371× 106, we assume that if an asteroid gets within 1.5 times the radius of
+the Earth, which is 107, then we think the asteroid will collide with the Earth.
+• When exploring the asteroid in this paper, it is assumed that the orbit of the asteroid
+in the question is completely within the ecliptic plane.
+
+Team # 395
+Page 3 of 35
+2.2
+Notations
+Variables
+Explanations
+ρ
+the density of the asteroid
+M0
+the mass of the earth
+M1
+the mass of the asteroid
+r0
+the radii of the earth
+r1
+the radii of the asteroid
+R
+A.U.
+v0
+the speed of the asteroid
+mcraft
+the speed of the spacecraft
+vR
+The linear speed of the Earth’s
+va
+The velocity of the asteroid relative to the sun
+Msun
+The mass of the sun
+vfst
+The mass of the sun
+v2nd
+Second cosmic velocity
+v3rd
+Third cosmic velocity
+3
+Physical And Analysis
+3.1
+Analysis of Asteroid Characteristics
+According to Nebular Theory, asteroids are formed mainly from solid particles in the solar
+nebula that accrete through cooling and condensation, and then continuously collide and
+accrete.So the composition of the asteroid could be either a compact ball of rock or a
+ball of rubble.If the asteroid is composed of rubble, then a high velocity kinetic impact
+might send a large amount of rock into space, which would have a better impact effect.
+However, there are too many variables in the entire impact process, so this article focuses
+on the other scenario.Previously, we had assumed that asteroids were ideal spheres with
+known radii,r1 , so we could calculate their masses simply by estimating the density of
+the planet ,ρ figure below, reveals that the least dense ones are mostly made of ammonia
+ice, while the densest ones are mostly made of iron. Therefore, within the scope of this
+paper, we assume that the density of the asteroid is between ammonia ice and iron, and
+the arithmetic square root of the product of the two gives the ρ to be about 2.53, which is
+close to the density of common rocks. Therefore, this result is reliable.So, we can calculate
+the asteroid’s mass as:
+M1 = 4
+3π · r3
+1 ≈1.32 × 109kg
+(1)
+
+Team # 395
+Page 4 of 35
+Figure 1: the composition of asteroids in the solar system
+3.2
+The Earth or the Sun
+For this question, the first analysis needs to be whether the sun’s gravitational pull on
+the asteroid or the Earth’s gravitational pull on the asteroid is dominant. If the spacecraft
+is close to the Earth when it hits the asteroid, the earth’s gravity on the asteroid is much
+greater than the sun’s gravity on the asteroid, so the sun’s gravitation can be ignored.
+Next, based on this assumption, we will estimate the closest distance a spacecraft will
+get to the Earth when it hits the asteroid so that it will not hit the Earth.Since it is only
+estimation, we only consider the order of magnitude of its value in this part of numerical
+calculation, and do not care about its exact value.From the information given in the ques-
+tion, we can know that when the asteroid hit the Earth, its velocity relative to the Earth
+was 25km/s.Now, if we take infinity as the zero of the potential energy, then when the
+asteroid hits the Earth, its gravitational potential energy will be
+Ep = −GM0M1
+r0
+≈−1016J
+(2)
+and its kinetic energy is
+Ek = 1
+2M1v2 ≈1017J
+(3)
+From this, we can see that the change in gravitational potential energy relative to kinetic
+energy is puny at different points during the asteroid’s journey towards Earth.In addi-
+tion, because the asteroid satisfies the law of conservation of energy in this process, the
+kinetic energy change of the asteroid is small, that is, the change of its velocity is small
+and can be ignored. Therefore, in this estimation process, it is approximately believe that
+the velocity of the asteroid remains unchanged.By observing the earth velocity of the as-
+teroid, it can be found that the velocity of the asteroid relative to the Earth is greater than
+the second cosmic velocity, so its trajectory is one of the hyperbolic curve with the focus
+
+Team # 395
+Page 5 of 35
+of the Earth.In order to facilitate estimation, we make the following provisions:1. When
+a spacecraft is not on a collision course with an asteroid, we think the asteroid’s veloc-
+ity is pointing towards Earth.2. We think that when the spacecraft is on a collision with
+the asteroid, the spacecraft’s velocity with respect to the asteroid is perpendicular to the
+direction of the asteroid’s line with Earth.3. According to the data, the maximum speed
+reached by the man-made satellite is 200km/s, In order to find the closest distance of the
+spacecraft to the Earth when it hits the asteroid, we set the velocity of the spacecraft rel-
+ative to the asteroid as large as possible, take vcraft = 200km/s.4. In order to obtain the
+closest distance from the Earth when the spacecraft impacts the asteroid, we consider the
+limiting case, that is, we believe that the distance from the nearest point of the earth’s cen-
+ter in the asteroid’s trajectory after the collision between the spacecraft and the asteroid
+is one Earth radius.5. It is believed that the collision process between the spacecraft and
+the asteroid is a spacecraft crash and stay on the asteroid, that is, we believe that the col-
+lision process is a completely inelastic collision.6. To find the closest distance a spacecraft
+will get to the Earth when it hits an asteroid, we should make the spacecraft as massive
+as possible.Now let’s think about the limit case, where we think the spacecraft is going
+to the asteroid without any loss of mass in terms of fuel or anything, and it still has its
+original mass,mcraft.(Of course, this is not possible in reality, and this is just for estimation
+purposes)7. Because the asteroid mass m1 is much larger than the spacecraft mass mcraft,
+mcraft can be ignored compared with m1. Therefore, it is believed that the combined mass
+of the two collisions is still m1.
+Below, based on the above rules, the closest distance to Earth when the spacecraft hits
+the asteroid is estimated.First, consider the collision process between the spacecraft and
+the asteroid. Since we define the collision process as a completely inelastic collision, the
+collision process satisfies the momentum conservation law:
+mcraft · vcraft = (mcraft + m1) · vt
+(4)
+
+Team # 395
+Page 6 of 35
+Where, vt represents the velocity along the vertical direction of the line between the aster-
+oid and the Earth after the collision between the spacecraft and the asteroid, which can
+be obtainedvt ≈4m/sFor an asteroid, it is only affected by the Earth’s gravitation force,
+which is a force. Therefore, in the whole process of motion after the collision, the asteroid
+satisfies the law of conservation of angular momentum relative to the Earth, as:
+m1 · d · vt = m1 · r0 · v′
+t
+(5)
+v′
+tis the velocity of the asteroid when it is on a tangent to Earth, and d is the distance from
+Earth when the spacecraft collides with the asteroid.At the same time, in this process, the
+asteroid also satisfies the law of conservation of energy, namely:
+1
+2m1(v2
+0 + v2
+t ) −GM0M1
+d
+= 1
+2M1v′
+t
+2 −GM0M1
+r0
+(6)
+We can find both equations (5) and (6) and getd ≈5·1010mAt this point, we verify that the
+results satisfy our original hypothesis that the spacecraft was close to Earth when it hit
+the asteroid, and that the Earth’s gravity on the asteroid is much greater than the sun’s.
+The sun’s gravitational pull on the asteroid is
+Fsun = GMsunM1
+(d + R)2 ≈106N
+(7)
+And the Earth’s gravitational pull on the asteroid is
+Fe = GM0M1
+d2
+≈102N
+(8)
+It can be seen that at this time, the gravitational force of the sun on the asteroid is much
+larger than that of the Earth on the asteroid, which contradicts the hypothesis. Therefore,
+the gravitational force of the sun on the asteroid should play a dominant role in the mo-
+tion process we study. Therefore, based on the above analysis, we will take the sun as
+the central object in the future model discussion, and appropriately ignore the effect of
+Earth’s gravity on asteroids and spacecraft.
+3.3
+The velocity and mass of the spacecraft after the acceleration pro-
+cess are discussed
+Next, we discuss the velocity and remaining mass of a spacecraft as it escapes Earth’s
+gravitational bonds and enters orbit around the solar system.Assuming that the space-
+ship engine gains forward power by ejecting gas backward, the velocity formula of the
+spaceship after the acceleration process can be derived as
+vt = v1st + u ln mc
+mt
+(9)
+Where vt represents the final velocity of the spacecraft acceleration process, v0 represents
+the initial velocity of the spacecraft acceleration process, that is, the linear velocity of the
+spacecraft in low-Earth orbit v0 = 7.9 × 103m/s, mt represents the remaining mass of the
+
+Team # 395
+Page 7 of 35
+spacecraft after acceleration.The value of u depends on the type of engine. The current
+engine technology can make u = 4 × 103m/s at most.The discussion in this paper will use
+this value. To make the most impact with the asteroid, we want the spacecraft to leave
+the Earth with maximum momentum, from
+p = mt · vt = mt · (v0 + u ln mc
+mt
+)
+(10)
+Take the derivative of both sides of equation,we get
+dp
+dmt
+= v0 + lnmc
+mt
+−u
+(11)
+By observing equation (13), it can be found that when mt < mc(Because the accelera-
+tion process consumes fuel, the spacecraft must end up with less mass than it started
+with.)The derivative value is always greater than zero, that is, the smaller the fuel mass
+consumed, the greater the momentum of the spacecraft after the completion of the ac-
+celeration process.In addition, in order for a spacecraft to fly to an asteroid anywhere in
+the solar system, its velocity relative to Earth must be at least greater than the velocity
+of the third universe,v3nd = 1.68 × 104m/sSo the best we can hope for is a spacecraft that
+uses the least amount of energy just enough to reach the third cosmic velocityvt = V3rd =
+1.68 × 104m/sIn this case, we can calculate the remaining mass of the spacecraft after it
+has completed the acceleration process,mt = 2.161 × 103kg
+3.4
+To explore the original motion of the asteroid
+To find where a spacecraft will strike an asteroid, it is necessary to figure out what the
+asteroid’s path would be like without the impact of a spacecraft.In considering the path of
+an asteroid, we ignore the influence of the Earth’s gravity.There’s not a lot of information
+given about the asteroid’s trajectory. The only certain information is that the asteroid must
+eventually hit the Earth vertically at a speed of 25km/s relative to the Earth.Therefore,
+the known position and velocity information can be used to push back the asteroid’s
+trajectory.
+As shown in the figure, we consider the Angle θ(0◦≤θ ≤360◦) between the direction of
+the asteroid’s velocity with respect to the Earth at the time of impact and the direction of
+the Earth’s velocity with respect to the sun.According to the law of cosines, we can find
+that the velocity of the asteroid with respect to the sun is
+va =
+p
+v02 + vR2 + 2 · v0 · vR cos θ
+(12)
+At the same time, we can get the orbital energy of the asteroid when the sun is the center
+of the object
+E = 1
+2M1 · v2
+a −GMsunM1
+R
+(13)
+Put the specific value into the formula, can get
+E = 9.834 × 1017 · cos θ −1.695 × 1017
+(14)
+
+Team # 395
+Page 8 of 35
+Observing this expression, we can see that,when θ = 80◦or 280◦,E = 0J.At this time, the
+asteroid’s orbital energy is 0, and the asteroid’s trajectory is a parabola with the focus of
+the sun.when 0◦≤θ < 80◦or 280◦< θ < 360◦,E > 0JIn this case, the asteroid’s orbital
+energy is greater than 0, and the asteroid’s trajectory is one of the hyperbolic branches
+where one of the focal points is the sun. When 80◦< θ < 280◦,E < 0J.At this point, the or-
+bital energy is less than 0, and the asteroid’s trajectory is one where one focus is the sun’s
+ellipse.Based on the above discussion, we can find that in theory, there are three main pos-
+sibilities for the asteroid’s motion path, namely ellipse, hyperbola and parabola.However,
+the value derived from the theory inevitably has more or less small errors, so in practice,
+it is almost impossible for us to make the orbit energy of the asteroid strictly equal to 0, as
+long as there is a small deviation, its trajectory will become an ellipse or hyperbola, rather
+than a strict parabola.Therefore, in the following model discussion, we will only discuss
+the two cases where the asteroid’s motion path is elliptical or hyperbolic.
+3.5
+Explore collisions in two asteroid motion states
+3.5.1
+The original motion of the asteroid is elliptical
+Next, we consider the situation that the original motion path of the asteroid is an ellipse,
+that is, the Angle between the asteroid’s velocity direction relative to the Earth and the
+Earth’s velocity direction relative to the sun is80◦< θ < 280◦MATLAB software is used to
+simulate the original motion path of the asteroid when the Angle is θ,
+
+Team # 395
+Page 9 of 35
+And verify that the asteroid’s trajectory does not pass through the area within the ra-
+dius of the sun, that is, it is actually possible for the asteroid to hit the Earth along
+this trajectory.Starting from theθ = 81◦,ncrease one degree at a single time,validation
+in80◦< θ < 280◦area can each asteroid hit the Earth without being blocked by the sun.It
+is verified that in the area of 80◦< θ < 280◦,it is possible that an asteroid hitt the Earth.
+What we need to clear is that when the asteroid’s orbit is an ellipse and its orbit for a
+hyperbolic when there is a huge difference, when one of the asteroid’s orbit for the hyper-
+bolic for asteroids orbit earth orbit in one of the intersection, the asteroid will only after
+that point, and then will fly to infinity, no longer come back, so, As long as the asteroid
+successfully avoids the collision with the earth at the intersection of the first time, then
+the asteroid will never hit the Earth, we can avoid the collision with the Earth by the
+spacecraft.However, when the asteroid’s orbit is an ellipse, it will always do periodic mo-
+tion around the sun, that is to say, as long as the asteroid’s orbit has intersection with the
+earth’s orbit, so in the absence of other factors, the asteroid will through its infinite time
+and the intersection of earth’s orbit, even after the intersection point for the first time an
+asteroid success away from the earth, However, as long as the time span is large enough,
+the asteroid will always collide with the Earth. Therefore, we can believe that as long
+as the orbit of the asteroid still intersects with the orbit of the Earth after the spacecraft
+impacts the asteroid, the impact will not miss the Earth.
+
+Team # 395
+Page 10 of 35
+With that information in mind, let’s consider the process of a spacecraft hitting an as-
+teroid. In 3.2 we have found that the velocity change provided to the asteroid by a space-
+craft impacting the asteroid is a small amount compared to its original velocity.At the
+same time, because asteroids are confined to a small elliptical orbit, we can’t increase the
+displacement effect of small changes in velocity by hitting a spacecraft at a great distance
+to stretch the time span.Therefore, in this case, a spacecraft impact on an asteroid can
+cause the asteroid’s orbit to be very small deviation, much less the collision after the as-
+teroid’s orbit does not intersect the Earth’s orbit.
+Based on the above discussion in this part, we can draw the conclusion that the Angle be-
+tween the direction of the asteroid’s velocity relative to the Earth and the direction of the
+Earth’s velocity relative to the sun isθ(80◦< θ < 280◦)That is, when the original motion
+path of the asteroid is an ellipse, we can’t make the asteroid not collide with the earth by
+using spacecraft to impact the asteroid.
+3.5.2
+The original orbits of asteroids are hyperbolic
+Now, we consider the case where the asteroid’s original orbit is one side of the hyperbola,
+that is, the Angle between the asteroid’s velocity with respect to the Earth and the Earth’s
+velocity with respect to the sun is θ(0◦< θ < 80◦or 280◦< θ < 360◦).First of all, we
+simulate the original motion path of the asteroid when the Angle is θ through MATLAB
+software.
+
+Team # 395
+Page 11 of 35
+And verify that the asteroid’s trajectory does not pass through the area within the radius
+of the sun, that is, it is actually possible for the asteroid to hit the Earth along this trajec-
+tory.Start at θ = 79◦and increase by one degree at a time, verifying at −80◦< θ < 80◦.It
+has been verified in the area of −80◦< θ < 80◦,The possibility of an asteroid impact in the
+79◦region is all realistic.
+Now, let’s consider the velocity and mass of the spacecraft when it hits the asteroid.. In
+part3.3, we have discussed and calculated the mass mt of the spacecraft and its velocity
+
+Team # 395
+Page 12 of 35
+relative to the earth when it escapes from the gravitational influence of the earth and its
+velocity relative to the earth. Since the linear velocity of the Earth relative to the sun is
+vR, the maximum value of the spacecraft’s velocity relative to the sun when it leaves the
+earth is
+vcraft = vr + vt = 4.66 × 104
+(15)
+The mass of the spacecraft remained the same throughout the rest of the journey.In the
+process of the spacecraft from the earth to the asteroid, the spacecraft always satisfies the
+law of conservation of energy. Therefore, if the spacecraft and the asteroid collide at the
+distance rhit from the sun, the velocity v1 of the spacecraft before the collision is satisfied
+1
+2mcraft · (v1)2 −GMsunmcraft
+rhit
+= 1
+2mcraft · vcraft
+2 −GMsunmcraft
+R
+(16)
+So we have the relationship between the velocity v1 of the spacecraft before the collision
+and the distance from the sun
+v1 =
+r
+vcraft2 + GMsunmcraft
+rhit
+−2GMsun
+R
+(17)
+Next, let’s consider the collision between the spacecraft and the asteroid, which we still
+think of as a completely inelastic collision, where the spacecraft crashes into the asteroid.
+In part3.2 we have found that the spacecraft asteroids, its velocity change for an asteroid
+is far less than the original speed of the asteroid itself, therefore, after the asteroid along
+the direction of original speed change quantity can be neglected, and the impact after the
+asteroid raw speed vertical velocity change is more important, so, here, We make the most
+dramatic changes in the asteroid’s trajectory by directing the spacecraft to hit the asteroid
+perpendicular to its original direction of travel.During the collision, the system formed
+by the asteroid and the spacecraft satisfies the law of conservation of momentum in the
+vertical direction of the original velocity of the planet,so we have
+mcraft · v1 = (M1 + mcraft)v2
+(18)
+Substitute equation (17) into Equation (18),We end up with a velocity change after the
+impact of the asteroid
+v2 =
+mcraft
+M1 + mcraft
+·
+r
+vcraft2 + GMsunmcraft
+rhit
+−2GMsun
+R
+(19)
+The velocity change direction is perpendicular to the original velocity of the planet, In the
+direct direction, by plugging in the quantity of each known quantity,we get
+v2 = 1.637 × 10−6 ·
+s
+2.172 × 109 + 2.655 × 1020 · 1.5 × 1011 −rhit
+1.5 × 1011rhit
+(20)
+For an asteroid that hits the Earth at an Angle of θ(−80◦< θ < 80◦), we have just worked
+out its orbit using MATLAB software, and based on the theoretical derivation, we have
+worked out the amount of change in the asteroid’s velocity when the spacecraft and the
+
+Team # 395
+Page 13 of 35
+asteroid collide at a certain point in the orbit.(That’s because as long as the orbit is fixed,
+the distance from the Sun is fixed, and the change in the asteroid’s velocity can be de-
+termined)Therefore, we can use MATLAB software to simulate the asteroid’s motion tra-
+jectory after the asteroid’s velocity increases this change amount, and judge whether the
+closest distance from the center of the earth is greater than 107m in the process of mo-
+tion,whether the asteroid has successfully avoided a collision with Earth.(The evaluation
+criterion of whether the asteroid colliates with the Earth mentioned above is whether the
+distance from the center of the earth is less than 107m)With multiple simulations using the
+dichotomy method, we can zoom in to get the closest distance to the original asteroid’s
+point of impact that would allow the asteroid to avoid collision with Earth.We take the
+width of this closest range as 107m,that is, about the length of a radius of the Earth. Since
+the point of collision between the spacecraft and the asteroid should be far away from the
+Earth, we have previously analyzed that for this distance, a range width of the order of
+the radius of the Earth is relatively accurate.Once we have obtained the closest distance
+between the spacecraft’s impact point and the original asteroid’s impact point, we can
+also use this to figure out how long it took the asteroid between the original impact point
+of the spacecraft and its impact with the Earth.
+After obtaining the minimum time t corresponding to a certain included Angle θ,We start
+at θ = −79◦and increase by one degree at a time to find the shortest time t for each θ in the
+region of −80◦< θ < 80◦,in this way, the scatter plot is obtained. After fitting it with the
+smooth curve, the functional relation image of the Angle θ between the velocity direction
+of the earth and the velocity direction of the earth relative to the sun at the time of the
+shortest time t and the asteroid impact is obtained as shown in the following figure.
+According to the graph information we can get,when θ ≈40◦the time required is the
+shortest,
+t ≈5 × 106s ≈58days
+(21)
+when θ ≈−80◦, the time requred is longest,
+t ≈1.2 × 107s ≈139days
+(22)
+
+Team # 395
+Page 14 of 35
+3.6
+Consider the case of asteroids made of broken rock
+Considering the formation process of the asteroid mentioned above, combined with the
+composition of the asteroid, it can be concluded that the asteroid is not necessarily close
+to a solid sphere, but may also be composed of space debris represented by broken
+rock.Refer to the data, when the asteroid is composed of a large number of broken rock,
+spacecraft and asteroid impact, a large number of broken rock in the asteroid will split
+and fly into space, in such a case, the force of each broken rock is extremely complex, dif-
+ficult to simple modeling calculation.And the "engine" thrust generated by this process
+will make the asteroid’s orbit deflection easier in most cases, so in this paper, we will only
+describe it qualitatively.
+4
+Conclusion
+Based on the above discussion, analysis and calculation, we can conclude that when a
+spacecraft with a mass of 20,00kg in low Earth orbit hits an asteroid with a diameter of
+100m, there are two possible scenarios.In one case, the asteroid is made of loose rub-
+ble, and a spacecraft colliding with it would disintegrate.The other scenario is that the
+asteroid is a tight ball of rock with which the spacecraft would collide in a completely
+inelastic collision. For the first type, due to its relatively complex composition, it is dif-
+ficult for us to model and accurately calculate the motion of the debris, but we can find
+qualitatively that the general collision disturbance can easily make it deviate greatly from
+the original orbit and avoid the collision with the Earth.In the second case, we can first
+find that the asteroid’s orbit may be an ellipse, a parabola, or a hyperbola, and it could
+hit the Earth at any Angle θ(0◦≤θ ≤360◦) from the direction of the Earth’s velocity
+with respect to the sun.When the orbit of an asteroid is parabolic, its requirements on
+the orbit energy of the asteroid are too strict, which is basically impossible to achieve,
+so we do not consider this case. Asteroids orbit is elliptical, because as long as the as-
+teroid’s orbit and the earth’s orbit intersection point between the two, in a larger time
+scales asteroid will collide with the earth, so we think that when the asteroid’s origi-
+nal trajectory is an ellipse, we can’t through the way of using the spacecraft asteroids
+that an asteroid colliding with earth, not. When the asteroid’s orbit is a branch of the
+hyperbola, we calculate the minimum time t required from the collision point of the as-
+teroid with the spacecraft to the original collision point of the asteroid with the func-
+tion of the Angle θ between the asteroid’s velocity direction relative to the earth and the
+earth’s velocity direction relative to the sun, as shown in the figure.When θ ≈40,the
+time required is the shortest,t ≈5 × 106 ≈58days,when θ ≈80,the time required is the
+longest,t ≈1.27 × 107 ≈139days
+
+Team # 395
+Page 15 of 35
+5
+Strengths And Weaknesses
+5.1
+Strengths
+• (1)The model is relatively simple and easy to simulate.
+• (2)As MATLAB was used for modeling and drawing, The model is able to visualize
+the entire process and calculation results, easy for readers to understand.
+• (3)Aiming at the complex asteroid collision problem, this paper is divided into the
+composition of the asteroid, the orbit of the asteroid and the earth, the flight of
+spacecraft and its impact on the asteroid and other aspects to solve the problem,
+thinking clearly.
+5.2
+Weakness
+• (1) There are many complex factors in the model, which cannot be fully considered.
+For example:The motion path of the asteroid given in the title may not coincide with
+the ecliptic plane, which will greatly increase the complexity of the calculation of the
+possible collision between the Earth and the asteroid, but we did not consider this
+factor in order to simplify the calculation.
+• (2) When the asteroid is close to the Earth, the earth’s gravity to the asteroid becomes
+not negligible. However, in our calculation, we always consider only the influence
+of the sun on the asteroid’s gravity.
+• (3) When the motion path of the asteroid is elliptical, there may be some circum-
+stances that make the asteroid and the Earth not collide for a long time during the
+revolution, but this paper does not discuss in detail.
+• (4)In this paper, the method of classification discussion has been adopted for many
+times to consider the problem comprehensively.
+
+Team # 395
+Page 16 of 35
+6
+References
+1 Sang-Young Park and I. Michael Ross † Naval Postgraduate School, Monterey, Cali-
+fornia 93943 "Two-Body Optimization for Deflecting Earth-Crossing Asteroids"JOURNAL
+OF GUIDANCE, CONTROL, AND DYNAMICS Vol. 22, No. 3, May –June 1999
+2 Johndale C. Solem Los Alamos National Laboratory, Los Alamos, New Mexico 87545"In-
+terception of Comets and Asteroids on Collision Course with Earth"JOURNAL OF
+SPACECRAFT AND ROCKETS Vol. 30, No. 2, March-April 1993
+Appendices
+Appendix A
+MATLAB Scripts
+
+Team # 395
+Page 17 of 35
+
+Team # 395
+Page 18 of 35
+
+Team # 395
+Page 19 of 35
+
+Team # 395
+Page 20 of 35
+
+Team # 395
+Page 21 of 35
+
+Team # 395
+Page 22 of 35
+
+Team # 395
+Page 23 of 35
+
+Team # 395
+Page 24 of 35
+
+Team # 395
+Page 25 of 35
+
+Team # 395
+Page 26 of 35
+
+Team # 395
+Page 27 of 35
+
+Team # 395
+Page 28 of 35
+
+Team # 395
+Page 29 of 35
+
+Team # 395
+Page 30 of 35
+
+Team # 395
+Page 31 of 35
+
+Team # 395
+Page 32 of 35
+
+Team # 395
+Page 33 of 35
+
+Team # 395
+Page 34 of 35
+
+Team # 395
+Page 35 of 35

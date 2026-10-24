@@ -1,0 +1,485 @@
+TEAM#340 
+ 
+ION THRUSTERS TO SATURN 
+1 
+TEAM#340 
+Problem A 
+ 
+ION THRUSTERS TO 
+SATURN 
+ 
+Abstract 
+This paper analysed the voyage of a spacecraft powered by ion thrusters 
+from Earth to Saturn. A Conic Section Splicing Model was established to 
+describe the process. We divided the entire process into five stages, including 
+Earth-Sun Transfer Phase, First Orbit Sun Phase, Venus Swing by Phase, 
+Second Orbit Sun Phase and Sun-Saturn Transfer Phase. 
+In Earth-Sun Transfer Phase, we established 5 equations to obtain the 
+kinetic differential equation of the spacecraft. Since it is a higher order 
+nonlinear non-homogeneous equation with no analytic solution, we could only 
+derive the numerical solution using MATLAB. 
+In First and Second Orbit Sun Phase, using law of conservation of 
+angular momentum, law of conservation of mechanical energy and the 
+geometric relationship of orbits, we find the velocities when the spacecraft has 
+just escaped Planet A and has just interacted with Planet B. 
+In Venus Swing by Phase, instead of studying the gravitational slingshot 
+effect of Venus in dynamics, we chose to easily calculate the velocities of the 
+spacecraft before and after swinging by Venus directly from the geometric 
+relationships of the first and second elliptical orbits around Sun. 
+    In Sun-Saturn Transfer Phase, aim at saving fuel, we firstly let the 
+spacecraft perform free motion under the gravity of Jupiter, then turn on the 
+ion thrusters to slow it down until reaching the prescribed orbit. Use MATLAB 
+to find the trajectory of the spacecraft's motion. 
+    In summary, the minimum amount of fuel it takes is 2402.77kg. The 
+duration of the trip is 4923.89 days (13.49 years). During Stage 1 ,turn on the 
+ion thrusters in the same direction with the angular velocity for 65452.66 
+hours. While during Stage 5 , turn on the ion thrusters in the opposite direction 
+of the angular velocity for 0.43 hours. 
+
+TEAM#340 
+ 
+ION THRUSTERS TO SATURN 
+2 
+Contents 
+ 
+1 Introduction ........................................................................................... 3 
+2 Assumptions and Notations .................................................................. 4 
+2.1 Basic Assumptions for Our Models.................................................................. 4 
+2.2 Notations ........................................................................................................... 4 
+3 Physical and Geometric Analysis of Model ......................................... 6 
+3.1 Earth-Sun Transfer Phase ................................................................................. 6 
+3.2 First Orbit Sun Phase ........................................................................................ 8 
+3.3 Venus Swing by Phase ..................................................................................... 8 
+3.4 Second Orbit Sun Phase ................................................................................... 9 
+3.5 Sun-Saturn Transfer Phase ............................................................................... 9 
+4 Results ................................................................................................. 10 
+5 Strengths and Weaknesses .................................................................. 10 
+5.1 Strengths ......................................................................................................... 10 
+5.2 Weaknesses ..................................................................................................... 10 
+MATLAB Code ..................................................................................... 11 
+Reference ............................................................................................... 12 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+TEAM#340 
+ 
+ION THRUSTERS TO SATURN 
+3 
+1 Introduction 
+On October 15, 1997, Cassini-Huygens, which involved a collaboration between 
+NASA, ESA and ASI, was launched into space to study the planet Saturn and its 
+system. Cassini, the first space probe to enter Saturn’s orbit, spent 7 years on the 
+voyage to Staurn, which included flybys of Venus, Earth, the asteroid 2685 Masursky, 
+and Jupiter. 
+ 
+Fig1. Cassini Interplanetary Trajectory 
+According to the assignment, our work begins at the point when the spacecraft 
+escapes Earth at a specific velocity and ends when it falls into the prescribed circular 
+orbit around Saturn. The spacecraft is only powered by the equipped ion thrusters, 
+which is required to take the minimum amount of fuel. Based on the Cassini’s 
+experience and the requirements of this voyage, it is difficult to provide enough 
+energy only by the equipped thrusters, so we need to use the gravitational slingshot 
+effect of the planets in solar system to accelerate the spacecraft. Moreover, since this 
+voyage doesn’t impose time restrictions but only considers fuel consumption, we 
+don’t have to accelerate the spacecraft to a fast velocity to save time. To summarize 
+the foregoing, we decided to use the gravitational slingshot effect of Venus to 
+accelerate the spacecraft once, and then let it directly fall into the prescribed orbit 
+around Saturn. 
+To realize the voyage from Earth to Saturn, we established a Conic Section 
+Splicing Model, which was divided into five stages, including Earth-Sun 
+Transfer Phase, First Orbit Sun Phase, Venus Swing by Phase, Second Orbit 
+Sun Phase and Sun-Saturn Transfer Phase. With the Conic Section Splicing 
+Model and discussion, the flight plan taking the minimum amount of fuel can 
+hopefully be found after calculation run on computers. 
+ 
+ 
+ 
+
+TEAM#340 
+ 
+ION THRUSTERS TO SATURN 
+4 
+2 Assumptions and Notations 
+2.1 Basic Assumptions for Our Models 
+ Assume that the spacecraft is only exposed to the sun’s gravity during the flight 
+when it is free from Planet A bondage and is not captured by Planet B. Because 
+the gravity from both Planet A and Planet B are very small contrasted to the sun’s 
+gravitational attraction during this period. And ignoring other gravities can 
+simplify the calculation and facilitate the model establishment. 
+ Suppose all the planets are in the ideal position. In other words, the spacecraft 
+happens to be captured by planet B when it is at the right velocity. It is 
+theoretically possible to find a right launch time to achieve such an ideal result. In 
+this paper we deal with it briefly. 
+ Assume the paths of all the planets orbiting the sun are circular. Since the 
+eccentricities of the motions of the planets in solar system are very small, we can 
+simplify the calculation by approximating them to circles. 
+ Suppose all objects in the system can be considered as mass points. 
+ Ignore the effects of planet’s rotation. 
+ Ignore the effects of relativity. 
+2.2 Notations 
+Variable 
+ 
+Explanations 
+ 
+𝒎𝒎 
+The mass of the spacecraft 
+(kg) 
+𝑴𝑴𝑬𝑬 
+The mass of Earth 
+(𝑀𝑀𝐸𝐸= 5.965 × 1024𝑘𝑘𝑘𝑘) 
+𝑴𝑴𝑽𝑽 
+The mass of Venus 
+(𝑀𝑀𝑉𝑉= 4.869 × 1024𝑘𝑘𝑘𝑘) 
+𝑴𝑴𝑺𝑺 
+The mass of Saturn 
+(𝑀𝑀𝑆𝑆= 5.6846 × 1026𝑘𝑘𝑘𝑘) 
+𝑴𝑴𝑺𝑺𝑺𝑺𝑺𝑺 
+The mass of Sun 
+(𝑀𝑀𝑆𝑆𝑆𝑆𝑆𝑆= 1.9891 × 1030𝑘𝑘𝑘𝑘) 
+𝑹𝑹𝑬𝑬 
+The orbital semi-major axis of Earth 
+(𝑅𝑅𝐸𝐸= 1.4960 × 108𝑘𝑘𝑘𝑘) 
+𝑹𝑹𝑽𝑽 
+The orbital semi-major axis of Venus 
+(𝑅𝑅𝑉𝑉= 1.0821 × 108𝑘𝑘𝑘𝑘) 
+𝑹𝑹𝑺𝑺 
+The orbital semi-major axis of Saturn 
+(𝑅𝑅𝑆𝑆= 1.4334 × 109𝑘𝑘𝑘𝑘) 
+𝒓𝒓𝑬𝑬 
+The orbital radius of the spacecraft around Earth 
+(km) 
+
+TEAM#340 
+ 
+ION THRUSTERS TO SATURN 
+5 
+𝒓𝒓𝑺𝑺 
+The orbital radius of the spacecraft around Saturn 
+(km) 
+𝑻𝑻𝑬𝑬 
+The orbital period of the spacecraft around Earth 
+(𝑇𝑇𝐸𝐸= 1.5ℎ) 
+𝑻𝑻𝑺𝑺 
+The orbital period of the spacecraft around Saturn 
+(𝑇𝑇𝑆𝑆= 40ℎ) 
+𝐆𝐆 
+Gravitational constant 
+(G = 6.6726 × 10−11𝑁𝑁∙𝑚𝑚2 ∙𝑘𝑘𝑘𝑘−1) 
+𝒈𝒈𝟎𝟎 
+Standard gravitational acceleration 
+(𝑔𝑔0 = 9.8067𝑚𝑚∙𝑠𝑠−2) 
+𝒂𝒂𝟏𝟏 
+The semi-long axis of the spacecraft's elliptical orbit to Venus by Sun's 
+gravity (km) 
+𝒃𝒃𝟏𝟏 
+The semi-short axis of the spacecraft's elliptical orbit to Venus by Sun's 
+gravity (km) 
+𝒂𝒂𝟐𝟐 
+The semi-long axis of the spacecraft's elliptical orbit to Staurn by Sun's 
+gravity (km) 
+𝒃𝒃𝟐𝟐 
+The semi-short axis of the spacecraft's elliptical orbit to Saturn by Sun's 
+gravity (km) 
+𝒗𝒗𝟎𝟎 
+The initial velocity of the spacecraft orbiting Earth 
+(Under Earth Reference System)(km ∙𝑠𝑠−1) 
+𝒗𝒗𝟏𝟏 
+The velocity of the spacecraft escaping Earth 
+(Under Earth Reference System)(km ∙𝑠𝑠−1) 
+𝒗𝒗𝟐𝟐 
+The velocity of the spacecraft which happened to interact with Venus 
+(Under Sun Reference System)(km ∙𝑠𝑠−1) 
+𝒗𝒗𝟑𝟑 
+The velocity of the spacecraft escaping Venus 
+(Under Sun Reference System)(km ∙𝑠𝑠−1) 
+𝒗𝒗𝟒𝟒 
+The velocity of the spacecraft which happened to interact with Saturn 
+(Under Sun Reference System)(km ∙𝑠𝑠−1) 
+𝒗𝒗𝟓𝟓 
+The final velocity of the spacecraft orbiting Saturn 
+(Under Saturn Reference System)(km ∙𝑠𝑠−1) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+TEAM#340 
+ 
+ION THRUSTERS TO SATURN 
+6 
+3 Physical and Geometric Analysis of Model 
+To realize the voyage from Earth to Saturn, we established a Conic Section 
+Splicing Model, which was divided into five stages, including Earth-Sun 
+Transfer Phase, First Orbit Sun Phase, Venus Swing by Phase, Second Orbit 
+Sun Phase and Sun-Saturn Transfer Phase. 
+ 
+Fig2. Schematic diagram of voyage trajectory 
+3.1 Earth-Sun Transfer Phase 
+Under Earth Reference System, when the spacecraft orbits Earth in a circle with 
+an orbital period of 90 minutes, 𝑟𝑟𝐸𝐸= 6.6493 × 103𝑘𝑘𝑘𝑘, 𝑣𝑣0 = 7.7368𝑘𝑘𝑘𝑘/𝑠𝑠. 
+Establish a polar coordinate system with the geocentric center as the polar point and 
+the rays from the geocentric center past the initial position of the spacecraft as the 
+polar axis. 
+When the spacecraft use ion thrusters to accelerate,  
+ 
+𝐹𝐹⃗= ቀ0.4,
+𝜋𝜋
+2 + 𝜃𝜃ቁ 
+(1.1) 
+ 
+𝐺𝐺⃗= ቀ
+𝐺𝐺𝑀𝑀𝐸𝐸𝑚𝑚
+𝜌𝜌2
+, −𝜃𝜃ቁ 
+(1.2) 
+ 
+m = 𝑚𝑚0 −
+ห𝐹𝐹⃗ห
+𝑔𝑔0𝐼𝐼𝑠𝑠𝑠𝑠 
+(1.3) 
+ 
+𝑎𝑎𝜌𝜌= 𝜌𝜌̈ −𝜌𝜌∙𝜃𝜃̇2 
+(1.4) 
+ 
+𝑎𝑎𝜃𝜃= 𝜌𝜌∙𝜃𝜃̈ −2𝜌𝜌̇𝜃𝜃̇ 
+(1.5) 
+
+TEAM#340 
+ 
+ION THRUSTERS TO SATURN 
+7 
+By associating these five equations, we can obtain the kinetic differential 
+equation of the spacecraft. Since it is a higher order nonlinear non-homogeneous 
+equation with no analytic solution, we use the Coutarone algorithm included in 
+MATLAB to obtain the numerical solution by interpolating the integral. We can only 
+derive the numerical solution using MATLAB. 
+After MATLAB's calculation, we found that, under Earth Reference System, 
+when the ion thrusters’ running time t = 65452.66h (about 7.47 years), the total 
+mechanical energy of the spacecraft is equal to 𝐸𝐸0 (see below for its specific value). 
+At this moment, close the ion thrusters, then the spacecraft will escape from Earth's 
+gravity. 
+We plotted the trajectory of the spacecraft with sustained constant acceleration 
+throughout the phase, as shown in the upper part of Figure 3. The portion of the 
+trajectory of the spacecraft's numerous orbiting around the Earth is enlarged in the 
+polar coordinate system as shown in the lower part of Figure 3. 
+ 
+ 
+Fig3. The Trajectory of Earth-Sun Transfer Orbit 
+Figure 4 shows the relationship between the velocity of the spacecraft and 
+time. 
+
+TEAM#340 
+ 
+ION THRUSTERS TO SATURN 
+8 
+ 
+Fig4. The velocity of Earth-Sun Transfer Orbit 
+ 
+3.2 First Orbit Sun Phase 
+As the first basic assumption, we think the spacecraft is only exposed to Sun’s 
+gravity during the flight when it is free from Earth’s gravity and has not been captured 
+by Venus. Therefore it moves elliptically with Sun as its focal point. 
+At this moment, we establish a polar coordinate system with Sun as the polar 
+point and the rays from Sun past the position of the spacecraft as the polar axis. 
+Suppose all planets are in ideal position, thus the present velocity of the spacecraft 
+can be decomposed into velocity along the axis pointing to the polar point 𝑣𝑣1 and 
+velocity perpendicular to the axis 𝑣𝑣1
+′, and the value of 𝑣𝑣1
+′ is exactly equal to the 
+orbital velocity of Earth around Sun 𝑣𝑣𝐸𝐸= 29.786𝑘𝑘𝑘𝑘/𝑠𝑠. 
+When the spacecraft moves to the apex of the semi-long axis (the one close to 
+the side of Sun), Venus moves to this position exactly. It then proceeds to the next 
+model stage. So there is the following equation: 
+ 
+𝑎𝑎1 −𝑐𝑐1 = 𝑅𝑅𝑉𝑉 
+(2.1) 
+ 
+m𝑣𝑣𝐸𝐸𝑅𝑅𝐸𝐸= 𝑚𝑚𝑣𝑣2𝑅𝑅𝑉𝑉 
+(2.2) 
+1
+2 𝑚𝑚𝑣𝑣2
+2 −
+𝐺𝐺𝑀𝑀𝑆𝑆𝑆𝑆𝑆𝑆𝑚𝑚
+𝑅𝑅𝑉𝑉
+=
+1
+2 𝑚𝑚(𝑣𝑣𝐸𝐸
+2 + 𝑣𝑣1
+2) −
+𝐺𝐺𝑀𝑀𝑆𝑆𝑆𝑆𝑆𝑆𝑚𝑚
+𝑅𝑅𝐸𝐸
+ 
+(2.3) 
+𝑣𝑣1 = 11.393𝑘𝑘𝑘𝑘/𝑠𝑠 
+ 
+𝑣𝑣2 = 41.179𝑘𝑘𝑘𝑘/𝑠𝑠 
+3.3 Venus Swing by Phase 
+We don’t care about the process of the spacecraft’s interaction with Venus, but 
+only pay attention to its velocity when it happened to interact with Venus 𝑣𝑣2 and its 
+velocity when escapes Venus 𝑣𝑣3 . 
+After this stage, the spacecraft goes directly to Saturn. To make sure that it can 
+
+TEAM#340 
+ 
+ION THRUSTERS TO SATURN 
+9 
+reach Saturn, we set: 
+ 
+𝑎𝑎2 −𝑐𝑐2 = 𝑅𝑅𝑉𝑉 
+(3.1) 
+ 
+𝑎𝑎2 + 𝑐𝑐2 = 𝑅𝑅𝑆𝑆 
+(3.2) 
+From the equation and the properties of the conic curve itself, it can be solved 
+that 
+𝑣𝑣3 = 47.759𝑘𝑘𝑘𝑘/𝑠𝑠 
+3.4 Second Orbit Sun Phase 
+From the above, it is known that the spacecraft flies from Venus along the 
+conical curve described above to the vicinity of Saturn. Then it proceeds to the next 
+stage. 
+ 
+m𝑣𝑣3𝑅𝑅𝑉𝑉= m𝑣𝑣4𝑅𝑅𝑆𝑆 
+(4.1) 
+𝑣𝑣4 = 3.6058𝑘𝑘𝑘𝑘/𝑠𝑠 
+3.5 Sun-Saturn Transfer Phase 
+Under Saturn Reference System, when the spacecraft orbits Saturn in a circle 
+with an orbital period of 40 hours, 𝑟𝑟𝑆𝑆= 2.7109 × 105𝑘𝑘𝑘𝑘, 𝑣𝑣5 = 11.829𝑘𝑘𝑘𝑘/𝑠𝑠. 
+When the spacecraft is captured by Saturn, it firstly performs free motion under 
+the gravity of Jupiter until the orbital radius is 300,000 km, then turns on the ion 
+thrusters in the opposite direction of the angular velocity, slowing the spacecraft down 
+until it reaches the prescribed orbit. 
+Use MATLAB to find the trajectory of the spacecraft's motion as shown in the 
+figure 5. 
+ 
+Fig5. The Trajectory of The Spacecraft's Motion 
+
+TEAM#340 
+ 
+ION THRUSTERS TO SATURN 
+10 
+4 Results 
+During Earth-Sun Transfer Phase, according the above, the spacecraft 
+takes 2402.75kg fuel and 𝑡𝑡1 = 65452.66 ℎ . 
+During First Orbit Sun Phase, the spacecraft don’t consume fuel. The 
+time it takes: 
+z = 𝑅𝑅𝐸𝐸
+𝑅𝑅𝑉𝑉
+−1 
+𝑡𝑡2 = ቂcos−1 𝑧𝑧−𝑧𝑧ඥ1 −𝑧𝑧2ቃ∙ඩቀ𝑅𝑅𝑉𝑉
+1 −𝑧𝑧ቁ
+3
+𝐺𝐺𝑀𝑀𝑆𝑆𝑈𝑈𝑈𝑈
+= 1459.01 h 
+During Venus Swing by Phase, the spacecraft don’t consume fuel. Since 
+its velocity in this process is very fast (>40km/s) and its trajectory is relatively short, 
+we ignore the time it takes. 
+During Second Orbit Sun Phase, the spacecraft don’t consume fuel. The 
+time it takes: 
+𝑡𝑡4 = π ∙ඨ(𝑅𝑅𝑉𝑉+ 𝑅𝑅𝑆𝑆)3
+8𝐺𝐺𝑀𝑀𝑆𝑆𝑆𝑆𝑆𝑆
+= 51261.18 ℎ 
+During Sun-Saturn Transfer Phase, according the above, the spacecraft 
+takes 0.02kg fuel and 𝑡𝑡5 = 0.43 ℎ . 
+In summary, the minimum amount of fuel it takes is 2402.77kg. The 
+duration of the trip is 4923.89 days (13.49 years). During Stage 1 ,turn on the 
+ion thrusters in the same direction with the angular velocity for 65452.66 
+hours. While during Stage 5 , turn on the ion thrusters in the opposite direction 
+of the angular velocity for 0.43 hours. 
+5 Strengths and Weaknesses 
+5.1 Strengths 
+1. With some basic assumptions and geometric relationships, we have greatly and 
+reasonably simplified the construction of the model and the computation of the 
+equations, and have made this voyage planning much more straightforward. 
+ 
+5.2 Weaknesses 
+1. Spacecraft is also affected by its satellites when orbiting the planet. Saturn, in 
+particular, has a complex gravitational perturbation environment, making it difficult to 
+
+TEAM#340 
+ 
+ION THRUSTERS TO SATURN 
+11 
+accurately predict the spacecraft's orbit. Orbital velocity calculated from the given 
+orbital period may be subject to error. 
+ 
+Fig6. Cassini “Ball of Yarn” first 24 frames low res. 
+2. This is only an ideal model. In the process of establishing our model, we think all 
+the planets orbit the sun in circle and at a invariable velocity. In fact, there are many 
+differences. We also ignore the effects of planets’ rotation and cosmic dust impeding 
+the flight of spacecraft. 
+3. The orbital geometry relation we construct is only a rougher estimate. On the one 
+hand, the dynamical feasibility is not considered deeply, on the other hand, the 
+acceleration deflection angles during the interaction with planets are not included in 
+the calculations. 
+MATLAB Code 
+function earth(a) 
+options = odeset('RelTol',1e-5,'Stats','on','OutputFcn',@odeplot) 
+ [t,y]=ode45(@odefun1,[0,5000000],[100000000;0;3000;-700],options) 
+ v=sqrt(y(:,3).^2.+y(:,4).^2); 
+ beta=atan(y(:,4)./y(:,3)); 
+ figure(1); 
+ polarplot(y(:,2),y(:,1),'r') 
+ title('The Trajectory of Earth-Sun Transfer Orbit(polar coordinates) ') 
+ figure(2); 
+plot(t,v) 
+title('The velocity of Earth-Sun Transfer Orbit') 
+xlabel('time(hours)') 
+ylabel('velocity(km/s)') 
+figure(3); 
+plot(t,asin(a)+pi/2-beta) 
+title({'The Angle of Earth-Sun Transfer Orbit';'(Based on the vector of the vehicle.s 
+path relative to the earth)'}) 
+xlabel('time(hours)') 
+ylabel('angel(rad/s)') 
+   function dy=odefun1(t,y) 
+dy(1,1)=y(4); 
+dy(2,1)=(y(3)/y(1)); 
+dy(3,1)=-0.400*double(a)/(2595.6-0.4/(9.8*4000)*t)-y(4)*y(3)/y(1); 
+
+TEAM#340 
+ 
+ION THRUSTERS TO SATURN 
+12 
+dy(4,1)=0.400*sqrt(1-a^2)/(5000-0.4/(9.8*4000)*t)+y(3)^2/y(1)-(7736.8)^2*6648320
+/y(1)^2; 
+   end 
+end 
+------------------------------------------------------------------------------------------------------- 
+function saturn(r) 
+ format long 
+ 
+[t,y]=ode113(@odefun1,[0,30000000],[r;0;(3084.2^2+75862010230000000/r)^0.5;0]) 
+ v=sqrt(y(:,3).^2.+y(:,4).^2) 
+ beta=atan(y(:,4)./y(:,3)) 
+ figure(1); 
+ polarplot(y(:,2),y(:,1),'r') 
+writematrix([t,y(:,1),(y(:,3).^2.+y(:,4).^2).^0.5],'M.csv') 
+    function dy=odefun1(t,y) 
+dy(2,1)=(y(3)/y(1)); 
+dy(3,1)=-0.4/(2598.25-0.4*t/(9.80665*4000))-y(4)*y(3)/y(1); 
+dy(4,1)=(y(3)^2/y(1)-75862010230000000/y(1)^2); 
+   end 
+end 
+Reference 
+[1]"Saturn Plunge Nears for Cassini Spacecraft". NASA - National Aeronautics and 
+Space Administration. August 29, 2017. Retrieved August 30, 2017. 
+[2]Overbye, Dennis (September 8, 2017). "Cassini Flies Toward a Fiery Death on 
+Saturn". The New York Times. Retrieved September 10, 2017. 
+[3] study on Trajectory Optimization Design Method for Multi-target DEEP Space 
+Exploration. Li Jiu-tian. 

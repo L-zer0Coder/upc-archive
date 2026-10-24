@@ -1,0 +1,932 @@
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 1 
+ 
+Analysis of Biological Structures in 
+Hypergravity Environments 
+Team 611: Problem B 
+ 
+Abstract 
+In this paper, we produce an analysis of how life would evolve differently on a planet with a 
+mass eight times that of earth and a radius two times that of earth. We address this analysis by 
+considering the effects of increased gravity on the dynamics and mechanics of the 
+cardiovascular and musculoskeletal systems. We investigate the cardiovascular system by 
+considering laminar flow in large and medium sized vessels, using the Navier-Stokes equations 
+to model the blood pressure gradient. Additionally, we use scaling arguments of allometry to 
+estimate how blood volume and capillary dimensions vary with gravity. We investigate the 
+musculoskeletal system by considering a single bone and muscle extending from the animal 
+body. We decompose bone stress into normal and shear components and treat muscle stress 
+through equilibrium arguments to estimate changes in bone cross sectional area. This model is 
+then used to constrain possible values of bone length and attachment angle. Additionally, we 
+analyze the dynamics of legged locomotion using Froude numbers to demonstrate changes in 
+gait as a function of gravitational acceleration. Finally, the effects additional factors including 
+changes in atmospheric pressure and temperature are considered. Given these considerations, 
+we propose that animals that evolve in this environment would be characterized by bones with 
+twice the cross sectional area and approximately 30% less length than their earth counterparts. 
+Leg bones would attach to the body at shallower angles, blood volume would approximately 
+double and capillary size would increase, organ and heart size would increase, and animals 
+would be shorter and more compact to compensate for higher blood pressure gradients. 
+Additionally, we model gait as a function of gravitational acceleration to demonstrate that it 
+would be increasingly difficult for animals to reach the most efficient modes of transportation, 
+likely decreasing maximum speed. 
+ 
+ 
+ 
+ 
+ 
+ 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 2 
+ 
+1 
+Interpretation of the Problem 
+ 
+We will investigate how the structure of animals varies when the mass and surface area 
+of a planet increases of factors of eight and two, respectively. Our main consideration is 
+variation in skeletal structure and blood flow due to the change in surface gravity. We discuss 
+physiological changes relative to an equivalent animal on earth, assuming that these changes 
+will give the new animal the same functionality as the equivalent earth animal.  
+1.1  
+Introduction 
+ 
+Recent discoveries by instruments such as the Kepler Telescope have revealed an 
+incredible number of exoplanets, many of which are earthlike. Of these, a significant number 
+have been found in the habitable zone, allowing for the possibility of life. While life may exist on 
+these planets, it is possible that the conditions under which it forms and thrives differ 
+significantly from those on earth. In this paper, we consider how creatures on a habitable planet 
+of eight times the mass and twice the radius of earth would differ from those found on earth. 
+ 
+In this paper, we begin by considering gravity and its direct and indirect effects on the 
+biological systems of terrestrial homeotherms. We propose that the factors which most greatly 
+constrain and evolution and structure of life on this exoplanet will be changes in the 
+cardiovascular system, the musculoskeletal system, and atmospheric pressure. We describe 
+each system independently, producing a mathematical model of the effects of gravity on each of 
+these three factors, before combining the results to predict such factors as bone dimensions 
+and blood volume. Throughout the paper, we presume that evolution on this planet will produce 
+animals with approximately the same functions as those on earth.  
+ 
+2  
+Model 
+2.1  
+Assumptions and Overview 
+ 
+In this paper, we treat the planet as a sphere surrounded with a thin atmosphere. Given 
+an exoplanet with a mass eight times that of earth and a radius that times of earth, it is simple to 
+show that gravitational acceleration at the surface will scale as 
+   
+   
+Hence gravitational acceleration at the surface will be two times that of earth. We have also 
+considered the centripetal acceleration caused by the rotational motion of the planet. The 
+centripetal acceleration is given by 
+     
+      
+Since   is larger in the case of the exoplanet, it is important to consider if the centripetal 
+acceleration could become a significant factor. We have plotted 
+      
+     (i.e. the relative rotational 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 3 
+ 
+acceleration) vs. the period of the planet’s rotation. From this plot, we observe that the 
+exoplanet would have to be rotating at least 10 times faster than earth for the centripetal 
+acceleration to factor significantly into the forces experienced at the surface. Hence we assume 
+that the rotation rate does not significantly contribute to the acceleration of objects near the 
+surface of the exoplanet.  
+ 
+Fig. 2.1.1 Rotational acceleration as a function of planet rotation.  
+Given such a drastic change in gravitational acceleration, we assume that difference in gravity 
+accounts for the most significant differences between the organisms on this exoplanet and 
+those on earth. It is thus important to consider the factors which are most influenced by these 
+changes. In this paper, we consider: 
+(1) Cardiovascular System: The cardiovascular system must be capable of delivering blood 
+throughout the body and removing waste products. Blood must be pumped against 
+gravity to body parts above the heart and brought back from lower extremities against 
+gravity to prevent pooling. This is accomplished through the force of contraction in the 
+heart and the elasticity and dimensions of arterial blood vessels. We model blood flow 
+mathematically to predict changes in blood pressure and other changes in the 
+cardiovascular system. 
+(2) Skeletal System: Perhaps the most obvious structural requirement of an organism is 
+adequate support of body mass. When the force of gravitational loading exceeds 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 4 
+ 
+cohesive forces holding together a structure, that structure will collapse. Thus, in a 
+vertebrate it is necessary to increase the strength of supporting skeletal parts to 
+compensate for increased gravitational loading, a phenomenon seen on earth in the 
+scaling of bone cross-sectional area to animal mass [1]. In this paper, we describe a 
+model of the gravitational stresses on a skeletal system and predict how the system will 
+be scaled, and with what efficiency, to compensate for increased gravitational loads.  
+(3) Consideration of changes due to atmospheric surface pressure and surface 
+temperature. 
+Further assumptions are states throughout the paper. 
+2.2  
+Cardiovascular System 
+To understand how the cardiovascular system will change, we will model blood flow through the 
+circulatory system using the Navier-Stokes equations and study changes in blood pressure as a 
+function of gravitational acceleration.  
+We can describe viscous flow with the Navier-Stokes equations, which accurately model the 
+laminar flow experienced in medium or large arteries [4]: 
+  
+    (   )         ( )   
+      
+where u is velocity, P is the fluid pressure, µ is the dynamic viscosity of the fluid,  f  is the 
+external force per unit volume, and 
+ ( )       
+ 
+ 
+is the strain rate. The second term of the top equation is the convective term and the strain rate 
+is the diffusive term. If the Reynold’s number is low (less than 1000) the flow is laminar while if it 
+is high the flow is turbulent. During peak systolic velocity, some flow instabilities occur at the 
+aortic valve. In all other cases the blood flow is laminar [4]. We can rewrite the first equation to 
+solve for the pressure gradient, 
+         ( )   
+    (   )  
+Blood can be assumed to have constant density with constant velocity as a function of   [4]. In 
+our comparison of blood pressure gradient on earth to our super-earth, we assume the 
+following: 
+ 
+1.       per unit volume, so               
+2. The radial and polar components of the velocity are zero:         
+3.              constant 
+4.          
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 5 
+ 
+ 
+We can further assume that velocity u is only in the direction along the vein, say the  ̂ direction, 
+and that it is a laminar flow. Thus, we assume that velocity only changes in the radial direction. 
+Then   is a function of only one variable, r, so we can write  
+ ( ) 
+  
+     
+  
+ 
+ 
+ 
+  
+     
+  
+ 
+   
+   
+Then 
+              
+     
+    (   )             
+      
+       
+   
+We assume that velocity is time independent, so 
+ 
+  
+     
+Then 
+             
+        
+   
+By a dimensional argument, 
+  
+   
+  
+So 
+     
+             
+     
+ 
+  
+   
+Then 
+ 
+ 
+  
+            
+     
+ 
+  
+   
+Solving this differential equation is difficult, particularly when it becomes inhomogeneous from 
+our external force fsup . As seen in derivations from the literature, our force term vanishes after 
+considering the cylindrical momentum equations [9] and we obtain 
+ 
+ 
+ 
+ 
+  (   
+  )  
+ 
+  
+   
+Integrating, we find  
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 6 
+ 
+   
+     
+  
+  
+     
+  
+    
+  
+  
+    
+  
+   
+  
+  
+            
+where r is the radial distance from the center of the vein. We must have a finite u at    , so it 
+must be that    . We model the blood as a laminar flow, so the no-slip condition requires that 
+u is 0 at    , where R is the radius of the vein. These boundary conditions yield 
+    
+  
+  
+     
+Then we find a velocity profile of 
+    
+  
+  
+  (     ) 
+From the above equations we can see that the gradient is roughly proportional to the external 
+force per volume. In an environment with a gravitational acceleration of 2g, we expect that the 
+blood pressure gradient will be tighter. That is, there will be a greater difference between the 
+blood pressure at a point a and b on the creature’s appendage in 2g than in 1g. Let us examine 
+two cases. 
+Case 1: Assume that the cardiovascular system of the creature on the super-earth is identical to 
+the cardiovascular system of a creature of similar size and build on earth. With an increased 
+pressure gradient, the creature’s system has increased difficulty oxygenating and pumping 
+blood. So the body must expend more energy because the heart feels a greater force. Shorter 
+appendages create a shorter distance for the heart to pump blood through. We know       
+   and that         , where W is work, F is force, E is energy, and Q is heat. So energy 
+is roughly proportional to     . If we decrease the distance dz that we pump blood through 
+while holding F constant, then we can decrease the energy the body must expend to pump the 
+blood. Consequently, it is likely that a creature on the super-earth with an earth-like 
+cardiovascular system will have a compact body with shorter appendages than its counterpart 
+on earth. 
+Case 2: Assume that the length of the creature’s appendages is comparable to that of a 
+creature on earth with similar size and build. An increased pressure gradient means that the 
+body must expend more energy to oxygenate its blood. If we hold dz constant, then in order to 
+minimize the energy the heart expends the organ must become more efficient. This can be 
+achieved by increasing the size, and consequently strength, of the heart. With each pump, a 
+greater amount of blood is sent through the veins, so the heart has to spend less energy per 
+unit of blood pumped. Thus, a creature on super-earth with earth-length appendages will need 
+to develop a larger heart than its counterpart on earth. 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 7 
+ 
+We deem it probable that a super-earth creature’s body will show a combination of the 
+alterations in Cases 1 and 2. The creature will most likely have shorter appendages and also 
+have a larger heart than its doppelganger on earth.  
+2.2.1  Blood Volume as a Function of Weight 
+By basic principles of geometry, it is possible to express the relationship between volume and 
+surface area as a shape grows in size.  As an object undergoes a proportional size increase, 
+the final volume is proportional to the cube of the initial volume and the final surface area is 
+proportional to the square of the initial surface area. That is, 
+      (  
+  
+)  
+where   and    are the initial and final volumes, respectively, and    and    are the initial and 
+final lengths of the object.  The final area is described as, 
+      (  
+  
+)  
+where   and    are the initial and final areas, respectively, and    and    are the initial and final 
+lengths of the object.  This scaling difference between volume and surface area provides the 
+basis of allometry, the study of the relationship of body size to physiology and anatomy. 
+It is clear that bone cross-sectional area will not scale proportionally, and must instead be 
+described using an allometric relationship [5]. Allometric scaling laws for various physical 
+quantities have been found both theoretically and experimentally. Of particular interest are 
+variations in characteristic radius, length, and number of capillary blood vessels as a function of 
+gravitational acceleration. These quantities were determined by T.H. Dawson [3] to be: 
+    
+ 
+   
+    
+ 
+   
+    
+ 
+  
+where   ,   , and    are the characteristic radius, length, and number of blood vessels, 
+respectively.   denotes proportionality. Hence as gravitational acceleration increases, blood 
+vessels increase in radius, length, and number. These laws apply both to single pulmonary beds 
+and beds of capillaries in individual organs. Thus, ignoring other factors, organ size would scale 
+with   in the same proportions. Additionally, we can consider the change in the total volume of 
+blood in the capillaries. If we assume that capillaries can be modeled as cylinders with radius     
+and length   , then the total volume of blood in the capillaries is, 
+           
+Of course, capillaries exhibit both curvature and tapering, so we can only conclude that, 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 8 
+ 
+          
+Hence, 
+    
+So blood volume increases proportionally with gravitational acceleration.  
+2.3  
+Musculoskeletal System 
+We model the skeletal system by considering the normal and shear stresses on a bone as a 
+function of gravity. Stress describes the internal forces that particles of a continuous material 
+exert on one another. Stress can be broken down into normal and shear components. Here, we 
+consider a bone with cross sectional area   to be a cylinder of uniform composition.  The 
+normal and shear stresses can be expressed as  
+    
+  
+    
+  
+Where   is the normal stress,   is the shear stress,    is the component of force normal to the 
+cross sectional area of the bone,    is the component of force perpendicular to the bone, and   
+is the cross sectional area of the bone. This can be expressed in terms of the gravitational 
+acceleration   as, 
+        
+ 
+ 
+        
+ 
+ 
+Where   is the mass of the creature and   is the angle of attachment between the bone and the 
+body.  
+As an animal walks, a vertical force of    acts on the foot, exerting a torque of         about 
+the joint halfway up the leg. To maintain equilibrium, the muscle must exert an equivalent 
+torque. If the muscle has a cross-sectional area  , a moment arm of   about the joint, and 
+exerts a stress   , then the torque about the joint exerted by the muscle is, 
+       
+The system is in equilibrium, so, 
+             
+      
+       
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 9 
+ 
+In modeling variations of the musculoskeletal system as a function of gravity, we consider 
+variations in  ,  , and bone length  . Considering the decomposed stresses and the above 
+relationship for the stress exerted by muscle, we can constrain these variables. Let us first 
+consider the cross sectional area  . As gravitational acceleration increases,   must increase to 
+maintain constant stress to prevent the bone from breaking. To maintain constant total stress, 
+  √        
+  
+must remain constant as g changes. Hence, because g doubles,   must also double. 
+Next, we consider the angle   between the bone and body.   can vary between 0 and 
+ 
+ . On 
+earth, smaller mammals tend to exhibit higher angles, with   decreasing with increasing mass, 
+consistent with the equation for    above assuming constant muscle stress. Elephants, for 
+example, have column-like femurs connecting nearly perpendicularly to their body [2]. We can 
+verify that bones will not break for   
+ 
+  by considering shear stress for the case of maximum 
+(breaking point) shear. The maximum allowable   is, 
+               
+   
+where      is the maximum shear that bone can withstand before fracturing, experimentally 
+determined to be 51.6 MPa for human femurs [10]. This value is nearly constant between 
+different species. Even for exceptionally large masses, the maximum shear will not be reached 
+at     , a conclusion which seems both sensible and reassuring. Thus, we can safely conclude 
+that     
+ 
+ . 
+Finally, we consider the length   of the bone. Longer bones are more susceptible to fracture as 
+gravitational acceleration increases, and thus we constrain bone length to        where    is 
+bone length when gravitational acceleration is  . By assuming that the stress applied by muscle 
+is relatively constant – i.e. the physical properties of muscle do not vary as a function of 
+gravitational acceleration – and that muscle cross sectional area does not change considerably 
+[1], we can use the equation for    to plot bone length and attachment angle, as shown below 
+in fig. 2.3.1. The constants used to generate these curves were approximated for a human 
+femur and quadriceps, although the same relationship is seen for any number of legs (see 
+Appendix 1). 
+The corner of this plot represents the point at which the product of   and   is minimized. Hence, 
+the corner is the point at which muscle stress    is minimized. Presuming that an organism 
+would evolve to minimize muscle stress, this corner represents the ideal values of   and  . 
+Comparing the curve for    with that for   , we see that both   and   decrease as gravitational 
+acceleration increases. Thus, we expect bone length to decrease and the angle between the 
+bones and body to decrease (animal legs will straighten).  
+From this plot, we can estimate that bone length and attachment angle will both decrease by 
+approximately 30% when surface gravity doubles. As discussed in section 4.1, this estimate is 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 10 
+ 
+subject to considerable error, though we can confidently state that both bone length and 
+attachment angle decrease as gravitational acceleration increases. 
+ 
+Fig. 2.3.1 Plot showing the relationship between bone length and attachment angle on earth 
+(1g) and the other planet (2g). The optimal length and angle for minimizing applied muscle 
+stress is denoted by the corner of each curve, marked by the cross-hairs.  
+2.4  
+Gait Patterns 
+Here we analyze the dynamics of legged locomotion in a gravitational field by treating a walking 
+limb as an inverted pendulum. The center of mass of the pendulum swings through a circular 
+arc centered at the base of the limb. The gait can be analyzed by calculating the Froude 
+number, defined as  
+    
+  
+where   is a characteristic velocity and   is a characteristic wave propagation velocity. In our 
+model of locomotion,  
+     
+  
+ 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 11 
+ 
+where    is the centripetal force about the center of motion and    is the gravitational force on 
+the walking animal. Hence, 
+   
+   
+ 
+     
+   
+Where   is animal mass,   is velocity,   is acceleration due to gravity, and   is the characteristic 
+length, which we define as total leg length [1, 2].  
+From this equation, we can also calculate the stride frequency as, 
+     
+       
+      
+  
+Froude numbers essentially represent the dynamics of the object’s movement. In other words, if 
+two objects have the same Froude number, then they are dynamically similar. As Alexander 
+explains, the transition from walking to trotting for quadrupeds on earth appears to happen at a 
+Froude number between 0.3 and 0.8. The transition from trotting to galloping occurs between 
+2.0 and 3.0 [2]. 
+When looking at the Froude number equation, it is observed that an animal moving at some 
+speed   with characteristic length   on earth would have half the Froude number on the 
+exoplanet. At the speed of a gallop on earth, for example, an animal would merely be trotting on 
+the exoplanet. Another implication of Froude numbers is that for similar dynamics the stride 
+frequency of an animal would be larger on the exoplanet than on earth. These results are 
+summarized in the figures below where we have plotted Froude number and characteristic 
+length to derive either the velocity or stride frequency. These results do not give precise 
+information on the maximum speed of the animal. Rather, they suggest that as gravitational 
+acceleration increases, it becomes increasingly difficult for animals to reach more efficient 
+modes of locomotion; running is a more efficient mode of locomotion than walking, and hence 
+animals prefer to run above a certain velocity. Animals on the exoplanet would take more strides 
+and do so in a less efficient mode of locomotion for a given velocity, suggesting that their 
+maximum speed would be lower than that of their earth counterpart.     
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 12 
+ 
+ 
+Fig. 2.4.1 Stride length as a function of Froude number and leg length in 1g and 2g 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 13 
+ 
+ 
+Fig. 2.4.2 Velocity as a function of Froude number and leg length in 1g and 2g 
+ 
+3  
+Additional Considerations 
+3.1  
+Effects of surface temperature 
+Our super-earth has an average temperature of 250K, well below the freezing point of water at 
+273.15K. This poses a challenge to life’s dependence on liquid water. By Lambert’s cosine law, 
+we know that the amount of insolation the planet receives falls off as     , where theta is the 
+sun’s rays and the normal to the planet’s surface [11]. Thus, the poles will have a much lower 
+temperature than the equator, just like earth. Earth has an average surface temperature of 288K 
+[12] and ranges from an average temperature of about 215K at the South Pole to an average of 
+about 300K at the equator. Let assume that the average temperature of the super-earth ranges 
+from 190K at the poles to 285K at the equator. We note that the earth still has liquid water in the 
+form of oceans at the poles due to currents transporting thermal energy from the equator. Let us 
+also assume that the super-earth has oceans and currents allowing liquid water to exist at the 
+poles. Life on earth exists at the poles. Polar bears, for example, are able to obtain water by 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 14 
+ 
+eating snow and prey. Their bodies break down the blubber from their prey to obtain the water it 
+contains. Creatures living in the poles also have a thick layer of blubber to provide insulation. 
+Thus, if life exists at the poles on the super-earth it must have some sort of insulation in the form 
+of blubber and/or hair coat and be able to obtain water from the food it eats. Further, the poles 
+of the super-earth are much colder than those of earth, so it is likely that creatures will either a) 
+have much more powerful forms of insulation and obtaining water and/or b) live closer to the 
+equator than to the pole of the hemisphere. If the average temperature of the super-earth 
+equator is 285K, then life has the ability to be similar to what we find on earth in terms of 
+temperature adaptations. Liquid water could also be easily found here, so it is probably that the 
+bulk of the planet’s biomass.  
+An interesting note is that the average surface temperature of the super-earth is roughly 
+equivalent to the effective temperature of earth. We assume that the super-earth has an 
+atmosphere and some plate tectonic activity, so the super-earth’s effective temperature will be 
+much lower than 250K. 
+The average surface temperature of earth is much larger than its effective temperature of 252K 
+found from equating the absorbed power to the Stefan-Boltzman law: 
+        
+where P is the total power radiated from the object, A is the object’s surface area, ε is the 
+object’s emissivity, σ is the Stefan-Boltzman constant, and T is the black body temperature. The 
+surface temperature of earth is much higher because of the effect of greenhouse gases, in part 
+produced from the earth’s plate tectonic activity.  
+3.2  
+Effects of Atmospheric Pressure 
+We now consider the changes due to atmospheric pressure on the exoplanet as compared to 
+the earth. It is well known that atmospheric pressure is described as follows: 
+ ( )                     
+   
+where    is the pressure at the surface of the planet,   is the scale height of the atmosphere,    
+is Boltzmann’s constant,   is the temperature of the atmosphere,   is the mean molecular mass 
+of the molecules in the atmosphere,   is the acceleration due to gravity, and   is the height 
+above the surface. To model the pressure differences between the earth and the exoplanet, we 
+have made the ansatz that   will be essentially the same between the two planets. This is 
+supported by the idea that the atmospheric composition of the two planets should be similar if 
+there exist living creatures on both planets. Using  =250 K and               kg, we 
+obtain a scale height of            km while the average            km. 
+If we assume that the surface pressure of the exoplanet is equal to that of the earth, we observe 
+that the atmospheric pressure of the exoplanet falls off more rapidly than that of the earth (see 
+figure below). This indicates that any airborne creatures living on the exoplanet would have to 
+compensate for a greater pressure difference over the change in height between which they fly 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 15 
+ 
+and where they obtain their food and water. Because compensating for an increase pressure 
+gradient requires more metabolic energy expenditure, any flying creature would have to have 
+better methods of expending less energy through this compensation. There is also the 
+possibility that these airborne creatures would just feed on other airborne creatures creating two 
+relatively independent food chains, one ground based and one air based. 
+Fig. 3.3.1 Atmospheric pressure as a function of altitude. The solid lines indicate the pressure 
+for the exoplanet given certain surface pressures. The dotted line represents the pressure fall 
+off for earth. 
+Conversely, if we were to assume that the atmosphere had the same composition as that of 
+earth, then considering a given air column, 
+   
+    
+  
+Surface pressure would increase, leading to a higher partial pressure of oxygen at the surface 
+and, consequently, less demand for red blood cells to carry oxygen. 
+ 
+4  
+Results Summary 
+We can combine the results of our above analyses to provide a general picture of life on this 
+planet. For illustration purposes, we consider a four-legged animal living on the equator.  
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 16 
+ 
+4.1  
+Changes in Musculoskeletal System and Locomotion 
+The cross sectional area of supporting bones is expected to double. The length of supporting 
+bones will decrease. Based on figure 2.3.1, we predict a decrease in bone length on the order of 
+30%. Additionally, the angle between supporting bones (i.e. femurs) and the body will decrease 
+such that legs will become more columnar than those found on earth. While we assumed that 
+the proportion of muscle volume to body volume will remain relatively constant, as is true on 
+earth, there is some allowance for increases in the proportion of muscle volume to counteract 
+increased gravitational acceleration. Finally, it would be more difficult for the animal to run and 
+the top speed would likely be lower. 
+4.2 
+Changes in the Cardiovascular System 
+Increased blood pressure gradients demand that animals in higher-gravity environments have 
+more compact bodies with shorter appendages located closer to the heart. Because the heart 
+must pump harder to send blood the same distance as on earth, we expect heart size to 
+increase due to the demand for stronger heart muscles. Additionally, we expect capillary size to 
+increase, leading to a blood volume approximately twice that of the earth counterpart. This also 
+requires increased organ size. The demand for higher blood volume is consistent with the 
+implication from the Navier-Stokes equations that heart size must increase. Additionally, the 
+likelihood of higher atmospheric surface pressure suggests that in order to function at a similar 
+level as its earth counterpart, the animal would require lower blood-oxygen saturation thanks to 
+the higher partial pressure of oxygen at the surface. 
+ 
+5  
+Discussion 
+5.1  
+Weaknesses 
+Our approach to solving this problem entails several inherent weaknesses. The cornerstone of 
+our analysis of the cardiovascular system lies with viscous flow described by the Navier-Stokes 
+equations outlined in section 2.2. This partial differential equation proved exceedingly difficult to 
+solve numerically, and we instead had to provide a somewhat qualitative analysis of the 
+equation’s consequences, which, while illuminating, is not completely rigorous. We did not 
+consider changes in blood flow as capillary diameter approached the dimensions of red blood 
+cells due to the presence of turbulent flow, but this could impact the functionality of an animal’s 
+extremities [4]. Additionally, if blood volume indeed increases in proportion with gravitational 
+acceleration, then volume approaches infinity in the limiting case, indicating that this relationship 
+fails at higher gravitational accelerations.  
+In analyzing the musculoskeletal system, we assumed that the proportion of muscle volume 
+remains relatively constant as a function of gravitational acceleration, a supposition supported 
+by the literature [1]. However, it is possible for muscle mass to increase exponentially without 
+violating the equilibrium condition used to solve for   . It stands to reason that this and other 
+quantities in our expression for    may be somewhat variable, which could impact fig. 2.3.1. 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 17 
+ 
+Perhaps more significantly, we assumed that evolution will limit the muscle stress by selecting 
+for   and   values found at the corners of the curves in this plot. It is entirely possible, however, 
+for   to remain constant while   changes more considerably, and vice versa, while the bone 
+remains within the stress threshold.  
+Although we modeled stride frequency and velocity as a function of leg length and Froude 
+number, this did not provide us with a quantitative assessment of top running speed. It may be 
+possible to assess this quantitatively by considering maximum stride frequency and the normal 
+stresses at which bone fractures. 
+5.2 
+Strengths 
+We began by ruling out factors that could affect the creature’s structure. We found that the 
+rotation rate of the planet does not considerably affect the acceleration of objects near the 
+surface. This allowed us to restrict our investigation to the effects of the increase in gravitational 
+acceleration on creatures.  
+When discussing the effects of the increased blood pressure gradient in our cardiovascular 
+section, we considered multiple cases. Our inclusion of these cases allowed us to more 
+intensively compare super-earth creatures to creatures on earth. By doing so, we were also able 
+to allow for the diversity of life that could be found on the planet from variations in appendage 
+length and heart size.  
+The independent modelling of the cardiovascular and musculoskeletal systems led us to the 
+same conclusions about changes in shape and stature, which indicates their efficacy in solving 
+this problem. In particular, the cardiovascular model limits height and discourages extremities 
+due to increased blood pressure gradients while the musculoskeletal model limits height due to 
+increased normal and shear stresses. In addition, we maintained a consistent conclusion that 
+blood volume and organ size increase while appendage length decreases. The agreement 
+between these models is encouraging. 
+In our discussion of the musculoskeletal system, we considered the maximum shear that bone 
+can withstand before fracturing to consider our bounds on the angle between bone and body. 
+One of the most important components of our analysis was the ability to relate bone length and 
+bone-body interface angle using the “l-curve” plot shown in fig. 2.3.1 following the assumption 
+that the skeletal system can be modeled by decomposing shear and normal stresses. This 
+allowed us to express how each quantity varies with respect to the other and to predict, ideally, 
+the value for both quantities given information about muscle stress   .  
+ 
+ 
+ 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 18 
+ 
+6  
+Closing Remarks 
+We conclude that on a planet with a mass eight times that of earth and a radius twice that of 
+earth, life would differ significantly. Bone width and length would increase and decrease, 
+respectively, and animals would become more compact with shorter extremities. Organs, 
+including the heart, would increase in size, as would capillaries. Leg bones would meet the body 
+at shallower angles, making the legs straighter and less mobile. Thus, in general, animals would 
+likely be shorter, slower, and stockier. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 19 
+ 
+References  
+[1] Alexander, R. McN.(2003). “Principles of Animal Locomotion.” Princeton: Princeton UP. Print. 
+[2] Alexander, R. McN. (1984). “The Gaits of Bipedal and Quadrupedal Animals.” The 
+international Journal of Robotics Research 3(2): 49-59. 
+[3] Dawson, T. H. (1991). “Engineering Design of the Cardiovascular System of Mammals.” 
+Prentice Hall. Print. 
+[4] Formaggia, L., A. Quarteroni, and A. Veneziani. (2009). “Cardiovascular Mathematics: 
+Modeling and Simulation of the Circulatory System”. Milan: Springer. Print. 
+[5] Gould, Stephen. (1965). “Allometry and Size in Ontogeny and Phylogeny.” Biology Review. 
+41: 587-640. 
+[6] Kurz, Haymo. (1998). “Allometric Scaling in Biology.” Science 281: 751. 
+[7] Rauch, F. (2005). “Bone Growth in Length and Width: The Yin and Yang of Bone Stability.” 
+Journal Musculoskelet Neuronal Interact 5(3): 194-201. 
+[8] Ross, M.D. (1984). “The Influence of Gravity on Structure and Function of Animals.” 
+Advanced Space Research 4(12): 305-314. 
+[9] Spurk, J.H. (2008). “Fluid Mechanics.” Leipzig: Springer. Print. 
+[10] Turner, C. H. et al. (2001). “Shear Strength and Fatigue Properties of Human Cortical Bone 
+Determined from Pure Shear Tests.” Calcified Tissue International 69: 373-378. 
+[11] "Lambert's Cosine Law." Lambert's Cosine Law. N.p., n.d. Web. 17 Nov. 2013. 
+[12] "Land Surface Temperature : Global Maps." Land Surface Temperature : Global Maps. 
+N.p., 5 Feb. 2000. Web. 17 Nov. 2013. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 20 
+ 
+Appendix 1 
+Values used for fig. 2.3.1 
+Variable 
+Symbol 
+Quantity 
+Units 
+Muscle Stress 
+  
+100*103 
+ 
+   
+Bone cross-sectional 
+area 
+  
+273 
+   
+Bone radius 
+  
+3 
+  
+Animal Mass 
+  
+74.1 
+   
+ 
+Values were approximated based on the human femur and quadriceps. The same arguments 
+from section 2.3 extend to animals with more limbs.  
+Appendix 2 
+Code used to generate figures (All coding done in C++) 
+void RotationalForce(){ 
+ 
+  TCanvas *c1 = new TCanvas("Rotational_Force", "Rotational Force", 0, 0, 700, 500); 
+ 
+  c1->cd(); 
+  TF1 *f1 = new TF1("Length vs. Theta on earth", "1.12/(sin(x)*9.8)" ,0 
+,TMath::Pi()/6); 
+  f1->SetTitle(" "); 
+  f1->GetYaxis()->SetTitle("Length [m]"); 
+  f1->GetXaxis()->SetTitle("Theta [rad]"); 
+  f1->GetYaxis()->SetRangeUser(0,3.7); 
+  f1->Draw(); 
+ 
+  TLine *l1v = new TLine(.1068,0,.1068,3.7); 
+  TLine *l1h = new TLine(0,1.12/(sin(.1068)*9.8),TMath::Pi()/6,1.12/(sin(.1068)*9.8)); 
+  l1v->SetLineColor(2); 
+  l1h->SetLineColor(2); 
+  l1v->SetLineStyle(2); 
+  l1h->SetLineStyle(2); 
+  l1v->Draw("same"); 
+  l1h->Draw("same"); 
+ 
+  TF1 *f2 = new TF1("Length vs. Theta on Other Planet", "1.12/(sin(x)*19.6)" ,0 
+,TMath::Pi()/6); 
+  f2->SetTitle("Length vs. Theta on Other Planet"); 
+  f2->GetYaxis()->SetTitle("Length"); 
+  f2->GetXaxis()->SetTitle("Theta"); 
+  f2->SetLineColor(4); 
+  f2->Draw("same"); 
+ 
+  TLine *l2v = new TLine(.075557,0,.075557,3.7); 
+  TLine *l2h = new 
+TLine(0,1.12/(sin(.075557)*19.6),TMath::Pi()/6,1.12/(sin(.07557)*19.6)); 
+  l2v->SetLineColor(4); 
+  l2h->SetLineColor(4); 
+  l2v->SetLineStyle(2); 
+  l2h->SetLineStyle(2); 
+  l2v->Draw("same"); 
+  l2h->Draw("same"); 
+ 
+  TLegend *leg = new TLegend(.6,.6,.8,.8); 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 21 
+ 
+  leg->AddEntry(f1, "earth", "l"); 
+  leg->AddEntry(f2, "Other Planet", "l"); 
+  leg->Draw(); 
+ 
+} 
+ 
+void FroudeNumber(){ 
+ 
+  TCanvas *c1 = new TCanvas("Froude_number", "Froude Number", 0, 0, 1300, 650); 
+  c1->Divide(2,2); 
+ 
+  c1->cd(1); 
+  TH2F *h2vother = new TH2F("testingplots", "Velocity on Other Planet",50, 1, 3, 50, 
+0.1, 2); 
+  for(int i=1; i<=50; i++){ 
+    for(int j=1; j<=50; j++){ 
+      double points = sqrt(h2vother->GetXaxis()->GetBinCenter(i)*h2vother->GetYaxis()-
+>GetBinCenter(j)*19.6); 
+      h2vother->SetBinContent(i,j,points); 
+    } 
+  } 
+  h2vother->GetXaxis()->SetTitle("Froude Number"); 
+  h2vother->GetYaxis()->SetTitle("Length [m]"); 
+  h2vother->GetXaxis()->SetTitleOffset(1.5); 
+  h2vother->GetYaxis()->SetTitleOffset(1.5); 
+  h2vother->GetZaxis()->SetTitle("Velocity [m/s]"); 
+  h2vother->SetStats(false); 
+  h2vother->Draw("SURF2"); 
+ 
+  c1->cd(2); 
+  TH2F *h2vearth = new TH2F("testingplotse", "Velocity on earth",50, 1, 3, 50, 0.1, 
+2); 
+  for(int i=1; i<=50; i++){ 
+    for(int j=1; j<=50; j++){ 
+      points = sqrt(h2vearth->GetXaxis()->GetBinCenter(i)*h2vearth->GetYaxis()-
+>GetBinCenter(j)*9.8); 
+      h2vearth->SetBinContent(i,j,points); 
+    } 
+  } 
+  h2vearth->GetXaxis()->SetTitle("Froude Number"); 
+  h2vearth->GetYaxis()->SetTitle("Length [m]"); 
+  h2vearth->GetXaxis()->SetTitleOffset(1.5); 
+  h2vearth->GetYaxis()->SetTitleOffset(1.5); 
+  h2vearth->GetZaxis()->SetTitle("Velocity [m/s]"); 
+  h2vearth->SetStats(false); 
+  h2vearth->Draw("SURF2"); 
+ 
+  c1->cd(3); 
+  TH2F *h2fother = new TH2F("testingplotsf", "Stride Frequency on Other Planet",50, 1, 
+3, 50, 0.1, 2); 
+  for(int i=1; i<=50; i++){ 
+    for(int j=1; j<=50; j++){ 
+      points = sqrt(h2fother->GetXaxis()->GetBinCenter(i)/h2fother->GetYaxis()-
+>GetBinCenter(j)*19.6); 
+      h2fother->SetBinContent(i,j,points); 
+    } 
+  } 
+  h2fother->GetXaxis()->SetTitle("Froude Number"); 
+  h2fother->GetYaxis()->SetTitle("Length [m]"); 
+  h2fother->GetXaxis()->SetTitleOffset(1.5); 
+  h2fother->GetYaxis()->SetTitleOffset(1.5); 
+  h2fother->GetZaxis()->SetTitle("Stride Frequency [Hz]"); 
+  h2fother->SetStats(false); 
+  h2fother->Draw("SURF2"); 
+ 
+  c1->cd(4); 
+  TH2F *h2fearth = new TH2F("testingplotfe", "Stride Frequency on earth",50, 1, 3, 50, 
+0.1, 2); 
+  for(int i=1; i<=50; i++){ 
+    for(int j=1; j<=50; j++){ 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 22 
+ 
+      points = sqrt(h2fearth->GetXaxis()->GetBinCenter(i)/h2fearth->GetYaxis()-
+>GetBinCenter(j)*9.8); 
+      h2fearth->SetBinContent(i,j,points); 
+    } 
+  } 
+  h2fearth->GetXaxis()->SetTitle("Froude Number"); 
+  h2fearth->GetYaxis()->SetTitle("Length [m]"); 
+  h2fearth->GetXaxis()->SetTitleOffset(1.5); 
+  h2fearth->GetYaxis()->SetTitleOffset(1.5); 
+  h2fearth->GetZaxis()->SetTitle("Stride Frequency [Hz]"); 
+  h2fearth->SetStats(false); 
+  h2fearth->Draw("SURF2"); 
+} 
+ 
+ 
+void CentripitalForce(){ 
+ 
+  TCanvas *c1 = new TCanvas("Centripital_Force", "Centripital Force", 0, 0, 700, 500); 
+  c1->cd(); 
+  c1->SetLogx(); 
+  c1->SetLogy(); 
+ 
+  TF1 *f1 = new TF1("Acceleration vs. Rotation Period","x^2*.003436",0.1,30); 
+  f1->SetTitle("Acceleration vs. Rotation Period"); 
+  f1->GetYaxis()->SetTitle("Relative Rotational Acceleration"); 
+  f1->GetXaxis()->SetTitle("Planet Rotational Period (rev/day)"); 
+ 
+  f1->Draw(); 
+ 
+} 
+ 
+void Pressure(){ 
+ 
+  TCanvas *c1 = new TCanvas("Pressure", "Pressuure", 0, 0, 700, 500); 
+  c1->cd(); 
+ 
+  double scaleheight=1.38*pow(10,-23)*250/(4.808*pow(10,-26)*2*9.8)/1000; 
+  std::cout<<scaleheight<<std::endl; 
+ 
+  TF1 *f1 = new TF1("1 atm","101.325*exp(-1*x/3.66099)",0,10); 
+  f1->SetTitle(" "); 
+  f1->SetLineColor(1); 
+  f1->GetYaxis()->SetTitle("Atmospheric Pressure [kPa]"); 
+  f1->GetXaxis()->SetTitle("Altitude [km]"); 
+  f1->GetXaxis()->SetRangeUser(0,10); 
+  f1->GetYaxis()->SetRangeUser(0,200); 
+  f1->Draw(); 
+ 
+  TF1 *earth = new TF1("2 atm", "101.325*exp(-1*x/(2*3.66099))" ,0 ,10); 
+  earth->SetLineColor(1); 
+  earth->SetLineStyle(2); 
+  earth->Draw("same"); 
+ 
+  TF1 *f2 = new TF1("2 atm", "2*101.325*exp(-1*x/3.66099)" ,0 ,10); 
+  f2->SetLineColor(2); 
+  f2->Draw("same"); 
+ 
+  TF1 *f3 = new TF1("5 atm", "5*101.325*exp(-1*x/3.66099)" ,0 ,10); 
+  f3->SetLineColor(3); 
+  f3->Draw("same"); 
+ 
+  TF1 *f4 = new TF1("1.5 atm", "1.5*101.325*exp(-1*x/3.66099)" ,0 ,10); 
+  f4->SetLineColor(4); 
+  f4->Draw("same"); 
+ 
+  TF1 *f5 = new TF1(".5 atm", ".5*101.325*exp(-1*x/3.66099)" ,0 ,10); 
+  f5->SetLineColor(7); 
+  f5->Draw("same"); 
+ 
+
+A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 23 
+ 
+  TF1 *f6 = new TF1(".2 atm", ".2*101.325*exp(-1*x/3.66099)" ,0 ,10); 
+  f6->SetLineColor(6); 
+  f6->Draw("same"); 
+ 
+ 
+ 
+  TLegend *leg = new TLegend(.6,.6,.8,.8); 
+  leg->AddEntry(f6, "0.2 atm", "l"); 
+  leg->AddEntry(f5, "0.5 atm", "l"); 
+  leg->AddEntry(f1, "1 atm", "l"); 
+  leg->AddEntry(earth, "earth", "l"); 
+  leg->AddEntry(f4, "1.5 atm", "l"); 
+  leg->AddEntry(f2, "2 atm", "l"); 
+  leg->AddEntry(f3, "5 atm", "l"); 
+  leg->Draw(); 
+ 
+} 
+ 
+ 

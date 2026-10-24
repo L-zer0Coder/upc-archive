@@ -1,0 +1,702 @@
+1 
+ 
+Team 105 
+Problem A: Protecting travellers to Mars 
+ 
+Abstract 
+This paper analyses and evaluates a possible flight plan from Earth to Mars such 
+that the radiation dosage absorbed by the spacecraft passengers is the least by 
+launching the spacecraft between 43.64 to 55.31 deg relative to the magnetic 
+axis of the Earth (to avoid the core of Van Allen Belt) during beginning or end of 
+each solar activity cycle and calculated the fastest possible route to Mars, that 
+is in 259 days.  
+There is also an attempt to find the best possible and practical radiation 
+shielding method for sending a 1000 cubic metres habitat along with the extra 
+mass of the faraday cage and all the radiation proof materials like lead, 
+plexiglass, and kevlar, to Mars which came out to be around 6.33 x 105 kg of 
+extra mass.  
+Parameters like, shape of habitat, permitted solar radiation levels and different 
+shielding materials, dosage and exposure rate reduction are taken into 
+consideration while designing a shield for the habitat.  
+ 
+ 
+ 
+ 
+
+Protecting travellers to Mars 
+ 
+Team 105 
+2 
+ 
+CONTENTS 
+ 
+1. Introduction
+3  
+2. Notations used
+3 
+3. Determination of flight path
+4 
+Van Allen Belt 
+4 
+Flight time and path to Mars  
+5 
+Activity of Sun   
+ 
+ 
+ 
+ 
+         6 
+Timing of the launch to Mars  
+ 
+ 
+         7 
+4. Design of Habitat vessel  
+ 
+ 
+ 
+         8 
+Shape  
+ 
+ 
+ 
+ 
+ 
+ 
+         8 
+Dimension  
+ 
+ 
+ 
+ 
+ 
+         8 
+Radiation reduction  
+ 
+ 
+ 
+         8 
+Without shield 
+With shield 
+Material of shield 
+ 
+ 
+ 
+ 
+         9 
+Thickness of each material  
+ 
+ 
+        11 
+Habitat 2D view  
+ 
+ 
+ 
+                  12 
+Faraday Cage  
+ 
+ 
+ 
+ 
+ 
+        12 
+Total mass of shield     
+ 
+ 
+ 
+        15 
+5. Annual tissue dosage   
+ 
+ 
+       16 
+6. Conclusions
+16  
+7. References
+16 
+ 
+ 
+ 
+ 
+
+Protecting travellers to Mars 
+ 
+Team 105 
+3 
+ 
+1 Introduction  
+This project has an aim to send humans to Mars and protecting them from extreme radiations 
+in Van Allen belt and the solar activity. This can be possible if the trajectory avoids the most 
+active parts of belt at the same when the activity of the Sun’s cycle is minimum. Also, the 
+Galactic cosmic radiations from outside the solar system from every direction also take part 
+in causing harm to humans and the electronics in spacecrafts. For the radiation dosage 
+absorbed to be least, the flight time and path between Earth and Mars should be minimum.   
+The habitat, required here, should be of 1000 m3 and shielded from the most radiations. The 
+shape of the vessel would also determine the amount of radiation in contact with surface of 
+habitat.  
+Also, either the shield should be thick enough or made up of efficient materials, keeping in 
+mind the cost and the extra mass that would be required to send along with habitat vessel. 
+The material chosen should be such that it does not generate secondary radiations or nuclear 
+reactions and should prevent x rays too. Coming in contact with high energy charged particles 
+can also increase the temperature of vessel to high extent hence the material should also be 
+heat resistant. 
+2 Notations used 
+Symbols 
+Meaning 
+Numeric Value 
+Re 
+Radius of Earth 
+6378.1 km 
+r 
+Radius of wire 
+ 
+n 
+Number of wires 
+ 
+M 
+Mass of Earth 
+5.9761024 kg 
+ 
+*notations not mentioned are defined alongside 
+ 
+ 
+ 
+
+Protecting travellers to Mars 
+ 
+Team 105 
+4 
+ 
+3 Determination of flight path 
+Van Allen belt 
+The flight path to the Mars crosses the Van Allen radiation belt, a zone with free protons, 
+electrons and other high energy charged particles which is formed as the Earth’s magnetic 
+field captures the charged particles from solar winds. So, shielding is required for the 
+sustainability of humans and electronics.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+For the numerical simulation the following differential equation is integrated.        
+ 
+ 
+ r is the vector from the centre of the Earth to the space craft;  is the gravitational constant 
+(6.67410-11 m 3 /(kgs 2 )); M is the mass of the Earth (5.9761024 kg) and 𝑟̈ is the 2nd time 
+derivative of r, i.e. the acceleration vector. The reference system is Earth fixed (not rotating 
+with the Earth, i.e. inertial): the origin is in the centre of the Earth, the x-axis in the direction 
+of the vernal equinox, the z-axis = Earth axis in the direction of the North Pole and the y-axis 
+results from the right-handed system. 
+Suppose initially the trajectory begins parallel to the magnetic axis. For the calculation for the 
+angle  
+ 
+ 
+ 
+ 
+ 
+Θ=arctan 
+𝑑𝑦
+𝑑𝑥 
+1<x<1.05 and 0.5<y<1,     
+θ1=43.64 deg 
+1.05<x<1.2 and 1<y<2,     θ2=55.31 deg 
+Proton radiation belt 
+Flight path wrt. Geomagnetic 
+reference system 
+
+Protecting travellers to Mars 
+ 
+Team 105 
+5 
+ 
+Hohmann Transfer Orbit 
+P 
+A 
+r2 
+r1 
+Therefore for the trajectory to avoid the central part of the Van Allen and the free proton 
+belt, the trajectory angle should vary from 43.64 to 55.31 deg relative to the magnetic axis of 
+the Earth. 
+Flight time and path to Mars 
+To protect the passengers from radiations, not only radiation shielding is required but also 
+the right timing of launch is necessary and the flight time and path should be as minimum as 
+possible in order to spend least time in contact with Galactic Cosmic radiations. 
+The typical time during Mars's closest approach to the Earth every 1.6 years is about 260 days. 
+In the nine months it takes to get to Mars, Mars moves a considerable distance around in its 
+orbit, about 3/8 of the way around the Sun. Practically, this means there is only one launch 
+window every 26 months. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Kepler's 3rd law as used here. For completeness that form is re-derived below. The law states 
+that for all objects orbiting the Sun 
+T2 / a3 = constant 
+where T is the orbital period and a the semi-major axis, half the length of the orbital ellipse 
+(a=r in circular orbits). The constant is the same for all objects orbiting the Sun, including of 
+course the Earth. Its exact value depends on the units in which T and a are measured. That 
+value becomes very simple if T is measured in years and a in AU. Inserting in the 3rd-law 
+equation the values for Earth gives 
+T = 1 year 
+a = 1 AU 
+then, T2 / a3 = 1 
+
+Protecting travellers to Mars 
+ 
+Team 105 
+6 
+ 
+Consequently in these units the constant also equals 1, and that value can be used 
+for any planet. On multiplying both sides of the equation by a3  
+T2 = a3 
+This again holds for any orbit around the Sun, including the one of a spacecraft in a transfer 
+ellipse. The length PA of that ellipse is, in AU, 
+r1 + r2   =   1 + 1.523691   =   2.523691 AU 
+That is the "major axis" of the orbital ellipse, and half its length equals the semi-major axis a. 
+Therefore 
+a = 1.261845 
+a3   =   2.00918   =   T2 
+T   =   1.4174 years 
+The one-way transit time to Mars is half  
+= 0.70873 years 
+= 258.686 days 
+ It takes Mars 1.8822 years for a full orbit of 3600. Therefore, assuming a circular orbit and 
+uniform motion (a less accurate approximation for Mars than for Earth), in 0.70873 years it 
+should cover 
+3600 * (0.70886 / 1.88) = 135.5550 
+We therefore launch when Mars in its orbit is 135.5550 away from point A 
+ 
+Activity of Sun 
+Solar cycle is an approximately 11-year period of varying solar activity including solar 
+maximum where the solar wind is strongest and solar minimum where the solar wind is 
+weakest. Galactic cosmic rays create a continuous radiation dose throughout the Solar 
+System that increases during solar minimum and decreases during solar maximum. The 
+middle of the solar cycle is the solar maximum, or when the Sun has the most sunspots. As 
+the cycle ends, it fades back to the solar minimum and then a new cycle begins. 
+Solar proton events (SPEs) are bursts of energetic protons accelerated by the Sun. They occur 
+relatively rarely and can produce extremely high radiation levels. Without thick shielding, SPEs 
+are sufficiently strong to cause acute radiation poisoning and death. 
+ 
+ 
+ 
+ 
+
+Protecting travellers to Mars 
+ 
+Team 105 
+7 
+ 
+Timing of the launch to Mars 
+ 
+ 
+ 
+ 
+ 
+ 
+Hence, there are two windows in every 11 years when the spacecraft can be launched to 
+Mars. One window is between the beginning of the solar cycle and the middle of the cycle. 
+The other window is between the middle and end of the cycle. However the most suitable 
+time of the launch would be towards the beginning or towards the end of the solar activity 
+cycle when the solar activity is minimum.  
+Therefore, suitable years for the launch would be mid-2019 to early 2021 or late 2028 and 
+late 2030 and the journey of 258.686 days to Mars should be accommodated in there 2 
+windows. 
+ 
+ 
+ 
+
+Protecting travellers to Mars 
+ 
+Team 105 
+8 
+ 
+4 Design of habitat vessel 
+a. Shape of habitat 
+Shape of the habitat is an important factor in minimizing the surface available for direct 
+contact with radiations and also to have the prescribed volume. Thus habitat vessel should 
+be such that it has the least surface area to volume ratio. Therefore the proposed shape is 
+sphere. 
+Practicality of Sphere vs Cube habitat  
+Spherical habitat does not have edges decreasing the probability of radiation leak from 
+corners. However, in cubes/cylinders, weaker joints are present. Moreover, in outer space, 
+there is negligible gravitational acceleration so the passengers can easily move about and 
+round the spherical habitat and proposals like the ‘Bernal Sphere’ prove the possibility of this 
+habitat. Hence, spherical habitats are practical and possible. 
+b. Dimensions of the spherical habitat:- 
+Given volume = 1000 m3  
+So, Inner most radius of the habitat = 6.202 m 
+Inner surface area = 483.421 m2  
+c. Radiation reduction around habitat 
+ 
+i. 
+Without shielding 
+The three basic methods used to reduce the external radiation hazard are time, distance, 
+and shielding. Good radiation protection practices require optimization of these 
+fundamental techniques.  
+1. Time - 
+The amount of radiation an individual accumulates will depend on how long the 
+individual stays in the radiation field, because:  
+Dose (mrem) = Dose Rate (mrem/hr) x Time (hr) 
+Therefore, to limit a person’s dose, one can restrict the time spent in the area. How long 
+a person can stay in an area without exceeding a prescribed limit is called the "stay time:  
+Stay Time = DoseRate (mrem/hr) Limit (mrem) 
+2. Distance –  
+The amount of radiation an individual receives will also depend on how close the person 
+is to the source.  
+ 
+ 
+3. The Inverse Square Law -  
+
+Protecting travellers to Mars 
+ 
+Team 105 
+9 
+ 
+Point sources of x- and gamma radiation follow the inverse square law, which states that 
+the intensity of the radiation (I) decreases in proportion to the inverse of the distance 
+(d) 
+I  
+1
+𝑑2 
+I= 
+𝑘
+𝑑2 
+where k is the constant of proportionality  
+For different intensities,  
+𝐼1
+𝐼2 = 
+𝑑22
+𝑑12 
+Therefore, by knowing the intensity at one distance, one can find the intensity at any other distance.  
+Gamma Exposure Rate Formula  
+The exposure rate (ER) from a gamma point source can be approximated from the following 
+expression: 
+ER =  
+6CEf
+𝑑2 
+Where: 
+C is the activity of the gamma emitter, in millicuries  
+E is the gamma ray energy in MeV  
+f is the fraction of disintegrations yielding the gamma of energy E  
+d is the distance from the source in feet 
+Galactic Cosmic Radiation   
+ii. 
+With shielding 
+When reducing the time or increasing the distance may not be possible, one can choose 
+shielding material to reduce the external radiation hazard. The proper material to use 
+depends on the type of radiation and its energy.  
+The types of radiations that habitat needs to be shielded from are as follows:-  
+1. Alpha and Beta Radiation  
+Alpha particles are easily shielded. A thin piece of paper or several cm of air is usually 
+sufficient to stop them. Thus, alpha particles present no external radiation hazard. 
+Beta particles are more penetrating than alpha particles. Beta shields are usually made 
+
+Protecting travellers to Mars 
+ 
+Team 105 
+10 
+ 
+of aluminum, brass, plastic, or other materials of low atomic number to reduce the 
+production of bremsstrahlung radiation.  
+2. X and Gamma Radiation 
+Both x-rays and gamma rays are forms of high-frequency ionizing radiation, which 
+means they have enough energy to remove an electron from (ionize) an atom or 
+molecule. Ionized molecules are unstable and quickly undergo chemical changes. 
+3. Galactic cosmic radiations 
+They are slowly varying, highly energetic background source of energetic particles that 
+constantly bombard Earth. GCR originate outside the solar system and are likely 
+formed by explosive events such as supernova. These highly energetic particles consist 
+of essentially every element ranging from hydrogen, accounting for approximately 
+89% of the GCR spectrum, to uranium, which is found in trace amounts only. These 
+nuclei are fully ionized, meaning all electrons have been stripped from these atoms.  
+Monoenergetic x- or gamma rays collimated into a narrow beam are attenuated exponentially 
+through a shield according to the following equation: 
+I = Io e -x 
+Where 
+x is the thickness of shielding material 
+I is the intensity outside of a shield of thickness x 
+Io is the unshielded intensity  
+ is the linear attenuation coefficient of the shielding material and it is the sum of 
+the probabilities of interaction per unit path length by each of the three scattering 
+and absorption processes  
+It shall now be assumed a mass attenuation coefficient m as linear attenuation coefficients 
+are proportional to the absorber density, which usually does not have a unique value 
+So, m = 
+
+  
+where  = density (g/cm3) 
+Now, substituting  , 
+I = Io e -mpx 
+Material of Shield 
+Before calculating the thickness required to shield the habitat we first need to choose the 
+right material to shield all the mentioned types of radiations as when working with a 
+radionuclide that emits multiple types of radiation such as beta particles and gamma 
+radiation, it is sometimes necessary to shield with several materials.  
+
+Protecting travellers to Mars 
+ 
+Team 105 
+11 
+ 
+NOTE:-  By shielding the less penetrable radiation type first then proceed to shield the more 
+penetrable type would decrease both scattering and the total amount of shielding material 
+required. 
+i. 
+Plexiglass 
+The less penetrating beta radiation can first be shielded with a layer Plexiglass, thereby 
+slowing or stopping the beta particles while reducing the production of bremsstrahlung. 
+Moreover, plexiglass is a hydrogen rich substance which increases efficiency of shielding.   
+ii. 
+Lead 
+Lead is a common shielding material for x-rays and gamma radiation because it has a 
+high density, is inexpensive, and is relatively easy to work with.  
+iii. 
+Kevlar 
+It is an infusible, wholly aromatic polymer that can strictly be described as nylon T,T - but 
+rarely is. Manufactured only as a fibre (by solution spinning), it has a very high thermal 
+stability and temperature and flame resistance. 
+Calculating the thickness of individual materials:- 
+Assume, there is maximum constant radiation exposure rate from a point source outside the 
+habitat that is 9R/hr and the acceptable radiation exposure rate is 0.0005R/hr 
+So, I0 = 9R/hr 
+       I = 0.03R/hr 
+I = Io e -x 
+For Lead,  
+Density = 11.35 gm/cm3 
+ 
+ =  m .   
+  = (0.114cm2/gm)(11.35gm/cm3)  
+  = 1.63 cm-1 
+              x = 3.5 cm 
+For Plexiglass, 
+Density = 1.185 gm/cm3 
+ = 0.12 cm-1 
+x = 40 cm 
+For Kevlar, 
+Density = 1.44 gm/cm3 
+
+Protecting travellers to Mars 
+ 
+Team 105 
+12 
+ 
+Top 2D view of spherical habitat vessel 
+Cross section of wire  
+Habitat 
+Including shield 
+ = 0.902 cm-1 
+x = 6 cm 
+Habitat 2D view 
+ 
+Faraday Cage  
+Faraday cage effect, whereby a wire mesh or metal screen serves to block electric fields and 
+electromagnetic waves. A Faraday cage operates because an external electrical field causes 
+the electric charges within the cage's conducting material to be distributed so that they cancel 
+the field's effect in the cage's interior. This phenomenon can be used to protect 
+sensitive electronic equipment and make the habitat vessel free from EM radiations. 
+Faraday cages cannot block stable or slowly varying magnetic fields, such as the Earth's 
+magnetic field (a compass will still work inside). However, the magnetic fields in the outer 
+space are varying and travel in all directions. So, to a large degree, though, they shield the 
+interior from external electromagnetic radiation. 
+Now, let 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Given a bounded simply connected open subset of the plane with smooth boundary Γ. Here, 
+real function φ(z) that satisfies the Laplace equation, 
+∇2 φ = 0 (2.1) 
+(Assume Γ is the unit circle) 
+
+Protecting travellers to Mars 
+ 
+Team 105 
+13 
+ 
+in the region of the plane exterior to the disks, and the boundary condition,  
+φ = φ0 (2.2) 
+on the disks. Equation (2.2) asserts that the disks are conducting surfaces at equal potential; 
+here φ0 is an unknown constant to be determined as part of the solution. We emphasize that 
+(2.2) fixes φ(z) to a constant value on disks of finite radius r > 0. 
+It is also needed to specify some external forcing and appropriate boundary conditions at 
+infinity. Our numerical examples will focus on the case where the external forcing is due to a 
+point charge of strength 2π located at the fixed point z = zs outside 
+Γ, stipulating that   
+φ(z) = log(|z − zs|) + O(1) as z → zs, (2.3) 
+φ(z) = log(|z|) + o(1) as z → ∞ (2.4)  
+Equation (2.4) implies that the total charge on all the disks is zero, though the charge on each 
+individual disk will in general be nonzero.  
+Now point charge at zs = 2, for fixed n = 12 and varying wire radii r. One sees that the screening 
+effect weakens as r → 0, and in the limit r = 0, there will be no screening at all. The dependence 
+on r is logarithmic. 
+ 
+ 
+ 
+ 
+Now fixing r = 0.01 and varies n, showing results for n = 10, 20, 40. With each 
+doubling of n, the field in the cage weakens, but only by approximately a factor 
+of 2. 
+ 
+ 
+ 
+ 
+So, the electric field strength is given by, 
+ 
+ 
+ 
+ 
+ 
+
+Protecting travellers to Mars 
+ 
+Team 105 
+14 
+ 
+ 
+ 
+Thus the strength of the screening effect is linear in n, logarithmic in r, and linear in |zs|. 
+The homogenized approximation can be described as follows. Suppose the constant 
+separation between neighbouring wire centres (measured with respect to arc length along Γ) 
+is ε = |Γ|/n << 1, where |Γ| is the total arc length, and the radius of each wire is r << ε. The 
+crucial scaling parameter that determines the effectiveness of the screening is 
+ 
+ 
+ 
+If ε >>1/ log(ε/r), then α << 1 and the wires are too thin for effective screening. If ε << 1/ 
+log(ε/r), then α >> 1 and the screening is strong. 
+However, when n > 40 and r = 10-1 m, |∇φ(0)| ≈ 0, which implies that the  electromagnetic 
+shielding is perfect. Hence a continuous conductive shell or overlapping wires is more 
+effective in shielding than a wire mesh.  
+Now, dimensions for the Faraday cage to be used over the habitat vessel are as:- 
+Radius of the spherical cage (from centre of habitat) = 6.697 m 
+Radius of each wire = 0.1 m 
+Number of wires to be used to create almost a conductive shell over the habitat (n) 
+= 
+2πR
+2𝑟 = 210 (approx.) 
+Still, let n = 180 (because of the possible expansion in wires’ dimensions if temperature 
+increases) 
+Material of the wires be aluminium (highly conductive and less denser than copper), where 
+density of aluminium = 2,710 kg/m3  
+Now, volume of 180 wires = 180 x πr2h (here h = πR) 
+ 
+ 
+ 
+    = 118.974 m3 
+So, mass of total aluminium used = 2,710 kg/m3  x 118.974 m3 
+ 
+ 
+ 
+ 
+= 322419.901 kg 
+= 3.224 x 105 kg    (1) 
+ 
+ 
+
+Protecting travellers to Mars 
+ 
+Team 105 
+15 
+ 
+Total mass of the habitat shield 
+Volume used = 
+4𝜋(𝑅22−𝑅12)
+3
+ 
+Mass = Density/ Volume used 
+• Mass of Plexiglass used:  
+R1 = 6.202 m 
+R2 = 6.202+0.4 = 6.602 m 
+Volume used = 206.085 m3   
+Density = 1.185 gm/cm3 
+Mass = 244210kg (2) 
+ 
+• Mass of Lead used: 
+R1 = 6.602 m 
+R2 = 6.602+0.035 = 6.637 m 
+Volume used = 19.273 m3      
+Density = 11.35 gm/cm3 
+Mass = 21874kg (3) 
+ 
+• Mass of Kevlar used: 
+R1 = 6.637 m 
+ 
+R2 = 6.637+0.06 = 6.697 m 
+Volume used = 33.540 m3      
+Density = 1.44 gm/cm3 
+Mass = 48297kg (4) 
+ 
+From (1) (2) (3) and (4) 
+Total mass = 636800.6 kg = 6.36 x 105 kg 
+ 
+
+Protecting travellers to Mars 
+ 
+Team 105 
+16 
+ 
+5 Tissue dosage of radiation during journey to Mars (259 
+days) 
+1. Without shield 
+= 9R/hr x 24 x 259 x 10mSv = 559.48 Sv 
+2. With shield 
+= 0.03R/hr x 24 x 259 x 10mSv = 1.86 Sv (which is under the limit of dosage per year) 
+Reduction in dosage annually = (559.48 - 1.86) x 100/ 559.48 = 99.667% 
+6 Conclusion 
+The calculated flight path using transfer orbit, trajectory angle and the solar activity minima 
+window are the best ways to avoid most part of the radiations from van allen belt and the sun 
+and also the path is such that the passengers spend minimum time among the radiations so 
+that there is enough time for the temporary DNA and tissue damage to repair quickly. The 
+habitat designed, is the optimum one as the shape used is sphere which provides the least 
+surface area to radiations and the materials used to create the shield are also the best as they 
+are cheap, low density, kelvar being highly heat resistant would provide protection in case of 
+temperature increment. 
+We have assumed that most radiations are x ray and gamma radiations after crossing the van 
+allen belt and these radiation emerge from a point source and are constant at their maximum 
+value. It is also assumed that the solar electron belt will have negligible effect to the habitat 
+because of the Faraday cage.  
+However, in reality, there are more types of radiations and presence of asteroids etc in space 
+which might cause damage to the habitat as the outer cage of aluminium is not the most rigid 
+substance but is efficient in shielding from the radiations, mainly from changing electric fields. 
+Further extension of this work is required to find a possible way to make such habitat and 
+shield which is lighter, more rigid, provides more protection from charged particles and is 
+more compact. For now, the mentioned solutions in this paper are efficient to overcome the 
+challenge to send humans to Mars while protecting them from radiations. 
+7 References 
+• https://www.azom.com/article.aspx?ArticleID=1992 
+• www.swpc.noaa.gov 
+• www.cancer.org 
+• www.translatorscafe.com 
+• Mechanics by D.S. Mathur 
+• Physics, Kleppner 
+• iopscience.iop.org 
+
+Protecting travellers to Mars 
+ 
+Team 105 
+17 
+ 
+• www.britannica.com 
+• spaceplace.nasa.gov 
+• www-spof.gsfc.nasa.gov 
+• www.space.com 
+• www-spof.gsfc.nasa.gov 
+• arxiv.org 
+• moreira.tamu.edu 
+ 
+ 
+ 

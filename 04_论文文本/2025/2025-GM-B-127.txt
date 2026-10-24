@@ -1,0 +1,1010 @@
+Problem B
+The University Physics Competition, Team 127
+1
+Research on Rapid Aiming of
+Cannon
+Team 127
+Problem B
+November 10, 2025
+Abstract
+For artillery officers, how to rapidly target and engage objectives is a crucial
+matter.This paper aims to explore the ballistic calculation of muzzle-loading
+smoothbore cannons before the 19th century. Focusing on spherical projectiles of 5
+kilograms mass and 11-cm diameter , it investigates the relationship between required
+initial velocity and firing angle for target hits under specific coordinate and
+environmental conditions. Models were successively established for four scenarios:
+ideal conditions, incorporating air resistance, varying target positions, and wind speed
+effects. The RK45 numerical method was employed to solve the equations of motion,
+determining the requisite initial velocity and firing angle. To ensure sufficient impact
+energy,firing should occur at a low angle. The relationship between firing angle and
+initial velocity when striking the reference point is θL = 0.0001v02 −0.1145v0 +
+29.312. Horizontal distance causes an angular deviation of 0.2 degrees per 50 meters.
+Altitude causes an angular deviation of 1.1° to 1.2° per 25 meters. Wind speed causes
+an angular deviation of 0.01 degrees per 1 meter per second.Finally, we developed a
+set of simple quick-aiming mnemonics for artillery officers.
+Keywords：artillery shell，initial velocity，firing angle，numerical method
+
+Problem B
+The University Physics Competition, Team 127
+2
+Contents
+1
+Introduction and Problem Statement
+3
+2
+Assumptions and Analysis
+3
+2.1 Assumptions.......................................................................3
+2.2 Analysis............................................................................. 4
+3
+Notations
+4
+4
+Modelling
+5
+4.1 Simple Case....................................................................... 5
+4.2 Considering Air Resistance............................................... 5
+4.3 Uncertain Target Position..................................................7
+4.4 Effects of Wind..................................................................7
+4.5 Numerical Methods and Solution Process.........................9
+5
+Result and Discussion
+9
+5.1. Simple Case...................................................................... 9
+5.2 Considering Air Resistance And Target Size..................11
+5.3 Horizontal distance variation...........................................12
+5.4 Vertical height variation.................................................. 14
+5.5 Effects of Wind................................................................16
+6
+Conclusion
+18
+7
+Strength and Weakness
+18
+7.1 Strength............................................................................18
+7.2 weakness.......................................................................... 19
+8
+Reference
+19
+9
+Appendix
+19
+9.1 Simple Case..................................................................... 19
+9.2 Considering Air Resistance............................................. 20
+9.3 Effects of Wind................................................................22
+
+Problem B
+The University Physics Competition, Team 127
+3
+1
+Introduction and Problem Statement
+As a time-honored weapon system, cannon has long played a decisive role in
+military operations, yet achieving precise strikes under real combat conditions remains
+a persistent challenge. Battlefields are dynamically complex: rapid shifts in enemy
+positions and adverse weather such as strong winds can all disrupt projectile
+trajectories. Artillery units often need to deploy hastily with limited aiming time,
+making rapid target acquisition and engagement crucial for artillery officers.
+Figure 1:Civil War cannon and cannonball stack at Stones River National
+Battlefield, from the public domain resources of the U.S. National Park Service .[1]
+Our objective is to determine the muzzle velocity and firing angle above the
+horizontal required to hit a target at a horizontal distance of 1,200 meters with an 11-
+cm diameter projectile weighing 5 kg, given a muzzle velocity of up to 450 m/s. The
+analysis is then extended to targets at horizontal distances between 1,000 and 1,500
+meters, under varying altitudes and wind conditions. The resulting method provides
+artillery officers with a rapid, manual estimation technique for engaging targets
+effectively in the field.
+2
+Assumptions and Analysis
+2.1 Assumptions
+1. The projectile is a regular, rough sphere, and the air resistance it encounters
+acts uniformly on the projectile.
+2.Throughout its trajectory, the projectile experiences a gravitational force that is
+assumed to be constant.
+3.When hitting a high target, the projectile's dimensions are negligible, such that
+it can be considered a point mass.
+4.During flight, the projectile is affected only by gravity, air resistance, and wind
+resistance.
+5. In modeling the effect of wind on a projectile's trajectory, both the wind
+velocity and direction are held constant.
+
+Problem B
+The University Physics Competition, Team 127
+4
+2.2 Analysis
+Whether a projectile can hit a predetermined target is influenced by multiple
+factors. Below we conduct a comprehensive analysis:
+1. Muzzle Value Factors
+A specific muzzle velocity must be fired at a specific firing angle to hit the target.
+Due to trajectory diversity, the solution to this problem is not unique.
+2. Air Resistance Impact
+Since the aerodynamic drag force depends on air density, and air density varies
+with altitude, the change in drag with altitude must be considered.[2]
+3. Target Size
+Historically,
+this
+cannon
+saw
+extensive
+use
+against
+city
+walls
+in
+siege
+warfare.[3][4] The projectile is negligible in size compared to the target. To ensure
+effective impact, the projectile's terminal velocity should not be excessively low.
+4. Wind Effects
+Headwinds
+create
+drag
+alongside
+air
+resistance,
+slowing
+the
+projectile.
+Crosswinds cause deflection in the final impact point. To maintain accuracy, the
+muzzle should be appropriately deflected.
+3
+Notations
+Variables
+Explanations
+Value
+�
+Gravity Acceleration
+2
+/
+81
+.9
+s
+m
+0v
+The muzzle velocity
+�
+The acceleration of a projectile
+h
+The height of cannon
+R
+Distance between the target and the cannon
+H
+The altitude of the target
+0
+
+Firing angle above the horizontal
+H
+
+High Elevation
+H
+v
+High-angle muzzle velocity
+Ht
+High-Angle Velocity Time-of-Flight
+L
+
+Low Elevation
+Lv
+Low-angle muzzle velocity
+Lt
+Time-of-Flight at Low Angle Velocity
+d
+C
+Drag Coefficient
+
+Problem B
+The University Physics Competition, Team 127
+5
+0
+
+Air resistance at 500 meters altitude
+3
+/
+125
+.
+1
+m
+kg
+�
+The radius of the projectile
+�
+Time of Flight
+cw
+v
+The Crosswind Velocity
+hw
+v
+The Headwind Velocity
+hw
+
+Angle of the headwind
+0
+H
+The height of the target
+b
+H
+Characteristic height
+m
+8500
+d
+F
+Air Resistance
+Table 1：Notations
+4
+Modelling
+The projectile is fired with a muzzle velocity of �0 and a firing angle above the
+horizontal of �0.The target is assumed to be a city wall with a height of 10 meters.
+4.1 Simple Case
+Ignoring air resistance, the projectile is subject only to gravity, which constitutes
+a simple case of projectile motion. Horizontally, the object's velocity remains constant,
+while vertically it experiences acceleration downward at a magnitude of g . By
+resolving the velocity into its orthogonal components, we obtain
+��
+= �0 cos �0
+��
+= �0 sin �0 −��
+(1)
+In the vertical direction, we can consider the projectile to be undergoing a
+vertical projectile motion. The total time spent in the air is
+2v0 sin θ0
+g
+,and the distance
+traveled horizontally is R = v0t cos θ0.After simplification, the final expression can be
+obtained,that is：
+�= �0
+2 sin 2 �0
+�
+(2)
+Through this expression,and R = 1200m,we obtain the relationship between the
+muzzle velocity and the firing angle in a simplified scenario.
+4.2 Considering Air Resistance
+When an object moves through the air, it encounters air resistance that forces it to
+slow down. Consequently, the projectile's trajectory is no longer a simple parabola. In
+the following model, we will consider the cannon as being simultaneously affected by
+both gravity and air resistance.
+The general expression for air resistance is Fd =
+1
+2 cdρAv2, where cd is the drag
+coefficient.[5] Assuming the projectile is a regular sphere, cdis taken as 0.47;[6] is
+
+Problem B
+The University Physics Competition, Team 127
+6
+the air density at that altitude; �is the frontal area projected perpendicular to the
+direction of relative motion, which for a projectile is �= ��2; and�is the magnitude
+of the relative velocity.Furthermore, considering that air density varies with altitude,
+we take ρ = ρ0e
+−ℎ
+Hb, where ρ0 is the air density at sea level,ℎrepresents the altitude of
+the projectile above a reference point , and Hb is the reference altitude.[7] Finally, the
+expression for the magnitude of air resistance is obtained as
+��= 1
+2 ���0�
+−ℎ
+����2
+(3)
+During flight, the projectile consistently satisfies v2 = vx
+2 + vy
+2 ,where v denotes
+the projectile's velocity at a given instant,vxdenotes the horizontal component of the
+velocity at that instant, and vy denotes the vertical component of the velocity at that
+instant. Therefore, we can also resolve the air resistance into its orthogonal
+components to obtain：
+��⊥
+= 1
+2 ���0�
+−ℎ
+�������0 cos �0
+��∥
+= 1
+2 ���0�
+−ℎ
+�������0 sin �0 −��
+（4）
+Air resistance continuously exerts a decelerating force on the projectile.
+Taking into account both gravity and air resistance, the force analysis of the the
+projectile is shown in the figure:
+Figure 2.Force Analysis for projectile
+We obtain the magnitude of acceleration in two directions, respectively:
+��=−���0�
+−ℎ
+������
+2�
+��=−�+ ���0�
+−ℎ
+������
+2�
+（5）
+The resulting equations of motion in two directions are:
+Horizontal direction:
+
+Problem B
+The University Physics Competition, Team 127
+7
+��
+= �0 cos �0 −���0�
+−ℎ
+������
+2�
+�
+�
+=
+��
+න
+��
+（6）
+Vertical direction:
+��
+= �0 sin �0 −
+�+ ���0�
+−ℎ
+������
+2�
+�
+ℎ
+=
+�y
+න
+��
+(7)
+This is a system of partial differential equations with exponential and quadratic
+terms, making analytical solutions challenging. We employ numerical methods to
+solve it, defining an error function to obtain results within a specified range.
+Considering the target size, we set it to 10 meters in height, with the projectile
+being negligible relative to the target's dimensions. Thus, if the projectile trajectory
+intersects with the R = 1200(500 ≤h ≤510), it is deemed to have struck the target.
+To ensure lethal effects, the terminal velocity must exceed 200 m/s to achieve
+significant penetration depth.
+4.3 Uncertain Target Position
+When the target position is uncertain, we adopt a fixed muzzle velocity model.
+For the historical projectile, the muzzle velocity was more difficult to control than the
+firing angle, as it was primarily determined by the propellant charge. Therefore, the
+muzzle velocity of the projectile is typically treated as a fixed value, which we set to
+450 m/s for this problem. To investigate the relationship between the firing angle and
+the horizontal distance, we fixed the target altitudes at 500 m and varied the horizontal
+distance from 1000 to 1500 m in 20-m increments. To examine the effect of the target
+altitudes, we fixed the horizontal distance at 1200 m and varied the altitudes from 0 to
+1000 m in 25-m increments.
+4.4 Effects of Wind
+Wind is categorized into two types: headwind and crosswind. The actual wind
+does not reside on a fixed plane.Headwind flows in the same plane as the projectile's
+trajectory, while crosswind flows perpendicular to this plane. A headwind modifies
+the relative velocity term in the air resistance formula. This means the drag force is no
+longer directly opposite to the velocity vector, as its magnitude and direction are now
+influenced by both the wind's speed and direction. Crosswinds cause the projectile's
+trajectory to deviate. To maintain accuracy against a stationary target, the gun must be
+elevated or depressed by a specific angle to compensate for the projectile's deflection
+during flight.[8]
+First, consider the headwind. According to the definition of relative velocity, we
+obtain: As shown in the figure,where
+�Ԧሬ' = �Ԧሬ�−�Ԧሬ
+（8）
+
+Problem B
+The University Physics Competition, Team 127
+8
+Figure 3.Relative Velocity Vector Synthesis
+By analyzing the force diagram of the fireball, we can obtain
+Figure 4.Force Analysis of Projectile Considering Wind Effects
+Substituting the actual wind velocity magnitude and direction yields the new
+equation of motion:
+�''�= �0 cos �0 −���0�
+−ℎ
+�����'�
+2�
+�
+�=
+�
+න
+'���
+�''�= �0 sin �0 −
+�+ ���0�
+−ℎ
+�����'�
+2�
+�
+ℎ=
+�
+න
+'���
+(9)
+In practical applications, wind speed is not precisely known. For computational
+convenience, we assume the wind speed is parallel to the horizontal direction.
+According to relevant data, wind speeds generally do not exceed 10 m/s. By iterating
+wind speeds from -10 m/s to 10 m/s, we determine the relationship between the exit
+angle and wind speed magnitude.[9]
+
+Problem B
+The University Physics Competition, Team 127
+9
+For crosswind. A projectile traveling perpendicular to its trajectory is affected
+solely by crosswind, experiencing a force of Fd =
+1
+2 cdAρvcw
+2
+and a corresponding
+acceleration of
+cdAρvcw
+2
+2m
+.
+For uniformly accelerated linear motion with zero muzzle velocity, displacement
+equals x =
+1
+2 at2. Substituting relevant physical quantities yields a deviation of
+��= ���0�
+−ℎ
+������
+2
+4�
+�2
+（10）
+By sketching a diagram, we can determine the relationship between the deviation
+angle, firing distance, and deviation distance.
+tan ��= ��
+�
+(11)
+Figure 5.Offset Angle Diagram
+4.5 Numerical Methods and Solution Process
+The numerical solution of the ordinary differential equations (motion differential
+equations) is performed using the Dormand-Prince 4(5)th order algorithm (RK45
+method) from the explicit Runge-Kutta family. This method achieves adaptive step-
+size control by simultaneously computing a 4th-order primary estimate and a 5th-order
+auxiliary estimate. During the integration process, a maximum step size of 0.2 is set to
+ensure computational stability, and the precision of the numerical solution is
+controlled by relative tolerance (rtol=1e-6) and absolute tolerance (atol=1e-6).
+For solving the firing angle that satisfies the hit condition, the bisection method
+(Brent's method) is used to search within a preset angle interval. The existence of a
+root is determined by checking the sign change of the error function at the interval
+endpoints, and the interval is iteratively narrowed until the angle precision reaches 1e-
+8 (xtol=1e-8), ultimately obtaining the firing angle that meets the target hit condition.
+5
+Result and Discussion
+5.1. Simple Case
+When air resistance is neglected, the expression reveals multiple solutions. Two
+muzzle firing angles exist: one greater than 45 degrees and one less than 45 degrees.
+
+Problem B
+The University Physics Competition, Team 127
+10
+Figure 6. Firing Angle vs. Initial Velocity Relationship Chart
+As shown in the figure, the two exit angles exhibit symmetry. When θL = θH , the
+firing velocity is minimal, with a magnitude of 108.4m/s.When the maximum firing
+velocity v0 = 450m/s is achieved, θ1 is at its minimum, 1.7 degrees, and θ2 is at its
+maximum, 88.3 degree.
+Figure 7.Flight Trajectory
+Figure 8.Flight Time vs. Initial Velocity Relationship Chart
+
+Problem B
+The University Physics Competition, Team 127
+11
+As shown in the diagram, when fired at a low angle, a higher muzzle velocity
+results in a shorter projectile flight time. Conversely, when fired at a high angle, a
+higher muzzle velocity leads to a longer flight time. This occurs because a steeper
+firing angle produces a greater maximum altitude for the projectile, thereby extending
+its airborne duration.
+5.2 Considering Air Resistance And Target Size
+Taking air resistance into consideration, the projectile's trajectory will no longer
+be symmetrical but will instead follow a deformed parabola, where the ascent phase
+covering a greater distance.
+Figure 9. Flight Trajectory
+Figure 10.Flight Trajectory (Partial Magnification)
+When the target is assumed to have an actual height (set here as 10 m), the firing
+angle may not be unique at the same firing velocity. In other words, within a certain
+angular range, the shell can still be considered to have hit the target.
+
+Problem B
+The University Physics Competition, Team 127
+12
+Figure 11.Firing Angle vs. Initial Velocity Chart (Low Angles)
+Figure 12. Firing Angle vs. Initial Velocity Diagram (High Angles)
+The calculation results show that when firing at a low angle, the projectile can hit
+the actual target within a range of approximately 0.5 degrees. We employed
+polynomial fitting to model the relationship between the lower bound of the angular
+interval and the muzzle velocity, expressed as:
+��= 0.0001�0
+2 −0.1145�0 + 29.312
+(12)
+The fitting yielded excellent results.At the same time, as the firing velocity
+increases, the firing angle gradually decreases, similar to the simplified case. However,
+at the same firing velocity, the angle is relatively larger than the simplified case,it
+should be to overcome the effects of air resistance.
+When firing at high angles, the firing angle becomes nearly unique. This occurs
+because the projectile's trajectory can only intersect the target's lower point. As the
+firing velocity increases, the firing angle gradually increases, similar to the simpler
+case.
+5.3 Horizontal distance variation
+We fixed the target’s altitude at 500m, maintaining the same horizontal line as
+the cannon, and varied the horizontal distance between the target and the cannon
+within a range of 1000m to 1500m. The results are as follows:
+
+Problem B
+The University Physics Competition, Team 127
+13
+Figure 13.Flight Trajectory
+Figure 14.Flight Trajectory (Partial Magnification)
+In our calculations, we uniformly adopt an muzzle velocity of 450 m/s, as firing
+at maximum muzzle velocity is the most common practice when cannon performance
+is fixed.
+Figure 15.Firing Angle vs. Muzzle Velocity Chart (Low Angles)
+
+Problem B
+The University Physics Competition, Team 127
+14
+Figure 16. Firing Angle vs. Muzzle Velocity Diagram (High Angles)
+As shown in the diagram, when firing at a lower angle, the firing angle must be
+increased by approximately 0.2 degrees for every 50 meters the target moves away.
+The firing angle range is between 2 and 3.8 degrees. Achieving this level of precision
+is feasible with technology from 150 to 200 years ago.
+When firing at a high angle, the firing angle must be reduced by approximately
+0.2 degrees for every 20 meters the target moves away to ensure a direct hit.
+��(m/s)
+�(m)
+��(s)
+��(m/s)
+��(s)
+��(m/s)
+450
+1000
+2.9095
+268.87
+45.6098
+136.4559
+450
+1100
+3.2922
+255.4526
+45.4871
+136.3603
+450
+1200
+3.6953
+242.7385
+45.35
+136.2532
+450
+1300
+4.1199
+230.6981
+45.1977
+136.1338
+450
+1400
+4.5675
+219.3046
+45.0294
+136.0012
+450
+1500
+5.0391
+208.5333
+44.8441
+135.8545
+Table 2.Terminal velocity and flight time at different horizontal distances
+From the table, we can see that when fired at a low angle, the terminal velocity
+exceeds 200 m/s with a flight time of 3 to 5 seconds. When fired at a high angle, the
+terminal velocity falls below 140 m/s and the flight time is significantly longer,
+rendering it incapable of delivering effective lethality. Therefore, in practical
+scenarios, officers should opt for low-angle firing.
+5.4 Vertical height variation
+We fixed the target distance for the cannon at 1200m and varied its altitude
+within the range of 0m to 1000m, yielding the following results:
+
+Problem B
+The University Physics Competition, Team 127
+15
+Figure 17.Flight Trajectory
+Figure 18.Firing Angle vs. Muzzle Velocity Chart (Low Angles)
+Figure 19. Firing Angle vs. Muzzle Velocity Diagram (High Angles)
+As shown in the diagram, when firing at a low angle, the firing angle must
+increase by approximately 1.1 to 1.2 degrees for every 25-meter rise in target altitude.
+However, when the target altitude falls below the cannon's altitude, no low-angle
+solution exists, with the critical altitude ranging between 450 and 475 meters. This
+
+Problem B
+The University Physics Competition, Team 127
+16
+occurs because achieving a negative elevation angle—required to hit the target below
+the firing angle—is impractical.
+When firing at a high angle, the elevation angle must increase by approximately
+0.02 degrees for every 25-meter rise in target altitude. Achieving this precision was
+challenging under the technological constraints of the era.
+�(m)
+��（s)
+��(m/s)
+��(s)
+��(m/s)
+0
+No Solutions
+49.0611
+136.0033
+100
+48.3191
+136.2044
+200
+47.5775
+136.337
+300
+46.8358
+136.3944
+400
+46.0935
+136.3692
+500
+3.6953
+242.7385
+45.35
+136.2532
+600
+3.7234
+240.7715
+44.6048
+136.0376
+700
+3.7865
+237.7598
+43.8573
+135.7127
+800
+3.8846
+233.7519
+43.1066
+135.2677
+900
+4.0175
+228.8218
+42.3519
+134.6909
+1000
+4.1851
+223.061
+41.5923
+133.9693
+Table 3.Terminal velocity and flight time at different heights
+Similarly, the data in the table indicates that only the terminal velocity for low-
+angle firing has practical significance.
+5.5 Effects of Wind
+When considering wind effects, to simplify calculations, we assume the headwind
+direction is parallel to the horizontal plane, with speeds ranging from -10 m/s to 10
+m/s. A negative sign indicates wind blowing from the target toward the artillery piece.
+During the calculation process, we also compute the overall flight time and take
+its arithmetic mean to provide data support for calculating crosswind drift. When
+calculating crosswind drift, we assume constant air density and make a simplified
+estimate: the air density for high-angle launches is 0.94 times that at sea level, while
+the air density for low-angle launches is 0.82 times that at sea level.
+Figure 20.Firing Angle vs. Wind Speed Chart(Low Angles)
+
+Problem B
+The University Physics Competition, Team 127
+17
+Figure 21.Firing Angle vs. Wind Speed Chart(high Angles)
+From the figure, we can see that at low launch angles, parallel wind has a
+relatively minor impact on the firing trajectory. For every 1 m/s increase in wind
+speed, the firing angle requires a 0.01-degree offset. This is because at low firing
+angles, the flight time is too short for wind to significantly affect the trajectory.
+However,at high firing angles, however, for every 1 m/s increase in wind speed,
+the firing angle requires an offset of approximately 0.35 degrees.
+Figure 22.Horizontal Deviation Angle vs Wind speed Chart
+When calculating crosswind, we use the above approximation. Simultaneously,
+calculations show that the flight time for high-angle firing is approximately 45
+seconds, while for low-angle firing it is about 3.7 seconds. The crosswind range spans
+from 0m to 10m. As shown in the figure, during low-angle firing, crosswind drift has
+negligible impact on the shot—consistent with experience due to the extremely short
+flight
+time.
+Conversely,
+during
+high-angle
+firing,
+crosswind
+drift
+becomes
+significantly noticeable, requiring real-time adjustments to the cannon's direction
+based on the crosswind magnitude.
+
+Problem B
+The University Physics Competition, Team 127
+18
+6
+Conclusion
+Based on the above analysis and calculations, we draw the following conclusion:
+Under ideal conditions, when a cannon fires at a target point with a given muzzle
+velocity, there exist two possible firing angles—one large and one small. To ensure
+sufficient impact energy, projectiles must possess adequate terminal velocity (set at
+200 m/s) upon striking the target, subsequent calculations reveal that in multiple
+scenarios, the terminal velocity achieved at the high angle falls below this threshold.
+Therefore, we focus solely on the low angle solution. Next, we account for the effects
+of air resistance by numerically solving the equations of motion. This yields the
+relationship between launch angle and initial velocity, expressed as the fitting
+equation: θL = 0.0001v02 −0.1145v0 + 29.312.Considering that objects (such as
+city walls) typically possess a certain height (set at 10m), thus, the missile can hit the
+target when the firing angle varies within a range of 0.5° above the calculated value.
+Next, we calculated cases where the target's horizontal distance and elevation varied
+within specific ranges. Using a reference point of 1200m horizontal distance and 500m
+altitudes, with a firing velocity of 450m/s (under sufficient firepower), we found: For
+every 50m change in horizontal distance, the firing angle must adjust by 0.2 ° ; For
+every 25m change in altitudes, the firing angle must adjust by 1.1° to 1.2°. It should
+be noted that when firing at a low angle, targets below the altitudes of the reference
+point cannot be hit. Finally, considering wind effects, we modify the dynamics
+equations and solve them. We find: For tailwinds, each 1 m/s increase in wind velocity
+requires a 0.01° decrease in firing angle; For headwinds, the opposite applies. Since
+the velocity's flight time is very short during small-angle firing (approximately 3.7
+seconds), the deflection angle caused by crosswinds is negligible.
+Based on the above conclusions, we have summarized a quick aiming mnemonic
+for artillery officers. Following this mnemonic, officers need only perform simple
+addition and subtraction operations along with solving quadratic equations—a piece of
+cake for officers trained in mathematics. The mnemonics are as follows:
+Step 1: Look up the projectile's muzzle velocity by model.
+Step 2: Calculate the firing angle to hit the reference point using the fitted
+formula from the conclusions.
+Step 3: For every 25m change in altitudes relative to the reference point, the
+firing angle changes by 1.1 to 1.2 degrees. For every 50m change in distance, the
+firing angle changes by 0.2 degrees.
+Step 4: Measure the wind velocity. For every 1m/s change in wind velocity, the
+firing angle changes by 0.01 degrees (decreasing with tailwind, increasing with
+headwind).
+7
+Strength and Weakness
+7.1 Strength
+(1) The model is relatively simple and easy to simulate, comprehensively
+considers relevant factors, and exhibits minimal error.
+(2) Modeling and plotting are performed using Python, enabling intuitive
+visualization of flight trajectories and computational results under various conditions.
+The approach progresses from basic to advanced concepts, facilitating reader
+comprehension.
+
+Problem B
+The University Physics Competition, Team 127
+19
+(3) For different muzzle value problems, fixed variables simplify the problem,
+streamlining calculations and ensuring clear reasoning.
+(4) Practical application considerations, such as ensuring lethality, accounting for
+target size, and crosswind-induced deflection, provide real-world value.
+(5) Provides straightforward, easily understandable conclusions that effectively
+assist artillery officers in target acquisition.
+7.2 weakness
+(1) Numerous complex factors within the model were not fully accounted for.For
+example: Wind velocity may vary in direction and magnitude at different altitudes,
+significantly complicating the model. To simplify calculations, this factor was
+excluded.
+(2) When calculating air resistance, the drag coefficient was not measured
+experimentally but estimated based on empirical values, introducing potential errors.
+(3) To simplify calculations when target positions are uncertain, one variable is
+fixed in each direction, limiting the applicability of the final conclusions.
+8
+Reference
+[1] Cannon at Stones River National Battlefield. C. M. Highsmith, photograph, Library of
+Congress, https://www.loc.gov/item/2021756470/ (2021; public domain).
+[2] L. M. Milne-Thomson, Theoretical Aerodynamics (Courier Corporation, 1973).
+J. Muller, A Treatise of Artillery (J. Millan, 1768).
+[3] Major De Scheel, Treatise on Artillery, translated by J. W. Muller (J. Millan, 1800).
+[4] G. K. Batchelor, An Introduction to Fluid Dynamics (Cambridge University Press, 1967).
+[5] F. M. White, Fluid Mechanics, 8th ed. (McGraw-Hill Education, 2016).
+[6] H. D. Young, R. A. Freedman, University Physics with Modern Physics (Pearson, 2019), pp.
+456-458.
+[7] R. L. McCoy, Modern Exterior Ballistics (Schiffer Publishing, 2012).
+[8] J. Wang, J. M. Hu, and K. L. Ma, Renew. Sustain. Energy Rev. 60, 881 (2016).
+9
+Appendix
+9.1 Simple Case
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+# Plot config
+plt.rcParams['font.family'] = ['Arial', 'Helvetica']
+plt.rcParams['axes.unicode_minus'] = False
+# Calculate θ vs v0 for projectile hitting target R
+def calculate_theta_vs_v0(R, g, v0_max):
+v0_min = math.sqrt(R * g)
+v0_values = np.linspace(v0_min * 1.001, v0_max, 300)
+
+Problem B
+The University Physics Competition, Team 127
+20
+sin2theta = R * g / (v0_values**2)
+theta1 = 0.5 * np.arcsin(sin2theta) # Low-angle
+theta2 = np.pi/2 - theta1
+# High-angle
+# Flight times
+t1 = (2 * v0_values * np.sin(theta1)) / g
+t2 = (2 * v0_values * np.sin(theta2)) / g
+return {
+"v0_min": v0_min, "v0_values": v0_values,
+"theta1_deg": np.degrees(theta1), "theta2_deg": np.degrees(theta2),
+"t1": t1, "t2": t2, "R": R, "g": g
+}
+# Plot flight time vs v0
+def plot_t_vs_v0_theta(data):
+plt.figure(figsize=(10, 6))
+plt.plot(data["v0_values"], data["t1"], 'b-', linewidth=2, label='Low-angle (θL)')
+plt.plot(data["v0_values"], data["t2"], 'orange', linewidth=2, label='High-angle (θH)')
+plt.axvline(x=data["v0_min"], color='gray', linestyle='--',
+label=f'Min v0 = {data["v0_min"]:.1f} m/s')
+plt.xlabel("Initial velocity v₀ (m/s)")
+plt.ylabel("Flight time (s)")
+plt.title(f"Flight Time vs v₀ (Target R={data['R']}m)")
+plt.grid(alpha=0.3), plt.legend(loc='upper left'), plt.tight_layout()
+plt.show()
+# Main
+if __name__ == "__main__":
+R = 1200.0
+# Target distance (m)
+g = 9.8
+# Gravitational acceleration (m/s²)
+v0_max = 450.0 # Max initial velocity (m/s)
+result_data = calculate_theta_vs_v0(R, g, v0_max)
+plot_t_vs_v0_theta(result_data)
+9.2 Considering Air Resistance
+import numpy as np
+from scipy.integrate import solve_ivp
+from scipy.optimize import brentq
+import matplotlib.pyplot as plt
+import csv
+# Core physical parameters
+g = 9.81
+m = 5.0
+d = 0.11
+A = np.pi * (d**2) / 4.0
+Cd = 0.47
+rho0 = 1.225
+H = 8500.0
+# Initial conditions and target
+x0, y0 = 0.0, 500.0
+
+Problem B
+The University Physics Competition, Team 127
+21
+v0 = 450.0
+x_target, y_target = 1200.0, 500
+event_x = x_target
+def rho(y):
+return rho0 * np.exp(-y / H)
+# Differential equations of motion
+def deriv(t, state):
+x, y, vx, vy = state
+v = np.hypot(vx, vy) # Speed magnitude
+if v == 0:
+ax, ay = 0.0, -g
+else:
+# Drag force: Fd = 0.5*Cd*A*rho*v²
+Fd = 0.5 * Cd * A * rho(max(y, 0)) * v**2
+ax = -Fd * vx / (m * v)
+ay = -g - Fd * vy / (m * v)
+return [vx, vy, ax, ay]
+# Termination event: stop when reaching target x-coordinate
+def event_stop(t, state):
+return state[0] - event_x
+event_stop.terminal = True
+event_stop.direction = 1
+# Error function for angle optimization
+def hit_error(angle):
+vx0 = v0 * np.cos(angle)
+vy0 = v0 * np.sin(angle)
+state0 = [x0, y0, vx0, vy0]
+# Solve motion equations
+sol = solve_ivp(
+fun=deriv,
+t_span=[0, 500],
+y0=state0,
+events=event_stop,
+max_step=0.2,
+rtol=1e-6, atol=1e-6
+)
+x_end = sol.y[0, -1]
+y_end = sol.y[1, -1]
+x_error = (x_end - x_target) / x_target if x_target != 0 else 0
+y_error = (y_end - y_target) / (abs(y_target) + 1)
+return x_error + y_error
+# Find valid launch angles to hit target
+def solve_hit_angle(angle_min_deg=1, angle_max_deg=85, n_scan=500):
+angles_rad = np.radians(np.linspace(angle_min_deg, angle_max_deg, n_scan))
+errors = [hit_error(angle) for angle in angles_rad]
+valid_angles = []
+
+Problem B
+The University Physics Competition, Team 127
+22
+# Find sign changes in error (indicates root)
+for i in range(len(errors) - 1):
+if errors[i] * errors[i + 1] < 0:
+try:
+# Refine angle with Brent's method
+angle_rad = brentq(hit_error, angles_rad[i], angles_rad[i + 1], xtol=1e-8)
+vx0 = v0 * np.cos(angle_rad)
+vy0 = v0 * np.sin(angle_rad)
+sol = solve_ivp(deriv, [0, 500], [x0, y0, vx0, vy0], events=event_stop,
+max_step=0.2)
+x_end, y_end = sol.y[0, -1], sol.y[1, -1]
+if abs(x_end-x_target) < 5 and abs(y_end-y_target)< 1:
+valid_angles.append(round(np.degrees(angle_rad),2))
+except ValueError:
+continue
+return list(set(valid_angles)) # Remove duplicates
+if __name__ == "__main__":
+hit_angles = solve_hit_angle()
+9.3 Effects of Wind
+import numpy as np
+from scipy.optimize import brentq
+from scipy.integrate import solve_ivp
+import matplotlib.pyplot as plt
+import csv
+# Core physical parameters
+g = 9.81
+m = 5.0
+d = 0.11
+A = np.pi * (d**2) / 4.0
+Cd = 0.47
+rho0 = 1.225
+H = 8500.0
+# Launch & target conditions
+x0, y0 = 0.0, 500.0
+v0 = 450.0
+x_target, y_target = 1200.0, 500.0
+event_x = x_target
+def rho(y):
+return rho0 * np.exp(-y / H)
+def event_stop(t, state):
+return state[0] - event_x
+event_stop.terminal = True
+event_stop.direction = 1
+# Solve valid launch angles for given derivative function
+def
+solve_hit_angle_custom_deriv(deriv_func,
+angle_min_deg=1,
+angle_max_deg=85, n_scan=200):
+
+Problem B
+The University Physics Competition, Team 127
+23
+angles_rad = np.radians(np.linspace(angle_min_deg, angle_max_deg, n_scan))
+errors = [hit_error_custom_deriv(a, deriv_func) for a in angles_rad]
+valid_angles = []
+for i in range(len(errors) - 1):
+if errors[i] * errors[i+1] < 0:
+try:
+angle_rad = brentq(lambda a: hit_error_custom_deriv(a, deriv_func),
+angles_rad[i], angles_rad[i+1], xtol=1e-8)
+# Validate solution
+vx0, vy0 = v0*np.cos(angle_rad), v0*np.sin(angle_rad)
+sol = solve_ivp(deriv_func, [0, 500], [x0, y0, vx0, vy0], events=event_stop,
+max_step=0.2)
+x_end, y_end = sol.y[0, -1], sol.y[1, -1]
+if abs(x_end - x_target) < 5 and abs(y_end-y_target)<1:
+valid_angles.append(round(np.degrees(angle_rad),2))
+except ValueError:
+continue
+return list(set(valid_angles))
+# Error function for angle optimization
+def hit_error_custom_deriv(angle, deriv_func):
+vx0, vy0 = v0*np.cos(angle), v0*np.sin(angle)
+sol = solve_ivp(deriv_func, [0, 500], [x0, y0, vx0, vy0], events=event_stop,
+max_step=0.2)
+return sol.y[1, -1] - y_target
+# Compute angles across wind speed range
+def compute_angles_vs_wind(Vw_list):
+angle_wind = []
+for Vw in Vw_list:
+# Motion equations with horizontal wind
+def deriv_wind(t, state):
+x, y, vx, vy = state
+vx_rel = vx - Vw # Relative velocity (projectile - wind)
+vy_rel = vy
+v_rel = np.hypot(vx_rel, vy_rel)
+if v_rel == 0:
+ax, ay = 0.0, -g
+else:
+Fd = 0.5 * Cd * A * rho(max(y, 0)) * v_rel**2
+ax = -Fd * vx_rel / (m * v_rel)
+ay = -g - Fd * vy_rel / (m * v_rel)
+return [vx, vy, ax, ay]
+angles = solve_hit_angle_custom_deriv(deriv_wind)
+angle_wind.append(angles)
+print(f"Wind speed Vw={Vw:.1f} m/s --> Launch angles: {angles}")
+return angle_wind
+# Main execution
+if __name__ == "__main__":
+# Wind speed range: -10 to 10 m/s (21 points)
+
+Problem B
+The University Physics Competition, Team 127
+24
+Vw_list = np.linspace(-10, 10, 21)
+angle_wind = compute_angles_vs_wind(Vw_list)

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Preservation of Sasando Acoustics via Parametric IIR Filter Design（2025 题A 队伍112） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg:#0a0f1e;--panel:#111a2e;--ink:#e8eef8;--mut:#94a5c0;--line:#22304c;--acc:#4f7dd9;--acc2:#39c2b0;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
+ font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar a:hover{border-color:var(--acc);color:#fff}
+.crumb{color:var(--mut);font-size:13px}
+.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
+h3{font-size:17px;color:#cfe0ff}
+a{color:#7fb0ff} a:hover{text-decoration:underline}
+code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
+pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1em 0;padding:8px 16px;border-left:4px solid var(--acc2);background:rgba(57,194,176,.07);color:#c9d6ea;border-radius:0 10px 10px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#16233c;color:#a9bcda;white-space:nowrap}
+tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
+@media(max-width:700px){.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html">🏆 总览首页</a>
+  <span class="crumb">05_论文赏析/2025</span>
+  <span style="flex:1"></span>
+  <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2025/Problem%20A/2025-GM-A-112.pdf">📄 论文 PDF</a>
+  <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2025/2025-GM-A-112.md">原文 .md</a>
+</div></div>
+<div class="wrap"><div class="card">
+<h1 id="digital-preservation-of-sasando-acoustics-via-parametric-iir-filter-design2025-a-112">Digital Preservation of Sasando Acoustics via Parametric IIR Filter Design（2025 题A 队伍112）</h1>
+<p><strong>页数</strong>: 23 页 ｜ <strong>对应题目</strong>: Acoustic Preservation of the Electric Sasando（电声沙桑托琴声学保真）</p>
+<h2 id="1">1. 论文速览</h2>
+<p>本文把"让电声沙桑托复现传统 Lontar 叶共鸣器音色"的题目转化为一个<strong>参数化 IIR 数字谐振器设计</strong>问题：从琴的物理声学出发辨识出四个谐振模（245/490/735/980 Hz，呈谐波关系），用标准 biquad 带通节经双线性变换离散化、六节二阶节（SOS）级联并做极小化通带波纹优化。指标全面：通带平坦度 &lt;0.1 dB、阻带衰减 &gt;50 dB、冲激响应衰减 182 ms、THD 平均 0.4033%、2778 倍实时、时延 0.27 ms、内存 0.58 KB、极点在单位圆内（裕度 0.0479），并给出从频域、时频、瞬态到嵌入式实现的完整验证链条。</p>
+<h2 id="2">2. 建模体系逐层拆解</h2>
+<p><strong>第一层：声源物理（3.1 节）。</strong> 两端固定弦的谐波系列（式(1)）$f_n=n\frac{1}{2L}\sqrt{T/\mu}$，说明拾音信号含基频与整数倍谐波，是后续"滤波器固定峰位与不同音符谐波对齐"分析的物理基础。</p>
+<p><strong>第二层：共鸣器参数化模型（3.1–3.2 节）。</strong> 把 Lontar 叶共鸣器写为二阶带通节的并联/级联组合（式(2)）：</p>
+<p>$$H_{resonator}(s)=\sum_{k=1}^{N_{modes}}g_k\cdot\frac{\omega_{0,k}s}{s^2+\frac{\omega_{0,k}}{Q_k}s+\omega_{0,k}^2}$$</p>
+<p>并用 $Q_k=f_{0,k}/\Delta f_k$（式(3)）联系品质因数与带宽。模态辨识（Table 1）：四个模 245（B3）/490（B4）/735（F#5）/980（B5）Hz，统一 $Q=8$，增益 1.00→0.75 递减。论证亮点：模频近似谐波关系（$f_2\approx2f_1$ 等），且 245 Hz 对应波长 $\lambda=343/245\approx1.4$ m 恰为竹管长 70 cm 的两倍，与半波长共振的自洽解释——把题目给的几何尺寸变成了模型参数的物理依据。</p>
+<p><strong>第三层：数字化设计（第 4 节）。</strong> 采样率取 44100 Hz（过采样比 $\approx21$）；双线性变换（式(4)）配频率翘曲核算（式(5)(6)）：980 Hz 处 $f_{warped}/f_{desired}\approx1.0001$，故无需预翘曲——用数值证明可忽略而非凭感觉。每个 biquad 采用标准音频参数化公式（式(7)–(11)：$\alpha=\sin(\omega_0)/2Q$，$b_0=\alpha,b_1=0,b_2=-\alpha$，$a_1=-2\cos\omega_0,a_2=1-\alpha$）。四模至少需四节，为满足平坦度用<strong>六节</strong>级联（式(12)，$G=0.002191$），各节增益经约束优化（式(13)，目标为通带内最大偏差最小、约束 $|a_{2,k}|&lt;1$）确定（Table 2）。</p>
+<p><strong>第四层：实现架构（第 5 节）。</strong> 直接 II 型转置结构的差分方程（式(15)），算力核算 $31\times44100/10^6\approx1.37$ MOPS（式(16)），内存细目合计 0.58 KB，落到 ARM Cortex-M4 等嵌入式平台。</p>
+<p><strong>第五层：限制与对照（第 8 节）。</strong> 诚实列出 LTI 假设（真实共鸣器有幅度依赖阻尼与交叉调制）、四模对连续模态谱的简化、182 ms 拖尾造成的音符重叠、单点响应假设四条限制；并与 FDTD 物理建模（每样本百万次运算）和深度学习（不可解释、需配对数据）对比，论证参数化 IIR 是文化遗产保真场景的最优折中。</p>
+<h2 id="3">3. 数学方法与算法</h2>
+<p>全流程数字信号处理，方法密度高但每步都交代出处：解析上用模拟原型 + 双线性变换 + RBJ 式 biquad 参数化设计；数值上对节增益做极小极大优化（式(13)）压平通带；验证体系是最大特色——①频域 FFT 校核（Figure 3，四峰位置与 $Q$ 带宽、通带标准差 &lt;0.1 dB）；②冲激响应包络衰减（−60 dB @ 182 ms）与群时延分析（谐振峰处达 2 ms，解释谐波去同步与"柔和起音"）；③THD 定量测量（式(17)，Table 3 六个频点平均 0.4033%）；④极点-零点图 BIBO 稳定性验证（Figure 5/10）；⑤扫频时频图（Figure 8）与三类信号（正弦/拾音/拨弦仿真）对比（Figure 9）；⑥谱质心统计（Table 4，C4–C5 八音平均偏移 +71.6±13.5 Hz）证明音色增强跨音域一致；⑦实时性能回归（$R^2&gt;0.999$ 线性、2778× 实时因子）。工具为 Python/MATLAB 类科学计算栈（论文未明言具体函数库，不确定）。小瑕疵：稳定性裕度在 4.5 节写 0.0088、6.5 节写 0.0479，两处口径未互相解释；算力在 5.2 节为 1.37 MOPS 而能耗估算处用 2.4 MOPS，前后略有出入。</p>
+<h2 id="4">4. 排版与图表赏析</h2>
+<p>IEEE 风格浓厚的 LaTeX 排版：页眉"Problem A | Team 112"，摘要一页以内但信息极密（加粗关键词句 + 量化指标连发），带 Keywords 行与目录。图表量在本批次中居首（Figure 1–10 + Table 1–4），且多为多联大图：Figure 3 是 3×2 六面板的"频响 + 冲激响应 + E4 处理"综合图；Figure 5/6/10 各含六面板（瀑布图、等高线、相位/群时延、极-零图、性能统计）。标题页（见 p1 渲染图）庄重、摘要以粗体强调各验证维度；正文第 1 页即放真实沙桑托照片（Figure 1），文化语境直观。公式编号采用 (1)(2)… 圆括号后置式，图表题注用"Figure 3."句点式（IEEE 惯例）。尤为特别的是第 10 节"AI Usage Report"：声明使用 Claude Sonnet 4.5 做语言润色、LaTeX 排版与文献检索，并承诺技术内容独立完成——这是 2025 年新规下的合规写作范例。</p>
+<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<ol>
+<li><strong>把乐器问题翻译成工程指标</strong>：题目没有给任何数值要求，本文自己设定通带 98–1047 Hz、平坦度 &lt;0.1 dB、THD&lt;1%、实时等指标体系，让"保真"可测可查。</li>
+<li><strong>参数有物理出处</strong>：四谐振峰的谐波关系 + 半波长共振解释（245 Hz ↔ 2×70 cm 竹管），使滤波器参数不沦为纯拟合，呼应物理竞赛的建模要求。</li>
+<li><strong>验证维度空前完整</strong>：频域、时域瞬态、失真、稳定性、实时性、音色感知量（谱质心）七位一体，每种指标都有编号图表支撑。</li>
+<li><strong>工程落地闭环</strong>：给出差分方程、运算量、内存、推荐芯片（Cortex-M4F/SHARC）与 VST 插件形式，评委看到的是可部署方案而非纸面设计。</li>
+<li><strong>诚实的替代方案对比</strong>：与 FDTD、深度学习对比论证选型合理性，并以第 8 节明确四条模型局限，体现成熟的研究素养。</li>
+<li><strong>规范的 AI 使用声明</strong>：在允许范围内透明披露，规避学术诚信风险。</li>
+</ol>
+<h2 id="6">6. 可借鉴清单</h2>
+<ol>
+<li>遇到"复现某声学/光学响应"类题，先建参数化二阶节模型（谐振频率 + $Q$ + 增益），再级联优化——参数少、可解释、算力低。</li>
+<li>用 $Q=f_0/\Delta f$ 与波长-几何对应关系（$\lambda=c/f$）把题给尺寸变成模型参数的物理依据。</li>
+<li>双线性变换后务必核算频率翘曲量级（本文 $\approx0.01\%$），以数值结论决定是否需要预翘曲。</li>
+<li>多指标验证模板：频响 + 冲激响应 + THD + 极-零稳定性 + 实时因子 + 一组感知代理量（谱质心），可直接迁移到任何滤波/振动类赛题。</li>
+<li>自设量化指标（平坦度、衰减、时延）把开放题的"好坏"变成可评分数字，方便评委给分。</li>
+<li>按 2025 年新规写 AI Usage Report，限定用途并逐条声明作者责任。</li>
+</ol>
+</div></div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+});
+</script>
+</body>
+</html>

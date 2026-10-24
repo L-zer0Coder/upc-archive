@@ -1,0 +1,586 @@
+Asteroid Impact Damage to a Coastal City
+November 8, 2021
+Team 216, Problem B
+Abstract
+In this paper, we find the minimum mass of an asteroid required to cause substantial
+damage to a coastal city from an impact on an oceanic surface 1, 000km away. With a
+range of asteroid masses, we investigate the final impact velocity of an asteroid when it
+hits the surface of the ocean with an initial starting velocity at atmospheric entry. In
+addition, the total energy lost due to air friction during this interval is determined to
+better quantify the energy efficiency of the asteroid’s impact. From the impact velocity,
+equations describing the cavitation and resulting wave propagation in the ocean after
+the collision are used to find the final wave height once they reach the coastal city.
+When an asteroid above a certain mass impacts the ocean, the waves reaching the city
+amounts to the damage caused by a tsunami. Using data relating tsunami height and
+structural damage, the threshold for substantial damage from the asteroid impact is
+defined to be a wave with a height that is greater than or equal to 2m when reaching
+the city. From this threshold and the calculated wave heights (for different asteroid
+masses) 1, 000km away from the impact center, we find that the minimum mass of the
+asteroid must be 109kg to cause substantial damage.
+
+Team 216
+Contents
+1
+Problem Statement
+1
+2
+Assumptions
+2
+3
+Asteroid Impact
+2
+3.1
+Asteroid Density
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+3.2
+Impact Velocity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+3.3
+Energy Lost on Descent
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+4
+Oceanic Wave Propagation
+7
+4.1
+Cavitation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+4.2
+Wave Amplitude
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10
+5
+Discussion
+12
+6
+References
+12
+7
+Appendix
+13
+7.1
+MATLAB Scripts . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+7.1.1
+air density.m
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+7.1.2
+asteroid density.m . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+7.1.3
+crater volume.m . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14
+7.1.4
+cumulative impact data.m . . . . . . . . . . . . . . . . . . . . . . . .
+15
+7.1.5
+impact energy.m
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+16
+7.1.6
+impact velocity.m . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+17
+7.1.7
+wave amplitude.m . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+18
+1
+Problem Statement
+The problem is to find the minimum mass of an asteroid required to cause substantial
+damage to a coastal city from an impact on the oceanic surface 1, 000km away. From this
+problem, we seek to model an asteroid for a range of masses that enters Earth’s atmosphere,
+impacts the oceanic surface, and produces oceanic waves that propagate from the impact
+center to the city. We find the characteristics of the waves once they reaches the coastal city,
+1, 000km from the impact center, and determine if they cause substantial damage to the city
+in their potential to destroy or partially destroy wooden or reinforced concrete structures.
+For this problem, thermal radiation and wind currents generated from the impact are
+not considered for three reasons.
+1. Oceanic waves are very likely to be the first to have a significant impact on the coastal
+city as the energy transferred to the ocean is large in comparison to that in heating or
+generating wind currents.
+1
+
+Team 216
+2. From the thermal conductivity of air and water, the mediums are considered to be
+insulating. At a distance 1, 000km away, significant thermal changes in the city are
+unlikely to be made on the timescale of a day.
+3. Due to the large volume of air from the center of the impact to the coastal city, wind
+currents generated from the impact are unlikely to have a significant effect in terms of
+energy due to large dissipation.
+2
+Assumptions
+• The asteroid is perfectly spherical. This assumption is made due to the wide variability
+in the shapes of asteroid, leading to an over-complex model with likely insignificant
+changes in the final result.
+• The asteroid has a uniform density distribution. This assumption is made since the
+density within asteroids vary but the center of mass would be approximately centered
+in the body.
+• The asteroid impact is in the vertical direction. This assumption is made due to range
+of angles that the asteroid can impact the ocean surface, simplifying the computation
+to a vertical impact.
+• The sea floor is flat from the center of the impact to the city. This assumption is made
+to make the model more general to different impact locations as sea floor terrains vary
+by location.
+• The incline from the sea floor to the city is modeled vertically. This assumption is
+made to simplify the model without a significant decline in accuracy as the 1, 000km
+distance from the impact center to the coastal city is likely to be large in comparison
+to sea terrain changes near the shore.
+3
+Asteroid Impact
+3.1
+Asteroid Density
+We first find the density of the asteroid from previously collected data ([2]) using the line
+of weighted best fit average computed in MATLAB.
+2
+
+Team 216
+Figure 1: Asteroid density data ([2]) is collected from 16 different asteroid bodies with error bars
+and the weighted best fit average is found to be 2, 481kgm−3.
+From the weighted best fit average on the densities of measured asteroids, we set the
+density of the asteroid impacting Earth as 2, 481kgm−3.
+3.2
+Impact Velocity
+The asteroid is defined to enter Earth’s atmosphere with a velocity v0 in the vertical
+ˆy direction at point y0.
+When the asteroid of a certain speed and mass enters Earth’s
+atmosphere, the forces acting on the body are the drag force, Fd = 1
+2ρ (y) ˙y2CdA, and the
+gravitational force, Fg = G mEmA
+(y+rE)2, between the asteroid and the Earth. The variables and
+constants in the equation are y, the height of the asteroid from sea level; ˙y, the velocity of the
+asteroid; ρ (y), the air density dependent on y; Cd, the drag coefficient; A, the cross-sectional
+area; G, the gravitational constant; mE, the mass of the Earth; mA, the mass of the asteroid;
+and rE, the radius of the Earth.
+3
+
+Team 216
+Figure 2: The forces acting on the asteroid as it enters Earth’s atmosphere.
+From figure 2, the governing equation of motion for the asteroid is:
+mA¨y = Fd −Fg
+(1)
+mA¨y = 1
+2ρ(y) ˙y2CdA −G mEmA
+(y + rE)2
+plugging in Fd and Fg
+(2)
+From the density formula with DA as the density of the asteroid and VA as its volume
+(assuming uniform density distribution on a spherical body), we solve for A in terms of mA:
+DA = mA
+VA
+(3)
+mA = DAVA
+(4)
+= DA
+4
+3πr3
+A
+
+since VA = 4
+3πr3
+A
+(5)
+= DA
+ 
+4
+3π
+A
+π
+ 3
+2!
+since A = πr2
+A
+(6)
+mA = 4
+3πDA
+A
+π
+ 3
+2
+simplifying
+(7)
+A =
+ 3mA
+4πDA
+ 2
+3
+π
+solving for A
+(8)
+4
+
+Team 216
+Then,
+mA¨y = 1
+2ρ (y) ˙y2Cd
+ 3mA
+4πDA
+ 2
+3
+π −G mEmA
+(y + rE)2
+plugging (8) into (2)
+(9)
+¨y = πCd
+2mA
+ 3mA
+4πDA
+ 2
+3
+ρ (y) ˙y2 −G
+mE
+(y + rE)2
+rearranging
+(10)
+To find the relation between the air density and height, ρ (y), we use air density data from
+0 to 80km (negligible air density past y = 80km on the order of 10−5kgm−3) and perform a
+fit function using MATLAB [3].
+The result of the fit with R2 = 0.9975 is:
+ρ (y) = 1.256e−1.118×10−4y
+(11)
+Figure 3: The air density data and curve of best fit (orange) with respect to y .
+Then, plugging (11) into (10),
+¨y = πCd
+2mA
+ 3mA
+4πDA
+ 2
+3 
+1.256e−1.118×10−4y
+˙y2 −G
+mE
+(y + rE)2
+(12)
+Plugging in the known constants Cd = 0.877 (for a rigid sphere in the supersonic regime
+[4]), DA = 2, 481kgm−3, G = 6.67 × 10−11m3kg−1s−2, mE = 5.97 × 1024kg, and rE =
+6.38 × 106m (assuming an impact near the equator), we obtain
+¨y = 3.6 × 10−3 · m
+−1
+3
+A · e−1.118×10−4y · ˙y2 −
+3.98 × 1014
+(y + 6.38 × 106)2
+(13)
+5
+
+Team 216
+The most probable asteroid encounter velocity with Earth’s upper atmosphere is v0 =
+19.3kms−1 ([5]), so with the assumption that the asteroid impacts Earth in the ˆy direction,
+we have the initial condition v0 = −19.3kms−1ˆy. In addition, we define y0 = 80kmˆy as the
+height of atmospheric entry due to negligible air density for larger y0 values [3].
+Using these initial conditions and the governing differential equation, we numerically
+solve for the speed of the asteroid at impact for different mA using the ode45 solver in
+MATLAB. Since the masses of asteroids are on the order of 109 to 1020kg ([2]), we find the
+impact velocity, vf, for masses up to this range. The results are compiled in the table below.
+Mass (kg)
+Impact Time (s)
+Impact Velocity (ms−1)
+100
+220.1151
+52.5338
+102
+40.0971
+118.4678
+104
+5.2072
+4341.1
+106
+4.3043
+14005
+108
+4.1742
+18043
+1010
+4.1491
+19052
+1012
+4.1441
+19278
+1014
+4.1391
+19327
+1016
+4.1391
+19337
+1018
+4.1391
+19339
+1020
+4.1391
+19340
+3.3
+Energy Lost on Descent
+We then find the energy lost to air friction. First, we use the conservation of energy
+Ki +Ui = Kf +Uf with the initial height yi = y0 and final height yf = 0 to find the expected
+final impact velocity, ve, without accounting for air resistance.
+Thus,
+Ki + Ui = Kf + Uf
+(14)
+1
+2mAv2
+0 + Ui = 1
+2mAv2
+e + Uf
+(15)
+We then find Ui and Uf. Since only gravitational potential energy exists, U = Ug =
+G mEmA
+r
+, where r is the distance between the center of the asteroid and that of the Earth.
+To convert r to y, we note that r = y + rE, so
+U = GmEmA
+y + rE
+(16)
+Plugging equation (16) into (15) yields
+1
+2mAv2
+0 + G mEmA
+y0 + rE
+= 1
+2mAv2
+e + GmEmA
+rE
+with yi = y0 and yf = 0
+(17)
+Solving for ve,
+6
+
+Team 216
+ve =
+s
+v2
+0 −2GmE
+
+1
+y0 + rE
+−1
+rE
+
+(18)
+= 19, 340ms−1
+plugging in the known values
+(19)
+For each mass, mA, we find the energy loss from air resistance using
+Elost = 1
+2mAv2
+e −1
+2mAv2
+f
+(20)
+The results are culminated in the figure below.
+Figure 4: The impact velocity, vf, of the asteroid (left) and the energy lost due to air friction
+(right). Since the speed of the largest mass in this range is equal to the speed calculated from
+energy conservation 19, 340ms−1, a curve of best fit with R2 = 1 is constructed using MATLAB
+for extrapolation.
+From the data in figure 4, we find that the energy lost from a asteroid with a larger mass
+is greater than that from one with a smaller mass. However, the final impact velocity of the
+large asteroid is always greater. Therefore, regardless of the energy efficiency of the asteroid,
+a larger mass results in a larger impact velocity.
+4
+Oceanic Wave Propagation
+Assuming that the minimum mass of an asteroid that causes substantial damage has a
+radius 13 times smaller than the ocean depth 6, 000m (largest depth of the abyssopelagic
+zone), no shock effects arise on the sea floor and the impact is in the deep water impact
+(DWI) regime [1,10].
+From mA = DAVA with DA = 2, 481kgm−3,
+7
+
+Team 216
+rA =
+ 3mA
+4πDA
+ 1
+3
+(21)
+= 0.046 · m
+1
+3
+A
+(22)
+and the smallest asteroid mass under this radius constraint is
+rA ≤6000
+13
+(23)
+0.046 · m
+1
+3
+A ≤460
+(24)
+mA ≤1.0 × 1012kg
+(25)
+Thus, the asteroid mass used in further calculations is 1 × 1012kg.
+4.1
+Cavitation
+In the deep water impact regime, the volume of the crater ([1]) formed after impact is
+given by
+V = 0.75
+ DA
+ρsea
+ 1
+3
+· r2.35
+A
+· g−0.65 · v1.3
+f
+where psea is the density of the ocean
+(26)
+= 0.75
+ DA
+ρsea
+ 1
+3  3mA
+4πDA
+ 2.35
+3
+· g−0.65 · v1.3
+f
+since rA =
+ 3mA
+4πDA
+ 1
+3
+(27)
+Plugging in known constants with psea = 1, 027kgm−3 and g = 9.8ms−2,
+V = 1.6 × 10−4 · m0.783
+A
+· v1.3
+f
+(28)
+8
+
+Team 216
+Figure 5: The asteroid volume (left) and the resulting crater volume (right) dependent on the
+mass of the asteroid.
+The formation of this crater is accompanied by a vertical standing cone, the ejecta current,
+surrounding it. After collapse, the first wave, the rim wave, is formed that then propagates
+away from the center.
+In addition, gravity collapses the transient crater in the center,
+ultimately leading to a central peak. Its collapse results in collapse waves [1].
+During this process, the collapse of the ejecta curtain paired with that of the transient
+crater dissipates the energy for the rim wave. Thus, the rim wave decays quickly and is
+negligible as the distance from the impact center increases [1].
+This cycle depicted in figure 6 repeats until the sea level returns [1].
+9
+
+Team 216
+Figure 6: A depiction detailing the process of oceanic wave generation from an asteroid impact.
+4.2
+Wave Amplitude
+Assuming that the sea floor is flat, the amplitude of these wave propagations where E is
+the impact energy in kilotons and r is the distance from the impact center are modeled by
+([6])
+A (r) = 9, 700E0.5
+1
+r
+
+(29)
+Using the impact velocity data and E = 1
+2mAv2
+f, the impact energies for the range of
+asteroid masses are determined and shown in the figure below.
+10
+
+Team 216
+Figure 7: The impact energy in kilotons of TNT with respect to asteroid mass.
+Assuming that the waves travel along a flat sea floor until they encounter a continental
+shelf (modeled as a vertical incline), the resulting wave heights are plotted below.
+Figure 8: The wave heights are determined for an r of 100m, 103m, and 106m.
+Due to the magnitude in the height of the propagated waves, we use tsunami data relating
+wave height and damage to determine the threshold for substantial damage to the coastal
+city. From Tinti, 1993, a tsunami height of 2m and 8m can cause the collapse of wooden
+houses and reinforced concrete structures. Reese et al., 2007 found that a 2m height also
+causes collpase to unreinforced brick buildings.
+From Ruangrassamee et al., 2006, for a
+reinforced concrete building, a height of 2m might damage the secondary members, a 3m
+might damage the primary members, and 7m can completely destroy the structure.
+11
+
+Team 216
+Thus, a wave height of 2m is set as the cutoff for substantial damage due to its potential
+to destroy wooden buildings and parts of reinforced concrete structures.
+From the data, setting the cutoff point at 2m, the minimum asteroid mass to cause
+substantial damage to a coastal city 1, 000km from the impact center is 109kg.
+5
+Discussion
+The steps that were taken to reach out conclusion is split into two parts.
+1. Asteroid Impact
+(a) The strengths of performing the calculations for impact velocity is that a time
+varying ordinary differential equation is used. It was not assumed that the velocity
+at the entry of the atmosphere was the the same as the velocity of the impact due
+to the presence of gravitational and drag forces. This led to greater accuracy in
+the final impact velocity determination for the range of masses used.
+(b) However, the weakness of this approach is that finding numerical solutions (MAT-
+LAB ode45 solver) to the differential equation does not give the exact solution,
+only an approximation.
+2. Oceanic Wave Propagation
+(a) The strengths of performing the calculations for the wave amplitude is that the
+solutions are directly computed from the impact energy of the asteroid and no
+further approximations to solutions had to be made.
+(b) However, the weakness of this approach is that the wave amplitude equation is
+dependent on the assumption that the impact is in the deep water impact regime
+and the effect of the sea floor is neglected. In addition, there is a slope from the
+sea floor to the shore that increases the amplitude of the wave as the water depth
+decreases. To obtain more accurate wave heights in future work, Green’s law can
+be used and the slope of the rise can be included in the model.
+6
+References
+1. W¨unnemann, K., Collins, G. S. & Weiss, R. IMPACT OF A COSMIC BODY INTO
+EARTH’S OCEAN AND THE GENERATION OF LARGE TSUNAMI WAVES: IN-
+SIGHT FROM NUMERICAL MODELING. Reviews of Geophysics 48, (2010).
+2. Hilton, J. Asteroid Masses and Densities. (2002).
+3. U.S. Standard Atmosphere. Engineeringtoolbox.com https://www.engineeringtoolbox.com/
+standard-atmosphere-d 604.html (2019).
+4. Landau, L. D. & Lifshitz, E. M. Fluid mechanics. (Butterworth-Heinemann, 1995).
+12
+
+Team 216
+5. Catastrophic Events Caused by Cosmic Objects. (Springer Netherlands, 2007). doi:10.1007/978-
+1-4020-6452-4.
+6. Gault, D. E. & Sonett, C. P. Laboratory simulation of pelagic asteroidal impact At-
+mospheric injection, benthic topography, and the surface wave radiation field. (1982).
+7. Stefano Tinti. Tsunamis in the world. (Kluwer Academic, 1993).
+8. Reese, S. et al. Tsunami vulnerability of buildings and people in South Java – field
+observations after the July 2006 Java tsunami. Natural Hazards and Earth System
+Sciences 7, 573–589 (2007).
+9. Ruangrassamee, A. et al. Investigation of Tsunami-Induced Damage and Fragility of
+Buildings in Thailand after the December 2004 Indian Ocean Tsunami. Earthquake
+Spectra 22, 377–401 (2006).
+10. US Department of Commerce, NOAA, National Weather Service. NWS JetStream -
+Layers of the Ocean. Weather.gov https://www.weather.gov/jetstream/layers ocean
+(2014).
+7
+Appendix
+7.1
+MATLAB Scripts
+7.1.1
+air density.m
+7.1.2
+asteroid density.m
+13
+
+Team 216
+7.1.3
+crater volume.m
+14
+
+Team 216
+7.1.4
+cumulative impact data.m
+15
+
+Team 216
+7.1.5
+impact energy.m
+16
+
+Team 216
+7.1.6
+impact velocity.m
+17
+
+Team 216
+7.1.7
+wave amplitude.m
+18
+
+Team 216
+19

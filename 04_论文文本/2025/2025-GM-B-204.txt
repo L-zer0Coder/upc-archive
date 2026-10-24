@@ -1,0 +1,1915 @@
+Problem Chosen
+Team Control Number
+B
+204
+Analysis of Artillery Firing Parameters
+Summary
+This paper develops a two-dimensional exterior-ballistics model which aims to determine,
+under the constraint of a maximum muzzle velocity of 450 �/�, the multiple
+combinations of muzzle velocity and firing angle that allow cannons from 150 −200
+years ago to hit a target at 1200 �, and to design a paper-and-pencil procedure for
+estimating firing parameters that can be used by artillery officers without access to
+modern computational tools.
+In Problem Ⅰ, starting from a rigid-body trajectory, we use dimensional analysis and
+order-of-magnitude estimates to demonstrate that buoyancy, Magnus force, and the
+Coriolis force are negligible, thereby reducing the dynamics to a particle ballistic model.
+For air resistance, we introduce an exponentially decaying air-density profile with altitude
+and construct a piecewise model that explicitly captures the rapid rise of shock wave drag
+in the transonic regime, so that the deceleration of the projectile more closely matches
+realistic exterior ballistics. We then build a solution framework combining inner
+Runge–Kutta numerical integration, outer nonlinear root finding, multi-initial-value
+search, and duplicate-solution elimination, which yields in a single run several physically
+distinct firing solutions. Among these, by balancing flight time, wind sensitivity, and
+engineering practicality, we select the small-angle limiting solution with firing angle 4°
+and muzzle velocity 450 �/�as the recommended optimal solution.
+In Problem Ⅱ, within the same exterior-ballistics framework, we explicitly include
+horizontal tailwinds and headwinds, and reduce the hit condition for targets at 1000 −
+1500 �with different altitude differences and wind speeds to a linear wind correction
+for the muzzle velocity in the vicinity of the “recommended small-angle branch”, written
+as�0 �≈�0 0 + ��. Numerical experiments show that, near the preferred solutions
+with small firing angle and short time of flight, the required muzzle velocity depends
+almost perfectly linearly on the wind speed. By reintegrating the trajectories and
+collecting the distribution of altitude errors, we quantitatively evaluate the error of this
+first-order linear approximation and confirm its validity. Exploiting this property, we
+precompute three firing tables on a range–altitude grid. An artillery officer needs only to
+look up the estimated range, altitude difference, and wind speed, and then perform simple
+calculations to obtain firing parameters.
+Keywords: exterior ballistics, particle ballistic model, shock wave drag, wind correction,
+linear validation, firing-table design
+
+Team # 204
+Page 1 of 37
+Contents
+1
+Introduction...........................................................................................................3
+1.1
+Background........................................................................................................................3
+1.2
+Problem Restatement.......................................................................................................3
+2
+Initial Assumptions and Notations........................................................................3
+2.1
+Initial Assumptions.............................................................................................................3
+2.2
+Notations........................................................................................................................... 4
+3
+Physical Analysis....................................................................................................4
+3.1
+Force Analysis....................................................................................................................4
+3.1.1
+Gravity.................................................................................................................. 4
+3.1.2
+Air Buoyancy.........................................................................................................4
+3.1.3
+Air Resistance.........................................................................................................4
+3.1.4
+Coriolis Force.........................................................................................................5
+3.1.5
+Magnus Force....................................................................................................... 6
+3.2
+Variation of Air Density with Altitude.......................................................................... 7
+3.2.1
+Static Equilibrium Equation.................................................................................7
+3.2.2
+Ideal Gas State Equation...................................................................................... 7
+3.2.3
+Isothermal Assumption.........................................................................................7
+3.2.4
+Integral Solution................................................................................................... 8
+3.2.5
+Introduction of Elevation Parameter.................................................................... 8
+3.3
+Variation of Drag Coefficient with Mach Number.........................................................8
+4
+Problem ⅠSolution...............................................................................................9
+4.1
+Problem Analysis.............................................................................................................9
+4.2
+General Thought..............................................................................................................9
+4.3
+Model Building................................................................................................................9
+4.4
+Algorithm Design..........................................................................................................10
+4.4.1
+Solving Framework............................................................................................ 10
+4.4.2
+Multi-start Search and Initial Grid Design.........................................................10
+4.4.3
+Solution Screening..............................................................................................11
+4.4.4
+Result Presentation.............................................................................................11
+4.5
+Error Analysis of Coriolis Force....................................................................................12
+5
+Problem ⅡSolution............................................................................................13
+5.1
+Problem Analysis...........................................................................................................13
+5.2
+General Thought............................................................................................................14
+5.3
+Structural Analysis of Multiple Solutions for Single Target Points............................. 15
+5.3.1
+Correction of v0-θ Curves and Drag Models at Multiple Wind Speeds........... 15
+
+Team # 204
+Page 2 of 37
+5.3.2
+Relationship Between Flight Time and Firing Angle........................................16
+5.3.3
+Justification for Selecting the Small-Angle Solution.........................................17
+5.4
+Numerical Verification of the Linear Assumption for First-Order Wind Correction.. 18
+5.5
+Construction Methods and Results of the Firing Table................................................ 19
+5.5.1
+Range–Altitude Grid Design and Parameter Constraints.................................. 19
+5.5.2
+Small-Angle Foundation Solution Search under Windless Conditions.............19
+5.5.3
+Calculation of Small-Angle Foundation Solutions and Wind Correction
+Coefficient ...................................................................................................................... 20
+5.5.4
+Three firing Tables and Their Usage Methods.................................................. 20
+6
+Conclusion and Discussion................................................................................23
+6.1
+Conclusion.....................................................................................................................23
+6.2
+Discussion......................................................................................................................23
+6.2.1
+Strengths............................................................................................................. 23
+6.2.2
+Weaknesses.........................................................................................................24
+References...................................................................................................................24
+Appendices..................................................................................................................25
+
+Team # 204
+Page 3 of 37
+1
+Introduction
+1.1
+Background
+As a historically significant military weapon, artillery has always centered its combat
+operations around ballistic calculations[1]. From the 19th century to the early 20th
+century, artillery officers had to rapidly estimate accurate muzzle velocities and firing
+angles without the aid of computers or calculators, in order to ensure that projectiles hit
+their targets. This task involved fundamental projectile kinematics as well as the complex
+effects of air resistance, elevation, and wind conditions. Consequently, developing a
+ballistic estimation method that was both precise and readily applicable in the field was of
+significant military value.
+1.2
+Problem Restatement
+This problem considers a cannon from 150-200 years ago, firing spherical projectiles with
+a mass of 5 ��and a diameter of 11 ��, achieving a maximum muzzle velocity of
+450 �/�.
+The core problem consists of two parts:
+• The muzzle velocity and elevation angle required to hit a target at a horizontal range of
+1200 �and an elevation of 500 �must be determined.
+• The development of a practical method is required for artillery officers to rapidly
+estimate successful firing parameters for various targets at horizontal ranges of 1000 −
+1500 �, under different elevation and wind speed conditions.
+2
+Initial Assumptions and Notations
+2.1
+Initial Assumptions
+1. The projectile is a rigid body with symmetrical geometry and mass distribution, and the
+eccentricity is zero[2]. Only rotational motion about its longitudinal axis is considered, with no
+attitude oscillations in other directions.
+2. The motion is characterized by four degrees of freedom: three translational directions in
+space (horizontal forward, vertical upward, perpendicular to the trajectory plane) and one
+rotational direction about the longitudinal axis[3].
+3. The angle of attack remains small throughout flight, allowing the attitude to rapidly reach a
+stable state. The dynamic changes of the actual angle of attack are replaced by an equilibrium
+angle of attack, disregarding any attitude oscillations or oscillations.
+4. Air density decreases gradually with increasing altitude. Near-surface temperature remains
+constant, maintaining atmospheric stability without complex disturbances such as turbulence or
+sudden temperature changes.
+5. Weather conditions are normal with no strong convection. Horizontal wind speeds remain
+below 10�/�, and the average vertical wind speed is close to zero.
+6. After launch from the gun muzzle, the projectile travels through open space without terrain
+obstruction or ground effect[4] influence. The initial launch direction exhibits no lateral
+deviation.
+
+Team # 204
+Page 4 of 37
+2.2
+Notations
+Table 1: Notations
+Symbol
+Definition
+Numerical value
+�0
+Surface gravitational acceleration
+9.81 �/�2
+�0
+Air density at sea level
+1.225 ��/�3
+m
+Mass of the projectile
+5 ��
+�
+Diameter of the projectile
+0.11 �
+�
+Maximum cross-sectional area
+9.5 × 10−3 �2
+�0,���
+Maximum muzzle velocity
+450 �/�
+�
+Atmospheric scale height
+8400 �
+��
+Drag coefficient
+Determined by operating
+conditions and model
+��
+Magnus force coefficient
+3
+Physical Analysis
+3.1
+Force Analysis
+3.1.1
+Gravity
+According to the law of universal gravitation:
+(1)
+In this problem, ℎ≪�, therefore we keep gravity constant, �0 = 9.81 �/�2.
+3.1.2
+Air Buoyancy
+According to Archimedes principle, air buoyancy is:
+(2)
+In this problem, considering the air density at sea level (�0 = 1.225��/�3), it is
+calculated that ������= 0.0084�, which accounts for only 0.017％of the gravity, so it
+can be neglected in the ballistic calculation.
+3.1.3
+Air Resistance
+Due to the symmetry of the sphere, the aerodynamic drag force ��acts in the direction
+opposite to the velocity �. The relationship between aerodynamic drag force ��and the
+sphere's flight velocity �can be obtained through simplified modeling. In ������1, the
+
+Team # 204
+Page 5 of 37
+disc represents the sphere's maximum cross-section and is orthogonal to the velocity
+direction.
+Figure 1: Airflow Condition on Both Sides of the Disc
+As shown in ������1, the pressure experienced on both sides of the disc differs. In
+�����1, the airflow has not yet passed through the sphere, with pressure �₁ and relative
+velocity �₁ = �. In �����2, the airflow is completely blocked by the disc, with pressure
+�₂ and relative velocity �₂ = 0. According to Bernoulli's principle:
+(3)
+From equation (3), the pressure difference across the cross-section is:
+(4)
+Let the area of the disc be S. The drag force acting on the disc is the pressure difference
+across its two surfaces:
+(5)
+Equation (5) represents the simplified drag relationship for a spherical model. The actual
+spheres is not a flat disc; air experiences velocity losses, friction forces arise as air flows
+over the spherical surface, and sphere rotation also affects drag, making real-world
+scenarios more complex.[5] We introduce the air resistance coefficient ��to normalize
+these effects, allowing air resistance to be expressed as:
+(6)
+Here, based on the problem context, we set ��to the engineering default value of 0.47.
+3.1.4
+Coriolis Force
+
+Team # 204
+Page 6 of 37
+It is evident that the Earth is rotating at a constant angular velocity, denoted �0.[6]
+Consequently, the consideration of the necessity for the Coriolis force arises when
+selecting a reference frame at rest relative to the Earth：
+(7)
+Figure2: The Space Rotation Reference Frame on the Earth's Surface
+3.1.5
+Magnus Force
+The Magnus force generated by a rotating sphere arises from pressure differences caused
+by varying flow velocities across its surfaces. Here, we consider a case where the rotation
+axis is perpendicular to the sphere's velocity direction, as shown in Figure 3.
+Figure 3: Schematic Diagram of the Magnus Force
+
+Team # 204
+Page 7 of 37
+When a rotating sphere travels through the air, the flow velocity on the side facing the
+airflow slows down (�2 = �−��), while the velocity on the side following the airflow
+increases (�1 = �+ ��).[5] According to Bernoulli's equation:
+(8)
+the pressure difference between the two sides generates a Magnus force perpendicular to
+�and �, whose magnitude is:
+(9)
+Introducing the coefficient ��allows the expression for the Magnus force to be
+consistent with Equation (6). Considering the direction of the Magnus force yields:
+(10)
+However, after consulting the literature and performing manual calculations, we found
+that for a model of 19th-century cannon, the effects of rotation and the Magnus force are
+dispersed and far smaller than those of gravity and drag. Therefore, in subsequent
+discussions, we will not adopt the initially assumed 4DoF spin model, but instead
+consider the point particle ballistic model[7] .
+3.2
+Variation of Air Density with Altitude
+3.2.1
+Static Equilibrium Equation
+Consider a thin layer of air in the atmosphere, where the pressure difference is balanced by
+gravity:
+(11)
+Here, ��represents the change in pressure within a height �ℎ, �denotes the air
+density, and �is the gravitational acceleration.
+3.2.2
+Ideal Gas State Equation
+Assuming air is an ideal gas:
+(12)
+Here, �is the gas constant, �is temperature, and �is the molar mass of air.
+3.2.3
+Isothermal Assumption
+When temperature varies insignificantly with altitude (such as in the troposphere), �may be
+assumed constant. Combining equation (11) (12) yields:
+(13)
+
+Team # 204
+Page 8 of 37
+3.2.4
+Integral Solution
+After integration, the exponential decay relationship of air density with altitude is
+obtained:
+(14)
+Here, �0 is the air density at sea level, and ℎis the altitude.
+3.2.5
+Introduction of Elevation Parameter
+Typically, the atmospheric scale height
+is substituted, simplifying equation
+(14) to:
+(15)
+Here, H is approximately 8,400 meters, representing the characteristic altitude at which
+air density is halved.
+Figure 4: Variation of Air Density with Altitude
+3.3
+Variation of Drag Coefficient with Mach Number
+Upon consulting the literature, we find that the drag coefficient ��(�) of a spherical
+projectile varies as a piecewise function with respect to the Mach number �:
+
+Team # 204
+Page 9 of 37
+(16)
+In reality, the function curve is non-linear, but we have simplified it here by making a
+linear approximation.
+4
+Problem ⅠSolution
+4.1
+Problem Analysis
+Given the target point's horizontal distance ����= 1200�, elevation ����= 500�,
+and the constraint that the maximum muzzle velocity ��= 450�/�, we aim to
+determine multiple sets of initial velocities �0 and firing angles �that enable the
+projectile to hit the target while accounting for air resistance and air density.
+4.2
+General Thought
+Given the difficulty in obtaining analytical solutions for air density varying with altitude
+and air resistance varying with both air density and velocity, the problem is approached
+by numerically integrating �(�₀, �) and �(�₀, �) to find multiple solutions to the
+two-dimensional nonlinear system of equations:
+(17)
+We chose a solution structure combining “inner-layer numerical integration + outer-layer
+nonlinear equation solving + multi-start search”:
+• Inner layer: Given a set (�₀, �), use ordinary differential equation numerical integration
+to obtain the trajectory and impact point;
+• Outer Layer: Treat the deviation between the impact point and the target as the equation
+residual, and use ������to iteratively refine (�₀, �);
+To obtain multiple physically distinct solutions, construct a non-uniform initial guess grid
+covering low/medium/high elevation angles and initial velocities. Independently call
+������for each initial point, then perform deduplication and filtering on the obtained
+solutions.
+4.3
+Model Building
+The projectile is treated as a point mass, subject to gravity and air resistance. Taking the
+horizontal and vertical coordinates as �and �, respectively, and the velocity
+components as ��and ��, then the quantity of state
+,
+.
+The acceleration is given by the following formulae:
+
+Team # 204
+Page 10 of 37
+(18)
+Initial conditions are:
+(19)
+4.4
+Algorithm Design
+4.4.1
+Solving Framework
+We designed a program to solve the aforementioned structure of “inner-layer numerical
+integration + outer-layer nonlinear equation solving + multi-start search”.
+We employed MATLAB's adaptive-step Runge–Kutta[8] integrator ���45 to perform
+integration over the time interval [0,40]�. Given (�₀, �), we locate the cutoff point in the
+integration results where the horizontal coordinate first exceeds the target horizontal
+distance �> ����. The corresponding (�, �) coordinates at this time are recorded as the
+approximate landing point (������, ������). Ultimately, we construct the residual function:
+(20)
+Call ������to find a solution where both �1 and �2 approach zero simultaneously for
+the variables (�0, �).
+Additionally, the residual function imposes a penalty for exceeding the maximum initial
+velocity (�0 > �0,���) by making the residual proportional to the excess quantity,
+ensuring the iteration process consistently satisfies the initial velocity constraint.
+4.4.2
+Multi-start Search and Initial Grid Design
+Due to the highly nonlinear relationship between (�₀, �) and the impact point in the
+presence of air resistance and a variable-density atmosphere, a single target often
+corresponds to multiple ballistic trajectories. To extract multiple physical solutions from
+the locally convergent ������, the program employs a “multi-start” approach:
+• Firing angles are divided into three physically meaningful intervals: low angle (5° −
+30°), medium angle (31° −50°), and high angle (51° −85°). Within each interval, initial
+values are sampled at increased density to form a non-uniform angular grid, ensuring
+coverage of both low- and high-velocity trajectories.
+• Initial velocities are sampled equidistantly within the range [250, 450] �/�, enabling
+the search to cover scenarios from medium-high velocities to near-maximum initial
+velocities.
+
+Team # 204
+Page 11 of 37
+• By combining the above angles and initial velocities via ���ℎ����, hundreds of initial
+guess points are generated. ������is invoked independently for each point. Any result
+that successfully converges with a total landing deviation not exceeding 5��is
+temporarily saved as a candidate solution.
+This design of “non-uniform grid + multi-start local solving” enhances search efficiency
+while capturing multiple solution sets with significant differences across a large
+parameter space.
+4.4.3
+Solution Screening
+Among the candidate solutions obtained through multi-start search, multiple sets of
+results often exist that are numerically very close and share identical physical meaning.
+To address this, the program first sorts all candidate solutions by (�₀, �), then
+sequentially compares the differences between adjacent solutions:
+• If the initial velocity difference does not exceed 2 �/�and the firing angle difference
+does not exceed 5°, they are deemed duplicate solutions and discarded;
+• Only when at least one of these two conditions shows a significant difference is the pair
+retained as a new valid solution.
+The deduped solution set ensures that any two retained solutions differ by at least
+approximately 5° in angle and exhibit distinguishable initial velocity differences. This
+provides several distinctly different firing options for subsequent tactical selection. For
+these final solutions, the program performs ballistic integration again, plotting trajectories
+within the 0 −1500�range and marking target points to visually validate the
+algorithm's results.
+4.4.4
+Result Presentation
+Figure 5: Relationship Between Firing Angle and Initial Velocity
+
+Team # 204
+Page 12 of 37
+When wind effects are disregarded and the altitude difference remains constant in
+Problem Ⅰ, the relationship between the initial velocity and the firing angle can be
+obtained as shown in Figure 5 (where �starts from 25°). It can be observed that
+multiple firing angles may correspond to different velocities, and at extreme angles (�>
+80° ���< 30°), the velocity becomes highly sensitive to changes in angle.
+Considering that targets may deviate in practical scenarios, a set of solutions with the
+shortest airborne flight time (i.e., the fastest interception) is selected:
+Figure 6: Trajectories for Five Fixed Firing Angles
+4.5
+Error Analysis of Coriolis Force
+In the preceding numerical model, we assumed the projectile's motion was confined to a
+vertical plane containing both the firing point and target point, thereby neglecting the
+Coriolis force generated by Earth's rotation. To verify the validity of this assumption, we
+estimated five representative firing conditions and analyzed the lateral deviation caused
+by the Coriolis force.
+To obtain an upper bound for this deviation, we employed a simplified model:
+• Assuming the direction of the Earth's rotational angular velocity is perpendicular to the
+direction of the projectile's velocity, the magnitude of the Coriolis acceleration is at its
+maximum.
+• Consider only the acceleration perpendicular to the plane generated by the horizontal
+velocity component �ₓ = �₀����, which means the reduction of �due to drag is
+ignored, yielding
+(21)
+
+Team # 204
+Page 13 of 37
+• The projectile's flight time remains calculated using the analytical result without
+considering Earth's rotation, assuming identical starting and ending altitudes:
+(22)
+• During this time interval, treat ��as constant, yielding lateral displacement:
+(23)
+Substituting the five sets of firing parameters from Figure 6 into the above equation yields
+the lateral displacement caused by the Coriolis force (absolute value only):
+Table 2: Lateral Displacement Caused by Coriolis Force
+Number
+�₀/(�·�⁻¹)
+�/°
+|��|/�
+1
+228.2
+10.0
+0.8
+2
+153.4
+25.0
+1.3
+3
+137.9
+40.0
+1.9
+4
+148.0
+55.0
+3.0
+5
+207.7
+70.0
+6.7
+As can be seen, at the 1.2 ��range in this problem, the lateral deviation caused by the
+Coriolis force is generally within 10 m and increases with the firing angle. When
+compared to the horizontal range, the maximum deviation is approximately
+(24)
+Considering air resistance effects would further reduce the relative error between |∆�| and
+�. This indicates that the error introduced by the Coriolis force is significantly smaller
+than errors from air resistance models and factors like actual wind fields, having
+negligible impact on the required muzzle velocity and firing angle.
+Therefore, under the accuracy requirements of this problem, simplifying the motion to a
+two-dimensional problem and neglecting the Coriolis force's effect on the projectile
+trajectory is reasonable. The actual lateral deviation can be compensated for in real firing
+by making small-angle corrections to the aiming direction, without significantly altering
+our primary conclusions regarding the initial velocity and firing angle.
+5
+Problem ⅡSolution
+5.1
+Problem Analysis
+Problem Ⅱbuilds upon Problem Ⅰby introducing constraints closer to real combat
+scenarios. In more general combat situations, the target's horizontal range lies between
+1000 �and 1500 �, its altitude between 200 �and 800 �, and there exists varying
+degrees of tailwind or headwind (wind speed range approximately −10 �/�to 10 �/�).
+We are tasked with providing a method for an artillery officer without access to
+
+Team # 204
+Page 14 of 37
+computers or calculators to rapidly estimate the appropriate firing angle and muzzle
+velocity under varying wind conditions. This estimation should be achievable on paper
+using tables and minimal mental calculations.
+To avoid redundant derivations, we directly adopt the external ballistic model and
+numerical solution framework established in Problem Ⅰfor Problem Ⅱ. Specifically:
+• We continue to use the two-dimensional rectangular coordinate system established in
+Problem Ⅰ, with the horizontal direction as the x-axis, and the vertical upward direction as
+the y-axis.
+• The projectile is subject only to gravity and air resistance. Air resistance is
+approximated as proportional to the square of the relative airflow velocity, with the drag
+coefficient and frontal area consistent with those in Problem Ⅰ.
+• The empirical formula for air density variation with altitude, the numerical integration
+method (e.g., Runge–Kutta-based time stepping), and the subroutine for “calculating
+impact coordinates given launch parameters” all adopt the results from Problem Ⅰ.
+Additionally, when establishing non-standard external ballistic models, only the effects of
+longitudinal and lateral wind variations are typically considered. Since wind changes
+generally occur parallel to the ground, their influence on the vertical plane is negligible.[9]
+Building upon this foundation, the primary distinction in Problem Ⅱlies in the need to
+explicitly account for the impact of horizontal wind.
+We define the wind direction as collinear with the x-axis (positive for tailwind, negative
+for headwind), with wind speed denoted as �. In this case, the air resistance experienced
+by the projectile depends on the difference between the projectile velocity and the wind
+velocity, that is, the relative airflow velocity
+. In numerical calculations,
+simply replacing the velocity �Ԧሬ
+from Problem Ⅰwith �Ԧሬ
+yields the ballistic equation
+incorporating wind speed effects. This approach maintains consistency in the model
+structure while facilitating expansion upon the original program.
+5.2
+General Thought
+To address the requirement of "accounting for wind while enabling rapid estimation
+without calculators", we adopted the approach of “Analyzing single-point →Establishing
+first-order wind correction →Generating a firing table on a range–altitude grid”. The
+overall steps can be summarized as follows:
+1.
+Structural Analysis of Multiple Solutions for Single Target Points
+First, select typical target points specified in the problem. Scan the firing angle at multiple
+wind speeds and use the numerical framework from Problem 1 to solve for the initial
+velocity required for a hit, yielding multiple “initial velocity–firing angle” curves.
+Comparison reveals: in the region of smaller angles and higher initial velocities, the
+curves for different wind speeds converge closely, indicating low sensitivity to wind
+speed variations.
+2.
+Flight Time and Solution Optimization
+Under windless conditions, flight times for the same target point at different firing angles
+were calculated, revealing that flight time increases with angle. Therefore, among
+multiple hit solutions for the same target, we prioritize the solution with the smallest
+angle and shortest flight time as the “recommended solution” for subsequent research.
+3.
+First-Order Linear Wind Correction Model
+
+Team # 204
+Page 15 of 37
+To satisfy the engineering constraint of “no calculator”, we approximate the effect of
+wind speed on the required initial velocity as a first-order linear correction near the
+recommended angle:
+(25)
+Here, �₀ represents the initial velocity in calm conditions, and �denotes the first-order
+wind correction coefficient.
+We selected multiple wind speed points within the range [ −10, 10] �/�. For each wind
+speed value, we calculated the precise �₀(�) required for a hit. Subsequently, we
+determined �using least-squares linear regression and verified that the deviation from
+the target caused by this linear approximation was sufficiently small.
+4.
+Generation of Firing Tables on Distance–Altitude Grids
+After confirming that first-order linear corrections provide sufficient accuracy, we extend
+the above method to a two-dimensional grid covering ranges of 1000 −1500�and
+target altitudes of 200 −800�. For each grid point (�, �), we first determine the
+recommended solution under windless conditions that satisfies the “small angle, short
+flight time” principle, recording the firing angle �∗�, �
+and windless initial velocity
+�0
+0 (�, �). Then, under wind conditions of �=± 10 �/�, we numerically solve the
+equation to estimate the wind correction coefficient �(�, �) using finite differences. This
+ultimately produces three tables: the firing angle table �∗�, �, the windless initial
+velocity table �0
+0 (�, �), and the wind correction coefficient table �(�, �). Artillery
+officers need only consult these tables and perform one multiplication and one addition
+according to the formula �0 = �0
+0 �, �+ ��, ��. The firing angle is directly taken as
+a, thereby completing the correction for wind speed effects.
+5.3
+Structural Analysis of Multiple Solutions for Single Target
+Points
+5.3.1
+Correction of ��−�Curves and Drag Models at Multiple Wind Speeds
+To analyze the impact of wind speed on the solution structure, we first selected the typical
+target point specified in the problem statement: a horizontal distance �= 1200�, with
+the target altitude matching the cannon altitude (both at 500�). Based on this, we defined
+a set of horizontal wind speeds �= −10, −5, 0, 5, 10�/�, representing strong
+headwind, weak headwind, calm conditions, weak tailwind, and strong tailwind,
+respectively.
+For each given wind speed �, we scanned the launch angle within a specific range (e.g.,
+3° ≤�≤85°) at fixed increments. Using the numerical solution framework established
+in Problem Ⅰ, we invoked the solver for each angle to determine the initial velocity
+�₀(�, �) required to hit the target. This process yielded multiple “initial velocity versus
+firing angle” curves for different wind speeds, as shown in Figure 7.
+
+Team # 204
+Page 16 of 37
+Figure 7: �0 −�Curves Under Different Horizontal Wind Speeds
+The curves in the figure exhibit a typical “U-shaped” structure: near smaller and larger
+firing angles, the initial velocity required to hit the target increases significantly, while a
+minimum initial velocity point exists near medium firing angles. Curves for different
+wind speeds share similar overall shapes but are shifted along the velocity axis.
+Specifically, within the “small angle–high initial velocity” region of interest, the curves
+are relatively close together. This indicates that solutions within this angular range exhibit
+low sensitivity to wind speed variations, providing preliminary justification for selecting
+small-angle solutions in subsequent analyses.
+5.3.2
+Relationship Between Flight Time and Firing Angle
+After defining the �−�multi-solution structure under multiple wind speeds, we further
+investigated the relationship between flight time and firing angle under windless
+conditions. Specifically: With the target point fixed, we scanned the firing angle �in
+specified increments. For each angle, we solved for the initial velocity �₀(�, 0) required
+for impact. This initial velocity was then substituted into the external ballistic differential
+equation for integration, recording the first time �(�) at which the projectile reached
+�= �.
+
+Team # 204
+Page 17 of 37
+Figure 8: �−�Curve Under No-wind Condition
+Numerical results indicate that within the physically feasible solution range, the flight
+time �generally increases monotonically with the firing angle: the greater the angle, the
+longer the projectile remains airborne. For the same target point, solutions with smaller
+firing angles correspond to shorter flight times, while solutions with larger firing angles
+correspond to longer flight times.
+5.3.3
+Justification for Selecting the Small-Angle Solution
+Based on the analysis above, we adopt the convention in subsequent modeling and
+trajectory generation that for each target point, the hit solution from the “small-angle
+branch” shall be prioritized as the recommended solution. This choice is not only
+grounded in the physical intuition of shorter flight times and reduced sensitivity to wind
+speed, but also gains further support from the following two engineering perspectives:
+1.
+The impact of initial velocity control error on hit deviation is relatively minor.
+In actual combat, artillery units struggle to precisely control the initial launch velocity to
+a specific theoretical value. As shown in Figure 7, within the selected “small angle–high
+initial velocity” range, the spacing between different wind velocity curves is narrow.
+Even when initial velocity fluctuates within a certain range, the corresponding solution
+remains within the “clustered” region where multiple curves overlap, resulting in
+relatively mild changes in the impact point. In contrast, in the large-angle region, the
+spacing between wind velocity curves significantly increases. An initial velocity error of
+the same magnitude will amplify into a larger point of impact deviation. Therefore, from
+the perspective of robustness to initial velocity errors, small-angle solutions offer greater
+safety.
+2.
+Small-angle solutions exhibit higher accuracy under linear wind correction
+In subsequent verification of first-order linear wind correction, representative
+recommended solutions were selected at both small and large angles. Linear fitting was
+
+Team # 204
+Page 18 of 37
+applied to recalculate the ballistic trajectory, evaluating the vertical deviation caused by
+linear approximation. Results indicate that in the small-angle region, the corrected initial
+velocity obtained using the linear relationship �0(�) ≈�0
+(0) + ��generally produces
+smaller height deviations at the point of impact compared to the large-angle region, with
+significantly smaller maximum vertical deviations. This demonstrates that the linear wind
+correction assumption holds more strongly in the small-angle branch, further validating
+the rationality of selecting the small-angle solution.
+5.4
+Numerical Verification of the Linear Assumption for First-Order Wind
+Correction
+To verify the validity of the first-order wind correction model �0(�) ≈�0
+(0) + ��, we
+conducted specialized numerical experiments at representative target points. To represent
+typical scenarios for small-angle branches, this section fixes the firing angle �∗at 15°
+with the muzzle altitude matching the target altitude(�= 1200 �, �������= �������=
+500 �. We solved the “exact required initial velocity” �₀(�) point-by-point within the
+wind speed range
+−10,10 �/�, then performed linear fitting and deviation assessment
+based on these results.
+First, for each given wind speed �, we used ������to determine the initial velocity
+required for target hit at a fixed angle �∗. To enhance convergence efficiency, the code
+provided an approximate analytical solution for the initial velocity based on the analytical
+projectile model as the initial condition:
+(26)
+When the target is level with the muzzle:
+(27)
+Using this as the initial value, the numerically meaningful “true” solution �0(�) is
+obtained by minimizing the deviation between the landing point and the target point in
+both the �and �directions, and the corresponding flight time �(�) is recorded.
+After obtaining a set of data points
+, we fit the relationship
+using the least squares method to obtain the coefficients �and �of
+the first-order linear model. The “�0(�) −�curve” shows that the black discrete points
+represent the numerically solved �0(�), while the red dashed line is the fitted straight
+line. The two almost perfectly coincide, indicating that under conditions �∗= 15°, �∈
+−10,10 �/�the required initial velocity exhibits a nearly strictly linear relationship
+with wind speed. The corresponding residuals are negligible, with errors well below 1%
+relative to typical initial velocities of approximately 190 �/�.
+To further evaluate the impact of this linear approximation on hit accuracy, we employed
+the fitted �0
+���(�) as the initial launch velocity. Under the same wind speed �, we
+re-integrated the external ballistic equation, using linear interpolation[10] to determine
+the shell's altitude at �= 1200 �and calculated the vertical deviation
+. Numerical results indicate that across the entire wind
+speed range, most vertical deviations fall within ±0.5 �. Only near extreme tailwind
+conditions do deviations slightly increase, yet their absolute values remain below
+approximately 1~1.5 �, which is entirely acceptable.
+
+Team # 204
+Page 19 of 37
+In summary, at the representative small angle �∗= 15°, the initial velocity �0(�)
+required to hit the same target exhibits a highly linear relationship with horizontal wind
+speed. The additional deviation introduced by first-order wind correction is only a small
+quantity on the order of meters. Both theoretical fitting and practical deviation data
+confirm that the first-order linear wind correction model is reliable and sufficiently
+accurate within the wind speed range of this problem. This provides robust numerical
+support for the simplified method of “referencing tables for �0
+(0)and �, then applying
+linear correction” in subsequent firing tables.
+5.5
+Construction Methods and Results of the Firing Table
+5.5.1
+Range–Altitude Grid Design and Parameter Constraints
+Following the selection of small-angle branches and validation of the first-order wind
+correction model in the preceding section, this section extends the methodology to
+broader the range and altitude to generate firing tables for artillery reference. As specified
+in the problem statement, target positions are sampled on the following two-dimensional
+grid:
+Range: �∈1000,1500 �, ∆�= 50 �;
+Altitude: �∈200,800 �, ∆�= 50 �.
+This yields several range and altitude points, totaling ����target grid points. In all
+calculations, the muzzle altitude is fixed at �������= 500 �, so the grid encompasses
+both downward (∆�< 0) and upward (∆�> 0) firing scenarios.
+To ensure engineering relevance, we impose an upper limit on initial velocity: when
+searching for the baseline solution under windless conditions, �0
+(0) ≤400 �/�is
+required, representing the conventional initial velocity achievable with standard
+propellant charges. When incorporating wind corrections, the initial velocity is expanded
+to �0
+(0) ≤450 �/�to allow for first-order corrections.
+Simultaneously, the hit deviation threshold is set to
+∆�≤5 × 10−3 �to ensure the
+calculated firing parameters can be considered numerically “accurate hits”.
+5.5.2
+Small-Angle Foundation Solution Search under Windless Conditions
+At each grid point (�, �), we first search for the fundamental solution of the “small-angle
+branch” under windless conditions (�= 0). To achieve this, we scan the firing angle
+point-by-point across the angular range �∈5°, 30° , ∆�= 1°. For each angle �, we
+approximate the initial velocity using the analytical solution for vacuum projectile motion
+as the initial guess for ������:
+Equation (27) is used for nearly level firing (where |∆�| is small), while Equation (26) is
+used for significant altitude differences, where �is the target's range.
+Subsequently, under the constraint of
+and at a fixed
+angle, the residual function is invoked to solve for the initial velocity of the projectile
+hitting the target at �= 0. Internally, this solver integrates the ballistic equation using
+the Runge–Kutta-type ���45 solver and reconstructs the altitude at �= �via linear
+interpolation, thereby returning the deviations of the impact point from the target point in
+both the �and �directions. All solutions satisfying the conditions of �0 ∈
+100,400 �/�and
+∆�
+≤5 × 10−3 �are recorded as candidate solutions
+.
+
+Team # 204
+Page 20 of 37
+5.5.3
+Calculation of Small-Angle Foundation Solutions and Wind Correction
+Coefficient
+For each target point, we select a “recommended base solution” from the set of candidate
+solutions obtained in the previous step. To reflect the principle of “prioritizing smaller
+angles while staying as close as possible to 15°”, the selection rule proceeds in two steps:
+First, search for candidate solutions within the preferred angle range �∈[10°, 20°]. If
+solutions exist, select the set closest to the center angle ��≈15°. If no solutions exist
+within the preferred range, select the set with the smallest angle from all candidate
+solutions.
+The obtained recommended solutions are denoted as �∗�, �
+and �0
+0 (�, �), stored
+respectively in the angle table and the zero-wind initial velocity table.
+After obtaining the base solution, we estimate the first-order wind correction coefficient
+�(�, �) for this grid point at the same angle �∗�, �. The specific procedure is as follows:
+At wind speeds �= −10 �/�and �= + 10 �/�, respectively, invoke the solver
+with �0
+0 (�, �) as the initial value (allowing the initial velocity upper limit to be raised to
+450 �/�) to obtain the initial velocities �0
+−and �0
++ required to hit the target. If both
+solutions succeed and satisfy the accuracy and speed constraints, the wind correction
+coefficient is given by the central difference:
+(28)
+The resulting �(�, �) values are entered into the wind correction coefficient table. For
+individual target points where no convergent solution can be found within the specified
+velocity range at a wind speed of ±10 �/�, mark that point as ���. This indicates that
+the point should be avoided in practical applications or that a more conservative
+interpolation strategy should be adopted.
+5.5.4
+Three firing Tables and Their Usage Methods
+After completing calculations for all grid points, we obtained three mutually
+complementary two-dimensional tables:
+Table 3: Firing Table �∗�, ℎ
+
+Team # 204
+Page 21 of 37
+Table 4: Windless Initial Velocity Table �0
+0 (�, ℎ)
+Table 5: Wind Correction Coefficient Table �(�, ℎ)
+�(�, ℎ) is the amount by which the initial velocity must be adjusted for each 1 m/s change
+in wind speed, with the unit being m/s.
+Artillery officers need only:
+1.
+Based on rough range and altitude estimates, locate the grid point (�, ℎ) closest to the
+target in the three tables.
+2.
+Read the recommended firing angle �∗from the firing table.
+3.
+Read �0
+0
+and �respectively from the windless initial velocity table and wind
+correction factor table. For a given horizontal wind speed U, perform one
+multiplication and one addition according to Equation (25) to obtain the corrected
+initial firing velocity. Directly use �∗as the firing angle. If the target position falls
+between grid points, simple interpolation between adjacent grid points or rounding to
+the nearest value may be used.
+Additionally, we utilized three tables to generate color distribution maps for
+“Recommended firing angle–Target position”, “Windless initial velocity–Target position”,
+and “Wind correction coefficient–Target position”. These maps provide an intuitive
+overview of the overall trends of each variable as range and altitude change. This also
+indirectly demonstrates that the firing table exhibits good spatial continuity, making it
+suitable for interpolation to achieve finer distance and elevation resolution.
+
+Team # 204
+Page 22 of 37
+Figure 9: Recommended Firing Angle �∗
+Figure 10: Required Muzzle Velocity �0
+0
+
+Team # 204
+Page 23 of 37
+Figure 11: Wind Correction Coefficient �
+6
+Conclusion and Discussion
+6.1
+Conclusion
+This paper addresses the ballistic calculation problem for 19th-century artillery by
+constructing a ballistic model based on the particle assumption, followed by numerical
+solution and result analysis. First, by simplifying the battlefield environment and
+projectile motion characteristics while neglecting minor factors such as the Magnus force
+and Coriolis force, the core influencing factors were identified as gravity, air resistance
+(including altitude-dependent density changes), and horizontal wind. Subsequently, a
+piecewise linearization approach was applied to the drag coefficient. Combined with the
+Runge-Kutta method, this enabled numerical ballistic calculations under multiple initial
+conditions, yielding firing tables and wind correction coefficients covering ranges from
+1000 to 1500 meters.
+6.2
+Discussion
+6.2.1
+Strengths
+1. Physically Accurate and Streamlined Modeling
+Starting from rigid-body external ballistics, we employ order-of-magnitude analysis to
+eliminate secondary effects such as the Magnus force, buoyancy, and Coriolis force,
+resulting in a particle ballistic model incorporating only gravity and air resistance.
+Concurrently, we retain critical effects like altitude-dependent atmospheric density and
+the sharp increase in shock resistance near the speed of sound, balancing computational
+simplicity with physical fidelity.
+2. Systematic and Practical Numerical Solution Framework
+A unified framework combining “Runge-Kutta numerical integration + multi-initial-value
+nonlinear solver + solution deduplication screening” enables systematic exploration of
+multiple solutions for the same objective. By integrating flight time, wind sensitivity, and
+
+Team # 204
+Page 24 of 37
+engineering feasibility, a low-angle limit solution with an firing angle of approximately
+4° and initial velocity of 450 �/�is selected as the recommended optimal solution for
+Problem I, demonstrating the integration of model analysis with engineering criteria.
+3. Practical Tool with Outstanding Value Translation
+In Problem II, the framework not only delivers precise numerical solutions across varying
+wind speeds but also validates the assumption that “initial velocity approximates wind
+speed linearly” while quantifying the upper bound of error. Based on this, three
+two-dimensional tables were constructed: a “Firing Table”, a “Windless Initial Velocity
+Table”, and a “Wind Correction Coefficient Table”. This transformation from complex
+computational models to paper-based lookup algorithms demonstrates strong practicality
+and scalability.
+6.2.2
+Weaknesses
+1. Numerous Idealized Assumptions Regarding the Environment and Projectile
+• A simplified atmospheric model is employed, omitting explicit consideration of
+temperature variations with altitude, turbulence, gusts, and other random factors.
+• Wind speed is assumed constant and distributed solely along the horizontal trajectory
+direction, disregarding crosswinds, vertical winds, and temporal variations.
+• Engineering randomness such as initial velocity dispersion and manufacturing
+tolerances for mass and diameter is not incorporated, introducing additional dispersion in
+actual firing scenarios.
+2. Accuracy Limitations at the Dynamic Level
+Projectiles are treated as non-spinning particles undergoing only two-dimensional motion,
+ignoring effects like attitude changes, Magnus force, and three-dimensional trajectory
+deflection. Accuracy is limited at longer ranges or under rigid body models.
+3. Limitations of Firing Tables and Validation
+• Tables are pre-calculated for specified grids; targets outside these grids require
+interpolation or extrapolation, potentially introducing additional errors.
+• Lacks systematic validation against historical field data or established external ballistics
+software.
+References
+[1] Han, Z. P. (2016). External Ballistics of Projectiles and Arrows [M]. Beijing Institute
+of Technology Press, 230-247.
+[2] Hui, J. H., Wang, Y. S., & Wen, Q. (2025). Initial Conditions for Numerical Solution
+of Differential Equation Systems in External Ballistics of Rotating Projectile Rigid
+Bodies. Journal of Ballistics, 37(01), 36-43.
+[3] Xiang F., Wang Y. S., Wen Q. & Wang G. Y. (2021). Review of Applications in
+Rigid Body External Ballistics of Uncontrolled Projectiles. Journal of Detection and
+Control, 43(04), 14-26.
+[4] Lai C. G., Wen S. H., Zhai G. T., Chen J., & Guo Y. F. (2025). Aerodynamic
+Characteristics of Vertical Landing for Flying Cars Under Ground Effect. Journal of
+Chongqing University of Technology (Natural Science), 39(05), 45-54.
+
+Team # 204
+Page 25 of 37
+[5] Zhao, B. Y., & Chen, Z. H. (2020). Computational Simulation of Rotating Sphere
+Flight Trajectories Based on Aerodynamics. Physics and Engineering, 30(03), 50-54.
+[6] Zhou H., Shen W., Wang T. F., & Lu Z. Y. (2025). Study on the Influence of
+Coriolis Force on Long-Range Projectile Launching. Bulletin of Physics, (06),
+138-141.
+[7] Liao G. H. (2012). Application of Ballistic Models in Simulating the Stability of
+Rotating Projectiles. Journal of Sichuan Ordnance Engineering, 33(05), 11-13.
+[8] Pan T., Yang F. B., Zhu Y. & Yao X. C. (2015). FPGA Implementation for Solving
+Ballistic Differential Equations Based on Runge-Kutta. Computer Measurement and
+Control, 23(12), 4217-4220.
+[9] Wang J. Q., Zhao Y. J., & Li P. F. (2025). Analysis and Calibration Study of Tank
+Armor Anti-Target Deviation Based on Wind Field [J]. Journal of Artillery Firing
+and Control, 46(02), 24-30.
+[10] Gkritzapis D.N., Panagiotopoulos E. E., & Margaris D. P. (2008). Computational
+atmospheric trajectory simulation analysis of spin-stabilized projectiles and small
+bullets[J]. International Journal of Computing Science and Mathematics, 2(1–2),
+53–72.
+Appendices
+001
+002
+003
+004
+005
+006
+007
+008
+009
+010
+011
+012
+013
+014
+015
+016
+017
+018
+019
+020
+021
+022
+% External ballistics multi-solution solver
+% Launch and target altitude are both 500 m.
+clear; clc; close all;
+%% 1. Physical and geometric parameters
+m
+= 5;
+% projectile mass (kg)
+d
+= 0.11;
+% projectile diameter (m)
+S
+= pi*(d/2)^2; % reference area (m^2)
+g
+= 9.81;
+% gravity (m/s^2)
+rho0 = 1.225;
+% air density at sea level (kg/m^3)
+H
+= 8400;
+% atmospheric scale height (m)
+c
+= 340;
+% speed of sound (m/s)
+% Fire mission: 1200 m range, equal altitude 500 m
+launch_y = 500;
+% launch altitude (m)
+target_x = 1200;
+% horizontal range (m)
+target_y = 500;
+% target altitude (m)
+% Allowed muzzle-velocity interval
+v0_min = 100;
+% lower bound (m/s)
+
+Team # 204
+Page 26 of 37
+023
+024
+025
+026
+027
+028
+029
+030
+031
+032
+033
+034
+035
+036
+037
+038
+039
+040
+041
+042
+043
+044
+045
+046
+047
+048
+049
+050
+051
+052
+053
+054
+055
+056
+057
+058
+059
+060
+061
+062
+063
+064
+065
+066
+v0_max = 450;
+% upper bound (m/s)
+%% 2. Solver settings
+theta_list
+= 0:1:90;
+% scan firing angle (deg)
+dev_threshold = 5e-3;
+% tolerance for impact error (m)
+options = optimoptions('fsolve', ...
+'Display','off', ...
+'FunctionTolerance',1e-5, ...
+'MaxFunctionEvaluations',2e4, ...
+'MaxIterations',1e3);
+%% 3. Search over firing angles (fixed theta, solve for v0)
+all_solutions = [];
+% rows: [v0, theta, dx, dy]
+for theta = theta_list
+theta_rad = theta * pi / 180;
+% Analytic guess without drag, equal launch/target height:
+% R = v0^2 * sin(2*theta) / g
+->
+v0 = sqrt(g*R/sin(2*theta))
+sin2theta = sin(2 * theta_rad);
+if abs(sin2theta) <= 1e-3
+v0_guess = v0_max - 30;
+% avoid singularity near 0° / 90°
+else
+v0_guess = sqrt(g * target_x / sin2theta);
+end
+% For very small or very large angles, push the guess towards v0_max
+if theta < 5 || theta > 85
+v0_guess = max(v0_guess, v0_max - 30);
+end
+% Clamp initial guess into admissible interval
+v0_guess = min(max(v0_guess, v0_min), v0_max);
+% Residual function: [dx; dy] at range x = target_x
+fun = @(v0) projectile_residual(v0, theta, m, S, g, rho0, H, c, ...
+target_x, target_y, launch_y, v0_min, v0_max);
+[v0_sol, fval, exitflag] = fsolve(fun, v0_guess, options);
+total_dev = norm(fval);
+if exitflag > 0 && v0_sol >= v0_min && v0_sol <= v0_max ...
+&& total_dev <= dev_threshold
+
+Team # 204
+Page 27 of 37
+067
+068
+069
+070
+071
+072
+073
+074
+075
+076
+077
+078
+079
+080
+081
+082
+083
+084
+085
+086
+087
+088
+089
+090
+091
+092
+093
+094
+095
+096
+097
+098
+099
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+all_solutions = [all_solutions; v0_sol, theta, fval(1), fval(2)];
+end
+end
+%% 4. Sort and print all valid solutions
+solutions_sorted = sortrows(all_solutions, 2);
+% sort by angle (deg)
+fprintf('Number of valid solutions: %d\n', size(solutions_sorted,1));
+for k = 1:size(solutions_sorted,1)
+fprintf(['Sol %2d: theta = %5.1f deg,
+v0 = %7.2f m/s,
+', ...
+'dx = %+8.6f m,
+dy = %+8.6f m\n'], ...
+k, solutions_sorted(k,2), solutions_sorted(k,1), ...
+solutions_sorted(k,3), solutions_sorted(k,4));
+end
+%% 5. Angle–velocity curve
+figure('Position', [100, 100, 800, 600]);
+plot(solutions_sorted(:,2), solutions_sorted(:,1), '.-', 'LineWidth', 1);
+xlabel('Launch angle \theta (deg)');
+ylabel('Initial velocity v_0 (m/s)');
+title('Angle–velocity relation (launch & target altitude 500 m)');
+grid on;
+xlim([0, 90]);
+ylim([v0_min - 20, v0_max + 20]);
+%% ==================== Local functions ====================
+function F = projectile_residual(v0, theta, m, S, g, rho0, H, c, ...
+target_x, target_y, launch_y, v0_min, v0_max)
+% Residual [dx; dy] at the target range for a fixed firing angle.
+% Velocity constraint (penalty outside [v0_min, v0_max])
+if v0 < v0_min || v0 > v0_max
+F = [1e6 * (v0 - v0_min); 1e6 * (v0 - v0_max)];
+return;
+end
+theta_rad = theta * pi / 180;
+% State vector: y = [x; y; vx; vy]
+y0 = [0, launch_y, v0 * cos(theta_rad), v0 * sin(theta_rad)];
+% Integration time long enough to pass x = target_x
+t_end = 300;
+
+Team # 204
+Page 28 of 37
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+[~, y] = ode45(@(t,Y) projectile_ode(t, Y, m, S, g, rho0, H, c), ...
+[0, t_end], y0);
+% Interpolate height when trajectory crosses x = target_x
+idx = find(y(:,1) >= target_x, 1);
+if isempty(idx)
+x_final = y(end,1);
+y_final = y(end,2);
+else
+x1 = y(idx-1,1); y1 = y(idx-1,2);
+x2 = y(idx,1);
+y2 = y(idx,2);
+y_final = y1 + (target_x - x1) * (y2 - y1) / (x2 - x1);
+x_final = target_x;
+end
+F = [x_final - target_x; y_final - target_y];
+end
+function dy = projectile_ode(~, y, m, S, g, rho0, H, c)
+% 2D point-mass model with exponential atmosphere and Mach-dependent Cd.
+vx = y(3);
+vy = y(4);
+v
+= hypot(vx, vy);
+if v == 0
+dy = [vx; vy; 0; -g];
+return;
+end
+M
+= v / c;
+% Mach number
+Cd
+= Cd_of_Mach(M);
+% drag coefficient
+rho = rho0 * exp(-y(2) / H);
+% density vs altitude
+Fd
+= 0.5 * rho * S * Cd * v^2;
+% drag magnitude
+Fdx = -Fd * vx / v;
+Fdy = -Fd * vy / v;
+ax = Fdx / m;
+ay = -g + Fdy / m;
+dy = [vx; vy; ax; ay];
+end
+
+Team # 204
+Page 29 of 37
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+function Cd = Cd_of_Mach(M)
+% Piecewise drag coefficient Cd(M) for a sphere.
+Cd = zeros(size(M));
+% Subsonic: M < 0.7
+idx1 = (M < 0.7);
+Cd(idx1) = 0.45;
+% Transonic: 0.7 <= M < 1.1, Cd: 0.45 -> 1.0
+idx2 = (M >= 0.7) & (M < 1.1);
+Cd(idx2) = 0.45 + 0.55 * (M(idx2) - 0.7) / (1.1 - 0.7);
+% Supersonic: 1.1 <= M < 1.5, Cd: 1.0 -> 0.8
+idx3 = (M >= 1.1) & (M < 1.5);
+Cd(idx3) = 1.0 - 0.2 * (M(idx3) - 1.1) / (1.5 - 1.1);
+% Hypersonic: M >= 1.5
+idx4 = (M >= 1.5);
+Cd(idx4) = 0.8;
+end
+001
+002
+003
+004
+005
+006
+007
+008
+009
+010
+011
+012
+013
+014
+015
+016
+017
+018
+019
+020
+% Firing table generator (Problem B, Mach-dependent Cd, small-angle branch)
+% - 2D grid in (range x, target altitude y)
+% - For each (x,y): scan elevation, keep the smallest-angle solution (no wind)
+% - Then compute first-order wind correction v0(U) ≈v0^(0) + k U
+clear; clc; close all;
+%% 1. Physical parameters
+m
+= 5;
+% projectile mass (kg)
+d
+= 0.11;
+% projectile diameter (m)
+S
+= pi*(d/2)^2;
+% reference area (m^2)
+g
+= 9.81;
+% gravity (m/s^2)
+rho0 = 1.225;
+% sea-level air density (kg/m^3)
+H
+= 8400;
+% scale height (m)
+gun_y
+= 500;
+% gun altitude (m)
+v0_min = 100;
+% minimum muzzle velocity (m/s)
+v0_max = 450;
+% maximum muzzle velocity (m/s)
+dev_threshold = 5e-3;
+% tolerance for impact error (m)
+
+Team # 204
+Page 30 of 37
+021
+022
+023
+024
+025
+026
+027
+028
+029
+030
+031
+032
+033
+034
+035
+036
+037
+038
+039
+040
+041
+042
+043
+044
+045
+046
+047
+048
+049
+050
+051
+052
+053
+054
+055
+056
+057
+058
+059
+060
+061
+062
+063
+064
+% fsolve settings
+options = optimoptions('fsolve', ...
+'Display','off', ...
+'Algorithm','levenberg-marquardt', ...
+'FunctionTolerance',1e-5, ...
+'MaxFunctionEvaluations',2e4, ...
+'MaxIterations',1e3);
+%% 2. Range–altitude grid
+x_list = 1000:50:1500;
+% horizontal range (m)
+y_list = 200:50:800;
+% target altitude (m)
+Nx = numel(x_list);
+Ny = numel(y_list);
+theta_table = NaN(Ny, Nx);
+% recommended launch angle θ* (deg)
+v0_table
+= NaN(Ny, Nx);
+% base muzzle speed v0^(0) without wind (m/s)
+kwind_table = NaN(Ny, Nx);
+% first-order wind coefficient k (m/s per m/s)
+% angle scan range
+theta_scan = 3:1:80;
+% degrees
+% candidate wind speeds for estimating k
+U0_candidates = [10, 8, 6, 4, 2];
+% m/s
+fprintf('Generating firing tables (Mach-dependent Cd, minimal-angle branch)...\n');
+%% 3. Loop over all grid points (x,y)
+for ix = 1:Nx
+target_x = x_list(ix);
+for iy = 1:Ny
+target_y = y_list(iy);
+delta_y
+= target_y - gun_y;
+%% 3.1 No-wind solutions: scan angles, collect all valid (theta, v0)
+candidates = [];
+% each row: [theta_deg, v0]
+for theta = theta_scan
+theta_rad = theta * pi/180;
+tan_theta = tan(theta_rad);
+cos_theta = cos(theta_rad);
+
+Team # 204
+Page 31 of 37
+065
+066
+067
+068
+069
+070
+071
+072
+073
+074
+075
+076
+077
+078
+079
+080
+081
+082
+083
+084
+085
+086
+087
+088
+089
+090
+091
+092
+093
+094
+095
+096
+097
+098
+099
+100
+101
+102
+103
+104
+105
+106
+107
+108
+% analytic estimate for initial guess (vacuum trajectory)
+if abs(cos_theta) < 1e-3
+v0_guess = v0_max - 10;
+else
+if abs(delta_y) < 1e-6 && theta > 0.5
+% approximately equal height: R = v0^2 * sin(2θ) / g
+denom = sin(2*theta_rad);
+if denom <= 1e-3
+v0_guess = 0.5*(v0_min + v0_max);
+else
+v0_guess = sqrt(g * target_x / denom);
+end
+else
+% unequal height: v0^2 = g R^2 / [2 cos^2θ (R tanθ - Δy)]
+denom = target_x * tan_theta - delta_y;
+if denom <= 1e-3
+v0_guess = 0.5*(v0_min + v0_max);
+else
+v0_guess = sqrt( g * target_x^2 / (2 * cos_theta^2 * denom) );
+end
+end
+end
+v0_guess = max(v0_min, min(v0_guess, v0_max));
+% fixed theta, U = 0, solve v0 that hits (target_x, target_y)
+fun = @(v0) projectile_solver_fixed_theta_wind_CdM( ...
+v0, theta, 0, m, S, g, rho0, H, ...
+gun_y, target_x, target_y, v0_min, v0_max);
+[v0_sol, fval, exitflag] = fsolve(fun, v0_guess, options);
+total_dev = norm(fval);
+if exitflag > 0 && v0_sol >= v0_min && v0_sol <= v0_max ...
+&& total_dev <= dev_threshold
+candidates = [candidates; theta, v0_sol];
+end
+end
+% no feasible solution within v0 <= 450 m/s
+if isempty(candidates)
+continue;
+end
+
+Team # 204
+Page 32 of 37
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+%% 3.2 Choose minimal-angle branch as base solution
+[theta_best, idx_best] = min(candidates(:,1));
+v0_best
+= candidates(idx_best, 2);
+theta_table(iy, ix) = theta_best;
+v0_table(iy, ix)
+= v0_best;
+%% 3.3 First-order wind correction k(x,y)
+% v0(U) ≈v0^(0) + k U, solved at fixed theta = theta_best
+k_wind = NaN;
+for U0 = U0_candidates
+U_neg = -U0;
+U_pos =
+U0;
+% negative wind
+fun_neg = @(v0) projectile_solver_fixed_theta_wind_CdM( ...
+v0, theta_best, U_neg, m, S, g, rho0, H, ...
+gun_y, target_x, target_y, v0_min, v0_max);
+[v0_neg, fval_neg, exit_neg] = fsolve(fun_neg, v0_best, options);
+success_neg = (exit_neg > 0) && (norm(fval_neg) <= dev_threshold) ...
+&& v0_neg >= v0_min && v0_neg <= v0_max;
+% positive wind
+fun_pos = @(v0) projectile_solver_fixed_theta_wind_CdM( ...
+v0, theta_best, U_pos, m, S, g, rho0, H, ...
+gun_y, target_x, target_y, v0_min, v0_max);
+[v0_pos, fval_pos, exit_pos] = fsolve(fun_pos, v0_best, options);
+success_pos = (exit_pos > 0) && (norm(fval_pos) <= dev_threshold) ...
+&& v0_pos >= v0_min && v0_pos <= v0_max;
+if success_neg && success_pos
+% central difference
+k_wind = (v0_pos - v0_neg) / (U_pos - U_neg);
+break;
+elseif success_pos || success_neg
+% one-sided difference
+if success_pos
+k_wind = (v0_pos - v0_best) / U_pos;
+else
+k_wind = (v0_best - v0_neg) / (-U_neg);
+end
+
+Team # 204
+Page 33 of 37
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+break;
+end
+end
+kwind_table(iy, ix) = k_wind;
+% remains NaN if all attempts failed
+end
+end
+fprintf('Firing table computation finished.\n');
+%% 4. Visualisation: angle / base speed / wind coefficient
+figure;
+imagesc(x_list, y_list, theta_table);
+set(gca,'YDir','normal'); colorbar;
+xlabel('Range x (m)');
+ylabel('Target altitude y (m)');
+title('Recommended launch angle \theta^* (deg, minimal-angle branch)');
+figure;
+imagesc(x_list, y_list, v0_table);
+set(gca,'YDir','normal'); colorbar;
+xlabel('Range x (m)');
+ylabel('Target altitude y (m)');
+title('Required launch speed v_0^{(0)} (m/s, no wind, v_0 \le 450)');
+figure;
+imagesc(x_list, y_list, kwind_table);
+set(gca,'YDir','normal'); colorbar;
+xlabel('Range x (m)');
+ylabel('Target altitude y (m)');
+title('Wind correction coefficient k (m/s per m/s)');
+%% 5. Export CSV tables
+x_labels = strcat("x_", string(x_list), "m");
+% column names: range
+y_labels = strcat("h_", string(y_list), "m")';
+% row names: altitude
+v0_table_round
+= round(v0_table,
+2);
+kwind_table_round = round(kwind_table, 2);
+theta_tbl = array2table(theta_table, ...
+'VariableNames', cellstr(x_labels), ...
+'RowNames',
+cellstr(y_labels));
+
+Team # 204
+Page 34 of 37
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+writetable(theta_tbl, 'table_theta_deg_MachCd.csv', 'WriteRowNames', true);
+v0_tbl = array2table(v0_table_round, ...
+'VariableNames', cellstr(x_labels), ...
+'RowNames',
+cellstr(y_labels));
+writetable(v0_tbl, 'table_v0_nowind_ms_MachCd.csv', 'WriteRowNames', true);
+kwind_tbl = array2table(kwind_table_round, ...
+'VariableNames', cellstr(x_labels), ...
+'RowNames',
+cellstr(y_labels));
+writetable(kwind_tbl, 'table_kwind_ms_per_ms_MachCd.csv', 'WriteRowNames', true);
+%% 6. Local functions
+function F = projectile_solver_fixed_theta_wind_CdM(v0, theta, U, ...
+m, S, g, rho0, H, gun_y, target_x, target_y, v0_min, v0_max)
+% Residual [dx; dy] at the target for fixed theta and wind U.
+% velocity bounds (large penalty outside range)
+if v0 < v0_min || v0 > v0_max
+F = [1e6*(v0 - v0_min); 1e6*(v0 - v0_max)];
+return;
+end
+theta_rad = theta*pi/180;
+% state: [x; y; vx; vy]
+y0 = [0, gun_y, v0*cos(theta_rad), v0*sin(theta_rad)];
+t_span = [0, 200];
+% NOTE: initial condition must be y0, not y
+[~, Y] = ode45(@(t,Y) projectile_ode_wind_CdM(t, Y, U, m, S, g, rho0, H), ...
+t_span, y0);
+% linear interpolation at x = target_x
+idx = find(Y(:,1) > target_x, 1);
+if isempty(idx)
+x_final = Y(end,1);
+y_final = Y(end,2);
+else
+x1 = Y(idx-1,1); y1 = Y(idx-1,2);
+x2 = Y(idx,1);
+y2 = Y(idx,2);
+y_final = y1 + (target_x - x1) * (y2 - y1)/(x2 - x1);
+x_final = target_x;
+end
+
+Team # 204
+Page 35 of 37
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+F = [x_final - target_x; y_final - target_y];
+end
+function dy = projectile_ode_wind_CdM(~, y, U, m, S, g, rho0, H)
+% 2D trajectory with horizontal wind U and Mach-dependent Cd.
+% state: y = [x; y; vx; vy]
+vx = y(3);
+vy = y(4);
+% velocity relative to air (wind along +x)
+ux = vx - U;
+uy = vy;
+v_rel = sqrt(ux^2 + uy^2) + 1e-8;
+% avoid division by zero
+% Mach number and Cd(M)
+a
+= 340;
+% speed of sound (m/s)
+M
+= v_rel / a;
+CdM = Cd_of_Mach(M);
+% altitude-dependent density
+rho = rho0 * exp(-y(2)/H);
+% quadratic drag acceleration
+k
+= 0.5 * rho * S * CdM * v_rel / m;
+ax = -k * ux;
+ay = -g - k * uy;
+dy = [vx; vy; ax; ay];
+end
+function Cd = Cd_of_Mach(M)
+% Empirical piecewise drag coefficient Cd(M).
+Cd = zeros(size(M));
+% M < 0.7
+idx1 = (M < 0.7);
+Cd(idx1) = 0.45;
+% 0.7 <= M < 1.1 : 0.45 -> 1.0
+idx2 = (M >= 0.7) & (M < 1.1);
+
+Team # 204
+Page 36 of 37
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+Cd(idx2) = 0.45 + 0.55 * (M(idx2) - 0.7) / (1.1 - 0.7);
+% 1.1 <= M < 1.5 : 1.0 -> 0.8
+idx3 = (M >= 1.1) & (M < 1.5);
+Cd(idx3) = 1.0 - 0.2 * (M(idx3) - 1.1) / (1.5 - 1.1);
+% M >= 1.5
+idx4 = (M >= 1.5);
+Cd(idx4) = 0.8;
+end

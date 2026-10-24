@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>High-efficiency Cylindrical Compost Pile Size Design（2018 题B 队伍285） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg:#0a0f1e;--panel:#111a2e;--ink:#e8eef8;--mut:#94a5c0;--line:#22304c;--acc:#4f7dd9;--acc2:#39c2b0;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
+ font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar a:hover{border-color:var(--acc);color:#fff}
+.crumb{color:var(--mut);font-size:13px}
+.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
+h3{font-size:17px;color:#cfe0ff}
+a{color:#7fb0ff} a:hover{text-decoration:underline}
+code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
+pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1em 0;padding:8px 16px;border-left:4px solid var(--acc2);background:rgba(57,194,176,.07);color:#c9d6ea;border-radius:0 10px 10px 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#16233c;color:#a9bcda;white-space:nowrap}
+tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
+@media(max-width:700px){.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html">🏆 总览首页</a>
+  <span class="crumb">05_论文赏析/2018</span>
+  <span style="flex:1"></span>
+  <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2018/Problem%20B/2018-GM-B-285.pdf">📄 论文 PDF</a>
+  <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2018/2018-GM-B-285.md">原文 .md</a>
+</div></div>
+<div class="wrap"><div class="card">
+<h1 id="high-efficiency-cylindrical-compost-pile-size-design2018-b-285">High-efficiency Cylindrical Compost Pile Size Design（2018 题B 队伍285）</h1>
+<p><strong>页数</strong>: 11 页 ｜ <strong>对应题目</strong>: Compost Pile Sizes（堆肥堆尺寸）</p>
+<h2 id="1">1. 论文速览</h2>
+<p>论文与 240 队同题异构：不走"整体 ODE + 优化"路线，而是从<strong>场分布</strong>出发，把圆柱形堆肥堆对称切出扇形薄片，用热量守恒 + Fourier 定律建立带内热源的温场方程，再按"氧扩散与热传导同构"写出氧含量方程；其独特之处是引入<strong>自重压实模型</strong>（把堆料理想化为自重不可忽略的"弹簧"），推出密度随高度的分 布 $\rho(h)$ 并作为两个场方程的耦合系数。最终在约束 $40\le u\le60\,^\circ\mathrm{C}$ 与氧含量最大化下，解得最优尺寸 $R=0.8\,$m、$H=0.8\,$m。</p>
+<h2 id="2">2. 建模体系逐层拆解</h2>
+<ul>
+<li><strong>几何降维（2.1 节）</strong>：圆柱堆绕轴对称，切成"蛋糕"式扇形薄片后各片温场相同，只需分析一片；微元取 $\Delta V=x\,\Delta x\,\Delta h\,\Delta\theta$。合理性论证为对称性论证，直观但隐含"忽略边缘角向差异"的近似。</li>
+<li><strong>主动热传导方程（2.1 节）</strong>：对微元写热守恒 $Q=Q_{gen}+Q_{left}+Q_{right}+Q_{up}+Q_{down}$，内热源 $K(h)=K_0\rho(h)$（微生物产热正比于局部密度），导热项用 Fourier 定律 $Q=-\lambda\frac{dT}{dn}A$ 且导热系数取线性温度依赖 $\lambda=\lambda_0(1+bT)$，差分化后取极限得偏微分方程 $c\rho(h)\frac{\partial u}{\partial t}dx\,dh=K_0\rho(h)dx\,dh+\lambda_0b(1+u)\,dt\,(2dh\frac{\partial u}{\partial x}+2dx\frac{\partial u}{\partial h})$。推导逐项列出 $Q_{left/right/up/down}$ 表达式，过程透明。</li>
+<li><strong>氧流方程（2.2 节）</strong>：利用"同量微生物产热量 = 耗氧量、扩散方向相反"的同构论证，直接把热方程镜像为氧方程 $\frac{\partial n(x,h,t)}{\partial t}dx\,dh\,dt=-L_0\rho(h)dx\,dh+D_0[\rho(0)-\rho(h)](2dh\frac{\partial u}{\partial x}+2dx\frac{\partial u}{\partial h})$，其中 $L(h)=L_0\rho(h)$ 为耗氧项。这一"类比迁移"是论文的方法论亮点，也省去一半推导。</li>
+<li><strong>自重压实模型（2.3 节）</strong>：核心创新。将堆料视为考虑自重的弹簧，先用整体等效 $\delta M g=k(l_1-l_0)$ 并引文献 [1] 证明自重压缩量是"质量集中于顶端"情形的一半（$\delta=1/2$），再把弹簧分 $n$ 段列 Hooke 方程，得各段压缩比 $\Delta l_1:\Delta l_2:\cdots=1:3:5:\cdots:(2n-1)$，求出 $\Delta l_1=\frac{Mg}{2n^2k}$；结合 $i$ 与高度 $h$ 的几何关系并取 $n\to\infty$，最终得密度分布 $\rho(h)=\frac{M}{\pi R^2}\cdot\frac{kH+\frac{Mg}{2}}{kH^2+\frac{(Mg)^2}{4k}+Mgh}$。它把题目中"大堆会压实、阻碍供氧"的定性描述变成了方程里的定量系数。</li>
+<li><strong>参数化扩展（2.4 节）</strong>：把外温与材料属性当作独立变量，提出将解分裂 $u=U+u_0$（$u_0$ 为初值决定项）以分离参数，属方法论声明，正文承认最终未能解出通用公式。</li>
+</ul>
+<h2 id="3">3. 数学方法与算法</h2>
+<p>方法上以解析推导为主：有限差分化的 PDE + 弹簧模型的微元极限，未见显式数值格式说明与步长/收敛性检验（结果图 Figure 2–4 应为数值解，但求解器未注明，属"不确定"）。检验手段偏定性：用"中心温度尽量接近但不超过 60 °C、边缘趋近环境温度"作为尺寸合理性判据（3.1 节）。参数表（Table 1）完整给出 $c=1000\,\mathrm{J/(kg\cdot K)}$、$\rho(0)=0.3\,\mathrm{g/cm^3}$、$K_0=0.013\,\mathrm{J/(kg\cdot s)}$、$\lambda_0b=0.5\,\mathrm{W/(m\cdot K)}$ 及分四段阶梯式变化的 24 小时环境温度（5/10/15/20 °C 各 6 小时），环境温度用分段常数而非连续正弦，与 240 队形成对照。弱点在 3.2 节被坦诚指出：方程过于复杂，<strong>未能得到尺寸随环境变化的通用公式</strong>，只完成框架。</p>
+<h2 id="4">4. 排版与图表赏析</h2>
+<p>标题页（p1 渲染图）为 Word 风格：无衬线标题、加粗关键短语（active heat transfer process、density distribution function under self-weight 等）引导视线，页眉 "Team#285 / Page x of 11"。正文短小（11 页），含简短目录。公式以 Word 公式对象录入，编号极为有限（仅 $(*)$、(i)、(ii) 等零星标记），交叉引用靠文字描述，规范性弱于 240 队。图表共 4 幅：Figure 1 扇形切片与微元示意（手绘风），Figure 2（见 fig 渲染页）为径向-纵向温场 3D 曲面（yellow-green-blue 渐变，MATLAB <code>surf</code> 风格），Figure 3/4 分别为沿半径与沿高度的温度剖面曲线，直接支撑 $R=H=0.8\,$m 的选取论证。3D 曲面视觉冲击力好，但坐标轴标注较简（"radial/portrait"），Figure 3 横轴与 Figure 4 横轴单位（m 与 cm）不一致，是排版瑕疵。</p>
+<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<ol>
+<li><strong>把题目最难的物理点做成核心模型</strong>：大多数队伍会回避"压实抑制供氧"这条定性提示，285 队却把它升级为弹簧自重压缩模型并解出闭式 $\rho(h)$，再让它进入热/氧两个方程——这正是评委眼中"对问题物理本质的洞察"。</li>
+<li><strong>同构类比降维打击</strong>：热传导与氧扩散的类比论证（方向相反、源项同源）使模型自洽且省篇幅，展示物理直觉。</li>
+<li><strong>推导过程全透明</strong>：从 $Q_{left/right/up/down}$ 逐项写出、到弹簧分段 Hooke 方程逐行列出（$1:3:5:\cdots$），评委可逐步复算。</li>
+<li><strong>结果直答题目</strong>：给出明确尺寸 $R=0.8$ m、$H=0.8$ m，并用温场剖面图说明"中心 ≤60 °C、边缘近环境温度"的取舍逻辑。</li>
+<li><strong>诚实的边界</strong>：明确承认未能导出尺寸随环境的通用公式，只交付框架与特例解；评委通常对"自曝局限且已尽力"的队伍更宽容。</li>
+<li>篇幅紧凑（11 页）、无冗余，符合 48 小时竞赛"少而精"的完成度美学。</li>
+</ol>
+<h2 id="6">6. 可借鉴清单</h2>
+<ol>
+<li>遇到题目中的定性提示（"大堆会被压实"）时，为其单独建一个子模型并解出闭式表达，往往就是金牌差异化卖点。</li>
+<li>两个输运过程结构相同时，用类比论证直接迁移方程，再用一句话说明方向/符号差异，可节省一半推导且不易出错。</li>
+<li>用守恒律写微元平衡（先差分后取极限）推导 PDE，比直接抄标准方程更能展示物理功底。</li>
+<li>场分布类问题务必给"一图三线"：3D 曲面 + 两个正交剖面，用剖面图直接论证设计参数的选取。</li>
+<li>环境温度日循环可用分段阶梯近似（本文 5/10/15/20 °C）或正弦（240 队），两者取其一即可，但要说明选择依据。</li>
+<li>若通用解无法在赛程内完成，明确写出"已完成部分 + 未竟部分的原因"，比含糊带过更能保住分数。</li>
+</ol>
+</div></div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+});
+</script>
+</body>
+</html>

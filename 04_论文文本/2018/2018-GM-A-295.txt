@@ -1,0 +1,1708 @@
+Team 295
+Page1/25
+1
+Problem A: Analysis of the influencing factors during
+the sail acceleration
+Team 295
+November 12,2018
+Abstract
+This paper studied the influencing factors during the process that a light sail propelled nanocraft
+fly the Proxima Centauri b at a distance closer than Earth-Moon distance. The dynamics analysis
+was given in the paper. Four partial models were established to describe such analysis: Laser
+Transmission Model, Acceleration Dynamics Model, Stability Analysis Model and Track Model.
+In the Laser Transmission Model, the function
+)
+,
+(
+p
+m
+f
+P
+
+
+
+was given to calculate the
+laser intensity after crossing the atmosphere.
+In the Acceleration Dynamics Model, based on the assumption that sail was a rigid plate, we
+discretized the sail into 10000 area elements whose attribute could be shown bydA ,dm ,dP ,
+i
+r
+
+.
+And each element corresponds to a transmitter. In the model, a fixed coordinate system and a
+Lysol coordinate system was built. First we got the center of mass of the sail by summing all
+elements up. Then the torque matrix and inertia tensor matrix around the center of mass was given.
+Followed was the calculation of angular acceleration through the theorem of moment of
+momentum. Finally, Euler dynamical equations were applied to solve out the angular velocity and
+thus the angle shift could be described.
+In the Stability Analysis Model, accuracy of the beam from the laser array was shown
+as
+P
+P/
+
+, margin of error in the fabrication of the light sail was described by m
+
+and the
+uniformity of the laser beam was given by d
+. Apply these small perturbations into the dynamics
+model. These small perturbations were uneven and in random. As a consequence, it was nearly
+impossible to get an analytical solution of the Euler equations.
+In the Track Model, under the consideration of the gravitation of the Proxima Centauri and
+Proxima Centauri b, we calculated two possible maximum angles deviation and found
+)
+/
+(
+sin
+)
+/
+(
+sin
+orbit
+2
+max
+pe
+pe
+D
+R
+arc
+D
+LD
+arc
+
+
+
+fit the actual situation better. This angle was the
+critical condition of the dynamics model.
+Then through the numerical simulation, we got preliminary solutions that the margin laser
+accuracy should be
+8.306
+10
+, fabrication error should be
+5.391
+10
+and uniformity of the laser beam
+should be
+314
+.4
+10
+. In the process of simulation, we found the number of element had influence on
+the results. So in the sensitivity analysis, when the element was respectively 45*45, 35*35, and
+40*40, the effect of intensity, fabrication and uniformity tended to be stable.
+Results above considered one factor while the results caused by another two factors were
+ignored. But in fact, with overall consideration of them, an optimal solution could be searched out.
+And the optimal solution was respectively
+769
+.8
+10
+,
+6.032
+10
+and
+938
+.4
+10
+.
+
+Team 295
+Page2/25
+2
+Contents
+1. Introduction.......................................................................................................................2
+2. Restatement and Analysis of Problems.............................................................................3
+3. Assumptions and Notations.............................................................................................. 4
+3.1 Assumptions............................................................................................................ 4
+3.2 Notations..................................................................................................................5
+4. Model................................................................................................................................ 5
+4.1 Laser Transmission Model.................................................................................... 5
+4.2 Acceleration Dynamics Model................................................................................ 6
+4.3 Stability Analysis Model......................................................................................... 8
+4.3.1. The Laser Beam Accuracy Model................................................................8
+4.3.2. Fabrication Error Model of the Light Sail....................................................8
+4.3.3. Laser Beam Uniformity Model.................................................................... 9
+4.4 Track Model...........................................................................................................10
+4.4.1. Gravity Effect on the Path..........................................................................10
+4.4.2. Maximum Angles Deviation...................................................................... 10
+5. Result and Discussion.....................................................................................................12
+5.1 Results Calculation................................................................................................12
+3. Light intensity calculation................................................................................13
+5.2 Analysis Results.....................................................................................................15
+6. Sensitivity Analysis.........................................................................................................16
+6.1 Experiment 1..........................................................................................................17
+6.2 Experiment 2..........................................................................................................17
+6.3 Experiment 3..........................................................................................................18
+7. Model Improvement........................................................................................................19
+7.1 Model Defects........................................................................................................19
+7.2 Optimize model by Algorithm Particle Swarm Optimization...............................19
+Fitness Function：.......................................................................................................19
+8. Strength and Weakness...................................................................................................20
+8.1 Strength..................................................................................................................20
+8.2 Weakness...............................................................................................................20
+9. Conclusion...................................................................................................................... 20
+10. Reference...................................................................................................................... 21
+11. Appendix.......................................................................................................................21
+
+Team 295
+Page3/25
+3
+1. Introduction
+Space travelling was always a quite popular exploring activity. And Alpha Centauri b was such a
+planet that scientist paid much attention to because it was only 4.2 light years away from the Earth.
+Years ago, it would spend about 30 thousand years traveling to Alpha Centauri b which was the
+nearest galaxy from our planet. With the development of nanotechnology and laser technology, a
+new method was proposed that we could make a laser array to drive a nanocraft with light sail to
+travel to Alpha Centauri b. The nanocraft’s speed was supposed to accelerate to 20 percent of light
+velocity in 10 to 20 minutes by a laser array whose power was about 50 gigawatts. It made the
+traveling to Alpha Centauri b possible. However, in order to get there accurately, it had a high
+command on the precision of laser array, the margin of error in the fabrication of the light sail and
+the uniformity of the laser beam. As a result, we ought to control those influential factors before
+the launch.
+2. Restatement and Analysis of Problems
+Now there is a plan to send a light sail propelled Nanocraft to Alpha Centauri through a
+ground-based array of lasers. This plan is proposed that a few grams of ultralight spacecraft with a
+light sail area of approximately 10 square meters is accelerated under array of lasers whose power
+is 50 gigawatts, and its velocity can reach 0.2 times velocity of light within 10-20 minutes. This
+spacecraft’s aim is to flyby Proxima Centauri b at closer than the Earth-Moon distance. It was
+asked to make quantitative analysis to the impact of three factors to this plan; the factors are the
+accuracy and precision of the beam from the laser array, the margin of error in the fabrication of
+the light sail and the uniformity of the laser beam.
+This problem requires the spacecraft flyby Proxima Centauri b at closer than the Earth-Moon
+distance. The whole process can be divided into three stages. First stage, laser generated by laser
+array passes though the atmosphere and then perpendicular rays to the light sail which can produce
+light pressure and provide power. Second stage, the light sail accelerates under the light pressure.
+Third stage, the light sail fly to Proxima Centauri b at the speed of 0.2 times velocity of light. In
+the ideal case, light sail should fly along the lines connecting the direction of light sail and
+Proxima Centauri b. However, because of the laser array and light sail’s technological limitation,
+there exits an angle between actual trajectory and virtual desired trajectory which can not exceed a
+certain range.
+Therefore, finding out the relationship between drift angle and three factors becomes the key
+to solving the problem.
+The necessary accuracy and precision of the beam from the laser array can be understood as
+the deviation of laser power, the margin of error in the fabrication of the light sail can be
+understood as uneven distribution of light sail mass, and the uniformity of the laser beam can be
+understood as laser position deviation.
+In order to quantitative calculation of the light sail’s velocity direction facilitately, it is
+needed to apply the discretization method and regard the plane as a dot matrix.
+The deviation of laser power and laser position deviation will lead to the uneven distribution
+of pressure; uneven distribution of light sail mass will lead to the change of inertia tensor. If
+consider relativity, the mass of light sail will also change. All the factors make effect on drift
+angle.
+
+Team 295
+Page4/25
+4
+Figure 1 Mind map in the whole process
+3. Assumptions and Notations
+3.1. Assumptions
+1.
+Light sail was a rigid plate for considering no deformation.
+2.
+Light sail was launched from upper atmosphere and was not influenced by external factors in
+universe.
+3.
+Due to the short moment of acceleration, the direction of laser that laser gun emitted laser in
+would not be changed by rotation of the Earth.
+4.
+The relative distance between the position where sail was launched and the position of
+Proxima was constant.
+5.
+The distribution of particulate matter in the vertical direction of the atmosphere did not
+change。
+6.
+The influence on the area of sail caused by relativistic effect was overlooked.
+7.
+The accuracy and precision of the beam from the laser array, the margin of error in the
+fabrication of the light sail and the uniformity of the laser beam were completely independent
+of one another and occur in random.
+
+Team 295
+Page5/25
+5
+3.2. Notations
+Table 1 Notations
+Variables
+Explanations
+)
+(h
+
+dissipation coefficient when altitude is h (Mm-1)
+P
+light intensity(W)
+CI
+Inertial tensor
+M
+
+External torque(N·m)
+x
+,
+y
+,
+z
+
+Drift angle(rad)
+LD
+The Moon’s average distance to Earth(384403.9 km)
+orbit
+R
+The orbital radius of Proxima Centauri b(7500000 km)
+pe
+D
+The distance of earth to Proxima Centauri b(4.2 light year)
+4. Model
+4.1.
+Laser Transmission Model
+The energy loss of the laser beam in the atmosphere is represented by the extinction coefficient [1].
+The extinction coefficient is equal to the sum of the absorption coefficient and scattering
+coefficient. The formula is:
+p
+m
+
+
+
+
+
+
+
+
+
+
+
+Where represents the extinction coefficient, represents the absorption coefficient, 
+represents scattering coefficient,
+m
+
+represents molecular scattering coefficient and
+p
+
+represents particle scattering coefficient.
+The scattering of suspended particles is the main cause of transmission loss, considering the
+attenuation of atmospheric energy transfer over a single vertical path.
+h
+P
+m
+p
+d)
+(
+ln
+
+
+
+
+
+
+Where P represents light intensity and h represents height.
+m
+
+and
+p
+decreases exponentially as height increases. The formula is:
+
+Team 295
+Page6/25
+6
+h
+k
+p
+e
+k
+h
+2
+1
+)
+(
+
+
+
+,
+h
+k
+p
+e
+k
+h
+2
+1
+)
+(
+
+
+
+Laser energy in the atmosphere after decay can be obtained through integrating.
+))
+1
+)(
+(
+)
+1
+)(
+(
+exp(
+4
+2
+4
+3
+2
+1
+0
+h
+k
+h
+k
+e
+k
+k
+e
+k
+k
+P
+P
+
+
+
+
+
+
+
+4.2. Acceleration Dynamics Model
+The acceleration process of the sail was a three-dimensional dynamic model. In the case of error,
+the direction of the sail would produce a deflection with the ideal direction. The complete dynamic
+model should be established to get the angle calculation. In order to make the model clearer, we
+built basic model as below in ideal condition.
+Figure 2 Mind map
+4.2.1 Calculation of the Center of Mass and the inertia tensor
+Figure 3 Euler transformation schematic diagram
+
+Team 295
+Page7/25
+7
+In the figure, a fixed coordinate systemOxyz was established and the rotation of the sail was
+shown in different colors. Grey plate was the initial plane. Red plate was the plane that initial
+plane rotated an angle
+x
+
+around x axis. Blue plate was the plane that red plate rotated an
+angle
+y
+
+around y axis. Green plate was the plane that blue plate rotated an angle
+z
+
+around z
+axis.
+The total mass of the light sail was described bym .
+Then the microelement analysis of the
+sail was done. As for each area elementdA , its mass could be given by:
+m
+dm
+dA
+A
+
+The Lysol coordinate system was named O
+.
+i
+i
+C
+m
+m
+
+
+
+,
+i
+i
+C
+m
+m
+
+
+
+,
+i
+m
+dm
+
+The two coordinate systems were connected by Euler transformation.
+The inertia tensor around the center of mass was
+C
+I
+described as:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+z
+yz
+xz
+yz
+y
+xy
+xz
+xy
+x
+C
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+xI was the moment of inertia of rotation about x axis;
+y
+I was the moment of inertia of rotation
+about y axis;
+z
+I was the moment of inertia of rotation about z axis.
+xy
+I
+,
+yz
+I
+and
+xz
+I
+were the
+product of inertia.
+Considering the effect of relativity on mass, mass was a value that varied over time:
+0
+2)
+(
+1
+1
+m
+c
+v
+m
+
+
+4.2.2 Light Pressure Calculation Through Laser Energy
+In the case where the laser energy at each element was known, the force of the element could be
+solved out. A strong laser irradiated light sail during the whole acceleration process. Then
+combined with the relativistic effect, the light pressure was shown as [2]:
+
+Team 295
+Page8/25
+8
+v
+c
+P
+F
+
+2
+Think about what it did on an area element:
+v
+c
+P
+F
+i
+i
+
+2
+d
+Among whichP was the average intensity without error and v was the magnitude of
+velocity.
+4.2.3 Obtaining the Angular Velocity by Euler Dynamics Equation
+The total torque can be obtained by integrating.
+i
+i
+F
+r
+
+
+
+d
+M
+d
+i
+
+
+,
+
+
+
+
+
+
+
+
+
+
+
+
+z
+y
+x
+i
+M
+M
+M
+M
+M
+
+
+d
+Where
+irrepresents the direction vector from the center of mass to the operating point，
+i
+M
+
+represents every particle’s torque on the center of mass, M
+
+represents the total torque.
+According to the moment of momentum theorem:
+M
+IC
+
+
+,
+
+
+
+
+
+
+
+
+
+
+
+
+
+z
+y
+x
+C M
+I
+
+
+
+
+
+
+
+
+1
+Where 
+represents angle of rotation.
+According to the Euler kinetic equation
+
+
+
+
+
+
+
+
+
+
+z
+z
+z
+y
+z
+x
+z
+y
+y
+y
+x
+z
+y
+x
+z
+x
+x
+M
+I
+M
+I
+I
+I
+M
+I
+I
+I
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+)
+(
+)
+(
+
+can be obtained by solving the equations. The curve of the Angle changes with time can
+be obtained by integrating against t, combining with the initial conditions.
+4.3. Stability Analysis Model
+Since the distance between the target star and our transmitting point is incredible, a small error
+will lead to a large error in the final results. Then the laser beam accuracy model, fabrication
+model of the light sail and the laser beam uniformity model were established to evaluate the
+stability of the optical sail independently.
+4.3.1 The Laser Beam Accuracy Model
+The surface area element of the sail was analyzed accurately. It was assumed that there was a
+small disturbance in the laser intensity on each element which could be quantized as P
+
+. And the
+intensity on each element was given by:
+iP
+P
+P
+
+
+
+Then this expression was substituted into the dynamics model above.
+
+Team 295
+Page9/25
+9
+4.3.2 Fabrication Error Model of the Light Sail
+When the sail was made, due to the manufacturing technique limit, the fabrication error was
+shown that the mass distribution was uneven. Assumed that there was a fabrication error at the
+area element:
+i
+dm
+dm
+m
+
+
+
+Such an error leads to an initial angle shift of light sail.
+Figure 4 uneven distribution of mass
+The darker the color, the greater the mass.
+4.3.3 Laser Beam Uniformity Model
+There may be an error of distribution during the manufacture of the laser array. In a word, it
+means uniformity. In the ideal situation, the uniformity is shown that the distance between each
+laser emitter is equal. If some laser had a position deviation described as d
+
+, a torque was also
+generated. The torque’s effect caused an angle shift of the light sail. And in such situation, the
+position of element could be given by:
+2
+2
+2
+x
+y
+d
+
+
+
+
+Team 295
+Page10/25
+10
+Figure 5 Schematic diagram of laser array position excursion
+4.4. Track Model
+4.4.1 Gravity Effect on the Path
+As the sail approached the Proxima Centauri b，the track of the light sail would had a deviation
+because of the gravity from the Proxima Centauri and Proxima Centauri b, which made the sail
+easier to arrive in the distance closer than Earth-Moon distance. The effect of gravitation on track
+can be expressed by differential equations：
+2
+1
+1
+r
+r
+p
+
+
+
+
+,
+2
+2
+2
+r
+r
+s
+
+
+
+
+Among which 1rand
+2rwas respectively the distance between the Proxima Centauri b and sail and
+the between the Proxima Centauri and the sail.
+p
+and
+s
+
+was respectively the gravitation
+constant of the Proxima Centauri b and the Proxima Centauri.
+The effect of gravitation on track could be calculated combined with the initial
+condition
+)
+0
+(
+r
+.
+)
+0
+(
+r
+could be given by yaw angle.
+Through the calculation, the effect of gravitation on track could be overlooked. Therefore, the
+track could still be regarded as a straight line when calculating the maximum allowable deviation
+angle.
+4.4.2 Maximum Angles Deviation
+Light sail typically travels along a straight line and arrive Centauri b, which requires a suitable
+
+Team 295
+Page11/25
+11
+Angle between the sail and Centauri b. Actually, Centauri b is a planet revolving around the
+Proxima Centauri. The sail should approach the planet within a sphere with a radius of the moon.
+Since the planet orbits is a plane rather than a sphere and the deflection of the sail due to error is a
+solid angle. In order to maximize the probability of the sail skimming over Centauri b, it is
+assumed that the launch point has been selected when the solar sail is launched, which makes the
+solar sail plane parallel to the plane of revolution
+There are two strategies of launching: flying toward the planet and flying towards the star.
+The two strategies obtain different maximum angles deviation.
+Figure 6 The first case of maximum permissible deflection angle
+)
+arctan(
+1
+max
+pe
+D
+LD
+
+
+
+Team 295
+Page12/25
+12
+Figure 7 The second case of maximum permissible deflection angle
+)
+(
+sin
+)
+(
+sin
+orbit
+2
+max
+pe
+pe
+D
+R
+arc
+D
+LD
+arc
+
+
+
+Considering the period of revolution of Alpha Centauri b
+11.2day
+
+plant
+T
+,while the time it
+takes for the sail to reach the target
+21year
+
+
+sail
+pe
+sailing
+v
+D
+T
+,
+plant
+sailing
+T
+T
+
+.Considering the
+uncertainty of sail flight time, when the sail reaches Centauri, the exact position of Centauri b
+cannot be determined. Therefore, it may be assumed that the sail can be adjusted so that when the
+sail reaches its intended position, Centauri b will also revolve to the same position.Consequently,
+the second strategy should be applied.
+5. Result and Discussion
+5.1. Results Calculation
+5.1.1 Calculation of Attenuation of Laser Intensity
+1. Molecular scattering coefficient
+m
+
+Based on our assumptions, the gas molecules are much smaller than the wavelength of light
+waves. So in the transmission process, there mainly existed Rayleigh scattering. And there is a
+linear relation between the molecular scattering coefficient and the density of air.
+Molecular scattering coefficient could be given by:
+
+Team 295
+Page13/25
+13
+m
+=
+0
+
+Among which
+0
+was the molecular scattering coefficient on the surface of the Earth.
+Air density could be calculated according to a molar form of the ideal gas law:
+pM
+RT
+
+Among which p could be given by:
+0
+0
+(1
+)
+gM
+RL
+Lh
+p
+p
+T
+
+
+According to the calculation above, when height was lager than 44330.76, the pressure could
+be regarded as 0.
+L
+was temperature lapse rate.
+0T
+was the sea level standard atmospheric. g
+was the
+earth-surface gravitational acceleration. M
+was the molar mass of dry air.
+0
+p
+was the sea level
+standard atmospheric pressure. R
+was the ideal gas constant.
+Table 2 parameters of air [3]
+parameter
+values
+L (temperature lapse rate)
+0.0065
+/
+K
+m
+0T (the sea level standard atmospheric)
+288.15 K
+g (the earth-surface gravitational acceleration)
+9.80665
+2
+/
+m
+s
+M (the molar mass of dry air)
+0.0289644
+/
+kg
+mol
+0
+p (the sea level standard atmospheric pressure)
+101.325kPa
+R (the ideal gas constant)
+8.31447
+/ (
+)
+J
+mol
+K
+
+After consulting data,
+0
+was equal to 200.32
+1
+Mm 
+Then
+0.00083
+200.32
+h
+m
+e
+
+
+
+1
+Mm 
+2. Particle scattering coefficient
+p
+
+Particle scattering coefficient was mainly decided by the aerosol molecular density. Based on
+our assumptions, the aerosol molecular density is approximately equal to the density of air. Thus
+particle scattering coefficient was approximately regarded as below:
+
+Team 295
+Page14/25
+14
+0.00013
+200.32
+h
+p
+e
+
+
+
+3. Light intensity calculation
+The light intensity after decay could be solved out through integral method:
+0.00083
+0.00013
+0 exp( (0.000200
+0.00083)(1
+)
+(0.000200
+0.00013 )(1
+))
+h
+h
+P
+P
+e
+e
+
+
+
+
+
+
+
+Substituted
+77
+.
+44330
+
+h
+into it and got intensity as below:
+W
+P
+P
+9
+0
+10
+15
+.
+36
+723
+.0
+
+
+
+5.1.2 Calculation of Sail’s Angle Shift
+The attenuated light intensity was used as the initial light intensity emitted to the sail. And under
+the consideration of the fluctuations of intensity, the intensity on each element could be described
+as below:
+iP
+P
+P
+
+
+
+Figure 8 force analysis diagram on an element
+It could be seen from the stress analysis diagram of the area element that
+2(
+)
+i
+P
+P
+F
+c
+v
+
+
+
+
+,
+the initial force
+2(
+)
+i
+P
+P
+F
+c
+
+
+
+.
+The acceleration process could be viewed as a combination of translational and fixed-axis
+rotation of the plate. Translation was an accelerated process. And the change in speed caused a
+change in the force. Consequently the torque around the center of mass also variedwith the
+velocity; Small perturbations of laser beam uniformity were considered in the process which
+
+Team 295
+Page15/25
+15
+generated an extra torque due to the d
+
+. In a sentence, the torque vector around the center of mass
+was a vector that varied with velocity and d
+
+.
+During the calculation of inertia tensor, the small perturbation of the mass was considered. At
+the same time, the average mass of the area element varied with the velocity because of
+relativistic effect. So the inertia tensor was a vector that varied with velocity and m
+
+.
+5.1.3 Stability Calculation Based on Gradient Descent Method
+In the process of solving the above numerical simulation, The small perturbations of the mass, the
+intensity of the laser beam and the uniformity of the laser beam were random and did not affect
+each other. Thus they could all described by the Gaussian distribution under independent
+homogeneity as below:
+2
+0
+2
+0
+2
+( ( ),
+)
+(
+,
+)
+(0,
+)
+i
+i
+i
+i
+P
+N P t
+P
+m
+N m
+m
+d
+N
+d
+
+
+
+
+
+
+
+
+
+
+Among which
+0i
+m
+was the average mass without error;
+0( )
+P t
+was a random process that
+changed over time.
+During the process of numerical simulation, we found that the angle of rotation and small
+disturbance had a monotonic positive correlation. Then we used the gradient descent method to
+simulate and analyze the relationship between small disturbances and small angle drift.
+5.2. Analysis Results
+According to the calculation result, the angle between the true direction of velocity and the ideal
+direction should not be greater than
+rad
+7
+max
+10
+9842
+.1
+
+
+
+
+. We match the measurement
+indexes of three influencing factors with the deviation angle generated. Then we obtain the graph
+of the variation of deviation angle with three factors. We take the logarithm of the factors to show
+the line tendency clearly.
+5.2.1 Calculation Results of the Effect of Laser Precision on Velocity Direction
+Laser precision is considered as laser intensity deviation, whose index is P
+P
+
+. The variation curve
+of
+
+
+with
+P
+P
+
+lg
+-
+is shown in the figure:
+
+Team 295
+Page16/25
+16
+Figure 9 The effect of intensity deviation on angle drift
+5.2.2 Calculation Results of the Effect of Sail Error on Velocity Direction
+Sail error is considered as the nonuniform distribution of sail mass, whose index is m
+
+. The
+variation curve of
+
+
+with
+m
+
+is shown in the figure:
+Figure 10 The effect of mass error on angle drift
+
+Team 295
+Page17/25
+17
+5.2.3 Calculation Results of the Effect of Laser Beam Uniformity on Velocity
+Direction
+Laser beam uniformity is considered as the nonuniform distribution of laser beam energy, whose
+index is. The variation curve of
+d
+
+is shown in the figure.
+Figure 11 The effect of uniformity on angle drift
+6. Sensitivity Analysis
+In the previous solving process, we assumed that the size of the laser array
+N
+N 
+is
+100
+100
+.
+Now we analysis the sensitivity of
+
+
+to N. N ranges from 10 to 100. We calculate the delta
+alpha once as soon as N increased by 5.
+According to the former research, we know there are three factors influencing the delta alpha.
+So, we make three experiments where we only consider one of factors. Then we observe the
+changing of delta alpha in different N.
+6.1. Experiment 1
+We set
+P
+
+as 100 w, analysis the sensitive of ∆α to N, only considering error of P the uniform
+mass, neglecting the uniform distribution of m and d .
+
+Team 295
+Page18/25
+18
+Figure 12 Sensitivity analysis of the number of microelements in intensity
+The graph shows that when N<45,
+
+
+falls sharply as N increases. So 
+
+is sensitive to N
+while N small. When N>45,
+
+
+floats around
+-8
+10 . So 
+
+is not sensitive to N when N >45.
+6.2. Experiment 2
+We set
+m
+
+as
+-6
+10 g, analysis the sensitive of 
+
+to N, only considering the uniform mass,
+neglecting the error of P andd .
+Figure 13 Sensitivity analysis of the number of microelements in mass
+
+Team 295
+Page19/25
+19
+The graph shows that when N<35,
+
+
+falls sharply as N increases. When N>35,
+
+
+is
+falling slow. We regard it keep at the stationary state.
+6.3.
+Experiment 3
+We set d
+as
+-7
+10 m, analysis the sensitive of 
+
+to N, only considering the uniform distribution
+ofd , neglecting the error of P andm .
+Figure 14 Sensitivity analysis of the number of microelements in position
+The graph shows that when N<40,
+
+
+falls sharply as N increases.
+
+
+is sensitive to N
+while N small. When N>40,
+
+
+changes little.
+Above all,
+
+
+is sensitive to N when N small according to the results of three experiments.
+And it also shows that the increase of N cannot help with the accuracy when N is larger than 50.
+Consequently, it is reasonable to assume N as 100 in the former model.
+7. Model Improvement
+7.1. Model Defects
+In the previous model solving, only one factor is considered in every calculation. However these
+three factors work together to influence drift angle () in the real situation. So the results are the
+maximum errors of the three factors. At the same time, it is easier to achieve when its error is
+greater because of the technological limitation.
+Now this problem has been transformed into optimization problems which can be calculated
+by algorithm particle swarm optimization.
+
+Team 295
+Page20/25
+20
+7.2. Optimize model by Algorithm Particle Swarm Optimization
+We take the precision of the energy, the precision of the mass processing, and the precision of the
+distance of the laser array as a vector of a particle that is moving in 3 dimensional spaces.
+Table 3 Initialization of PSO
+Position of Particle
+i
+X
+( P
+P
+
+，m
+
+，d
+)
+Velocity of Particle
+iV
+)
+,
+,
+(
+3
+2
+1
+i
+i
+i
+V
+V
+V
+Best position of Particle
+Pbesti
+)
+,
+,
+(
+3
+2
+1
+i
+i
+i
+P
+P
+P
+Best position of Particle
+group
+Gbest
+)
+,
+,
+(
+3
+2
+1
+i
+i
+i
+G
+G
+G
+When finding these two optimal values, the particle updates Vi and Xi according to the
+following formulas:
+t
+V
+X
+X
+i
+i
+i
+*
+
+
+)))
+(
+*
+2
+*
+2
+(
+)
+(1
+*
+1
+(
+i
+i
+i
+X
+Pbest
+r
+c
+Pbest
+Gbest
+r
+c
+V
+V
+
+
+
+
+
+Where: 1
+c and 2
+c acceleration constants,
+1
+r , 2
+r
+)1,0
+(
+~ U
+Fitness Function：
+7
+9.1
+7
+9.1
+0
+))
+(lg(
+))
+(lg(
+))
+(lg(
+)
+(
+2
+2
+2
+
+
+
+
+
+
+
+
+
+
+
+
+e
+e
+d
+m
+P
+P
+X
+Fitness
+i
+
+
+
+
+
+solve the optimal solution by PSO
+Step 1: Initialize the particle swarm, N=100,
+i
+X and
+iV are random numbers
+Step 2:calculate
+)
+(
+i
+X
+Fitness
+Step 3:if
+Pbesti
+X
+Fitness
+i 
+)
+(
+)
+(
+i
+X
+Fitness
+Pbesti 
+
+Team 295
+Page21/25
+21
+Step 4: if
+Gbesti
+X
+Fitness
+i 
+)
+(
+)
+(
+i
+X
+Fitness
+Gbesti 
+Step 5: update
+iV
+and
+i
+X
+Step 6: if
+0.001
+Gbest 
+
+break.
+8. Strength and Weakness
+8.1. Strength
+The model did a successful work to reduce the computation，which only considered the influence
+of one factor and ignored another two factors.
+The model used numerical method and quantized the laser beam precision, uneven sail mass and
+laser beam uniformity. In this way, we reduced computation and calculated the maximum error.
+8.2. Weakness
+Computation rose sharply as the increase of stimulation times. So our time step was a little big.
+However, stimulated performance is maybe different from the real process.
+Laser beam transmission in the atmosphere is multi-directional, while only the vertical plane
+one-way attenuation was considered during the establishment. The complex composition of the
+atmosphere was greatly simplified in the construction of the attenuation model, which actually
+required further analysis.
+9. Conclusion
+We analyzed the spacecraft’s dynamics during the acceleration after it was driven by the laser
+array. What we attached most energy to was the deflection angle of the light sail. According to our
+assumptions, there were three pivotal affecting factors, the accuracy of the beam, the margin of
+error in the fabrication of the light sail and the uniformity of the laser beam. The ideal situation
+was that the spacecraft flyby the Proxima Centauri b alone the line between the launch and the
+destination. However, with the torque caused by those factors, there existed an angle shift. Then in
+the process of analyzing the dynamics, we tried to calculated the deviation angle and discuss how
+those three factors influenced the angle.
+In our result, the spacecraft was supposed to arrive in a sphere whose center was the Proxima
+Centauri b and radius was the Earth-Moon distance as figure 7 showed. This sphere gave a solid
+angle. In other words, the angle shift caused by small perturbations should be limited to the solid
+angle or less. The closer, the better. We chose numerical simulation to get the relations between
+factors and angle shift. Finally, we calculated out the relative precision of the laser’s power named
+
+Team 295
+Page22/25
+22
+P
+P
+
+was
+8.306
+10
+or less, the margin error in the fabrication of the light sail
+m
+
+was
+5.391
+10
+and the uniformity of the laser beam shown as
+d
+
+was
+4.314
+10
+. Then we were aware of the
+affect of the number of laser emitters and showed that in sensitivity analysis. As it was shown,
+different number of laser emitters led to different ability to resist the effects of three factors.
+Finally, the model was improved by the way of overall consideration of three factors.
+Through PSO method, an optimal solution was searched out. And the optimal solution to the
+relative precision of the laser’s power was
+8.769
+10
+. The optimal solution to the margin error in the
+fabrication of the light sail was
+6.032
+10
+. The optimal solution to the uniformity of the laser beam
+was
+4.938
+10
+.
+10.
+Reference
+[1] Li T Z, Research on energy attenuation of one-way ateospheric transmisson[J] Journal of
+Applied Optics, 1996(02):28-29
+[2] Zhou P, Hou J, Liu Z J, Zhao Y J. Photon propulsion and its feasibility analysis[J]. Infrared
+and Laser Engineering, 2007(06):805-808
+[3] unknow, “Density of air” https://en.wikipedia.org/wiki/Density_of_air Accessed: 2018-11-11
+11.
+Appendix
+clc;clear all;
+N=100;
+% m=ones(1,N*N);%
+% bias_m=5E-5;
+bias_m=0;
+% bias_d=0.00000001;
+bias_d=0;
+m=0.005*ones(1,N*N)/(N*N)+bias_m*randn(1,N*N);
+c=3*10^8;
+bias=0.0001;
+% bias=0;
+fa_vector=[0;0;1];
+apha=0;beta=0;gama=0;
+
+Team 295
+Page23/25
+23
+theta=0;
+R_X=[1,0,0;
+0,cos(apha),-sin(apha);
+0,sin(apha),cos(apha)];
+R_Y=[cos(beta),0,sin(beta);
+0,1,0;
+-sin(beta),0,cos(beta)];
+R_X_=[1,0,0;
+0,cos(-apha),-sin(-apha);
+0,sin(-apha),cos(-apha)];
+R_Y_=[cos(-beta),0,sin(-beta);
+0,1,0;
+-sin(-beta),0,cos(-beta)];
+R_Z=[cos(gama),-sin(gama),0;
+sin(gama),cos(gama),0;
+0,0,1];
+P=zeros(N*N,3);
+for i=1:N
+for j=1:N
+P((i-1)*N+j,:)=[j-0.5*(N+1),i-0.5*(N+1),0]+bias_d*randn(1,1);
+end
+end
+P=P';
+for i=1:N*N
+P(:,i)=R_X_*R_Y*R_Z*R_Y_*R_X*P(:,i);
+end
+I_X=sum(m.*P(2,:).*P(2,:)+P(3,:).*P(3,:));
+I_Y=sum(m.*P(1,:).*P(1,:)+P(3,:).*P(3,:));
+I_Z=sum(m.*P(2,:).*P(2,:)+P(1,:).*P(1,:));
+I_XY=sum(m.*P(1,:).*P(2,:));
+I_YZ=sum(m.*P(2,:).*P(3,:));
+I_XZ=sum(m.*P(1,:).*P(3,:));
+III=[I_X,I_XY,I_XZ;I_XY,I_Y,I_YZ;I_XZ,I_YZ,I_Z];
+I=5E10*ones(3,N*N)/(N*N);
+I(1,:)=0;
+I(2,:)=0;
+% I(3,:)=100001;
+M_X=sum(I(3,:).*P(2,:));
+M_Y=sum(I(3,:).*P(1,:));
+M_Z=sum(I(1,:).*P(3,:));
+M=[M_X;M_Y;M_Z];
+v_apha=0;
+v_beta=0;
+
+Team 295
+Page24/25
+24
+t=0;
+v=0;
+APHA=[0];
+BETA=[0];
+v_all=[0;0;0];
+all=[0;0;0];
+t0=0.5;
+while(t<1200)
+t=t+t0;
+FF=(I(3,:)+bias*randn(1,N*N))./(c+v);
+v=v+t0*mean(FF./m);
+m=m/sqrt(1-(v/c)^2);
+M_X=sum(FF.*P(2,:));
+M_Y=sum(FF.*P(1,:));
+M_Z=0;
+M=[M_X;M_Y;M_Z];
+I_X=sum(m.*P(2,:).*P(2,:)+P(3,:).*P(3,:));
+I_Y=sum(m.*P(1,:).*P(1,:)+P(3,:).*P(3,:));
+I_Z=sum(m.*P(2,:).*P(2,:)+P(1,:).*P(1,:));
+%
+I_XY=sum(m.*P(1,:).*P(2,:));
+%
+I_YZ=sum(m.*P(2,:).*P(3,:));
+%
+I_XZ=sum(m.*P(1,:).*P(3,:));
+%
+III=[I_X,I_XY,I_XZ;I_XY,I_Y,I_YZ;I_XZ,I_YZ,I_Z];
+%
+all__=III\M;
+apha__=M_X/I_X;
+beta__=M_Y/I_Y;
+%
+v_all=v_all+0.1*all__;
+v_apha=0.1*v_apha+apha__*t0;
+v_beta=0.1*v_beta+beta__*t0;
+%
+all=all+v_all*0.1;
+apha=apha+v_apha*t0;
+beta=beta+v_beta*t0;
+%
+apha=all(1);
+%
+beta=all(2);
+%
+apha=apha+0.5*apha__*t0^2;
+%
+beta=beta+0.5*beta__*t0^2;
+APHA=[APHA,apha];
+BETA=[BETA,beta];
+R_X=[1,0,0;
+0,cos(apha),-sin(apha);
+0,sin(apha),cos(apha)];
+
+Team 295
+Page25/25
+25
+R_Y=[cos(beta),0,sin(beta);
+0,1,0;
+-sin(beta),0,cos(beta)];
+R_X_=[1,0,0;
+0,cos(-apha),-sin(-apha);
+0,sin(-apha),cos(-apha)];
+R_Y_=[cos(-beta),0,sin(-beta);
+0,1,0;
+-sin(-beta),0,cos(-beta)];
+R_Z=[cos(gama),-sin(gama),0;
+sin(gama),cos(gama),0;
+0,0,1];
+for i=1:N*N
+%
+P(:,i)=R_X_*R_Y*R_Z*R_Y_*R_X*P(:,i);
+P(:,i)=R_X*R_Y*R_Z*P(:,i);
+end
+%
+fa_vector_=R_X_*R_Y*R_Z*R_Y_*R_X*fa_vector;
+fa_vector_=R_X*R_Y*R_Z*fa_vector;
+theta=[theta,asin(norm(fa_vector_(1:2)))];
+end
+figure(1)
+scatter3(P(1,:),P(2,:),P(3,:))
+figure(2)
+plot(APHA)
+figure(3)
+plot(BETA)
+figure(4)
+plot(theta)

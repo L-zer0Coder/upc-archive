@@ -1,0 +1,2871 @@
+Team#380
+Page 1 of 39
+Problem B
+Stability Research of Quadcopter UAV Under
+Unstable Wind
+Team # 380
+Abstract
+In order to find the maximum wind speed for the safe operation of the quadcopter
+UAV, so that it can stay within 20cm of the target position, this paper establishes a
+wind field model composed of basic wind, gust, gradual wind, and random wind to
+simulate the disturbance of wind; the hover dynamics model of the quadcopter UAV
+is established on the basis of the aircraft coordinate system to analyze its state when
+the aircraft is hovering; the force-motion model quadcopter UAV is established on the
+basis of the geodetic coordinate system which is used to analyze the position change
+of the quadcopter UAV; based on the force model, in order to make the UAV swing at
+the target position as small as possible, this paper establishes a quantitative
+self-adjusting UAV The feedback mechanism model enables it to resist wind speed
+disturbance and stay at the target position.
+This paper improves the relevant parameters of the quadcopter UAV, and gives
+the definition of the maximum wind speed and the wind speed change factor. Through
+the random simulation of the unstable wind, the relationship between the wind speed
+of the unstable wind and the time is obtained, as shown in the figure (11). Based on
+the above parameter settings and wind speed simulation, the maximum wind speed
+under different wind speed change factors is solved, and the time change of the
+distance of the UAV from the target position is given. For different wind speed
+change factors, this paper calculates that the expected value of the maximum wind
+speed for safe operation of the quadcopter is 5.3678m/s. At the same time, this paper
+also conducts a numerical simulation experiment of the wind speed, and the average
+value of the simulated maximum wind speed is 5.3487m/s.
+Key Words: quadcopter UAV, disturbance of unstable wind, feedback contorl, simulation
+experiment
+
+Team#380
+Page 2 of 39
+Content
+1. Introduction.....................................................................................................................4
+2. Restatement and Analysis of Problems...........................................................................4
+2. 1 Restatement..............................................................................................................4
+2. 2 Analysis of Problems...............................................................................................4
+3. Assumptions and Symbols..............................................................................................5
+3. 1 Assumptions.............................................................................................................5
+3. 2 Notations..................................................................................................................5
+4. Model..............................................................................................................................8
+4. 1 Modeling the wind...................................................................................................8
+4.1.1 An overview of the wind field........................................................................... 8
+4.1.2 basic wind model............................................................................................... 8
+4.1.3 gust wind model.................................................................................................9
+4.1.4 Gradient wind model..........................................................................................9
+4.1.5 random wind model........................................................................................... 9
+4.1.6 Definition of maximum wind speed.................................................................. 9
+4.1.7 Calculation of wind force.................................................................................10
+4.2 Dynamics model of drone hovering........................................................................10
+4.2.1 The structure of the UAV................................................................................ 10
+4.2.2Necessary assumptions..................................................................................... 10
+4.2.3 Definition of transformation matrix.................................................................11
+4.2.4 Analysis of hover state.....................................................................................14
+4.2.5 Horizontal force analysis................................................................................. 15
+4.3 UAV control system............................................................................................... 16
+4.3.1 The overview of UAV control system.............................................................16
+
+Team#380
+Page 3 of 39
+4.3.2 The quantitative solution of UAV control system...........................................17
+5. Model Solving and Analysis.........................................................................................19
+5.1 Setting of relevant parameters................................................................................ 19
+5.1.1 Definition of UAV stability............................................................................. 19
+5.1.2 Air viscosity and air density............................................................................ 19
+5.1.3 The setting of UAV parameters....................................................................... 19
+5.2 Definition of change factor ............................................................................... 20
+5.3 Solution of maximum wind speed.......................................................................... 21
+5.4 Analysis of wind speed change factors...................................................................26
+6. Model evaluation and improvements............................................................................28
+6.1 Advantages..............................................................................................................28
+6.2 Disadvantages......................................................................................................... 29
+6. 3 Improvement..........................................................................................................29
+7. Conclusions...................................................................................................................30
+8. Reference...................................................................................................................... 31
+Appendix...........................................................................................................................32
+Main Code.........................................................................................................................32
+
+Team#380
+Page 4 of 39
+1. Introduction
+In recent years, UAVs(unmanned aerial vehicles) have been increasingly used in
+various fields. In particular, the quadcopter UAV is a popular multi-rotor UAV. With
+the advancement of modern technology, especially the rapid development of artificial
+intelligence technology, the future UAV industry application model has broad
+application prospects. However, in the process of performing missions in the air,
+UAVs are easily affected by wind and other factors, especially when hovering.
+Therefore, it is of great significance to study how UAVs are affected by wind during
+hovering flight.
+2. Restatement and Analysis of Problems
+2. 1 Restatement
+This paper studies the stability of a quad-rotor aircraft in the wind. The four-rotor
+UAV that we study has a mass of 1.5 kg and is driven by four rotors, each of which
+can generate up to 7 Newtons of thrust. Each center of the drone's rotors is 50 cm
+away from its center of mass, and arranged in a square. Our task is to determine a
+maximum wind speed where the drone can sustain within 20 cm away from the target
+location.
+2. 2 Analysis of Problems
+As the drone flies in the air, it will be disturbed by the wind from time to time.
+When the uav is exposed to the wind, its flying attitude will change. At this point, the
+drone's internal control system will sense this change through the drone's own sensors,
+and the drone will then make adjustments accordingly. There will be a delay between
+when the wind starts to kick in and when the drone adjusts. Our mission is to control
+the drone to move no more than 20 centimeters during that time. In other words, if the
+wind speed does not change, the uav will remain relatively stable by maintaining one
+attitude against the wind all the time. But the reality is that the wind speed is changing
+all the time, and the drone's reaction to the wind speed is also a reaction to the wind
+speed at the last moment. Therefore, in order to solve the problem, the wind speed and
+direction should be numerically simulated first.
+For the numerical signal of wind
+speed received by the UAV and the distance signal from the target position, the UAV
+can be controlled to respond to it, so that the UAV only dithers within a circle with a
+radius of 20cm. In addition, for the stable flight of UAV, the lift force strategies
+generated by the four wings of UAV against different winds are analyzed through
+knowledge of gas dynamics, so as to enable the UAV to fly stably under unstable
+winds.
+
+Team#380
+Page 5 of 39
+3. Assumptions and Symbols
+3. 1 Assumptions
+1) In order to simplify the problem and make the model fit the reality better,this
+paper regards the aircraft as a rigid body, and ignores its elastic deformation;
+2) Regarding the ground coordinate system as an inertial coordinate system to
+ignore the influence of the earth’s rotation and revolution on the aircraft;
+3) Referring to the reference, the data shows that the direction of the wind
+changes uniformly and slowly, so this paper assume sudden change barely occurs in a
+short time;
+4) The acceleration of gravity remains unchanged in the flying field of the
+aircraft;
+5) The shape and mass of the drone are X-symmetrical about its center;
+6) Ignore the ground effect and the curvature of the earth, and the influence of the
+rotation of the earth on the aircraft is not considered, and the acceleration of gravity is
+constant.
+3. 2 Notations
+Variables
+Explanations
+b
+V
+the average wind speed
+g
+V
+gust wind speed
+max
+g
+V
+peak gust wind speed
+1t
+the time when the gust began
+g
+T
+gust wind cycle
+r
+V
+gradient wind speed
+
+Team#380
+Page 6 of 39
+max
+r
+V
+peak speed of gradual wind
+1rt
+beginning time of the gradient wind
+2
+rt
+the ending time of the gradient wind
+vT
+the lasting time of the gradient wind
+n
+V
+speed of random wind
+max
+n
+V
+peak velocity of random wind
+)1,1
+(
+am
+R
+random number uniformly distributed between -1 and
+1
+n
+
+a random variable in
+s
+rad /
+2
+~
+5.0
+
+n
+
+a random variable in
+s
+rad /
+2
+~
+0
+
+G
+the force of gravity on the drone
+F
+the force generated by the four propellers of the drone
+f
+the force of the wind on the drone
+C
+air viscosity coefficient
+
+air mass density
+S
+the area of the top surface of the drone
+
+the angle between the UAV and the horizontal plane
+v
+wind speed
+y
+
+pitch angle
+
+Team#380
+Page 7 of 39
+p
+
+roll angle
+r
+
+yaw angle
+e
+b
+R
+the conversion matrix from the body coordinate
+system to the ground coordinate system
+
+the air density
+
+the angle between the drone plane and the horizontal
+plane
+)
+(t
+F
+the force required to adjust the flight state
+max
+x
+the maximum distance of the drone from the target
+max
+F
+maximum horizontal component of lift provided by
+the rotor of the drone
+
+Team#380
+Page 8 of 39
+4. Model
+4. 1 Modeling the wind
+4.1.1 An overview of the wind field
+Because the problem studied in this paper is to determine the maximum wind
+speed that the quad-rotor UAV can maintain stable, it is necessary to model the wind
+field. By reading related literature, the Von Karman turbulence model and Dryden
+model are commonly used to simulate atmospheric wind speed, but these two theories
+are more suitable for high-altitude wind fields. The flying height of quadcopter UAVs
+is generally in the ultra-low altitude range, and it is not suitable to use the Von
+Karman turbulence model and Dryden model to establish a wind field.
+Therefore, this paper uses a simple natural wind model to establish a wind field.
+The ultra-low altitude range naturally has a variety of characteristics such as
+suddenness, persistence, periodicity and uncertainty, so in accordance with these
+characteristics, the following four models are used to establish a wind field,which
+includes basic wind, gradient wind, gust wind and random wind respectively.
+Fig.1 The composition of the wind
+4.1.2 basic wind model
+The basic wind speed is used to describe the basic value of the wind force in the
+whole process, and the characteristics of the rest wind speed are superimposed on the
+basis of the basic wind speed. It represents the basic size of the wind force in the
+whole process, which is close to the average value of the wind speed. It has stable
+characteristics and is represented by the constant value k .
+k
+Vb 
+(1)
+Where,
+b
+V
+is the basic wind velocity, k is a constant.
+
+Team#380
+Page 9 of 39
+4.1.3 gust wind model
+Gust wind shows the instantaneity of wind, which is expressed by a trigonometric
+function. In this way, it can not only reflect the transient characteristics of gust, but
+also reflect its periodicity in a small period of time:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+)
+(,
+2
+cos
+1
+2
+)
+or
+(,0
+1
+1
+1
+max
+1
+1
+g
+g
+g
+g
+g
+T
+t
+t
+t
+T
+t
+t
+V
+T
+t
+t
+t
+t
+V
+
+(2)
+In the above equation,
+g
+V is the velocity of gust wind,and
+max
+r
+V
+is the velocity of
+gradient wind;
+1rt
+is the beginning time,while
+2
+rt
+is the ending time,and
+vT
+is the
+lasting time.
+4.1.4 Gradient wind model
+In the process of increasing or decreasing wind, we can use gradual wind to
+represent it, using a linear piecewise function:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+)
+(,
+)
+(,
+)
+or
+(,0
+2
+2
+2
+1
+1
+2
+1
+2
+1
+max
+max
+v
+r
+r
+r
+r
+r
+r
+r
+r
+r
+v
+r
+r
+r
+T
+t
+t
+t
+V
+t
+t
+t
+t
+t
+t
+t
+V
+T
+t
+t
+t
+t
+V
+(3)
+In this above equation,
+r
+V is the velocity of
+gradient wind；
+max
+r
+V
+is the peak
+velocity of
+gradient wind;
+1rt
+is the beginning time；
+2
+rt
+is the ending time；vT is the
+lasting time.
+4.1.5 random wind model
+The speed of random wind
+n
+V
+is used to describe the randomness of wind
+speed at flight altitude:
+)
+cos(
+)1,1
+(
+max
+n
+n
+am
+n
+n
+t
+R
+V
+V
+
+
+
+
+
+(4)
+In the above equation,
+n
+V is the velocity of random wind；
+max
+n
+V
+is the peak speed
+of the random wind；
+)1,1
+(
+am
+R
+is a uniformly distributed random number between -1
+and 1.
+4.1.6 Definition of maximum wind speed
+Based on the wind speed description in the above 4 parts, from equation (1) to
+equation (4), the simulated wind speed acting on the aircraft is:
+
+Team#380
+Page 10 of 39
+n
+r
+g
+b
+V
+V
+V
+V
+V
+
+
+
+
+(5)
+In the above equations,
+b
+V ,
+g
+V ,
+r
+V
+and
+n
+V
+respectively represent basic wind, gust
+wind, gradual wind, and random wind.
+From the restatement of the problem in Section 2.1, the problem to be solved in
+this article is that the quad-rotor UAV can maintain a stable maximum wind speed, so
+we define the expression of the maximum wind speed as:
+max
+max
+max
+max
+n
+r
+g
+b
+V
+V
+V
+V
+V
+
+
+
+
+(6)
+4.1.7 Calculation of wind force
+According to the data, the expression of wind force is
+2
+sin
+2
+1
+v
+S
+C
+f
+
+
+
+(7)
+Among them, C
+represents the viscosity coefficient of the air, 
+represents
+the air density,
+S represents the area of the drone plane,
+is the angle between the
+drone plane and the horizontal plane, and N represents the wind speed.
+4.2 Dynamics model of drone hovering
+4.2.1 The structure of the UAV
+There are two common four-rotor UAV flight structures, as shown in figure ().
+There is no essential difference in theoretical analysis between the two structures.
+Considering that there are more X-shaped structures in actual flight, this article uses X
+structure As the flying structure of a quadcopter UAV. In terms of control algorithms,
+although the X-type structure has a slightly larger algorithm complexity, it has the
+advantages of more flexible flight and faster response.
+According to the meaning of the question, each center of the rotor of the UAV in
+this paper is 50 centimeters away from its center of mass, arranged in a square, so this
+paper chooses X-type quadcopter aircraft for research.
+The four rotors of the four-rotor aircraft adopt a combination configuration of
+forward and reverse rotation, and a pair of adjacent rotors rotate in opposite directions,
+which mutually cancel the effect of anti-torque on the aircraft. As shown in the figure,
+the No. 1 and No. 3 rotors rotate counterclockwise, and the No. 2 and No. 4 rotors
+rotate counterclockwise. This configuration simplifies the structure of the quadcopter
+and makes it easy to realize its control technology.
+4.2.2Necessary assumptions
+
+Team#380
+Page 11 of 39
+The dynamic equation of the four-rotor UAV hovering can be derived by
+Newton-Euler formula. In order to facilitate the establishment of the model, it is
+necessary to omit or simplify the physical quantities that have less influence on the
+aircraft. Therefore, the following assumptions are made :
+a.
+Ignore the ground effect and the curvature of the earth, do not consider the
+influence of the earth's rotation on the aircraft, and the acceleration of gravity is
+constant.
+b.
+Regard the airframe structure and rotor as rigid bodies, ignoring the elastic
+deformation and vibration of the airframe.
+c.
+The four motors and propellers are installed symmetrically, and other parameters
+are the same except for the positive and negative polarities.
+d.
+The fuselage is symmetrical about each axis of the fuselage coordinate system,
+and the mass distribution of the fuselage is uniform and the center of mass
+coincides with the center of the shape.
+4.2.3 Definition of transformation matrix
+Establishment of ground coordinate system and airframe coordinate system[1].
+The ground coordinate system is used to study the motion state of the four-rotor
+aircraft relative to the ground, and to determine the spatial position of the airframe.
+According to the right-hand rule, this article selects the take-off location of the aircraft
+(the position before take-off initialized by the aircraft control system) as the origin of
+the coordinate system. The
+e
+X
+axis points to the geographic north, the
+eY
+axis
+points to the geographic east, and the
+e
+Z
+axis is perpendicular to the ground.
+The aircraft coordinate system is fixedly connected to the aircraft. The center of
+mass of the quad-rotor aircraft is taken as the origin. The longitudinal axis of
+symmetry after taking the weight of the aircraft is the Xb axis, and the front of the
+fuselage is the positive direction of the X axis; The lateral symmetry axis of the center
+is the Yb axis, and the right side of the fuselage is the positive direction of the Yb axis;
+and the definition of the Zb axis satisfies the right-hand rule, and the positive direction
+points to the top of the fuselage.
+
+Team#380
+Page 12 of 39
+Fig.2 The Change of Coordinate System
+The coordinate transformation from the ground coordinate system to the body
+coordinate system can be solved by the rotation matrix. The rotation matrix is defined
+below.
+]
+,
+,
+[
+3
+2
+1
+b
+b
+b
+R 
+(8)
+The rotation matrix has the following properties:
+3I
+R
+R
+RR
+T
+T
+
+
+(9)
+Where,
+3I
+is 3rd order identity matrix.
+Fig.3 rotating about the axis
+Through the attitude angle of the aircraft (pitch angle
+y
+, roll angle
+p
+, yaw
+angle
+r
+), the coordinate conversion matrix between the aircraft body coordinate
+system and the earth surface inertial coordinate system can be obtained, and the
+change from the earth surface inertial coordinate system to the body coordinate
+system can be obtained by Three-step rotation to complete [3].
+
+Team#380
+Page 13 of 39
+First, assuming that the airframe only has yaw motion, the conversion from the
+ground coordinate system to the airframe coordinates is a rotation change around the
+Z axis, as shown in Figure (3-a), the rotation matrix
+z
+R
+can be obtained:
+
+
+
+
+
+
+
+
+
+
+
+
+1
+0
+0
+0
+cos
+sin
+0
+sin
+cos
+y
+y
+y
+y
+z
+R
+
+
+
+
+(10)
+Next, assuming that the body only has pitching motion, the conversion from the
+ground coordinate system to the body coordinates is a rotation around the Y axis, as
+shown in Figure (3-b), the rotation matrix
+y
+R
+can be obtained:
+
+
+
+
+
+
+
+
+
+
+
+
+p
+p
+p
+p
+y
+R
+
+
+
+
+cos
+0
+sin
+0
+1
+0
+sin
+0
+cos
+(11)
+Then, assuming that the body only has rolling motion, the conversion from the
+ground coordinate system to the body coordinates is a rotation around the X axis, as
+shown in Figure (3-c), the rotation matrix can be obtained:
+
+
+
+
+
+
+
+
+
+
+
+
+r
+r
+r
+r
+x
+R
+
+
+
+
+cos
+sin
+0
+sin
+cos
+0
+0
+0
+1
+(12)
+And finally, the combination of these three hypotheses namely rotating about the
+Z ,Y , and X
+axis is the way to achieve the transformation of the ground coordinate
+system to the body coordinate system, which is denoted here as:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+r
+p
+r
+p
+y
+r
+y
+r
+p
+y
+r
+y
+r
+p
+r
+p
+y
+r
+y
+r
+p
+y
+r
+y
+p
+p
+y
+p
+y
+r
+x
+p
+y
+y
+z
+b
+e
+R
+R
+R
+R
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+cos
+cos
+cos
+sin
+sin
+sin
+cos
+cos
+sin
+cos
+sin
+sin
+sin
+cos
+sin
+sin
+sin
+cos
+cos
+sin
+sin
+cos
+cos
+sin
+sin
+cos
+sin
+cos
+cos
+)
+(
+)
+(
+)
+(
+(13)
+Using the properties of the rotation matrix, the conversion matrix
+e
+b
+R
+from the
+body coordinate system to the ground coordinate system can be obtained:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+r
+p
+r
+p
+y
+r
+y
+r
+p
+y
+r
+y
+r
+p
+r
+p
+y
+r
+y
+r
+p
+y
+r
+y
+p
+p
+y
+p
+y
+r
+x
+p
+y
+y
+z
+T
+e
+b
+e
+b
+e
+b
+R
+R
+R
+R
+R
+R
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+cos
+cos
+cos
+sin
+sin
+sin
+cos
+cos
+sin
+cos
+sin
+sin
+sin
+cos
+sin
+sin
+sin
+cos
+cos
+sin
+sin
+cos
+cos
+sin
+sin
+cos
+sin
+cos
+cos
+)
+(
+)
+(
+)
+(
+)
+(
+)
+(
+1
+(14)
+
+Team#380
+Page 14 of 39
+4.2.4 Analysis of hover state
+With regard to the research[4], the dynamics model of the quadcopter UAV has
+been well established. These studies are carried out under the assumption that the
+wind speed is zero. This article refers to their model and converts it into a dynamic
+model of a quadcopter drone hovering in the wind. The analysis is as follows.
+The force analysis of the quad-rotor UAV shows that there are three main sources
+of force acting on the aircraft: the gravity on the body, the combined external force
+generated by the rotation of each rotor of the quad-rotor, and the force of the wind,
+which are introduced below.
+The total lift force generated by the ith rotor is denoted as
+iF , and
+]
+7,0
+[
+
+iF
+(15)
+Next, calculate the total lift F generated by the rotor in the ground coordinate
+system and distribute it to each axis in the inertial coordinate system, and the
+component force of F on each axis:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4
+1
+4
+1
+)
+(
+cos
+cos
+cos
+sin
+sin
+sin
+cos
+cos
+sin
+cos
+sin
+sin
+)
+(
+1
+0
+0
+i
+i
+i
+r
+p
+r
+p
+y
+r
+y
+r
+p
+y
+r
+y
+i
+i
+i
+e
+b
+z
+y
+x
+t
+f
+F
+f
+F
+R
+F
+F
+F
+F
+
+
+
+
+
+
+
+
+
+
+
+
+(16)
+Among them,
+e
+b
+R
+is the conversion matrix from the body coordinate system to
+the ground coordinate system in the formula (13).
+The gravity experienced by the drone is:
+T
+g
+mg
+F
+]
+,0,0
+[
+
+(17)
+Calculated from the wind force in section 4.1.7, the air resistance of the drone is:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+z
+y
+x
+z
+y
+x
+v
+S
+C
+v
+S
+C
+v
+S
+C
+f
+f
+f
+v
+S
+C
+f
+2
+2
+2
+2
+sin
+2
+1
+sin
+2
+1
+sin
+2
+1
+sin
+2
+1
+
+
+
+
+
+
+
+
+(18)
+
+Team#380
+Page 15 of 39
+Combining formulas (16) to (18), the resultant force of the quadcopter UAV in
+linear translation can be obtained. Combining with Newton's second law, the linear
+motion equation of the body can be obtained as:
+g
+t
+e
+F
+f
+F
+V
+m
+
+
+
+
+(19)
+In the above formula, m is the total take-off mass of the four-rotor UAV, expand
+this formula to get:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mg
+v
+S
+C
+v
+S
+C
+v
+S
+C
+f
+F
+z
+y
+x
+m
+z
+y
+x
+i
+i
+i
+r
+p
+r
+p
+y
+r
+y
+r
+p
+y
+r
+y
+e
+e
+e
+0
+0
+sin
+2
+1
+sin
+2
+1
+sin
+2
+1
+)
+(
+cos
+cos
+cos
+sin
+sin
+sin
+cos
+cos
+sin
+cos
+sin
+sin
+2
+2
+2
+4
+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(20)
+After rearranging the above equation, we can get:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+g
+v
+S
+C
+f
+F
+m
+z
+v
+S
+C
+f
+F
+m
+y
+v
+S
+C
+f
+F
+m
+x
+i
+i
+i
+r
+p
+e
+y
+i
+i
+i
+r
+p
+y
+r
+y
+e
+i
+i
+i
+r
+p
+y
+r
+y
+e
+2
+4
+1
+2
+4
+1
+2
+4
+1
+sin
+2
+1
+)
+(
+)
+cos
+cos
+(
+1
+sin
+2
+1
+)
+(
+)
+cos
+sin
+sin
+sin
+cos
+(
+1
+sin
+2
+1
+)
+(
+)
+cos
+sin
+cos
+sin
+sin
+(
+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(21)
+4.2.5 Horizontal force analysis
+The quad-rotor drone is simplified into a mass point, as shown in the figure below,
+it is subjected to gravity G , the combined force generated by the four propellers F ,
+and the wind
+f
+on the drone.[5]
+Fig.4 Horizontal force analysis of UAV
+By consulting the reference, the expression of wind force is:
+
+Team#380
+Page 16 of 39
+2
+sin
+2
+1
+v
+S
+C
+f
+
+
+
+(22)
+Among them, C represents the viscosity coefficient of the air, 
+represents the
+air density, S
+represents the area of the drone plane,
+
+is the angle between the
+drone plane and the horizontal plane, and v represents the wind speed.
+Using Newtonian equations, we have:
+G
+F
+
+
+cos
+(23)
+ma
+f
+F
+
+
+
+sin
+(24)
+Among them, m
+represents the mass of the drone, and
+A
+represents the
+acceleration generated by the combined force received by the drone.
+With regard to formula(21),we can know that
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+g
+v
+S
+C
+f
+F
+m
+v
+S
+C
+f
+F
+m
+v
+S
+C
+f
+F
+m
+z
+y
+x
+a
+i
+i
+i
+r
+p
+y
+i
+i
+i
+r
+p
+y
+r
+y
+i
+i
+i
+r
+p
+y
+r
+y
+e
+e
+e
+2
+4
+1
+2
+4
+1
+2
+4
+1
+sin
+2
+1
+)
+(
+)
+cos
+cos
+(
+1
+sin
+2
+1
+)
+(
+)
+cos
+sin
+sin
+sin
+cos
+(
+1
+sin
+2
+1
+)
+(
+)
+cos
+sin
+cos
+sin
+sin
+(
+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(25)
+4.3 UAV control system
+4.3.1 The overview of UAV control system
+During the flight of the UAV, it needs to constantly adjust its flight attitude
+according to the changes in the wind to ensure that it can maintain balance in the air.
+Wind changes can be divided into wind direction changes and wind speed changes.
+We assume that in a very short period of time, only one of the wind speed and wind
+direction changes. In other words, this article assumes that when one of the speed or
+direction of the wind changes, the wind will not change the next time before the drone
+successfully adjusts its own state.
+Fig.5 Schematic diagram of drone feedback adjustment
+
+Team#380
+Page 17 of 39
+As shown in the figure above, the combined force of the force of the wind and the
+UAV's own lift makes the UAV produce an acceleration[6]. Under the action of the
+combined force, the speed and position coordinates of the drone are constantly
+changing. When the distance of the drone from the target position is close to the
+critical value, the drone's sensor device will detect the change of the position
+coordinate. Then, the UAV's control system will control the UAV's lift and adjust the
+UAV's motion state.
+Wind changes can be divided into wind direction changes and wind speed
+changes. For wind changes, if the wind speed does not reach the maximum wind
+speed, the wind changes can be divided into larger winds and smaller winds; changes
+in wind direction can be divided into changes in the horizontal plane and changes in
+the vertical plane. Study each situation separately to get the adjustment strategy of the
+UAV.
+Fig.6 Schematic diagram of UAV adjusting its flight status according to wind
+characteristics
+For changes in wind speed, when the wind speed increases, the force of the wind
+on the UAV becomes greater. The UAV needs to increase the rotation speed of the
+rotor to provide greater lift, so as to maintain balance; on the contrary, when the wind
+speed decreases, The force of wind on the UAV is reduced, and the UAV can reduce
+the rotation speed of the rotor to reduce the lift, so as to maintain balance.
+For the change of wind direction, when the wind direction changes in the
+horizontal plane, the drone can adjust the speed difference between the rotors.
+According to the working principle of the quadcopter drone, it can be known that
+there is a speed difference between the rotors of the drone. When the drone will roll or
+pitch. In this way, the angle of the drone can be adjusted to achieve a new balance
+while maintaining dynamic balance. When the direction of the drone changes in the
+vertical plane, the lift of the drone can be adjusted to ensure that the drone maintains a
+dynamic balance. In addition, when the wind direction changes in other angles, vector
+decomposition can be used to decompose the wind speed changes into the horizontal
+and vertical planes, and the corresponding adjustments can be made according to the
+above rules.
+4.3.2 The quantitative solution of UAV control system
+
+Team#380
+Page 18 of 39
+In the former section, the adjustment process of UAV is described qualitatively.
+In the actual process, the adjustment process of UAV needs to be solved
+quantitatively. After the UAV is subjected to a certain wind force, the UAV needs to
+adjust its flight state according to its own state and the size of the wind force through
+the lift provided by the rotor.
+The force analysis of the UAV can be obtained, the UAV receives the lift
+provided by the gravity, the rotor and the horizontal wind force. The maximum lift
+provided by the rotor is 28 Newtons. The maximum component of lift in the
+horizontal direction is shown in the
+following figure.
+Fig.7 The force analysis
+The maximum horizontal component of lift provided by the rotor of the drone can
+be obtained as:
+2
+2
+max
+lift
+wind
+F
+F
+F
+
+
+(26)
+The UAV needs to continuously determine the force
+)
+(t
+F
+required to adjust the
+flight state at this moment according to the wind speed and the magnitude of the wind
+force at the previous moment. Suppose that the position coordinate of the drone at this
+time is x , and the maximum distance of the drone from the target area is
+max
+x
+.
+If
+max
+)1
+(
+2
+F
+t
+f
+
+
+,then the adjustment force required by the drone at time t is:
+max
+*
+)1
+(
+)1
+(
+)
+(
+x
+x
+t
+f
+t
+f
+t
+F
+
+
+
+
+(27)
+Otherwise,if
+max
+)1
+(
+2
+F
+t
+f
+
+
+,then the adjustment force required by the drone at
+time t is:
+max
+max
+*
+)]
+1
+(
+[
+)1
+(
+)
+(
+x
+x
+t
+f
+F
+t
+f
+t
+F
+
+
+
+
+
+(28)
+
+Team#380
+Page 19 of 39
+5. Model Solving and Analysis
+5.1 Setting of relevant parameters
+5.1.1 Definition of UAV stability
+Fig.8 The stability space of UAV
+In order to make the UAV hover in the air and work normally, this article
+believes that the conditions for the UAV to stabilize are as follows:
+(1) Any action made by the UAV in the hovering state will not cause its
+displacement offset relative to the target center to exceed 20cm.
+(2) If the UAV can maintain conditions (1) within 60s, the UAV is considered
+stable
+5.1.2 Air viscosity and air density
+according to the reference, this paper sets the parameters in the formula (7) as
+follows:
+3.0
+
+C
+(29)
+3
+/
+225
+.1
+m
+kg
+
+
+(30)
+5.1.3 The setting of UAV parameters
+First of all, by consulting the information of the quadcopter UAV, this article sets
+the basic parameters of the UAV as shown in the table below.
+Table 1 The basic parameters of the UAV
+Type
+length（m）
+width（m）
+height（m）
+
+Team#380
+Page 20 of 39
+flight
+control
+board + battery
+0.30
+0.30
+0.10
+rack arm
+0.50
+0.05
+0.04
+propeller
+0.40
+0.04
+0.005
+Then,According to the figure below, define the windward area
+1S
+of the top
+surface and the windward area
+2
+S
+of the side
+Fig.9 Windward area of ​
+​
+top view and test chart
+Through simple mathematical knowledge of plane geometry,the following data is
+obtained:
+m
+S
+0583
+.0
+1 
+(31)
+m
+S
+6102
+.0
+2 
+(32)
+Finally,
+we set the wind speed sampling frequency of the quad-rotor UAV to
+5Hz, that is, the UAV's wind speed sensing module samples the outside wind speed
+every 0.2s.In addition,we set the control and adjustment time of the quad-rotor UAV
+to 0.2s, that is, after the UAV receives the input value of the wind speed sensor
+module, it takes 0.2s to adjust to the attitude of the wind speed value.
+5.2 Definition of change factor 
+
+is a value between 0 and 1, we call it the wind speed change factor, which is
+the amount that indicates how fast the wind speed changes in the natural world.
+The wind speed components in formulas (1),(2), (3), and (4) are shown as
+follows:
+
+Team#380
+Page 21 of 39
+Fig.10 The wind speed components change graph
+With regard to the research by E. Kuantama[2], the dynamics model of the
+quadcopter UAV has been well established. These studies are carried out under the
+assumption that the wind speed is zero. This article refers to their model and converts
+it into a dynamic model of a quadcopter drone hovering in the wind. The analysis is as
+follows.
+It can be seen from the figure that there is a definite functional relationship
+between gust and gradual wind over time, while random wind has uncertainty, and the
+mean value of random wind is zero, so the expression that defines the maximum wind
+speed is
+max
+max
+max
+r
+g
+b
+V
+V
+V
+V
+
+
+
+(33)
+However, there is a maximum value for random wind, which is
+Since gust and gradual wind are both components of the wind and have a definite
+functional relationship, this article believes that they have the same importance and
+make both equal to
+b
+V
+
+,i.e.
+b
+r
+g
+V
+V
+V
+
+
+
+max
+max
+(34)
+From the formulas (33) and (34), the maximum wind speed is
+b
+V
+V
+)
+2
+1(
+max
+
+
+
+(35)
+Next we will discuss the maximum wind speed factor and solve the maximum
+wind speed.
+5.3 Solution of maximum wind speed
+The wind in nature is random and constantly changing. In order to facilitate the
+study of the influence of wind speed change factors, the two random numbers of
+random wind in the formula (4) are set to be the same, and the start time of gust and
+
+Team#380
+Page 22 of 39
+gradual wind is set to be the same. Therefore, the trend of wind speed changes with
+time in the diagrams (11), (13) and (15) below are basically the same.
+The period of gust is
+s
+Tg
+10
+
+,the cycle of the gradient wind
+s
+Tr
+15
+
+.the
+analysis is as follows
+(1) If wind speed change factor
+5.0
+
+
+Let the basic wind increase from 0, look for the maximum wind speed, increase
+by 0.01m/s in each test, and get the basic wind speed as
+s
+m
+Vb
+/
+65
+.2
+
+, the wind
+speed reaches the maximum. If the wind speed continues to increase, the UAV does
+not meet the stability constraints in Section 5.1. The wind speed changes with time are
+shown in the figure (11) below.
+Fig.11
+Wind speed graph over time when Vb=2.65m/s
+The figure above represents the simulated wind speed. The peak value of the
+image is defined as
+Sim
+Vmax , which represents the maximum value of the simulated wind
+speed.
+The figure above shows a real-time simulation of wind speed, its peak is
+5.2994m/s,i.e.
+5.2994
+max 
+Sim
+V
+.
+Using the formula (35), the theoretical maximum wind speed is calculated as
+s
+m
+V
+V
+b
+/
+30
+.5
+65
+.2
+)
+5.0
+2
+1(
+)
+2
+1(
+max
+
+
+
+
+
+
+
+
+(36)
+From the results, we can see that
+max
+max
+V
+V Sim 
+,which indicates that the maximum
+wind speed model established in this paper accords with the reality.
+At this time, the offset distance from the center of the target when the quadcopter
+drone is hovering is shown in the figure below
+
+Team#380
+Page 23 of 39
+Fig.12 When Vb=2.65m/s,Variation diagram of UAV displacement offset
+As can be seen from the figure above, the quad-rotor UAV can stay within 20cm
+of the target center within 0~60s.
+The following shows the wind speed variation diagram and the displacement
+offset variation diagram of UAV when
+s
+m
+Vb
+/
+66
+.2
+
+.
+Fig.13
+Wind speed change graph when Vb=2.66m/s
+Fig.14 UAV displacement offset change diagram when Vb=2.66m/s
+
+Team#380
+Page 24 of 39
+It can be seen from the above figure that when the time increases to about 59s, the
+displacement offset of the UAV exceeds 20cm. We can draw a conclusion that We
+can draw a conclusion that if
+s
+m
+Vb
+/
+65
+.2
+
+,the corresponding maximum velocity
+max
+V
+is correct.
+(2) If wind speed change factor
+8.0
+
+
+,same as the method in (1), finding the
+basic wind corresponding to the maximum speed as
+m/s
+14
+.2
+
+b
+V
+,The variation of
+wind speed over time is shown in the figure below.
+Fig.15 Wind speed change diagram when the maximum wind speed is reached(ε=0.8)
+The peak in the above figure is 5.5375m/s i.e.
+5.5375m/s
+max 
+Sim
+V
+. Using the
+formula (35),the theoretical maximum wind speed is calculated as
+s
+m
+V
+V
+b
+/
+564
+.5
+14
+.2
+)
+8.0
+2
+1(
+)
+2
+1(
+max
+
+
+
+
+
+
+
+
+(37)
+From the results,we can draw a conclusion that
+max
+max
+V
+V Sim 
+.
+At this point, the distance from the target center offset in the hover state of the
+four-rotor UAV is shown in the figure below.
+
+Team#380
+Page 25 of 39
+Fig.16 variation diagram of displacement offset when the maximum wind speed critical
+is reached (ε=0.8)
+As can be seen from the above picture, the UAV can maintain a stable state
+within 60s.
+(3) If wind speed change factor
+2.0
+
+
+,same as the method in (1), finding the
+basic wind corresponding to the maximum speed as
+m/s
+91
+.3
+
+b
+V
+,The variation of
+wind speed over time is shown in the figure below.
+Fig.17Wind speed change diagram when the maximum wind speed is reached(ε=0.2)
+The peak in the above figure is 5.4619m/s,i.e.
+5.4619m/s
+max 
+Sim
+V
+.Under the
+circumstances,using formula (35), calculate the theoretical maximum wind speed is
+s
+m
+V
+V
+b
+/
+474
+.5
+91
+.3
+)
+2.0
+2
+1(
+)
+2
+1(
+max
+
+
+
+
+
+
+
+
+(38)
+From the results, we can draw a conclusion that
+max
+max
+V
+V Sim 
+.
+
+Team#380
+Page 26 of 39
+At this time, the offset distance from the center of the target when the quadcopter
+drone is hovering is shown in the figure below.
+Fig.18 variation diagram of displacement offset when the maximum wind speed critical
+is reached (ε=0.2)
+As can be seen from the above figure, the drone can maintain a stable state within
+60s.
+5.4 Analysis of wind speed change factors
+The variation factor of wind speed is taken as the independent variable, and the
+theoretical maximum wind speed
+max
+V
+simulation maximum wind speed
+Sim
+Vmax basic
+wind speed
+b
+V
+is taken as the dependent variable. Its variation relationship is shown
+in the figure below
+Fig.19 The variation relationship between factor and wind speed
+
+Team#380
+Page 27 of 39
+The analysis of the above figure is as follows: the abscissa represents the wind
+speed change factor, and the ordinate represents the basic wind speed of the maximum
+wind speed obtained by traversal under the condition of the wind speed change factor,
+which is represented by a black line. According to the formula (35), the theoretical
+maximum wind speed value is calculated and indicated by the red line. The green line
+represents the real-time change graph of the simulated wind speed.
+Since the greater the change factor, the greater the volatility of the wind speed,
+combined with the formula (35), the value of the fluctuating part
+b
+V
+
+2
+will become
+larger, and the maximum wind speed
+max
+V
+is constant, so
+b
+V
+gradually decreases
+with the increase of the change factor small.
+The theoretical maximum wind speed
+max
+V
+and the simulated maximum wind
+speed
+Sim
+Vmax in the figure (20) are very close. Enlarge the two as shown in the figure
+below
+Fig.20 The enlarged view of Fig.19
+The analysis of the above figure is as follows: With the increase of the wind
+speed change factor, the theoretical value and the simulated value of the maximum
+wind speed tend to be stable. Calculate the average value of the two under different
+change factors, and get
+s
+m
+V
+/
+3678
+.5
+max 
+,
+s
+m
+V Sim
+/
+3487
+.5
+max 
+Combining this result with the formulas (36), (37), (38) in Section 5.3, we know
+max
+max
+V
+V Sim 
+(39)
+The above conclusions show that the theoretical model of maximum wind speed
+established in this paper can fit the reality well and show the correctness of the model.
+5.5 interpretation of result
+
+Team#380
+Page 28 of 39
+Through the simulation of different wind speeds, this paper concludes that the
+maximum wind speed that the four-rotor UAV can maintain within 60s under the
+limit of not exceeding 20cm of the target center is: 5.2795m/s. At this time, when the
+basic wind speed of the wind is 2.65m/s, the maximum gust wind speed is 1.33m/s,
+the maximum gradual wind speed is 1.33m/s, the maximum random wind speed is
+0.66m/s, and the wind speed variation factor
+5.0
+
+
+.
+6. Model evaluation and improvements
+6.1 Advantages
+1. A wind model is established in this paper. The wind speed is decomposed into
+basic wind speed and disordered wind speed, which includes gust wind, gradual wind
+and random wind.
+In addition, the wind model is refined into 4 small parts, which can better reflect the
+authenticity of the model. At the same time, for the convenience of subsequent
+calculation, we designed the definition of maximum wind speed, and synthesized the
+4 small parts into maximum wind speed.
+1.1 The average value of wind speed is used to represent the basic wind, which
+reflects the stability of the basic wind.
+1.2 Use trigonometric function to represent the gust, which not only reflects the
+characteristics of the gust sometimes and sometimes, but also shows the periodicity of
+the time of the gust.
+1.3 The gradual wind is represented by the linear piecewise function, which can
+better reflect the gradual increase or decrease of wind force.
+1.4 Two random variables are introduced into the expression of random wind,
+which can better reflect the randomness of wind force.
+2. The numerical simulation model of unstable wind is established, and the
+variation of wind speed with time is given, which makes the wind speed close to the
+real wind and facilitates the calculation. In addition, the shaking condition of the
+UAV
+under unstable wind is given, and the variation of the distance of the UAV
+deviating from the target position with time is given.Finally, the expected value of the
+theoretical maximum wind speed and the average value of the simulated wind speed
+are calculated.
+3. In this paper, the ground coordinate system and the airborne coordinate system
+are established, and the rotation transformation matrix in the transformation process
+of the two coordinate systems is deduced to quantify the rotation process. Meanwhile,
+the form of the matrix can be easily understood and calculated by the computer, so as
+to improve the reaction speed of UAV.
+
+Team#380
+Page 29 of 39
+4. Based on the UAV sensing the wind speed at the last moment and simulating
+the relatively stable structure of the spring, the UAV's response mechanism is
+established. At the same time, the UAV's reaction time against wind speed changes is
+taken into account, which is more in line with the real situation. For example, when
+the drone is at a location close to the target, the adjustment space for the drone is
+relatively large. At this time, it is not necessary to use the maximum lift to adjust the
+attitude of the drone. On the basis of the wind speed, adjust the drone with a smaller
+lift and a smaller angle; when the drone is close to the critical distance from the target
+position, it is not only necessary to ensure that the drone will not leave the target
+beyond the specified distance Range, but also to ensure that the UAV can move to the
+target position to reduce the distance between the UAV and the target position. At this
+time, the UAV adjusts the angle to provide a larger lift.
+6.2 Disadvantages
+1. This model only studies the movement of the UAV under the horizontal action,
+but fails to study how the UAV moves when the wind direction changes. But in fact,
+the direction of the wind in nature changes at any time. When the drone is windy in
+the air, it is likely to receive the effect of wind from above or below. Except for the
+horizontal direction, this article does not make a quantitative study of wind in other
+directions. This model just qualitatively explains the wind in other directions.
+2. After the drone is affected by the wind, it should continuously adjust its
+posture according to the current wind direction as soon as possible, so as to achieve
+balance in the shortest possible time. Otherwise, the drone will be too far away from
+the target. The research process of the adjustment strategy of UAV in this paper is not
+sufficient. There is no quantitative description of how the drone adjusts itself under
+the action of wind. How to coordinate the four rotors to adjust the attitude of the
+drone;
+3. The research on the adjustment strategy of UAV in this article is not enough. In
+fact, when the wind changes, the UAV has different adjustment strategies for the
+same change in different positions. For example, when the drone is at a place close to
+the target, the adjustment space for the drone is relatively large. At this time, it is not
+necessary to use the maximum lift to adjust the attitude of the drone; When
+approaching the critical distance, it is necessary not only to ensure that the drone will
+not leave the target distance beyond the specified range, but also to ensure that the
+drone can move to the target position to reduce the distance between the drone and the
+target position.
+6. 3 Improvement
+In view of the shortcomings of the model analyzed above, this article can
+improve the model from the following aspects:
+In the process of modeling wind, the wind in different directions should be
+studied, not only the impact of horizontal wind on the drone, but also the effect of
+wind in the numerical plane on the drone. This paper has obtained a relatively
+sufficient horizontal wind model. We can continue to adjust the direction of the wind
+
+Team#380
+Page 30 of 39
+on the basis of the research in this article. For wind with an oblique direction,
+orthogonal decomposition can be used to decompose the wind speed into horizontal
+and vertical directions. Then we can study separately and make adjustment strategies.
+Quantitatively describe the adjustment strategy of the UAV. After the drone is
+exposed to the wind, it needs to be adjusted according to the direction and size of the
+wind. This process should be quantitative. In other words, after receiving a certain
+direction and a certain magnitude of wind, how the drone makes adjustments should
+be described quantitatively. The four rotors of the quadcopter drone must be fully
+coordinated to make adjustments. The maximum lift that any rotor can provide is 7
+Newtons. No rotor can exceed this upper limit.
+When making adjustment strategies,this paper caan be improved by considering
+the impact of the location of the drone on the specific adjustment strategy. UAVs
+have different adjustment strategies for the same changes in different positions. For
+example, when the drone is far away from the target position and is already close to
+the critical distance, not only must it be ensured that the drone does not leave the
+target distance beyond the specified range, but also that the drone can move to the
+target position to reduce The distance between the human and the machine to the
+target location. When the drone is at a place close to the target, the adjustment space
+of the drone is relatively large. At this time, it is not necessary to use the maximum
+lift to adjust the attitude of the drone. The flying attitude of the drone can be adjusted
+according to the characteristics of the spring. That is, the farther away from the target
+position, the greater the adjustment force of the drone.
+7. Conclusions
+In this paper, the stability of quadcopter UAV in wind is studied. In order to study
+the force of UAV in the air, the wind field model is first established in this paper. By
+analyzing the characteristics of wind in nature, the wind is divided into basic wind,
+gradual wind, gust wind and random wind.
+Each wind has different characteristics. These winds add up to the real wind in
+nature. Then, according to the characteristics of different winds, equations are
+established to describe them. The definition of maximum wind speed is given in this
+paper. By making a precise definition of maximum wind speed, it lays a foundation
+for the calculation in the following part.
+The dynamic model of the quadcopter UAV is also studied. For the convenience
+of research, the ground coordinate system and UAV body coordinate system are
+established in this paper, and the conversion formulas between different coordinate
+systems are given. By analyzing the hovering state of the UAV, the stress of the UAV
+is analyzed.
+Drones need to constantly adjust their posture to the wind. In this process, the
+maximum lift that the UAV's rotor can provide is limited, so this paper studies the
+unmanned flight control system. From a qualitative perspective, the flight control
+strategy of UAV can be divided into two situations: wind speed change and wind
+direction change.
+The two situations can be studied respectively to obtain the flight
+control strategy of UAV.
+By adjusting the lift force of UAV, the dynamic balance of
+
+Team#380
+Page 31 of 39
+UAV can be ensured. In addition, when the wind direction changes within other
+angles, the change of wind speed can be decomposed into horizontal and vertical
+planes through vector decomposition, and corresponding adjustments can be made.
+From a quantitative point of view, the UAV continuously adjusts its flight posture
+according to the wind force and various factors in previous moments. Therefore, this
+paper studies the quantitative flight adjustment of UAV by imitating the principle of
+spring.
+Finally, a series of simulation experiments are carried out in this paper. By
+attaching different values to the parameters, the maximum wind force that the UAV
+can withstand under different circumstances is calculated.
+8. Reference
+[1] Qi Yuexin, Design and implementation of control system for four-rotor UAV
+[D].Harbin Institute of Technology,2018.
+[2] Allison, S., Bai, H., & Jayaraman, B. (2020). Wind estimation using quadcopter
+motion: A machine learning approach. Aerospace Science and Technology, 98.
+[3] ZHENG Jiajing, LI Ping.Fault Tolerant Control of Actuator Additive Fault for
+quadcopter Using Sliding Mode Observer. Journal of Huaqiao University(Natural Science).
+2019;40(4):437-443. doi:10.11830/ISSN.1000-5013.201810019
+[4] S Bouabdallah, R Siegwart. Backstepping and sliding - mode techniques applied to
+an indoor micro quadrotor [C]. Proceedings of the 2005 IEEE Intermational Conference on.
+IEEE, 2005: 2247 -2252.
+[5] Derafa L , Benallegue A , Fridman L . Super twisting control algorithm for
+the attitude tracking of a four rotors UAV[J]. Journal of the Franklin Institute, 2012,
+349(2):685-699.
+[6] S. Salazar‐Cruz, Escareo J , Lara D , et al. Embedded control system for a
+four‐rotor UAV[J]. International Journal of Adaptive Control and Signal Processing,
+2007, 21(2‐3).
+
+Team#380
+Page 32 of 39
+Appendix
+Main Code
+fre=0.2;
+kk=fre/0.1;
+ss=zeros(1,100);
+Vmaxlilun=zeros(1,100);
+Vbs=zeros(1,100);
+Vmaxmoni=zeros(1,100);
+for s=1:100
+ss(s)=s/100;
+for V0=0:0.01:10
+dVmax=s/100*V0;
+Vb=V0;
+Vgmax=dVmax;
+t1=5;
+Tg=10;
+Vrmax=dVmax;
+tr1=8;
+Tv=15;
+Vnmax=dVmax/2;
+wn=0.2*pi;
+V=zeros(1,600/kk);
+rand('seed',1);
+r=rand(1,600/kk);
+r=(r-0.5)*2;
+
+Team#380
+Page 33 of 39
+tt=zeros(1,600/kk);
+Vg=zeros(1,600/kk);
+Vr=zeros(1,600/kk);
+Vn=zeros(1,600/kk);
+V=zeros(1,600/kk);
+for t=1:1:600/kk
+if (t/(10/kk)<t1 || (t/(10/kk)<(2*t1+Tg) && t/(10/kk)>t1+Tg) ||
+(t/(10/kk)<(3*t1+2*Tg) && t/(10/kk)>2*t1+2*Tg) ...
+|| (t/(10/kk)<(4*t1+3*Tg) && t/(10/kk)>3*t1+3*Tg))
+Vg(t)=0;
+else
+Vg(t)=Vgmax*sin(2*pi*(t/(10/kk)-t1)/Tg);
+end
+if (t/(10/kk)<tr1 || (t/(10/kk)<2*tr1+Tv && t/(10/kk)>tr1+Tv) ||
+(t/(10/kk)<3*tr1+2*Tv && t/(10/kk)>2*tr1+2*Tv))
+Vr(t)=0;
+elseif(tr1<=t/(10/kk) && t/(10/kk)<=tr1+0.5*Tv)
+Vr(t)=Vrmax*(t/(10/kk)-tr1)/(0.5*Tv);
+elseif(2*tr1+Tv<t/(10/kk) && t/(10/kk)<=2*tr1+1.5*Tv)
+Vr(t)=Vrmax*(t/(10/kk)-2*tr1-Tv)/(0.5*Tv);;
+elseif(3*tr1+2*Tv<t/(10/kk) && t/(10/kk)<=3*tr1+2.5*Tv)
+Vr(t)=Vrmax*(t/(10/kk)-3*tr1-2*Tv)/(0.5*Tv);;
+elseif(tr1+0.5*Tv<=t/(10/kk) && t/(10/kk)<=tr1+Tv)
+Vr(t)=Vrmax*(-t/(10/kk)+tr1+Tv)/(0.5*Tv);
+elseif(2*tr1+1.5*Tv<t/(10/kk) && t/(10/kk)<=2*tr1+2*Tv)
+
+Team#380
+Page 34 of 39
+Vr(t)=Vrmax*(-t/(10/kk)+2*tr1+2*Tv)/(0.5*Tv);;
+elseif(3*tr1+2.5*Tv<t/(10/kk) && t/(10/kk)<=3*tr1+3*Tv)
+Vr(t)=Vrmax*(-t/(10/kk)+3*tr1+2*Tv)/(0.5*Tv);;
+end
+Vn(t)=Vnmax*r(t)*cos(wn*t);
+V(t)=Vb+Vg(t)+Vr(t)+Vn(t);
+tt(t)=t/(10/kk);
+end
+%{
+plot(tt,V)
+xlabel('time
+(m/s)','FontName','Times New Roman','FontSize',15)
+ylabel('wind speed
+(m/s)','FontName','Times New Roman','FontSize',15)
+set(gca,'YLim',[0 max(V)]);
+%}
+S0=0.0583;
+S=0.6102;
+xpl=zeros(1,600/kk);
+vpl=zeros(1,600/kk);
+apl=zeros(1,600/kk);
+C=0.3;
+p=1.293;
+g=9.8;
+Fxmax=sqrt(28^2-(1.5*9.8)^2);
+sinamax=Fxmax/28;
+k=0;
+
+Team#380
+Page 35 of 39
+Fp1=0;
+sina=0;
+Ff=zeros(1,600/kk);
+for t=2:1:600/kk
+Ff(t)=1/2*C*p*(S0*sqrt(1-sina^2)+S*sina)*(V(t)-vpl(t))^2;
+sina=Ff(t)/sqrt(Ff(t)^2+Fp1^2)*sinamax;
+if (0<(xpl(t-1)) && (xpl(t-1))<0.2)
+Fp1=-Ff(t-1)-max(Ff)*xpl(t-1)/0.2;
+end
+if ((xpl(t-1)<=0) && -0.2<(xpl(t-1)))
+Fp1=-Ff(t-1)-max(Ff)*xpl(t-1)/0.2;
+end
+if (xpl(t-1)>=0.2)
+Fp1=-Fxmax;
+end
+if (xpl(t-1)<=-0.2)
+Fp1=Fxmax;
+end
+apl(t)=(Ff(t)+Fp1)/1.5;
+vpl(t)=vpl(t-1)+apl(t)*0.2;
+xpl(t)=xpl(t-1)+vpl(t)*0.2;
+if (abs(xpl(t))>0.2)
+k=1;
+
+Team#380
+Page 36 of 39
+end
+end
+if (k==1)
+Vmaxlilun(s)=(1+2*s/100)*V0;
+Vmaxmoni(s)=max(V);
+Vbs(s)=V0;
+break
+end
+end
+end
+plot(ss,Vmaxlilun,'r');
+hold on;
+plot(ss,Vmaxmoni,'g');
+%hold on;
+%plot(ss,Vbs,'k');
+legend('Theoretical maximum velocity','Simulated maximum speed');
+xlabel('Wind speed variation factor','FontName','Times New Roman','FontSize',15)
+ylabel('Wind speed (m/s)','FontName','Times New Roman','FontSize',15)
+set(gca,'YLim',[4.6 5.7]);
+%{
+plot(tt,xpl);
+xlabel('time (m/s)','FontName','Times New Roman','FontSize',15)
+ylabel('The length of the aircraft offset from the initial position(m)','FontName','Times
+New Roman','FontSize',15)
+set(gca,'YLim',[min(xpl)-0.05 max(xpl)+0.05]);
+%}
+
+Team#380
+Page 37 of 39
+Secondary code
+fre=0.2;
+kk=fre/0.1;
+s=0.5;
+for V0=2.65:0.01:2.66
+dVmax=s*V0;
+Vb=V0;
+Vgmax=dVmax;
+t1=5;
+Tg=10;
+Vrmax=dVmax;
+tr1=8;
+Tv=15;
+Vnmax=dVmax/2;
+wn=0.2*pi;
+V=zeros(1,600/kk);
+rand('seed',1);
+r=rand(1,600/kk);
+r=(r-0.5)*2;
+tt=zeros(1,600/kk);
+Vg=zeros(1,600/kk);
+Vr=zeros(1,600/kk);
+Vn=zeros(1,600/kk);
+V=zeros(1,600/kk);
+for t=1:1:600/kk
+
+Team#380
+Page 38 of 39
+if (t/(10/kk)<t1 || (t/(10/kk)<(2*t1+Tg) && t/(10/kk)>t1+Tg) ||
+(t/(10/kk)<(3*t1+2*Tg) && t/(10/kk)>2*t1+2*Tg) ...
+|| (t/(10/kk)<(4*t1+3*Tg) && t/(10/kk)>3*t1+3*Tg))
+Vg(t)=0;
+else
+Vg(t)=Vgmax*sin(2*pi*(t/(10/kk)-t1)/Tg);
+end
+if (t/(10/kk)<tr1 || (t/(10/kk)<2*tr1+Tv && t/(10/kk)>tr1+Tv) ||
+(t/(10/kk)<3*tr1+2*Tv && t/(10/kk)>2*tr1+2*Tv))
+Vr(t)=0;
+elseif(tr1<=t/(10/kk) && t/(10/kk)<=tr1+0.5*Tv)
+Vr(t)=Vrmax*(t/(10/kk)-tr1)/(0.5*Tv);
+elseif(2*tr1+Tv<t/(10/kk) && t/(10/kk)<=2*tr1+1.5*Tv)
+Vr(t)=Vrmax*(t/(10/kk)-2*tr1-Tv)/(0.5*Tv);;
+elseif(3*tr1+2*Tv<t/(10/kk) && t/(10/kk)<=3*tr1+2.5*Tv)
+Vr(t)=Vrmax*(t/(10/kk)-3*tr1-2*Tv)/(0.5*Tv);;
+elseif(tr1+0.5*Tv<=t/(10/kk) && t/(10/kk)<=tr1+Tv)
+Vr(t)=Vrmax*(-t/(10/kk)+tr1+Tv)/(0.5*Tv);
+elseif(2*tr1+1.5*Tv<t/(10/kk) && t/(10/kk)<=2*tr1+2*Tv)
+Vr(t)=Vrmax*(-t/(10/kk)+2*tr1+2*Tv)/(0.5*Tv);;
+elseif(3*tr1+2.5*Tv<t/(10/kk) && t/(10/kk)<=3*tr1+3*Tv)
+Vr(t)=Vrmax*(-t/(10/kk)+3*tr1+2*Tv)/(0.5*Tv);;
+end
+Vn(t)=Vnmax*r(t)*cos(wn*t);
+V(t)=Vb+Vg(t)+Vr(t)+Vn(t);
+
+Team#380
+Page 39 of 39
+tt(t)=t/(10/kk);
+end
+p1=plot(tt,Vb,'b');
+hold on;
+p2=plot(tt,Vr,'r');
+hold on;
+p3=plot(tt,Vg,'g');
+hold on;
+p4=plot(tt,Vn,'k');
+legend([p1(1),p2(1),p3(1),p4(1)],'Basic wind','Gradient wind','Gust of wind','Random
+wind')
+xlabel('time
+(s)','FontName','Times New Roman','FontSize',15)
+ylabel('wind speed
+(m/s)','FontName','Times New Roman','FontSize',15)
