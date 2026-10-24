@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2016 题A：核废料太空处置（Reactor Waste Disposal）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2016_%E9%A2%98A_%E6%A0%B8%E5%BA%9F%E6%96%99%E5%A4%AA%E7%A9%BA%E5%A4%84%E7%BD%AE.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2016-areactor-waste-disposal">2016 题A：核废料太空处置（Reactor Waste Disposal）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2016-题a核废料太空处置reactor-waste-disposal">2016 题A：核废料太空处置（Reactor Waste Disposal）</h1>
 <blockquote>
 <p>赛题来源：UPC 2016 Problem A（当年 197 队中 146 队选题 A，金奖 2 队：多伦多大学 331 队、巴塞罗那自治大学 412 队）</p>
 </blockquote>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <p><strong>原文压缩引用</strong>：</p>
 <blockquote>
 <p>The disposal of radioactive waste is a serious problem... One solution proposed is to launch the waste into space, with the idea of either destroying the waste by allowing it to fall into the sun, or simply having it take up an orbit in the asteroid belt where the radioactive waste products would eventually decay. <strong>Make a comparison of these two methods. Which method would be easier to implement? How long could the waste be safely stored in the asteroid belt?</strong></p>
@@ -98,14 +115,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <ol>
 <li><strong>"easier to implement" 的判据链</strong>：开放式比较必须先选"统一货币"。标准译法是 $\Delta v\to$ 火箭方程 $\to$ 单枚有效载荷 $\to$ 发射次数 $\to$ 总成本，五级贯通——只停在 $\Delta v$ 层会丢掉"工程实现"的分。</li>
 <li><strong>"safely stored how long" 的时钟是什么</strong>：题面暗示"等放射性衰变完"，但贫铀半衰期是十亿年量级——<strong>衰变不是限制，轨道稳定性与撞击风险才是</strong>。把这个问题翻译成：主带轨道能否稳定存放到"放射性已无关紧要"的时标（$\gtrsim10^5$ a）？被撞击、被弹回地球的概率多小？安全论证必须给"危险阈值"变成不等式判断。</li>
 <li><strong>隐藏的第三问</strong>：坠日方案的"销毁"价值本身就是伪命题——裂变产物在任何地方都会衰变，太阳不提供额外销毁价值，只提供 $\Delta v$ 账单。点破这一点是评委眼中的物理成熟度标志。</li>
 <li><strong>隐藏方案空间</strong>：由 $\Delta v(d)$ 曲线的渐近线（=太阳系逃逸速度）会自然发现"直接逃逸出太阳系比坠日更省"——比较题里从数据形态反哺出第三方案是高分动作。</li>
 </ol>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1：轨道力学基线（Vis-Viva 一把梭）</strong></p>
 <p>$v(r,a)=\sqrt{GM_\odot(2/r-1/a)}$ 是全文发动机。全部自 1 AU 圆轨道（借用地球公转速度）起算：</p>
 <ul>
@@ -130,7 +147,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
     I --&gt; K
     J --&gt; K
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <table>
 <thead>
 <tr>
@@ -197,14 +214,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>解析为主</strong>：全部轨道量有闭式（Vis-Viva/Hohmann），唯一必须"算给评委看"的曲线是 $\Delta v$ 随二次点火距离 $d$ 的单调下降曲线——<strong>务必标注其渐近线 = 12.3 km/s</strong>，它是自检也是亮点。</li>
 <li><strong>概率部分</strong>：优先用真实小行星数据库（JPL Small-Body Database，数万条）逐条算 $\sum A_kv_k/V$，再按 Poisson/指数分布外推到题目时标；没有数据时用"数量-尺寸幂律"合成，并声明保守性。</li>
 <li><strong>验证手段</strong>：① Hohmann 数值与已知基准对拍（1→2.7 AU 圆化 ≈ 11 km/s）；② 撞击累积 $\Delta v$ 与回流阈值的不等式闭环；③ 火箭方程简化（忽略级间损失）对两方案的偏置相同 → 相对结论不变。</li>
 <li><strong>陷阱</strong>：单位（AU vs m）混算；截面用包裹尺寸而非小行星尺寸（差 5 个量级）；椭圆存放轨道忘记它会周期性穿越火星轨道；发射失败率是两方案共同项应显式约掉而不是选择性使用。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li><strong>忘了抵消地球公转速度</strong>：直接说"掉向太阳只要松手"——坠日的本质是消灭 29.8 km/s 切向速度，漏掉这一步结论直接反转。</li>
 <li><strong>把"能存多久"答成半衰期</strong>：只算放射性不管轨道力学（或反之），两头都不闭环；正确结构是"衰变前提 → 撞击时钟 → 阈值不等式"。</li>
@@ -212,19 +229,19 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>只算单次发射</strong>：不清运全球 $\sim4.5\times10^5$ 吨存量，"easier to implement"没有工程落点；给出总发射次数与成本（百万亿美元量级）才有冲击力。</li>
 <li><strong>忽略容器质量</strong>：无屏蔽的废料"载荷"毫无意义，铅屏蔽是载荷的大头。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>NASA 1974 年《Extraterrestrial Disposal of Radioactive Wastes》可行性研究</strong>（<a href="https://ntrs.nasa.gov/api/citations/19740014663/downloads/19740014663.pdf">NTRS</a>）——AEC 委托 NASA 的官方空间处置研究，可作"该问题被严肃研究过"的引用锚点。</li>
 <li><strong>美国能源部《3 reasons why we don't launch nuclear waste into space》</strong>（<a href="https://www.energy.gov/ne/articles/3-reasons-why-we-dont-launch-nuclear-waste-space">energy.gov</a>）——官方给出的三理由（成本、发射失败散布风险、瞄准精度），可直接对照自己的结论。</li>
 <li><strong>IAEA 全球乏燃料地图（2026）</strong>（<a href="http://www.iaea.org/newscenter/news/iaea-releases-first-public-tool-to-map-the-worlds-spent-nuclear-fuel">iaea.org</a>）——全球存量 $\approx44.8$ 万吨重金属、年增 $\approx9$ 千吨，是把"清运多久/多少发射"落到真实数字的最佳来源。</li>
 <li><strong>The Space Review 2005《Launching the dead：space disposal of nuclear waste》</strong>（<a href="https://www.thespacereview.com/article/437/1">thespacereview.com</a>）——从政策与安全角度论证空间处置"可行但不划算"，可作讨论节素材。</li>
 </ol>
-<h2 id="8">8. 金牌论文思路对比</h2>
+<h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
 <li><strong>331 队（多伦多，16 页）</strong>：以 $\Delta v$ 为统一货币做全链路对比，从 $\Delta v(d)$ 渐近线挖出"逃逸更省"的第三方案；用 JPL 数据库 5 万+ 真实小行星建 Poisson 撞击模型（千年撞击概率 $10^{-6}$、十亿年累积 $\Delta v=2115$ m/s &lt; 4000 m/s 阈值）回答存放时长；最后用 Saturn V + 铅容器算出 4.5×10⁵ 次发射、超 500 万亿美元。详见 <code>05_论文赏析\2016\2016-GM-A-331.md</code>。</li>
 <li><strong>412 队（巴塞罗那，23 页）</strong>：先横向筛选六种目的地再收敛到"日心轨道最优"；确定性部分用自适应 RKF45 在太阳+木星+地球多体场中真实打靶（含 L4/L5 拉格朗日点方案与相位旋转矩阵）；随机性部分建四套风险模型并以"有效污染面积 $S_{eff}$"统一量纲，结论存带可安全存放 Pu-239 衰减所需 25 万年。详见 <code>05_论文赏析\2016\2016-GM-A-412.md</code>。</li>
 </ul>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 坠日 $\Delta v$ 正确包含"抵消地球公转速度"（26.9 km/s 日心口径），并明示与存带方案（≈11 km/s）的对比。</li>
 <li>[ ] 有一张 $\Delta v$–距离曲线并解读其渐近线（=逃逸速度），引出逃逸第三方案。</li>
@@ -234,7 +251,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>[ ] 所有自取常数注明来源，结论附"对简化假设不敏感"的论证。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌论文思路对比">8. 金牌论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -246,6 +266,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

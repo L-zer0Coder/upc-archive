@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2014 题A：环双星行星（Circumbinary Planets）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2014_%E9%A2%98A_%E7%8E%AF%E5%8F%8C%E6%98%9F%E8%A1%8C%E6%98%9F.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2014-acircumbinary-planets">2014 题A：环双星行星（Circumbinary Planets）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2014-题a环双星行星circumbinary-planets">2014 题A：环双星行星（Circumbinary Planets）</h1>
 <blockquote>
 <p>赛题来源：UPC 2014 Problem A（131 队中 93 队选题 A，金奖 1 队：Jacobs University Bremen 726 队）</p>
 </blockquote>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <p><strong>原文压缩引用</strong>：</p>
 <blockquote>
 <p>Consider two stars, one with 50% of the mass of our Sun and one equal in mass to our Sun. This binary star system has an orbital period of 30 Earth days. <strong>Where could a planet have a stable orbit in this system? Describe the possible stable planetary orbits.</strong></p>
@@ -99,14 +116,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tbody>
 </table>
 <p>由开普勒第三定律反推（本解读独立计算）：$a_{bin}=\left[\dfrac{G(M_1+M_2)T_{bin}^2}{4\pi^2}\right]^{1/3}=0.216\ {\rm AU}\approx46.5\,R_\odot$；两星到质心距离 $a_1=\frac{M_2}{M_1+M_2}a_{bin}=0.072$ AU（15.5 $R_\odot$）、$a_2=0.144$ AU（31 $R_\odot$）。间距 46.5 $R_\odot$ 远大于两星半径之和，是分离双星——行星活动空间完全敞开。</p>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <p>本题是典型的"零判据开放题"，三个模糊词必须先操作化：</p>
 <ol>
 <li><strong>"stable" 怎么编码</strong>：三体问题无解析解，"稳定"必须写成可判定的数值判据。建议三要素：(i) 能量束缚——行星相对双星的能量 $\frac12\dot r^2-\frac{GM_1}{|\vec r-\vec r_1(t)|}-\frac{GM_2}{|\vec r-\vec r_2(t)|}&lt;0$；(ii) 生存——从未进入恒星表面（处理 $r\to0$ 奇点）；(iii) 时长——积分多久才算数（10 年远远不够，见第 5 节反例）。</li>
 <li><strong>"Where could" 的答案形态</strong>：不是一条圆轨道，而是 $(r_0,v_0)$ 二维初值平面上的稳定带状区域（椭圆轨道也算），且带边要有物理解释。此外题目没有限定绕双星：<strong>绕双星的 P 型轨道与绕单星的 S 型轨道</strong>两类拓扑都应覆盖——绝大多数队伍只答了前者。</li>
 <li><strong>"Describe the possible orbits"</strong>：描述 = 稳定带 + 边界成因（上界是逃逸速度曲线、下界是共振与撞星）+ 隐藏参数（偏心率）的敏感性 + 可选的宜居带闭环。</li>
 </ol>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1：双星解析骨架</strong>。开普勒第三定律 $T_{bin}^2=4\pi^2a_{bin}^3/[G(M_1+M_2)]$ 定间距；质心加权分配 $a_1,a_2$；圆轨道参数化 $\vec r_i(t)=a_i(\cos\omega t,\sin\omega t)$，偏心轨道加 $\sqrt{1-\varepsilon^2}$ 压缩与质心回位修正。此层产出随时间运动的"引力源坐标"。</p>
 <p><strong>层次 2：受限三体数值实验</strong>。行星取 test particle：$\ddot{\vec r}=-GM_1\dfrac{\vec r-\vec r_1(t)}{|\vec r-\vec r_1|^3}-GM_2\dfrac{\vec r-\vec r_2(t)}{|\vec r-\vec r_2|^3}$；在 $(r_0,v_0)$ 平面栅格化扫参，按第 2 节判据标稳定/不稳定。</p>
 <p><strong>层次 3：可选扩展</strong>。双星偏心率扫描；S 型稳定窗口（与 Holman–Wiegert 经验式对照）；宜居带闭环——质光关系 $L\propto M^4$ 给总光度 $1+0.5^4\approx1.06\,L_\odot$，宜居带约 1.05–1.36 AU，检查其是否落在稳定带内。</p>
@@ -123,7 +140,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
     I --&gt; K[&quot;闭环：宜居带 1.05–1.36 AU 是否 ⊂ 稳定带&quot;]
     J --&gt; K
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <table>
 <thead>
 <tr>
@@ -196,7 +213,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>两级扫参</strong>：短时长全扫（如 50 个半径 × 150 个初速，积分 10 年）→ 把稳定域缩窗后做 1000 年长积分复核边界。算力与结论强度兼得。</li>
 <li><strong>积分器</strong>：自适应 RK45 或辛积分器（leapfrog 能量长期漂移小）；步长 $\le T_{bin}/100\approx7$ 小时；全程监测能量相对漂移。</li>
@@ -204,7 +221,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>撞星处理</strong>：事件停止（$r&lt;R_\star$ 即判死）或金奖的 sigmoid 排斥场连续化，切勿让 $1/r^2$ 奇点炸掉积分器。</li>
 <li><strong>验证</strong>：负对照——把双星退化为单点质量应复现开普勒椭圆；反例搜索——对边缘"稳定"样本加长积分抓晚期坠星。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li><strong>不定标 $a_{bin}$</strong>：不用 30 天反推 0.216 AU 就开始撒点，全部结论失去锚点。</li>
 <li><strong>只扫半径不扫初速</strong>：稳定区是 $(r_0,v_0)$ 二维带，上边界是逃逸速度曲线；只报一个"最小稳定半径"丢掉一半信息。</li>
@@ -213,15 +230,15 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>只答 P 型</strong>：绕单星 S 型窗口（0.05–0.07 AU 量级）是题目复数表述明示的另一半答案。</li>
 <li><strong>宜居带与稳定性两张皮</strong>：算出宜居带却不检查其是否落在稳定带内，闭环断裂、白送的分不要。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>Holman &amp; Wiegert 1999</strong>（<a href="http://ui.adsabs.harvard.edu/abs/1999AJ....117..621H/abstract">ADS</a>）——环双星（P 型）与绕单星（S 型）临界稳定半径的经典经验公式，是给自主数值扫描"对答案"的基准线。</li>
 <li><strong>Kepler-16 系统</strong>（<a href="https://en.wikipedia.org/wiki/Kepler-16">Wikipedia</a>、<a href="https://science.nasa.gov/exoplanet-catalog/kepler-16b">NASA 系外行星目录</a>）——首个真实环双星行星：0.69+0.20 $M_\odot$、双星周期 41 天、行星在 0.704 AU，恰好压在 HW 判据（0.645 AU）之外——说明本题 0.5–0.6 AU 量级的答案与真实宇宙自洽，写进论文极有说服力。</li>
 <li><strong>Lam &amp; Kipping 2018</strong>（<a href="https://academic.oup.com/mnras/article/476/4/5692/4795319">MNRAS</a>）——用深度神经网络拟合环双星稳定边界，可作"经验判据 vs 自主数值实验"的方法论对照。</li>
 </ol>
-<h2 id="8">8. 金奖论文思路对比</h2>
+<h2 id="8-金奖论文思路对比">8. 金奖论文思路对比</h2>
 <p>本题金奖唯一一队（Jacobs University Bremen 726 队，25 页）：开普勒 III 定 $a_{bin}$ → $(r_0,v_0)$ 相空间 50×150 扫参、Mathematica NDSolve 积分 10 年 → 缩域积分 1000 年 → 判据"能量束缚 + 不入恒星半径"（附录用 sigmoid 排斥场把撞星连续化）→ 给出 $\varepsilon=0/0.4/0.6$ 三组稳定带，最小稳定半径约 0.6 AU → 附加宜居带分析（$L\propto M^4$、通量判据 1.05–1.36 AU，落在稳定带内闭环）。最大亮点是"短全扫 + 长缩域"的两级实验设计，以及图 15 主动展示"10 年判稳、326 年坠星"的反例——把判据的时长敏感性自己捅破，评委最吃这一套。详细拆解见 <code>05_论文赏析\2014\2014-GM-A-726.md</code>。</p>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 用 30 天周期定标 $a_{bin}$，并画出双星几何（$a_1,a_2$、分离系统判定）。</li>
 <li>[ ] "稳定"判据书面化、可编码：束缚 + 不撞星 + 积分时长三要素缺一不可。</li>
@@ -231,7 +248,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>[ ] 超出最低要求的闭环层：S 型窗口或"宜居带 ∩ 稳定带"。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金奖论文思路对比">8. 金奖论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -243,6 +263,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

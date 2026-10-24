@@ -56,8 +56,10 @@ def link_from(page_dir_abs, target_abs):
     return quote(href)
 
 # ---------------- render doc pages ----------------
+from markdown.extensions.toc import slugify_unicode   # keep CJK in heading ids (#中文锚点)
 MD = markdown.Markdown(extensions=["tables", "fenced_code", "toc", "sane_lists"],
-                       output_format="html5")
+                       output_format="html5",
+                       extension_configs={"toc": {"slugify": slugify_unicode}})
 
 DOC_TPL = """<!DOCTYPE html>
 <html lang="zh-CN">
@@ -76,16 +78,18 @@ DOC_TPL = """<!DOCTYPE html>
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -100,21 +104,39 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="__HOME__">🏆 总览首页</a>
-  <span class="crumb">__CRUMB__</span>
+  <span class="crumb">__CRUMB__ · __TITLE__</span>
   <span style="flex:1"></span>
   __PAPERTAG__
   <a href="__RAWMD__">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
+<div class="layout">
+  <div class="content"><div class="card">
 __BODY__
 </div></div>
+__TOC__
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -127,10 +149,58 @@ document.addEventListener("DOMContentLoaded", function(){
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
   }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
 });
 </script>
 </body>
 </html>"""
+
+def toc_html(md_obj):
+    """render nested <ul> from python-markdown toc tokens (h2/h3 only)"""
+    def walk(tokens, out, depth):
+        for t in tokens:
+            if t["level"] == 1 and t["children"]:
+                walk(t["children"], out, depth)   # skip the h1 itself
+                continue
+            if t["level"] in (2, 3):
+                out.append(f'<li class="l{t["level"]}"><a href="#{t["id"]}">{t["name"]}</a></li>')
+            if t.get("children"):
+                walk(t["children"], out, depth + 1)
+    out = []
+    walk(md_obj.toc_tokens, out, 0)
+    if not out:
+        return ""
+    return ('<aside class="toc"><div class="tt">📑 本页目录</div><ul>'
+            + "".join(out) + "</ul></aside>")
 
 MATH_RE = re.compile(r"\$\$.*?(?:\$\$|\n\n)|\$[^$\n]+?\$", re.S)
 TOK = "MATHPH{:06d}ENDPH"
@@ -183,7 +253,8 @@ def render_docs():
                 papertag = f'<a href="{link_from(page_dir, pdf)}">📄 论文 PDF</a>'
         page_html = (DOC_TPL.replace("__TITLE__", title).replace("__CRUMB__", crumb)
                      .replace("__HOME__", home).replace("__RAWMD__", raw)
-                     .replace("__PAPERTAG__", papertag).replace("__BODY__", body))
+                     .replace("__PAPERTAG__", papertag).replace("__BODY__", body)
+                     .replace("__TOC__", toc_html(MD)))
         os.makedirs(page_dir, exist_ok=True)
         with open(html_abs, "w", encoding="utf-8") as f:
             f.write(page_html)

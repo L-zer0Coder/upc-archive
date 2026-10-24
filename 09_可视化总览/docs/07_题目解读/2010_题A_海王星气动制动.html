@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,20 +41,35 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2010 题A：海王星飞船气动制动（Aerobraking a Space Probe at Neptune）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2010_%E9%A2%98A_%E6%B5%B7%E7%8E%8B%E6%98%9F%E6%B0%94%E5%8A%A8%E5%88%B6%E5%8A%A8.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2010-aaerobraking-a-space-probe-at-neptune">2010 题A：海王星飞船气动制动（Aerobraking a Space Probe at Neptune）</h1>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2010-题a海王星飞船气动制动aerobraking-a-space-probe-at-neptune">2010 题A：海王星飞船气动制动（Aerobraking a Space Probe at Neptune）</h1>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <blockquote>
 <p>原题（压缩）：In order to enter a circular orbit around another planet, a spacecraft must change its trajectory upon arrival... Consider a 2,500 kg spacecraft to be sent to the planet Neptune, arriving at a speed of 30 km/s. <strong>How much margin of error would be allowed in designing a trajectory through the outer atmosphere of Neptune which would save a significant amount of fuel?</strong></p>
 </blockquote>
@@ -104,7 +121,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <p>本题有三个必须自己钉死的模糊点，每一个都是评分点：</p>
 <ol>
 <li><strong>"arriving at a speed of 30 km/s"在哪个半径？</strong> 无穷远处的 $v_\infty$、大气顶速度、还是近心点速度，差着好几 km/s。金牌队取<strong>大气边界 $R_{\rm atm}$ 处速度 = 30 km/s</strong>，并在摘要开头就定义 $R_N, R_{\rm atm}$。你必须声明取法。</li>
@@ -113,7 +130,7 @@ $$15.38\ \mathrm{km/s} = v_{\min} \le v_e \le v_{\max} = 17.38\ \mathrm{km/s}.$$
 <li><strong>"margin of error"</strong> 是最终交付物：可操作化为<strong>大气入射掠射角 $\theta$ 的可行窗口</strong> $\Delta\theta=\theta_{\max}-\theta_{\min}$（也可补充近地点高度窗）。金牌队答案：$\Delta\theta\approx 0.0253^\circ$，并据此给出"不建议采用"的工程结论。</li>
 </ol>
 <p>判据链：燃耗预算 → 出口速度带 → 入射角窗口。先把链搭出来，再逐环计算。</p>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1（理想基准，解析）</strong>：无大气二体轨道 + 火箭方程。比机械能 $E=\tfrac12 v_0^2-\mu/R_{\rm atm}\approx1.8\times10^8\ \mathrm{J/kg}&gt;0$，轨道为双曲线；圆轨道速度 $v_f=\sqrt{\mu/R_{\rm atm}}\approx16.4$ km/s；纯火箭捕获需 $\Delta v\approx13.6$ km/s，$m_f/m_0=e^{-13.6/4.5}\approx0.048$，即 <strong>95% 燃耗</strong>——这就是气动制动的"性价比基准"，先算它，后文一切讨论才有参照。</p>
 <p><strong>层次 2（大气内受力模型，数值）</strong>：万有引力 + 平方阻力，
 $$m\ddot{\vec r}=-\frac{GMm}{r^3}\vec r-\frac12 C_d \rho(h) A\, v\,\vec v .$$
@@ -134,7 +151,7 @@ $$m\ddot{\vec r}=-\frac{GMm}{r^3}\vec r-\frac12 C_d \rho(h) A\, v\,\vec v .$$
     I --&gt; J
     J --&gt; K[&quot;窗口宽度 = margin of error&lt;br/&gt;≈0.025°&quot;]
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <p>每条都给出算法，供读者复算：</p>
 <table>
 <thead>
@@ -209,7 +226,7 @@ $$m\ddot{\vec r}=-\frac{GMm}{r^3}\vec r-\frac12 C_d \rho(h) A\, v\,\vec v .$$
 </tbody>
 </table>
 <p><strong>核心直觉</strong>：窗口窄不是因为模型娇气，而是因为<strong>指数大气 + 掠射几何的二次放大</strong>——入射角每偏 0.001°，近地点深约 0.1 km，而每深入一个标高（37 km）峰值密度乘 $e$。0.025° 的窗口是物理结果，不是数值噪声。</p>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>积分器</strong>：RK4 足够；金牌队用 $\Delta t=0.001$ s 的欧拉法也能拿金牌，因为配了规范误差分析。大气内外阻力突变造成轻度刚性，建议自适应步长（入大气后加密）。</li>
 <li><strong>事件判定</strong>：以 $r$ 与 $R_{\rm atm}$ 比较判"出大气"，用 $r$ 的单调性（径向速度变号）判转折点，不要用速度方向；另设"不再上升"判坠入。</li>
@@ -217,7 +234,7 @@ $$m\ddot{\vec r}=-\frac{GMm}{r^3}\vec r-\frac12 C_d \rho(h) A\, v\,\vec v .$$
 <li><strong>收敛检验（低成本高收益）</strong>：同一初条件、步长减半重跑，取共同有效数字作为精度声明。金牌队对 $\theta=8.84^\circ$ 给出出口速度前 5 位一致（16876.86 与 16876.53 m/s），并指出最长（临界）轨迹只有 4 位有效。</li>
 <li><strong>常见陷阱</strong>：单位（km vs m）；把 30 km/s 当 $v_\infty$ 却用大气顶密度；只报"最优角"不报窗口；忘记 $\theta_{\max}$ 由"坠入"约束而非"减过头"约束（出口速度还高于 $v_{\min}$ 时轨迹就可能再也爬不出大气）。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li>不声明"30 km/s"取在哪个半径，或前后不一致。</li>
 <li>用地球大气直觉套海王星：标高取 8 km、或忘了主要成分是 H₂（分子量小 14 倍，同压同温下密度低一个量级）。</li>
@@ -225,16 +242,16 @@ $$m\ddot{\vec r}=-\frac{GMm}{r^3}\vec r-\frac12 C_d \rho(h) A\, v\,\vec v .$$
 <li>密度模型无锚点、无出处，或指数外推到 0 km 以下仍继续使用。</li>
 <li>无收敛性/精度声明，报出 6 位有效数字的临界角。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>NASA NTRS：Justus et al., "Atmospheric Models for Aerocapture" (2004)</strong> — https://ntrs.nasa.gov/api/citations/20040085958/downloads/20040085958.pdf 。给出海王星 aerocapture 高度的密度标高（约 30–50 km）与 GRAM 大气模型用法，可直接对照/替换金牌队的两锚点指数拟合。</li>
 <li><strong>Universe Today: "Aerocapture is a Free Lunch in Space Exploration" (2023)</strong> — https://www.universetoday.com/articles/aerocapture-is-a-free-lunch-in-space-exploration 。指出 GRAM 预测天王星/海王星相关高度有 ~30% 密度偏差——对 0.025° 窗口是致命输入，可用来支撑"不建议采用"或"需在轨密度估计"的讨论。</li>
 <li><strong>Georgia Tech (Munk et al.): "Aerocapture Mission Concepts for Venus, Titan and Neptune" (2008)</strong> — https://repository.gatech.edu/bitstreams/f1d2f73c-5776-4f77-9c3b-89263d7d72d5/download 。真实海王星 aerocapture 任务设计：气动壳、g 过载、入轨质量增益（比纯推进多 ~1.8 倍有效载荷），给你的模型一个"真实工程对照"。</li>
 <li><strong>LPI/OPAG: "Aerocapture: Summary and Risk Discussion" (2008)</strong> — https://www.lpi.usra.edu/opag/archive_documents/aerocaptureRisks03_08.pdf 。讲如何用测量过载在线估计密度偏差、实时修正走廊——正是"窄窗口怎么用"的工程答案。</li>
 </ol>
-<h2 id="8">8. 金牌论文思路对比</h2>
+<h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <p>本题仅一支金牌队：<strong>Team 160（William &amp; Mary，"Voyage to Neptune"）</strong>。路线：火箭方程算出 95% 燃耗立基准 → 理想气体定律 + 双锚点拟合构造 $\rho(h)$（$H\approx37$ km）→ 平方阻力 + 万有引力欧拉积分（$\Delta t=0.001$ s）→ 20% 燃耗上限翻译出 $v_{\min}/v_{\max}$ → 相邻角度对夹逼出 $8.8296^\circ&lt;\theta&lt;8.8549^\circ$ → 结论"窗口过窄，不建议采用"。亮点是步长减半误差分析与极限轨迹检验（$\theta=7^\circ$ 几乎不减速）。详见 ](05_论文赏析/2010/2010-GM-A-160.md)(../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2010/2010-GM-A-160.html)。</p>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 模糊词全部操作化：30 km/s 的取用半径、"显著省燃料"的量化阈值（如 20%）、margin 的定义（角度窗或近地点高度窗）。</li>
 <li>[ ] 有一个解析基准（纯火箭方案燃耗 95%）作为对照，气动制动的价值才可量化。</li>
@@ -244,7 +261,10 @@ $$m\ddot{\vec r}=-\frac{GMm}{r^3}\vec r-\frac12 C_d \rho(h) A\, v\,\vec v .$$
 <li>[ ] 敢下工程结论并列出未计入因素（风、自转、热载荷、多圈方案）——负结论 + 边界讨论比"可行"更见功力。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌论文思路对比">8. 金牌论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -256,6 +276,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

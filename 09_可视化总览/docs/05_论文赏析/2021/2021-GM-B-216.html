@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,34 +41,49 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2021</span>
+  <span class="crumb">05_论文赏析/2021 · Asteroid Impact Damage to a Coastal City（2021 题B 队伍216）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2021/Problem%20B/2021-GM-B-216.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2021/2021-GM-B-216.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="asteroid-impact-damage-to-a-coastal-city2021-b-216">Asteroid Impact Damage to a Coastal City（2021 题B 队伍216）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="asteroid-impact-damage-to-a-coastal-city2021-题b-队伍216">Asteroid Impact Damage to a Coastal City（2021 题B 队伍216）</h1>
 <p><strong>页数</strong>: 19 页 ｜ <strong>对应题目</strong>: Asteroid Ocean Impact（小行星撞击海洋）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>题目问：小行星在距沿海城市 1000 km 的海面撞击，多大质量才能对城市造成"实质性破坏"？Harvey Mudd 学院 216 队（两人队伍）把问题切成两段物理链：小行星进入大气后的变速下落（阻力 + 重力 ODE，逐质量数值求解末速与气动损耗能量）→ 深水撞击空腔与波浪传播（经验空腔体积公式 + 实验室模拟得到的波幅定律），再引入"抵达城市波高 ≥ 2 m"这一由海啸灾害文献支撑的破坏阈值，扫描质量得到最小质量为 $10^9$ kg。摘要中三句话讲清方法、阈值与答案，信息密度极高。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <p><strong>第零层：问题边界界定（第 1 节）。</strong> 开篇明确不考虑热辐射与冲击风，并给出三条理由：传给海洋的能量占比大；空气与水导热差、1000 km 外一天尺度内热效应可忽略；风气流能量耗散大。先划清"研究什么、不研究什么、为什么"，这在同题论文中并不多见。</p>
 <p><strong>第一层：小行星密度（3.1 节）。</strong> 不拍脑袋取密度，而是收集 16 颗已测小行星的密度数据（带误差棒），用 MATLAB 做加权最优拟合，得 $D_A=2481\ \mathrm{kg/m^3}$（Figure 1）——数据驱动定参的示范。</p>
 <p><strong>第二层：大气内减速（3.2 节）。</strong> 竖直入射假设下建立运动方程 $m_A\ddot{y}=\frac{1}{2}\rho(y)\dot{y}^2C_dA-\frac{Gm_Em_A}{(y+r_E)^2}$（式(1)(2)），把截面积用质量表示 $A=\left(\frac{3m_A}{4\pi D_A}\right)^{2/3}\pi$（式(8)）代入；空气密度取 0–80 km 实测数据拟合 $\rho(y)=1.256\,e^{-1.118\times10^{-4}y}$（式(11)，$R^2=0.9975$）；阻力系数取刚性球超声速值 $C_d=0.877$（引 Landau–Lifshitz）。初始条件有据：最常见的再入速度 $v_0=19.3$ km/s（引文献）、$y_0=80$ km（之上空气密度 $10^{-5}$ kg/m³ 量级可忽略）。对 $10^0$–$10^{20}$ kg 全域质量数值求解，得末速表：100 kg 仅 52.5 m/s（220 s 落地），$10^8$ kg 达 18043 m/s，$10^{20}$ kg 收敛到 19340 m/s——小质量被大气"刹车"、大质量近似自由落体的物理图像一目了然。</p>
 <p><strong>第三层：能量账本（3.3 节）。</strong> 用无阻力能量守恒 $v_e=\sqrt{v_0^2-2Gm_E\left(\frac{1}{y_0+r_E}-\frac{1}{r_E}\right)}=19340$ m/s（式(18)(19)）作理论上限，再以 $E_{lost}=\frac{1}{2}m_Av_e^2-\frac{1}{2}m_Av_f^2$（式(20)）量化各质量的气动损耗（Figure 4 双联图，并注明最大质量处 $v_f$ 与能量守恒值吻合、故可用 $R^2=1$ 的拟合外推）。</p>
 <p><strong>第四层：深水撞击判据与空腔（第 4 节）。</strong> 要求小行星半径不超过水深 6000 m 的 1/13（$r_A\le460$ m），得质量上限 $m_A\le1.0\times10^{12}$ kg（式(23)–(25)），保证撞击处于深水撞击（DWI）区、海底无激波效应。空腔体积用文献公式 $V=0.75\left(\frac{D_A}{\rho_{sea}}\right)^{1/3}r_A^{2.35}g^{-0.65}v_f^{1.3}$（式(26)–(28)，化简为 $V=1.6\times10^{-4}m_A^{0.783}v_f^{1.3}$），并借 Figure 6 的示意图交代空腔—喷射幕—边缘波—崩塌波的循环物理。</p>
 <p><strong>第五层：波幅与破坏阈值（4.2 节）。</strong> 波幅取实验室模拟定律 $A(r)=9700E^{0.5}/r$（式(29)，$E$ 以千吨 TNT 计，引 Gault &amp; Sonett 1982），边缘波因喷射幕崩塌耗能而快速衰减、可忽略。阈值定义是全文的"题眼工程"：综合 Tinti 1993（2 m 可毁木屋）、Reese 2007（2 m 毁无筋砖房）、Ruangrassamee 2006（2 m 损伤混凝土次构件、7 m 全毁）三份灾害调查，把"实质性破坏"操作化为"抵达波高 ≥ 2 m"，在 $r=10^6$ m 曲线上反解出 $m_A=10^9$ kg。</p>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>解析与数值分工明确：能量守恒与截面积代换是解析推导（式(14)–(19)），大气减速必须数值解（MATLAB <code>ode45</code>，附录按功能拆成 7 个脚本：air density / asteroid density / crater volume / cumulative impact data / impact energy / impact velocity / wave amplitude）。质量扫描跨 20 个数量级（$10^0$–$10^{20}$ kg），结果同时给出撞击时间与末速两列，可检查数值合理性（如 100 kg 小行星 220 s 落地、末速仅 52.5 m/s，与"羽毛式减速"的直觉一致）。两处拟合都报告了优度（$R^2=0.9975$ 与 $R^2=1$）；对表格数据用拟合外推补齐中间质量的连续曲线。检验方面：能量守恒极限作为大质量端的渐近校核；DWI 判据用半径—水深比给扫描范围封顶。未做之处：波幅公式 (29) 是量纲上依赖经验常数的关系（$E$ 用千吨、$r$ 用米），论文未讨论其适用上限；<code>ode45</code> 的容差设置与步长信息在正文未说明（讨论部分也承认数值解只是近似）。讨论一节罕见地按"撞击段/波浪段"分别列优缺点，并指出未来可用 Green's law 计入浅海坡度放大——这是对浅水变形这一真实物理缺失的诚实交代。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页（p1 渲染图）为 LaTeX 衬线风格：大号标题、日期、"Team 216, Problem B"依次居中，摘要段落中物理量与单位（$1000km$、$2m$、$10^9kg$）一律数学斜体，专业感强。正文页眉"Team 216"加横线、页码居中底脚。最有个性的排版习惯：<strong>每条公式右侧带操作说明</strong>——式(2)旁标"plugging in $F_d$ and $F_g$"、式(7)旁标"simplifying"、式(8)旁标"solving for A"，推导的每一步"做了什么"全部显式化，读推导像看注释代码。全文式(1)–(29) 连续编号，图 Figure 1–8，无表格（撞击速度以表呈现但排为行列文本）。图表为 MATLAB 图但配色刻意定制（橙色主线、灰蓝辅助线），p11 渲染页上 Figure 7（能量—质量双对数直线）与 Figure 8（三条 $r$ 曲线 + 图例）版式统一、轴标签带单位。附录按脚本文件名分 7 小节罗列代码（文本提取中只见标题，正文可能以图片形式嵌入代码）。小瑕疵：collpase（应为 collapse）、the the 等笔误散见；3.2 节速度表在正文中以纯文本行呈现而非三线表，稍欠精致。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>把模糊判据变成可计算的阈值。</strong> "substantial damage"被三篇灾害文献交叉定义成"2 m 波高"，每条文献对应具体建筑类型与损毁程度——开放性题目的胜负手就在这一定义环节。</li>
 <li><strong>全程数据驱动。</strong> 小行星密度（16 颗实测加权拟合）、空气密度（标准大气拟合 $R^2=0.9975$）、入射速度（19.3 km/s 最概然值）、波幅定律（实验模拟）全部有数据或文献出处，模型没有自由飘动的参数。</li>
@@ -75,7 +92,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>扫描区间有物理封顶。</strong> 用 DWI 判据（$r_A\le$ 水深/13）把质量搜索上限定在 $10^{12}$ kg，扫描不是无脑遍历，而是先论证有效域再遍历。</li>
 <li><strong>诚实的分段式讨论。</strong> 逐段列优点/缺点，并给出 Green's law 这一具体可行的改进，展现对模型失效模式的清醒认知。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>开放判据类题目第一步先做"阈值工程"：查灾害/工程文献把定性词（严重破坏、安全）翻译成带出处的数值判据，并至少引两篇文献交叉支撑。</li>
 <li>每个输入参数都问一句"有没有数据"：能拟合实测数据（带误差棒、报 $R^2$）就不要取手算常数，Figure 1 的加权拟合是现成模板。</li>
@@ -85,7 +102,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>讨论按模块分段写优缺点，并给出点名的方法级改进（Green's law、浅水坡度），比笼统的"未来可改进"更有说服力。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -97,6 +117,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

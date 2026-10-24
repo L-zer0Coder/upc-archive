@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2014 题B：喷泉落点概率分布与中位圆（A Water Fountain）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2014_%E9%A2%98B_%E5%96%B7%E6%B3%89%E4%BC%98%E5%8C%96.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2014-ba-water-fountain">2014 题B：喷泉落点概率分布与中位圆（A Water Fountain）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2014-题b喷泉落点概率分布与中位圆a-water-fountain">2014 题B：喷泉落点概率分布与中位圆（A Water Fountain）</h1>
 <blockquote>
 <p>赛题来源：UPC 2014 Problem B（131 队中 38 队选题 B，金奖 1 队：南方科技大学 807 队）</p>
 </blockquote>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <p><strong>原文压缩引用</strong>：</p>
 <blockquote>
 <p>A water fountain located at the middle of a circular pond ejects water straight up, and the water spreads out into a cone shape with the axis of the cone being vertical. As the water moves, its molecules collide with each other. Determine the probability that any molecule of the ejected water hits the pond at the point (x, y). Assume that the fountain's ejection point is at (0, 0). From your model, determine the most probable place where the water lands and also the median circle, that is, that circle around the fountain inside which exactly half of the water lands.</p>
@@ -103,14 +120,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <ol>
 <li><strong>"any molecule"</strong>：真分子（$10^{-26}$ kg）在宏观流场里没有独立弹道，"分子概率"无从谈起。正确转译是把水流离散为液滴，"任一分子落在 $(x,y)$ 处的概率" = 单位落水面积的份额 $\rho(r)\,dA$（等质量液滴下也是液滴数份额）。这一步转译是全文的分水岭。</li>
 <li><strong>"molecules collide with each other"</strong>：题面碰撞提示是开放度所在。可操作化为：(a) 用数密度估算论证出喷嘴后液滴稀疏、两两碰撞可忽略，把相互作用的宏观后果归并为出射速度的再分布；(b) 硬写玻尔兹曼碰撞积分（吃力不讨好）。金奖取 (a)，用高斯速度分布承载"碰撞"效应。</li>
 <li><strong>众数 ≠ 中位数</strong>："most probable place" 是密度 $\rho(r)$ 的众数，"median circle" 由 $\int_0^{r_h}2\pi r&#x27;\rho(r&#x27;)\,dr&#x27;=\frac12\int\rho\,dA$ 定义（注意 $r$ 权重）。对均匀角分布，$\rho\propto1/[r\sqrt{1-(r/r_{max})^2}]$ 在 $r\to0$ 与 $r\to r_{max}$ 双双可积发散——<strong>众数答案是"圆心与边缘圆"两个</strong>，能否给出这一形状是是否真算出密度的试金石。</li>
 <li><strong>零数据题的元要求</strong>：每个自设参数都要显式声明并做敏感性分析；答案（尤其中位圆）本质上是分布依赖的，"从模型决定"意味着给出参数化的闭式结果。</li>
 </ol>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1：真空抛体 + 概率映射（全解析）</strong>。核心是守恒映射：喷射立体角元内的液滴数 = 落点面元内的液滴数，$E(\theta,\varphi)\,d\theta\,d\varphi=\rho(r,\varphi)\,r\,dr\,d\varphi$。抛物线升降对称给出角-径映射 $r=\dfrac{v_0^2\sin2\theta}{g}$，雅可比 $\left|\dfrac{dr}{d\theta}\right|=\dfrac{2}{g}\sqrt{v_0^4-r^2g^2}$；$\theta$ 与 $\pi/2-\theta$ 双支同落点，须叠加。闭式结果 $\rho(r,\varphi)=\dfrac{g\,[E(\theta_1)+E(\theta_2)]}{2r\sqrt{v_0^4-r^2g^2}}$ 对<strong>任意</strong> $E$、$f(v)$ 成立——保持符号形式推到底，最后才代入具体分布。由 $\delta(v)$ 基线得 $r_{max}=v_0^2/g\approx10.2$ m（$v_0=10$ m/s）；均匀分布半球情形中位圆 $r_{half}=r_{max}/\sqrt2\approx7.2$ m，一般锥角按 $\theta_0$ 与 $\pi/4$ 的关系分三种情形闭式。</p>
 <p><strong>层次 2：相互作用修正</strong>。多体碰撞等价为出射速度的高斯再分布 $f(v)$（窄分布），经 $\bar\beta(r)=\int\beta(v,r)f(v)\,dv$ 卷积传播进中位圆；$\delta$ 分布是 $a\to\infty$ 极限，自检闭环。</p>
 <p><strong>层次 3：空气阻力</strong>。先算 $Re=\rho_a v d/\eta$ 再选型（见第 4 节），采用二次阻力 $F_d=\tfrac12C_D\rho_aAv^2$（$C_D\approx0.5$），RKF45 数值积分 + 事件函数捕捉穿池时刻，按滴径分档对比。</p>
@@ -126,7 +143,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
     F --&gt; I
     H --&gt; I
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <table>
 <thead>
 <tr>
@@ -187,14 +204,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>解析为主</strong>：$E(\theta,\varphi)$、$f(v)$ 全程保持符号形式，得到通用密度与中位圆三分情形通解；均匀/$\delta$ 只是最后代入的特例——结论的通用性就是竞争力。</li>
 <li><strong>数值为辅</strong>：ode45/RKF45 配事件函数（$z$ 穿越 0 且方向为负）精确捕捉落点；把 $\theta$ 均分数千点积分轨迹族，直方图按大数定律重建密度，与解析 CDF 对拍。</li>
 <li><strong>验证三件套</strong>：归一化 $\int\rho\,dA=1$；$\delta$ 分布作为高斯的 $a\to\infty$ 极限复核；阻力模型退化为零阻力时复现 $r_{max}=v_0^2/g$。</li>
 <li><strong>数值陷阱</strong>：$\rho$ 在 $r\to0$（$1/r$）与 $r\to r_{max}$（$1/\sqrt{\cdot}$）可积发散，直接数值积分会爆——改用累积分布或解析分母；双支叠加漏一支则边缘峰矮一半；中位圆积分忘乘 $2\pi r$ 是最常见低级错。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li><strong>把"分子"当真分子</strong>：套平均自由程、麦克斯韦速度分布，模型自缚且与宏观喷泉无关——先做量级判断再选对象。</li>
 <li><strong>没有概率映射</strong>：只积分几条代表性轨迹就画"概率"，缺雅可比与双支叠加，密度形状整个错。</li>
@@ -203,15 +220,15 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>零数据却不声明假设</strong>：$v_0$、$\theta_0$、滴径、分布形式全部要显式设定并做敏感性，否则中位圆的 7.2 m 无从谈起。</li>
 <li><strong>只答半球特例</strong>：中位圆随锥角分段（$\theta_0$ 与 $\pi/4$ 的三种情形），只给一个特例公式算不上"从模型决定"。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>喷嘴类型与喷泉造型工程指南</strong>（<a href="https://fountains.com/fountain-nozzle-types-explained-jet-head-selection-water-display/">fountains.com</a>）——真实喷嘴如何决定锥角、喷高与形态，为自设的 $v_0$、$\theta_0$ 提供工程锚点。</li>
 <li><strong>池塘漂浮喷泉喷型与流量匹配</strong>（<a href="https://www.fountaintechpumps.com/blog/floating-pond-fountain-styles-nozzle-patterns">fountaintechpumps.com</a>）——池塘漂浮喷泉典型喷高与流量区间，支持 $v_0\approx5$–8 m/s 的合理假设。</li>
 <li><strong>TeeJet《A User's Guide to Droplet Size》</strong>（<a href="https://www.teejet.com/-/media/dam/agricultural/usa/technical-documentation/product-market-bulletin/droplet-size-user-guide.pdf">PDF</a>）——压力–流量–液滴尺寸谱的工程数据，支撑"离散为液滴"假设中滴径取值的量级。</li>
 </ol>
-<h2 id="8">8. 金奖论文思路对比</h2>
+<h2 id="8-金奖论文思路对比">8. 金奖论文思路对比</h2>
 <p>本题金奖唯一一队（南方科技大学 807 队，17 页）：把分子转译为半径 1–5 mm 的近球形液滴 → 真空情形用"通量守恒 + 雅可比"推得对任意角/速度分布成立的落点密度闭式（式 3.17–3.18）→ $\delta$ 分布给最概然落点（$r=0$ 与 $r=r_{max}$ 双答案）与中位圆三分情形通解（半球情形 $r_{half}\approx7.215$ m）→ 碰撞以高斯速度再分布作卷积修正 → 由 Reynolds 数论证二次阻力，MATLAB RKF45 + 事件函数数值积分得中位圆 3.30 m（半径 1 mm）/ 5.68 m（半径 5 mm），并明确量化"阻力不可忽略"。最大亮点是"先一般后特例"的通用密度公式与"真空解析 → 相互作用 → 阻力"三段递进叙事。详细拆解见 <code>05_论文赏析\2014\2014-GM-B-807.md</code>。</p>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] "分子 → 液滴"的转译 + 全部自设参数（$v_0$、$\theta_0$、分布、滴径）显式声明。</li>
 <li>[ ] 概率密度严格推导：守恒映射 + 雅可比 + 双支叠加，而非直方图了事。</li>
@@ -221,7 +238,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>[ ] 敏感性分析：锥角、$v_0$、滴径对中位圆的影响，体现"零数据题"的自觉。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金奖论文思路对比">8. 金奖论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -233,6 +253,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

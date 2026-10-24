@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,34 +41,49 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2020</span>
+  <span class="crumb">05_论文赏析/2020 · Ion Thrusters to Saturn（2020 年题 A 队伍340）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2020/Problem%20A/2020-GM-A-340.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2020/2020-GM-A-340.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="ion-thrusters-to-saturn2020-a-340">Ion Thrusters to Saturn（2020 年题 A 队伍340）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="ion-thrusters-to-saturn2020-年题-a-队伍340">Ion Thrusters to Saturn（2020 年题 A 队伍340）</h1>
 <p><strong>页数</strong>: 12 页 ｜ <strong>对应题目</strong>: Ion Thrusters to Saturn（离子推进器去土星）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>该队建立"圆锥曲线拼接模型"（Conic Section Splicing Model），把全程分为五段：地日转移（低推力螺旋逃逸）、第一次绕日、金星借力、第二次绕日、日土转移与土星捕获。核心策略是"少开机、多滑行"：在地球参考系中以切向推力螺旋爬升 65452.66 h（约 7.47 年）至逃逸能量，随后靠角动量与机械能守恒经金星引力弹弓甩向土星；到达土星后先自由下落至半径 300 000 km 再反向开机 0.43 h 刹车。最终答案：最少燃料 2402.77 kg，全程 4923.89 天（13.49 年）。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <ul>
 <li><strong>假设层</strong>（§2.1）：行星际段只受太阳引力、行星处于"理想位置"（发射窗口可凑出）、行星轨道为圆、质点处理、忽略自转与相对论。六条假设每条附一句理由（如行星轨道偏心率小），朴素但完整。</li>
 <li><strong>低推力逃逸段</strong>（式 1.1–1.5）：以地心为极点建极坐标，推力矢量 $\vec F=(0.4,\ \pi/2+\theta)$ 恒取切向，引力 $\vec G=(GM_Em/\rho^2,\ -\theta)$，质量流量由比冲折算 $m=m_0-|\vec F|/(g_0I_{sp})$（式 1.3），配极坐标加速度分量 $a_\rho=\ddot\rho-\rho\dot\theta^2$、$a_\theta=\rho\ddot\theta+2\dot\rho\dot\theta$（式 1.4–1.5）闭合方程组。开机判据明确：数值积分到总机械能等于逃逸能量 $E_0$ 即关机，得 $t_1=65452.66$ h。这是四篇金牌论文中最"正向"的低推力处理——直接积分受推力轨道，图 3 极坐标图清晰展示了缠绕成红色圆盘的密集螺旋。</li>
 <li><strong>日心滑行段</strong>（式 2.1–2.3、3.1–3.2、4.1）：逃逸时速度分解为径向 $v_1$ 与切向 $v_1&#x27;$（令 $v_1&#x27;$ 恰等于地球公转速度 $v_E=29.786$ km/s），由 $a_1-c_1=R_V$、角动量 $mv_ER_E=mv_2R_V$ 与能量方程解出 $v_1=11.393$ km/s、$v_2=41.179$ km/s；金星借力不做动力学计算，直接用第二椭圆的几何关系 $a_2-c_2=R_V$、$a_2+c_2=R_S$ 定出借力后速度 $v_3=47.759$ km/s；再由 $mv_3R_V=mv_4R_S$ 得到达土星时 $v_4=3.6058$ km/s。</li>
 <li><strong>捕获段</strong>：土星参考系中 $r_S=2.7109\times10^5$ km、$v_5=11.829$ km/s；先在土星引力下自由滑落至 30 万 km 再反推 0.43 h，仅耗 0.02 kg——把最贵的加速/减速都交给引力，是"省燃料"论证的核心。</li>
 </ul>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>纯数值 + 解析守恒律混合：逃逸段与捕获段用 MATLAB <code>ode45</code>/<code>ode113</code> 积分（代码设 RelTol=1e-5，附录给出完整函数，状态量 $[r;\theta;v_r;v_\theta]$ 中显含质量衰减项 $-0.4t/(9.8\times4000)$），中间段全部用守恒律与几何关系解析求解。滑行时间有解析式：$t_2=1459.01$ h（含 $z=\sqrt{R_E/R_V}-1$ 的开普勒型公式），$t_4=\pi\sqrt{(R_V+R_S)^3/(8GM_{Sun})}=51261.18$ h（即半长轴 $(R_V+R_S)/2$ 的半个椭圆周期）；金星借力时间因 $v&gt;40$ km/s、路径短而合理忽略。未做步长/灵敏度扫描，也未论证 2402.77 kg 是全局最优（只是该方案的最小值），这是方法层面的主要缺口。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>Word 排版，页眉"TEAM#340 | ION THRUSTERS TO SATURN"贯穿全文（见 p1 渲染图），摘要约大半页，按五阶段分段的写法使评委能逐段核对。全文仅 6 幅图（Fig1 卡西尼真实轨迹、Fig2 航程示意、Fig3 逃逸螺旋直角/极坐标双图、Fig4 速度–时间、Fig5 土星捕获轨迹、Fig6 卡西尼"线团"图），未编号为 Figure 体系而用 Fig1–6；公式编号按段编码 (1.1)–(4.1)，与五阶段结构呼应，是可取的编号法。附录公开两段 MATLAB 代码并附 NASA/NYT 文献。图 3 的极坐标螺旋图视觉冲击力强，一眼传达"7.47 年螺旋爬升"的物理图像；不足是无表格、无误差分析章节，图表风格为 MATLAB 默认样式。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>物理策略正确且省钱</strong>：抓住"题不限时、只省燃料"的题眼——不赶时间，用一次金星借力 + 土星引力自由落体捕获，把开机时间压到两段（7.47 年加速 + 0.43 h 刹车），结论自洽。</li>
 <li><strong>圆锥曲线拼接框架干净</strong>：每段一个二体问题，段间用角动量/能量/几何三种守恒衔接，评委易逐行验证。</li>
@@ -74,7 +91,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>数值细节可信</strong>：$v_0=7.7368$ km/s、$r_E=6649$ km、$v_5=11.829$ km/s 均可由题给周期反推复核；燃料 2402.77 kg 与 $F/(g_0I_{sp})$ 流量率×开机时长精确吻合。</li>
 <li><strong>诚实列缺点</strong>：承认借力偏转角未算、几何拼接是粗估、土星卫星摄动未考虑，并配卡西尼实测轨迹图佐证现实复杂性。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>低推力逃逸的标准打开方式：极坐标下切向常推力 + $m=m_0-Ft/(g_0I_{sp})$，以"机械能达到逃逸能"为关机判据数值积分。</li>
 <li>多天体航线用"圆锥曲线拼接"分治：每段二体、段间守恒律缝合，把借力段几何化可大幅降复杂度（但要在缺点节声明其近似性）。</li>
@@ -84,7 +101,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>引用真实任务（卡西尼轨迹图）作背景与佐证，建立"方案与现实对得上"的印象。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -96,6 +116,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

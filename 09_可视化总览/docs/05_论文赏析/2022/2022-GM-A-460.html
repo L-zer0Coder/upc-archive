@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,33 +41,48 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2022</span>
+  <span class="crumb">05_论文赏析/2022 · Collision Saves the Earth（2022 题A 队伍460）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2022/Problem%20A/2022-GM-A-460.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2022/2022-GM-A-460.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="collision-saves-the-earth2022-a-460">Collision Saves the Earth（2022 题A 队伍460）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="collision-saves-the-earth2022-题a-队伍460">Collision Saves the Earth（2022 题A 队伍460）</h1>
 <p><strong>页数</strong>: 12 页 ｜ <strong>对应题目</strong>: Problem A — Deflecting an Asteroid（偏转小行星）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>本文是五篇 2022 金奖论文中唯一<strong>全程解析、零数值模拟</strong>的答卷。作者把任务切成三段——发射航天器、航天器–小行星碰撞、小行星漂移——每一段用守恒律加标度（scale）分析化简，最终纯手算得到：若用化学火箭（有效喷气速度 $v_r = 4.4\times10^3$ m/s），须提前 <strong>14 年</strong>撞击；若换用 Hall 效应推进器（$v_r = 5.0\times10^4$ m/s），缩短为 <strong>0.67 年</strong>，从而凸显 $v_r$ 对任务的決定性影响。摘要末尾还主动写明模型"强于普适与清晰、弱于精度"，自我定位清晰。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <p><strong>第零层：标度分析（论文的灵魂）。</strong> 在进入三阶段前先用 Figure 1（小行星直径–密度散点图，引 Britt et al.[8]）取 $\rho = 2.0\times10^3$ kg/m³，得 $M = 1.0\times10^9$ kg；继而算出 $m_0/M \sim 10^{-5}$、$p/P \sim 10^{-6}$，立即推出关键定性结论——航天器<strong>不可能正面顶停</strong>小行星，只能侧向"推偏"。第三小节则用大气标高 $H_n = 10.4$ km 处理空气阻力：由式 (1) 指数密度 $\rho_{air}(h) = \rho_{air}(0)e^{-h/H_n}$ 与式 (2) 阻力 $F_D = \frac{1}{2}\rho_{air}v^2C_DA$，积分证明阻力做功正比于 $\int\rho_{air}dh = H_n$，于是取地球等效半径 $R = R_0 + H_n = 6.39\times10^6$ m。用一个积分把"要不要管大气"一次了结，是标准的量纲/量级论证范式。</p>
 <p><strong>第一层：发射（质量预算）。</strong> 由 LEO（$h=2000$ km）圆轨道向心公式 (3) 得 $u_0 = 6.793$ km/s；火箭方程 (4) $u(m) = u_0 + v_r\ln(m_0/m)$ 与逃逸能量条件 (5) $\frac{1}{2}mu^2 - \frac{GM_E m}{R_0+h} = 0$ 联立，得 $u = 9.607$ km/s、$m_1 = 1.055\times10^4$ kg。</p>
 <p><strong>第二层：碰撞（动量预算最大化）。</strong> 独到的优化：撞击前再次点火，动量 $p(m) = v_r m\ln(m_1/m)$ 对 $m$ 求极值得 $m = m_1/e$，故最大动量 $p^* = v_r m_1/e = 1.708\times10^7$ kg·m/s（Figure 2 给出碰撞几何与 $\alpha$ 角定义）。动量守恒式 (6)(7) 表明沿地心方向分量可忽略（相对误差 $10^{-3}$），故取 $\alpha = 0$，全部动量转为横向 $v_\perp = p^*/M = 0.016$ m/s；再由角动量守恒 (8) 估计自转动能占比 $\sim10^{-12}$，反过来证明"小行星可当质点"——用自洽性检验支撑假设，而非直接假设。</p>
 <p><strong>第三层：漂移（擦地 grazing 条件）。</strong> 设最终速度 $v_f$ 与地表相切，对地心守恒：角动量 $v_\perp l = v_f R$（式 10）、能量 $\frac{1}{2}v_{//}^2 - \frac{GM_E}{l} = \frac{1}{2}v_f^2 - \frac{GM_E}{R}$（式 11）。先证明 $25 &lt; v_f &lt; 27.4$ km/s，再由 $l/R\sim10^7$ 舍去 $\frac{GM_E}{l}$ 项，解得 $v_f = 2.74\times10^4$ m/s、$l = 1.1\times10^{13}$ m、$t = l/v_{//} = 4.3\times10^8$ s ≈ 14 年。</p>
 <p><strong>扩展分析：</strong> Evaluation 节重跑 $v_r = 5.0\times10^4$ m/s（Hall 推进器），全链路更新 $m_1, p^*, v_\perp, l, t$，得 0.67 年——等效于对最敏感参数做了一次灵敏度实验，并坦承 $l = 1.1\times10^{13}$ m 远超 1 AU、"结果不令人满意"。</p>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>完全解析：联立守恒方程 + 对数求极值，无任何数值积分。方法上的亮点全在<strong>误差控制</strong>：每一步简化都附定量误差（$v_{//} = v_0$ 的 $10^{-3}$ 相对误差、自转能 $10^{-12}$、$l/R\sim10^7$ 时的引力势截断），且数值保留有效数字与输入精度匹配（$\rho$ 只有两有效位，$l$ 就只保留两位）。没有量纲分析专用章节，但 3.2 节"标度分析"实质上就是系统性的人数级检验。局限：太阳引力在第三阶段被完全忽略，而 $l$ 达 73 AU 量级时该假设明显存疑，作者仅在假设列表里预告"会回来讨论"却未真正闭环；全文无收敛性/灵敏度矩阵。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页（p1.png）居中排版 "Collision Saves the Earth / Team 460, Problem A / November 2022"，摘要含<strong>关键词行</strong>（Rocket Equation, Collision, Conservation of Momentum 等），是五篇中少数带 Keywords 的；摘要末段还有一段模型自我评价，写作成熟。第 2 页有完整目录（Contents），正文页眉 "Team # 460 ｜ Page N of 12"，12 页短小精悍。结构上配有符号表（Notations 表格，约 20 个符号），公式编号 (1)–(11) 连续规范。全篇仅 3 图：Figure 1 文献数据散点图、Figure 2/3 自绘几何示意图（碰撞分解 $v_{//}, v_\perp$、漂移擦地几何），图少但每张都直接服务于方程推导；无结果曲线图——最终答案以文字数值呈现，视觉冲击力弱于其他队。瑕疵：正文出现 "Figure 5.1" 误指（应为 Figure 2）、Weakness 节把 $R$ 误写成 $M_E$，属校对疏漏。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>标度分析贯穿全文</strong>：先证明 $p/P\sim10^{-6}$ 才能"合法地"把碰撞简化为纯侧推、把 $v_{//}$ 冻结为 $v_0$；每一处简化都有量级背书，评委最看重的"假设合理性"被做成了显式论证链。</li>
 <li><strong>自洽性反哺假设</strong>：用角动量算出自转动能占比 $\sim10^{-12}$ 来回头证明"质点假设"成立（Section 5.2），模型内部互证而非各说各话。</li>
@@ -73,7 +90,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>结果诚实评估 + 参数灵敏度</strong>：公开承认 14 年、73 AU 的解"not satisfying"，并用 Hall 推进器参数重算出 0.67 年，把"物理答案"与"工程可行性"分开讨论，展现判断力。</li>
 <li><strong>摘要质量高</strong>：三阶段路线、两个数值答案（14 年 / 0.67 年）与"决定性参数"结论全部在摘要中出现，评委 5 分钟即可掌握全文。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>动笔前先做一页<strong>标度分析</strong>（质量比、动量比、时间尺度），用 $10^n$ 论证决定哪些效应可以扔掉——这比多算十页更得分。</li>
 <li>火箭动量预算别忘<strong>对数极值</strong>：最大化 $p(m) = v_rm\ln(m_1/m)$ 得 $m = m_1/e$，一个漂亮的小结论可反复引用。</li>
@@ -83,7 +100,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>用<strong>等效标高</strong>（$\int\rho\,dh = H_n$）一类积分论证快速处理边缘效应（大气阻力），一段话解决别人可能纠结半页的问题。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -95,6 +115,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

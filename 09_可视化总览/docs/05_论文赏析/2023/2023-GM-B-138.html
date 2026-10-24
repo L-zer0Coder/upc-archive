@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2023</span>
+  <span class="crumb">05_论文赏析/2023 · Using Physics Engine to Iterate the Maximum Height of Multiple Kids on Trampoline（2023 题B 队伍138）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2023/Problem%20B/2023-GM-B-138.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2023/2023-GM-B-138.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="using-physics-engine-to-iterate-the-maximum-height-of-multiple-kids-on-trampoline2023-b-138">Using Physics Engine to Iterate the Maximum Height of Multiple Kids on Trampoline（2023 题B 队伍138）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="using-physics-engine-to-iterate-the-maximum-height-of-multiple-kids-on-trampoline2023-题b-队伍138">Using Physics Engine to Iterate the Maximum Height of Multiple Kids on Trampoline（2023 题B 队伍138）</h1>
 <p><strong>页数</strong>: 25 页 ｜ <strong>对应题目</strong>: Trampoline Jumping（三人蹦床跳跃）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>本文把三人蹦床问题转化为一个"自研物理引擎 + 二维时延参数扫描"的仿真问题。基于市售真实蹦床参数（网面密度 300 g/m²、135 根弹簧、总刚度 $k_s\approx 712940$ N/m），建立含网面空气阻力、材料阻尼、完全非弹性碰撞和孩子腿部发力恒力 $N$ 的单自由度非线性 ODE，用 Python 写 1 ms 帧步长的物理引擎，对另外两名孩子的下落时延做 12 s 全窗口扫描并加高斯滤波去噪，再对候选区域做 45° 坐标旋转精扫。最终结果：25 kg 孩子最高 <strong>1.6890 m</strong>、40 kg <strong>1.2810 m</strong>、50 kg <strong>1.3668 m</strong>，且最优条件均为"目标孩子下落触网瞬间另两人恰好处于最低点"。结论与市售产品 1.83 m 护网高度交叉验证，给出厂商安全建议。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <p><strong>第一层：蹦床参数化（4.1–4.2 节）。</strong> 不同于直接假定刚度，本文用弹簧公式 $k=Gd^4/(8nD^3)$（70 号钢 $G=73.0$ GPa，簧径 3 cm、丝径 5 mm、40 圈）算出单簧 5281 N/m，再按国际体联标准的"周长-弹簧数"比例折算 5 m 蹦床约 135 根弹簧。网面质量按 V 形速度线性分布折算等效质量：</p>
 <p>$$m_k=\frac{\int_0^{R_m}\frac{v(R_m-r)}{R_m}dr\,M_{real}}{\pi r^2 v}\approx 2\ \mathrm{kg}$$</p>
 <p>弹性力取竖直投影 $F_s=k_s(\sqrt{R_m^2+x^2}-R_m)\frac{x}{\sqrt{R_m^2+x^2}}$，与能量按 $x^4$ 标度的洞察（4.6 节）呼应。</p>
@@ -65,11 +82,11 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <p><strong>第三层：全系统物理引擎（4.4 节）。</strong> Python 引擎逐帧积分 + 碰撞检测 + 动量定理重置速度；目标孩子固定，扫描另两人的下落时延（0–12 s，选取依据：三人周期最小公倍数 &lt; 12 s，覆盖全部相位组合）。</p>
 <p><strong>第四层：假设的实证校准。</strong> 最有特色的是把假设与真实世界对齐：(a) 由 YouTube 视频测得反弹保留 60%–70% 高度，取"过平衡位置速度为 0.8 倍"为假设，再反解阻尼系数 $c=9.40$ N·s/m；(b) 由 24 fps 视频逐帧数出触网 6–7 帧 ≈ 0.271 s，与模型计算的 0.2512–0.2645 s 吻合（Figure 13）；(c) 最终 1.69 m 低于市售产品 1.83 m 护网高度，间接验证模型（6.3 节）。</p>
 <p><strong>第五层：V 形网面的理论辩护（5.1 节）。</strong> 由网面微元受力推出 PDE $\frac{\partial^2 x}{\partial t^2}=-\frac{F_H}{2\pi r\sigma}\frac{\partial^2x}{\partial r^2}-g$，坦承超出求解能力后退而取 $\sigma=0$，得 $\partial^2x/\partial r^2=0$，即网面近似直母线（V 形），为 4.1 节的等效质量假设补上理论依据。</p>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>纯数值路线，但算法工程化程度远超一般参赛论文：① 双层扫描（粗扫 12 s 全域 → 定位含全局最优的矩形区 → 45° 坐标变换后细扫），把 $O(N^2)$ 搜索的算力用在刀刃上；② 对仿真噪声用高斯模糊滤波，且专门做了滤波核宽的灵敏度对比（Figure 14：std=3.0 抹平局部特征、1.5 保留特征，故取 1.5）；③ MATLAB 侧用 ode45（MaxStep=1e-4）标定阻尼与蹬伸力，Python 侧负责大范围扫描，工具分工明确；④ 物理检验三件套：接触时间对视频逐帧比对、蹬伸力对体重占比检查、结果对商品护网高度交叉验证。未做严格收敛性分析，论文自认"多人系统类似混沌、初值小偏差会放大误差"（6.2 节 Weaknesses）。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>LaTeX 排版，带页眉"Problem B | The University Physics Competition, Team 144 | 页码"，摘要含 Key Words，结构完整（Assumptions、Notations、Model、Results、Evaluation、Conclusion + 4 个代码附录）。最大亮点是图表设计：Figure 5–7 采用四联版式（3D 曲面 + 俯视等高线 + 两个时延切片），把二维时延参数空间的表达做得非常直观；Figure 3（见 fig 页渲染图）用分段着色曲线标注"自由落体/触网下沉/上弹离网"三个阶段并以黄色星标碰撞时刻，一张图讲清两阶段模型；Figure 11(a)(b) 用时序分解揭示最高点的产生机制。图表均有详尽说明性 caption。瑕疵：页眉写 "Team 144" 而题名页写 "Team 138"，前后不一致；4.4 节出现 "Assumption A" 指代不明的引用。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>全链条真实参数</strong>：弹簧刚度由材料力学公式 + 商品参数推出、网面质量按电商面密度折算、弹簧数按 FIG 标准比例缩放，每个数都有出处（11 篇参考文献含 JD 商品页与 matweb）。</li>
 <li><strong>假设—数据双向校准</strong>：0.8 倍速度假设、阻尼系数、接触时间全部用视频实测闭环验证（Figure 13），把"拍脑袋假设"变成"可检验假设"。</li>
@@ -78,7 +95,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>机制解释到位</strong>：4.6 节用 Figure 11 展示最优解前 A、C 各压网约 1.4 s 的时序，并用 $E\propto x^4$ 解释小幅形变为何储能巨大。</li>
 <li><strong>结果外推有应用价值</strong>：与护网 1.83 m 对比给出安全建议，回应题目"确保使用者安全"的工程语境。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>用 $k=Gd^4/(8nD^3)$ + 商品参数 + 标准比例缩放反推"题目没给"的蹦床/弹簧参数，形成参数溯源链。</li>
 <li>把主观假设（反弹速度保留率）转化为定标条件：先设假设 → 反解未知系数（如 $c=9.40$ N·s/m）→ 用视频实测验证，闭环定参。</li>
@@ -88,7 +105,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>用外部独立数据（产品护网高度、视频帧数）交叉验证模型量级，比空谈"模型合理"更有说服力。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -100,6 +120,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

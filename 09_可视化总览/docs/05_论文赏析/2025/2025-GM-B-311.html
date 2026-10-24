@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,35 +41,50 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2025</span>
+  <span class="crumb">05_论文赏析/2025 · A Method for Quickly Estimating the Trajectory of Spherical Projectiles（2025 题B 队伍311）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2025/Problem%20B/2025-GM-B-311.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2025/2025-GM-B-311.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="a-method-for-quickly-estimating-the-trajectory-of-spherical-projectiles2025-b-311">A Method for Quickly Estimating the Trajectory of Spherical Projectiles（2025 题B 队伍311）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="a-method-for-quickly-estimating-the-trajectory-of-spherical-projectiles2025-题b-队伍311">A Method for Quickly Estimating the Trajectory of Spherical Projectiles（2025 题B 队伍311）</h1>
 <p><strong>页数</strong>: 17 页（本批次最短） ｜ <strong>对应题目</strong>: Artillery（19世纪火炮弹道）
 <strong>队伍</strong>: 南京理工大学（Yun'ao Peng, Chengrui Wang, Jiayuan Kang，指导教师 Haiping Wu）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>论文建立二维/三维弹道数值模型：阻力采用按马赫数分段的工程经验公式 $C_d(Ma)$（式 1），密度用指数模型 $\rho=1.225e^{-h/8500}$（式 3），以 Euler 法（$\Delta t=0.01$ s）离散求解。问题一用步长 0.1°/1 m/s 的轨迹搜索算法给出 1200 m 目标的"多解族"——表 2 显示从 $3°:448$ m/s 到 $82°:389$ m/s 共 14 组解，最小初速约 140 m/s（$39°$）；问题二固定 $v=300$ m/s 演示，对风沿 x/y/z 轴、距离、高程差逐项做敏感性扫描，提炼出"每 1 m/s 纵风修正 0.319°（高角）/0.0121°（低角）"式的线性炮管修正规则，并用一个随机算例验证修正后落点误差约 5 m。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <ul>
 <li><strong>假设层</strong>：11 条编号假设（阻力平方律、光滑不旋转无 Magnus、标准大气、干燥空气、风场定常、忽略科氏力、空气浮力可忽略等），每条一句话，简洁但部分未给数量级论证。</li>
 <li><strong>阻力层</strong>：核心选型是分段 $C_d(Ma)$（式 1）：$0.47$（$Ma\le0.3$）→ 线性下降（$0.3&lt;Ma\le0.8$）→ $1.22/[1+0.35(Ma-1)^2]$（跨声速峰）→ $0.95$（$Ma&gt;2.5$），引自国内弹道期刊的"超音速段空气阻力理性经验公式"。相比按 $Re$ 建模的队伍，这里选择 $Ma$ 主导的钝体阻力律，正好覆盖 450 m/s（Ma≈1.3）先超后亚的过程，且公式形式简单、易于复现。</li>
 <li><strong>运动方程层</strong>：问题一用 $k=\frac{1}{2}C_d\rho S/M$（式 5）合并常数，阻力加速度写成 $\vec a_f=-k[v_x^2, v_y^2]$（式 7）——按分量平方分解是简化写法，与问题二式 (13)–(15) 采用的相对速度模长形式 $\vec a=-\frac{C_d\rho A}{2M}v_r(\vec v-\vec\omega)$ 并不一致，前者略欠严谨。</li>
 <li><strong>风与修正层</strong>：三维含风方程（式 13–17）后，论文用 Figure 3–5 三张示意图把"调炮管角度抵消风"的策略可视化，再对每类扰动扫描拟合线性规则，形成"高角/低角两套修正率"的查改表。</li>
 </ul>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>Euler 显式积分（$\Delta t=0.01$ s）+ 网格搜索（角度 0.1°、初速 1 m/s），命中判据 $|x-1200|&lt;0.5$ m 且 $y&lt;0$。方法上明显比 RK4+二分/求根的队伍朴素，论文自己在第 5 节承认应升级为 RK4 与自适应步长。速算方案是"线性敏感度规则"：对 $v=300$ m/s 固定档，用高/低角两组斜率（纵风 0.319°/0.0121°、横风 0.095°/0.0854°、侧风 0.101°/0.7928° 每米高差 0.0521°/0.0023°）叠加修正。验证算例：$73.5°$ 自然弹着 $(995.54, 1.97)$，目标高 100 m、距 1095.54 m、风 $(-10,-5,10)$，线性修正到 $71.5°$ 后实弹着 $(1110.98, 100.28)$，误差约 5 m，并诚实指出误差主因是线性近似（拟合相关系数不超过 0.98，距离因子尤甚）。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页（p1.png）是整块无分段的长摘要，信息全但可读性一般，无小标题引导。正文为标准 LaTeX 模板（目录、符号表、编号假设），篇幅 17 页为 9 篇中最短。图表页（fig.png，第 7 页）的 Figure 3–5 是简笔坐标系示意图，直观但绘制粗糙（Figure 5 图注误写为"the elimination of Y-axis wind"，应为 Z-axis；正文第 5.1/5.2 节标题重复"Refine Aerodynamic Model"；结果汇总第 4、5 条完全重复，距离项误写为"target altitude"——多处复制粘贴失误）。亮点是 Table 2 的多解参数表（角度、初速、落点、飞行时间四列）和 Figure 6/7 的"全弹道族"图，一次展示同题多解的全貌。全文引用 6 篇文献，以中文期刊为主。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>"多解族"呈现方式</strong>：不满足于给一组解，表 2 + 全弹道图把 $v_0(\theta)$ 的 U 形结构、飞行时间 tradeoff 一并呈现，展示了对问题结构的完整理解。</li>
 <li><strong>阻力公式选型贴合球弹</strong>：分段 $C_d(Ma)$ 钝体公式抓住了 450 m/s 跨声速的关键物理，且形式简单、可直接手算插值。</li>
@@ -75,7 +92,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>验证算例诚实</strong>：给出 5 m 误差并分析来源（线性化 + 距离因子相关性低），不粉饰。</li>
 <li><strong>模型评价章节完整</strong>（Strengths/Weakness/Applicability + 改进路线），显示出成熟的方法论自觉——在篇幅极短的情况下保住了结构完整性。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>轨迹搜索 + 多解表格（角度-初速-落点-飞行时间四列）是展示"弹道问题多解性"的现成模板。</li>
 <li>分段 $C_d(Ma)$ 公式（0.47 → 跨声速峰 1.22/(1+0.35(Ma-1)²) → 0.95）适合球/钝体弹丸的快速建模。</li>
@@ -85,7 +102,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>排版细节决定印象分：图注错字、节标题重复、汇总条目复制粘贴错误在 17 页短文里会被成倍放大。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -97,6 +117,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

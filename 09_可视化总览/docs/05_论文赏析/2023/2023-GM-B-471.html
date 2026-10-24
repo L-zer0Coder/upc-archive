@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2023</span>
+  <span class="crumb">05_论文赏析/2023 · The analysis of three people bouncing on a trampoline problem.（2023 题B 队伍471）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2023/Problem%20B/2023-GM-B-471.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2023/2023-GM-B-471.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="the-analysis-of-three-people-bouncing-on-a-trampoline-problem2023-b-471">The analysis of three people bouncing on a trampoline problem.（2023 题B 队伍471）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="the-analysis-of-three-people-bouncing-on-a-trampoline-problem2023-题b-队伍471">The analysis of three people bouncing on a trampoline problem.（2023 题B 队伍471）</h1>
 <p><strong>页数</strong>: 22 页 ｜ <strong>对应题目</strong>: Trampoline Jumping（三人蹦床跳跃）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>华沙大学队给出本题理论色彩最浓的一份解答：先建立单人蹦床的非线性振动模型（几何伸长弹性力 + 平方空气阻力 + 滞回阻尼 + $\frac{1}{3}M$ 网面等效质量），用周期平均近似把"腿部每周期注入能量 $\Delta E$"化成最大高度的解析函数（式(10)），再由单人高度反推各人 $\Delta E$，理论值与仿真值偏差在 3% 以内；随后基于文献中的双人能量传递图像设计"前一人停在最低点时后一人恰好触网"的接力储能策略，枚举全部 6 种落地顺序仿真，最优结果为 25 kg 达 <strong>3.20 m</strong>、40 kg <strong>2.74 m</strong>、50 kg <strong>2.39 m</strong>——最轻的孩子飞得最高，尽管他单跳最弱。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <p><strong>第一层：单人力学模型（第 2 节）。</strong> 弹簧竖直分量（式(1)）：</p>
 <p>$$F_t(z)=Nkz\left(1-\frac{R}{\sqrt{R^2+z^2}}\right)$$</p>
 <p>与 102 队式(3)同源，但本文走得更远：网面空气阻力写成含 $\mathrm{sgn}(\dot z)$ 的平方律（式(2)），弹簧滞回生热为线性阻尼（式(3)）。最有物理含量的一步是网面等效质量的推导（式(6)）：设网面速度线性分布 $v(r)=v_0(1-r/R)$，对整个网面积分加速度场得 $\int_S\rho a\,dS=\frac{1}{3}\pi\rho R^2\ddot z=\frac{1}{3}M\ddot z$，于是运动方程（式(4)）中质量项为 $(m+\frac{1}{3}M)\ddot z$——这个 $\frac{1}{3}$ 系数是解析积分的结果，而非拟合。</p>
@@ -65,11 +82,11 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <p><strong>第三层：稳态是吸引子（第 3 节）。</strong> 用 scipy 的 solve_ivp（DOP853，8 阶 Runge-Kutta）加事件函数实现"人停在最低点时注入 $\Delta E$"的踢腿，仿真证明无论初值如何轨迹都收敛到同一 $h_{max}$（3.2 节），即稳态吸引子。Table 2 给出理论与仿真 $\Delta E$ 对照：25 kg 为 123.25 J vs 126 J、40 kg 215.04 J vs 220 J、50 kg 347.03 J vs 343 J，<strong>偏差 &lt; 3%</strong>——这是全文最硬的自洽性证据。</p>
 <p><strong>第四层：三人接力策略（第 4–5 节）。</strong> 引用 PLOS ONE 的双人弹跳能量传递研究，设计顺序储能：1 号落下压网至停 → 瞬间蹬网起跳、2 号恰好同时触网把动能存入弹簧 → 2 号停时 3 号触网 → 3 号被全部储能加速射出。Figure 3 用 V 形网 + 三色球的示意图把这一策略可视化（见 fig 页）。Table 3 枚举 6 种顺序，末位玩家的分离量排序为 25&gt;40&gt;50 kg。</p>
 <p><strong>第五层：能量守恒复核与讨论（6.1–6.2 节）。</strong> 检查发现 50 kg 情形系统总能量增长 214 J 与肌肉注入总量 $\Sigma\Delta E=689$ J 同量级，坦承"瞬时蹬跳模型可能高估了末速"；并推断高速段空气阻力将占主导，据此建议蹦床设计增大 $c_a$ 而非 $c_d$——从模型缺陷直接引出工程设计建议。</p>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>解析与数值并重，是三篇 2023 题B 中唯一给出闭式近似的：① 周期平均 + 简谐 anzatz 推出 $\Delta E(h_{max})$（式(10)），属于摄动/量级分析风格；② 数值上用 scipy solve_ivp 的 <strong>DOP853</strong>（8 阶 RK）配事件检测（velocity、collision 事件）拼接自由落体—触网—蹬跳各阶段，处理比定步长引擎更精细；③ 收敛性/稳健性检验具体而微：改变初始条件（$z=1$ 起跳）验证吸引子不变；④ 参数来源透明：Table 1 的蹦床参数由文献 [1]（Eager 等 Sensors 2022）按"刚度与面密度不变"缩放，$k$ 取分段值（$\Delta L&lt;1.5$ mm 时 96 kN/m，否则 2.7 kN/m）刻画弹簧预紧非线性；⑤ 误差讨论诚实：明确指出结果"量级正确但未必精确"，并用能量收支解释偏差方向。附录给出两份完整 Python 代码。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>LaTeX 排版，标题页朴素（标题 + Team 471 + Problem B + Abstract，见 p1 渲染图），正文 8 节线性推进、无目录。公式编号 (1)–(11) 连续规范，推导行文紧凑但完整。图表共 6 幅 + 3 张表，matplotlib 出品、风格统一（黑/红/橙三色曲线、$z$–$t$ 与速度–时间成对出现，如 Figure 4–6 每个最优弹跳都给"位置 + 速度"双图）。最出彩的是 Figure 3 示意图：V 形网、弹簧、$g$、$z=0$、$r=R$ 标注齐全，用三个球的位置关系直观解释"接力储能"策略——这是三篇中唯一手绘风格的机制图。Table 1 中 $k$ 的分段定义直接写在表内，简洁。小瑕疵：Figure 1 图题下方字重不齐、附录代码使用了非标准 <code>[language=Python]</code> 标记（listings 包参数误用痕迹），标题以句号结尾欠规范。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>解析—数值双轨互证</strong>：式(10) 的理论 $\Delta E_0$ 与仿真标定 $\Delta E$ 相差不足 3%（Table 2），给模型正确性提供了本批次最强的一票。</li>
 <li><strong>$\frac{1}{3}M$ 等效质量的积分推导</strong>（式(6)）：把他人当作经验系数的量变成从速度场假设出发的解析结果，物理洞察力突出。</li>
@@ -78,7 +95,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>诚实的误差与能量审计</strong>：主动计算总能量收支、指出模型可能高估，并把缺陷转化为"增大 $c_a$"的设计建议与"最轻者最危险"的安全结论。</li>
 <li><strong>吸引子论证</strong>：单人稳态不依赖初条件的论证，巧妙地把"单人高度给定"这一题设转化为能量标定依据。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>网面/绳膜类等效质量用速度场假设 + 面积分推导，$\frac{1}{3}M$ 型系数可直接移植到鼓面、蹦床、薄膜问题。</li>
 <li>"周期平均耗散 = 每周期注入能量"的稳态分析法，能把带驱动振荡问题的未知参数闭式估出，再用数值仿真校核（偏差应写明）。</li>
@@ -88,7 +105,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>从模型弱点引出设计/安全建议（增大阻力系数、保护最轻儿童），提升论文的应用价值层次。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -100,6 +120,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

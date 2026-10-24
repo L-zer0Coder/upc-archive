@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,20 +41,35 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2010 题B：中世纪投石机动力学（Trebuchet: The Dynamics of a Medieval Siege Engine）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2010_%E9%A2%98B_%E6%8A%95%E7%9F%B3%E6%9C%BA%E5%8A%A8%E5%8A%9B%E5%AD%A6.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2010-btrebuchet-the-dynamics-of-a-medieval-siege-engine">2010 题B：中世纪投石机动力学（Trebuchet: The Dynamics of a Medieval Siege Engine）</h1>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2010-题b中世纪投石机动力学trebuchet-the-dynamics-of-a-medieval-siege-engine">2010 题B：中世纪投石机动力学（Trebuchet: The Dynamics of a Medieval Siege Engine）</h1>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <blockquote>
 <p>原题（压缩）：The trebuchet was a type of catapult which used a sinking counterweight to throw a projectile. The counterweight was fixed to a short arm, which extended through a fulcrum to a long arm, where a projectile was attached at the end of a sling. Consider a trebuchet, powered by a counterweight with a mass of 5,000 kg which is raised 2 meters above the ground. <strong>What would be the best arm lengths and sling length, in order to maximize the damage done by the projectiles?</strong></p>
 </blockquote>
@@ -99,13 +116,13 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <ul>
 <li><strong>"maximize the damage"</strong> 是本题最大的模糊词。必须先翻译成可计算的代理量：金牌队取"<strong>释放瞬间弹丸平动动能最大</strong>"即 $v_3$ 最大（点质量模型下破坏力 ∝ $v^2$）；也可以选"最大射程"，但那需要额外优化释放角。两种转译都合法，<strong>文中必须明说这是定义选择</strong>，并说明含义差别（动能毁伤 vs 覆盖范围）。</li>
 <li><strong>"best arm lengths"</strong> 必须定义在物理可行域内：配重摆到底不触地、长臂+吊索不穿地（$r_2+r_3\le h_0$）、配重要能被举到题给的 2 m 高度（对固定 $h_0$ 这给出 $r_1\ge h-h_0$ 的下限）。最优解往往顶在约束边界上——这本身就是一个重要发现（见 §4）。</li>
 <li>弹丸质量、支点高、梁材料都是<strong>题面故意留白的自由度</strong>：自设 + 论证 + （理想情况下）做参数讨论，是拿分动作。</li>
 </ul>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1（理想模型）</strong>：配重与弹丸为质点，梁为均质细杆（质量 $m_2=\rho A(r_1+r_2)$），吊索无质量、定长。二自由度系统：梁与竖直方向夹角 $\varphi_1$、吊索与竖直方向夹角 $\varphi_2$。因只有保守重力做功，用 Lagrange 力学最自然：写出动能（含耦合项 $\cos(\varphi_1-\varphi_2)$）与势能，得到两个耦合非线性二阶方程（金牌论文式 33、36），无解析解 → 数值积分。弹丸速度由吊索端点速度给出；释放时刻规定为 $\varphi_1=\pi$。</p>
 <p><strong>层次 2（必要修正）</strong>：
 - <strong>梁的质量与转动惯量</strong>：推导时保留 $I_{zz}$ 符号最后代入（金牌队做法），换任意截面/材料零成本；
@@ -124,7 +141,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
     G --&gt; H[&quot;设计法则&lt;br/&gt;索:长臂≈2:3, 臂+索尽量长, 配重臂短&quot;]
     G --&gt; I[&quot;灵敏度与自检&lt;br/&gt;能量守恒 / dt减半 / 细杆长细比&quot;]
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <table>
 <thead>
 <tr>
@@ -185,7 +202,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>推荐</strong>：RK4 + 步长 1e-4~1e-3 s（金牌队用一阶 Taylor/Euler、$dt=0.01$ s，配停止容差 $|\pi-\varphi_1|&lt;0.05$ rad 与 $t_{\max}=10$ s 防发散；没有做步长收敛检验是其自认短板，你应当做）。</li>
 <li><strong>能量守恒自检</strong>：无摩擦模型中 $T+U$ 漂移应 &lt;0.1%，一行代码就能抓住积分器 bug。</li>
@@ -193,7 +210,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>释放瞬间</strong>：弹丸速度 = 吊索端点速度 $\sqrt{(\dot x_3)^2+(\dot y_3)^2}$，注意释放后弹丸作抛体、吊索约束消失，别把释放后的吊索张力算进弹丸。</li>
 <li><strong>数值陷阱</strong>：$\varphi_2$ 高频摆动时 $dt$ 过大会漏掉释放时刻的速度峰值；角度接近 $\pm\pi$ 时三角耦合项的符号；网格步长 0.01 m 决定了"最优值"本身只有 ~2 位有效数字，别报更多。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li>忘了弹丸质量是题面留白：不声明自设值（及理由）就给出"最优臂长"——优化结果强烈依赖 $m_3$。</li>
 <li>把"配重举高 2 m"直接当"下落 2 m"用 $E=mgh=98$ kJ：实际下降量由 $r_1,h_0$ 决定，金牌构型只有约 1 m。</li>
@@ -201,16 +218,16 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>优化无物理约束：搜出 $r_2+r_3&gt;h_0$（穿地）或配重触地的解；或允许释放角任意指定（真实释放角由吊索相位决定，不能独立调）。</li>
 <li>把单一构型的"2:3 法则"外推成普适定律而不做灵敏度讨论（金牌队自己都声明了这一点）。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>arXiv:2303.01306 "The swinging counterweight trebuchet: On scaling and solution branches" (2023)</strong> — https://arxiv.org/html/2303.01306v1 。现代学术视角的摆动配重投石机动力学与标度律，可直接支撑你的"铰接/摆动配重扩展模型"与效率讨论。</li>
 <li><strong>COMSOL Blog: "What Is the Physics Behind a Counterweight Trebuchet?" (2017)</strong> — https://www.comsol.com/blogs/what-is-the-physics-behind-a-counterweight-trebuchet 。多体动力学建模思路（含配重摆动与释放相位），适合对照你的 Lagrange 推导。</li>
 <li><strong>Wolfram Demonstrations: "Optimizing the Counterweight Trebuchet"</strong> — https://demonstrations.wolfram.com/OptimizingTheCounterweightTrebuchet/ 。可交互扫吊索长度/配重质量看射程变化，用于快速核对你的扫描结果量级。</li>
 <li><strong>AIAA 2006-775 "Trebuchet Energy Efficiency – Experimental Results"</strong> — 实验测量的投石机能量效率，为你的 $\eta\approx30\%$（固定配重）提供实验锚点。</li>
 </ol>
-<h2 id="8">8. 金牌论文思路对比</h2>
+<h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <p>本题唯一金牌：<strong>Team 210（圣路易斯大学，单人队伍 John Sanders）</strong>。路线：全符号 Lagrange 推导（$I_{zz}$ 保留不代入，保持一般性）→ 自设 $m_3=100$ kg、$h_0=1.5$ m、钢梁 0.10 m 方截面 → 一阶 Taylor 步进的 C++ 积分 + 0.01 m 网格三维穷举 → 最优 $r_1=0.51$ m、$r_2=0.91$ m、$r_3=0.58$ m、$v_3=17.48$ m/s → 总结"吊索:长臂≈2:3、臂+索尽量长、配重臂更短"，并诚实声明该法则只对所选参数成立。亮点是"一般性优先"的符号化推导与全套代码/数据入附录；短板是图表朴素、无收敛性检验。详见 ](05_论文赏析/2010/2010-GM-B-210.md)(../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2010/2010-GM-B-210.html)。</p>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] "maximize damage" 被翻译成明确的可计算目标（释放动能/射程），并声明这是定义选择及其含义差异。</li>
 <li>[ ] 题面留白参数（弹丸质量、支点高、材料）逐项给出取值与理由，最好附参数讨论。</li>
@@ -220,7 +237,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>[ ] 结论边界清晰：设计法则的适用范围、未建模效应（吊索弹性、结构强度、铰接配重）逐条列出。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌论文思路对比">8. 金牌论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -232,6 +252,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,34 +41,49 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2015</span>
+  <span class="crumb">05_论文赏析/2015 · 'Foxy Golf Balls'（2015 题B 队伍108）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2015/Problem%20B/2015-GM-B-108.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2015/2015-GM-B-108.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="foxy-golf-balls2015-b-108">'Foxy Golf Balls'（2015 题B 队伍108）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="foxy-golf-balls2015-题b-队伍108">'Foxy Golf Balls'（2015 题B 队伍108）</h1>
 <p><strong>页数</strong>: 24 页 ｜ <strong>对应题目</strong>: 题B Golfing Around a Tree（球在树后 10 m，树为半径 5 m 圆柱，果岭在 120 m 外、直径 10 m，描述球杆-球相互作用使球绕过树落上果岭）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>论文将球的运动划分为 Free-flight Stage 与 Bouncing Stage 两段，核心物理判断是：<strong>Magnus 力是球能绕行圆柱的根本原因</strong>——backspin 提供升力延长飞行，sidespin 提供侧向力把球"拉回"果岭。杆-球碰撞用斜碰撞的动量/角动量守恒写成 10 元线性方程组的矩阵形式（式 6、式 21-22），自由飞行段用带二次阻力（式 7）与 Magnus 力（式 8）的三维 ODE（式 9）数值积分，落地段用 Penner 的恢复系数经验式（式 12）与 Daish 的反弹公式（式 11）解析处理，最终在 $(\psi,\gamma)$ 参数空间扫出可行域（Figure 7-8），并定义"系统裕度"$M$（式 20）量化容差，给出可操作建议：loft 22.5°、drift 约 17°、偏离树 44° 方向、速度约 60 m/s。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <ul>
 <li><strong>第 1 层：杆-球斜碰撞（击球瞬间）</strong>。假设接触时间 &lt;0.5 ms、冲击力 &gt;5 kN（引 Cochran &amp; Stobbs 高速摄影），故按完全非弹性碰撞处理：式(1)法向/切向动量守恒、式(2)角动量守恒 $mRV_{bfp}+I\omega_{bf}=0$、式(3)碰撞后共速/无滑动约束、式(5)两坐标系 x 分量协调条件，共 10 个方程打包成矩阵 $\mathbf{b}=P\mathbf{v}$（式 6），P 阵 10 行在附录 A 逐行标注物理含义（Px, Py, Pz, ωy, ωz, Collision×2, Non-slip×2, Vx）。用几何量 θ（loft）、ψ（drift）参数化杆头取向，直接对上"描述球杆-球相互作用"的题眼。</li>
 <li><strong>第 2 层：自由飞行段</strong>。式(7)二次阻力 $f_{air}=\frac12 C_D\rho_{air}Sv^2$；式(8) Magnus 力 $f_{Magnus}=C_M(\vec\omega\times\vec v)$，$C_M=\frac{\pi^2}{2}\rho_{air}C_AR^3$；式(9)三维耦合 ODE。物理洞察段 4.2：对比光滑球与凹坑球（Figure 4 流场示意、Figure 5 同初条件轨迹对比），用湍流推迟分离解释凹坑球阻力更小、飞得更远——为选 $C_D$ 提供文献依据。</li>
 <li><strong>第 3 层：弹跳与滚动段</strong>。式(10)单次弹跳角动量守恒（摩擦力矩不做功），得 Daish 公式(11) $v&#x27;_\parallel=\frac57 v_\parallel-\frac27 R\omega_r$；恢复系数用 Penner 拟合式(12)（$e=0.510-0.0375|v_\perp|+0.000903|v_\perp|^2$，$|v_\perp|&gt;20$ m/s 时取 0.120），论证第一次弹跳后速度骤降、后续 $e\approx0.5$；式(15)弹跳总长是公比 $e$ 的几何级数 = $2L_{b1}$；式(16)滚动距离 $L_r=v&#x27;^2_\parallel/2\mu g$（µ=1.0）。还讨论了 backspin 过大使 $v&#x27;_\parallel&lt;0$ 时球回滚的情形（Figure 6b），并把 sidespin 分解进 x、y 分量（式 17-19）。</li>
 <li><strong>第 4 层：扩展模型</strong>。把风速 5 m/s 加入相对速度项（附录 B.4 中阻力与 Magnus 项均用 $y&#x27;-w$），Figure 10 显示侧风使可行域显著变大。</li>
 </ul>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>解析 + 数值混合：碰撞与弹跳段全解析（线性方程组 LinearSolve、几何级数求和），飞行段用 Mathematica NDSolve 数值积分。技术亮点：用 EventLocator 事件机制在"碰到树圆柱或落地"时中断积分并 Sow 落点状态（附录 B.2），实现轨迹分段的精确衔接；可行域用双重 Do 循环扫参（$\psi$ 步长 0.02、$\gamma$ 步长 0.02，B.4 中加密到 0.01）。独创的"裕度"定义（式 20）$M=\sqrt{\frac{1}{S}\int_{\text{可行域}}[(\psi-\bar\psi)^2+(\gamma-\bar\gamma)^2]\,d\tau}$ 把"这一杆容不容得失误"变成一个标量，Figure 9 显示 $V_{club}\in50\sim70$ m/s 时裕度最大，据此反推最优杆法——这是把数值扫参上升为优化问题的范例。不足：未做步长收敛性检验；$C_A$、$C_D$ 具体取值仅在附录 C 以实验图（Figure 11）形式给出。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页（p1 图）：Word 风格排版，"Problem B"节标题 + 居中大标题 'Foxy Golf Balls' + TEAM 108，摘要分 5 段、约 1 页，叙事层次是"结论（Magnus）→ 两阶段方法 → 数值实现 → 裕度优化 → 风扩展"。全文 24 页带目录（Contents 带页码引导线）、页眉三栏"Team 108 | University Physics Competition | Page X of 24"，视觉规范。公式编号 (1)-(22) 连续；符号表 Table 1 占两页、30 余个符号逐一定义，专业度高。共 11 图：Figure 1/2/6 为自绘矢量示意图（fig 图中 Figure 6 的 Before/After 弹跳速度分解图与多段弹跳-滚动示意清晰直观），Figure 3/5 为 Mathematica 三维/二维轨迹，Figure 7/8/10 为参数空间散点可行域（红点集），Figure 9 为裕度柱状/折线图，Figure 11 为文献实验参数图。瑕疵：标题页页眉仍写"Problem A"（正文为题 B，属模板残留）；参考文献 [9]-[13]（天线阵列、衍射极限等）与主题无关，疑为其他文档的引用列表残留。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>抓住题眼物理</strong>：绕树必须靠侧向持续力，sidespin-Magnus 是唯一合理机制，全文围绕它组织，结论有明确物理归因而非"数值试出来了"。</li>
 <li><strong>两阶段拆分 + 全链条交互建模</strong>：杆-球、球-空气、球-地面三种相互作用各有专属模型与系数来源（Cochran &amp; Stobbs、Penner、Daish），题目的"ball/club interaction"被正面回答。</li>
@@ -75,7 +92,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>经验系数文献化</strong>：恢复系数随撞击速度变化的拟合式（式 12）、µ=1.0 等全部注明 Penner 等出处，避免"拍系数"。</li>
 <li><strong>扩展模型展示余量</strong>：侧风分析说明团队有余力处理真实条件，且事件驱动代码框架换参数即可复用。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>运动过程明显的题目先做"阶段划分"，每阶段选最合适的数学工具（碰撞=代数方程，飞行=ODE，弹跳=级数）。</li>
 <li>多守恒律联立的碰撞问题写成矩阵形式 $\mathbf b=P\mathbf v$ 并逐行注明物理含义，可解性一目了然。</li>
@@ -85,7 +102,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>收尾给"教练式建议"（具体角度、速度数字），让评委看到物理模型落到了可执行的动作上。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -97,6 +117,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

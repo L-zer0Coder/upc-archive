@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,34 +41,49 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2022</span>
+  <span class="crumb">05_论文赏析/2022 · Planetary Defense Based on kinetic Energy Impact（2022 题A 队伍395）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2022/Problem%20A/2022-GM-A-395.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2022/2022-GM-A-395.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="planetary-defense-based-on-kinetic-energy-impact2022-a-395">Planetary Defense Based on kinetic Energy Impact（2022 题A 队伍395）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="planetary-defense-based-on-kinetic-energy-impact2022-题a-队伍395">Planetary Defense Based on kinetic Energy Impact（2022 题A 队伍395）</h1>
 <p><strong>页数</strong>: 35 页（正文约 16 页 + 附录 MATLAB 代码 19 页）｜ <strong>对应题目</strong>: Deflecting an Asteroid（100 m 小行星以 25 km/s 直撞地球，2 万 kg 飞船需提前多久撞击才能使其错过地球）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>同济大学 395 队的答卷在五篇中独树一帜：<strong>整套采用 MCM/ICM 建模赛论文模板</strong>（"Summary Sheet / Team Control Number 395 / Page N of 35"三栏页眉），解题思路也是数模式的"分类讨论 + 数值搜索"。他们先按星云吸积理论把小行星分成碎石堆与密实岩球两类（前者仅定性分析），后者取完全非弹性碰撞模型；密度取氨冰与铁的几何平均 $\rho\approx2.53\ \mathrm{g/cm^3}$，得 $M_1\approx1.32\times10^9$ kg（式(1)）。核心创新是引入<strong>日心系视角</strong>：以撞击时小行星对地速度方向与地球公转速度方向的夹角 $\theta$ 为参数，由余弦定理与轨道能量判据 $E=9.834\times10^{17}\cos\theta-1.695\times10^{17}$（式(14)）把轨道分为椭圆（$80°&lt;\theta&lt;280°$，动能撞击无法解决）与双曲（其余角度）两支，对双曲情形用 MATLAB 逐度模拟 + 二分法搜索最近可行撞击点，最终给出：最短 $t\approx5\times10^6$ s ≈ 58 天（$\theta\approx40°$，式(21)），最长 $t\approx1.2\times10^7$ s ≈ 139 天（$\theta\approx-80°$，式(22)）。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <p><strong>第一层：中心引力体的判定（3.2 节）。</strong> 这一小节是全文最精彩的"自洽性自我纠错"案例：先假设撞击发生在地球附近（地心引力主导），用动能/势能之比 $E_k=\frac{1}{2}M_1v^2\approx10^{17}$ J vs $E_p=-\frac{GM_0M_1}{r_0}\approx-10^{16}$ J（式(2)(3)）论证小行星速度沿途近似不变；再在"最利情形"规则组（飞船对 asteroid 速度取卫星极限 200 km/s、垂直撞击、碰后近地点恰为 1 $R_E$、完全非弹性碰撞、飞船质量不损失、$M_1\gg m_{craft}$ 合体质量不变）下，用动量守恒 $m_{craft}v_{craft}=(m_{craft}+M_1)v_t$（式(4)，$v_t\approx4$ m/s）、角动量守恒 $m_1dv_t=m_1r_0v&#x27;_t$（式(5)）与能量守恒（式(6)）联立解出 $d\approx5\times10^{10}$ m；随后<strong>回头检验假设</strong>：日心引力 $F_{sun}\approx10^6$ N（式(7)）vs 地心引力 $F_e\approx10^2$ N（式(8)），发现与自己"地心主导"的前提矛盾——于是把模型中心体改为太阳。这种"估算 → 反推 → 检验前提 → 换框架"的循环在竞赛论文里罕见，是物理判断力的直接展示。</p>
 <p><strong>第二层：飞船加速段的量化（3.3 节）。</strong> 齐奥尔科夫斯基公式 $v_t=v_{1st}+u\ln\frac{m_c}{m_t}$（式(9)，近地轨道 $v_0=7.9\times10^3$ m/s、比冲上限 $u=4\times10^3$ m/s），对动量 $p=m_t(v_0+u\ln\frac{m_c}{m_t})$（式(10)）求导 $\frac{dp}{dm_t}=v_0+\ln\frac{m_c}{m_t}-u$（式(11)），论证 $m_t&lt;m_c$ 时导数恒正；再叠加"逃离太阳系需达第三宇宙速度 $v_{3rd}=1.68\times10^4$ m/s"的约束，取"刚好够用"的燃烧方案，得剩余质量 $m_t=2.161\times10^3$ kg——燃料占 89%，飞船实际"弹药"只剩 2 吨，这一中间结果被诚实地带进了后续碰撞计算。</p>
 <p><strong>第三层：轨道分类（3.4 节）。</strong> 设撞击时小行星对地速度与地球公转速度夹角 $\theta\in[0°,360°]$，余弦定理 $v_a=\sqrt{v_0^2+v_R^2+2v_0v_R\cos\theta}$（式(12)）代入日心轨道能量 $E=\frac{1}{2}M_1v_a^2-\frac{GM_{sun}M_1}{R}$（式(13)）得线性于 $\cos\theta$ 的式(14)：$\theta=80°/280°$ 时 $E=0$（抛物线，测度为零、数值上不可严格实现，明确排除）；$E&lt;0$ 椭圆、$E&gt;0$ 双曲。把一个"轨迹未知"的开放条件参数化成一个角 $\theta$，是全文的题眼工程。</p>
 <p><strong>第四层：椭圆情形的"不可解"论证（3.5.1 节）。</strong> 先用 MATLAB 逐度验证 $80°&lt;\theta&lt;280°$ 的椭圆轨道不穿入太阳半径内（物理上可行）；再指出关键物理：双曲轨道与小行星轨道只交一次、躲过即永别，而<strong>椭圆轨道周期回归，只要碰后轨道仍与地球轨道相交，时间足够长必然再撞</strong>——而动能撞击提供的 $\Delta v$（米/秒级）远不足以把相交轨道推开。结论：椭圆情形无解。用"回归性"否定一个分支，比硬算更聪明。</p>
 <p><strong>第五层：双曲情形的数值搜索（3.5.2 节）。</strong> 飞船最大日心速度 $v_{craft}=v_R+v_t=4.66\times10^4$ m/s（式(15)，顺风向发射叠加地球公转速度的极限情形）；由日心能量守恒（式(16)）得撞前速度 $v_1$ 随撞点日距 $r_{hit}$ 的关系（式(17)）；垂直于小行星原速度方向撞击（横向 $\Delta v$ 对轨道改变最有效），动量守恒 $m_{craft}v_1=(M_1+m_{craft})v_2$（式(18)(19)）代入数值化为 $v_2=1.637\times10^{-6}\sqrt{2.172\times10^9+2.655\times10^{20}\frac{1.5\times10^{11}-r_{hit}}{1.5\times10^{11}r_{hit}}}$（式(20)）。数值流程：对每个 $\theta$ 先算原轨道 → 在轨道上取撞击点、施加 $\Delta v$ → 积分碰后轨迹、以"距地心最近距离 &gt; $10^7$ m（1.5 $R_E$）"为躲开判据 → <strong>二分法</strong>缩定最近可行撞击点（区间宽度取 $10^7$ m ≈ 地球半径量级并论证其合理性）→ 换算撞击点到原撞点的时间 $t$ → $\theta$ 从 $-79°$ 到 $79°$ 逐度扫描、散点 + 平滑拟合（式(21)(22) 的极值）。</p>
 <p><strong>第六层：碎石堆情形（3.6 节）。</strong> 定性处理：高速撞击使碎块飞散，等效"发动机"推力使偏转在多数情况下更容易，但变量过多不作定量建模——用物理直觉给方向、用诚实划边界。</p>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>解析与数值分工：式(2)–(14) 为解析估算与分类判据，式(15)–(20) 为代数代入，最终答案是纯数值搜索（MATLAB，正文说明 + 附录 A 19 页脚本）。方法链条：轨道积分（不确定具体积分器与步长，正文未述）→ 二分法求临界撞击点 → 1° 步长全局扫描 → 曲线拟合。检验手段体现在三处：中心体选择的力比检验（式(7)(8) 的自我纠错）、轨道可行性验证（不穿过太阳）、判据分辨率论证（$10^7$ m 区间宽度 ≈ 地球半径量级，因撞击点远离地球故该精度足够）。明显缺失：没有收敛性/步长敏感性报告，$\theta$ 扫描只有 1° 分辨率，式(21)(22) 的"最短/最长"是读图极值而非优化输出；两条参考文献仅 2 篇（Park &amp; Ross 1999、Solem 1993），文献支撑偏薄。式(17) 的印刷形式含 $m_{craft}$ 残留项与系数存疑（按式(16) 能量守恒正确形式应为 $v_1^2=v_{craft}^2+2GM_{sun}(1/r_{hit}-1/R)$），不确定是排版还是推导笔误。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页（p1 渲染图）直接套用 MCM/ICM 模板：顶部三栏"Problem Chosen A ｜ 2022 MCM/ICM Summary Sheet ｜ Team Control Number 395"加粗横线，标题"Planetary Defense Based on kinetic Energy Impact"，"Summary"加粗居中，末尾带 Keywords 行——在 UPC 论文中极为罕见（UPC 官方并不要求该格式），页眉"Team # 395 ｜ Page N of 35"贯彻全文。摘要两段、语法粗糙（"we according to the topic given by... carry on the reasonable guess assumptions"），但结果句清晰：58–139 天。章节结构：Introduction → Assumption and Notation（假设 4 条 + 符号表）→ Physical And Analysis（3.1–3.6 六小节）→ Conclusion → Strengths And Weaknesses → References → Appendix A。符号表有错行："mcraft"解释为"the speed of the spacecraft"（应为质量）、"vfst"解释为"The mass of the sun"，属明显疏漏。图以 MATLAB 默认风格为主：Figure 1 为小行星成分图；渲染页 p11 显示两幅默认配色的轨道图（红色双曲线轨迹 + 太阳蓝点；绿色碰后轨迹掠过以红圈标出的地球碰撞区，坐标轴 $\times10^{11}$ m）——图注缺失，靠正文文字说明，工程上够用但观感朴素；式(21) 极值对应的 $t$-$\theta$ 拟合图在正文引用但渲染图未能确认其样式（不确定）。公式编号 (1)–(22) 连续。总体排版是"重内容轻修饰"的数模风格，与 346 的期刊式排版形成鲜明对比。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>日心系框架 + 单参数化。</strong> 把"轨迹未知"化为夹角 $\theta$，用轨道能量符号把解空间切成椭圆（无解）/双曲（可解）两支——分类讨论不仅全面，而且每一类的可解性都有物理论证（椭圆的周期回归性），这是评委最认可的"结构化思维"。</li>
 <li><strong>前提检验的自我纠错循环。</strong> 3.2 节先立"地心主导"假设推出 $d$，再算出 $F_{sun}/F_e=10^4$ 推翻自己、切换到日心系——把"模型前提要自洽"演示成论文的一部分，几乎是为评委的 rubric 量身定做。</li>
@@ -75,7 +92,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>诚实的分支处理。</strong> 抛物线（测度为零）、碎石堆（定性）、椭圆（无解）都不回避，正面给出"为什么不算/为什么无解"的理由，答案的适用域因此清晰。</li>
 <li><strong>极限情形法用得系统。</strong> 200 km/s 对地速度、不损失质量的飞船、顺风叠加公转速度——所有"最利情形"都明示为估算上界，读者随时知道数字的保守/激进属性。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>遇到"轨迹/构型未知"的开放条件，先找一个参数（如方向角 $\theta$）把解空间参数化，再按物理判据（轨道能量符号）分而治之。</li>
 <li>建模型前先做"中心体/主导项判定"的数量级比较，且把检验写进论文——发现矛盾就升级框架，这比一步到位更显物理成熟度。</li>
@@ -85,7 +102,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>警戒项：本文能拿金牌但符号表错行、图注缺失、摘要语法粗糙、仅 2 篇参考文献——说明 UPC 评审核心在物理与模型本身；但这些瑕疵在更激烈的年份完全可能变成减分项，排版还是越干净越保险。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -97,6 +117,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

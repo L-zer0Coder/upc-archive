@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2013</span>
+  <span class="crumb">05_论文赏析/2013 · Analysis of Biological Structures in Hypergravity Environments（2013 题B 队伍611）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2013/Problem%20B/2013-GM-B-611a.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2013/2013-GM-B-611a.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="analysis-of-biological-structures-in-hypergravity-environments2013-b-611">Analysis of Biological Structures in Hypergravity Environments（2013 题B 队伍611）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="analysis-of-biological-structures-in-hypergravity-environments2013-题b-队伍611">Analysis of Biological Structures in Hypergravity Environments（2013 题B 队伍611）</h1>
 <p><strong>页数</strong>: 23 页 ｜ <strong>对应题目</strong>: Extraterrestrial Life（超重力行星上的生物结构；本篇为官方公开的 611a 版本，同目录 611.txt 为另一版本，本赏析只针对 611a）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>华盛顿大学圣路易斯分校队（Endsley、Kreisch、Stein）研究 $M=8M_\oplus$、$R=2R_\oplus$（表面重力恰为 $2g$）、表面温度 250 K 的系外行星上四足动物的身体构造。路线：先算出 $g\propto M/R^2=2g$ 并用对数图（Fig. 2.1.1）排除行星自转离心效应；再分三条主线建模——心血管系统用 Navier-Stokes 方程（层流、柱坐标简化后积分得 Poiseuille 型速度剖面）论证"血压梯度 ∝ 重力"，结合 Dawson 异速生长律得"血容量 ∝ $g$"（2g 下翻倍）；肌肉骨骼系统把骨应力分解为正应力与剪应力，用力矩平衡导出等应力曲线 $l\propto 1/(g\sin\theta)$，从"l-曲线"（Fig. 2.3.1）角点读出最优骨长与附着角在 2g 下均缩短约 30%、骨截面积翻倍；步态用 Froude 数 $Fr=v^2/(gl)$ 分析：同一速度下 Fr 减半，"地球上在飞奔、系外行星上只是小跑"。叠加 250 K 低温与标高减半的大气压分析后，总结出"更矮、更壮、更慢、心脏与器官更大、血量翻倍"的完整外星生物画像。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <ul>
 <li><strong>入口筛查（2.1）</strong>：$g_{surf}=GM/R^2=2g$；对离心加速度 $v^2/R$ 做敏感性作图（Fig. 2.1.1，log-log），结论是行星需自转快 10 倍以上离心项才显著——用一张图把一个潜在混淆变量正式请出局，再宣布"重力是唯一的决定性变量"。</li>
 <li><strong>心血管模型（2.2）</strong>：从 Navier–Stokes 方程（含应变率张量的完整形式，速度 $u$、压强 $P$、黏度 $\mu$、体积力 $f$）出发，按"密度恒定、速度仅沿血管方向、定常、层流、管壁无滑移、管心有限"六条假设简化，引用文献 [9] 说明柱坐标动量方程下外力项消去，积分得抛物线速度剖面；由"压强梯度大致正比于单位体积外力"推出 2g 下沿肢体血压梯度翻倍。随后分两案讨论：Case 1（心血管系统不变）→ 缩短附肢减少泵送距离 $dz$；Case 2（附肢长度不变）→ 心脏变大变强。判定"真实演化大概率是两者组合"。此节结论与骨骼模型独立地指向"矮壮体型"，论文在 Strengths 中明确把这一<strong>双模型交叉验证</strong>列为亮点。</li>
@@ -64,7 +81,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>步态模型（2.4）</strong>：行走肢体视为倒摆，Froude 数 $Fr=v^2/(gl)$（特征长度取腿长），引用 Alexander [2] 的步态转换阈值（走-跑 0.3–0.8，跑-飞奔 2.0–3.0）：同一速度下 2g 使 Fr 减半，故最高效步态更难达到、最高速度更低。</li>
 <li><strong>环境层（3.1、3.2）</strong>：250 K 均温按 Lambert 余弦律摊到两极 190 K/赤道 285 K，类比北极熊推断极地生物需脂肪保温与从食物取水；大气压用标高公式 $P(h)=P_0e^{-h/\lambda}$、$\lambda=k_BT/(mg)$，同组成同温下 2g 使标高减半（附录代码给出约 3.66 km，对比地球约 7.3 km），分"同表面气压/同大气柱"两案讨论飞行生物与血氧分压。</li>
 </ul>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <ul>
 <li><strong>解析与量纲/标度论证为主，几乎无数值模拟</strong>：N-S 方程"proved exceedingly difficult to solve numerically"——作者坦承只能做定性推论；所有定量结论（面积翻倍、30% 缩短、血量翻倍、Fr 减半）都来自守恒/平衡方程与异速标度律。</li>
 <li><strong>作图工具相当专业</strong>：附录 2 公开全部 ROOT（CERN 的 C++ 分析框架，TF1/TH2F/TCanvas）绘图代码：Fig. 2.1.1 的 log-log 曲线、Fig. 2.3.1 的双曲线 + 角点十字线（代码中角点 $\theta=0.1068/0.0756$ rad 可复核）、Froude 数四联 3D 曲面（SURF2）、大气压曲线族（0.2–5 atm）。</li>
@@ -72,14 +89,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>诚实的能力边界</strong>：5.1 承认"角点 = 演化最优"只是假设（$\sigma_m$ 恒定而 $\theta$、$l$ 各自变化的解同样可能）、Froude 分析无法给出定量极速。</li>
 <li><strong>无方程编号</strong>：全文公式均为行内/独立无编号呈现（与同年其他论文不同），引用靠文字定位。</li>
 </ul>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <ul>
 <li><strong>23 页长文，Word 系排版</strong>：无衬线粗体大标题、页眉为"论文标题 | 页码"跑题（p1 渲染图），摘要约 350 词占满首页；章节为 1 Interpretation → 2 Model（2.1–2.4，含 2.2.1 子节）→ 3 Additional Considerations → 4 Results Summary → 5 Discussion（5.1 Weaknesses / 5.2 Strengths）→ 6 Closing Remarks → References → 附录 1（参数表）+ 附录 2（代码）。</li>
 <li><strong>图 5 幅</strong>：Fig. 2.1.1（log-log 自转筛查）、Fig. 2.3.1（l-曲线双图 + 十字角点，全文核心图）、Fig. 2.4.1/2.4.2（步幅、速度对 Fr 与腿长的 1g/2g 曲面族）、Fig. 3.3.1（大气压-高度曲线族，实线为系外行星各表面气压、虚线为地球；注意编号 3.3.1 与所在小节 3.2 不一致，小疏漏）。图表均为 ROOT 产出，学术风浓郁但坐标/图例偶有粗糙。</li>
 <li><strong>摘要</strong>：方法链完整（N-S → 异速律 → 应力分解 → Froude → 环境修正）且给出全部数值结论（2 倍截面积、30% 缩短、血量翻倍），是一份"不读正文也能复述结论"的模范摘要。</li>
 <li><strong>参考文献 12 条全为正规学术源</strong>（Alexander 两部动物运动专著、Dawson 心血管系统工程设计、Springer《Cardiovascular Mathematics》、Gould 与 Kurz 的异速生长经典、Turner 股骨剪切强度实测），而非网站——在 2013 年的参赛论文中显得尤为扎实。</li>
 </ul>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>多系统分工 + 双模型收敛</strong>：心血管（血压梯度限制身高与附肢）与骨骼（应力限制身高）两条独立建模路径得出同一形态学结论，论文明确以"两模型相互印证"作为可信度论据——这是开放性题目中最有力的自洽性论证。</li>
 <li><strong>先做排除法再建模</strong>：用 Fig. 2.1.1 正式排除自转效应，并说明为何只选心血管、骨骼、大气三个约束——"为什么建这些模型、不建那些"本身给出了论证。</li>
@@ -88,7 +105,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>模型失效域的自觉</strong>（$V\propto g$ 发散、N-S 数值不可解、角点假设可替代）写进 Weaknesses，展示研究生级的严谨态度。</li>
 <li><strong>回答了题目的每一个示例问题</strong>：多大（更矮壮）、什么形状（柱状腿、浅附着角）、多快（Fr 减半 → 更慢），外加温度与气压两个题目未明说但 250 K 暗示的维度。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li><strong>"双独立模型收敛"策略</strong>：对开放性预测题，用两条物理上独立的论证路径逼近同一结论，并在 Strengths 中点明——比单一模型说服力翻倍。</li>
 <li><strong>先用一张图排除干扰变量</strong>（自转、潮汐、磁场……），把建模范围论证清楚，避免评委问"为什么不考虑 X"。</li>
@@ -98,7 +115,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>可复用本篇的收尾结构</strong>：Results Summary 把各模型结论拼成一幅完整画像（更矮、更慢、更壮），让评委在最后一页得到"一句话答案"；但注意图表编号与小节号保持一致（本文 Fig. 3.3.1 的错位是小污点）。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -110,6 +130,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

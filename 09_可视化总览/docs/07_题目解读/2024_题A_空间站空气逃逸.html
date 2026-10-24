@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2024 题A：空间站空气逃逸时间（Space Station: Air Evacuation Time）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2024_%E9%A2%98A_%E7%A9%BA%E9%97%B4%E7%AB%99%E7%A9%BA%E6%B0%94%E9%80%83%E9%80%B8.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2024-aspace-station-air-evacuation-time">2024 题A：空间站空气逃逸时间（Space Station: Air Evacuation Time）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2024-题a空间站空气逃逸时间space-station-air-evacuation-time">2024 题A：空间站空气逃逸时间（Space Station: Air Evacuation Time）</h1>
 <blockquote>
 <p>赛题来源：UPC 2024 Problem A（当年 681 队投稿；题 A 金奖 12 队 ≈1.8%，题 B 金奖仅 3 队）</p>
 </blockquote>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <p><strong>原文压缩引用</strong>：</p>
 <blockquote>
 <p>A space station is approximately shaped like a cylinder with an interior length of 50 meters, and a diameter of 4 meters. The air inside is at 20 °C and 1 atm (101.3 kPa). A micrometeorite makes a hole 1 cm in diameter in the center of one end. How much time would it take until the air pressure was only 0.3 atmosphere? How would this time be different for holes of different diameters?</p>
@@ -113,13 +130,13 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <ol>
 <li><strong>"How much time" 判据明确，但时间依赖三条未言明的物理假设</strong>：① 孔的流量系数 $C_d$（微流星孔是撕裂薄壁孔，不是光滑喷嘴）；② 泄气过程是等温还是绝热（决定末温与时间，二者差 ~20%）；③ 流动是否全程壅塞（需证明而非默认）。把它们逐一"定界"是本题第一层考法。</li>
 <li><strong>"different diameters" 要的是标度律而非数表</strong>：在壅塞区 $t\propto d^{-2}$，并说明该律的适用域（壅塞 + 连续介质 + 集总参数），只给一张扫描表不给定律是失分点。</li>
 <li><strong>隐含考点是"先证模型合法再用模型"</strong>：舱内可否当集总参数系统（压强波渡越时间、舱内流速、Knudsen 数都要查一遍）；0.3 atm 的选点本身就是工程常识钩子（那是乘组穿舱外服的底线压力），论文应回答"这个时间对乘组意味着什么"。</li>
 </ol>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1：集总 + 等温 + 壅塞（主线，全解析）</strong></p>
 <p>壅塞判据：背压/上游压强 $&lt; (2/(\gamma+1))^{\gamma/(\gamma-1)}=0.528$。外部真空，<strong>全程声速</strong>。壅塞质量流：</p>
 <p>$$\dot m=C_d A_h\,P\sqrt{\frac{\gamma}{RT}}\left(\frac{2}{\gamma+1}\right)^{\frac{\gamma+1}{2(\gamma-1)}}=\frac{C_dA_hP\,\Gamma}{\sqrt{RT}},\qquad \Gamma=0.685$$</p>
@@ -141,7 +158,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
     A4 --&gt; V[&quot;验证: 质量守恒 / T-m自洽 / 极限对照 / 双对数d^-2&quot;]
     B1 --&gt; V
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <table>
 <thead>
 <tr>
@@ -220,13 +237,13 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>主线几乎全解析</strong>：等温支一维指数积分；绝热支 $m^{1.2}$ 幂律积分。数值计算只作验证：用 <code>ode45</code> 联解质量与能量 ODE，对照两条解析极限。</li>
 <li><strong>验证四件套</strong>：① 质量守恒（$\int\dot m\,{\rm d}t=M_0-M_f$）；② 绝热解自洽（$P\propto m^\gamma$ 的 T–m 关系）；③ $C_d=1$ 与等温/绝热四角对照表；④ 孔径扫描画双对数图核对斜率 −2。</li>
 <li><strong>常见数值陷阱</strong>：把 0.3 atm 当成"质量剩 30%"（绝热下剩 42.3%）；漏速取常数线性外推（高估时间 ~40%）；用不可压缩 Bernoulli $\sqrt{2P/\rho}$ 直算漏速（得 ~400 m/s 的"超音速孔流"，量纲上碰巧接近声速但物理错误）；忽略 $C_d$；大孔端（$d\gtrsim1$ m）才需要担心集总失效，扫描域内不必。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li><strong>不做壅塞判别</strong>，直接套不可压缩小孔公式——第一性原理分直接丢。</li>
 <li><strong>以为质量流率恒定</strong>，用 $0.7M_0/\dot m_0$ 线性估算，得到 ~19 h 的错误答案。</li>
@@ -234,17 +251,17 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>"不同孔径"只列表</strong>，不提炼 $t\propto d^{-2}$ 标度律、不声明适用域（壅塞、连续介质、集总三条件）。</li>
 <li><strong>没有工程判读</strong>：0.3 atm 恰是舱外服压力，13 h 意味着乘组有充足定位/补漏时间——少了这一句，题目就白选了 0.3。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>NASA 官方博客：ISS 星辰号（Zvezda）PrK 过渡段裂纹泄漏的持续排查</strong>（<a href="https://www.nasa.gov/blogs/spacestation/2026/06/05/nasa-provides-update-on-space-station-leak">nasa.gov/blogs/spacestation</a>）——真实在轨泄漏率仅 ~0.5–1 kg/天量级，比本题 1 cm 孔（~1600 kg/天）小三个数量级；是"现实标定 + 引言钩子 + 为什么真实裂缝要用周级时间排查"的现成素材。</li>
 <li><strong>Wikipedia: Mir</strong>（<a href="https://en.wikipedia.org/wiki/Mir">en.wikipedia.org/wiki/Mir</a>）——1997 年 Progress M-34 撞击光谱号（Spektr）舱致其失压封舱的真实案例：破孔真实形态（撕裂、不规则）、应急封舱决策，用于论证 $C_d$ 取值与"乘组响应"叙事。</li>
 <li>想吃透壅塞流的读者可直接查气体动力学教材中 "discharge from a tank / blowdown" 一节（如 Anderson《Modern Compressible Flow》），本题就是该经典问题的太空版：刚性容器 + 真空背压 + 指数衰减。</li>
 </ol>
-<h2 id="8-2024">8. 金牌队伍名单与机构观察（2024 年官方未公开金牌论文）</h2>
+<h2 id="8-金牌队伍名单与机构观察2024-年官方未公开金牌论文">8. 金牌队伍名单与机构观察（2024 年官方未公开金牌论文）</h2>
 <p><strong>题 A 金奖 12 队</strong>：多伦多大学 380；上海交大密西根学院 3 队（422/427/520，同一位指导教师 Zijie Qu）；达卡大学 494；同济大学 2 队（541/568）；上海科技大学 646；国防科技大学 3 队（660/662/674）；佐治亚理工 824。</p>
 <p><strong>机构观察</strong>：① 中国高校占 9/12，上交密院与国防科大各 3 队、同济 2 队，同一导师名下多队齐发，团队化备赛痕迹极重；② 北美仅两校（Toronto、Georgia Tech），孟加拉达卡大学是亮点；③ 同年题 A 金奖率 1.8% vs 题 B 0.44%——两题难度共识差异明显，题 A 的"标准可压缩流内核"让训练有素的队伍更容易收口。</p>
 <p><strong>常见解法路线推断</strong>（基于题目结构与他年公开论文惯例）：主线必然是"壅塞孔流 + 舱内准稳态 + 指数/幂律衰减"；高分卷的分水岭在——等温/绝热是否双路径讨论、$C_d$ 是否有穿孔形态论证、是否给了孔径双对数标度图、以及是否写出 0.3 atm 的乘组工程含义；更进一步的队伍会补数值 ODE 对照、多舱段/补漏扩展与泄气反冲。</p>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 壅塞判据显式写出（0.528 压比），而非默认声速。</li>
 <li>[ ] 中间量链条可复核：$M_0\approx757$ kg → $\dot m_0\approx19$ g/s → $\tau\approx11$ h → $t\approx13.5$ h。</li>
@@ -254,7 +271,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>[ ] 集总/波传播/Knudsen 三个假设合法性各有量级论证；有余力给"乘组可用时间"式工程判读。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌队伍名单与机构观察2024-年官方未公开金牌论文">8. 金牌队伍名单与机构观察（2024 年官方未公开金牌论文）</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -266,6 +286,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

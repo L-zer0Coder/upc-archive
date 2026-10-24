@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2013 题B：超重力环境下的生物结构（Extraterrestrial Life）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2013_%E9%A2%98B_%E8%B6%85%E9%87%8D%E5%8A%9B%E7%94%9F%E7%89%A9%E7%BB%93%E6%9E%84.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2013-bextraterrestrial-life">2013 题B：超重力环境下的生物结构（Extraterrestrial Life）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2013-题b超重力环境下的生物结构extraterrestrial-life">2013 题B：超重力环境下的生物结构（Extraterrestrial Life）</h1>
 <blockquote>
 <p>赛题来源：UPC 2013 Problem B（当年 121 队中 69 队选题 B，为热门题；金奖 1 队：华盛顿大学圣路易斯分校 611 队，官方公开两个版本 PDF）</p>
 </blockquote>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <p><strong>原文压缩引用</strong>：</p>
 <blockquote>
 <p>Recently, astronomers have discovered earth-like planets orbiting other stars. Many planets have been found in the habitable zones… <strong>Assume such a planet exists, and that its mass is eight times that of earth while its radius is twice that of earth. The average surface temperature on the planet is 250 K. A four legged animal has evolved to live on the equator of this planet. Produce a physics-based analysis on how life on this planet might be similar to, or different from, creatures that evolved on earth. For example consider questions such as: Relative to a similar creature on earth, how large would such an animal be? What shape would it be? How fast would it move?</strong></p>
@@ -93,7 +110,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <p>这是典型的"科幻皮、生物物理芯"开放题。模糊词是 <strong>"similar or different"</strong>——不可计算，必须拆成可定量的形态学代理量，并<strong>逐项回应题面列出的每个示例问题</strong>（评委按示例逐项找答案）：</p>
 <ul>
 <li><strong>多大</strong>：体长/体重标度——由骨应力与骨骼自重占比约束。</li>
@@ -102,7 +119,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>题面没说但 250 K 暗示的：保温（毛发/脂肪）、大气标高（呼吸与飞行）。</li>
 </ul>
 <p>金奖论文的开局动作值得照抄：先算 $g=2g_\oplus$，再用一张 log-log 图把<strong>自转离心效应</strong>正式排除（需自转快 10 倍以上离心项才显著），然后声明"重力是唯一决定性变量"——先排除干扰变量，评委就无从追问"为什么不考虑 X"。</p>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1：2g 静力标度（三条独立主线）</strong></p>
 <ul>
 <li><strong>骨骼应力</strong>：站立/运动中骨应力 $\sigma = F/A \sim mg/A$。等应力设计（地球动物跨物种骨强度近似恒定，人股骨剪切强度实测 ~51.6 MPa）要求 $A \propto g$——<strong>2g 下骨截面积翻倍</strong>。</li>
@@ -135,7 +152,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
     F --&gt; H
     G --&gt; H
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <table>
 <thead>
 <tr>
@@ -214,14 +231,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>解析与标度论证为主</strong>：本题几乎不需要数值模拟（金奖论文也坦承 N-S 方程数值不可解，只能做定性推论）；全部定量结论来自守恒/平衡方程与异速标度律。</li>
 <li><strong>"等值线图 + 选点规则"技法</strong>：把两个待定量（$l$、$\theta$）画成约束曲线族，用一条演化/经济性假设选角点，即可输出具体数字（本文 30%）。附录代码可用任意绘图工具复现（金奖队用了 CERN ROOT）。</li>
 <li><strong>验证手段</strong>：(a) 双独立模型收敛——心血管（血压限制身高）与骨骼（应力限制身高）两条路径指向同一"矮壮"结论，交叉印证；(b) 真实生理常数锚定（股骨剪切强度 51.6 MPa、人体参数、Fr 阈值）；(c) 极限自检——$V\propto g$ 律在高 $g$ 发散，标注失效域。</li>
 <li><strong>陷阱</strong>：Froude 数特征长度必须取腿长；$Fr$ 只是步态转换判据，不能当极速公式；动载荷（奔跑时地面反力为体重 2–3 倍、四足分担）才是应力的正确工况，站立工况会低估。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li><strong>忘做密度自洽检查</strong>：$8M_\oplus/8V_\oplus$ 恰好同密度——题面数字是精心设计的，指出这一点本身就是得分点，也为"岩石成分可行"背书。</li>
 <li><strong>平方-立方律当全部答案</strong>：直接说"生物缩小一半"既忽略了演化可加粗骨骼（正异速生长），也没指出真正上限来自骨骼自重占比 $f_{\rm bone}\propto g\,l$。</li>
@@ -230,15 +247,15 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>Froude 数误用</strong>：特征长度取身高而非腿长、或把 $Fr$ 阈值当成极速判据；极速应诉诸功率/代谢论证。</li>
 <li><strong>生物参数零出处</strong>：骨强度、步态阈值、人体质量必须引实验文献——超重力题最容易被批"编故事"，数据地基决定可信度。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>Tominari et al. 2019：2G 超重力对小鼠骨与肌肉量的反向效应</strong>（<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6488638">PMC6488638</a>）——离心机 2g 实验显示骨骼与肌肉质量增加（与微重力相反），为"更壮"的预测提供实验参照。</li>
 <li><strong>Gnyubkin et al. 2015：慢性 2g 离心对大鼠骨骼的适应与极限</strong>（<a href="https://journals.physiology.org/doi/full/10.1152/japplphysiol.00364.2015">J Appl Physiol</a>）——2g 下股骨小梁体积 +18%、椎骨 +13%，可用来校验"骨截面翻倍"量级是否夸张。</li>
 <li><strong>NASA NTRS 2017：慢性 2G 离心对生长大鼠的合成代谢效应</strong>（<a href="https://ntrs.nasa.gov/citations/20170011058">ntrs.nasa.gov</a>）——官方实验报告，适合作为"真实超重力生物学"的权威出处写进参考列表。</li>
 </ol>
-<h2 id="8">8. 金牌论文思路对比</h2>
+<h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <p>本题金奖唯一一队（华盛顿大学圣路易斯 611 队，23 页；官方公开 611 与 611a 两个版本，赏析针对 611a）：入口先排除自转效应 → 心血管（N-S 方程简化 + Poiseuille 论证血压梯度 ∝ g，结合 Dawson 异速律得血量 ∝ g）与肌肉骨骼（应力分解 + 力矩平衡的 l–θ 等应力曲线，"演化最小化肌应力"取角点得腿长 -30%、截面 ×2）<strong>双模型交叉收敛</strong>于矮壮体型 → Froude 数论步态（同速 Fr 减半）→ 环境层补 250 K 温度分布与 3.7 km 标高，最终拼出"更矮、更壮、更慢、心脏与器官更大、血量翻倍"的完整画像。详细拆解见 <code>05_论文赏析\2013\2013-GM-B-611a.md</code>（另一版本文本在 <code>04_论文文本\2013\2013-GM-B-611.txt</code>）。</p>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] <strong>g 与密度的自洽检查</strong>开局（$2g_\oplus$、$1\rho_\oplus$），并排除自转等干扰变量。</li>
 <li>[ ] <strong>逐项回答示例问题</strong>：多大、什么形状、多快，一个不落。</li>
@@ -248,7 +265,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>[ ] <strong>收尾"一句话画像"</strong>：Results Summary 把各模型拼成完整生物画像，让评委最后一页带走答案。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌论文思路对比">8. 金牌论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -260,6 +280,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

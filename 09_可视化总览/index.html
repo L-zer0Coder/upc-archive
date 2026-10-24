@@ -87,9 +87,66 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:36px 20px;bor
 .reveal{opacity:0;transform:translateY(14px);transition:all .6s ease}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
+#sidenav{position:fixed;top:0;left:0;bottom:0;width:248px;z-index:40;background:rgba(13,21,38,.92);backdrop-filter:blur(12px);
+ border-right:1px solid var(--line);display:flex;flex-direction:column;padding:18px 0 12px;overflow:hidden}
+#sidenav .brand{display:flex;align-items:center;gap:10px;padding:6px 20px 16px;font-weight:800;font-size:15.5px;color:#e8eef8;text-decoration:none}
+#sidenav .brand:hover{text-decoration:none;color:#fff}
+#sidenav .brand .logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--acc),var(--acc2));
+ display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+#sidenav .brand small{display:block;font-weight:400;font-size:10.5px;color:var(--mut);letter-spacing:1px}
+#sidenav .scroll{overflow-y:auto;flex:1;padding-bottom:8px}
+#sidenav .grp{font-size:10.5px;color:#5f7396;letter-spacing:2px;padding:14px 20px 6px;font-weight:700}
+#sidenav a.si{display:flex;align-items:center;gap:10px;padding:8px 20px;color:var(--mut);font-size:13.8px;text-decoration:none;
+ border-left:3px solid transparent;transition:.18s;white-space:nowrap}
+#sidenav a.si:hover{color:#fff;background:rgba(79,125,217,.08)}
+#sidenav a.si.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.18),transparent);font-weight:700}
+#sidenav a.si .ic{width:17px;text-align:center;flex-shrink:0}
+#sidenav .yrs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:2px 14px}
+#sidenav .yrs a{font-size:12px;color:var(--mut);text-decoration:none;text-align:center;padding:4px 0;border-radius:7px;
+ border:1px solid transparent;font-variant-numeric:tabular-nums;transition:.15s}
+#sidenav .yrs a:hover{color:#fff;border-color:var(--acc);background:#15223a}
+#sidenav .yrs a.on{color:#081020;background:linear-gradient(135deg,var(--acc),var(--acc2));font-weight:800;border:none}
+#sidenav .foot{border-top:1px solid var(--line);padding:10px 20px 4px;font-size:11px;color:#5f7396;line-height:1.6}
+#burger{position:fixed;left:16px;bottom:26px;z-index:45;width:46px;height:46px;border-radius:14px;border:1px solid var(--line);
+ background:rgba(13,21,38,.95);color:#8fb4ff;font-size:19px;cursor:pointer;display:none;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+#burger.on{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none}
+body{transition:margin-left .25s}
+@media(min-width:1180px){
+ body.side{margin-left:248px}
+ #burger{display:none!important}
+ #sidenav{transform:none!important}
+}
+@media(max-width:1179.5px){
+ #sidenav{transform:translateX(-100%);transition:transform .25s;z-index:70;box-shadow:20px 0 60px rgba(0,0,0,.5)}
+ body.side #sidenav{transform:none}
+ #burger{display:block}
+ body.side #mask{display:block}
+}
+#mask{position:fixed;inset:0;background:rgba(4,8,18,.6);z-index:65;display:none}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
+<button id="burger" onclick="document.body.classList.toggle('side')">☰</button>
+<div id="mask" onclick="document.body.classList.remove('side')"></div>
+<aside id="sidenav">
+  <a class="brand" href="#top" onclick="document.body.classList.remove('side')"><span class="logo">🏆</span><span>UPC 全档案库<small>2010 – 2025</small></span></a>
+  <div class="scroll">
+    <div class="grp">栏目导航</div>
+    <a class="si" href="#timeline"><span class="ic">📊</span>年代图谱</a>
+    <a class="si" href="#years"><span class="ic">🗓</span>历年赛题</a>
+    <a class="si" href="#models"><span class="ic">🧭</span>模型地图</a>
+    <a class="si" href="#library"><span class="ic">🗂</span>全库文件</a>
+    <a class="si" href="#papers"><span class="ic">📄</span>论文库</a>
+    <a class="si" href="#rules"><span class="ic">🏅</span>获奖密码</a>
+    <a class="si" href="#guide"><span class="ic">📖</span>使用指南</a>
+    <div class="grp">年份速跳</div>
+    <div class="yrs" id="sideyrs"></div>
+  </div>
+  <div class="foot">按 <b>/</b> 聚焦搜索<br>github.io 可能需代理访问</div>
+</aside>
+<script>(function(){var f=function(){document.body.classList.toggle('side',innerWidth>=1180)};f();addEventListener('resize',f)})()</script>
 <header>
   <span class="badge">UNIVERSITY PHYSICS COMPETITION · 2010–2025</span>
   <h1>国际大学生物理竞赛 全档案库</h1>
@@ -171,7 +228,7 @@ const chip = (t,c)=>`<span class="chip" style="background:${c}">${t}</span>`;
 // years accordion
 const box = document.getElementById('years-box');
 DATA.years.forEach(y=>{
-  const d = document.createElement('details'); d.className='yr';
+  const d = document.createElement('details'); d.className='yr'; d.id='year-'+y.year;
   const np = y.probs.reduce((s,p)=>s+p.papers.length,0);
   const chips = y.probs.map(p=>chip(`题${p.prob} ${p.cn}`, D[p.dom].color)).join(' ');
   let inner = `<summary><span class="n">${y.year}</span><span style="display:flex;gap:8px;flex-wrap:wrap">${chips}</span><span class="cnt">${np} 篇论文</span></summary><div class="grid2">`;
@@ -244,10 +301,51 @@ document.addEventListener('click',e=>{if(!e.target.closest('.searchwrap'))res.st
 
 // back-to-top + reveal
 const tb=document.getElementById('top');
-addEventListener('scroll',()=>tb.classList.toggle('on',scrollY>600));
+addEventListener('scroll',()=>tb.classList.toggle('on',scrollY>600),{passive:true});
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:0});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 setTimeout(()=>document.querySelectorAll('.reveal:not(.in)').forEach(e=>e.classList.add('in')),2500);
+
+// ---------- sidenav: year grid + scroll-spy + drawer ----------
+const sideyrs=document.getElementById('sideyrs');
+DATA.years.forEach(y=>{
+  const a=document.createElement('a');a.href='#year-'+y.year;a.textContent=y.year;
+  a.addEventListener('click',ev=>{
+    const card=document.getElementById('year-'+y.year);
+    if(card){ card.open=true; ev.preventDefault();
+      card.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+    document.body.classList.remove('side');
+  });
+  sideyrs.appendChild(a);
+});
+// section scroll-spy
+const sideSecs=[].slice.call(document.querySelectorAll('#sidenav a.si'));
+const secSpy=new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){
+    sideSecs.forEach(a=>a.classList.toggle('on', a.getAttribute('href')==='#'+e.target.id));
+  }});
+},{rootMargin:'-25% 0px -65% 0px'});
+document.querySelectorAll('main section[id]').forEach(s=>secSpy.observe(s));
+// year scroll-spy (highlight the year grid as you pass its card)
+const yrLinks={}; sideyrs.querySelectorAll('a').forEach(a=>yrLinks[a.getAttribute('href').slice(1)]=a);
+const yrSpy=new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){
+    Object.values(yrLinks).forEach(a=>a.classList.remove('on'));
+    yrLinks[e.target.id]&&yrLinks[e.target.id].classList.add('on');
+  }});
+},{rootMargin:'-20% 0px -70% 0px'});
+document.querySelectorAll('details.yr').forEach(c=>yrSpy.observe(c));
+// reading progress
+addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  document.getElementById('pbar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+},{passive:true});
+// "/" focuses global search; Esc closes it
+addEventListener('keydown',e=>{
+  if(e.key==='/'&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();q.focus();}
+  if(e.key==='Escape'){q.value='';res.style.display='none';q.blur();document.body.classList.remove('side');}
+});
 </script>
 </body>
 </html>

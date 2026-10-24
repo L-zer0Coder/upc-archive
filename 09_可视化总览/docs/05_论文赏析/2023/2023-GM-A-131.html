@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2023</span>
+  <span class="crumb">05_论文赏析/2023 · Maximum Height of Space Diving（2023 题A 队伍131）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2023/Problem%20A/2023-GM-A-131.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2023/2023-GM-A-131.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="maximum-height-of-space-diving2023-a-131">Maximum Height of Space Diving（2023 题A 队伍131）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="maximum-height-of-space-diving2023-题a-队伍131">Maximum Height of Space Diving（2023 题A 队伍131）</h1>
 <p><strong>页数</strong>: 33 页（正文至 p25，附录 A/B 为 MATLAB 代码）｜ <strong>对应题目</strong>: Problem A — Space Diving（太空跳伞最大安全高度）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>本文以"多约束取最严"的思路求解太空跳伞最大安全高度：建立含跨声速阻力突变的一维下降 ODE 模型，用 Felix Baumgartner 39 km 跳伞实测数据校验模型，再分别以"过载 ≤5Gz"（得 94 km）、"舱外服耐温 ≤120 km"、"激波压差致水平旋转 ≤78 km"三条安全判据约束初始高度，最终综合给出约 <strong>80 km</strong> 的保守结论。摘要以 94 km（加速度判据）为主结论，结论章再收敛到 80 km。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <p><strong>第一层：大气环境模型。</strong> 温度不用解析近似，直接调用 NRLMSIS (2.0) 大气模式取 0–150 km、步长 1 km 的温度数据（图 3），发现 121 km 处达 402.2 K（129.05 °C）超过 NASA 舱外服耐温 121 °C，得出温度上限 120 km。密度则自行推导：对大气柱重量与压强积分式 $\int_\Omega \rho(r)\frac{GM}{r^2}d\tau = P(r)A(r)$ 求导并假设等温理想气体，得含重力随高度变化的密度公式
 $$\rho(s)=\frac{\rho_0 R_e^2\, e^{-\frac{GM\rho_0 s}{P_0 R_e(R_e+s)}}}{(R_e+s)^2}\quad(1)$$
 比常见指数大气更精细，并在 5.1 节与 NRLMSIS 数据叠图比对验证。</p>
@@ -64,11 +81,11 @@ $$\rho(s)=\frac{\rho_0 R_e^2\, e^{-\frac{GM\rho_0 s}{P_0 R_e(R_e+s)}}}{(R_e+s)^2
 $$\frac{d^2x}{dt^2}=\frac{GM_e}{(R_e+h-x)^2}-\frac{1}{2m}C_D A\,\rho(h-x)\Big(\frac{dx}{dt}\Big)^2$$
 经链式法则化为对 $x$ 的一阶方程 $\frac{d(v^2/2)}{dx}=\ldots$ 便于数值积分。关键物理处理：以当地声速 $C_s=(\gamma R^* T_M/M_0)^{1/2}$ 判断马赫数，速度进入/退出 0.8 Ma 即切换阶段——跨声速区 $C_D=5, A=0.2$ m²（姿态失控投影增大），亚声速区 $C_D=1, A=0.18$ m²，距地 25 km 内转为俯卧准备开伞 $C_D=1.2, A=0.8$ m²。参数取值明确对齐 Baumgartner 实测（引 Colino 2013 Eur. J. Phys.）。</p>
 <p><strong>第四层：扩展危险分析。</strong> ①激波：按斜激波总压比公式（式 2）列表给出 1–5 Ma 的 $P_{t1}/P_{t0}$，5 Ma 时下游压强仅为上游 1/9.52；②水平旋转（flat spin）：把人体简化为 $R=0.24$ m 圆柱，$I=\frac12 mR^2=5.472$ kg·m²，令 $I\omega_d=R\cdot(t_r F)$ 反推危险力 171.9 N，结合激波压差估计 78 km 以上可能致命。</p>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>数值方法为 MATLAB <code>ode45</code>，空间步长 100 m，程序按马赫数状态机在三个阶段间切换 $C_D$、$A$（附录 A 完整代码 224 行，附录 B 为激波/旋转计算）。验证极具说服力：把 39 km 代入模型，得进入超声速高度 35.8 km（与实测 36 km 误差 0.56%）、退出高度 20.3 km（误差 1.5%）、最高速度 467.7 m/s，加速度曲线形状与文献一致（最大 9.68、最小 −5.16 m/s²）。扫描初始高度 70–90 km 得最大马赫数与激波力的柱状图（图 7），并解释了图 8 中 ~16 km 处最大加速度尖峰：低空声速内短暂跨声速遇上高密度空气造成阻力脉冲——对反常结果主动归因，是亮点。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页居中排版，摘要一段成文、以加粗 Key Words 收尾，信息密度高（问题—模型—验证—94 km 结论俱全）。全文页眉"Problem A | The University Physics Competition, Team 131 | 页码"贯穿一致，目录三级编号规范。共 10 幅图（姿态示意、大气分层、温度/密度曲线、双联 v-x 与 a-x 图、激波示意、两张柱状图）与 1 张表（马赫—压强比）。双栏小图 (a)(b) 并排呈现速度与加速度，图 5 中用浅蓝色底纹标出超声速区间的做法直观清晰；图 7 用柱状图加数值标注和"危险线"横线，工程报告风格。公式仅关键三条编号（式 1、2），主 ODE 未编号稍显随意；图 8 题注误写为 "density of air and altitude"，是排版小瑕疵。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>真实数据闭环验证</strong>：用 Baumgartner 跳伞的进出超声速高度做定量误差分析（0.56%、1.5%），把"模型可信"从口号变成数字。</li>
 <li><strong>权威数据源</strong>：温度取 NRLMSIS 2.0 而非手绘分段线性大气，密度推导考虑 $g$ 随高度变化，物理严谨度高。</li>
@@ -76,7 +93,7 @@ $$\frac{d^2x}{dt^2}=\frac{GM_e}{(R_e+h-x)^2}-\frac{1}{2m}C_D A\,\rho(h-x)\Big(\f
 <li><strong>多判据求交集</strong>：过载、温度、激波致旋转三条独立约束各自建模再取最严（94/120/78 → 80 km），完整回应"challenges and dangers"的问法。</li>
 <li><strong>对异常的解释力</strong>：主动解释 16 km 尖峰与 v-x 图不连续的成因，展示物理洞察而非掩盖缺陷；Weaknesses 一节坦承 $C_D$ 常数化导致的不连续与缺少 a(t) 关系。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>用官方大气模式（NRLMSIS/US Standard Atmosphere）替代拍脑袋的分段大气，并叠图验证自推公式。</li>
 <li>用著名真实案例（Baumgartner 39 km）做模型标定与误差量化，一两个百分点的误差胜过千言论证。</li>
@@ -86,7 +103,10 @@ $$\frac{d^2x}{dt^2}=\frac{GM_e}{(R_e+h-x)^2}-\frac{1}{2m}C_D A\,\rho(h-x)\Big(\f
 <li>多约束问题列出各判据独立结论再取交集，结论表述留有"保守值"的安全边际。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -98,6 +118,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,32 +41,47 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2021</span>
+  <span class="crumb">05_论文赏析/2021 · Asteroid ocean impact and its relationship with the mass of the object（2021 题B 队伍445）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2021/Problem%20B/2021-GM-B-445.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2021/2021-GM-B-445.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="asteroid-ocean-impact-and-its-relationship-with-the-mass-of-the-object2021-b-445">Asteroid ocean impact and its relationship with the mass of the object（2021 题B 队伍445）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="asteroid-ocean-impact-and-its-relationship-with-the-mass-of-the-object2021-题b-队伍445">Asteroid ocean impact and its relationship with the mass of the object（2021 题B 队伍445）</h1>
 <p><strong>页数</strong>: 16 页 ｜ <strong>对应题目</strong>: Asteroid Ocean Impact（小行星撞击海洋，撞击点距沿海城市 1000 km）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>同为华沙大学（与 442 队共享指导教师 Paweł Sidorczak）的 445 队走的是"理论推导 + 真实波动数值模拟"路线：以 Ward 的海啸灾害概率评估框架（[2] Icarus 2000）为主干——抛物面撞击空腔（式(10)(11)）给初条件，水面抬升的 Fourier 积分解（式(12)）配深水色散关系 $\omega^2=gk\tanh(kH)$（式(14)）用 FFT 数值演化波场，再以 Green 定律型 run-up 公式（式(15)）处理陆架放大。大气段从变质量牛顿第二定律出发自洽导出烧蚀耦合 ODE（式(8)(9)，并证明与 Chyba 1993 的经典结果一致）。最终结论：阈值取 10 m 波高，最小质量约 $10^{10}$ kg（半径约 97 m），并额外算出海啸内陆纵深约 715 m——五篇 2021B 论文中唯一给出"淹没距离"这一第三输出量的队伍。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <p><strong>第一层：变质量大气进入（4.1 节）。</strong> 与 385/442 直接引用标准烧蚀公式不同，445 从头推导：阻力 $F_d=\frac{1}{2}C_dS\rho_{atm}\dot x^2$（式(1)）、重力（式(2)）代入<strong>含 $\dot m\dot x$ 项的变质量牛顿第二定律</strong> $\frac{d}{dt}(m\dot x)=\dot m\dot x+m\ddot x=-mg+\frac{1}{2}C_dS\rho_{atm}\dot x^2$（式(3)(4)，$\eta=\frac{1}{2}C_dS\rho_{atm}$）；烧蚀端用能量账本——机械能 $Q=\frac{1}{2}m\dot x^2+mgx$（式(5)）的损失率分解为"蒸汽带走的部分 + 汽化耗热"（式(6)(7)，$C_p$ 为汽化热），联立得耦合 ODE $\ddot x=-g+\frac{\eta\dot x^2}{m(1+\dot x^2/C_p)}$（式(8)）与 $C_p\dot m=-\frac{\eta\dot x^3}{1+\dot x^2/C_p}$（式(9)），并明确指出式(9)与 [1]（Chyba–Thomas–Zahnle 1908 通古斯事件经典论文）一致且是其"烧蚀质量不可忽略"情形的推广——用自己的推导对接文献标定，是理论自洽性的漂亮展示。碎裂（4.1.4 节）引 [1] 说明直径远大于 1 km 时不发生，取"最利情形无碎裂"以保证能量入水。</p>
 <p><strong>第二层：撞击与多害排序（4.2 节）。</strong> 空腔用 Ward 模型：径向对称抛物面、$R_D=\sqrt2 R_C$（最小化溅水浪费），深度 $D_C=\sqrt{\frac{2\epsilon\rho_{ast}v_I^2R^3}{\rho_w gR_C^2}}$（式(10)），实验标定 $\epsilon\approx0.15$；固定空腔径深比后化简为 $D_C=(\frac{8\epsilon\rho_{ast}v_I^2}{9\rho_wg})^{1/4}R^{3/4}$（式(11)）。对空腔超过水深的情形也补了处理（真实腔深 = 水深，海底成坑，引 [3] Wünnemann 2010 数值模拟）。三类威胁的取舍用<strong>标度律论证</strong>而非逐项精算：冲击波球对称、强度 $\propto1/r^2$，海啸柱对称、振幅 $\propto1/\sqrt r$，二者生成能量相近，故 1000 km 处海啸必胜（4.2.3 节）；地震波不足动能 1%（引 [5] Rumpf 2017）（4.2.4 节）；热辐射则"要先汽化整片海洋才能伤城"——三行标度律完成 442 队三节才完成的排除工作，各有胜场。</p>
 <p><strong>第三层：深水传播（4.3 节）。</strong> 把问题化为柱对称 2D，用 Ward 讲义 [4] 的线性化波方程解：$u(x,0,t)=\mathrm{Re}\int\frac{dk\,u_0(k)}{2\pi}e^{i(kx-\omega(k)t)}$（式(12)），色散关系 $\omega^2=gk\tanh(kH)$（式(14)）数值求逆；最大波幅用 Ward 拟合式 $u_{max}=D_C\frac{1}{1+r/R_C}(0.5+(\gamma_1-0.5)e^{\gamma_2R_C/h})$（式(13)，$\gamma_1=1.075$、$\gamma_2=-0.035$）。难得的是写了<strong>模型选型比较</strong>：调研到 shallow water wave model [6] 后明确不用，理由是它不含撞击决定的初始振幅——展示了对替代方案的知情权。</p>
 <p><strong>第四层：run-up 与淹没（4.4 节）。</strong> 陆架段 Ward 公式会高估波高，改用 Green 定律型放大 $H=A^{4/5}(r)h^{1/5}(r)$（式(15)），并附"能量守恒 → 水深减小波幅增大、波速降低"的物理解释；内陆纵深用 $X(R,H)\approx10\sqrt{gH}(2R)^{3/8}$（式(16)，引 Chesley &amp; Ward 2006）。</p>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>数值含量为三篇 2021B 之最：(1) 大气段用 <strong>Runge-Kutta 法解式(8)(9) 方程组，语言选 Julia</strong>（五篇中唯一的 Julia 队伍），初始 $x_0=100$ km、$v_0\approx22$ km/s，得入水速度约 20 km/s、质量与速度变化均可忽略（Figure 3 给出 $m,x,\dot x$ 随时间的三联图，把"大气段不重要"这一结论可视化）；(2) 波场演化用 <strong>FFT/IFFT 谱方法</strong>：离散化 $u_0$ 后各波数分量按式(18) 独立演化（$u_0(x,t,k)=u_0(k)e^{i(kx-\omega(k)t)}$），Figure 1（$10^5$ 个空间格点、间隔 10 s 的波场快照序列）与 Figure 2（$5\times10^5$ 点、4000 s 步长、$(-5000,5000)$ km 域）展示了色散造成的波包分裂，并从模拟中<strong>验证</strong>了 $\propto1/\sqrt r$ 的振幅衰减律——用自家数值复现理论标度，是难得的自洽性检验；(3) 明确交代周期边界的数值约束（"所有有趣现象须发生在域内小区域"）。海洋深水 $H=4$ km，陆架起点 $h=500$ m、坡度约 0.1°（引 Britannica）。参数：$\rho_{sea}=1.3\ \mathrm{kg/m^3}$、标高 $x_K=10$ km（等温大气，式(17)——但正文留有"(ref)"占位符未填文献）、$C_p=8\times10^6$ J/kg、$C_d=0.5$。结果图 Figure 4（995 km、深 5 km 处波幅-质量曲线，$10^{10}$ kg 内 0–3.5 m，含渐近线）与 Figure 5（岸边波高-质量，0–10 m）支撑反解。不足：无收敛性/步长误差讨论、FFT 点数选择无依据、反解 10 m 对应质量的读图过程未展示中间数值；正文内部还有一处阈值不一致——第 2 节先列"10 m 海啸或毁小楼的冲击波或 7 里氏震级"，同段又说"历史数据显示 5 m 已足够"，而计算实际采用 10 m，未解释取舍。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页（p1 渲染图）与 442 同为极简 LaTeX 风格，但用词更口语化：标题带句号、作者单位一概不写，仅"Team 445 / Problem B"加摘要；摘要单段九句，覆盖方法、阈值、两个数值结果（$10^{10}$ kg、97 m）与 715 m 附加结论，末句还预告了模型改进方向。带目录页，公式全局连续编号 (1)–(16)，引用为数字制 [1]–[8] 且多数带 DOI。图表 5 幅、无表格：Figure 1/2 是真正的波场演化快照序列（多联小图，时间步标注明确），Figure 3 三联时序图，Figure 4/5 简洁折线图——数值模拟类论文的标配组合。排版细节上有欧洲本地化痕迹：小数点写作逗号（$\epsilon\approx0{,}15$、$\gamma_1=1{,}075$），破坏了数学排版的国际惯例；§5.1 残留"(ref)"占位符、第 3 节标题"Made assumptions"语法生硬、"no to use"、"begging"（应为 beginning）等笔误散见；Summary 承认"our answer is quite inaccurate"的措辞过于自我贬低。整体观感：内容硬核、包装毛糙。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>从第一性原理自推烧蚀律并对接经典文献。</strong> 式(3)–(9) 的变质量推导链条完整，且明示与 Chyba 1993 结果一致并推广之——理论深度与文献自觉兼备，这在本科竞赛论文中稀缺。</li>
 <li><strong>标度律排除法。</strong> 用 $1/r^2$ vs $1/\sqrt r$ 与能量占比 &lt;1% 两个量级论证就淘汰了冲击波与地震，物理洞察密度极高，省下篇幅投入海啸主模型。</li>
@@ -73,7 +90,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>模型选型有比较、有理由。</strong> 对 shallow water 模型"知情但不用"的论证（缺初始振幅输入）显示调研广度；对空腔触底情形也给了处理方案。</li>
 <li><strong>诚实的适用性声明。</strong> Summary 直言精度所限并点名 hydrocodes 与多模型对比两条改进路径。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>变质量/烧蚀问题先写含 $\dot m\dot x$ 的完整牛顿第二定律与汽化能量平衡，再联立化简——两页推导即可建立远超"套公式"的理论印象。</li>
 <li>用标度律（维度不同的能量稀释 $1/r^2$ vs $1/\sqrt r$）做多威胁排序，比逐项精算省时且更显物理直觉。</li>
@@ -83,7 +100,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>排版红线：小数点用句点、不留"(ref)"占位符、阈值口径前后一致（本文 5 m/10 m 摇摆是可避免的扣分点）。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -95,6 +115,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

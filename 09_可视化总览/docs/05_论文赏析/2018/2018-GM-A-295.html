@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2018</span>
+  <span class="crumb">05_论文赏析/2018 · Analysis of the influencing factors during the sail acceleration（2018 题A 队伍295）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2018/Problem%20A/2018-GM-A-295.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2018/2018-GM-A-295.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="analysis-of-the-influencing-factors-during-the-sail-acceleration2018-a-295">Analysis of the influencing factors during the sail acceleration（2018 题A 队伍295）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="analysis-of-the-influencing-factors-during-the-sail-acceleration2018-题a-队伍295">Analysis of the influencing factors during the sail acceleration（2018 题A 队伍295）</h1>
 <p><strong>页数</strong>: 25 页 ｜ <strong>对应题目</strong>: Sending a Light Sail Propelled Nanocraft to Alpha Centauri（光帆纳米飞行器）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>论文回答"光帆加速过程中激光束精度、帆面制造误差、光束均匀性三个因素需要控制在什么量级，才能使纳米飞行器最终在小于地月距离处飞掠比邻星 b"。技术路线是：把帆离散为 $100\times100$ 个面积元，建立含相对论质量修正的刚体姿态动力学（欧拉方程），将三类扰动以高斯随机过程注入动力学模型，用梯度下降法标定"扰动—偏转角"关系，再以轨道模型给出的最大允许偏转角 $\alpha_{max}=1.9842\times10^{-7}\,\mathrm{rad}$ 为约束反解三个容差，得到 $\delta P/P=10^{-8.306}$、$\delta m=10^{-5.391}$、$\delta d=10^{-4.314}$；最后用粒子群算法（PSO）在三因素联合约束下搜出最优解 $10^{-8.769}$、$10^{-6.032}$、$10^{-4.938}$。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <p>论文按"四个子模型"组织，层次清晰：</p>
 <ul>
 <li><strong>激光传输模型（4.1 节）</strong>：用消光系数（吸收+散射）描述大气衰减，$\beta_p(h)=k_1e^{-k_2h}$、$\beta_p(h)=k_3e^{-k_4h}$（分子/粒子散射系数随高度指数衰减），积分得透过率 $P/P_0=\exp(-(k_1+k_2)(1-e^{-k_2h})-(k_3+k_4)(1-e^{-k_4h}))$。其中分子散射系数由 Rayleigh 散射与空气密度成正比推出，空气密度用国际标准大气压强公式 $p=p_0(1-Lh/T_0)^{gM/(RL)}$，算得 $h=44330.76\,$m 以上可视为真空，最终 $P/P_0\approx0.723$（$P=3.615\times10^9\,$W）。论证方式是逐项给出物理来源并引用文献。</li>
@@ -63,11 +80,11 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>稳定性分析模型（4.3 节）</strong>：三个扰动指标 $\delta P/P$（束流精度）、$\delta m$（制造误差导致质量不均）、$\delta d$（激光阵列位置偏移导致的不均匀性）分别代入动力学模型；扰动建模为独立高斯过程 $P_i\sim N(P(t),\sigma_P^2)$ 等。</li>
 <li><strong>轨道模型（4.4 节）</strong>：先用二体引力微分方程验证"引力对轨迹的影响可忽略"，再比较两种发射策略，取 $\alpha_{max}=\arcsin(LD/D_{pe})+\arcsin(R_{orbit}/D_{pe})$（对应摘要中的公式），并论证因 $T_{sailing}\gg T_{planet}$（21 年 vs 11.2 天），应选第二种"指向恒星"策略。</li>
 </ul>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>纯解析方法无法处理随机扰动下的欧拉方程，故全程数值化：MATLAB 离散仿真（附录给出完整代码，时间步长 $t_0=0.5$，仿真 1200 s）。论文发现偏转角与扰动幅值单调正相关，因此用<strong>梯度下降法</strong>搜索临界扰动值；三因素单独作用求"最大容许误差"，再用 <strong>PSO（粒子群）</strong>以适应度函数（$\Delta\alpha&lt;1.9842\times10^{-7}$ 约束 + 三个 $\lg$ 项之和）做联合优化。亮点有三：一是<strong>灵敏度分析成体系</strong>（第 6 节三个实验）：离散元数 $N$ 从 10 扫到 100，发现 $\Delta\alpha$ 分别在 $N&gt;45$、$N&gt;35$、$N&gt;40$ 后收敛，说明 $N=100$ 的取值合理且继续增大无益——这是对自身数值格式收敛性的检验；二是明确写出模型缺陷（第 7.1 节：单因素结果实为各因素最大误差上限、时间步长偏大、大气衰减只算垂直路径）；三是结论区分"初步解"与"最优解"两套数值，诚实呈现。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页（见 p1 渲染图）为典型 MCM/UPC 风格：页眉 "Team 295 / Page x/25"，摘要中直接给出四个子模型名称与全部关键数值（含指数形式的容差），信息密度高。正文含目录页，章节编号规范（1 Introduction … 11 Appendix），但存在编号笔误（目录中 "5.1 Results Calculation" 下出现 "3. Light intensity calculation"）。公式用 Word 公式编辑器排版、统一在正文中引用（论文未严格使用编号公式，以文字指代"公式 ()"），是其排版短板。图表共 14 幅：图 1/图 2 两张思维导图突出建模逻辑，图 3 欧拉角示意图（见 fig 渲染页）色彩区分三轴旋转，图 6/7 为几何推导图，图 9–11 用对数横轴展示三因素与偏转角的关系，图 12–14 为灵敏度实验；另配参数表（Table 1 符号表、Table 2 大气参数）与 PSO 初始化表（Table 3）。附录代码排版完整，可复现性好。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>把模糊的问题陈述翻译成可计算的指标</strong>：题目问"精度、制造误差、均匀性"，论文将其逐一操作化为 $\delta P/P$、$\delta m$、$\delta d$ 三个无量纲/有量纲指标，并全部接到同一个动力学方程上，形成统一闭环。</li>
 <li><strong>物理链条完整</strong>：从激光穿过大气（衰减到 0.723）到光压、相对论质量修正、姿态偏转，再到 4.2 光年的轨道几何，端到端无断点，且每一步都有文献支撑（大气衰减、光压公式均引文献）。</li>
@@ -75,7 +92,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>自检与灵敏度分析</strong>：对离散元数 $N$ 的三个独立收敛实验（45/35/40）为数值结果背书，直接回应"结果是否依赖计算参数"的评委质疑。</li>
 <li><strong>诚实的模型评价 + 二次提升</strong>：承认单因素法给出的是保守上限，再用 PSO 求三因素权衡的最优解，"初步解→优化解"的递进展示了完整的工程思维。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>用"思维导图（Figure 1/2）"在摘要后与模型节前各放一张全流程图，评委 30 秒内即可抓住建模逻辑。</li>
 <li>把题目中每个模糊名词先"操作化"为带符号、带单位的物理量（定义一节 Notations 表），再建模，避免答非所问。</li>
@@ -85,7 +102,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>摘要中直接给带指数的全部数值结论（$10^{-8.306}$ 等），让评委第一页就看到可核查的数字。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -97,6 +117,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

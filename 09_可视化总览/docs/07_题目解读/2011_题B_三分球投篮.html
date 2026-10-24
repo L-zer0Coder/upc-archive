@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,20 +41,35 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2011 题B：三分球投篮物理（Shooting a Basketball for Three Points）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2011_%E9%A2%98B_%E4%B8%89%E5%88%86%E7%90%83%E6%8A%95%E7%AF%AE.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2011-bshooting-a-basketball-for-three-points">2011 题B：三分球投篮物理（Shooting a Basketball for Three Points）</h1>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2011-题b三分球投篮物理shooting-a-basketball-for-three-points">2011 题B：三分球投篮物理（Shooting a Basketball for Three Points）</h1>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <blockquote>
 <p>原题（压缩）：In the game of basketball, a player scores three points by successfully making a shot from beyond the three point line, which is 6.2 meters away from the basket in international games... Suppose a player in an Olympic basketball game is at the three point line standing at a point making an angle 45 degrees to the principal axes of the court. <strong>What initial ball velocities and spins will result in a successful shot from this point?</strong></p>
 </blockquote>
@@ -109,14 +126,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <ol>
 <li><strong>"What initial velocities and spins will result in a successful shot"</strong> 问的不是一条轨迹，而是<strong>解集合</strong>：初始条件空间 $(v_0,\ \varphi_{\rm 仰角},\ \theta_{\rm 方位},\ \vec\omega)$ 中哪些点命中。正确交付物是参数空间的"命中区域图"及其边界/厚度（容差），而不是一两个"最优数"。</li>
 <li><strong>"successful shot"</strong> 必须定义：空心入筐、擦筐弹入、打板入筐都算进球。金牌队用干净几何判据：球心最终落在距筐心 $r_{\rm hoop}-r_{\rm ball}=0.225-0.119\approx0.106$ m 以内（含反弹后）。这个 0.106 m 的目标圆是一切容差的源头。</li>
 <li><strong>45° 是站位角</strong>（决定篮板相对出手视线的取向，从而决定打板球可行性），<strong>不是 45° 射角</strong>——把它当射角是本题最经典的误读。金牌队还发现：出手方位角恰为 $\pi/4$ 时<strong>没有任何打板球成功</strong>（碰板点在筐正上方、横向弹出），而把出手方位扫到 ~0.825 rad 附近时出现大片打板成功区。</li>
 <li>自旋维度必须处理：题面点名 spins。把 6 维解空间降维的合法方式是假设<strong>纯后旋</strong>（转轴水平、垂直于轨迹）——金牌队明确说明这是绝大多数球员的实际投篮方式，既省算力又贴合情境。</li>
 </ol>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1（真空抛体 + 几何窗，解析）</strong>：以出手高 $h_0=2.0$ m、$\Delta y=1.05$ m、$R=6.2$ m，最小速度抛体
 $$v_{\min}=\sqrt{g\left(\Delta y+\sqrt{\Delta y^2+R^2}\right)}\approx8.5\ \mathrm{m/s},\qquad \alpha\approx\arctan\frac{\Delta y+\sqrt{\Delta y^2+R^2}}{R}\approx49.8^\circ,$$
 入筐角约 40°。这给"9 m/s @ 0.85 rad（48.7°）"的最优工作点提供了无旋真空参照。</p>
@@ -137,7 +154,7 @@ $$\ddot{\vec r}=\vec g+\frac1m\Big(\underbrace{F_L\,\hat{(\vec\omega\times\vec v
     E --&gt; H[&quot;扫描参数空间&lt;br/&gt;命中区域灰度图 + 容差&quot;]
     F --&gt; H
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <table>
 <thead>
 <tr>
@@ -198,7 +215,7 @@ $$\ddot{\vec r}=\vec g+\frac1m\Big(\underbrace{F_L\,\hat{(\vec\omega\times\vec v
 </tr>
 </tbody>
 </table>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>事件驱动分段仿真</strong>（金牌队范式，可直接迁移到任何"飞行体碰框"类题）：ode45（<code>RelTol=1e-5</code>）+ 事件函数监测六类事件（下落过筐平面、越板、横向逃逸、触板、触筐、落地兜底）；碰撞用冲量重置速度后续算。触筐判定用"点到圆环距离 = $r_b$"，触板用"点到矩形距离 = $r_b$"。</li>
 <li><strong>事件点插值</strong>：ode45 的事件定位必须打开（默认Within step 求根），否则碰撞位置误差 ~$v\Delta t$，擦筐结果全错。</li>
@@ -206,7 +223,7 @@ $$\ddot{\vec r}=\vec g+\frac1m\Big(\underbrace{F_L\,\hat{(\vec\omega\times\vec v
 <li><strong>验证</strong>：无旋结果与已发表罚球仿真（Silverberg 等）对照；极端检查——正对筐、$v_0$ 很小时应全失。</li>
 <li><strong>陷阱</strong>：rad/deg 混用（0.85 rad = 48.7°）；"混沌边缘"（擦筐蹦出）区域要局部加密网格，否则命中带边界是网格噪声；判分判据别写成"球心过筐心"（过严，漏掉擦筐入网）。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li>只算空心入筐，丢掉擦筐与打板解集——而 45° 站位恰恰让打板成为<strong>更大的</strong>解集，漏掉等于丢掉本题一半答案。</li>
 <li>把 45° 站位角当成出手仰角或出手方位角，几何 setup 从第一页就错。</li>
@@ -214,16 +231,16 @@ $$\ddot{\vec r}=\vec g+\frac1m\Big(\underbrace{F_L\,\hat{(\vec\omega\times\vec v
 <li>单条"最优轨迹"替代解集合：不给命中区域与容差，就没回答"哪些速度与旋转会命中"。</li>
 <li>单位与参数来源混乱：筐径、恢复系数随手拍（FIBA 规则可查、恢复系数有强制区间），常数表不注出处。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>arXiv:1702.07234 "The Physics of an Optimal Basketball Free Throw" (2017)</strong> — https://ar5iv.labs.arxiv.org/html/1702.07234 。含阻力、Magnus 与后旋的罚球最优解模型，可直接对照你空中段力项的写法与系数取值。</li>
 <li><strong>Brancazio, "Physics of Basketball" (Am. J. Phys., 1981)</strong> — https://www.semanticscholar.org/paper/Physics-of-basketball-Brancazio/262c9aa1c569b7d12aec6d637f6ba1a43f2dab4c 。经典文献：出手角-速度敏感性折中、最小速度解、后旋作用，是层次 1 解析与"高弧容错"论证的出处级支撑。</li>
 <li><strong>NC State: Silverberg 等 "Nothing But Net: The Physics of Free-Throw Shooting" (2009)</strong> — https://engr.ncsu.edu/news/2009/11/06/nothing-but-net-the-physics-of-free-throw-shooting 。百万轨迹仿真：最优入筐角 ~52°、~3 转/s 后旋使球在碰筐前自旋约 3 圈并"减震"——金牌队正是用 Silverberg 的罚球结果做了独立交叉验证。</li>
 <li><strong>FIBA Official Basketball Rules 2010 / Basketball Equipment</strong> — 金牌队全部几何与恢复系数的出处。自己复现时先建"官方参数表"，实现零自由常数建模。</li>
 </ol>
-<h2 id="8">8. 金牌论文思路对比</h2>
+<h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <p>本题金牌：<strong>Team 379（欧林工学院，"The Physics of a Three Point Shot"）</strong>。路线：FIBA 官方参数全表（几何 + 恢复系数，零自由常数）→ "空中（重力+阻力+Magnus，ode45）+ 碰撞（恢复系数冲量、无摩擦）+ 空中"事件驱动框架 → $(v_0,\varphi)$、$(\theta,\varphi)$ 灰度命中区域图 → 结论：无旋最优 ~9 m/s @ 0.85 rad；2 转/s 后旋使命中带整体向低速低角平移；45° 站位下出手方位 ~0.825 rad 的打板球成功区显著大于直接瞄准区、且没有擦筐"混沌"边缘，故<strong>打板更稳</strong>；与 Silverberg 罚球研究交叉验证。亮点是参数官方化与解集合呈现；短板是碰撞无摩擦、正文拼写错误多（"Figure ??"断链）。详见 ](05_论文赏析/2011/2011-GM-B-379.md)(../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2011/2011-GM-B-379.html)。</p>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 45° 正确理解为站位约束（影响打板几何），出手仰角/方位角是独立扫描变量。</li>
 <li>[ ] "命中"定义为可判定几何判据，且覆盖空心、擦筐、打板三类进球方式。</li>
@@ -233,7 +250,10 @@ $$\ddot{\vec r}=\vec g+\frac1m\Big(\underbrace{F_L\,\hat{(\vec\omega\times\vec v
 <li>[ ] 结论可执行（"打板更稳、后旋降速、高弧容错高"），并交代模型局限（碰撞摩擦、旋量耦合）。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌论文思路对比">8. 金牌论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -245,6 +265,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

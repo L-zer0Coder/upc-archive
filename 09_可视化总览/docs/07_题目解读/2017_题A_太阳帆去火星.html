@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2017 题A：太阳帆飞往火星（Solar Sailing to Mars）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2017_%E9%A2%98A_%E5%A4%AA%E9%98%B3%E5%B8%86%E5%8E%BB%E7%81%AB%E6%98%9F.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2017-asolar-sailing-to-mars">2017 题A：太阳帆飞往火星（Solar Sailing to Mars）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2017-题a太阳帆飞往火星solar-sailing-to-mars">2017 题A：太阳帆飞往火星（Solar Sailing to Mars）</h1>
 <blockquote>
 <p>赛题来源：UPC 2017 Problem A（当年 265 队中 193 队选题 A，金奖 3 队：华沙大学 670 队、国防科技大学 699 队、巴塞罗那自治大学 744 队）</p>
 </blockquote>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <p><strong>原文压缩引用</strong>：</p>
 <blockquote>
 <p>Light exerts a pressure equal to <strong>twice its energy density</strong> when reflected... Assume that the sail is made of material of mass <strong>7 g/m²</strong>; a rocket will launch a total mass of <strong>2,000 kg</strong> (sail plus payload) to escape velocity from Earth. <strong>Determine the size of the sail and a flight plan</strong> for the solar sail spacecraft from Earth to Mars. Assume that the Earth and Mars are at their <strong>closest approach</strong> at the time of launch and that the spacecraft and Mars must have a <strong>relative velocity of no more than 9 km/s</strong> for safe landing. <strong>Optimize</strong> the flight plan to maximize the payload and reduce transit time.</p>
@@ -104,14 +121,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tbody>
 </table>
 <p>自取常数：$S=1361\ {\rm W/m^2}$（1 AU 太阳常数）、$GM_\odot=1.327\times10^{20}$、$r_M=1.524$ AU、$v_M=24.13$ km/s、火星公转 687 天、会合周期 780 天。</p>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <ol>
 <li><strong>"determine the size of the sail" 不是查表题而是优化变量</strong>：帆面积 $A$ 越大推力越大但载荷越小（载荷 $=2000-0.007A$），$A$ 太小则推不动/航时不可接受。答案是一个<strong>权衡曲线上的最优点</strong>，必须呈现 Pareto 或加权目标，单一"标准答案"不存在。</li>
 <li><strong>"flight plan" = 帆角控制律 + 相位几何</strong>：模糊词是"计划"。操作化为 $\alpha(t)$（帆面法向与日径夹角的时间函数）加发射-交会相位设计。关键洞察：火星在 500 天航程中自己走 $\sim500/687\times360°\approx262°$，必须瞄准"火星将到达的地方"而非当前位置。</li>
 <li><strong>"relative velocity ≤9 km/s" 的参考系</strong>：合理读法是相对火星的双曲超速 $v_\infty$。对数螺旋的到港速度天然<strong>低于</strong>当地圆轨道速度（帆是"欠速"飞行），相对速度由矢量几何决定——这一约束实际上决定了末段必须翻帆减速/等待相位，是"计划"的一部分而非事后核对。</li>
 <li><strong>题面第一句是送分提示</strong>："压强=两倍能量密度"就是要你写出 $P=2S/c$；理想镜面下<strong>合力恒沿帆面法向</strong>（入射与反射的切向分量抵消），这个性质应推导出来，它是全部轨道力学的基石。</li>
 </ol>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1：理想镜面帆 + 对数螺旋（解析骨架）</strong></p>
 <p>1 AU 处光压 $P_0=2S/c=9.08\ \mu{\rm N/m^2}$；帆面倾斜 $\alpha$ 时：法向力 $F=2P_0A\cos\alpha\ (\cos\alpha\,\hat n)$ 的径/切向分解为</p>
 <p>$$F_r=\frac{2SA}{c}\frac{\cos^2\alpha}{r^2},\qquad F_t=\frac{2SA}{c}\frac{\cos\alpha\sin\alpha}{r^2},$$</p>
@@ -140,7 +157,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
     G2 --&gt; V
     X1 --&gt; V
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <table>
 <thead>
 <tr>
@@ -219,14 +236,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>数值框架</strong>：状态 $x=(r,\theta,\dot r,\dot\theta)$ 的 RK4/RK45 积分（<code>dopri5</code> 即可）；<strong>统一单位制（AU/天）</strong>防浮点溢出——这是 744 队用 Earth→Jupiter 算例崩溃换来的真实教训。</li>
 <li><strong>优化器选型</strong>：网格搜索（先物理先验压参量盒，如"初始段禁止负倾角"）→ PSO/SLSQP 精化；协态法（Pontryagin）则优化 $[\lambda_1..\lambda_4,t_f]$ 五维初值，配动态罚因子（$M_{i+1}=cM_i$）。</li>
 <li><strong>必做的三重验证</strong>：① 分段收敛扫描（$\alpha$ 离散为 1/3/10/30 段，结果应稳定在 500 天附近——一张表证明"无需频繁调姿"）；② 极限情形（$\beta\to0$ 退化为开普勒、$q\to0/1$ 效率下降）；③ 多组初值重复优化得同一形态（防局部最优质疑）。</li>
 <li><strong>常见数值陷阱</strong>：光压写成 $\cos\alpha$ 或 $\cos^3\alpha$（正确径向为 $\cos^2\alpha$）；理想帆推力方向不沿法向；$\theta$ 跨 $2\pi$ 时积分变量跳变；到达判据忘了火星引力聚焦（$v_\infty$ 与"距火星表面速度"不同）。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li><strong>把帆尺寸当查表值</strong>：不呈现"面积↔载荷↔航时"权衡就给出单一答案——优化题没有权衡曲线就没有"optimize"。</li>
 <li><strong>相位几何缺失</strong>：瞄准火星当前位置而非 262° 之外的预测位置；或把"最近距离发射"误解为地火距离 0.5 AU 而在模型里用 1.524 AU 却不声明。</li>
@@ -234,19 +251,19 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>重复计光压投影</strong>：在压强里乘一次 $\cos\alpha$、面积投影又乘一次、反射几何再乘——$\cos$ 的幂次要能从"截面×反射"两因子推导出来。</li>
 <li><strong>双目标无权衡声明</strong>：同时宣称"载荷最大且时间最短"而不给加权/约束处理与权重灵敏度，评委一眼判定优化未做透。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>JAXA/ISAS：IKAROS 任务页</strong>（<a href="https://www.isas.jaxa.jp/en/missions/spacecraft/past/ikaros.html">isas.jaxa.jp</a>）——2010 年人类首次行星际太阳帆演示：14 m × 14 m（196 m²）、总质量 310 kg（整船面密度 $\approx1.6\ {\rm kg/m^2}$），证实光压加速。用它做"题设 7 g/m² 是激进未来技术"的现实校准，并在讨论节承认这一点。</li>
 <li><strong>NASA NTRS：《Near-Earth Asteroid Scout: NASA's Solar Sail Mission to a NEA》</strong>（<a href="https://ntrs.nasa.gov/citations/20170009096">ntrs.nasa.gov</a>）——86 m² 帆、整船 &lt;14 kg（面密度 $\approx0.16\ {\rm kg/m^2}$）的 6U 立方星，2022 年随 Artemis-1 发射，是"帆尺寸 vs 总质量"的当代工程参照点。</li>
 <li><strong>eoPortal：IKAROS 任务详页</strong>（<a href="https://www.eoportal.org/satellite-missions/ikaros">eoportal.org</a>）——含帆膜厚度（7.5 μm 聚酰亚胺）与展开机构细节，可支撑"帆材 7 g/m² 不含结构"的假设讨论。</li>
 </ol>
-<h2 id="8">8. 金牌论文思路对比</h2>
+<h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
 <li><strong>670 队（华沙，5 页）</strong>：黑体辐射推光压，所有力 $\propto1/r^2$ 的"修正引力场"洞察；$\Theta(t)$ 三段常值 + 网格搜索；最优帆质量占比 $q=0.46$（$A\approx1.31\times10^5\ {\rm m^2}$）→ 载荷 1080 kg、532 天、ARV 8.6 km/s。最短金奖论文，靠摘要自带完整可复算结论链取胜。详见 <code>05_论文赏析\2017\2017-GM-A-670.md</code>。</li>
 <li><strong>699 队（国防科大，28 页）</strong>："物理模型 + Pontryagin 最优控制（$\alpha^*(\lambda)$ 解析式）+ PSO 求解协态初值"三段式；动态罚函数处理终端约束；对 $A=10^4$–$2\times10^5\ {\rm m^2}$ 四点扫描后选定 $10^5\ {\rm m^2}$：载荷 1300 kg、504 天、末速 8.3 km/s。方法学层次感最强。详见 <code>05_论文赏析\2017\2017-GM-A-699.md</code>。</li>
 <li><strong>744 队（巴塞罗那，34 页）</strong>：物理保真度最高——完整非理想帆三系数 SRP 模型 + RK4/SLSQP 双目标 NLP；分段数 1–30 收敛扫描 + 初值重复 + 权重灵敏度三重验证；主线 500 天、$A=183158\ {\rm m^2}$、载荷 718 kg、ARV 8.31 km/s，并扩展出最优发射相位 1.14 rad（载荷增至 978 kg）与火星→地球反向转移。详见 <code>05_论文赏析\2017\2017-GM-A-744.md</code>。</li>
 </ul>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] $P=2S/c$ 现场推导 + 理想帆"合力沿法向、径向 $\cos^2\alpha$"的论证（题面第一句的兑现）。</li>
 <li>[ ] 帆面积作为优化变量：呈现面积–载荷–航时权衡（Pareto 或加权），并给出灵敏度。</li>
@@ -256,7 +273,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>[ ] 声明简化假设（共面圆轨道、理想镜面、地球逃逸由火箭完成）并给出非理想帆等扩展的影响量级。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌论文思路对比">8. 金牌论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -268,6 +288,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

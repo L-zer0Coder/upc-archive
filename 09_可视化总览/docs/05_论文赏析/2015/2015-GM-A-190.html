@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2015</span>
+  <span class="crumb">05_论文赏析/2015 · Establishing a Martian Greenhouse Effect Through Directed Impacts（2015 题A 队伍190）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2015/Problem%20A/2015-GM-A-190.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2015/2015-GM-A-190.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="establishing-a-martian-greenhouse-effect-through-directed-impacts2015-a-190">Establishing a Martian Greenhouse Effect Through Directed Impacts（2015 题A 队伍190）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="establishing-a-martian-greenhouse-effect-through-directed-impacts2015-题a-队伍190">Establishing a Martian Greenhouse Effect Through Directed Impacts（2015 题A 队伍190）</h1>
 <p><strong>页数</strong>: 10 页 ｜ <strong>对应题目</strong>: 题A Terraforming Mars（10 次定向撞击改造火星，求撞击体大小与所需冲量）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>论文把"改造火星"分解为一条清晰的能量因果链：撞击动能（60% 转化为热，效率取自 Maindl et al. 2015 的模拟）→ 大气升温 27 K（123 K→150 K）触发极区干冰升华 → CO₂ 全部入大气加厚温室效应 → 光学深度从 1.7 量级升至 54.45、平衡温度达 285-286 K，液态水可稳定存在。反解出所需总能量 $2.14\times10^{21}$ J、撞击体总质量 $1.225\times10^{13}$ kg（碰撞速度取 24 km/s）、单颗冲量 $10^{16}$ N·s 量级；并从 JPL 小天体数据库挑出 10 颗 Icarus 型真实小行星（Table 1）逐一算出 $\Delta E$ 与 $J$。全文 10 页，几乎无数值模拟，靠文献参数 + 量纲清晰的解析估算闭环。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <ul>
 <li><strong>第 1 层：目标态定义（液态水条件）</strong>。由水的相图定出 $T\ge273$ K、$p\ge612$ Pa，并指出火星气压 636 Pa 已达标、短板只在温度——这一步把开放题收敛成单变量问题。</li>
 <li><strong>第 2 层：黑体温度与温室模型</strong>。式(1) $T_{Mars}=T_{Sun}(1-a)^{1/4}\sqrt{R_{Sun}/2D}$ 得火星黑体温度约 215 K（并类比地球 254 K vs 实际 288 K 引出温室效应）；式(2) 采用 Ramanathan 半灰模型 $\tau=\frac23\frac{2T_S^4-T_B^4}{T_B^4-(1-\beta)T_S^4}$（$\beta\approx0.7$）；关键简化假设式(3)(4)：光学深度与 CO₂ 浓度成正比 $\tau_{CO_2}(N)=\frac{N}{N_0}\tau_{CO_2}(N_0)$，以工业革命前地球（280 ppm、$\tau_0=1.73$）为标定。图 1（Python 绘制，273-290 K）读出 273 K 需 $\tau=12.72$、对应 CO₂ 密度 0.0041 kg/m³。合理性与局限都摆在明处：模型是半经验公式，标定点借自地球。</li>
@@ -64,11 +81,11 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>第 5 层：轨道转移与冲量</strong>。Virial 定理式(9) $E=-GM_{Sun}\mu/2a$；式(10) $\Delta E=-\frac{GM_{Sun}\mu}{2}(\frac{1}{a_{Mars}}-\frac{1}{a_{Ast}})+\frac12\mu v_{rel}^2$；式(11) $J=\mu(\sqrt{GM/a_{Mars}}-\sqrt{GM/a_{Ast}}+v_{rel})$。示范算例：a≈3 AU 的理想小行星需 $1.77\times10^{20}$ J（≈42000 兆吨 TNT，与沙皇炸弹 50 Mt 对比）、$3.79\times10^{16}$ kg·m/s。</li>
 <li><strong>第 6 层：稳健性检验</strong>。8.2 节用 Jeans 逃逸流公式(12)(13)(14)算出 $\dot N=4.57\times10^{-61}\,\mathrm{s^{-1}}$、逃空时间 $3.12\times10^{94}$ 年，证明升温后大气不会流失——回应了"加热是否白费"的隐忧。</li>
 </ul>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>以解析估算为主，几乎不依赖数值计算，唯一的数值工作是附录 Python 代码绘制图 1（$\tau$–$T_S$ 曲线，numpy+matplotlib，代码随文公开）。方法上的亮点是<strong>标定 + 比例外推</strong>：半灰模型只用一个地球标定点（280 ppm → $\tau=1.73$）线性外推到火星，回避了辐射传动的重计算。极限/自洽检验有三处：液态水气压条件先行核查（636 Pa&gt;612 Pa）；大气逃逸时标检验（8.2 节）；以及 8.3 节提出"切向减速螺旋下降"的替代冲量方案后坦承"We do not know how to model an orbit spiralling inwards"，将其列为未完成的改进方向。不确定度方面，碰撞速度 24 km/s 属任意选取，论文明说"led to a very physical size estimate...and so was kept"——用结果合理性反证参数选取，属于务实但非严格的处理。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页（p1 图）横排标题 + 队伍信息 + 4 行摘要，摘要直接给出 $1.225\times10^{13}$ kg、$2.14\times10^{21}$ J、$10^{16}$ N·s 三个硬数字，是"摘要即答案"的典范。全文仅 10 页、1 图 1 表、17 个编号公式，是七篇中最精炼的。图表页（fig 图）显示图 1 为 matplotlib 折线图（"Optical depth of CO2 required for surface air temperatures on Mars"，带图例与坐标标签），风格朴素；Table 1 是全文的"含金量担当"：10 颗真实小行星的半长轴、偏心率、直径、质量、$\Delta E$、$J$ 六列数据，全部带 JPL/NASA 引用编号（[6.1]-[6.9]），把假设落到了可查证的实体上。页脚"TEAM 190"+页码，顶部有分隔线，视觉简洁一致。章节为"目标条件→现状→温室机制→能量→小行星搜寻→能量与冲量→讨论→结论"的线性链条，与因果逻辑一一对应。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>物理因果链完整且可反推</strong>：目标态（液态水）→ 状态量（τ、CO₂ 密度）→ 触发条件（27 K 升温 + 升华潜热）→ 撞击动能 → 质量与冲量，每一步都可检验，正反两个方向都闭环。</li>
 <li><strong>文献参数替代理拍脑袋</strong>：60% 撞击热效率引 Maindl et al. 2015 的模拟、半灰模型与 β=0.7 引 Miyazaki、升华焓引 NIST——每个关键系数都有出处，评委可逐条核对。</li>
@@ -77,7 +94,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>诚实的边界意识</strong>：8.3 节公开承认角动量方法因不会建模螺旋轨道而放弃；8.1 节讨论热传导时标可能削弱撞击效率并给出缓解策略（缩小间隔、瞄准极区）。</li>
 <li><strong>极简篇幅</strong>：10 页说清全部逻辑，信息密度高，符合评委 48 小时内评审的阅读习惯。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>先用相图/物性数据把开放题的"成功标准"翻译成可计算的不等式（273 K、612 Pa），再开始建模。</li>
 <li>复杂物理（辐射传输、撞击效率）不硬算，找一篇可信文献取标定值或效率因子并显式引用。</li>
@@ -87,7 +104,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>用熟悉工具画一条关键曲线（τ–T）并附代码于附录，既支撑读数又展示可复现性。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -99,6 +119,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

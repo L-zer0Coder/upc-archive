@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,19 +41,34 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析</span>
+  <span class="crumb">05_论文赏析 · 批次07 对比表：2021 题B 与 2022 题A（5 篇金牌论文）</span>
   <span style="flex:1"></span>
   
   <a href="../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/_%E6%89%B9%E6%AC%A107_2021B-2022A.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="07-2021-b-2022-a5">批次07 对比表：2021 题B 与 2022 题A（5 篇金牌论文）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="批次07-对比表2021-题b-与-2022-题a5-篇金牌论文">批次07 对比表：2021 题B 与 2022 题A（5 篇金牌论文）</h1>
 <table>
 <thead>
 <tr>
@@ -112,14 +129,17 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="_1">批次观察</h2>
+<h2 id="批次观察">批次观察</h2>
 <p><strong>一、2021-B 四篇（含批次06 已赏的 216 队）：阈值工程直接决定答案的数量级。</strong> 同一道"最小质量"题，四支队伍的答案横跨两个多数量级——216 队 $10^9$ kg、445 队 $10^{10}$ kg、385 队 $4.046\times10^{10}$ kg、442 队 $1.7\times10^{11}$ kg——而分歧的第一来源不是物理，而是"实质性破坏"的操作化定义：216 队引三份灾害文献定 2 m 波高，442 队按 ITIS-2012 量表对 D 类建筑定 7 m，385 队取 Watanabe 等级 3（10–20 m），445 队取 10 m（且正文存在 5 m/10 m 的口径摇摆）。阈值翻倍在振幅-质量关系里放大成质量翻一个数量级。有趣的是方法论光谱恰好铺满三种原型：385 队是"推导型"（从含地球自转的弹道方程组与 Stokes 控制方程一路推下来，逆推链条画成 Figure 6 流程图），442 队是"文献工程型"（整套 Collins–Melosh–Marcus Earth Impact Effects Program 公式体系加 19 篇规范引文），445 队是"数值模拟型"（Julia RK4 + FFT 谱方法演化波场，还顺手用自家模拟验证了 $1/\sqrt r$ 律）。三种路线都拿金牌，再次印证 UPC 评审看的是模型链条的自洽与论证的完整，而非预设某条"正路"。</p>
 <p><strong>二、多威胁枚举与排除是 2021-B 的公共骨架。</strong> 四支队伍无一例外先给"破坏效应"排座次：216 队开篇三条理由排除热辐射与冲击风；385 队引文献断言海啸为主害；442 队做得最重——热辐射（需 $d&gt;4.61$ km）、超压（1000 Pa &lt; 20000 Pa 阈值）、地震（PGV &lt; 3 cm/s）各走一遍"公式→数值→阈值比较"的完整闭环；445 队最轻——三行标度律（冲击波 $\propto1/r^2$、海啸 $\propto1/\sqrt r$、地震能量 &lt;1%）完成同样的排除。轻重两极同获金牌，说明排除环节的价值在"有"而不在"繁"；但就说服力密度而言，442 的定量排除与 445 的标度律排除是两个都值得进模板的极端。另一个公共细节是能量传递比例的文献化：385 的 20% 入水、445 的 $\epsilon\approx0.15$、442 直接采用 [CMM05] 的经验公式，都没有让自由参数裸奔。</p>
 <p><strong>三、2022-A 两篇：答案相差约 30 倍（58 天 vs 4.8 年）的解剖。</strong> 这是本批次最刺眼的同题异构。346 队在地心系工作，取最坏情形 $D=0$ 正对撞，要求飞船动量独力供足擦地角动量（式(7) 含引力聚焦项 $2GM_a^2R_EM_E$），判据等价于"横向速度增量 × 剩余时间 = $R_E$ 量级"的线性外推，得 25 AU、4.8 年；395 队在日心系工作，飞船借地球公转速度把撞前速度抬到 46.6 km/s（式(15)），判据是"碰后距地心最近距离 &gt; $10^7$ m"，在双曲地球交会中小的瞄准距变化经引力聚焦放大（近距 $r_p\propto b^2$），数值搜索给出 58–139 天。两边可用的 $\Delta v$ 其实同量级（346 约 0.05 m/s，395 约 0.08 m/s），差距主要来自判据定义、参考系选择与聚焦效应的处理方向。346 队用 Ahrens &amp; Harris 1992 等文献把"提前数年"的结论做了交叉验证，395 队未做文献对照（其 58 天显著比行星防御界共识乐观，凭正文信息难以逐项复核，须代入其附录脚本才能裁决）。两篇同获金牌说明 UPC 容忍答案发散，但从竞赛策略上讲，346 的"文献锚定 + 双方案 + 风险概率"显然更抗质疑。</p>
 <p><strong>四、判据工程是两个年度共同的胜负手。</strong> 2021-B 的"实质性破坏"与 2022-A 的"错过地球"都是开放判据，五篇论文不约而同把定义环节做成了显式工程：Watanabe 等级表、ITIS-2012 建筑类别、擦地角动量不等式、1.5 $R_E$ 最近距、椭圆情形"碰后轨道仍与地球轨道相交则迟早再撞"的回归性论证。同样的结构还出现在方案/效应的枚举排除上——2021-B 排效应（热、冲击风、地震），2022-A 排方案（着陆、系绳），385 队的 Figure 1+Figure 6 与 346 队的"两个失败方案"一节是同一思想的两种排版。可提炼的通用套路是：<strong>开放题 = 判据定义 + 空间枚举 + 主模型精算 + 副效应/副方案的定量排除</strong>，四段缺一不可。</p>
 <p><strong>五、资源入模、自检循环与呈现的容忍度。</strong> 本批次反复出现的加分动作有三类：一是把题目给定资源真正算进模型（346 队火箭方程求 $u_{sat}=v_e$ 动量极值、395 队用第三宇宙速度约束反推燃料烧掉 89% 后只剩 2161 kg、385 队烧蚀使入大气前质量是落海时的 2.03 倍）；二是前提自检（395 队 $F_{sun}/F_e$ 比值推翻自己的地心假设、445 队数值复现理论标度、346 队结合能/动能 5 个量级审计）；三是诚实的 Weaknesses 与风险量化（346 队把碎裂方案的"误伤率"画成 30%/7% 概率曲线，是全部五篇中唯一把模型风险做成曲线的）。呈现层面则显示出较大的评审容忍度：395 队用 MCM/ICM 模板写 UPC、符号表错行、仅 2 篇引文，385 队引文编号重复、445 队残留"(ref)"占位符与欧式小数逗号，都没能挡住金牌——但 442、346 两篇的期刊级排版与文献规范证明了"干净"的上限收益，参赛者应以 442/346 为排版标杆、以 395 为"内容优先"的下限警戒线。</p>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#批次观察">批次观察</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -131,6 +151,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

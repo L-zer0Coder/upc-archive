@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,21 +41,36 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析</span>
+  <span class="crumb">05_论文赏析 · 批次04：2018–2019 年 UPC 金牌论文对比赏析</span>
   <span style="flex:1"></span>
   
   <a href="../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/_%E6%89%B9%E6%AC%A104_2018-2019.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="0420182019-upc">批次04：2018–2019 年 UPC 金牌论文对比赏析</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="批次0420182019-年-upc-金牌论文对比赏析">批次04：2018–2019 年 UPC 金牌论文对比赏析</h1>
 <p>本批次覆盖 2018 年题 A（光帆纳米飞行器，3 篇金牌中的 1 篇：295 队）与题 B（堆肥堆尺寸，全部 2 篇金牌：240、285 队），以及 2019 年题 A（火星旅行辐射防护，全部 3 篇金牌：105、289、343 队）。</p>
-<h2 id="_1">总表</h2>
+<h2 id="总表">总表</h2>
 <table>
 <thead>
 <tr>
@@ -123,14 +140,17 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="_2">同题异构对比观察</h2>
+<h2 id="同题异构对比观察">同题异构对比观察</h2>
 <p><strong>一、题 B 2018：整体动力学 vs 场分布，两条路线的正面对决。</strong> 240 队与 285 队对同一道题给出了几乎互补的建模哲学。240 队把堆视为一个"集总参数"热力学系统：五个 ODE 描述舱内平均态，形状只通过 $S/V$ 一个参数进入方程，优势是能算出 100 天的时间演化并直接对照题目给定的温度/湿度区间做验证，最终以体积扫描给出 9.20 与 6.33 m³ 两个优化体积；285 队则走"分布参数"路线，求解温场与氧场的空间分布， advantage 是能画出温度剖面、直接论证"中心不超 60 °C"的尺寸选取，并独家处理了压实-密度耦合。有趣的是两者的结论量级一致（最优尺寸都在米级、体积数个 m³），说明集总模型虽然粗糙但抓住了主要矛盾——对参赛者的启示是：先判断题目要"时间演化 + 优化"还是"空间分布 + 设计"，再选路线；而 285 队用弹簧模型攻坚"压实"这一题目明示难点、240 队用代理量攻坚"效率定义"这一隐藏难点，两支队伍恰好示范了"啃硬骨头"的两种选择方式。</p>
 <p><strong>二、题 A 2019：被动、主动、混合三种防护哲学的完整光谱。</strong> 三篇火星论文恰好构成方案谱系：105 队纯被动（三层材料 + Faraday 笼，6.36×10⁵ kg）、289 队纯主动磁屏蔽（48.3 t）、343 队混合式（16.53 t）。质量数字相差近 40 倍，根源在于对威胁谱的取舍不同：105 队假设辐射以 X/γ 为主（因此必须用厚材料吸收，代价巨大）；289 队聚焦 2–4 GeV/n 带电重核（磁场偏转即可，材料只做支撑）；343 队则明确"磁场挡不住 γ、材料挡不住 GeV 级重核"，因此两者皆用、各管一段。三篇都通过了评审，说明 UPC 评委并不预设"正确方案"，而是考察方案内部的自洽性与论证深度——但 343 队的混合方案在物理完备性上最无懈可击，289 队的系统级闭环（热控、姿控、燃料代价）最见工程功力，105 队则胜在教科书式的多知识点覆盖。</p>
 <p><strong>三、数值深度的分层：从"会算"到"会检验"。</strong> 六篇论文的数值成熟度呈明显梯度。最讲究的是 343 队（步长与回旋周期挂钩 $\Delta t=T/100$、两万随机源点、8 构型 × 全场强扫描）与 295 队（三组离散规模收敛实验证明 N&gt;45/35/40 后结果不变）；240 队以"输出是否落在题给区间"做物理检验而非数值检验；289 队用一阶 Euler 法但坦承局限、以文献标定补偿；105 队与 285 队的数值细节着墨最少。共同规律是：金牌论文至少有一项"让数值结果可信"的制度化动作——收敛实验、区间验收、文献对照三者必居其一。参赛者应把"数值自检"当作与建模本身同等级的任务来排期。</p>
 <p><strong>四、中国国防科大队系的方法论印记。</strong> 295（2018 A）、285（2018 B）、343（2019 A）三篇同出国防科大，风格高度一致：模型分解为编号子模型（四个/三个）、附录附完整可运行代码、灵敏度分析独立成节、结论分"初步解/最优解"两级、明确列模型缺陷。相比之下，欧美队伍（240、289）更依赖文献对标与决策矩阵，单人队 105 则以知识面取胜。这提示不同风格的完赛路径：资源充足时可走"分解-枚举-检验"的系统工程路线，文献功底强时可走"选型-对标-闭环"路线，但无论哪条路，摘要必须给出可核查的具体数字（六篇摘要无一例外全部给出数值结论）。</p>
 <p><strong>五、跨年演进：题目从"单点物理"转向"系统设计"。</strong> 2018 两道题（光帆动力学、堆肥热力学）都指向单一物理过程的精细化建模；2019 题 A 则要求"方案 + 质量 + 可行性评估"的系统级答案，三篇金牌论文不约而同地引入了选型对比（105 的材料对比、289 的双决策矩阵、343 的八构型枚举）。这一趋势与 UPC 逐年增加 Accomplished Competitors 通过难度、强化"thorough evaluation of practicality"措辞的方向一致。对备赛的直接含义是：训练中应增加"方案对比矩阵 + 质量核算链 + 可行性专节"的写作模板，仅靠一个漂亮模型已不足以锁定金牌。</p>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#总表">总表</a></li><li class="l2"><a href="#同题异构对比观察">同题异构对比观察</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -142,6 +162,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

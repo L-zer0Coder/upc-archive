@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,20 +41,35 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">02_题目汇总</span>
+  <span class="crumb">02_题目汇总 · 2023 年 University Physics Competition（UPC）题目与官方信息</span>
   <span style="flex:1"></span>
   
   <a href="../../../02_%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB/2023_%E9%A2%98%E7%9B%AE%E4%B8%8E%E5%AE%98%E6%96%B9%E4%BF%A1%E6%81%AF.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2023-university-physics-competitionupc">2023 年 University Physics Competition（UPC）题目与官方信息</h1>
-<h2 id="_1">赛事概况</h2>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2023-年-university-physics-competitionupc题目与官方信息">2023 年 University Physics Competition（UPC）题目与官方信息</h1>
+<h2 id="赛事概况">赛事概况</h2>
 <p>In this year’s competition 466 teams submitted
 papers for judging.</p>
 <h2 id="problem-a">Problem A</h2>
@@ -61,7 +78,7 @@ Consider a skydiver, carried by a rocket vertically up to an altitude, perhaps a
 <h2 id="problem-b">Problem B</h2>
 <p>Trampoline Jumping
 Three kids are jumping on a circular trampoline that is 5 meters in diameter. The kids have masses 25 kg, 40 kg, and 50 kg. If alone on the trampoline the 25 kg kid can bounce to a maximum height of 0.5 meters above the trampoline surface’s equilibrium height, the 40 kg kid can bounce to a maximum height of 0.8 meters, and the 50 kg kid can bounce to a maximum height of 1.2 meters. If all three kids are on the trampoline together, what is the maximum height that each kid could reach?</p>
-<h2 id="problem-a_1">Problem A 金牌队伍</h2>
+<h2 id="problem-a-金牌队伍">Problem A 金牌队伍</h2>
 <table>
 <thead>
 <tr>
@@ -110,7 +127,7 @@ Three kids are jumping on a circular trampoline that is 5 meters in diameter. Th
 </tr>
 </tbody>
 </table>
-<h2 id="problem-a-03_pdf2023">Problem A 官方公开论文（已下载至 03_优秀论文PDF/2023/）</h2>
+<h2 id="problem-a-官方公开论文已下载至-03_优秀论文pdf2023">Problem A 官方公开论文（已下载至 03_优秀论文PDF/2023/）</h2>
 <ul>
 <li>http://www.uphysicsc.com/2023-GM-A-131.pdf</li>
 <li>http://www.uphysicsc.com/2023-GM-A-227.pdf</li>
@@ -119,7 +136,7 @@ Three kids are jumping on a circular trampoline that is 5 meters in diameter. Th
 <li>http://www.uphysicsc.com/2023-GM-A-447.pdf</li>
 <li>http://www.uphysicsc.com/2023-GM-A-464.pdf</li>
 </ul>
-<h2 id="problem-b_1">Problem B 金牌队伍</h2>
+<h2 id="problem-b-金牌队伍">Problem B 金牌队伍</h2>
 <table>
 <thead>
 <tr>
@@ -150,14 +167,17 @@ Three kids are jumping on a circular trampoline that is 5 meters in diameter. Th
 </tr>
 </tbody>
 </table>
-<h2 id="problem-b-03_pdf2023">Problem B 官方公开论文（已下载至 03_优秀论文PDF/2023/）</h2>
+<h2 id="problem-b-官方公开论文已下载至-03_优秀论文pdf2023">Problem B 官方公开论文（已下载至 03_优秀论文PDF/2023/）</h2>
 <ul>
 <li>http://www.uphysicsc.com/2023-GM-B-102.pdf</li>
 <li>http://www.uphysicsc.com/2023-GM-B-138.pdf</li>
 <li>http://www.uphysicsc.com/2023-GM-B-471.pdf</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#赛事概况">赛事概况</a></li><li class="l2"><a href="#problem-a">Problem A</a></li><li class="l2"><a href="#problem-b">Problem B</a></li><li class="l2"><a href="#problem-a-金牌队伍">Problem A 金牌队伍</a></li><li class="l2"><a href="#problem-a-官方公开论文已下载至-03_优秀论文pdf2023">Problem A 官方公开论文（已下载至 03_优秀论文PDF/2023/）</a></li><li class="l2"><a href="#problem-b-金牌队伍">Problem B 金牌队伍</a></li><li class="l2"><a href="#problem-b-官方公开论文已下载至-03_优秀论文pdf2023">Problem B 官方公开论文（已下载至 03_优秀论文PDF/2023/）</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -169,6 +189,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

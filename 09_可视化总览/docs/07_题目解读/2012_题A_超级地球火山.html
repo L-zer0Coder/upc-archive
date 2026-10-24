@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2012 题A：超级地球上的火山活动（Volcanism on Super-Earths）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2012_%E9%A2%98A_%E8%B6%85%E7%BA%A7%E5%9C%B0%E7%90%83%E7%81%AB%E5%B1%B1.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2012-avolcanism-on-super-earths">2012 题A：超级地球上的火山活动（Volcanism on Super-Earths）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2012-题a超级地球上的火山活动volcanism-on-super-earths">2012 题A：超级地球上的火山活动（Volcanism on Super-Earths）</h1>
 <blockquote>
 <p>赛题来源：UPC 2012 Problem A（当年 81 队中 24 队选题 A，金奖 1 队：上海交通大学 449 队）</p>
 </blockquote>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <p><strong>原文压缩引用</strong>：</p>
 <blockquote>
 <p>Mercury and the Moon do not currently have active volcanoes, while the Earth and Venus do. This is largely because the Earth and Venus are bigger planets and so their interiors have not cooled off as much since the formation of the solar system. Astronomers have recently discovered a population of extrasolar planets called super-earths, worlds with masses several times larger than the Earth. <strong>How would the level of volcanic activity vary over time for Earth-like planets with masses ranging from 0.5 to 3 times the mass of the Earth?</strong></p>
@@ -89,14 +106,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tbody>
 </table>
 <p>注意这是 UPC 典型的<strong>零数值题</strong>：除质量区间外没有任何给定数字，热导率、放射性丰度、固相线温度、地球基准热流全部要自取并注明出处。</p>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <p>本题的模糊词有两个：</p>
 <ul>
 <li><strong>"level of volcanic activity"（活动水平）</strong>：不是问"有没有火山"，而是要一条随时间变化的强度曲线。必须把它操作化为可计算的代理量，例如：幔-岩浆层的释热功率 $P_{\rm vol}(t)$（W）、单位喷发能量换算的喷发频率 $\eta = P_{\rm vol}/Q$（次/年）、或最浓缩的标量——<strong>火山寿命</strong> $t_{\rm ext}$（幔温跌至喷发阈值/固相线以下所历时）。</li>
 <li><strong>"vary over time"（随时间演化）</strong>：要求解的是行星热演化 ODE，而非静态快照；时间零点（行星形成时刻）与时间跨度（百亿年）都要显式声明。</li>
 </ul>
 <p>操作化之后，题目变成：对 $\xi = M/M_\oplus \in [0.5,3]$ 的每个值，解热平衡方程得到 $T_{\rm mantle}(t)$，给出活动曲线并比较 $t_{\rm ext}(\xi)$。<strong>隐藏子问题</strong>是标度律：质量变了，半径、壳厚、放射性元素总量、热容都要跟着变——先立标度律，才能谈演化。</p>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1：集总热平衡理想模型（解析可解）</strong></p>
 <p>把行星看成"热源（放射性衰变）+ 热容（幔）+ 热阻（壳/岩石圈傅里叶导热）"：</p>
 <p>$$C M \frac{dT}{dt} = P_0 e^{-t/\tau} - B\,(T-T_0), \qquad B = \frac{4\pi R^2 k}{d}$$</p>
@@ -120,7 +137,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
     G --&gt; H[层次3 对流标度 潮汐加热 大气隔热]
     H --&gt; I[输出 活动曲线与火山寿命 text ∝ xi 2/3]
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <table>
 <thead>
 <tr>
@@ -175,14 +192,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>解析优先</strong>：层次 1 的 ODE 是一阶线性方程，含 $e^{-t/\tau}$ 逼迫项有标准闭式解；四同位素只是四条指数的叠加，仍可半解析。数值只用于作图。</li>
 <li><strong>若数值积分</strong>：步长应 $\le 10^{11}$ s（约 3 千年）；金奖队用了 $10^{13}$ s（约 30 万年）并自承可能引入误差。检验手段：关闭衰变项后能量守恒残差应为零。</li>
 <li><strong>验证三板斧</strong>：(a) 水星/月球（$0.055$–$0.06\,M_\oplus$）端点应"已熄灭"；(b) 地球应"仍活跃且接近临界"；(c) 金星（$0.82\,M_\oplus$ 但大气隔热）作为"为何它还活着"的讨论题。</li>
 <li><strong>常见数值陷阱</strong>：时间零点混用（"形成后 $t$" vs "距今天 $t$"）；Gyr 与 s 混算；温度阈值取喷发温度（~700 °C）还是幔固相线（~1200–1400 K）——两者差出的寿命可达十亿年量级，必须声明选择。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li><strong>把"活动水平"当离散喷发事件计数</strong>：$10^8$ 年尺度上根本无法逐次建模，必须先连续化为功率/频率代理量并显式定义。</li>
 <li><strong>只写 $\dot T = -B(T-T_0)$ 而漏掉 $M$ 同时出现在供热与热容两端</strong>：会得出"火山寿命与质量无关"的错误结论；正确标度来自 $B/(CM)\propto\xi^{-2/3}$。</li>
@@ -190,15 +207,15 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>不做端点校验</strong>：外推 $0.5$–$3\,M_\oplus$ 却不用水星/地球锚定，评委无从判断可信度。</li>
 <li><strong>默认所有质量都有板块构造</strong>：散热 regime 是否随质量切换在真实文献中尚有争议，至少要写一句讨论，否则是未声明的强假设。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>ASU/Princeton 2024：超级地球可维持更久的火山活动与磁场</strong>（<a href="https://news.asu.edu/20240912-science-and-technology-superearth-exoplanets-may-sustain-volcanism-and-magnetic-fields">news.asu.edu</a>）——主流研究支持"行星越大、火山期越长"的方向，可与模型结论互证。</li>
 <li><strong>Physics World：Slow-cooling super Earths could lack life</strong>（<a href="https://physicsworld.com/a/slow-cooling-super-earths-could-lack-life">physicsworld.com</a>）——反方观点：大行星冷却慢可能导致火山期反而不利于宜居。写进 Discussion 能显著提升讨论深度。</li>
 <li><strong>Nature Astronomy：L 98-59 d 的富挥发分熔融超地球</strong>（<a href="https://www.nature.com/articles/s41550-026-02815-8">nature.com</a>）——"永久岩浆海"的极端案例，可用作层次 3 扩展的素材。</li>
 </ol>
-<h2 id="8">8. 金牌论文思路对比</h2>
+<h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <p>本题金奖唯一一队（上海交通大学 449 队，17 页）：五层行星结构 + 能量守恒主线，把火山活动<strong>定义为岩浆层释能功率</strong> $P_{vol}=B(T-700)$，单同位素基本模型解析求解、四同位素扩展模型复现地球热史转折，用水星（余寿 15 亿年）与地球（50.7 亿年）双锚点校验，并罕见地专设参数灵敏度小节扰动 $B$ 的两个估计参数。详细拆解见 <code>05_论文赏析\2012\2012-GM-A-449.md</code>。</p>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 是否在建模前<strong>显式定义"火山活动水平"的可计算代理量</strong>（功率/频率/寿命）。</li>
 <li>[ ] 是否给出<strong>质量标度律</strong>（$R$、$d$、$P_0$、$C M$ 随 $\xi$ 的缩放），而不是只算一个行星再口算。</li>
@@ -208,7 +225,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>[ ] 是否讨论了未建模效应（对流、板块体制、潮汐、大气）及其方向性影响。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌论文思路对比">8. 金牌论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -220,6 +240,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

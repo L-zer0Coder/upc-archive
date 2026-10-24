@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2018</span>
+  <span class="crumb">05_论文赏析/2018 · Lasercraft Dynamics and Design for Proxima Centauri b Flyby（2018 题A 队伍158）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2018/Problem%20A/2018-GM-A-158.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2018/2018-GM-A-158.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="lasercraft-dynamics-and-design-for-proxima-centauri-b-flyby2018-a-158">Lasercraft Dynamics and Design for Proxima Centauri b Flyby（2018 题A 队伍158）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="lasercraft-dynamics-and-design-for-proxima-centauri-b-flyby2018-题a-队伍158">Lasercraft Dynamics and Design for Proxima Centauri b Flyby（2018 题A 队伍158）</h1>
 <p><strong>页数</strong>: 19 页 ｜ <strong>对应题目</strong>: 光帆纳米飞行器飞掠比邻星（Sending a Light Sail Propelled Nanocraft to Alpha Centauri）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>IIT Delhi 队伍把 2018 题A 拆成三个子问题：帆形状 × 材料 × 光束形态的稳定组合筛选、均匀光束下的（相对论）加速动力学、激光指向精度预算。稳定性结论：不计功率效率与材料限制时，球形帆 + 多模高斯光束最稳；而在均匀光束的动力学对比中方帆最优。动力学上取总质量 2 g 时极限速度达 0.2c，并给出 $L_0=1.49\times10^7$ km、$t_0=9.97$ min、$\beta_0=0.166$ 等特征量。精度结论：飞掠比邻星 b 需指向半偏差角 $\theta_{dev}=9.364\times10^{-9}$ rad（式 17），若要求光斑中心始终罩住帆则需 $1.06\times10^{-10}$ rad（式 18），激光自身衍射发散 $\lambda/d=1.064\times10^{-13}$ rad（式 19）可忽略。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <ul>
 <li><strong>光束与阵列层</strong>：采用 Lubin 的 DE-STAR 4 方案（10 km 方阵、1064 nm Nd:YAG、50 GW），发散角式 (1) $\theta=\alpha\lambda/d$（方形 $\alpha=1$，圆形 $\alpha=1.22$）。</li>
 <li><strong>材料层</strong>：罗列多层介质膜方案（金属化塑料膜 99.995%、金属化玻璃 99.999%、吸收 &lt;10 ppm；0.5 ppm 已实现但需厘米级厚度），论证"反射率取 1"合理；同时声明不采用 10 nm/µg·m⁻² 级的未证实极限参数。</li>
@@ -63,11 +80,11 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>动力学层</strong>：非相对论式 (5)–(13)：$F=P_0(1+\epsilon_r)/c$、$v_0$（光斑等于帆尺寸时）、$L_0=Dd/2\lambda$（式 11）、极限速度式 (13) $v_\infty=\sqrt{\frac{2P_0(1+\epsilon_r)dD}{c\lambda(D^2h\rho+m)}}$，并证明帆质量 = 载荷质量时速度最大。相对论用 Compton 散射图像：反射光子双多普勒红移式 (14) $E_f=\frac{1-\beta}{1+\beta}E_i$，得式 (15) $\dot\beta=\frac{2P}{mc^2\gamma^3}\frac{1-\beta}{1+\beta}$，单次碰撞能量转移效率式 (16) $\eta=2\beta/(1+\beta)$。</li>
 <li><strong>精度层</strong>：几何三角预算，见式 (17)–(19)。</li>
 </ul>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>以"参数空间扫描 + 解析标度律"为主，不依赖重数值积分。两条自洽性检验尤其好：(1) 相对论 vs 非相对论对比——附录 Table 1 逐行给出 1–10 g 载荷的 $\beta$（如 2 g：20.1% vs 23.5%），证明 2 g 附近相对论修正不可忽略、必须用式 (15)；(2) 量级排除——太阳引力 0.00002 N 对激光力 333.33 N 差 7 个量级，故忽略引力弯折。圆形阵列下三种帆形的极限速度对比（Table 2：方/圆/球形）支撑"方帆 + 方阵、圆帆 + 圆阵"的匹配结论。无误差棒或收敛性讨论（数值部分较薄），精度预算为纯几何估计。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>p1 为 LaTeX article，标题 "Lasercraft Dynamics and Design for Proxima Centauri b Flyby"，摘要四段式（问题—评价标准—方法—两个结论），最后一句给出 $10^{-10}$ rad 的量化答案。第 2 页目录、第 3 页符号表（含数值列，方便复算）。图表 5 幅编号图 + 2 张附录表：Figure 1（文献彩图，帆稳定设计要素）、Figure 2（引自 Kulkarni/Lubin 的相对论曲线）、Figure 3–5（不同阵列/帆形的极限速度—载荷曲线，自绘）。页眉 "Team 158 Problem A"。整体图文比例均衡，但 Figure 2 为直接引用的外部图，原创图偏少。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>问题覆盖完整</strong>：题面三问（精度、制造容差、均匀性）逐一作答，且每问都有数字落点。</li>
 <li><strong>设计空间组合筛选</strong>：形状 × 光束 × 材料的组合矩阵配文献证据（Popova、Manchester &amp; Loeb、Benford 实验），展示了对 Starshot 研究现状的把握。</li>
@@ -76,7 +93,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>忽略项全部定量辩护</strong>：太阳引力差 7 个量级、衍射发散 $10^{-13}$ rad，无一处拍脑袋。</li>
 <li><strong>诚实区分"稳定性最优"与"动力学最优"</strong>：球形帆稳但工程难、方帆快但不稳，结论写成条件式而非一刀切。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>对开放式设计题，先列"形状 × 光束 × 材料"组合矩阵再逐一淘汰，结构清晰。</li>
 <li>引用最新文献（2016–2018 的 Starshot 系列）为假设背书，评委认可度高。</li>
@@ -86,7 +103,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>符号表直接附数值（d=10 km、P₀=50 GW……），便于评委复算。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -98,6 +118,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

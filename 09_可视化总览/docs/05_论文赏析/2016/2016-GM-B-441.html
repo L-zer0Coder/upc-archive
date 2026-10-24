@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2016</span>
+  <span class="crumb">05_论文赏析/2016 · Modeling the upper limit of body size for vertebrates（2016 题B 队伍441）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2016/Problem%20B/2016-GM-B-441.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2016/2016-GM-B-441.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="modeling-the-upper-limit-of-body-size-for-vertebrates2016-b-441">Modeling the upper limit of body size for vertebrates（2016 题B 队伍441）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="modeling-the-upper-limit-of-body-size-for-vertebrates2016-题b-队伍441">Modeling the upper limit of body size for vertebrates（2016 题B 队伍441）</h1>
 <p><strong>页数</strong>: 16 页 ｜ <strong>对应题目</strong>: 题B Dinosaurs versus Mammals（最大恐龙比最大陆地哺乳动物重约一个数量级，建模并用生物学/古生物学数据检验成因）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>论文采用 McNab (2009) 的"资源与能量决定体型上限"框架：物种日能耗服从异速标度律 $\mathrm{FEE}=aM^b$（式 1），环境给出每日最大可行能耗上限 $K$，联立即得最大体量 $M_{max}=(K/a)^{1/b}$——<strong>指数 $b$ 各群相近（0.67-0.85），差异全部来自质量无关系数 $a$</strong>：$a$ 越小，同等环境可养活的体重越大。团队用 Nagy 等 (1999) 的双标水法实测数据（79 种哺乳动物、55 种爬行动物）做对数线性回归验证模型（$r^2\approx0.95$），再以"最大哺乳动物 Paraceratherium（15 t）恰好触及 $K_m\approx8.94\times10^5$ kJ/d 且 $K_d\approx K_m$"为锚定假设，检验两种恐龙代谢假说：普通爬行动物参数只给出 $M_{max}\approx31.5$ t（比值 2.1，与 6.67 的实测比值矛盾），而巨蜥属（Varanus）参数给出 $M_{max}\approx158$ t、比值 10.54——成功解释一个数量级之差，并推论恐龙代谢介于外温与内温之间的中温型（mesothermy）。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <ul>
 <li><strong>第 0 层：排除法立论（Introduction）</strong>。先论证氧含量、气温等环境因素"会被演化绕过"、且哺乳动物与恐龙长期共存甚至同期出现，故主限制必在<strong>内在特性</strong>；又以三角龙 12 t vs 犀牛 1 t、甲龙 6 t vs 巨犰狳 1 t 的"生态等价种"对比（脚注 1）说明差异是群级普遍性而非个例——两段定性论证直接决定后文用 $a$（内在代谢效率）而非 $K$（环境承载）作解释变量。</li>
 <li><strong>第 1 层：异速标度模型（§2.1）</strong>。式(1) $\mathrm{FEE}=aM^b$，$b&lt;1$ 反映单位体重能耗随体重递减（脚注引 Nagy 2005 的 $b\in[0.67,0.85]$）。</li>
@@ -64,11 +81,11 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>第 4 层：假设检验应用（§3.2）</strong>。锚定假设 $K_d\approx K_m$，由 Paraceratherium 定 $K_m$（式 10）；"爬行类假说"代入式(9)得 $M^{(d)}_{max}\approx31.51$ t，与 Seismosaurus halli 约 100 t 冲突 → 假说被否证；"Varanus 假说"（只取 &gt;1.3 kg 的最重 6 种巨蜥，Table 2：$a_v=1.3605,\ b_v=0.7095$, adj $r^2=0.9715$, p~$2\times10^{-4}$）得 $M^{(d)}_{max}\approx158.17$ t、比值 10.54 ≈ 题目预期数量级。§3.2.3 用犀牛-三角龙、长颈鹿-梁龙两对等价种的双向预测（Tables 3-4）再验证：爬行类曲线预测值与实测区间<strong>完全不重叠</strong>，Varanus 曲线预测 9.6-19.67 t / 4.69-19.67 t 与实测 6-12 t / 10-15 t 相容。</li>
 <li><strong>第 5 层：代谢率的物理自洽检查（§3.2.4）</strong>。回应"代谢率会不会太低"的质疑：用 Newton 冷却定律式(12) $q=hS\Delta T$ 加球体近似式(13) $S\approx0.27M^{2/3}$（$h=5\sim20\,\mathrm{W/m^2K}$、$\Delta T=1\sim10$ K），对 100 t 个体算得散热 $q\approx(3\sim116)$ kJ/s 与 Varanus 曲线 FEE ≈ 7.5 kJ/s 同量级（$\Delta T$、$h$ 足够小即可平衡，且未计太阳辐射加热）→ 无法据此否证低代谢假说，反而支持"大体型热惯性促成中温性"。</li>
 </ul>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>全文无数值模拟，方法论核心是<strong>对数线性回归 + 假设-否证逻辑</strong>：以实测 FMR 数据拟合式(7)，用 adjusted $r^2$ 与 F 检验 p 值（Table 1/2 中均列出）报告拟合质量；预测用幂律反解 $M_{max}=(K/a)^{1/b}$ 解析完成。检验设计有三重：①与 McNab、Nagy 文献值交叉核对；②用"最重哺乳动物触及 $K_m$"的极值论证锚定 $K$（隐含假设明示于正文）；③用两对等价种做区间级预测对比，且对无法完全检验之处（§3.2.4）做量级估算而非硬下结论。参数敏感性处理朴素但诚实：$h$、$\Delta T$ 都给区间而非单值。局限：$K_d\approx K_m$ 是强假设（论文自己列入 Further Investigations）；Varanus 仅 6 个样本；式(13)中密度"≈1 kg/m³"的表述与常规 flesh 密度（~1000 kg/m³）存在单位含混，不确定其换算细节。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页（p1 图）为 LaTeX article 风格：居中"Team # 441 / Problem B"加粗 + 论文题 + 日期 + 摘要，页眉左队名右论文题。第 2 页目录带页码；第 3 页（fig 图）引言以斜体完整引用题目原文，脚注给出种对实例，排版学术化。公式 (1)-(16) 连续编号，式(16)前后统一。全文 16 页：正文约 15 页 + 参考文献，共 2 幅回归散点图（Figure 1 哺乳类红/爬行类绿、Figure 2 哺乳类红/Varanus 蓝，均为 log-log 坐标并在图内标注 $R^2$）、4 张数据表（Table 1/2 回归参数含 n、$r^2$、p 值；Table 3/4 等价种预测对比），图表密度适中、每图必被正文引用。无附录代码（回归可直接由任何软件完成）。整体风格干净克制，与 412 队同样有 Strengths/Future Work 意识（Conclusions 分点、Further Investigations 3 条）。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>物理视角切入生物题</strong>：把"为什么恐龙更大"转译为"能量可行性约束下的极值问题"，$M_{max}=(K/a)^{1/b}$ 一行公式给出全部解释力，模型简洁而参数可测。</li>
 <li><strong>用真实数据自证模型</strong>：亲自对 134 个物种的实测 FMR 重新回归（而非抄文献系数），报告 $r^2$ 与 p 值，并与两篇文献交叉核对——"evaluate the effectiveness using data"这一题目硬要求被超额完成。</li>
@@ -77,7 +94,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>跨学科闭环</strong>：§3.2.4 用传热学（Newton 冷却 + 球体标度）为古生物学争议（mesothermy，引 Grady 2014 Science）提供量级支持，物理竞赛味道十足。</li>
 <li><strong>诚实的假设清单</strong>：$K_d\approx K_m$ 的近似性质、6 样本的 Varanus 回归、未计太阳辐射，全部写明。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>生物/统计类题目先找"幂律 + 对数线性化"，回归时报告 n、$r^2$、p 值三件套。</li>
 <li>极值型问题找"自然实验"锚定环境上限参数（最重已知个体 ≈ 上限），把不可测的 $K$ 变可测。</li>
@@ -87,7 +104,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>质疑点写成 Further Investigations（改进 $K_d$、扩充数据），把弱点转化为研究路线图。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -99,6 +119,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

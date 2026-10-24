@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2019</span>
+  <span class="crumb">05_论文赏析/2019 · Protecting travellers to Mars（2019 题A 队伍105）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2019/Problem%20A/2019-GM-A-105.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2019/2019-GM-A-105.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="protecting-travellers-to-mars2019-a-105">Protecting travellers to Mars（2019 题A 队伍105）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="protecting-travellers-to-mars2019-题a-队伍105">Protecting travellers to Mars（2019 题A 队伍105）</h1>
 <p><strong>页数</strong>: 17 页 ｜ <strong>对应题目</strong>: Protecting Travelers to Mars（火星旅行辐射防护）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>单人队伍（University of Delhi 的 Alankit Dey）的方案由两大板块构成：<strong>航线端</strong>——数值积分地心惯性系引力微分方程确定避开 Van Allen 带核心的发射角窗口（相对地磁轴 $43.64°\sim55.31°$），用 Hohmann 转移 + 开普勒第三定律算出 258.686 天（约 259 天）的单程最短飞行时间，并按 11 年太阳活动周期给出 2019–2021 与 2028–2030 两类发射窗口；<strong>屏蔽端</strong>——1000 m³ 球形居住舱（内半径 6.202 m）叠加 Plexiglass(40 cm)+铅(3.5 cm)+Kevlar(6 cm) 三层被动屏蔽与铝线 Faraday 笼（n≈180 根、半径 0.1 m），算得附加总质量约 $6.36\times10^5$ kg，剂量从无屏蔽的 559.48 Sv 降到 1.86 Sv（降幅 99.667%）。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <ul>
 <li><strong>轨道/辐射带规避模型（第 3 节）</strong>：地心不旋转惯性系中积分 $\ddot{\vec r}=-GM\vec r/r^3$（$G=6.674\times10^{-11}$、$M=5.976\times10^{24}$ kg），通过扫描初始仰角 $\Theta=\arctan(dy/dx)$ 找出两条避开质子辐射带的通道：$1&lt;x&lt;1.05,\,0.5&lt;y&lt;1$ 对应 $\theta_1=43.64°$，$1.05&lt;x&lt;1.2,\,1&lt;y&lt;2$ 对应 $\theta_2=55.31°$。论证方式是"数值模拟 + 几何分区"，正文未展示收敛细节。</li>
 <li><strong>转移轨道模型</strong>：Hohmann 椭圆半长轴 $a=(1+1.523691)/2=1.261845$ AU，由 $T^2=a^3$ 得 $T=1.4174$ 年，半程 $0.70873$ 年 $=258.686$ 天；并按火星公转 1.8822 年算出发射相位提前量 $360°\times(0.70886/1.88)\approx135.5°$。教科书式推导，环环有数。</li>
@@ -63,11 +80,11 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>屏蔽模型（第 4 节）</strong>：三步走——(i) 形状选球体（最小面容比、无棱角泄漏），$V=1000\,\mathrm{m^3}\Rightarrow R=6.202$ m、内表面积 $483.421\,\mathrm{m^2}$；(ii) 点源伽马曝光率公式 $ER=6CE_n/d^2$ 与平方反比 $I=k/d^2$ 描述无屏蔽情形；(iii) 屏蔽用指数衰减 $I=I_0e^{-\mu x}$，化为质量衰减系数形式 $I=I_0e^{-\mu_m\rho x}$，对三种材料分别解出厚度：铅 $\mu=0.114\times11.35=1.63\,\mathrm{cm^{-1}}\Rightarrow x=3.5$ cm，Plexiglass $\Rightarrow x=40$ cm，Kevlar $\Rightarrow x=6$ cm。射线类型按 α/β/γ/GCR 分层讨论（先屏蔽低穿透辐射以抑制韧致辐射）。</li>
 <li><strong>Faraday 笼模型（第 4 节）</strong>：用二维拉普拉斯方程 $\nabla^2\phi=0$ 边值问题（式 2.1–2.4）刻画导线网对电场的屏蔽，引用筛选因子标度：当 $n&gt;40$、$r=10^{-1}$ m 时 $|\nabla\phi(0)|\approx0$，并由场强估计式 $|\nabla\phi(0)|\approx\frac{-2\log r}{n|z_s|}$ 判定"线密度够高时网壳近似连续导体"；再由几何 $n=2\pi R/(2r)\approx210$ 取 180 根（留热膨胀余量）。</li>
 </ul>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>方法为"数值积分 + 解析标度律"混合：轨道方程数值积分（积分器与步长未注明，不确定），屏蔽厚度为代数求解，Faraday 笼引用含数值实验的标度关系。质量核算用球壳体积差 $\frac{4\pi(R_2^2-R_1^2)}{3}$ 逐层算体积乘密度（Plexiglass 244210 kg、铅 21874 kg、Kevlar 48297 kg、铝线 322419.901 kg，合计 $6.36\times10^5$ kg）。检验方面：剂量部分做了无屏蔽/有屏蔽对比（$9\,$R/hr vs $0.03\,$R/hr，乘 24 小时 × 259 天 × 10 mSv/R），并对照年剂量限值；论文明确列出关键假设（辐射视为点源恒定最大值、过 Van Allen 带后以 X/γ 为主、太阳电子带被 Faraday 笼忽略）并在结论中自评局限（未考虑次级辐射、小行星、结构刚度）。没有系统的灵敏度分析，是短板。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页（p1 渲染图）为 Word 简洁风格，摘要三段：航线与窗口 → 屏蔽与附加质量 $6.33\times10^5$ kg（正文算出 $6.36\times10^5$，摘要与正文存在微小不一致）→ 设计参数清单。无目录层级编号（用 CONTENTS 手工列表），页脚带页眉 "Protecting travellers to Mars / Team 105"。公式少而散，仅 Faraday 笼部分有编号 (2.1)–(2.4)，其余公式为行内式，规范性一般。图表以示意图与引用图为主：Van Allen 带与飞行路径示意、Hohmann 转移几何图、太阳活动周期图（NASA 图源）、居住舱 2D 俯视/剖面图；fig 渲染页展示 Faraday 笼等势线数值结果两组共 6 幅小图（$r$ 变化三幅、$n=10/20/40$ 三幅）加场强-根数对数图，是全文最"硬"的一组图。符号表只列 3 个量，覆盖不足。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>把"防护"拆成时空两个维度</strong>：先在"何时/何路"上降剂量（避开辐射带核心 + 太阳极小期发射 + 最短 259 天），再在"用什么挡"上兜底（三层材料 + Faraday 笼），问题分解完整，正对题目"plan + mass + practicality"三问。</li>
 <li><strong>每个设计选择都有物理理由</strong>：球形（最小面容比、无接缝）、材料排序（先 Plexiglass 挡 β 抑制韧致辐射、再铅挡 γ、Kevlar 耐热）、铝线 Faraday 笼（比铜轻），处处见 trade-off 意识。</li>
@@ -76,7 +93,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>假设显式且自洽</strong>：点源、最大恒定曝光率是保守假设，论文在结论中说明其保守方向，降低了被质疑"低估风险"的空间。</li>
 <li>单人成队仍覆盖轨道力学、核辐射物理、电磁学三个领域，完成度高、交叉面广，符合 UPC "应用物理全景" 的评审口味。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>辐射/曝露类题目按"时间 × 路径 × 屏蔽"三因子分解，分别建模后乘性合成总剂量，结构即完整。</li>
 <li>屏蔽计算记熟两条主力公式：指数衰减 $I=I_0e^{-\mu_m\rho x}$（配质量衰减系数表）与点源曝光率 $ER=6CE_n/d^2$，可快速给出厚度量级。</li>
@@ -86,7 +103,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>摘要数值必须与正文最终数严格一致（本文 $6.33\times10^5$ vs $6.36\times10^5$ 的不一致是前车之鉴）。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -98,6 +118,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

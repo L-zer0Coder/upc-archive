@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2018</span>
+  <span class="crumb">05_论文赏析/2018 · Problem A: Sending a Light Sail Propelled Nanocraft to Alpha Centauri（2018 题A 队伍258）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2018/Problem%20A/2018-GM-A-258.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2018/2018-GM-A-258.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="problem-a-sending-a-light-sail-propelled-nanocraft-to-alpha-centauri2018-a-258">Problem A: Sending a Light Sail Propelled Nanocraft to Alpha Centauri（2018 题A 队伍258）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="problem-a-sending-a-light-sail-propelled-nanocraft-to-alpha-centauri2018-题a-队伍258">Problem A: Sending a Light Sail Propelled Nanocraft to Alpha Centauri（2018 题A 队伍258）</h1>
 <p><strong>页数</strong>: 11 页 ｜ <strong>对应题目</strong>: 光帆纳米飞行器飞掠比邻星（Sending a Light Sail Propelled Nanocraft to Alpha Centauri）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>UCSB 队伍（数学背景浓厚）用"一个刚性球面帆的微扰动力学模型"贯穿全文：先由动量流给出加速度与材料判据，再解析推导小扰动下帆的横移—转动耦合微分方程组，数值积分检验稳定性，最后换算成激光指向精度。核心结果三条：(1) 材料须满足 $\epsilon\eta/\alpha\ge6.6\times10^3$（式 24，铝以 $\epsilon=0.06$ 被否，加速度仅 1.32 m/s²）；(2) 球面帆对初扰动 $\delta_x\sim10^{-4}\!-\!10^{-3}$ cm、$\theta_y\sim10^{-4}\!-\!10^{-3}$ 度稳定，振幅 0.2–2 cm，对应角扰动稳定裕度 $2\times10^{-6}$ rad、最大初始横向扰动 10 µm；(3) 要在 Earth–Moon 距离内飞掠比邻星 b，激光须满足 $\theta_{max}\approx\epsilon/(4.25\,\mathrm{yr}\cdot c)\approx1\times10^{-8}$ rad（式 20），且模型保守——未利用激光束本身的自稳定能力。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <ul>
 <li><strong>光压与材料层</strong>：反射光子动量流 $2P/c$ → 加速度式 (1) $a=2\eta P/mc$、式 (2) $a=\frac{2\eta P}{(m_{sc}+\rho Ad)c}$、面密度形式式 (3) $a=\frac{2P}{Ac}\frac{\eta}{\rho d}$。再引入热平衡：吸收功率 $\alpha P$ 由辐射 $\sigma$ 平衡，得式 (4) $a=\frac{4\sigma}{c}\frac{\epsilon\eta T^4}{\alpha\rho d}$——把加速度上限变成纯材料参数函数，是全文最漂亮的一步。取 $T=1000$ K、$\rho d=5\times10^{-5}$ kg/m²（0.5 g / 10 m²、厚 10 nm、$\rho=5\times10^3$ kg/m³）导出式 (24)。</li>
 <li><strong>相对论检验层</strong>：式 (5)–(7) 由 $p=mc\gamma\beta$ 积分出解析解 $t=\frac{mc^2}{4P\eta}\big[\frac{\beta}{\sqrt{1-\beta^2}}+\frac12\ln\frac{1+\beta}{1-\beta}\big]$，Figure 4 画出不同质量的 $\beta(t)$；并指出 $\beta\to1$ 时退化为常加速度式 (2)，$\gamma$ 在 0.1c 仅 0.5% 修正，因此后续忽略相对论（自洽性检验做在解析层）。</li>
@@ -64,11 +81,11 @@ $$m\ddot X=F_{rad}\theta_y-\frac{F_{rad}}{2}\frac{X+L_r\theta_y}{R},\qquad I\ddo
 取 $R\to\infty$ 即平面帆方程 (18)(19)——恢复出"平面帆不稳定"的已知结论，模型极限行为正确。</li>
 <li><strong>精度层</strong>：Figure 3 的几何图像 + 式 (20) 的角度预算（4.25 年飞行 × c 的弧长对应地月距离 $\epsilon\approx400000$ km）。</li>
 </ul>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>解析积分（平顶光束下式 14/15 可手工积分）+ SciPy <code>odeint</code> 数值积分（附录 A 给完整代码）。灵敏度分析通过两组初扰动的对比实现（$\delta_x=0.001$ cm→振幅 2 cm；$\delta_x=0.0001$ cm→0.2 cm，呈线性标度），第三组 $\delta_x=10^{-7}$ cm、$\theta_x=10^{-5}$ 度验证 nrad 精度可达。能量自洽检验：振荡动能 $\langle T\rangle\approx600$ J、约 7000 W，与 50 GW 相比可忽略，因此 z 轴用式 (2) 描述合理。平面帆模拟发散（x 速度超相对论极限）直接作为不稳定的数值证据。无收敛性/步长讨论，扰动只在微小区间内检验（作者自认）。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>p1 渲染图显示独特的"摘要 + 水平分隔线"版式，摘要开头即给出 $\epsilon\eta/\alpha\ge6.6\times10^3$、$2\times10^{-6}$ rad、10 µm、10 nrad 四个数字，信息密度极高。正文为紧凑单栏、small-caps 节标题、页眉"Light Sail Propelled Nanocraft to Alpha Centauri | Team 258"、页脚"x of 11"。图表：Figure 1 纳米飞行器与光束示意（引自文献 [3]）、Figure 2 球帆坐标系示意、Figure 3 允许轨迹锥示意、Figure 4 $\beta$–t 曲线（双图，下图为低 β 常加速区放大）、Figure 5 两组初扰动的横向振荡对比。公式编号 (1)–(25)，推导密度大但行文紧凑，11 页胜过许多 20 页论文的信息量。Figure 4/5 的纵轴文字在渲染中略有压缩（PDF 生成问题），不影响阅读。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>一个模型贯穿所有子问题</strong>：材料（式 4/24）、加速（式 7）、稳定（式 16/17）、精度（式 20）全部由同一动力学框架派生，体系性极强。</li>
 <li><strong>热平衡—加速度联立</strong>（式 4）把"材料容差"翻译成可查表的无量纲判据，直接回答题面的 fabrication margin 之问。</li>
@@ -77,7 +94,7 @@ $$m\ddot X=F_{rad}\theta_y-\frac{F_{rad}}{2}\frac{X+L_r\theta_y}{R},\qquad I\ddo
 <li><strong>保守模型的明确定位</strong>：摘要与结论都强调"不允许激光束参与稳定"，因此所有精度要求是上界，弱化点变成严谨性卖点。</li>
 <li><strong>弱点段有硬核量化</strong>：尘埃撞击角加速度 $10^{-5}$ rad/s、一天自转一圈的推算，说明作者真正想过工程可行性。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>用"吸收 = 辐射"热平衡把动力学上限与材料属性挂钩，一步得到判据式 (4)。</li>
 <li>选可解析积分的光束剖面（平顶），换取闭式微扰方程；高斯修正放弱点讨论。</li>
@@ -87,7 +104,10 @@ $$m\ddot X=F_{rad}\theta_y-\frac{F_{rad}}{2}\frac{X+L_r\theta_y}{R},\qquad I\ddo
 <li>摘要放 3–4 个带量纲的关键数，评委扫一眼即可确认全文完成度。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -99,6 +119,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

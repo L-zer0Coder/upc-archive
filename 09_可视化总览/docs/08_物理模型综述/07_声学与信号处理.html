@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">08_物理模型综述</span>
+  <span class="crumb">08_物理模型综述 · 声学与信号处理</span>
   <span style="flex:1"></span>
   
   <a href="../../../08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/07_%E5%A3%B0%E5%AD%A6%E4%B8%8E%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="_1">声学与信号处理</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="声学与信号处理">声学与信号处理</h1>
 <blockquote>
 <p>UPC 全档案库专题综述之七。素材来源：<code>05_论文赏析/_批次10_2023B-2025A.md</code>、<code>_批次11_2025A-B.md</code>、<code>07_题目解读/2025_题A_电声沙桑托琴.md</code>、<code>05_论文赏析/2025/2025-GM-A-112.md</code>、<code>2025-GM-A-182.md</code>、<code>2025-GM-A-485.md</code>。</p>
 </blockquote>
-<h2 id="1-upc">1. 该专题在 UPC 中出现全景</h2>
+<h2 id="1-该专题在-upc-中出现全景">1. 该专题在 UPC 中出现全景</h2>
 <p>声学与振动在 UPC 档案库中是一个"晚熟"专题：振动方程早已反复出现（蹦床、投石机、乒乓球），但<strong>把声波作为信号、把滤波器作为物理模型的数字替身</strong>，直到 2025-A 电声沙桑托琴才首次成为整道题的内核。本题三支金奖队（112 重庆邮电、182 滑铁卢、485 南理工）代表了三种技术路线，也是目前档案库中唯一的"声学+DSP"金牌样本。</p>
 <table>
 <thead>
@@ -88,15 +105,15 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tbody>
 </table>
 <p>此外，弦振动谐振序列在 2025-A 与 2023-B（蹦床固有频率）之间形成"同一数学、不同介质"的呼应：二阶谐振器 $Q$ 值的语言（带宽、衰减时间 $\tau=Q/\pi f$）在两题中同样成立。</p>
-<h2 id="2">2. 核心模型库逐一解读</h2>
-<h3 id="21">2.1 弦振动与谐波结构</h3>
+<h2 id="2-核心模型库逐一解读">2. 核心模型库逐一解读</h2>
+<h3 id="21-弦振动与谐波结构">2.1 弦振动与谐波结构</h3>
 <p><strong>适用场景</strong>：一切弦系乐器/张紧绳的频谱预测（2025-A 声源端）。</p>
 <p><strong>方程</strong>：
 $$f_n=\frac{n}{2L}\sqrt{\frac{T}{\mu}},\qquad\text{拨弦（位移激励）第 } n \text{ 次谐波幅度}\ \propto \frac{1}{n^2}.$$</p>
 <p><strong>建模要点</strong>：① 拨弦的 $1/n^2$ 位移谱是激励端谐波结构的基础，拾音方式（位移 vs 速度敏感）会改写它（见 2.5）；② 弦的张力与线密度通常需自设并声明（题面未给）；③ 拾音位置权重 $\sin(n\pi x/L)$ 决定哪些谐波可见——$x=L/N$ 处第 $N$ 次谐波恰为零。</p>
 <p><strong>金牌队的典型处理</strong>：三支 2025-A 金奖队都从弦谐波出发构造激励谱，但物理推导的角色从"直接出答案"退为"给工程参数提供依据"（批次 10 观察原话）——谐振频率定滤波器中心频率、材料内摩擦定 $Q$ 值。这正是"物理+工程混合题"的代际特征。</p>
 <p><strong>常见错误</strong>：只算基频不管谐波结构；忽略拾音位置波节导致某些谐波在模型里凭空消失。</p>
-<h3 id="22">2.2 开管驻波与端修正（题面尺寸的物尽其用）</h3>
+<h3 id="22-开管驻波与端修正题面尺寸的物尽其用">2.2 开管驻波与端修正（题面尺寸的物尽其用）</h3>
 <p><strong>适用场景</strong>：管状谐振腔的谐振序列预测（2025-A 的 70 cm 竹管）。</p>
 <p><strong>方程</strong>：
 $$f_n=\frac{nc}{2L}=245n\ \mathrm{Hz}\ (L=0.7\ \mathrm{m},\ c=343\ \mathrm{m/s}),$$
@@ -104,13 +121,13 @@ $$f_n=\frac{nc}{2L}=245n\ \mathrm{Hz}\ (L=0.7\ \mathrm{m},\ c=343\ \mathrm{m/s})
 <p><strong>建模要点</strong>：出题人给的每个数字都是物理钩子——245/490/735/980 Hz 四阶恰落在题给 98–1047 Hz 通带内，识别并利用这个干净的谐波结构是三支金奖队的共同获奖基础（批次 10 观察：题面数字本身指向干净谐波结构）。98 Hz 下限对应叶腔 Helmholtz 模式，1047 Hz 上限对应"波长与腔体尺寸可比、集总假设失效"。</p>
 <p><strong>金牌队的典型处理</strong>：112 队用半波长共振解释四峰；182 队用 $\lambda_n=2\ell/n$ 直接计算并给出端修正；485 队（南理工）则用"双腔耦合阻抗"解释峰与包络的重合，并用 Helmholtz 公式 + 小 $ka$ 辐射失配论证 98 Hz 下限。</p>
 <p><strong>常见错误</strong>：把 98–1047 Hz 只做成一条理想带通，丢掉 245n Hz 四个窄谐振峰——恰是题面尺寸白送的音色骨架，也是"authentic"与"能出声"的分界。</p>
-<h3 id="23-helmholtz">2.3 Helmholtz 共振与共鸣器包络</h3>
+<h3 id="23-helmholtz-共振与共鸣器包络">2.3 Helmholtz 共振与共鸣器包络</h3>
 <p><strong>适用场景</strong>：腔体类共鸣器的低频下限与宽带包络（叶共鸣器、扬声器箱体）。</p>
 <p><strong>方程</strong>：
 $$f_H=\frac{c}{2\pi}\sqrt{\frac{A}{V L_{eff}}};\qquad \text{宽带包络中心}\ f_0=\sqrt{f_L f_H}\approx320\ \mathrm{Hz},\ Q\approx0.34\ (\text{低}Q=\text{宽带共鸣}).$$</p>
 <p><strong>建模要点</strong>：① 手工编织叶腔无法解析精算——必须声明建模立场：物理先验参数化或测量（485 队用吉他/曼陀林类比 + Helmholtz 先验；182 队引竹材 DMTA 数据）；② 同一公式反向使用：扬声器倒相箱调谐到 ~98 Hz，等于"电声箱体重新做一个 Helmholtz 共振接回叶腔下限"——末级最易被漏掉的一环。</p>
 <p><strong>常见错误</strong>：滤波器频响达标 ≠ 系统声学达标，扬声器末级必须单独验证；目标频响凭空设定、无物理先验无测量方案。</p>
-<h3 id="24-q">2.4 阻尼、Q 值与谐振二阶节</h3>
+<h3 id="24-阻尼q-值与谐振二阶节">2.4 阻尼、Q 值与谐振二阶节</h3>
 <p><strong>适用场景</strong>：谐振峰的宽度、衰减拖尾与滤波器设计（2025-A 的核心参数链）。</p>
 <p><strong>方程</strong>：二阶带通谐振器
 $$H(s)=\frac{\omega_0 s}{s^2+(\omega_0/Q)s+\omega_0^2};\qquad \tan\delta\approx\frac{1}{Q},\qquad \tau=\frac{Q}{\pi f}\ (\text{衰减时间}).$$
@@ -118,9 +135,9 @@ $$H(s)=\frac{\omega_0 s}{s^2+(\omega_0/Q)s+\omega_0^2};\qquad \tan\delta\approx\
 <p><strong>建模要点</strong>：① $Q$ 不是自由拟合参数，必须从材料损耗（$\tan\delta$）或实测峰宽推出；② 峰宽与衰减时间是同一参数的频域/时域两面，验证时两头都查。</p>
 <p><strong>金牌队的典型处理</strong>：182 队做了从材料内摩擦 $\tan\delta\to Q\to$ 滤波系数的<strong>全程不确定度传递</strong>（批次 10 称其为"从材料内摩擦到滤波系数的完整误差传递"），是档案库中参数溯源做得最彻底的一篇；485 队建立验收判据表（Table 15 定标准、Table 16 逐项打钩），把"保真"变成可评分工程。</p>
 <p><strong>常见错误</strong>：$Q$ 值拍脑袋；忽略窄 Q 节的群时延在峰附近可达毫秒级，谐波去同步改变起音"软硬"。</p>
-<h3 id="25-06_25">2.5 拾音器物理与传感链（详见《06_电磁辐射与辐射防护》2.5）</h3>
+<h3 id="25-拾音器物理与传感链详见06_电磁辐射与辐射防护25">2.5 拾音器物理与传感链（详见《06_电磁辐射与辐射防护》2.5）</h3>
 <p>磁拾音速度敏感（法拉第感应）把 $1/n^2$ 位移谱改写为 $1/n$、造成预失真；位移敏感的光学/压电拾音是物理正解；拾音位置由 $\sin(n\pi x/L)$ 定，贴琴码避波节。2025-A 仅 182 队完整建模此环节——传感—滤波—放大的全链路系统观是其两大差异化优势之一。</p>
-<h3 id="26">2.6 滤波器设计：物理模型的数字替身</h3>
+<h3 id="26-滤波器设计物理模型的数字替身">2.6 滤波器设计：物理模型的数字替身</h3>
 <p><strong>适用场景</strong>：把共鸣器传递函数在数字域实现（2025-A 的交付物本体）。</p>
 <p><strong>方程/流程</strong>：模拟原型（RBJ Audio EQ Cookbook 带通/峰化 biquad 闭式系数）→ 双线性变换离散化（$f_s=44.1/48$ kHz 时 980 Hz 频率翘曲 &lt;0.02%，可证可忽略）→ 二阶节（SOS）级联或并联 → 节增益极小极大优化压通带平坦度 → 极点稳定性验证（$|a_2|&lt;1$ 裕度）。</p>
 <p><strong>金牌队的典型处理</strong>（三条路线，批次 10 的"级联深耕 vs 系统全覆盖"二分 + 批次 11 的 485）：
@@ -128,11 +145,11 @@ $$H(s)=\frac{\omega_0 s}{s^2+(\omega_0/Q)s+\omega_0^2};\qquad \tan\delta\approx\
 - <strong>182 队（滑铁卢）——系统工程全覆盖</strong>：滤波器部分相对精简（叶共鸣器宽带 biquad $Q\approx0.34$ + 竹筒四支窄带 biquad 并联、$Q=19\pm2$），火力放在拾音器选型、拾音位置、功放与扬声器全链路 + 不确定度传递。
 - <strong>485 队（南理工）——物理先验路线</strong>：Helmholtz + 开管驻波 + 双腔耦合阻抗定 $H_{target}$，Butterworth/RBJ 级联 IIR，8 kHz 低算力实现（0.25 MIPS、&lt;$25 Cortex-M4），Karplus–Strong 拨弦合成做闭环验证（频响 RMS 0.73 dB），"验收判据先行"（Table 15/16）。</p>
 <p><strong>常见错误</strong>：biquad 系数量化后极点贴近单位圆导致失稳或音染；$f_s=8$ kHz 省算力但须防拾音信号带外混叠（Nyquist 4 kHz）；只做频域不做时域（起音、衰减、THD）；把"能出声"当"保真"而不设可测指标。</p>
-<h3 id="27">2.7 验证体系：无实物琴的闭环</h3>
+<h3 id="27-验证体系无实物琴的闭环">2.7 验证体系：无实物琴的闭环</h3>
 <p><strong>适用场景</strong>：没有传统琴实物时如何自证"像不像"。</p>
 <p><strong>方法栈</strong>：Karplus–Strong 合成拨弦激励 + 目标频响参考模型，逐音比对频响 RMS 误差（485 队 0.73 dB）、波形相关系数、谱质心偏移（112 队）；白噪声 PSD 验证（182 队）；扫频时频图核对峰位与 Q；自设合格线（112 队 &lt;0.1 dB、&lt;1% THD）让开放题可评分。</p>
 <p><strong>要点</strong>：批次 10 的结论是——"把一个环节做到极致并验证到工业标准"（112）与"把全链路每一环都给出有物理依据的设计决策"（182）是同样有效的金牌策略；共同点是<strong>每个参数都有出处</strong>（半波长共振、竹材 DMTA 数据），绝不出现无来源常数。</p>
-<h2 id="3">3. 跨题目的建模套路总结</h2>
+<h2 id="3-跨题目的建模套路总结">3. 跨题目的建模套路总结</h2>
 <ol>
 <li><strong>"物理锚点 → 数字替身"两段式</strong>。2025-A 的通用解法是先从题面尺寸挖出物理锚点（245n Hz、98/1047 Hz 边界），再把锚点翻译为滤波器参数（中心频率、Q、增益）——滤波器组就是共鸣器的数字替身。这与 2025-B"高保真 ODE 内核 → 射表/口诀"（批次 11 观察五）完全同构：<strong>复杂物理被压缩成可执行产品的过程中，每一步压缩都附带误差支票</strong>。</li>
 <li><strong>指标工程先于设计</strong>。三支金奖队无一例外先建"保真"判据集（频响平坦度、峰位/Q、THD、群时延、端到端时延 &lt;10 ms、响度、实时性），再开始设计——开放判据不定义，后面一切无从评分（2024-B 的"continuously"口径教训同源）。</li>
@@ -140,7 +157,7 @@ $$H(s)=\frac{\omega_0 s}{s^2+(\omega_0/Q)s+\omega_0^2};\qquad \tan\delta\approx\
 <li><strong>题面无废参数</strong>。98–1047 Hz 是通带边界、70 cm 是谐振序列、8 cm 是端修正——2025-A 是"题面三句话就是目标频响完整物理骨架"的典范（解读文件原话）。</li>
 <li><strong>合规成为论文组件</strong>。112 队的 AI Usage Report 是 2025 年新规直接产物；批次 12 记录 765 队全文附 AI 输出、796 队声明仅辅助编程翻译——2025 年起论文必须预留合规章节。</li>
 </ol>
-<h2 id="4">4. 备赛建议</h2>
+<h2 id="4-备赛建议">4. 备赛建议</h2>
 <ol>
 <li><strong>赛前准备好"二阶谐振器全家桶"</strong>：$f_n$ 公式（弦/开管/闭管三种）、Helmholtz 公式、$\tau=Q/\pi f$、RBJ biquad 系数闭式、双线性变换——这一页纸能在 48 小时里省下一个晚上。</li>
 <li><strong>练一次"无实物闭环验证"</strong>：用 Karplus–Strong 或简谐叠加合成激励，过一遍自建滤波器组，画出频响 RMS 与谱质心对比图——这套动作可以直接迁移到任何"复现某系统响应"类题目。</li>
@@ -149,7 +166,10 @@ $$H(s)=\frac{\omega_0 s}{s^2+(\omega_0/Q)s+\omega_0^2};\qquad \tan\delta\approx\
 <li><strong>理解新题型代差</strong>：从 2023-B 到 2025-A，UPC 正从"纯力学建模"转向"物理+工程混合"，物理推导的角色退为给工程参数提供依据、验证体系扩容到工程指标（批次 10 观察三）；备赛时应增加"嵌入式预算（MIPS/内存/成本）+ 合规声明"两个新模块的训练。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-该专题在-upc-中出现全景">1. 该专题在 UPC 中出现全景</a></li><li class="l2"><a href="#2-核心模型库逐一解读">2. 核心模型库逐一解读</a></li><li class="l3"><a href="#21-弦振动与谐波结构">2.1 弦振动与谐波结构</a></li><li class="l3"><a href="#22-开管驻波与端修正题面尺寸的物尽其用">2.2 开管驻波与端修正（题面尺寸的物尽其用）</a></li><li class="l3"><a href="#23-helmholtz-共振与共鸣器包络">2.3 Helmholtz 共振与共鸣器包络</a></li><li class="l3"><a href="#24-阻尼q-值与谐振二阶节">2.4 阻尼、Q 值与谐振二阶节</a></li><li class="l3"><a href="#25-拾音器物理与传感链详见06_电磁辐射与辐射防护25">2.5 拾音器物理与传感链（详见《06_电磁辐射与辐射防护》2.5）</a></li><li class="l3"><a href="#26-滤波器设计物理模型的数字替身">2.6 滤波器设计：物理模型的数字替身</a></li><li class="l3"><a href="#27-验证体系无实物琴的闭环">2.7 验证体系：无实物琴的闭环</a></li><li class="l2"><a href="#3-跨题目的建模套路总结">3. 跨题目的建模套路总结</a></li><li class="l2"><a href="#4-备赛建议">4. 备赛建议</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -161,6 +181,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

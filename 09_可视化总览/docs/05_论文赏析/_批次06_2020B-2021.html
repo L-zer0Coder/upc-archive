@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,19 +41,34 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析</span>
+  <span class="crumb">05_论文赏析 · 批次06 对比表：2020 题B 与 2021 题A/B（5 篇金牌论文）</span>
   <span style="flex:1"></span>
   
   <a href="../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/_%E6%89%B9%E6%AC%A106_2020B-2021.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="06-2020-b-2021-ab5">批次06 对比表：2020 题B 与 2021 题A/B（5 篇金牌论文）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="批次06-对比表2020-题b-与-2021-题ab5-篇金牌论文">批次06 对比表：2020 题B 与 2021 题A/B（5 篇金牌论文）</h1>
 <table>
 <thead>
 <tr>
@@ -112,14 +129,17 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="_1">批次观察</h2>
+<h2 id="批次观察">批次观察</h2>
 <p><strong>一、同题异构：两篇 2020-B 是"同一道题的两种哲学"。</strong> 335 队选择专业化的飞控路线——Newton-Euler 六自由度、Dryden 湍流谱、PID 闭环，答案 10.63 m/s 建立在"控制系统能扛住多大随机风"的仿真上；380 阶则把风与控制器都做了工程化简化（四分量风 + 仿弹簧反馈），答案 5.3678 m/s 明显更保守。两者差异主要来自三点：风场模型不同（Dryden 随机湍流 vs 四分量确定性叠加）、控制假设不同（四路 PD 实时闭环 vs 0.2 s 延迟的比例反馈）、"最大风速"定义不同（湍流合成风速 vs 包络峰值）。两篇都拿了金牌，说明 UPC 评委并不预设"正确答案"，而是看模型链条是否自洽、题眼是否被正面回应——这提示参赛者：与其赌哪个答案对，不如把"我的答案在什么假设下成立"写清楚。</p>
 <p><strong>二、同题异构：两篇 2021-A 差了将近一个数量级的答案，差在机制取舍。</strong> 200 队三机制并行、以光化学为主，得 8.6×10⁷ 年（约 8600 万年）；349 队只留太阳风剥蚀（且按密度线性外推到 0.2 bar），得约 7 亿年。差距的物理根源很清楚：349 队用 MAVEN 在 0.006 bar 下的 100 g/s 观测线性外推，而 200 队的光化学通道在更稠密大气下有更强的紫外吸收与解离复合产额。有趣的是两篇都获金牌——但就"谁更接近行星科学共识"而言，200 队的机制覆盖度显然更高；349 队的胜出点在于假设排除论证、参数可溯源与模型递进修正，属于"以方法论补物理深度"的典型。这也给出一个实用判断：机制覆盖度不足时，论证的严谨与诚实可以部分对冲，但不宜再省。</p>
 <p><strong>三、数据驱动型题目（2020-B）与解析推导型题目（2021-A）的写法差异。</strong> 2020-B 两篇的共同特征是：没有一个可以"推到底"的解析解，得分点在<strong>控制结构 + 数值实验设计</strong>——335 队的 PID 扫描六宫格（Fig.8–13）、380 队的 $\epsilon$ 因子扫描（Fig.19–20）本质上都是"用参数扫描代替解析讨论"，且都要做越界对照实验证明临界值卡得准。2021-A 两篇则相反：有清晰的解析骨架（Jeans 公式、玻尔兹曼分布、静力平衡微元），数值只是解 ODE 的手段，得分点在<strong>假设的前置论证与机制间的合成方式</strong>（200 队的压强降叠加、349 队的标度律）。而 2021-B（216 队）展示了两类的混合形态：前半段是解析+ODE 的经典推导，后半段完全依赖经验公式与灾害数据，它的独特贡献是把"查文献定阈值"做成了显式环节——对开放判据型题目，这一步的工作量与价值不亚于任何公式推导。</p>
 <p><strong>四、排版与呈现的代际差。</strong> 本批次 5 篇中，3 篇 LaTeX（335 的无衬线简洁风、200 与 216 的标准衬线风）明显比 2 篇 Word 系（380 的 Times 排版尚可、349 的公式乱码/兼容性问题）更耐看，尤其 216 队"每条公式右侧标注操作"的写法和 200 队"符号表带数值 + 目录 + 分层编号"的架构，都是可以直接抄走的版式资产。同时批次内普遍存在的小毛病值得警惕：335 的章节跳号与"PIL"笔误、380 的摘要与 5.5 节结论数值不一致（5.3678 vs 5.2795 m/s）、200 的空引文与图题缺失、349 的正文修正未同步进代码、216 的零星拼写错误——金牌论文尚且如此，说明评委对这类小瑕疵有容忍度，但它们全都可以在最后一小时检查中消除。</p>
 <p><strong>五、摘要与结论的"三数原则"。</strong> 5 篇论文无一例外在摘要或结论的显眼位置给出带单位的最终数值（10.63 m/s；5.3678/5.3487 m/s；8.6422×10⁷ 年/70–90 million years；约 700 million years；$10^9$ kg），且多数同时给出关键中间量（200 队的机制排序、216 队的 2 m 阈值定义）。此外，"诚实的弱点讨论"是本批次的共同底色：380 队承认只研究水平风、216 队承认数值解只是近似并点名 Green's law——在 UPC 的评审文化里，一个自我批评到位的模型远比一个假装完美的模型更加分。</p>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#批次观察">批次观察</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -131,6 +151,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

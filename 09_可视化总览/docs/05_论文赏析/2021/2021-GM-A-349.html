@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2021</span>
+  <span class="crumb">05_论文赏析/2021 · Model of decreasing atmospheric pressure over time after evaporation of polar caps and subsurface ice（2021 题A 队伍349）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2021/Problem%20A/2021-GM-A-349.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2021/2021-GM-A-349.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="model-of-decreasing-atmospheric-pressure-over-time-after-evaporation-of-polar-caps-and-subsurface-ice2021-a-349">Model of decreasing atmospheric pressure over time after evaporation of polar caps and subsurface ice（2021 题A 队伍349）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="model-of-decreasing-atmospheric-pressure-over-time-after-evaporation-of-polar-caps-and-subsurface-ice2021-题a-队伍349">Model of decreasing atmospheric pressure over time after evaporation of polar caps and subsurface ice（2021 题A 队伍349）</h1>
 <p><strong>页数</strong>: 17 页 ｜ <strong>对应题目</strong>: A Thicker Martian Atmosphere（火星大气演化）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>同一道火星大气题，青岛大学 349 队选择了一条更"少而精"的路线：不逐一体制化各种逃逸机制，而是抓住 MAVEN 实测的太阳风剥蚀速率（约 100 g/s）作为唯一的物质损失通道，用统计物理的等温玻尔兹曼分布把"压强—分子总数—平均分子量"串成一个隐式演化方程，再以水/CO₂ 双组分线性衰减描述大气流失。核心结果：气压从 0.2 bar 降到 0.1 bar 约需 $3\times10^{15.863}$ 秒，即约 7 亿年；随后对温度随高度变化（Mars-Gram 拟合）和重力随高度变化各做一次模型修正。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <p><strong>第一层：微观—宏观桥梁（3.1 节）。</strong> 从"表面气压由上方大气柱重量承担"出发，写出重力场中等温大气的玻尔兹曼分布 $\rho=\rho_0 e^{-mgh/kT}$，对高度积分得到单位面积气柱分子数，进而把表面压强与大气分子总数 $N$、平均分子质量 $m$ 联系起来——这是全篇的承重墙。</p>
 <p><strong>第二层：干扰因素的排除（3.2.1 节）。</strong> 用量级估计论证：火星内部变化（地形、气候）与外部极端事件（太阳风暴等）相对太阳风剥蚀都可忽略，并说明理由是"0.2 bar 降到 0.1 bar 需要极长时间"。这一节是评委眼中"为什么模型可以这样简化"的直接答案。</p>
 <p><strong>第三层：逃逸通道的取舍（3.2.2 节）。</strong> 引言部分交代了火星磁场仅为地球的 0.1%–0.2%、逃逸速度 5.03 km/s 等背景；建模时明确只保留太阳风剥蚀，并引用 NASA/MAVEN 数据：当前 0.006 bar 气压下太阳风每秒带走约 100 g 大气。论文进一步假设剥蚀速率与气压（即分子数密度）成正比：$v=p\times10^5/6$（$p$ 以 bar 计），故 0.2 bar 时 $V_1=3333$ g/s——用一个线性标度律把单点观测数据推广到整个演化过程，这是全文最大胆也最关键的一步。</p>
@@ -63,11 +80,11 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 $$P=\frac{[N-(\lambda_1+\lambda_2)t]\,mg}{4\pi R^2\left(1-e^{-mgH/kT}\right)}$$
 其中大气标高 $H=-\frac{kT}{gm_0}\ln\!\left(1-\frac{gNm_0}{4\pi R^2P_0}\right)$ 由 $t=0$ 时的边界条件反解——注意 $m$ 随时间变化导致 $H$、指数因子都隐含 $t$，方程因此只能数值求解。</p>
 <p><strong>第五层：两级修正（第 5 节）。</strong> 先把等温假设换成 Mars-Gram 拟合的分层温度 $T=241.0-0.999(h/1000)$（$h&lt;7000$ m）、$T=249.5-2.22(h/1000)$（$h\ge7000$ m），积分改写为分段温度下的两层积分；再把 $g$ 换成 $g=GM/(R+h)^2$。两步修正给出"基础模型 → 修正模型"的递进结构。</p>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>全部为数值求解：最终得到 $P$–$t$ 隐式方程后，用 MATLAB 做"双重迭代"——外层按对数间隔取时间点（$t=3\times10^{dt-1}-3$，$dt\in[0.1,18]$ 步长 0.1），内层对 $P$ 以 $10^{-3}$ Pa 步长做邻域试探搜索（比较 $\delta$、$\delta_{p10}$、$\delta_{m10}$ 决定前进或回退，附录完整代码），本质是粗粒度的数值反函数求根。参数估计有两条独立来源：组分比 $\omega=1/9$（对应 21.36% CO₂ + 78.64% 水，由极冠成分文献推得，可验证 $\frac{44}{44+9\times18}=0.2136$）；总量 $N=4.98\times10^{43}$ 个分子（由"极冠+地下冰融化后可在全球铺 11 m 深水"的文献估计换算）。误差处理方面论文自认"大量近似、误差较大"，但没有做系统的灵敏度分析（如 $\omega$、比例标度律指数变化对 7 亿年结果的影响未扫描），这是与金牌更强论文的主要差距。另外 5.1 节的温度修正在附录代码中并未体现（代码仍用 $T=210$ K 常数），正文修正与数值实现不完全同步。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页（p1 渲染图）为 Word 风格：页眉一条横线，居中加粗"Team number 349 / problem select：A"、两行标题与日期，Abstract 两端对齐但字间距明显偏大（Word 两端对齐的典型痕迹），通篇 Times New Roman。第 2 页有目录，第 5 页有符号表，第 8 页有火星基本参数表，结构规整。图表仅 4 幅：Figure 1 为 ESA 火星南极冰层底界高程伪彩图（p3 渲染页可见，带 200 km 比例尺与高程色标）、Figure 2 为火星—太阳风等离子体相互作用示意图（引自文献）、Figure 3 为自绘的气压微元受力示意图、Figure 4 为 MATLAB 压强衰减预测曲线（红虚线标出 $(10^{0.863},0.1)$ 交点并配箭头注释）。公式编号松散：仅核心两式标(1)(2)，其余（玻尔兹曼分布、静力平衡、$H$ 的反解式等）无编号，5.1/5.2 节修正公式在文本提取中已出现乱码，说明可能使用了 Word 公式编辑器且排版兼容性欠佳。总体观感：内容完整但视觉精致度明显低于 LaTeX 排版的同类论文。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>"排除法"论证简化合理性。</strong> 3.2.1 节专门用一段把次要因素逐一排除并给出理由，评委能清楚看到模型边界在哪里、为什么这样切。</li>
 <li><strong>锚定实测数据的标度律。</strong> 把 MAVEN 的 100 g/s 单点观测，用 $p=nkT$ 的线性关系外推成 $v\propto P$ 的剥蚀标度律（0.2 bar 时 3333 g/s），让整个演化模型建立在真实观测之上，而非纯理论推演。</li>
@@ -75,7 +92,7 @@ $$P=\frac{[N-(\lambda_1+\lambda_2)t]\,mg}{4\pi R^2\left(1-e^{-mgH/kT}\right)}$$
 <li><strong>"基础模型 + 两级修正"的递进叙事。</strong> 等温常数 $g$ → 分层温度 → 变重力，每一级修正都单独成节、公式重写，展示模型的可扩展性，这正是 UPC 评分中"model refinement"的得分点。</li>
 <li><strong>参数来源全部可溯源。</strong> $\omega=1/9$、$N=4.98\times10^{43}$（11 m 全球等效水层）都给出文献依据与换算路径，且附录代码参数与正文一致。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>建模前先写一节"Elimination of distractions"：用量级比较说明忽略什么、为什么敢忽略，这比假设列表更能体现物理判断。</li>
 <li>善用"单点观测 + 线性标度律"的组合：当无法机制建模时，把实测速率按某个守恒量（密度、压强）标度外推，是数据稀缺条件下的务实做法。</li>
@@ -85,7 +102,10 @@ $$P=\frac{[N-(\lambda_1+\lambda_2)t]\,mg}{4\pi R^2\left(1-e^{-mgH/kT}\right)}$$
 <li>需要吸取的教训：数值实现要与最新修正模型同步（本文代码仍是等温版）、结果应附灵敏度检验；同时尽量用 LaTeX 排版以避免 Word 公式兼容性问题。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -97,6 +117,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

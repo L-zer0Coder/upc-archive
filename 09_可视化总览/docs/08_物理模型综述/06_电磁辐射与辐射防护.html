@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">08_物理模型综述</span>
+  <span class="crumb">08_物理模型综述 · 电磁辐射与辐射防护</span>
   <span style="flex:1"></span>
   
   <a href="../../../08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/06_%E7%94%B5%E7%A3%81%E8%BE%90%E5%B0%84%E4%B8%8E%E8%BE%90%E5%B0%84%E9%98%B2%E6%8A%A4.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="_1">电磁辐射与辐射防护</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="电磁辐射与辐射防护">电磁辐射与辐射防护</h1>
 <blockquote>
 <p>UPC 全档案库专题综述之六。素材来源：<code>05_论文赏析/_批次03_2017-2018A.md</code>、<code>_批次04_2018-2019.md</code>、<code>07_题目解读/2019_题A_火星辐射防护.md</code>、<code>07_题目解读/2017_题B_离子推进器磁导向.md</code>、<code>07_题目解读/2024_题B_火星电源最小质量.md</code>、<code>07_题目解读/2025_题A_电声沙桑托琴.md</code>。</p>
 </blockquote>
-<h2 id="1-upc">1. 该专题在 UPC 中出现全景</h2>
+<h2 id="1-该专题在-upc-中出现全景">1. 该专题在 UPC 中出现全景</h2>
 <p>"电磁与辐射"在 UPC 有两条主线：一是<strong>辐射作为威胁</strong>（太空辐射防护、人体剂量），二是<strong>电磁场/电磁波作为工具或负载</strong>（磁场导向离子束、光电传感、电源系统）。广义上，光压推进（2017-A 太阳帆、2018-A 光帆）也属电磁辐射动量输运家族，此处列入全景但物理细节见力学-轨道综述。</p>
 <table>
 <thead>
@@ -99,8 +116,8 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="2">2. 核心模型库逐一解读</h2>
-<h3 id="21">2.1 洛伦兹偏转与磁屏蔽几何</h3>
+<h2 id="2-核心模型库逐一解读">2. 核心模型库逐一解读</h2>
+<h3 id="21-洛伦兹偏转与磁屏蔽几何">2.1 洛伦兹偏转与磁屏蔽几何</h3>
 <p><strong>适用场景</strong>：一切"用磁场挡/转带电粒子"的方案评估（2017-B 导向、2019-A 主动屏蔽）。</p>
 <p><strong>方程</strong>：
 $$\vec F=q\vec v\times\vec B,\qquad r_L=\frac{mv}{qB}.$$
@@ -108,32 +125,32 @@ $$\vec F=q\vec v\times\vec B,\qquad r_L=\frac{mv}{qB}.$$
 <p><strong>建模要点</strong>：① 偏转判据必须落到"回旋半径 vs 作用区尺度"的比较（2019-A 的 343 队写成 $L\ge2r_L$；2017-B 的 609 队折转角 $\varphi=L/r_g$，即 $r_g=mv/qB=0.068\,\mathrm{m}/B[\mathrm{T}]$ 对氙离子）；② 场几何要显式构造最优解——609 队构造<strong>角向场</strong> $B_\varphi$（把径向速度分量旋转为轴向正是"准直"想要的转法），并用高斯束流模型反解所需磁场剖面 $\propto r\,e^{-r^2/2R^2}$；③ 工程代价与副作用必须闭环：安匝数 $NI=2\pi rB/\mu_0$（0.3 T、r=0.25 m → ~$3.8\times10^5$ A·turns → 电阻磁体 MW 级功耗）、磁压 $B^2/2\mu_0$（0.5 T ≈ 1 atm）、超导储能 $E=B^2V_s/2\mu_0\sim10^8$–$10^9$ J 与失超风险、电子回旋半径小 1836 倍（0.3 T 时 ~0.02 mm）导致中和电子被磁化、中和失效。</p>
 <p><strong>金牌队的典型处理</strong>：289 队（孟加拉 BUET）用 Størmer 定理先否决展开式线圈方案，再选 MgB₂ 连续跑道线圈（理想 toroid $B=\mu NI/(2\pi r)$，0.5 T）偏转 GCR，Matlab Euler 法解洛伦兹 ODE 组扫描 0.01–4 GeV 与电荷态 $Z$，闭环到 48.346 t（对比被动 ~130 t）；343 队（国防科大）把筒区线形场 + 端盖环形场组合出 8 种构型全仿真排名（$B=10$ T、$L=2$ m 时屏蔽 81–87%），Biot–Savart 反推电流定线径，并发现低场强区"聚拢反效应"（$\eta&lt;0$）——磁场把本不命中舱体的粒子聚拢进来反而增害，是全部档案库中少见的物理洞察点；609 队则以"负结果两层次否定"夺金：物理层 $\cos\theta$ 上界（完美准直只提升 ~6% 推力 ≈ 20 mN）+ 工程层（磁体 MW 级 vs 推力器 15 kW）。</p>
 <p><strong>常见错误</strong>：把磁场当"能加速离子"的工具（违背不做功定理）；只画场图不验算 $r_L$ 与储能；把中和后的中性原子当作用对象；收益与代价不成对（算出 2–6% 收益却不与磁体功耗放上天平）。</p>
-<h3 id="22">2.2 光子屏蔽：指数衰减律</h3>
+<h3 id="22-光子屏蔽指数衰减律">2.2 光子屏蔽：指数衰减律</h3>
 <p><strong>适用场景</strong>：γ/X 射线、β 粒子的被动屏蔽层设计（2019-A）。</p>
 <p><strong>方程</strong>：
 $$I=I_0e^{-\mu_m\rho x},$$
 配 NIST 质量衰减系数表反解厚度；多层屏蔽按"低穿透先挡"排序（105 队：Plexiglass 40 cm 挡 β 与低能带电粒子以抑制韧致辐射 → 铅 3.5 cm 挡 γ → Kevlar 6 cm）。</p>
 <p><strong>建模要点</strong>：γ 屏蔽公式<strong>不可移植</strong>到 GeV 带电重粒子——这是 2019-A 最典型的银牌级错误（批次 04 解读原话：用 $e^{-\mu x}$ 挡 GCR）。光子屏蔽的正确用法：343 队对"磁场挡不住的 γ"用全舱 3.75 mm 铝 + 磁场盲区 10 mm 铝板，按 $e^{-\mu x}\le0.05$ 定厚度，与主动屏蔽按面积加权合成（89%/95%），避免重复计数。</p>
 <p><strong>常见错误</strong>：质量只算屏蔽膜不算支撑/密封/余量；几何随手估（$V=1000\ \mathrm{m^3}$ 应先算出球形 $R=6.2$ m、$A=483\ \mathrm{m^2}$，等容积圆柱多 15% 屏蔽质量）。</p>
-<h3 id="23-z">2.3 带电重粒子屏蔽：射程、剂量-深度极小与低 Z 材料</h3>
+<h3 id="23-带电重粒子屏蔽射程剂量-深度极小与低-z-材料">2.3 带电重粒子屏蔽：射程、剂量-深度极小与低 Z 材料</h3>
 <p><strong>适用场景</strong>：GCR（GeV 级）与 SPE（百 MeV 质子）的防护（2019-A 的物理核心）。</p>
 <p><strong>方程/数据</strong>：射程表（PSTAR/NIST）——1 GeV 质子在水中射程 ~300 g/cm²（3 m 水），"挡住"在质量上不可能（每 100 g/cm² 即 ~48 t），只能减剂量；200 MeV SPE 质子射程 ~27 g/cm²，30–50 g/cm² 掩体可挡。剂量-面密度曲线在 ~15–25 g/cm² 处有<strong>极小值</strong>，再厚则次级中子/散裂碎片使剂量回升——"越厚越好"对 GCR 不成立。</p>
 <p><strong>建模要点</strong>：① 材料选低 Z 高 H（水、PE、食物/废料墙），氢利于弹性散射慢化中子且次级产额低；铝是结构材料不是好屏蔽；② 任务剖面分层——巡航 GCR 靠减剂量 + 全舱薄屏蔽，SPE 短暴靠小型风暴掩体（20 m³ 球、50 g/cm² 水仅 17.7 t），"全舱轻屏蔽 + 小掩体"的混合战术是"附加质量"问题的高级答案；③ 时间与路径是零质量防护：Hohmann 缩时、Van Allen 带快速穿越（105 队数值积分找 43.6°/55.3° 发射窗口）、太阳周期窗口（GCR 极小/极大差 ~2 倍）。</p>
 <p><strong>金牌队的典型处理</strong>：三支金奖队恰好构成方案光谱——105 队纯被动（三层材料 + Faraday 笼，636 t，胜在教科书式多知识点覆盖）；289 队纯主动（48.3 t，胜在系统级闭环：JWST 式遮阳罩热负载 + 火箭方程燃料放大 + ISS/Atlas 工程实证）；343 队混合（16.5 t，胜在"磁场挡不住 γ、材料挡不住 GeV 重核"的物理完备性）。批次 04 的结论：评委不预设"正确方案"，考察的是方案内部自洽性与论证深度——但三队共同点是<strong>都有基准剂量线与判据闭环</strong>（105 队的 559.48 → 1.86 Sv 对照）。</p>
 <p><strong>常见错误</strong>：Gy/Sv 混用；把光子衰减系数用于带电粒子；漏掉 Van Allen 穿越与 SPE 掩体两个任务相位；方案在真实任务剖面下穿洞。</p>
-<h3 id="24-rtg-2024-b">2.4 电源系统标度：RTG / 太阳能 / 裂变堆对比（2024-B）</h3>
+<h3 id="24-电源系统标度rtg-太阳能-裂变堆对比2024-b">2.4 电源系统标度：RTG / 太阳能 / 裂变堆对比（2024-B）</h3>
 <p><strong>适用场景</strong>："以质量最小为目标给深空/行星表面供电"的系统设计题。</p>
 <p><strong>方程</strong>：能量账本 $E=P_et$（150 kW × 2 年 = $9.47\times10^{12}$ J，铀裂变 $8.2\times10^{13}$ J/kg → 燃耗仅 ~460 g，装料 10–15 kg，燃料与寿命完全不是约束）；比功率标度 $M=P/(\mathrm{W/kg})$；辐射器面积 $A_{rad}=P_{rej}/(\varepsilon\sigma T_r^4)$，废热 $P_{rej}=P_e(1/\eta-1)=450$ kW；风电功率密度 $\frac12\rho v^3$（火星 20 m/s 仅 80 W/m²，Betz 前——一票否决）。</p>
 <p><strong>建模要点</strong>：① "continuously"口径定义是全题题眼：夜间与全球沙尘暴期是否保证 150 kW？沙尘暴直射可跌到晴空 15–25%，保证连续需 ×4–6 过构建——681 队仅 3 队金奖（0.44%）的主因正是口径不定义；② 质量边界声明（发电/储能/热控/屏蔽/配电是否计入）；③ 裂变堆内部必须拆解优化：辐射器温度 450→600 K 使质量 1.1 t→0.34 t，是最大杠杆；屏蔽-电缆权衡（机上影子盾 1–2 t vs 远置堆 + 1 km 5 kV 铝缆 ~35 kg + 2 m 火壤屏蔽 3200 kg/m²）；④ 用足题面最后一句"乘组可劳动"——清尘、火壤屏蔽、装配，价值 3–10 t。</p>
 <p><strong>结论框架</strong>（解读文件口径）：裂变 5–25 t 胜出；光伏 15–60 t（口径决定）；RTG 28–54 t 且 PuO₂ 需 ~6 t（全球年产量公斤级）物理与供给双重不可行，必须定量排除。</p>
 <p><strong>典型处理与教训</strong>：2024-B 官方未公开金奖论文，但题目解读给出的"评委想看什么"清单（口径定义、质量边界、三路线参数化、排除项定量封口、敏感性表、结论以区间呈现）与前述各年金奖做法完全同构——它实际上是 2019-A "方案+质量+实用性"结构在电源场景的翻版：同样是三方案对比（被动/主动/混合 ↔ 光伏/RTG/裂变）、同样用统一度量衡（Sv 剂量 ↔ W/kg 比功率）、同样要求火箭方程/发射次数式的放大闭环。</p>
 <p><strong>常见错误</strong>：电功率与热功率混淆（150 kW 电 ↔ 450–600 kW 热）；辐射器按电功率而非废热算面积；RTG 只除以比功率不做 Pu-238 供给核查；把 590 W/m² 晴空均值当峰值×24 h 直除。</p>
-<h3 id="25-2025-a">2.5 电磁拾音与传感物理（2025-A）</h3>
+<h3 id="25-电磁拾音与传感物理2025-a">2.5 电磁拾音与传感物理（2025-A）</h3>
 <p><strong>适用场景</strong>：把振动转化为电信号的"换能器"环节，以及任何"传感器物理是否透明"的判断。</p>
 <p><strong>方程</strong>：磁拾音基于法拉第感应，输出正比于弦速度（对时间导数）——理想拨弦位移谱 $\propto1/n^2$ 经微分改写为 $1/n$，高次谐波被人为抬高（电吉他"偏亮偏尖"的根源），后级 EQ 补不回相位与瞬态；位移敏感的光学/压电拾音无此预失真。拾音位置的波动方程权重 $\propto\sin(n\pi x/L)$——贴琴码（$x\to L$）可避开波节、保留最多谐波与动态余量。</p>
 <p><strong>金牌队的典型处理</strong>：2025-GM-A-182（滑铁卢）是唯一把拾音器完整建模的队伍——先按物理机理对比磁/压电/光学三类并选光学（位移敏感、非接触），再用波动方程定拾音点，构成"传感—滤波—放大"全链路系统观；此细节在批次 10 被列为 182 队两大差异化优势之一（另一项是从材料内摩擦到滤波系数的全程不确定度传递）。详细滤波器设计见本库《07_声学与信号处理》。</p>
 <p><strong>常见错误</strong>：默认磁拾音"透明"不讨论频谱权重；忽略拾音位置波节效应导致某些谐波丢失。</p>
-<h2 id="3">3. 跨题目的建模套路总结</h2>
+<h2 id="3-跨题目的建模套路总结">3. 跨题目的建模套路总结</h2>
 <ol>
 <li><strong>"收益上限先框定"是电磁方案评估的第一步棋</strong>。609 队开场算 $1-\cos\bar\theta\approx2$–6% 的准直收益上界，之后所有磁体代价都与之比对；289 队用 Størmer 定理先否决竞争方案；343 队用 $L\ge2r_L$ 判据框定可行域。先立天平再称重量，评估才不是形容词。</li>
 <li><strong>方案光谱比单一方案更安全</strong>。2019-A 三队（被动/主动/混合）与 2024-B 三路线（光伏/RTG/裂变）都证明：评委不预设正确方案，但要求"方案内部自洽 + 与对手方案的定量对比"。统一度量衡（Sv、质量、W/kg、美元）贯穿物理-工程-成本三级比较（2016-A-331 的 $\Delta v$ 统一尺同源）。</li>
@@ -141,7 +158,7 @@ $$I=I_0e^{-\mu_m\rho x},$$
 <li><strong>负结论也要定量</strong>。2017-B 的金牌是一篇"不现实"论文：工作点、收益上界、最优方案构造、磁体代价、副作用、根源在上游栅光学的建设性出路——六个环节一个不少。负结果论文比正结果更需要结构完整。</li>
 <li><strong>"免费资源"是题面赠礼</strong>。2019-A 的时间与路径（零质量防护）、2024-B 的乘组劳动（火壤屏蔽/清尘）都是"不用白不用"的质量/剂量收益，评委清单里明确列项。</li>
 </ol>
-<h2 id="4">4. 备赛建议</h2>
+<h2 id="4-备赛建议">4. 备赛建议</h2>
 <ol>
 <li><strong>背下四个数</strong>：1 GeV 质子 Larmor 半径 $5.7/B$ m 与射程 300 g/cm²、GCR 剂量-深度极小区 15–25 g/cm²、MMRTG 比功率 2.8 W/kg、KRUSTY/FSP 级裂变 6.7–18.5 W/kg。有它们，2019-A 与 2024-B 型题的方向判断半小时内完成。</li>
 <li><strong>准备"方案对比矩阵"模板</strong>：行 = 候选方案，列 = 核心物理量/质量/可行性证据/风险，每格必须带数字与出处（289 队双决策矩阵、343 队八构型排名是标准范本）。</li>
@@ -150,7 +167,10 @@ $$I=I_0e^{-\mu_m\rho x},$$
 <li><strong>传感器题先问"测的是位移还是速度"</strong>：磁/压电/光学的敏感性差异会改写整个频谱结构（$1/n^2$ vs $1/n$），这一问在 2025-A 直接决定音色保真能否成立，也是任何测量类题目（如 2023-B 蹦床的视频逐帧、2019-B 的 G 计）都适用的第一性追问。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-该专题在-upc-中出现全景">1. 该专题在 UPC 中出现全景</a></li><li class="l2"><a href="#2-核心模型库逐一解读">2. 核心模型库逐一解读</a></li><li class="l3"><a href="#21-洛伦兹偏转与磁屏蔽几何">2.1 洛伦兹偏转与磁屏蔽几何</a></li><li class="l3"><a href="#22-光子屏蔽指数衰减律">2.2 光子屏蔽：指数衰减律</a></li><li class="l3"><a href="#23-带电重粒子屏蔽射程剂量-深度极小与低-z-材料">2.3 带电重粒子屏蔽：射程、剂量-深度极小与低 Z 材料</a></li><li class="l3"><a href="#24-电源系统标度rtg-太阳能-裂变堆对比2024-b">2.4 电源系统标度：RTG / 太阳能 / 裂变堆对比（2024-B）</a></li><li class="l3"><a href="#25-电磁拾音与传感物理2025-a">2.5 电磁拾音与传感物理（2025-A）</a></li><li class="l2"><a href="#3-跨题目的建模套路总结">3. 跨题目的建模套路总结</a></li><li class="l2"><a href="#4-备赛建议">4. 备赛建议</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -162,6 +182,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

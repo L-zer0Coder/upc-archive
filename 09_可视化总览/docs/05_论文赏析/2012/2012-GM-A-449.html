@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2012</span>
+  <span class="crumb">05_论文赏析/2012 · Volcanism on Super-Earths（2012 题A 队伍449）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2012/Problem%20A/2012-GM-A-449.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2012/2012-GM-A-449.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="volcanism-on-super-earths2012-a-449">Volcanism on Super-Earths（2012 题A 队伍449）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="volcanism-on-super-earths2012-题a-队伍449">Volcanism on Super-Earths（2012 题A 队伍449）</h1>
 <p><strong>页数</strong>: 17 页 ｜ <strong>对应题目</strong>: Volcanism on Super-Earths（超级地球火山活动）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>上海交通大学队（李彦蓉、唐一鹤、邓希瓦）问的是：质量 0.5–3 倍地球的类地行星，火山活动如何随时间演化。他们把行星切成"内核-外核-幔-壳 + 幔壳间的薄岩浆层"五层结构，以能量守恒为主线：核内放射性衰变（$^{238}$U 及扩展模型中的 $^{40}$K、$^{235}$U、$^{232}$Th）供热，经 Fourier 热传导把功率 $P_{vol}=B(T-700)$ 注入岩浆层，$T&lt;700$ ℃ 即火山熄灭。由此导出一阶非齐次 ODE（式 10）并解析求解（式 11），对 $p=r/R_\oplus=0.7$–1.4（对应 $\xi=p^3=0.5$–3）扫描出温度与活动曲线（Figures 4–5）。校验漂亮：模型算出水星只剩约 15 亿年火山寿命、地球约 50.7 亿年，"相当合理"；扩展模型还复现了地球早期"先升温后降温"的热史转折。最终结论：行星越大，火山活动持续越久（$\xi=0.5$ 比地球短 17.4 亿年，$\xi=3$ 长 47.6 亿年）。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <ul>
 <li><strong>假设层（2.1）</strong>：分层等密度、等比热；地温曲线用分段线性近似（引文献 [2] 的实测地温曲线为据）；把 $10^8$ 年尺度上离散的喷发视为连续过程；地震与火山同属岩浆层释能、按比例合并（$E_{vol}=\lambda_{vr}E_{rel}$，取 $\lambda_{vr}=1$）。每条假设都配了一句物理理由（如岩浆层厚仅数百米故忽略其相对厚度 [1]）。</li>
 <li><strong>守恒框架（2.3 Basic Model）</strong>：三个记账方程——$E_{trans}-E_{received}=E_{store}$（式 1）、$\Delta U=E_{decay}-E_{trans}$（式 2）、合并成核心方程 $\frac{\partial E_{vol}}{\partial t}=\lambda_{vr}\left(\frac{\partial E_{decay}}{\partial t}-\frac{\partial\Delta U}{\partial t}-\frac{\partial E_{received}}{\partial t}\right)$（式 3）。火山活动被<strong>定义为岩浆层的释能功率</strong>，这是全文最关键的问题转译。</li>
@@ -63,20 +80,20 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>边界条件的巧妙处理（2.3.3）</strong>：玄武岩地壳隔热极好（厚度 39 km，即使 0.5 $M_\oplus$ 行星按 $d=d_0\sqrt[3]{0.5}\approx31$ km 仍够厚），故 $E_{received}=0$；太阳辐射收支长期平衡也不予计入。用两条不等式论证"可以归零"，比直接假设更有力。</li>
 <li><strong>扩展模型（2.4）</strong>：单同位素 → 四同位素叠加（式 9），并引入地球年龄 $T_a=45$ 亿年把"以今为零点"的时钟回拨，从而复现从太阳系早期到未来的完整热史。火山活动率定义为 $\eta=P_{vol}/Q$（单位喷发能量 $Q$ 把功率换算成频率）。</li>
 </ul>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <ul>
 <li><strong>解析为主、数值为辅</strong>：式 10 的 ODE 竟有解析解（式 11），MATLAB/Mathematica 用于数值积分（附录 A 给出 Euler 步进代码，步长 $10^{13}$ s ≈ 30 万年）与作图；作者自陈"步长太大可能引入误差"。</li>
 <li><strong>物理校验三连</strong>：(a) 用水星（$\xi=0.066$）作"极端终点"检验——模型给出其只剩 15 亿年火山寿命，与"水星今已无火山"的观测一致；(b) 地球 50.7 亿年总寿命"相当合理"；(c) 扩展模型复现地球热史先升后降的转折（Figure 6）。用已知天体锚定未知外推，是天文类题目的黄金手法。</li>
 <li><strong>参数灵敏度分析（4.3）</strong>：直指含两个估计参数的系数 $B$——若 $\lambda=0.03$、$d=100$ m，则 $B=1.53\times10^{11}$，重跑后火山寿命大幅缩短，等效于半径 0.55$R_\oplus$ 的行星。定量演示"哪些估计在主导结果"，这在早期论文中相当罕见。</li>
 <li><strong>量纲/相似律</strong>：用 $p=r/R_\oplus$ 与 $\xi=p^3$ 把地球参数标度到任意超级地球，使一个方程族覆盖整个质量区间。</li>
 </ul>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <ul>
 <li><strong>LaTeX 报告样式</strong>：标题页三行居中（Team No. 449 / Problem A / 论文题）+ 摘要独占一页；正文页眉左为当前小节名（如 "2.2 Model Overview"）、右为 "Team No. 449: Page N of 17"——"共 17 页"的页眉是贴心细节。</li>
 <li><strong>章节</strong>：1 Introduction → 2 Model（2.1–2.4，Basic/Extended 两级递进）→ 3 Results → 4 Discussion（4.1 Weaknesses、4.2 Strengths、4.3 Dependence of Results on Parameters）→ References（8 条，含两本中文教材）→ Appendix A（MATLAB 代码 + Figures 7–10）。注意存在小节号重复的排版 bug（"2.2 Model Overview" 出现两次）。</li>
 <li><strong>图表 10 幅</strong>：Figure 1 为彩色行星剖面图（黄内核、橙外核、红岩浆层、蓝壳，fig 页渲染图可见，注明 "Not to Scale"）；Figure 2 地温曲线；Figure 3 四同位素衰变产热曲线；Figure 4/5 是核心结果——不同 $p$ 的温度曲线族与火山活动曲线族；Figure 6 地球热史；附录 Figures 7–10 给四个 $\xi$ 值的单行星曲线。公式编号 (1)–(12)。图表以 MATLAB 默认样式为主，朴素但信息完整。</li>
 </ul>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>把"火山活动"定义成功率而非事件</strong>：$\eta=P_{vol}/Q$ 的连续化定义让 $10^8$ 年尺度问题变成可解的 ODE，绕开了对喷发细节的无知——处理"信息稀少的大尺度问题"的示范。</li>
 <li><strong>双模型递进</strong>：单同位素基本模型给解析解，四同位素扩展模型揭示"先升后降"的新特征（Figure 3.3），扩展不是堆料而是产生新物理结论。</li>
@@ -85,7 +102,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>Weaknesses 写得具体</strong>：不是套话，而是逐条指出"熔岩层厚度查不到""高温高压下的比热只能近似""步长 $10^{13}$ s 过大"。</li>
 <li><strong>能量守恒骨架 + Fourier 定律 + 衰变律</strong>三个本科级定律拼出复杂系统，证明"简单定律组合 + 好假设"胜过晦涩的大模型。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li><strong>"定义观测量"先行</strong>：遇到"活动水平/强度"这类模糊量，第一件事是给出可计算的代理定义（本文：岩浆层释能功率），并在文中显式声明。</li>
 <li><strong>极端案例校验法</strong>：拿题目情境中的已知成员（水星、地球）检验模型端点，再谈外推；成本极低、说服力极高。</li>
@@ -95,7 +112,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>避免本篇的失误</strong>：小节号重复、个别语法粗糙（如 "mess" 误用）提醒交稿前须做一轮格式与文字通读；附录代码也应与正文公式逐项核对一致。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -107,6 +127,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

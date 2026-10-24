@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2019 题B：过山车设计（Design a Roller Coaster）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2019_%E9%A2%98B_%E8%BF%87%E5%B1%B1%E8%BD%A6%E8%AE%BE%E8%AE%A1.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2019-bdesign-a-roller-coaster">2019 题B：过山车设计（Design a Roller Coaster）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2019-题b过山车设计design-a-roller-coaster">2019 题B：过山车设计（Design a Roller Coaster）</h1>
 <blockquote>
 <p>赛题来源：UPC 2019 Problem B（119 队选题 B，金奖 2 队：上海交大交密学院 190 队、青岛大学 389 队）</p>
 </blockquote>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <p><strong>原文压缩引用</strong>：</p>
 <blockquote>
 <p>You must design a roller coaster ride to be <strong>as exciting as possible, yet safe</strong>. The roller coaster will begin with a <strong>20 meter horizontal segment</strong>, where passengers board, then climb up a hill to its highest point, taking it to an altitude <strong>30 meters above the starting location</strong>. This <strong>gravitational potential energy will be the only source of energy</strong>. <strong>Precisely describe the path</strong> that the roller coaster track would follow, through <strong>three-dimensional space</strong>, and indicate the <strong>orientation of the car</strong> as it follows this track. The track must form a <strong>closed loop</strong>, with the ride <strong>ending at the starting location</strong>. At no point may the track <strong>descend below its starting altitude</strong>. <strong>Analyze the dynamics</strong> of a roller coaster car and determine the <strong>total duration</strong> of the ride. Use your analysis to make a persuasive case that your design would be <strong>safe, but riders would find it to be especially exciting</strong>.</p>
@@ -103,14 +120,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <ol>
 <li><strong>"exciting" 和 "safe" 必须先变成标量指标，再开始画轨道</strong>。安全：$G$ 力按<strong>方向 + 幅值 + 持续时间</strong>三维判据（正纵向/法向容忍 $\sim4\text{–}5g$，负法向仅 $\sim-1\text{–}-1.5g$，侧向 $\lesssim1.5g$；NASA Kumar &amp; Norfleet、Eiband 曲线、ASTM F2291/EN 13814 框架）。刺激：自建加权指标（190 队 $S=4G_x+5G_y+3G_z+0.05v+0.1H$，并用"急加速 3g 对应 $S=12$"标定阈值）或用客观量组（最大/负/侧向 $g$、失重时间占比、最高速度、时长）。<strong>先定指标后设计</strong>，是本题与普通"画个环"拉开差距的关键。</li>
 <li><strong>"precisely describe the path" = 给出可复算的数学对象</strong>：分段解析元素（圆弧、抛物线山丘、螺旋线、回旋线 clothoid）的显式方程，或全线的曲率-挠率-侧倾描述 $\kappa(s),\tau(s),\varphi(s)$；车厢姿态即轨道标架（切向/法向/副法向）+ 侧倾角 $\varphi(s)$。只给示意图不给方程不叫 precisely。</li>
 <li><strong>"gravity only + closed loop + never below start" 是能量审计题</strong>：总预算 $gH=294$ J/kg，全程损耗 $\sum\mu g\Delta s+\sum F_{drag}ds$ 必须留出末端刹车余量，且全程 $v&gt;0$（倒立段尤其要验 $v_{top}^2\ge gR$）；终点回起点高度，残余动能由 20 m 站台段制动吸收。<strong>30 m 是很小的预算</strong>——这是本题隐藏的设计枷锁（见第 4 节）。</li>
 <li><strong>"duration" 不是估的</strong>：$T=\oint ds/v(s)$，由分段 ODE 数值积分给出，与能量审计交叉校验。</li>
 </ol>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1：理想能量骨架（解析）</strong></p>
 <ul>
 <li>无损耗速度谱：$v(h)=\sqrt{2g(H-h)}$，最大速度（最低点）$v_{max}=\sqrt{2\times9.8\times30}=24.2$ m/s $\approx87$ km/h。</li>
@@ -145,7 +162,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
     X2 --&gt; V
     X3 --&gt; V
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <p>（本解读独立估算；取 $m$ 不敏感的比能量口径）</p>
 <table>
 <thead>
@@ -219,7 +236,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>两条路线都通金牌</strong>：(a) 分段动能定理递推（$v_{i+1}^2=v_i^2-2g\Delta h-2W_{loss}/m$，段内速度取均值 $v_j=(v_i+v_{i+1})/2$）——半解析、可手算、48 小时性价比最高（389 队）；(b) 逐段 ODE + Euler/RK 数值积分（$\Delta t=10^{-4}$ s，190 队递归实现），配合圆弧段以 $\theta=\int v/R\,dt$ 为状态变量。</li>
 <li><strong>能量审计是第一验证</strong>：$\tfrac12v_{end}^2+\sum W_{loss}=gH$ 必须闭合到 $\sim1\%$；任何一段的 $v(s)$ 出现非物理回升或归零即报错。</li>
@@ -227,7 +244,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>常见数值陷阱</strong>：法向力漏掉曲率项 $mv^2/R$ 导致环顶速度判据失真；欧拉法步长太大使环顶 $v^2$ 出现虚假负值；段间衔接初条件接错（上一段末速/末高度未传递）；刹车段忘了检查减速度上限（$\sim1.5g$ 生理舒适）；时长用"总长/平均速度"粗糙估计而非 $\oint ds/v$。</li>
 <li><strong>设计自由度的呈现</strong>：把 $H$、$\mu$、$C_dA$ 做一次灵敏度表（如 $\mu$ 从 0.01 到 0.03，总长上限从 700 m 缩到 300 m），既显工程感又是对"结论是否稳健"的预防性回答。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li><strong>踩中"圆环 6g 天花板"</strong>：画一个漂亮的竖直圆环却不验算环底过载——恰好能过的圆环环底必然 $\ge6g$，直接违反自己的安全判据；必须用 clothoid 或把环抬高、减小能量。</li>
 <li><strong>能量预算超支</strong>：按无摩擦设计元素，忽略 $\mu gL$ 要吃掉 17–33% 预算、风阻再吃 $\sim10\%$，结果轨道后半程 $v\to0$ 卡死或元素无法闭合。</li>
@@ -236,20 +253,20 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>侧倾概念错误</strong>：以为侧倾能降低总过载（实际只换方向），或 banking 角与速度不匹配导致残余侧向 $g$。</li>
 <li><strong>时长与路径脱节</strong>：路径是手绘概念图、时长是拍的数，两者对不上总账；正确做法是同一条弧长参数化贯穿路径方程、动力学与 $T=\oint ds/v$。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>ANSI 博客：ASTM F2291-25 游乐设施设计标准</strong>（<a href="https://blog.ansi.org/ansi/astm-f2291-25-standard-practice-amusement-rides">blog.ansi.org/ansi/astm-f2291-25-standard-practice-amusement-rides</a>）——业界主流设计标准：要求按<strong>加速度的方向、幅值、持续时间与乘客姿态</strong>建立暴露限值并做人体耐受工程分析；安全章节引用它即可把自设阈值升级为"对标行业标准"。</li>
 <li><strong>CoasterForce: Roller Coaster Physics</strong>（<a href="https://coasterforce.com/physics">coasterforce.com/physics</a>）——行业口径的 $G$ 力常识区间（正 $g$ 常见 3–5、持续 4–5g 接近耐受极限、纪录级 $\sim6.3g$）与元素类型（clothoid、螺旋、airtime 丘），为"设计点落在真实工程范围内"提供参照。</li>
 <li><strong>Thrillzing: The Science of Roller Coaster G-Forces</strong>（<a href="https://thrillzing.com/science/roller-coaster-g-forces-explained">thrillzing.com/science/roller-coaster-g-forces-explained</a>）——正/负/侧向 $g$ 的乘客体验含义（$-1\text{–}-1.5g$ 为 airtime 上限、侧向需限 $\sim1.5g$），刺激指标加权时可引为依据。</li>
 <li><strong>CPSC: Amusement Ride Voluntary Standards 页</strong>（<a href="https://www.cpsc.gov/Regulations-Laws--Standards/Voluntary-Standards/Amusement-Rides-Trampoline-Parks-and-Adventure-Attractions">cpsc.gov/Regulations-Laws--Standards/Voluntary-Standards/Amusement-Rides-Trampoline-Parks-and-Adventure-Attractions</a>）——美国监管体系对设计标准（ASTM F2291/F24 系）的采纳情况，practicality/合规段一句话引用即可。</li>
 </ol>
-<h2 id="8">8. 金牌论文思路对比</h2>
+<h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
 <li><strong>190 队（上海交大）</strong>：五段轨道（斜坡、三连半圆、上爬坡、双螺旋、下斜+圆弧）+ 自建"车体系 G-axes"与加权刺激指标 $S=4G_x+5G_y+3G_z+0.05v+0.1H$（$S=12$ 阈值用汽车急加速标定）；安全引用 NASA Kumar &amp; Norfleet（$G_z&lt;4.8g$ 等且持续 $&lt;2.5$ s）；MATLAB 递归欧拉（$\Delta t=10^{-4}$ s）解分段 ODE，双螺旋螺距修正因子 $\rho/\sqrt{\rho^2+k^2}$ 是几何亮点；结果 $L=428$ m、$T=48.99$ s，最大 $G_z=6.5$ 持续 1 s（以时长辩护）。详见 <code>05_论文赏析\2019\2019-GM-B-190.md</code>。</li>
 <li><strong>389 队（青岛大学）</strong>：九段元素化设计（圆弧过渡、抛物线丘、50 m 大半径半圆、竖直环+螺旋、<strong>clothoid 环</strong>）+ 动能定理半解析递推（段内均速近似），再用 NoLimits 2 独立仿真交叉验证（平均误差 2.1 m/s、拟合度 94.26%）；判据落"幅值+持续时间"双门限并引 EN 13814；$L=518$ m、$T=62.67$ s、最大 4.1g/0.01 s、失重+超重占比 87%。详见 <code>05_论文赏析\2019\2019-GM-B-389.md</code>。</li>
 <li><strong>对照启示</strong>：190 的指标体系（先定义刺激/安全再设计）与 389 的元素工程选型（clothoid、大半径、双门限判据）+ 仿真器互验，恰好互补——合起来就是本题的"满分解法画像"。</li>
 </ul>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 3D 路径有精确数学描述（分段显式方程或 $\kappa(s),\tau(s),\varphi(s)$），车厢姿态（轨道标架+侧倾）明确。</li>
 <li>[ ] 三条硬约束逐条核验：闭合回起点、全程不低于起点高度、仅重力供能（刹车合法且方案明确）。</li>
@@ -259,7 +276,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>[ ] 时长由 $T=\oint ds/v$ 数值给出，且与能量审计/独立仿真交叉验证；附可复现代码或逐点对照表。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌论文思路对比">8. 金牌论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -271,6 +291,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

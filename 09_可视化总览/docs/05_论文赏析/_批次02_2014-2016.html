@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,19 +41,34 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析</span>
+  <span class="crumb">05_论文赏析 · 批次02：2014-2016 年 UPC 金牌论文对比（7 篇）</span>
   <span style="flex:1"></span>
   
   <a href="../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/_%E6%89%B9%E6%AC%A102_2014-2016.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="022014-2016-upc-7">批次02：2014-2016 年 UPC 金牌论文对比（7 篇）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="批次022014-2016-年-upc-金牌论文对比7-篇">批次02：2014-2016 年 UPC 金牌论文对比（7 篇）</h1>
 <table>
 <thead>
 <tr>
@@ -130,14 +147,17 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="_1">批次观察</h2>
+<h2 id="批次观察">批次观察</h2>
 <p><strong>一、金牌论文的共性是"判据先行"。</strong> 七篇论文无一例外，都在动手计算之前先把题目中模糊的成功标准翻译成可操作的判据：2014-A 把"稳定"写成能量束缚 + 不进入恒星半径两条编码条件；2014-B 把"概率"写成通量守恒下的测度变换；2015-A 把"宜居"写成 273 K/612 Pa 的相图条件；2016-A 两篇都把"哪种更容易"统一到 $\Delta v$ 这把尺子上；2016-B 把"体型上限"写成 $M_{max}=(K/a)^{1/b}$。评委面对 48 小时产出的论文，最先寻找的就是这条"从题意到物理量"的翻译是否干净利落。</p>
 <p><strong>二、"理想模型→关键修正→扩展分析"是本批次最稳定的三段式结构。</strong> 2014-B（真空解析→相互作用高斯修正→阻力数值）、2015-B（无风基准→裕度优化→侧风扩展）、2016-A-412（六方案初筛→两步入轨动力学→四套风险模型）都严格遵循这一骨架，且每引入一个修正都用同一个基准量（$r_{max}$、裕度、$\Delta v$）给出前后对比。相比之下 2015-A 是"纯解析极简主义"的赢家：10 页、1 图 1 表，靠文献参数的可追溯性取胜——说明篇幅与仿真量本身不是得分点，逻辑闭环密度才是。</p>
 <p><strong>三、数据真实化是 2015-2016 年间明显的演进方向。</strong> 2014 年两篇金牌的数据来源主要是教科书与恒星/物性参数表；2015-A 已经去 JPL 小天体数据库逐一挑选 10 颗真实小行星并列成参数表；2016-A-331 更进一步用 curl 批量抓取 5 万余颗小行星建立统计样本，2016-B 则直接对 134 个物种的实测代谢率做回归并报告 $r^2$ 与 p 值。当题目允许自由假设时，"用真实数据库把假设落地"正在成为金牌论文区分度的最大来源之一。</p>
 <p><strong>四、2016 题A 的同题异构：解析统计派 vs 数值动力学派。</strong> 两篇金牌论文面对同一道题给出了几乎相同方向的结论（小行星带比坠日省 $\Delta v$、且可安全存放数十万年），但方法论截然不同。331 队（多伦多）走"解析 + 大数据统计"路线：所有轨道量用 Vis-Viva 闭式计算，风险用 5 万颗真实小行星的扫掠概率 + Poisson 过程量化，最终落到 500 万亿美元的成本判断，结论锋利、可复核性极强，但其概率模型把小行星速度做了 3σ 正态简化。412 队（巴塞罗那自治）走"数值动力学 + 概率推导"路线：先广后深筛六方案，用自适应 RKF45 在太阳-木星-地球时变场中真实积分出 L4 与 2.25 AU 存档轨道（这一步 331 完全没做，其轨道是理想 Hohmann），风险端则用文献速率 + 组合论证 + 指数分布推导。331 胜在结论的工程冲击力与数据规模，412 胜在方案空间广度与风险模型的推导完备性（还多出"可回收性"与 Future Work 的工程视角）；两篇同时夺金说明评委对"深度收敛于题目两方案"与"广度重构方案空间"两种答卷风格同等认可，前提是各自的假设链条都透明自洽。有趣的是两篇的概率结论都在 $10^{-6}$ 量级（331：1000 年 0.0001%；412：$2.4\times10^{-6}$/$5\times10^{-6}$），殊途同归地回答了"能安全存放多久"。</p>
 <p><strong>五、排版与呈现风格多元，但"评委可审计性"是共同底线。</strong> 本批次出现了三种范式：331 的 revTeX 双栏期刊仿真式（公式下方附变量表、附录含原始 curl 命令）；807/108/412 的 Word-式带目录长文（公式按节编号、Strengths/Weaknesses 分栏）；726/190/441 的 LaTeX 简洁式。三种风格都拿到了金牌，可见排版风格本身不构成门槛；真正共通的是：每个关键数值都有出处、每个近似都有书面化的失效讨论（726 的五条局限、190 承认不会建模螺旋轨道、331 论证简化不改变相对排序、412/441 的 Future Work），以及敢于在正文呈现对自己不利的证据（726 的图 15 晚期坠星反例、108 承认可行域窄到"几乎无法实现"）。另外两处小疵值得后来者引以为戒：108 的页眉残留"Problem A"与无关参考文献 [9]-[13]、441 的肉密度单位表述含混——金牌论文也难避免细节失误，但不影响其方法论价值。</p>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#批次观察">批次观察</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -149,6 +169,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

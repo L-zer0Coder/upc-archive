@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,43 +41,58 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2011</span>
+  <span class="crumb">05_论文赏析/2011 · The Physics of a Three Point Shot（2011 题B 队伍379）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2011/Problem%20B/2011-GM-B-379.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2011/2011-GM-B-379.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="the-physics-of-a-three-point-shot2011-b-379">The Physics of a Three Point Shot（2011 题B 队伍379）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="the-physics-of-a-three-point-shot2011-题b-队伍379">The Physics of a Three Point Shot（2011 题B 队伍379）</h1>
 <p><strong>页数</strong>: 正文 4 页（IEEE 双栏）+ 附录约 4 页 ｜ <strong>对应题目</strong>: Shooting a Basketball for Three Points（三分球投篮物理）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>欧林工学院队（Schutzengel, Varin, Quinlivan）研究奥运规则下距篮筐 6.2 m、与场地主轴成 45° 处的三分球：哪些初速度 $(v_0,\varphi,\theta)$ 与后旋组合能命中。他们建立了"旋转篮球空气动力学 + 篮板/篮筐非弹性碰撞"两段式蒙特卡洛式扫描仿真：空中段用含 Magnus 力与阻力的运动方程（式 1）以 MATLAB ode45 积分，碰撞段用恢复系数冲量法 $\Delta\vec p=(1+\epsilon)\frac{\vec p\cdot\vec n}{\|\vec n\|^2}\vec n$ 反弹后续算，反复迭代直到球落入网中或出局。对 $(v_0,\varphi)$ 平面扫描绘出"命中区域图"：无旋时最佳约 9 m/s、仰角 0.85 rad；2 转/秒后旋使整个抛物线带向低速低角平移（Figure 4）；45° 方位角下打板球（θ≈0.825 rad 附近，Figure 5）的成功区域显著大于空心入筐区域，且没有擦筐蹦出的"混沌"边缘（Figure 6），故打板更稳妥。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <ul>
 <li><strong>场景与几何层</strong>：坐标系原点置于球员，x–y 水平、z 竖直，另设球坐标 $(v_0,\theta,\varphi)$（θ 为极角、φ 为仰角）；篮板、篮筐尺寸全部取自 FIBA 官方规则 2010（Figure 1、2 改绘自规则文件；附录 Table 1：周长 0.75 m、质量 0.600 kg、筐内径 0.45 m、筐高 3.050 m、筐-板最小水平距 0.151 m、筐/板恢复系数 0.65/0.60）。规则参数官方化是本文可信度的基石。</li>
 <li><strong>空中段</strong>：式 1 给出 $\ddot{\vec r}=\vec g+\frac{1}{m}\left(\frac{16}{3}\pi^2 r^3\rho\,\vec\omega\times\vec v-\frac12 C_d\rho A|\vec v|^2\hat v\right)$，Magnus 项取 NASA"理想旋转球升力"形式，$C_d=0.54$ 引自文献 [1][6]。假设自旋模值全程不变、纯后旋（转轴在 xy 平面内垂直于轨迹），并说明"这是绝大多数球员的实际投篮方式"——用物理简化同时完成降维（6 维解空间 → 2 维）与情境贴合。</li>
 <li><strong>碰撞段</strong>：篮筐/篮板静止、忽略其振动变形；碰撞无摩擦（旋量不参与，作者承认这可能对打板球结果有可测影响）；法向冲量按恢复系数 $\epsilon$ 计（完美弹性时退化为 $2\vec p\cdot\vec n$ 的对照式给出），切向动量守恒。$\epsilon$ 的取值区间（板 ≥0.5、筐 0.5–0.65）直接引用 FIBA 强制规定，而非随意假设。</li>
 <li><strong>判分规则</strong>：球心最终落在距筐心 $r_{hoop}-r_{ball}$ 以内即得分（代码 <code>score = norm(...)&lt;r_hoop-r_ball</code>），即筐内径与球几何上不相交——把"进球"翻译成干净的几何判据。</li>
 </ul>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <ul>
 <li><strong>事件驱动 ode45</strong>：主积分器为 MATLAB ode45（<code>odeset('RelTol',1e-5)</code> 指定相对容差），用事件函数监测六类事件：球下落穿过筐平面、越过篮板、横向逃逸、触板（点到矩形距离 = 球半径）、触筐（点到圆环距离 = 球半径）、落地兜底。任一碰撞事件触发后计算法向与冲量，把新速度作为下一段初值，循环至终止条件——"分段仿真 + 事件重置"是处理多次弹跳的标准范式，附录 B 全部代码公开。</li>
 <li><strong>解空间扫描</strong>：固定 θ=π/4 扫 $(v_0,\varphi)$（Figures 3、4），固定速度 9.25 m/s 扫 $(\theta,\varphi)$（Figure 5），再固定 θ=0.85 rad 扫 $(v_0,\varphi)$（Figure 6），每点跑一次完整仿真，灰度图直接呈现成功集合的形状与厚度。</li>
 <li><strong>验证</strong>：无旋结果与 Silverberg, Tran &amp; Adcock 的罚球数值研究 [5] 对照，"结果相似"——引用独立文献校验自建模型。</li>
 <li><strong>明确承认的局限</strong>：碰撞无摩擦假设"可能显著影响打板球结果"；落地前只跟踪到低于筐高即判定；未做步长收敛研究（仅设置 RelTol）。</li>
 </ul>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <ul>
 <li><strong>IEEE 双栏模板</strong>（IEEEtran 风格，p1 渲染图可见 "Abstract–" 连排斜体的 IEEE 惯例），章节用罗马数字 I–V，Appendix A/B 分列参数表与源码，页眉 TEAM 379 + 页码。四天 48 小时内能套用期刊模板，观感专业；但正文拼写错误不少（imporve/uesful/goemetry/condidtions/opposses），且 Figure 6 图注出现 LaTeX 未解析引用 "Similar to Figure ??"——模板红利下的校对疏漏。</li>
 <li><strong>公式极少而精</strong>：正文只有式 1 编号方程加两条冲量公式，重心放在算法与结果，符合仿真型论文的排版策略。</li>
 <li><strong>图表 6 幅 + 2 表</strong>：Figure 1、2 为改绘的场地与篮板几何示意（注明"modified from FIBA"），Figure 3–6 为灰度命中区域图（灰底成功区、白底失败区，坐标轴 $v_0$-φ 或 θ-φ），每幅图承担一个独立结论；Table 1/2 把"查来的参数"与"自设的参数"分表列出，出处一目了然。</li>
 </ul>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>参数全面官方化</strong>：球、筐、板的所有几何与恢复系数都取自 FIBA 官方规则文件并列表标注出处，把"假设清单"变成"数据清单"，评委无需质疑任何常数。</li>
 <li><strong>物理要素齐全</strong>：重力、阻力、Magnus 升力、非弹性碰撞、多次弹跳一应俱全，而大多数参赛队很可能只做了无旋抛体。</li>
@@ -84,7 +101,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>独立文献交叉验证</strong>：与 Silverberg 等人的已发表仿真对照，为自建模型提供外部效度。</li>
 <li><strong>事件驱动多体碰撞框架</strong>完整可复现（源码全文公开），碰撞-重置-续算的架构清晰。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li><strong>"空中 + 接触 + 空中"事件驱动仿真框架</strong>：ode45/事件函数/恢复系数冲量三件套，可用于任何"飞行体碰壁/碰框"类题（网球、台球、冰壶），直接搬运。</li>
 <li><strong>先列官方参数表再建模</strong>：把能查到的所有尺寸、系数先做成 Table 并注来源，建模时"零自由参数"，大幅提升说服力。</li>
@@ -94,7 +111,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>教训</strong>：正文多个拼写错误和 "Figure ??" 断链说明 48 小时内必须预留 1–2 小时纯校对时间——内容过硬也可能因细节失分。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -106,6 +126,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

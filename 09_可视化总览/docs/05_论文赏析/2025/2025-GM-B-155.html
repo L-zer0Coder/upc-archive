@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,31 +41,46 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2025</span>
+  <span class="crumb">05_论文赏析/2025 · Empirical Angle Estimation for Historical Artillery under Aerodynamic Constraints（2025 题B 队伍155）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2025/Problem%20B/2025-GM-B-155.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2025/2025-GM-B-155.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="empirical-angle-estimation-for-historical-artillery-under-aerodynamic-constraints2025-b-155">Empirical Angle Estimation for Historical Artillery under Aerodynamic Constraints（2025 题B 队伍155）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="empirical-angle-estimation-for-historical-artillery-under-aerodynamic-constraints2025-题b-队伍155">Empirical Angle Estimation for Historical Artillery under Aerodynamic Constraints（2025 题B 队伍155）</h1>
 <p><strong>页数</strong>: 20 页 ｜ <strong>对应题目</strong>: 题B 火炮（Artillery，无计算器条件下的射角/初速快速估算）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>论文从空气动力学视角出发，先用 Bernoulli 原理导出阻力并建立在切向/法向自然坐标系下的弹道微分方程，用 RK4 对 $(\theta, v)$ 全参数空间（$\Delta\theta=1°$、$\Delta v=1$ m/s）穷举，找出命中 1200 m 同高程固定目标的全部 366 组可行解（$\theta\in(3°,77°)$、$v\in(143,450)$ m/s，最速解 $t=3.7$ s 对应 $v=450$ m/s、$\theta=3°$）；随后固定半装药初速 250 m/s，用控制变量法 + 最小二乘拟合出"参考点 (1200, 0) + 相对坐标线性修正"的经验公式 $\theta=k_1 x+b_1$、$\theta=k_2 H+b_2$（$R^2$ 分别 0.999/0.996），再加风修项 $\theta=k_3 V_f+b_3$（$R^2=0.687$）。随机目标盲测：无风偏差约 0.05°，有风约 4°——并诚实报告了风修精度短板。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <p><strong>基础模型：阻力推导与自然坐标方程（3.1）</strong>。与其他队直接引用 $F_d=\frac12 c_d\rho A v^2$ 不同，本文用"圆盘两侧气流"的 Bernoulli 推导增强物理感：式 (1)(2) 给出驻点压差 $p_2-p_1=\frac12\rho v^2$，式 (3) 得 $D=\frac12\rho v^2 C_D S_D$，引入 $C_D=0.47$ 修正后写成矢量式 (4) $\vec D=-0.235\pi r^2\rho_0\vec v^2$。运动方程不取直角坐标而取<strong>切向—法向（自然）坐标系</strong>：切向式 (5) $m\frac{dv}{dt}=-mg\sin\theta-D$、法向式 (6) $mv\frac{d\theta}{dt}=-mg\cos\theta$，配几何关系式 (7)，合成四元一阶 ODE 组式 (8)(9)，$X=[x,y,\theta,v]^T$。</p>
 <p><strong>求解策略（3.1.3）</strong>：鉴于弹道方程强非线性且解（角度-速度组合）分布未知，采用全参数空间离散遍历（式 10），命中判据为以目标为心、$r_{tol}=10$ m 的圆域（式 11），终止条件三条（落地 $y&lt;0$、速度非物理 $v\le0$、超时 $t&gt;50$ s）。这保证找到"所有"可行解而非单一解，直接回应题目"确定初速与射角"的多解本质。</p>
 <p><strong>关键修正：从可行域到经验公式（3.2）</strong>。考虑史实（初速由装药决定），设半装药 250 m/s 与全装药 450 m/s 两档并选 250 m/s，$\theta$ 限于炮架可调的 0–45°。控制变量分两步：固定高度看 $\theta$–水平距离关系（$\theta=0.047514x+8.834154$），固定距离看 $\theta$–相对高度关系（$\theta=0.012216H-5.826506$），以 (1200, 0) 为参考点用相对坐标代入并相加；显著性检验表明交互项可忽略，故加法合成合法。<strong>风场扩展（3.2.2）</strong>：把风分解为切向/法向分量（式 13），相对速度式 (14)、阻力更新式 (15)、修正方程组式 (16)；在 $\pm15$ m/s（约 54 km/h）范围内再拟合 $\theta=-0.049764V_f+8.762129$。</p>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>数值方法为手写 RK4（附录 MATLAB 代码，步长 $dt=0.01$ s，约 46000 条弹道遍历），配合全空间扫描替代"打靶+求根"，鲁棒但算力换覆盖率。统计方法是最小二乘线性拟合 + 决定系数 $R^2$（式 12 给出定义式）+ 交互项显著性检验——这是本批次中少数显式做统计检验的论文。验证设计出色：用 50 个随机生成目标做盲测（Figure 7），无风角误差集中在 ±0.1°（一个 −0.85° 离群点），并区分无风/有风两种精度等级（0.05° vs 4°）。极限情形讨论体现在可行域 U 形结构（Figure 5 以飞行时间着色：低角 3–6 s、高角超 40 s）与最速解选取。自认弱点：风与角度本质非线性、风-位置交互被忽略、装药批次差异未计，"首发射击后需依据观测微调"。小瑕疵：摘要写 $v\in(147,450)$ 而正文 3.1.4 写 $v\in(143,450)$，前后不一致；风修拟合 $R^2=0.687$ 偏低但如实报告。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页（p1 图）为标准 LaTeX 单栏：两行居中标题点明"经验角度估算 + 气动约束"双重主旨，摘要三段式（方法—第一问全部可行解数值—经验公式与盲测偏差），关键词 6 个；摘要中"R-squared values are 0.99, 0.99, and 0.687"这种连短板都进摘要的写法罕见且加分。全文 20 页，页眉"Team 155 ｜ Page n of 20"贯穿全文，风格统一；章节沿 Introduction→Assumptions→Modeling→Strengths/Weaknesses→Conclusion 展开，Strengths/Weaknesses 独立成章且放在结论前。图表共 9 幅、2 张表：Figure 1 拿破仑时代火炮图营造历史氛围，Figure 2 圆盘气流示意、Figure 3 受力分析图支撑自然坐标推导；Figure 5 命中参数分布散点图（颜色=飞行时间）是全文核心视觉成果，一张图同时给出 U 形可行域与时间代价；图表页（p.12 图）显示 Figure 7 采用 (a)(b) 双联布局——误差折线图与预测-实际对照图并列，橙色菱形/蓝色圆圈双系列对比，验证结果一目了然；公式按 (1)–(16) 连续编号，式 (8)(16) 用带初值条件的方程组竖排排版规范。附录含两个完整的 MATLAB 源码清单（带行号）。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>答"全解"而非"一解"</strong>：参数空间穷举给出 366 组可行解与 U 形可行域分布图，正面回答了弹道命中多解性这一题目内禀特征，覆盖率远超"打靶求根"式做法；</li>
 <li><strong>物理推导有出处</strong>：阻力从 Bernoulli 圆盘模型推出再乘 $C_D$ 修正，切向/法向坐标系的方程 (5)(6) 简洁优雅，显示扎实的分析力学功底；</li>
@@ -71,7 +88,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>统计素养</strong>：最小二乘、$R^2$ 定义式、交互项显著性检验、随机目标盲测，把"拟合是否可靠"变成可检验命题；</li>
 <li><strong>诚实的精度分级</strong>：摘要即声明有风偏差 4°、$R^2=0.687$，Strengths/Weaknesses 具体到"首发射击需微调"，可信度高。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>用"全参数空间遍历 + 命中半径判据"系统枚举多解问题，并用一张颜色编码散点图（可行域 + 时间代价）呈现；</li>
 <li>经验公式采用"参考点 + 相对量 + 线性叠加"结构，先做交互项显著性检验证明可加性，再给出系数；</li>
@@ -81,7 +98,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>明确模型的适用包线（如 1000–1500 m、相对高程 −178 至 778 m）并写入 Strengths，让评委看到使用边界意识。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -93,6 +113,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

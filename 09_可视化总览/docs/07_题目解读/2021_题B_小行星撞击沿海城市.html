@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2021 题B：小行星撞击沿海城市（Asteroid Ocean Impact）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2021_%E9%A2%98B_%E5%B0%8F%E8%A1%8C%E6%98%9F%E6%92%9E%E5%87%BB%E6%B2%BF%E6%B5%B7%E5%9F%8E%E5%B8%82.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2021-basteroid-ocean-impact">2021 题B：小行星撞击沿海城市（Asteroid Ocean Impact）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2021-题b小行星撞击沿海城市asteroid-ocean-impact">2021 题B：小行星撞击沿海城市（Asteroid Ocean Impact）</h1>
 <blockquote>
 <p>赛题来源：UPC 2021 Problem B（当年 324 队投稿；题 B 金奖 4 队：Harvey Mudd 216、国防科技大学 385、华沙大学 442 与 445）</p>
 </blockquote>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <p><strong>原文压缩引用</strong>：</p>
 <blockquote>
 <p>Consider the impact of an asteroid in the ocean, <strong>1,000 km from a coastal city</strong>. What is the <strong>minimum mass</strong> the asteroid would require in order to cause <strong>substantial damage</strong> to this city?</p>
@@ -108,14 +125,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <ol>
 <li><strong>"substantial damage" 必须先变成波高阈值</strong>——这是开放题的胜负手。四支金奖队四种选择：2 m（216，引 Tinti 1993 / Reese 2007 / Ruangrassamee 2006 三篇灾害调查：2 m 毁木屋/砖房）、7 m（442，ITIS-2012 量表 D 类建筑 3–4 级破坏）、10 m（385，Watanabe 海啸等级 3 级）、10 m（445，自定并附历史数据讨论）。<strong>阈值差 5 倍，答案就差一个量级</strong>。</li>
 <li><strong>"minimum mass" 有口径问题</strong>：要么取"最有利于破坏"的参数组合（铁质、高速、垂直入射——385/442 的做法），要么取最概然值并声明——两种口径都对，但不声明就是缺陷。</li>
 <li><strong>破坏通道要先排序</strong>：热辐射、冲击风（超压）、地震震动、海啸四个候选，谁在 1000 km 处说了算？445 队的三行标度律论证最漂亮——冲击波球对称、强度 $\propto1/r^2$；海啸柱对称、振幅 $\propto1/\sqrt r$（或经验 $1/r$）；二者源能量相近 → 远场海啸必胜。442 队则逐一精算排除（热辐射需直径 &gt;4.61 km、超压 ~1 kPa &lt; 阈值、PGV &lt;3 cm/s）。</li>
 <li><strong>隐含物理链</strong>：大气减速 → 撞击成腔 → 成波 → 色散传播 → 浅水放大 → 爬岸。每一环都有"是否可以忽略"的量级判断要做。</li>
 </ol>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1：解析骨架（能量链 + 两条经验波幅律）</strong></p>
 <ul>
 <li><strong>大气段先判 regime</strong>：大气柱质量 $\rho_0H\approx10^4\ {\rm kg/m^2}$ 对比小行星面密度 $(4/3)\rho_a r$。指数大气解析减速（385 式(7)）：$v/v_0\approx\exp[-\tfrac34 C_d(\rho_0/\rho_a)(H/d)\sin^{-1}\theta]$，取 $C_d=0.9$、$H=8$ km：<strong>石质 r=100 m 仅损 ~2%，r=20 m 损 ~10%，r=3 m 损半</strong>。即本题答案区间（≥$10^9$ kg）基本处于"全速入水"区，但小质量端必须检查。</li>
@@ -145,7 +162,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
     C2 --&gt; V[&quot;验证: 无阻力极限 / DWI封顶(r≤H/13) / 双对数斜率&quot;]
     C3 --&gt; V
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <table>
 <thead>
 <tr>
@@ -218,14 +235,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>主线几乎全解析</strong>（幂律 + 逐步反解），数值只出现在三处：大气减速 ODE（<code>ode45</code>，配无阻力能量守恒上限 $v_e=\sqrt{v_0^2-2GM_E(1/r_E-1/(r_E+y_0))}$ 做渐近校验——216 队大质量端数值解收敛到同一 19340 m/s）；参数网格扫描（密度 × 角度 × 质量 log 网格，442）；波场 FFT 演化（445，$10^5$–$5\times10^5$ 空间格点）。</li>
 <li><strong>反解用"逆向链"</strong>：阈值 → 岸边波幅 → 1000 km 波幅 → 腔径 → 动能 → 质量，每步一个可独立检验的代数式；配一张流程图（385 的 Figure 6 范式）评委 30 秒抓住主线。</li>
 <li><strong>验证四件套</strong>：① 无阻力极限校核大气 ODE；② DWI 判据封顶（$r_A\le$ 水深/13，216 用它把扫描上限定在 $10^{12}$ kg——先论证有效域再遍历）；③ 双对数图核对衰减斜率（1/r 还是 1/√r）；④ 阈值上下各取一个质量做"越界/不越界"对照图。</li>
 <li><strong>数值陷阱</strong>：波高 = 2×振幅，阈值用的哪个要统一；经验公式常数的单位约定（216 的 9700 隐含 E 用 kt、r 用 m）；log 网格上反解的插值精度；把撞击点水深当成岸边水深。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li><strong>"substantial damage" 不定义或无文献</strong>——答案失去可评判性；只用一句"取 2 m"而不引灾害文献，阈值工程不及格。</li>
 <li><strong>用地震海啸直觉套撞击波</strong>：地震海啸波长极长、能量 $\propto1/r$ 稀释；撞击波是色散波列，边缘波 $1/r$ 与线性远场 $1/\sqrt r$ 的适用范围要交代，不能混用。</li>
@@ -234,14 +251,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>振幅/波高/run-up 三者混用</strong>；或能量-波耦合效率（385 取 20% 入水）拍脑袋无出处。</li>
 <li><strong>只答一个魔法数字</strong>：不报对阈值、密度、角度、衰减律的敏感性——本题金奖答案横跨两个量级，敏感性就是结论本身。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>Robertson &amp; Gisler 2019（Planet. Space Sci.）：Near and far-field hazards of asteroid impacts in oceans</strong>（<a href="https://www.sciencedirect.com/science/article/pii/S0094576517314996">sciencedirect.com</a>）——现代数值模拟：远场波幅更接近 $1/r$ 衰减、500 m 以下小天体深水撞击的危害低于早期线性理论估计。用于对冲 Ward $1/\sqrt r$ 的高估，是"敏感性讨论"的现成弹药。</li>
 <li><strong>Korycansky &amp; Chapman 2005：Offshore breaking of impact tsunami: the Van Dorn effect</strong>（<a href="https://www2.boulder.swri.edu/~cchapman/tsukl05.pdf">boulder.swri.edu</a>）——撞击海啸在陡陆架外缘破碎/能量陷存，线性外推到岸边可能高估波高——写 caveat 与扩展节的最好素材（442 队也点名了此效应）。</li>
 <li><strong>Ward &amp; Asphaug：Asteroid impact tsunami of 2880 March 16</strong>（<a href="https://www.academia.edu/110289095/Asteroid_impact_tsunami_of_2880_March_16">academia.edu</a>，另见亚利桑那大学 Chesley &amp; Ward 概率评估页 <a href="https://experts.arizona.edu/en/publications/asteroid-impact-tsunami-a-probabilistic-hazard-assessment">experts.arizona.edu</a>）——抛物面空腔 + Fourier 积分解 + 深水色散关系 $\omega^2=gk\tanh(kH)$ 的原始出处（445 队主干），想走"真波场模拟"路线从这里入手。</li>
 <li><strong>Kharif &amp; Pelinovsky 2005（C. R. Physique）：Asteroid impact tsunamis</strong>（<a href="https://comptes-rendus.academie-sciences.fr/physique/item/10.1016/j.crhy.2004.12.016.pdf">academie-sciences.fr</a>）——综述：生成机制分类与远场最大波幅 $r^{-1}$ 衰减的结论，适合做引言与"多机制排序"的权威支撑。</li>
 </ol>
-<h2 id="8">8. 金牌论文思路对比</h2>
+<h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
 <li><strong>216（Harvey Mudd，2 人队）</strong>：变速入大气 ODE（16 颗实测小行星密度加权拟合 2481 kg/m³、标准大气 $R^2=0.9975$）+ 实验室波幅律 + 三文献交叉定义 2 m 阈值 + DWI 封顶扫描域 → $10^9$ kg。数据驱动与守恒上限校验是范本。详见 <code>05_论文赏析\2021\2021-GM-B-216.md</code>。</li>
 <li><strong>385（国防科大）</strong>：逆推链可视化（Watanabe 3 级 10 m → 1000 km 处 1.3 cm → 波能积分 → 动能 → 质量），铁质垂直入射、烧蚀解析律（入大气前质量为落海时 2.03 倍）、Stokes 二阶波浅化 → $4.05\times10^{10}$ kg。解题路线图呈现的典范。详见 <code>2021-GM-B-385.md</code>。</li>
@@ -249,7 +266,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>445（华沙）</strong>：变质量烧蚀自推并对接 Chyba 1993 + Ward 抛物面腔 + FFT 谱方法演化波场并数值复现 $1/\sqrt r$ + Green 爬岸 → $10^{10}$ kg（r≈97 m），附淹没纵深 715 m。数值含量最高、标度律排除法最省笔墨。详见 <code>2021-GM-B-445.md</code>。</li>
 <li><strong>四队答案跨 $10^9$–$1.7\times10^{11}$ kg 两个量级</strong>，根源是阈值（2/7/10 m）与衰减定律（1/r vs 1/√r）——这本身就是本题最深的物理教训：开放题的"答案"是区间加论证。</li>
 </ul>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] "substantial damage" → 带文献出处的波高阈值，且说明选该建筑类别/等级的理由。</li>
 <li>[ ] 多效应排序或排除（海啸 vs 冲击波 vs 热 vs 地震）：量级论证即可，但要形成闭环。</li>
@@ -259,7 +276,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>[ ] 验证证据：无阻力极限校核、双对数斜率核对、阈值上下夹逼；有余力给第二输出量（半径、到达时间、淹没纵深）。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌论文思路对比">8. 金牌论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -271,6 +291,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

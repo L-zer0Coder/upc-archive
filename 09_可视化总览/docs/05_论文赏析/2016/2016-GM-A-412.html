@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,34 +41,49 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2016</span>
+  <span class="crumb">05_论文赏析/2016 · Launching nuclear residuals and its risks（2016 题A 队伍412）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2016/Problem%20A/2016-GM-A-412.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2016/2016-GM-A-412.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="launching-nuclear-residuals-and-its-risks2016-a-412">Launching nuclear residuals and its risks（2016 题A 队伍412）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="launching-nuclear-residuals-and-its-risks2016-题a-队伍412">Launching nuclear residuals and its risks（2016 题A 队伍412）</h1>
 <p><strong>页数</strong>: 23 页 ｜ <strong>对应题目</strong>: 题A Reactor Waste Disposal（对比"坠日"与"存入小行星带"两种核废料太空处置方案，哪种更易实现？废料在小行星带能安全存放多久？）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>论文先横向比较<strong>六种</strong>太空处置目的地（高地球轨道、月球轨道、逃逸太阳系、撞日、月面软着陆、日心轨道），以 $\Delta v$ 与安全性双准则锁定"日心轨道"，再依据稳定性论证（"那里有大量小行星"本身就是稳定性的证明）聚焦两个候选：木星 L4/L5 拉格朗日点与小行星带。确定性部分用自适应 Cash-Karp RKF45 数值积分火箭在太阳+木星+地球(+火星)引力场中的运动，设计出两次切向脉冲（Hoffman 机动）的转移方案（L4: 12400+5600 m/s；带: 11220+2000 m/s）；随机性部分给出四套概率模型（碎片撞击、发射失败、特洛伊小行星撞击、主带小行星撞击），用"有效污染面积" $S_{eff}$ 与 $10^{-6}$ 量级碰撞概率论证安全，最终结论：小行星带是最优存址，可安全存放 Pu-239 衰变所需的 250 000 年。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <ul>
 <li><strong>第 1 层：六方案初筛（§2）</strong>。每个目的地给 $\Delta v$ 估算与风险陈述：高轨仅 ~4 km/s 但 250 000 年罐体无法存活；撞日用能量方程(3)(4)导出式(5) $\Delta v=\sqrt{2GM(\frac{1}{2U_A}-\frac{1}{R_s+U_A})}-v_T=-27.164$ km/s（负号表示需减速）；逃逸用式(1) $v_e=\sqrt{2G(M_S/U_A+M_T/R_T)}\approx43591$ m/s、式(2) $\Delta v=13811$ m/s（并引文献称木星借力可降至 7010 m/s）。筛选逻辑"成本×安全×可回收"在 2.7 节收束。</li>
 <li><strong>第 2 层：离地风险（§3.2）</strong>。碎片撞击：在碎片参考系中火箭路径长 $(R_{max}-R_{min})/\sin\theta$（$\theta=\arctan v_{debri}/v_{rocket}$），单碎片概率式(6) $p=\frac{\sigma(R_{max}-R_{min})/\sin\theta}{\frac{4\pi}{3}(R_{max}^3-R_{min}^3)}$，n 个碎片式(7) $p_{total}=1-(1-p)^n\approx2.02\times10^{-7}$。灾害后果：爆炸粒子速度取高斯分布(9)（冲击波以声速 342.3 m/s 推粒子，$\sigma=300$ m/s），经 $x=v_xt$ 变换得落点弥散(10)(11) $\sigma_x=\sigma\sqrt{2\langle h\rangle/g}\approx145$ km，弥散面积约科罗拉多州大小；定义品质因数式(12) $S_{eff}=P_{disaster}\cdot S_{dispersion}$，得发射失败（0.79%，1994-2014 数据）比碎片撞击"糟糕 51.28 倍"——把两种风险统一到一个可加标的尺上。</li>
 <li><strong>第 3 层：入轨动力学（§3.3）</strong>。日心轨道稳定性论证引 Kirkwood 空隙（Figure 6）；L4/L5 稳定性用 Coriolis 回复力机制与特洛伊群的存在性佐证。转移设计为两步切向脉冲：先在距地心 10000 km 处以 $v_1=-12.4$ km/s 出发，与木星轨道相切于 $\vec r_0=(5.2AU,0)$，用旋转矩阵保证抵达时木星 ahead 60°（L4 几何），第二次脉冲 $v_2=5.6$ km/s 匹配木星速度；Figure 5 展示入轨后 1000 年轨迹。小行星带方案初速 41 km/s（相对地球只需 +11.22 km/s）、二脉冲 2 km/s，得半长轴 2.25 AU 的稳定区轨道。</li>
 <li><strong>第 4 层：目的地风险（§3.3.2/3.3.4）</strong>。特洛伊撞击：利用天平动（libration）周期 ~150 年，每颗特洛伊每 T/2 年穿越一次 $x=0$ 平面，式(13) $P(t)=\frac{2nt}{T}\frac{\sigma}{\mathrm{TotalArea}}$，取 $n\sim10^6$、$\sigma\sim1$ km²、总面积 0.252 AU²、$t=2.5\times10^5$ 年 → $P\sim2.4\times10^{-6}$。主带撞击：建模技巧——10 km 级小行星 $10^4$ 颗、每 $10^7$ 年发生一次此级碰撞，$m(m+1)/2$ 个天体对中涉及火箭的比例为 $2/(m+1)$，故火箭平均等待时间为 $tm/2$；由不相交时间区间独立+连续性推出指数分布（数学证明式），式(14) $P(T)=1-e^{-2T/(tm)}\approx5\times10^{-6}$。</li>
 </ul>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>确定性部分全数值：附录 4 页 Python 代码实现了带误差控制的 Cash-Karp 自适应 RKF45（<code>tol=1e-10</code>，步长按 $0.85h(Emax/E)^{0.2}$ 更新），在多体时变引力场中积分火箭轨迹——摘要明言"系统高度混沌，需要高精度积分"，这是对数值方法选型的自觉论证。概率部分全解析：几何截面/扫掠体积 + 二项式、Poisson 型指数分布，参数（碎片数 $1.4\times10^4$、失败率 0.79%、特洛伊 $10^6$ 颗等）全部标注文献来源。检验方式：L4 方案积分 1000 年验证轨道贴合；小行星带方案用半长轴 2.25 AU 对照 Kirkwood 图确认落在稳定区。局限自陈：圆轨道假设、忽略 5 颗行星引力、未建模渐进加速。瑕疵：Pu-239 时标处 $P(2.5\cdot10^6)$ 与前文 $2.5\times10^5$ 年有笔误；"95.57%"与"95.45%"混用；$v_{mean}=29780\,$km/s 应为 m/s；个别英文语法不规范。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页（p1 图）为单栏 Word/LaTeX 混排风格：居中标题 "Launching nuclear residuals and its risks" + Team #412 + Problem A + 一段较长的 Abstract（含方法预告"Lagrangian points, libration oscillations and the Hoffman maneuver"）。第 2 页有带页码引导线的 Contents 目录；页眉"Team 412 | Page X of 23"。章节 1-7 编号，公式 (1)-(14)，正文 16 页 + 参考文献 1 页 + 附录代码 4 页。共 7 图 1 表：Figure 1 内太阳系图（引 Wikipedia）、Figure 2 碎片参考系路径图、Figure 3/4（fig 图可见）拉格朗日点几何示意图——L1-L5 五点、60° 角与旋转矩阵位置标注清晰，Figure 5/7 为 matplotlib 轨道图（红=火箭、绿=木星、蓝=地球、黄=火星，单位米），Figure 6 小行星带密度图（Kirkwood 空隙）。Table 1 三行对比表（$\Delta v$ 两列 + 是否可回收列）是决策落点。Fig 3 图题写作"earth-sun dynamical system"而正文用于 Sun-Jupiter 系，属小疏漏。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>先广后深的方案筛选</strong>：不直接坠入题目给的两方案，而是六方案横向比较后论证"日心轨道最优"，再解释为何小行星带/L4/L5 是其中最稳——展现了完整的决策树，且结论仍落在题目问的"小行星带"上。</li>
 <li><strong>风险链条全覆盖</strong>：发射前（碎片 $2.02\times10^{-7}$、失败 0.79%）、后果（弥散面积 ≈ 科罗拉多州）、目的地（特洛伊 $2.4\times10^{-6}$、主带 $5\times10^{-6}$）四段风险模型 + 两个品质因数（$S_{eff}$、$P(T)$），把"安全性"从形容词变成数字。</li>
@@ -75,7 +92,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>"可回收性"作为差异点</strong>：Table 1 中把 Restore 列与 $\Delta v$ 并列，指出存带方案保留了未来回收废料的可能性，体现了对问题长期视角的理解。</li>
 <li><strong>规范的 Future Work</strong>：7 条后续方向（借力机动、OTV、市场调查等）显示了对工程全貌的把握。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>开放比较题先建"方案空间"再收敛：用统一的 $\Delta v$ + 风险双准则列表筛选，比单点深入更能展示物理判断。</li>
 <li>轨道转移用"两步切向脉冲 + 目标相位反推发射角"的打靶框架，相位条件（如 L4 的 60°）写成旋转矩阵约束。</li>
@@ -85,7 +102,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>概率模型参数逐条引文献（碎片数、失败率、天平动周期），不确定处声明"wild guess"的性质。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -97,6 +117,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

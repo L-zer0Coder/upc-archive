@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2022 题B：点球最优策略（FIFA Penalty Kicks）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2022_%E9%A2%98B_%E7%82%B9%E7%90%83%E6%9C%80%E4%BC%98%E7%AD%96%E7%95%A5.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2022-bfifa-penalty-kicks">2022 题B：点球最优策略（FIFA Penalty Kicks）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2022-题b点球最优策略fifa-penalty-kicks">2022 题B：点球最优策略（FIFA Penalty Kicks）</h1>
 <blockquote>
 <p>赛题来源：UPC 2022 Problem B（当年 417 队投稿；题 B 金奖 3 队：同济大学 358、国防科技大学 471 与 480）</p>
 </blockquote>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <p><strong>原文压缩引用</strong>：</p>
 <blockquote>
 <p>When a penalty kick is taken, one player takes a single shot at the goal, defended only by the goalkeeper. The ball is at the penalty mark, <strong>11 m</strong> from a goal <strong>7.32 m wide and 2.44 m tall</strong>. To avoid the goalkeeper, the shooter often aims for an <strong>upper corner</strong>. <strong>What initial ball velocities and spins</strong> will result in a successful shot to an upper corner? <strong>What initial ball velocity and spin</strong> should the shooter attempt to create to have the <strong>best chance</strong> of avoiding the goalkeeper and making the goal?</p>
@@ -103,7 +120,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <ol>
 <li><strong>"upper corner" 要变成可计算区域</strong>：三支金奖队三种定义——上角角点外 1–2 倍球半径的环带（480）、九宫格顶部两格（358）、距上角中心 &lt; 0.05 m（471）。定义决定可行域大小，必须显式声明。</li>
 <li><strong>"successful shot" 是双条件</strong>：球过门线平面时在门框内（<strong>扣除球半径</strong>：$0.11&lt;x&lt;7.21$、$z&lt;2.33$）且未被扑到。漏掉球半径是高频硬伤。</li>
@@ -111,7 +128,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>"best chance" 必须引入对手模型</strong>：守门员可达域 + 时间窗 + 概率（358 的蒙特卡洛、471 的扑救时间约束、480 的最大防守面积），或引入真实统计（480 用 2002–2018 世界杯数据反把目标区改到下角）。这是本题从"弹道题"升级为"决策题"的关键一步。</li>
 <li><strong>自转是三维矢量</strong>：绕竖直轴的侧旋出弧线（香蕉球），水平轴旋转产生升/坠（电梯球近乎无旋时是不规则蝴蝶球）——把 $\vec\omega$ 当标量或只留一个分量会丢分。</li>
 </ol>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1：旋转球飞行动力学（四件套受力）</strong></p>
 <ul>
 <li>重力 $m\vec g$ + 浮力（占比 $10^{-3}$，可略）+ 阻力 $\vec F_D=-\frac12\rho C_d A v\,\vec v$ + Magnus 力 $\vec F_M=\frac{8}{3}\pi\rho r^3\,\vec\omega\times\vec v$（Kutta–Joukowski 型，叉乘形式天然支持任意转轴）。</li>
@@ -140,7 +157,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
     Z --&gt; R[&quot;层3: Cd-Re阻力危机插值 / 蝴蝶球不稳定性 / 博弈混合策略&quot;]
     R --&gt; A[&quot;输出: 可行区间 + 最优 (v0,ω) + 策略建议(上角vs下角)&quot;]
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <table>
 <thead>
 <tr>
@@ -207,7 +224,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>ODE 求解</strong>：RK45 自适应（scipy <code>odeint</code>/<code>solve_ivp</code>）优于改进 Euler（471 用 Euler + $dt=10^{-4}$ s，可行但应与高阶格式对比验证）；事件函数检测"过门线平面"比固定步长截断更准。</li>
 <li><strong>搜索策略</strong>：先粗网格定位可行域，再多轮变步长收紧（步长每轮 ÷10，471 范式），并附"参数灵敏度四联图"反向论证步长必须细；对含噪声的仿真结果做滤波并报告核宽敏感性（480 的六维可视化、471 的收敛表是呈现范本）。</li>
@@ -215,7 +232,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>验证手段</strong>：能量/动量守恒抽查；与真实点球统计对照（梅西 133 罚 103 中、世界杯 16 年分角数据）；初值扰动 ±2 m/s、±2 rad/s 数命中数做鲁棒性检验。</li>
 <li><strong>陷阱</strong>：$C_d$ 取常数却不声明适用段；$\vec\omega\times\vec v$ 符号/坐标约定写错导致弧线方向反转；"上角"判据用硬阈值对步长过敏；角度定义（从水平/从竖直、方位角零向）前后不一致。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li><strong>忽略阻力或阻力危机</strong>：阻力减速 ~0.85g，绝不可略；而 $Re$ 恰在临界区，"常数 $C_d$ + 不讨论"是最常见的物理档次滑落点。</li>
 <li><strong>把 Magnus 当小修正</strong>：横向 Magnus 加速度可达 4g，弧线米级——用"小扰动"线性化会全错。</li>
@@ -224,19 +241,19 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>只答单点不答区域</strong>："what velocities and spins"问的是可行集合；缺最小初速、缺角度区间都属于漏答。</li>
 <li><strong>结论不敢超越题面</strong>：题面引导射上角，480 用鲁棒性+真实统计证明下角更优——有证据的反转是加分项，无证据的标新立异才是风险。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>Bush 等人（MIT），"The aerodynamics of the beautiful game"</strong>（<a href="https://thales.mit.edu/bush/wp-content/uploads/2013/11/Beautiful-Game-2013.pdf">thales.mit.edu PDF</a>）——足球 Magnus 效应与阻力危机的经典综述：指出 drag crisis 常发生在下落段、慢旋减速穿过临界 Re 时升力反向。直接支撑 $C_d(Re)$ 建模与"为什么要带足转速"。</li>
 <li><strong>Asai et al. 2007, "Fundamental aerodynamics of the soccer ball", Springer</strong>（<a href="https://link.springer.com/article/10.1007/BF02844207">link.springer.com</a>）——实测 $C_d$–$Re$ 曲线的原始出处之一（471 的插值数据源），做速度依赖阻力的必引文献。</li>
 <li><strong>Chiappori, Groseclose &amp; Levitt 2002, "Testing Mixed-Strategy Equilibria When Players Are Heterogeneous"</strong>（<a href="https://pricetheory.uchicago.edu/levitt/Papers/ChiapporiGrosecloseLevitt2002.pdf">pricetheory.uchicago.edu PDF</a>）——用真实点球数据检验射手/门将混合策略均衡的计量经典；给"best chance"补一层博弈论框架与真实概率底座。</li>
 </ol>
-<h2 id="8">8. 金牌论文思路对比</h2>
+<h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
 <li><strong>358（同济）</strong>：受力四件套逐一现场推导（Bernoulli 压差导阻力、Kutta–Joukowski 导 Magnus）+ 自转衰减"先纳入再舍弃"；守门员用蹬地—抛体—臂长三层建模 + 2 万点蒙特卡洛热图，求出<strong>绝对死角</strong>两块矩形并反算最优角度区间。模型完整性与图表叙事最佳。详见 <code>05_论文赏析\2022\2022-GM-B-358.md</code>。</li>
 <li><strong>471（国防科大）</strong>：把射门写成显式单目标规划，唯一引入 $C_d$–$Re$ 插值捕捉阻力危机；四轮变步长搜索收敛到距角心 3.6 cm，再用 Stokes 黏性力矩修正自转、精度提升到 1.2 cm；末尾用梅西真实数据校验。优化方法论与"先简后修"叙事最完整。详见 <code>2022-GM-B-471.md</code>。</li>
 <li><strong>480（国防科大）</strong>：$\vec\omega$ 任意轴 + 指数衰减一步到位，六维参数（速度大小/方向 + 转速/转轴）压进一张三维图；守门员取"判断完美、只剩面积"的最坏假设求最大防守域（13.34 m²）；再用鲁棒性扰动 + 世界杯 2002–2018 统计<strong>反转为射下角更优</strong>。决策反转与数据可视化最出彩。详见 <code>2022-GM-B-480.md</code>。</li>
 </ul>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] "上角"与"成功"的操作化定义（含扣球半径、过线平面判定），并说明选择理由。</li>
 <li>[ ] 受力模型完整：重力 + 阻力（$C_d$ 有出处、最好讨论 $Re$/阻力危机）+ Magnus 叉乘形式支持任意转轴。</li>
@@ -246,7 +263,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>[ ] 验证与落地：数值收敛/步长说明、真实比赛统计或球星案例对照、参数扰动鲁棒性。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌论文思路对比">8. 金牌论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -258,6 +278,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

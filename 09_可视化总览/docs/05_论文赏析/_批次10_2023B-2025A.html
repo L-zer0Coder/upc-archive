@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,19 +41,34 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析</span>
+  <span class="crumb">05_论文赏析 · 批次10对比：2023 题B（蹦床跳跃）× 2025 题A（电声沙桑托）</span>
   <span style="flex:1"></span>
   
   <a href="../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/_%E6%89%B9%E6%AC%A110_2023B-2025A.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="102023-b-2025-a">批次10对比：2023 题B（蹦床跳跃）× 2025 题A（电声沙桑托）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="批次10对比2023-题b蹦床跳跃-2025-题a电声沙桑托">批次10对比：2023 题B（蹦床跳跃）× 2025 题A（电声沙桑托）</h1>
 <table>
 <thead>
 <tr>
@@ -112,16 +129,19 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="_1">对比观察一：蹦床非线性弹性建模的三条技术路线</h2>
+<h2 id="对比观察一蹦床非线性弹性建模的三条技术路线">对比观察一：蹦床非线性弹性建模的三条技术路线</h2>
 <p>三支队伍都从"弹簧几何伸长 → 竖直投影"这一共同起点出发（102 式(3)、138 4.2 节、471 式(1) 同源），但深加工方式各不相同。<strong>102 队</strong>走"线性化+修正"路线：先用精确几何力画 $F_v(x)$ 曲线，标定线性化区间（$x&lt;0.5$ m、$k=8000$ N/m），修正阶段再回到二次律 $F_v\propto x^2$，并用对比图（Figure 6）证明简化误差可忽略——这是最稳健、最容易写清楚的路线。<strong>138 队</strong>的弹性建模工程化最深：单簧刚度由 $k=Gd^4/(8nD^3)$ 从簧径、丝径、圈数、钢材剪切模量算出，弹簧数按国际体联标准的周长比例缩放到 135 根，还用网面微元 PDE 论证"V 形网"假设（5.1 节），把等效质量折算成 2 kg。<strong>471 队</strong>则在 138 的"等效质量"上更进一步：不当作经验值，而是从网面速度线性分布 $v(r)=v_0(1-r/R)$ 面积分严格推出 $\frac{1}{3}M$ 系数（式(6)），并唯一考虑了弹簧分段刚度（预紧段 96 kN/m / 工作段 2.7 kN/m）。可见同一物理对象可以有"标定—工程—解析"三种深度，金牌不要求选最深的，但要求所选深度自洽且被检验。</p>
-<h2 id="-">对比观察二：人-蹦床耦合与相位同步的三种解法</h2>
+<h2 id="对比观察二人-蹦床耦合与相位同步的三种解法">对比观察二：人-蹦床耦合与相位同步的三种解法</h2>
 <p>耦合处理上，102 队让孩子与网共享分段 ODE（接触才受弹力），138 队显式建模<strong>完全非弹性碰撞</strong>（$v_0=-\frac{m_0}{m_0+m_k}\sqrt{2gh}$）并用动量定理在引擎里重置速度，471 队用 solve_ivp 事件函数在"速度过零/位置相等"处拼接自由落体—触网—蹬跳各阶段——三者代表从"软约束"到"硬碰撞"再到"事件驱动"的精度阶梯。相位同步这个本质是二维优化的问题，三队给出了三种回答：102 队遍历初始条件直接找最优；138 队做了最完整的搜索（12 s 时延窗口粗扫 → 定位矩形区 → 45° 坐标旋转细扫，还论证了窗口完备性：三人周期最小公倍数 &lt; 12 s）；471 队最聪明——不搜索，直接把物理洞察（"前一人停在最低点时后一人触网，能量全部存入弹簧"）变成确定性策略再枚举 6 种顺序。结果的一致性很有意思：三队都得出<strong>最轻的孩子飞得最高</strong>，但数值差异显著（102：3.67/2.54/2.09 m；471：3.20/2.74/2.39 m；138：1.69/1.28/1.37 m）。138 偏低源于其保守假设（非弹性碰撞损失、不做持续做功、蹬伸力不超过体重），并主动用市售护网 1.83 m 交叉验证；471 则用能量审计（总能量增量 214 J 对比肌肉注入 689 J）承认可能高估。三份论文对"谁更接近真值"都没有实测裁决，但都展示了各自的自洽性检验——这正是 UPC 评委在开放题中最看重的品质。</p>
-<h2 id="vs">对比观察三：沙桑托题的两条信号处理路线（级联深耕 vs 系统全覆盖）</h2>
+<h2 id="对比观察三沙桑托题的两条信号处理路线级联深耕-vs-系统全覆盖">对比观察三：沙桑托题的两条信号处理路线（级联深耕 vs 系统全覆盖）</h2>
 <p>2025 题A 两支金牌队不约而同收敛到同一套"物理锚点"：都从 70 cm 闭管驻波推出 245/490/735/980 Hz 谐振系列（112 用半波长共振解释，182 用 $\lambda_n=2\ell/n$ 直接计算），都用 RBJ Audio EQ Cookbook 的 biquad 系数公式，都以题给的 98–1047 Hz 为通带边界——出题人设计的数字本身就指向干净的谐波结构，识别并利用这一点是两队的共同获奖基础。分歧在建模哲学与覆盖广度。<strong>112 队</strong>是"纯 DSP 深耕"：把四个谐振峰当作主导模态（统一 $Q=8$），用<strong>六节 SOS 级联</strong>+极小化增益优化压平通带，然后把几乎全部篇幅投给验证——频响、冲激响应、群时延、THD、极零稳定性、实时性、谱质心七位一体，最后落到嵌入式实现指标（0.58 KB、2778× 实时）。<strong>182 队</strong>是"系统工程全覆盖"：滤波器部分相对精简（叶共鸣器一支宽带 biquad $Q\approx0.34$ + 竹筒四支窄带 biquad <strong>并联</strong>），但把拾音器选型（磁/压电/光的位移-速度敏感性论证）、拾音位置（波节分析推出贴码放置）、功放与扬声器全部纳入，且唯一做了从材料内摩擦 $\tan\delta$ 到滤波系数的<strong>全程不确定度传递</strong>。两篇对照说明：对这类题目，"把一个环节做到极致并验证到工业标准"与"把全链路每一环都给出有物理依据的设计决策"是同样有效的金牌策略；二者真正的共同点是每个参数都有出处（112 的半波长共振、182 的竹材 DMTA 数据），绝不出现无来源常数。</p>
-<h2 id="_2">对比观察四："振动+信号处理"新题型与传统力学题写法的代差</h2>
+<h2 id="对比观察四振动信号处理新题型与传统力学题写法的代差">对比观察四："振动+信号处理"新题型与传统力学题写法的代差</h2>
 <p>把 2023 题B 与 2025 题A 并排看，能明显感到 UPC 正在从"纯力学建模题"向"物理+工程混合题"演化，写作范式随之发生三处代际变化。其一，<strong>物理内容的角色变了</strong>：蹦床题里运动方程就是全部；沙桑托题里弦振动方程只是信号链的第一环，后面还有离散化、滤波结构、放大器与扬声器，物理推导的作用从"直接出答案"退为"给工程参数提供依据"（谐振频率定滤波器中心频率、材料内摩擦定 $Q$ 值）。其二，<strong>验证体系扩容</strong>：传统力学题的自洽性检验是能量守恒、极限情形、灵敏度分析（471 队的能量审计、138 队的时延扫描即是延续）；信号处理题则必须外加工程指标——THD、时延、实时因子、稳定性裕度、甚至感知代理量（112 的谱质心偏移），且最好自设"合格线"（112 的 &lt;0.1 dB、&lt;1% THD）让开放题可评分。其三，<strong>合规与伦理新要求</strong>：112 队的"AI Usage Report"章节是 2025 年新规的直接产物，限定 AI 用途（润色、排版、文献检索）并逐条声明技术内容自主完成——这在 2023 年的论文中完全不存在，参赛者必须把此类声明当作论文的标准组件来准备。不变的则是底层方法论：无论蹦床还是沙桑托，金牌队都先把题给的每个数字（5 m 直径、0.5/0.8/1.2 m 单跳高度；98–1047 Hz、70 cm、8 cm）物尽其用，再用"假设—推导—检验—局限"的完整闭环组织论证。</p>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#对比观察一蹦床非线性弹性建模的三条技术路线">对比观察一：蹦床非线性弹性建模的三条技术路线</a></li><li class="l2"><a href="#对比观察二人-蹦床耦合与相位同步的三种解法">对比观察二：人-蹦床耦合与相位同步的三种解法</a></li><li class="l2"><a href="#对比观察三沙桑托题的两条信号处理路线级联深耕-vs-系统全覆盖">对比观察三：沙桑托题的两条信号处理路线（级联深耕 vs 系统全覆盖）</a></li><li class="l2"><a href="#对比观察四振动信号处理新题型与传统力学题写法的代差">对比观察四："振动+信号处理"新题型与传统力学题写法的代差</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -133,6 +153,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

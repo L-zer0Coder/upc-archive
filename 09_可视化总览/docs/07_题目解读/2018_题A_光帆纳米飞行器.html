@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2018 题A：光帆纳米飞行器飞掠比邻星（Sending a Light Sail Propelled Nanocraft to Alpha Centauri）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2018_%E9%A2%98A_%E5%85%89%E5%B8%86%E7%BA%B3%E7%B1%B3%E9%A3%9E%E8%A1%8C%E5%99%A8.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2018-asending-a-light-sail-propelled-nanocraft-to-alpha-centauri">2018 题A：光帆纳米飞行器飞掠比邻星（Sending a Light Sail Propelled Nanocraft to Alpha Centauri）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2018-题a光帆纳米飞行器飞掠比邻星sending-a-light-sail-propelled-nanocraft-to-alpha-centauri">2018 题A：光帆纳米飞行器飞掠比邻星（Sending a Light Sail Propelled Nanocraft to Alpha Centauri）</h1>
 <blockquote>
 <p>赛题来源：UPC 2018 Problem A（当年 281 队中 185 队选题 A，金奖 3 队：IIT Delhi 158 队、UCSB 258 队、国防科大 295 队）</p>
 </blockquote>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <p><strong>原文压缩引用</strong>：</p>
 <blockquote>
 <p>An ultralight spacecraft, with a mass of only <strong>a few grams</strong>, could be accelerated up to approximately <strong>20% of the speed of light</strong> by pressure on a light sail from a <strong>ground-based array of lasers</strong>. This would require a light sail area of approximately <strong>10 square meters</strong> and a laser array operating at a power of approximately <strong>50 gigawatts for 10–20 minutes</strong>. Analyze the spacecraft's dynamics during acceleration: If the goal is to <strong>flyby Proxima Centauri b at closer than the Earth-Moon distance</strong>, what would be the <strong>necessary accuracy and precision of the beam</strong> from the laser array? What would be the <strong>margin of error in the fabrication of the light sail and the uniformity of the laser beam</strong>?</p>
@@ -108,14 +125,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <ol>
 <li><strong>"accuracy and precision of the beam" 是两级判据，不是一回事</strong>。任务级（accuracy）：加速结束瞬间速度矢量偏 $\theta$，巡航 $vT=4.02\times10^{16}$ m 后横向偏差 $\theta vT=\theta D_\ast$，故 $\theta_{max}=\Delta/D_\ast=3.844\times10^8/4.02\times10^{16}\approx9.6\times10^{-9}$ rad——<strong>与飞船速度无关</strong>（$vT$ 恒等于星距）。系统级（precision）：加速全程光斑不得滑出帆面，跟踪角精度 $\lesssim d/(2L_0)\sim5\times10^{-11}$ rad（见第 3 节 $L_0$），比任务级严 200 倍，<strong>取严者作答</strong>。把两级分开呈现是本题最重要的操作化。</li>
 <li><strong>"fabrication margin" 要翻译成动力学参数</strong>：面密度不均 $\to$ 质心偏离帆心 $\to$ 光压力矩 $\to$ 姿态发散；反射率/吸收率不均 $\to$ 局部推力差；帆面平整度（曲率）$\to$ 被动回复力矩有无。每一项都必须接到同一个微扰动力学方程上，给出"扰动幅值 → 最终偏转角"的传递比。</li>
 <li><strong>"uniformity of the laser beam" 同理</strong>：束强剖面（高斯/平顶）与随机涨落 $\delta P/P$ 造成横向力梯度。理想平顶束对平面帆的横向力虽对称但不稳定（任何微偏移都被放大），这正是题目要你量化的"束-帆稳定性"。</li>
 <li><strong>瞄准对象是"预报的行星位置"而非恒星</strong>：比邻星 b 距恒星 0.0485 AU $=7.3\times10^9$ m，是飞掠容差的 <strong>19 倍</strong>——必须瞄准 21 年后（$4.246\,{\rm ly}/0.2c\approx21$ yr）行星所在的星历预报点，或声明"瞄准恒星 + 行星相位概率"策略。忽略这一层的队伍等于没读完题。</li>
 </ol>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1：理想点质量加速（解析骨架，本解读独立估算）</strong></p>
 <ul>
 <li>光压推力 $F_0=2P_0/c=333$ N（理想镜面），$a_0=F_0/m$：取 $m=4$ g 得 $a_0=8.3\times10^4\ {\rm m/s^2}\approx8500g$；到 $0.2c$ 需 $t\approx v/a_0\approx720$ s $\approx12$ min——<strong>与题面"10–20 分钟"自洽</strong>（反推 $m\approx3\text{–}5$ g，可写进论文当第一重自检）。</li>
@@ -152,7 +169,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
     X2 --&gt; V
     X3 --&gt; V
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <table>
 <thead>
 <tr>
@@ -231,7 +248,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>主战场是解析</strong>：标度律 $mv_\infty^2=8P_0dD/(c\lambda)$、$t(\beta)$ 闭式、平顶束下的力/力矩闭式积分，全部可手推——评委能逐步验算的论文天然可信。数值只承担微扰方程的积分与初扰动扫描。</li>
 <li><strong>微扰方程</strong>：$(X,\theta_y)$ 二维线性耦合 ODE，先求本征值判断稳定性、再积分得振幅；扰动-振幅线性标度用两组初值即可呈现（一张图定容差）。</li>
@@ -239,7 +256,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>验证四件套</strong>：$m\approx4$ g 与题面 10–20 min 互证；$R\to\infty$ 退化平面帆失稳；$\beta\to0$ 退化常加速；振荡动能（$\sim$ kW 级）对比束功率（50 GW）的能耗审计。</li>
 <li><strong>数值陷阱</strong>：非相对论积分到 0.2c 不自检（动能差 4%、时间差更大）；$\beta$ 方程用 $F=2P/c$ 却忘了帆背向反射的动量修正随 $\beta$ 变化；角度单位 rad/µrad/nrad 混写；把地月距离 $3.84\times10^8$ m 当成 $4\times10^{16}$ m 的量级错误（差 5 个量级）。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li><strong>两级精度混为一谈</strong>：只给 $10^{-8}$ rad 的任务级答案，不提"光斑全程罩住帆"需 $\sim10^{-10}$ rad 的更严判据——题目问的是 accuracy <strong>and</strong> precision。</li>
 <li><strong>忽略"瞄准预报星历"</strong>：行星距恒星 0.049 AU 远大于飞掠容差，瞄恒星不等于瞄行星；至少要讨论瞄准策略（瞄星/瞄预报点）及其概率含义。</li>
@@ -248,20 +265,20 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>忽略项不辩护</strong>：太阳引力、衍射、尘埃等每项都应有"与主力量级对比"的一句话定量排除（或声明可修正）。</li>
 <li><strong>把 0.2c 当牛顿问题算到底</strong>：不给相对论方程也要给对照表，否则 $t_{acc}$、$L_0$ 内的速度演化都有百分之几的系统性偏差。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>Breakthrough Starshot（Wikipedia）</strong>（<a href="https://en.wikipedia.org/wiki/Breakthrough_Starshot">en.wikipedia.org/wiki/Breakthrough_Starshot</a>）——任务原始参数：公里级相位阵列、组合相干功率至 100 GW、克级 StarChip、0.2c、4×4 m 帆。用它校准题面参数（50 GW 是保守档），并确认"题面即 Starshot 简化版"的定位。</li>
 <li><strong>Taghavi et al., Scientific Reports 2022（beam-riding 稳定性）</strong>（<a href="https://www.nature.com/articles/s41598-022-24681-w">nature.com/articles/s41598-022-24681-w</a>）——系统分析光帆对位移/倾斜的回复力与回复力矩，多图样帆可扩大稳定域；直接支撑第 3 节的微扰建模与帆形选择。</li>
 <li><strong>arXiv:2502.17828（2025）</strong>（<a href="https://arxiv.org/html/2502.17828v1">arxiv.org/html/2502.17828v1</a>）——把激光束本身的空间/时间涨落列为失稳源，正是题目"uniformity of the laser beam"的现代注脚；可在讨论节引用以说明 $\delta P/P$ 容差的现实意义。</li>
 <li><strong>Breakthrough Initiatives 官方概念页</strong>（<a href="https://breakthroughinitiatives.org/concept/3">breakthroughinitiatives.org/concept/3</a>）——StarChip 量产成本与帆尺寸的官方口径，用于 practicality 段的工程锚点。</li>
 </ol>
-<h2 id="8">8. 金牌论文思路对比</h2>
+<h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
 <li><strong>158 队（IIT Delhi）</strong>：形状×光束×材料的组合矩阵筛选（球形最稳、方帆动力学最优但需匹配方阵）+ 标度律动力学，$v_\infty$、$L_0$、$\beta_0=0.166$ 全解析；精度给两级判据（$9.4$ nrad 任务级 / $0.106$ nrad 系统级），忽略项全部定量辩护。详见 <code>05_论文赏析\2018\2018-GM-A-158.md</code>。</li>
 <li><strong>258 队（UCSB）</strong>：一个球面帆微扰模型贯穿全部子问题——热平衡判据 $\epsilon\eta/\alpha\ge6.6\times10^3$ 直答 fabrication margin，平顶束下平移-转动耦合方程闭式可积，数值积分给出 $10\ \mu{\rm m}$/$10^{-6}$ rad 级容差与 $\theta_{max}\approx10^{-8}$ rad 指向；两处极限自检（$R\to\infty$、$\beta\to0$）。详见 <code>05_论文赏析\2018\2018-GM-A-258.md</code>。</li>
 <li><strong>295 队（国防科大）</strong>：帆离散为 $100\times100$ 单元 + 相对论刚体姿态动力学，三类扰动（$\delta P/P$、$\delta m$、$\delta d$）作高斯过程注入，先轨道几何反解 $\alpha_{max}=1.98\times10^{-7}$ rad，再梯度下降/PSO 反解容差（$\delta P/P\sim10^{-8.3}$ 等），附 $N$ 从 10 到 100 的三组收敛实验。详见 <code>05_论文赏析\2018\2018-GM-A-295.md</code>。</li>
 </ul>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 三问（束精度、帆制造容差、束均匀性）各有带单位的数值落点，且都从同一个动力学模型导出。</li>
 <li>[ ] 两级精度判据并存：任务级 $\sim10^{-8}$ rad + 光斑罩帆级 $\sim10^{-10}$ rad，说明取严者。</li>
@@ -271,7 +288,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>[ ] 每个忽略项（太阳引力、衍射、尘埃、大气）有一句话量级辩护；瞄准策略（恒星 vs 预报星历点）显式声明。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌论文思路对比">8. 金牌论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -283,6 +303,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

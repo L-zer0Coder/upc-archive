@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2024 题B：火星 150 kW 电源最小质量设计（Mars Electrical Power）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2024_%E9%A2%98B_%E7%81%AB%E6%98%9F%E7%94%B5%E6%BA%90%E6%9C%80%E5%B0%8F%E8%B4%A8%E9%87%8F.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2024-b-150-kw-mars-electrical-power">2024 题B：火星 150 kW 电源最小质量设计（Mars Electrical Power）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2024-题b火星-150-kw-电源最小质量设计mars-electrical-power">2024 题B：火星 150 kW 电源最小质量设计（Mars Electrical Power）</h1>
 <blockquote>
 <p>赛题来源：UPC 2024 Problem B（681 队投稿，题 B 金奖仅 3 队 ≈0.44%，为近年最少）</p>
 </blockquote>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <p><strong>原文压缩引用</strong>：</p>
 <blockquote>
 <p>A base on Mars will require a power system that can continuously provide 150 KW for at least 2 Earth years. We need to design this power system with the smallest amount of mass to minimize the cost of sending this to Mars. What is the minimum mass that such a power system could have? Assume that the crew of the base can do work for assembly and maintenance of the power system.</p>
@@ -98,14 +115,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <ol>
 <li><strong>"continuously" 是最大的分叉点</strong>：夜晚与全球沙尘暴期间也要 150 kW 吗？全球沙尘暴可持续数周至数月、直射辐照可跌到晴空的 15–25%。必须先定义可用性口径（设计基准工况 vs 最恶劣工况保证），否则"最小质量"没有定义。这是 681 队只有 3 队拿金奖的直接原因之一。</li>
 <li><strong>"power system" 的质量边界</strong>：发电、储能、热控（辐射器）、屏蔽、配电、结构是否计入？不声明边界，数字不可比。</li>
 <li><strong>"minimum" 要求参数化而不是罗列</strong>：在技术谱系（光伏+储能 / RTG / 裂变堆 / 风能）上建立质量随功率的标度模型，对连续变量（辐射器温度、转换效率、屏蔽距离）求优，对离散技术做对比——给一个魔法数字等于没做。</li>
 <li><strong>最后一句是题面赠送的钥匙</strong>：乘组可劳动意味着可以把部分质量外部化——清理光伏板尘埃、用火星土壤替代屏蔽体、远置反应堆拉高压电缆。用不用这把钥匙，答案差 3–10 t。</li>
 </ol>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1：能量与质量账本（先算死两件事）</strong></p>
 <ul>
 <li>总电能 $E=P_et=9.47\times10^{12}$ J。裂变路线按 $\eta=25\%$ 需热能 $3.8\times10^{13}$ J；铀-235 裂变释能 $8.2\times10^{13}$ J/kg → <strong>只需裂变 ~460 g</strong>，按 3–5% 燃耗装料 10–15 kg 富集铀——燃料质量与寿命（2 年）完全不是约束，约束全在功率密度硬件上。</li>
@@ -134,7 +151,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
     O --&gt; A[&quot;结论: 裂变5-25t胜出; 光伏15-60t; RTG排除; 敏感性表必给&quot;]
     H --&gt; A
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <table>
 <thead>
 <tr>
@@ -219,14 +236,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>本题主线无高深数值</strong>，本质是"参数化质量模型 + 技术谱系对比 + 一维优化 + 敏感性分析"。最佳呈现是一张系统质量分解表：每一行（堆芯/转换/辐射器/屏蔽/电缆/PMAD）都带标度律与出处，评委可逐行复核。</li>
 <li><strong>求最小</strong>：对连续变量（$T_r$、$\eta$、堆-基地距离）各做一维扫描找拐点；对离散技术（光/同位素/裂变）做谱系对比图（质量 vs 功率曲线族）。</li>
 <li><strong>验证</strong>：能量账本逐工况闭合（发电 = 负载 + 损耗 + 弃电/存电）；电池循环寿命与沙尘暴频次核算；裂变堆满功率与沙尘暴工况两套热平衡。</li>
 <li><strong>数值陷阱</strong>：电功率与热功率混淆（150 kW 电 ↔ 450–600 kW 热）；辐射器面积按电功率而非<strong>废热</strong>算；电池"装机容量"与"可用容量"（DoD、效率）混淆；屏蔽质量拍一个数不写面密度假设；火星辐照 590 W/m² 是晴空均值，不能×24 h 直除。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li><strong>不定义"连续"口径</strong>：晴空光伏答案 ~12 t 直接交卷，评委一句"沙尘暴与夜里呢"即毙——这是本题金奖率 0.44% 的主因。</li>
 <li><strong>质量边界不声明</strong>：不算储能/热控/屏蔽/电缆，与别人答案不可比。</li>
@@ -235,18 +252,18 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>弃用题面最后一句</strong>：不用乘组劳动（火壤屏蔽、清尘、装配）等于丢掉题目送的 3–10 t 质量。</li>
 <li><strong>把 590 W/m² 当峰值</strong>、或忽略 2 年寿命对电池循环次数与沙尘暴遭遇频次的含义。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>Gibson et al., KRUSTY 核热-斯特林地面试验（NASA NTRS 20180005435）</strong>（<a href="https://ntrs.nasa.gov/citations/20180005435">ntrs.nasa.gov</a>）——1 kWe 裂变电源地面试验的官方报告，Kilopower 系统质量与比功率的权威出处，裂变路线标定的首选文献。</li>
 <li><strong>Appelbaum, Solar Radiation on Mars, NASA TM-102299</strong>（<a href="http://large.stanford.edu/courses/2017/ph240/black1/docs/nasa-tm-102299.pdf">镜像 large.stanford.edu</a>）——火星表面 ~590 W/m² 均辐照与逐日辐照模型，光伏路线所有输入数据的源头。</li>
 <li><strong>DOE：Powering Curiosity – Multi-Mission Radioisotope Thermoelectric Generators</strong>（<a href="https://www.energy.gov/ne/articles/powering-curiosity-multi-mission-radioisotope-thermoelectric-generators">energy.gov</a>）——MMRTG ~110 W_e/45 kg 与 PuO₂ 装量，做 RTG 定量排除的硬数据。</li>
 <li><strong>NASA Fission Surface Power 概念报告（NTRS 20200001569）</strong>（<a href="https://ntrs.nasa.gov/citations/20200001569">ntrs.nasa.gov</a>）——现役工程基线 40 kWe/约 6 t，线性缩放到 150 kW 即 ~22 t，作保守锚点与乐观自研设计的对照。</li>
 </ol>
-<h2 id="8-2024">8. 金牌队伍名单与机构观察（2024 年官方未公开金牌论文）</h2>
+<h2 id="8-金牌队伍名单与机构观察2024-年官方未公开金牌论文">8. 金牌队伍名单与机构观察（2024 年官方未公开金牌论文）</h2>
 <p><strong>题 B 金奖仅 3 队</strong>：南京航空航天大学 128（指导 Kan Caixia）、南京航空航天大学 367（XingZhong Zhu）、国防科技大学 659（Liu Yonglu）。</p>
 <p><strong>机构观察</strong>：① 金奖率 0.44%，远低于题 A 的 1.8%——开放系统设计题的评委共识面窄，答案区间大；② 两所获奖校（南航航天学院、国防科大）恰是空间电源与飞行器总体设计的传统强校；③ 值得注意的是 Kan Caixia 一位教师在 2025 年题 B 又带出 2 支金奖队——赛前训练体系与论文模板的复用效应非常显性。</p>
 <p><strong>常见解法路线推断</strong>：金奖卷大概率是"技术谱系质量模型对比（光伏/RTG/裂变）+ 明确的连续性口径 + 参数化拆解 + 敏感性表"；拉开差距的应是三处——是否把乘组劳动（火壤屏蔽/清尘）写进模型、是否做了屏蔽-电缆（远置堆）权衡、以及裂变堆是否有内部优化变量（辐射器温度、转换效率）而非单一 W/kg 缩放。</p>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] "continuously" 口径定义（夜间/沙尘暴是否保证）并全程一致执行。</li>
 <li>[ ] 质量边界声明：储能、热控、屏蔽、配电是否计入总质量。</li>
@@ -257,7 +274,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>[ ] 敏感性分析（效率、比功率、屏蔽距离、口径）+ 结论以区间与"最可能值"呈现。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌队伍名单与机构观察2024-年官方未公开金牌论文">8. 金牌队伍名单与机构观察（2024 年官方未公开金牌论文）</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -269,6 +289,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

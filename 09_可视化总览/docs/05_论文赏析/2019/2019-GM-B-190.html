@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2019</span>
+  <span class="crumb">05_论文赏析/2019 · Design a Roller Coaster（2019 年题 B 队伍190）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2019/Problem%20B/2019-GM-B-190.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2019/2019-GM-B-190.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="design-a-roller-coaster2019-b-190">Design a Roller Coaster（2019 年题 B 队伍190）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="design-a-roller-coaster2019-年题-b-队伍190">Design a Roller Coaster（2019 年题 B 队伍190）</h1>
 <p><strong>页数</strong>: 29 页 ｜ <strong>对应题目</strong>: Design a Roller Coaster（过山车设计）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>该论文为 30 m 高、仅靠重力驱动的闭合过山车轨道做了一个完整设计：用 SolidWorks 与游戏引擎 Planet Coaster 构建轨道概念图，把全线拆为五段（斜坡、三连半圆、上爬斜坡、双螺旋、下斜坡+水平圆弧），对每段建立牛顿运动学 ODE，用欧拉法在 MATLAB 中递归求解，最终给出轨道总长 $L = 428.1104\,\mathrm{m}$、全程时长 $T = 48.9892\,\mathrm{s}$（另有提升段 33.3597 m / 16.6798 s）。安全性与刺激性均以自定义量化指标判定：最大 $G_z=6.5$ 超标但持续仅 1 s（小于 NASA 标准 2.5 s），刺激度 $S$ 峰值超过 20（阈值 12），论证"安全且刺激"。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <ul>
 <li><strong>指标定义层（论文最出彩的部分）</strong>：引入随车自然坐标系"G-axes"（§2.2.1，图 2.1），定义前向/侧向/法向加速度 $a_x, a_y, a_z$ 与无量纲过载 $G_i = a_i/g$（式 1）。安全判据直接引用 NASA Kumar &amp; Norfleet 报告[2]：$G_z&lt;4.8g$、$G_y&lt;5.5g$、$G_x&lt;6.0g$ 且持续 &lt; 2.5 s（式 2–4）；再补充轨道承重校核（$F=Maz$，20 000 N 对应 $G_z=20$，远超人体极限，故人体安全蕴含结构安全）与"全程 $v&gt;0$"约束。刺激性定义为加权标量（式 5→8 逐级构造）：
 $$S = 4G_x + 5G_y + 3G_z + 0.05v + 0.1H$$
@@ -63,11 +80,11 @@ $$S = 4G_x + 5G_y + 3G_z + 0.05v + 0.1H$$
 <li><strong>动力学层</strong>：能量守恒 $E_{p0}=E_p(t)+E_k+W_f$（式 10）、牛顿第二定律（式 11–12）、滑动摩擦 $\vec f_1=-\mu N(\vec v/v)$（式 13）与平方空气阻力 $\vec f_2=-\beta v^2(\vec v/v)$，$\beta=\tfrac12\rho C_dA$（式 14–15），并论证高速下必须用平方而非线性阻力。</li>
 <li><strong>分段模型层</strong>：五段轨道各建 ODE。如第一下斜坡化简为 $\dot v_x + 3.7\times10^{-4}v_x^2 - 9 = 0$（式 20）；竖直圆环把角度作积分变量 $\theta=\int_0^t v_x/R\,\mathrm{d}t$（式 22），法向力含 $Mv_x^2/R$ 项（式 23–24）；双螺旋段用螺距修正因子 $\rho/\sqrt{\rho^2+k^2}$ 折算螺旋倾角的重力分量（式 39–41），是该文最有味道的几何处理。末段刹车按匀减速处理 $v^2=2a(x-x_0)$（式 43–44），末加速度 9.3971 m/s²。</li>
 </ul>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>纯数值路线：把二阶 ODE 降为一阶耦合组后用欧拉法（§2.3.2，含泰勒展开推导与图 2.2 示意），MATLAB 代码以<strong>递归函数</strong>实现（附录 B），步长 $\Delta t=10^{-4}$ s（climb/orbit 段为 $10^{-3}$ s）。每段给出关键节点的 $v_x$、$\dot v_x$、$t$ 数据表（如上坡圆环在 $\theta=\pi/2$ 处 $v_x=19.04$ m/s、$a_n=45.3$ m/s²）。没有做步长收敛性检验或误差估计——这是明显短板；但用能量守恒（式 17：$E_{p0}=MgH=293400$ J）作为总账约束，起到了量纲/极限定验作用。工具为 MATLAB + SolidWorks + Planet Coaster（后者兼作设计灵感与交叉验证设想）。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页极简：仅队伍号、题号、标题与一段摘要，无目录外的装饰（见 p1 渲染图）。第 2 页起有完整目录。正文按 Model→Results→Discussion 组织，公式统一编号 (1)–(46)，图表编号分 Figure/Table 两体系。图 2.3/2.4 给出概念图与 SolidWorks 三维图，图 3.1 标注全线 13 个关键点，图 3.2 以四联图给出全程 $G_x, G_y, G_z, S$–$t$ 曲线；附录 A（图 A.1–A.3）复列五段圆轨道的分图，附录 B 附全部 MATLAB 代码。页眉"Team No. 190 / Page N of 29"贯穿全文（末页出现"Page 30 of 29"的排版小瑕疵）。图表为 MATLAB 默认风格，朴素但信息完整。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>把"安全/刺激"两个模糊词翻译成可计算的标量判据</strong>，且安全阈值有 NASA 文献背书、刺激阈值有独立标定（$S=12$），评委最认这种"定义—文献—标定"三步走。</li>
 <li><strong>完整的工程设计闭环</strong>：几何设计（SolidWorks 图）→ 动力学方程 → 数值求解 → 指标验证 → 参数讨论，题面要求的"精确描述路径、给时长、论证安全与刺激"逐条落实。</li>
@@ -75,7 +92,7 @@ $$S = 4G_x + 5G_y + 3G_z + 0.05v + 0.1H$$
 <li><strong>细节物理到位</strong>：平方阻力论证、螺旋段螺距修正、圆环段法向力与摩擦耦合，超出一般队伍的"理想无阻力"处理。</li>
 <li><strong>诚实的局限讨论</strong>：承认质点假设、给出自旋转修正项（式 45–46，用角动量守恒估计 $\omega$），并发现圆轨道摩擦耗散过大而改用 $\mu=0.001$ 并说明原因——暴露调参痕迹但体现了模型反馈意识。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>遇到"体验类"软指标（刺激、舒适、安全），先建无量纲标量指标并用文献/常识点标定阈值，再全文围绕 $S$ 展开。</li>
 <li>引用 NASA 人体加速度耐受数据（Kumar &amp; Norfleet 1992）处理 $G$ 过载问题，比自设阈值更有说服力。</li>
@@ -85,7 +102,10 @@ $$S = 4G_x + 5G_y + 3G_z + 0.05v + 0.1H$$
 <li>善用现成工具（SolidWorks 画轨道、Planet Coaster 做概念验证）增强"设计感"，这是题 B 类设计题的加分项。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -97,6 +117,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

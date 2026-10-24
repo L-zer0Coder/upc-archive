@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2018 题B：堆肥堆尺寸（Compost Pile Sizes）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2018_%E9%A2%98B_%E5%A0%86%E8%82%A5%E5%A0%86%E5%B0%BA%E5%AF%B8.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2018-bcompost-pile-sizes">2018 题B：堆肥堆尺寸（Compost Pile Sizes）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2018-题b堆肥堆尺寸compost-pile-sizes">2018 题B：堆肥堆尺寸（Compost Pile Sizes）</h1>
 <blockquote>
 <p>赛题来源：UPC 2018 Problem B（96 队选题 B，金奖 2 队：巴塞罗那自治大学 240 队、国防科大 285 队）</p>
 </blockquote>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <p><strong>原文压缩引用</strong>：</p>
 <blockquote>
 <p>Composting is the process in which microbes turn organic matter into a useful soil conditioner. Efficient composting requires the right range of <strong>temperatures (40–60 °C)</strong>, sufficient <strong>moisture content (usually 50–60%)</strong>, and <strong>aeration</strong> to deliver adequate oxygen to the microbes. Larger piles can better maintain high internal temperatures because the heat will diffuse out more slowly. However, larger piles are also more likely to <strong>compact the material, thus inhibiting the flow of oxygen</strong>. What pile size will result in the most efficient composting if we are working with <strong>kitchen vegetable waste</strong> in a climate where the ambient temperature ranges between <strong>5 and 20 °C in a 24-hour period</strong>? How would the most effective pile size vary depending on the <strong>ambient temperatures</strong> and the <strong>input organic materials</strong>?</p>
@@ -103,14 +120,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <ol>
 <li><strong>"most efficient composting" 必须先变成一个可积分的标量</strong>。候选操作化：(a) 固定周期（如 100 天）内已反应氧/已分解生物质总量 $C\propto\int_0^{\Delta t}k(T)[O_2][B]\,dt$（240 队）；(b) 温度与含水率始终落在给定区间约束下的氧含量最大化（285 队）；(c) 达腐熟时间最短；(d) 单位体积产物速率。<strong>选哪个都要声明并辩护</strong>——本题两支金奖答案相差 6 倍（9.2 m³ vs 1.6 m³），根源正是指标定义不同，这是开放题的常态而非缺陷。</li>
 <li><strong>"pile size" = 形状 × 线度，但物理只通过 $S/V$ 进入方程</strong>（若忽略内部分布）：半球 $S/V=4.5/R$、球 $3/R$、$H=2R$ 圆柱 $3/R$、立方 $6/a$。让形状浓缩为单一几何参数后，"选什么堆形"与"选多大"就变成同一组 ODE 的参数扫描。</li>
 <li><strong>题面两句定性提示各是一条建模命令</strong>："大堆保温好" $\to$ 散热项 $\propto hS(T-T_a)$、冷却时间 $\tau\propto L$；"大堆压实碍氧" $\to$ 需要一个 $\rho(h)$ 或孔隙率 $\varepsilon(h)$ 子模型，让扩散系数随深度塌缩。回避任何一句都等于丢掉半个题。</li>
 <li><strong>"5–20 °C in 24 hours" 不是让你做日变方程，而是先算趋肤深度</strong>（见第 4 节，$\sim0.1$ m）：振幅只影响外壳，核心只"看见"均值 12.5 °C——这一步估算决定你用正弦、阶梯还是常数，以及要不要写清理由。</li>
 </ol>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1：零维 Semenov 集总模型（解析骨架）</strong></p>
 <p>对整堆写三条守恒律（240 队框架）：</p>
 <p>$$\rho c_V\frac{dT}{dt}=Q_bF_bk(T)[B][O_2]-X_t\frac{S}{V}(T-T_a),\qquad \frac{d[O_2]}{dt}=-F_bk(T)[B][O_2]+\frac{X_mS}{V}([O_2]_a-[O_2]),\qquad \frac{d[B]}{dt}=-F_b&#x27;k(T)[B][O_2].$$</p>
@@ -143,7 +160,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
     X1 --&gt; V
     X3 --&gt; V
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <p>（以下数字为本解读独立估算，物料取 $\rho\approx500\ {\rm kg/m^3}$、$c\approx1800\ {\rm J/(kg\cdot K)}$、$\lambda\approx0.5\ {\rm W/(m\cdot K)}$、$h\approx8\ {\rm W/(m^2K)}$ 自然对流）</p>
 <table>
 <thead>
@@ -206,7 +223,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tbody>
 </table>
 <p><strong>张力即答案</strong>：把第 4、5、6、8 行放在一起看——氧扩散撑得起 $\sim150\ {\rm W/m^3}$，维持 60 °C 核心恰好需要 $\sim140\ {\rm W/m^3}$（$R\approx1.5$ m、$h_{eff}\approx1.5$），而压实把 1 m 以下供氧砍半。三者交叠的最优区 $R\sim0.8\text{–}1.6$ m（$V\sim2\text{–}10\ {\rm m^3}$），恰是两支金奖答案的落点。<strong>量级估算 30 秒就能预测答案的量级区间，这是本题最值得学会的手算。</strong></p>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>ODE 组是刚性的</strong>：Arrhenius 中 $E/R\sim6000\text{–}9000$ K，普通 Euler 会溢出；用 <code>scipy.odeint</code>（LSODA）或 MATLAB <code>ode15s</code>。240 队 100 天 $\times$ 1001 点 $\times$ 100 个半径的扫描成本完全可控。</li>
 <li><strong>先做相干性检查再跑优化</strong>：画 $k(T)$ 曲线，看峰值温度是否落在题给 40–60 °C 附近；240 队发现文献参数峰在 80–100 °C，明说并重标定——这是"用文献参数"与"被文献参数用"的分水岭。</li>
@@ -214,7 +231,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>优化呈现</strong>：$C(V)$ 归一化曲线（消除未知比例常数 $\alpha$）图内标注 $V_{max}$；敏感性对 $T_a$、$[B]_0$、$\rho$ 逐个重跑成表。</li>
 <li><strong>陷阱</strong>：忘了高温抑制项导致温度一路冲到自燃（非物理）；用空气扩散系数 $2\times10^{-5}$ 冒充多孔介质 $D_{eff}$；半球与整球的 $S/V$ 因子（4.5 vs 3）用错；把环境温度振幅直接加到核心温度上（趋肤深度已否定）。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li><strong>效率指标不定义或定义不可算</strong>：通篇"堆肥效率高"而无积分量/判据，评委无法给分；或多指标混用、结论自相矛盾。</li>
 <li><strong>只算热不算氧</strong>：把题目做成纯传热"最大保温尺寸"，丢掉题面第二句定性提示（压实-供氧），答案必然偏大且物理链断半条。</li>
@@ -223,19 +240,19 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>忽略表面状态与 $h_{eff}$</strong>：自然对流的 $h\sim8$ 根本撑不起 50 K 温升，必须讨论覆盖/结壳使有效换热降到 1–2 W/(m²K)，否则会得出"任何尺寸都达不到 60 °C"的假死局。</li>
 <li><strong>日变温度处理过度</strong>：为 5–20 °C 写复杂时变边界却不给趋肤深度论证；先算 0.1 m 趋肤深度再说"核心只见均值"，既严谨又省事。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>Nelson et al. 2003, "A Semenov Model of Self-Heating in Compost Piles"（Process Safety and Environmental Protection）</strong>（<a href="https://www.sciencedirect.com/science/article/abs/pii/S0957582003711112">sciencedirect.com/science/article/abs/pii/S0957582003711112</a>）——把 Semenov 热爆炸理论用于堆肥自热的奠基文献，正是 240 队框架的出处；集总模型、点火/熄火条件可直接取材。</li>
 <li><strong>Luangwilai, Sidhu &amp; Nelson 2009（ANZIAM J., 开放获取）</strong>（<a href="https://journal.austms.org.au/ojs/index.php/ANZIAMJ/article/view/2439/1346">journal.austms.org.au/ojs/index.php/ANZIAMJ/article/view/2439/1346</a>）——在 Semenov 框架中引入<strong>氧依赖</strong>的生物学产热（质量传递限制），与本题"保温 vs 供氧"的张力完全同构，是层次 2 氧渗透项的文献支撑。</li>
 <li><strong>BioCycle: Spontaneous Combustion in Composting（自燃成因）</strong>（<a href="https://www.biocycle.net/spontaneous-combustion-in-composting-the-causes">biocycle.net/spontaneous-combustion-in-composting-the-causes</a>）——真实堆肥自燃案例与条件（大堆、干燥、高孔隙局部）；用作"失控分支"的现实注脚，说明为何动力学里必须有高温抑制项。</li>
 </ol>
-<h2 id="8">8. 金牌论文思路对比</h2>
+<h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
 <li><strong>240 队（巴塞罗那自治）</strong>：五 ODE 集总模型（Semenov + 生物质消耗 + 水汽），以"已反应氧质量"为效率指标，对半球与四棱截锥各扫一遍 $C(V)$：半球 $V_{max}=9.20\ {\rm m^3}$、截锥 $6.33\ {\rm m^3}$；最优体积随环境温度升高而增大、随进料浓度升高而减小，并给出"氧通量优先于保温"的机理解释；三层自检（$k(T)$ 峰位、区间验收、文献曲线形态）。详见 <code>05_论文赏析\2018\2018-GM-B-240.md</code>。</li>
 <li><strong>285 队（国防科大）</strong>：场分布路线——圆柱堆对称切片，微元守恒推带内热源的傅里叶温场 PDE，用"产热=耗氧、方向相反"的同构论证镜像出氧方程；独创自重压实弹簧模型解出闭式 $\rho(h)$ 并作两方程的耦合系数；在 $40\le u\le60$ °C 约束下取 $R=H=0.8$ m，并以温场剖面图论证取舍。详见 <code>05_论文赏析\2018\2018-GM-B-285.md</code>。</li>
 <li><strong>对照启示</strong>：240 的"整堆 ODE + 优化"与 285 的"场方程 + 闭式子模型"是同题异构的两极；前者胜在指标与敏感性体系，后者胜在把题面最难的"压实-供氧"做成了硬核子模型。</li>
 </ul>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 效率指标显式定义、可积分、全文一致（摘要/正文/图表同一数字）。</li>
 <li>[ ] 热与氧两条物理链都在：散热 $\propto S/V$ 与供氧 $\propto\delta$（或传质项）同场竞争，最优尺寸是权衡的产物而非单边结论。</li>
@@ -245,7 +262,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>[ ] 两条敏感性曲线（最优尺寸 vs 环境温度、vs 进料参数）各有机理解释，而非只报数。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌论文思路对比">8. 金牌论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -257,6 +277,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

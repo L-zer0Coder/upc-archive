@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../index.html">🏆 总览首页</a>
-  <span class="crumb">07_题目解读</span>
+  <span class="crumb">07_题目解读 · 2015 题B：绕树高尔夫——马格努斯曲线球（Golfing Around a Tree）</span>
   <span style="flex:1"></span>
   
   <a href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2015_%E9%A2%98B_%E7%BB%95%E6%A0%91%E9%AB%98%E5%B0%94%E5%A4%AB.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="2015-bgolfing-around-a-tree">2015 题B：绕树高尔夫——马格努斯曲线球（Golfing Around a Tree）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="2015-题b绕树高尔夫马格努斯曲线球golfing-around-a-tree">2015 题B：绕树高尔夫——马格努斯曲线球（Golfing Around a Tree）</h1>
 <blockquote>
 <p>赛题来源：UPC 2015 Problem B（150 队中 73 队选题 B，金奖 1 队：南京大学 108 队）</p>
 </blockquote>
-<h2 id="1">1. 题目原文与关键数据</h2>
+<h2 id="1-题目原文与关键数据">1. 题目原文与关键数据</h2>
 <p><strong>原文压缩引用</strong>：</p>
 <blockquote>
 <p>A golfer hits an errant shot and finds the ball directly behind a tree, 120 meters from the green. The tree is too close and too tall to hit the ball over the tree, so the golfer is forced to hit the ball either to the left or to the right of the tree. Let us model the tree as a cylinder, with its center 10.0 meters from the ball, with branches extending in all directions to give our cylinder a radius of 5.0 meters. <strong>Describe the ball/club interaction that will result in a shot that will go around the tree and end up on the green.</strong> Assume the green is circular, 10.0 meters in diameter, and the center of the green is directly behind the center of the tree, as seen from the location of the ball.</p>
@@ -108,14 +125,14 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="2">2. 题目到底在问什么（去模糊化）</h2>
+<h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <ol>
 <li><strong>先证明"直线不可能"</strong>——这是题目的几何陷阱，也是全部建模的出发点。设球在原点、飞行方向为 $x$ 轴：任何终于果岭盘内的直线满足 $y(120)=y_L,\ |y_L|\le5$ m，在 $x=10$ 处 $|y(10)|=|y_L|/12\le0.42$ m $&lt;5$ m——<strong>全部直线都穿树</strong>。换算成张角：树半张角 $\arcsin(5/10)=30°$ ≫ 果岭半张角 $\arcsin(5/120)\approx2.4°$。10 m 处要躲开、120 m 处要回中，轨迹必须弯——<strong>需要一个持续的侧向力，唯一可控的物理机制就是侧旋的马格努斯力</strong>。</li>
 <li><strong>"Describe the ball/club interaction"</strong>：题眼不是"给出一条轨迹"，而是"杆面参数 → 球初条件"的映射：杆头速度、loft（产生 backspin）、瞄准/杆面角（产生 sidespin），经斜碰撞模型输出 $(\vec v_0,\vec\omega)$，再经飞行/弹跳映射到落点。</li>
 <li><strong>"end up on the green"</strong>：落点判据必须含弹跳与滚动——第一次弹跳就滚出 5 m 圈的方案是假方案。</li>
 <li><strong>开放题的完整交付物</strong>：不是单条魔法轨迹，而是可行域（哪些杆法能上果岭）+ 容差量化（裕度）+ 教练式建议（具体角度与速度）。</li>
 </ol>
-<h2 id="3">3. 物理建模路线图</h2>
+<h2 id="3-物理建模路线图">3. 物理建模路线图</h2>
 <p><strong>层次 1：几何可行性</strong>。侧偏约束 $y(10)\gtrsim5.1$ m（留球半径余量）、回中约束 $|y(120)|\le5$ m。取常数侧向加速度 $a_M$ 的两点估计：$y(x)=x\tan\psi+\dfrac{a_Mx^2}{2v_0^2\cos^2\psi}$，联立两式得瞄准偏角 $\psi\approx30°$、$a_M\approx26$ m/s²（$v_0=60$ m/s）→ 所需 $C_L\approx0.39$、自旋 $\omega\sim10^4$ rpm（自旋参数 $S=R\omega/v\approx0.35$）——与实验可达范围自洽，量级估算先行定盘。</p>
 <p><strong>层次 2：杆–球斜碰撞（&lt;0.5 ms 冲击近似）</strong>。法向/切向动量守恒 + 角动量守恒 $mRV+I\omega=0$（$I=\tfrac25mR^2$）+ 无滑动/共速约束，联立为 10 元线性方程组 $\mathbf b=P\mathbf v$，由杆面几何（loft $\theta$、drift $\psi$）解出碰后 $\vec v_0,\vec\omega$。</p>
 <p><strong>层次 3：自由飞行</strong>。三维 ODE：二次阻力 $f_d=\tfrac12C_D\rho_{air}Sv^2$（凹坑球 $C_D\sim0.25$）+ 马格努斯力 $f_M=C_M(\vec\omega\times\vec v)$；backspin 轴水平提供竖直升力延长滞空，sidespin 轴近竖直提供水平侧力绕树。</p>
@@ -130,7 +147,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
     G --&gt; H[&quot;裕度 M = RMS 距离 → 反推最稳打法&quot;]
     H --&gt; I[&quot;教练式建议：loft 22.5°、v ≈ 60 m/s、偏树 ~44° 方向&quot;]
 </code></pre>
-<h2 id="4">4. 关键物理效应量级表</h2>
+<h2 id="4-关键物理效应量级表">4. 关键物理效应量级表</h2>
 <table>
 <thead>
 <tr>
@@ -197,7 +214,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 </tr>
 </tbody>
 </table>
-<h2 id="5">5. 求解算法与数值要点</h2>
+<h2 id="5-求解算法与数值要点">5. 求解算法与数值要点</h2>
 <ul>
 <li><strong>阶段划分定工具</strong>：碰撞 = 线性代数（矩阵 $\mathbf b=P\mathbf v$ 逐行注物理含义）、飞行 = 事件驱动 ODE、弹跳 = 几何级数解析——每段用最合适的数学工具。</li>
 <li><strong>事件函数</strong>：积分到"与树圆柱相交"或"$z=0$"即中断并记录状态（Mathematica EventLocator / MATLAB ode45 Events），避免定步长过冲穿树。</li>
@@ -205,7 +222,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>验证</strong>：负对照——去掉侧旋后轨迹必须撞树（几何判据的数值复核）；碰撞矩阵用能量/角动量守恒核对；步长收敛检验；$C_D,C_L$ 引实验曲线并区分光滑/凹坑球。</li>
 <li><strong>陷阱</strong>：$\vec\omega\times\vec v$ 的轴向与符号（sidespin 轴近竖直、力水平；backspin 轴水平、力竖直）；把 $a_M$ 当常数外推会高估远端弯曲（力 $\propto v^2$ 且随 $v$ 衰减）；恢复系数 $e$ 随撞速变化，不能取常数。</li>
 </ul>
-<h2 id="6">6. 常见错误与陷阱</h2>
+<h2 id="6-常见错误与陷阱">6. 常见错误与陷阱</h2>
 <ol>
 <li><strong>不证明直线不可能、不解释为何必须侧旋</strong>：直接"数值试出"一条弯轨迹，物理归因缺失——本题最大的区分度就在这一步。</li>
 <li><strong>只答轨迹不答杆</strong>：题眼是 ball/club interaction，缺"杆面参数 → 初条件"映射等于答非所问。</li>
@@ -214,15 +231,15 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>落地即停</strong>：忽略弹跳与滚动（或忽略 backspin 过大导致回滚 $v&#x27;_\parallel&lt;0$ 的情形），落点判据失真。</li>
 <li><strong>单点答案无容差</strong>：真实球手需要"偏几度、慢几米每秒还能上果岭"的鲁棒性结论。</li>
 </ol>
-<h2 id="7">7. 全网参考与延伸</h2>
+<h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>Lyu et al. 2020《The reverse Magnus effect in golf balls》</strong>（<a href="https://link.springer.com/article/10.1007/s12283-020-0318-1">Sports Engineering</a>）——$Re&gt;7\times10^4$ 时 $C_L$ 随转速稳定上升，更低 Re 出现反向 Magnus：为落段升力行为与模型适用区间提供文献依据。</li>
 <li><strong>Li et al. 2017《Numerical Investigation of the Flow Past a Rotating Golf Ball》</strong>（<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6044256">PMC 全文</a>）——CFD 给出挖坑球更高升力、更低阻力的定量数据，可用于标定 $C_D(Re,S)$、$C_L(Re,S)$。</li>
 <li><strong>Lyu et al. 2018《Aerodynamics of Golf Balls in Still Air》</strong>（<a href="https://www.mdpi.com/2504-3900/2/6/238">MDPI</a>）——实测 $C_D$ 从低速 ~0.5 降至高速 ~0.2、$C_L$ 与转速正相关，是"系数不拍脑袋"的直接出处。</li>
 </ol>
-<h2 id="8">8. 金奖论文思路对比</h2>
+<h2 id="8-金奖论文思路对比">8. 金奖论文思路对比</h2>
 <p>本题金奖唯一一队（南京大学 108 队，24 页）：两阶段拆分（Free-flight / Bouncing）→ 杆–球斜碰撞写成 10 元线性方程组矩阵 $\mathbf b=P\mathbf v$（附录逐行标注物理含义）→ 飞行段为带二次阻力与 Magnus 力的三维 ODE，用事件定位器在碰树/落地时中断衔接 → 弹跳用 Penner 恢复系数 + Daish 反弹公式解析处理、几何级数求弹跳总长 → 在 $(\psi,\gamma)$ 平面扫可行域，并原创定义"系统裕度 $M$"反推最优打法，最终建议 loft 22.5°、drift ~17°、偏树 ~44° 方向、速度 ~60 m/s → 附录扩展 5 m/s 侧风。亮点是"可行域 + 裕度"把解题升级为设计建议，三种相互作用（杆–球、球–空气、球–地）各有专属模型与文献系数。详细拆解见 <code>05_论文赏析\2015\2015-GM-B-108.md</code>。</p>
-<h2 id="9">9. 评分要点：评委想看什么</h2>
+<h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 几何必然性论证：直线全被封死、必须侧向持续力（30° vs 2.4° 的张角对比）。</li>
 <li>[ ] ball/club interaction 正面回答：杆面参数 → 初条件的斜碰撞模型。</li>
@@ -232,7 +249,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>[ ] 三阶段用事件函数精确衔接，并做负对照与收敛性检验。</li>
 </ul>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金奖论文思路对比">8. 金奖论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -244,6 +264,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

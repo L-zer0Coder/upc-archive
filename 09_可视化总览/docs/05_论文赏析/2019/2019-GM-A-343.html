@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2019</span>
+  <span class="crumb">05_论文赏析/2019 · Analysis of deep space radiation protection（2019 题A 队伍343）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2019/Problem%20A/2019-GM-A-343.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2019/2019-GM-A-343.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="analysis-of-deep-space-radiation-protection2019-a-343">Analysis of deep space radiation protection（2019 题A 队伍343）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="analysis-of-deep-space-radiation-protection2019-题a-队伍343">Analysis of deep space radiation protection（2019 题A 队伍343）</h1>
 <p><strong>页数</strong>: 24 页 ｜ <strong>对应题目</strong>: Protecting Travelers to Mars（火星旅行辐射防护）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>343 队（国防科大）给出三篇同题论文中<strong>唯一"主动+被动混合"</strong>的方案：以 Hoffman 双同心圆柱结构为骨架，圆柱居住舱（半径 5.42 m、高 10.84 m，恰容 1000 m³）筒区布线形磁场、端盖区布环形磁场，共设计 8 种组合磁场构型并用蒙特卡洛式粒子仿真逐一比较，选出最优的结构 2（$B=10$ T、$L=2$ m 时屏蔽约 81%–87% 的高能粒子）；再针对磁场"盲区"在顶部加装半径 2 m、厚 10 mm 的加厚铝板，全舱覆盖 3.75 mm 铝板吸收 γ 射线。超导材料选 BSCCO-2212（密度 1.8954 g/cm³，77 K 下临界电流密度 $J=7100\,\mathrm{A/mm^2}$），总附加质量 16.53 吨，粒子偏转效率 89%、γ 防护效率约 95%。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <ul>
 <li><strong>偏转原理层（3.1.1 节）</strong>：相对论洛伦兹运动方程 $\frac{m\,d\vec v}{dt}=q\vec v\times\vec B$，$m=m_0\gamma$；引入 Larmor 半径 $r_L=\frac{\gamma m_0v_\perp}{qB}$、$v_\perp=v\sin\theta$，并给出判据：磁场厚度 $L\ge2r_L$ 时几乎完全屏蔽。由 $m_0/q$ 近似相等论证 $Z\ge2$ 元素偏转行为相似，从而用 H、He 代表全部 GCR/SCR 粒子——典型的"以代表性粒子降维"策略。</li>
 <li><strong>截止动能层（3.1.2 节）</strong>：定义截止动能 $T_{C/O}$（粒子穿透屏蔽场的最小动能），临界轨道满足 $2r_{L,0}=L$，推出最低场强 $B\ge\frac{2(T/c^2+m_0)}{ql}$；指出线形与环形两种基本结构都防不住端盖方向入射，必须组合。</li>
@@ -64,11 +81,11 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>被动防护层（3.3 节）</strong>：盲区用高能粒子在金属中的吸收公式 $\phi(E)=\phi&#x27;(e)\frac{S(E&#x27;)}{S(E)}\exp(\sigma_A d)$ 与射程关系 $E=R^{-1}[R(E)+d]$ 算出端盖区需 10 mm 铝板屏蔽 90%；γ 射线用衰减律 $I=I_0e^{-\mu x}$，对四种金属的衰减系数对比（Table 2：铝/铁/铜/钽），按"衰减系数够用且密度最轻"选铝，解 $e^{-\mu x}\le0.05$ 得 $x\ge3.75$ mm。</li>
 <li><strong>质量核算层（4.2 节）</strong>：用 Biot–Savart 定律 $\vec B=\int_L\frac{\mu_0I}{4\pi}\frac{d\vec l\times\vec e_r}{r^2}$ 反推所需电流 $I_1$、$I_2$，再由 $S=I/J$ 得超导线截面积，逐项算出端盖线圈 $3.961\times10^3$ kg、筒区线圈 $6.709\times10^3$ kg、γ 防护铝层 5506.5 kg、加厚板 339.29 kg，合计 $M=16.53$ t。电流需求与线质量通过 $J_c$ 直接挂钩，物理链条严密。</li>
 </ul>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>数值方法：粒子轨道数值积分（步长与回旋周期挂钩）+ 球面随机源采样，属于蒙特卡洛思想的确定性轨道仿真；参数扫描覆盖 $B=0\sim16$ T（Figure 9 三幅 η–B 曲线）与厚度 $L$。检验与发现颇具水准：一是发现<strong>低场强时 $\eta$ 可为负</strong>（$B=2$ T 时某些构型反而把粒子聚入舱内），提示磁场设计存在反效应区；二是识别出 η 随 $B$ 在 4 T 后快速上升、10 T 后饱和的边际递减规律，据此选 $B=10$ T；三是主动+被动效率按面积加权合成 $\sigma_1=[0.87(S_0-S)+S]/S_0$，把两种机制统一到一个公式里。局限亦明示：未考虑中性高能粒子；BSCCO 临界电流密度不足以保证 10 T 稳定运行。Biot–Savart 电流反推、Larmor 判据、指数衰减三层解析模型与仿真互相校验，数值/解析配比合理。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页（p1 渲染图）为 LaTeX 排版，标题上方冠以年份 "2019 / Team 343 / Problem A"，摘要给出全部关键数字（16.53 t、BSCCO-2212 密度、B=10T、L=2 m、94%/98%），信息完备。含标准 LaTeX 目录（第 2 页通栏），章节编号 1–6 规范，页眉 "Team # 343 / Page x of 24"。公式行间排版整洁但大多无编号（以 "formula()" 指代），仅少数带标号；有一处明显的排版事故：Figure 16 整体结构图中出现乱码字符（"瀁澔濠濕濭濙濦"），提示字体嵌入问题。图表规模为六篇之最：Figure 1 GCR 能谱（引用）、Figure 2 Hoffman 结构图（引用）、Figure 3 线形/环形磁场示意（自绘，见 fig 渲染页）、Figure 7 八构型弱区示意、Figure 8 八构型 3D 视图、Figure 9 三幅 η–B 曲线族、Figure 11–15 线圈与加厚板结构图。表 1（八构型参数矩阵）与表 2（四种金属衰减系数）信息密度高。偶有笔误：正文 87% 与摘要 80%、结论 89%/95% 与摘要 94%/98% 数字存在出入，且 H/D 混写为 "Huffuman"。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>组合设计 + 系统比较</strong>：不满足于单一磁场构型，而是把筒区/端盖区两个"插槽"与两种基本磁场做 8 种组合并全部仿真排名，这种"设计空间搜索"的思路直接回应题目 "various options"，是三篇同题论文中方法论最完整者。</li>
 <li><strong>主动-被动混合的物理洞察</strong>：明确指出磁场挡不住 γ 射线、且存在盲区与负效应区（η&lt;0），用局部加厚铝板补盲区，机制互补、职责清晰。</li>
@@ -77,7 +94,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>结果分级量化</strong>：粒子 89%、γ 95%，且把摘要数字与正文推导一一对应（尽管存在少量不一致），总体仍做到"结论可判".</li>
 <li><strong>可行性专节（4.4）</strong>：地火平均温度 153 K + 制冷剂可达 77 K 满足 BSCCO 工作温区、舱内磁场对消、SCR 爆发时临时加流——把评委可能追问的三个"what if"提前作答。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>设计类题目先定义少量"离散可枚举"的设计参数（位形、方向、长度、厚度），枚举全部组合逐一仿真，用统一指标（η）排名，比拍脑袋选一个方案有说服力。</li>
 <li>轨道积分步长取回旋周期的百分之一这类"物理量挂钩"做法，写明后可免评委追问收敛性。</li>
@@ -87,7 +104,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>设可行性专节回答极端工况（SCR 爆发、温度、人体安全），并在模型优劣一节自我列出致命短板（临界电流不足）——自曝短板反而加分。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -99,6 +119,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

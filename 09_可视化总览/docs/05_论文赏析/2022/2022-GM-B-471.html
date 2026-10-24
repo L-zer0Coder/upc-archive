@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2022</span>
+  <span class="crumb">05_论文赏析/2022 · Analysis of Shooting Strategy in Penalty Kick（2022 题B 队伍471）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2022/Problem%20B/2022-GM-B-471.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2022/2022-GM-B-471.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="analysis-of-shooting-strategy-in-penalty-kick2022-b-471">Analysis of Shooting Strategy in Penalty Kick（2022 题B 队伍471）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="analysis-of-shooting-strategy-in-penalty-kick2022-题b-队伍471">Analysis of Shooting Strategy in Penalty Kick（2022 题B 队伍471）</h1>
 <p><strong>页数</strong>: 44 页 ｜ <strong>对应题目</strong>: Problem B — FIFA Penalty Kicks（点球最优策略）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>五篇中最"工程化"的一篇：采用美赛（MCM）式 Summary Sheet 模板，把问题明确拆成 Task 1 / Task 2，建"受力分析 → ODE → 数值仿真 → 优化搜索"的完整流水线。Task 1 以 $Cd$–Re 插值曲线处理阻力系数随速度的变化（捕捉 drag crisis），用改进 Euler 法解微分方程 (12)，再以"距上角中心 &lt; 0.05 m"为成功判据做四轮变步长搜索，得到最优踢法 $(v_0,\alpha,\theta_0,\omega) = (19, 1.2566, 1.2566, 14.9095)$、偏差 0.0363 m；Task 2 提出 Goalkeeper Save-ball Model，用守门员扑救时间 $t_s$（式 19）作为时间约束筛出 1108 组可行策略；第 7 节再用 Stokes 黏性力矩修正自转衰减（式 23–24），把最优解精度提升到距上角中心仅 0.0118 m。最后用梅西点球案例做现实校验。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <p><strong>第一层：受力分析。</strong> 重力、空气阻力、Magnus 力三项。阻力沿用"圆盘 + Bernoulli"推导（式 2–4）再引入 $C_d$ 修正（式 5）；独特之处在于认真处理了 $C_d$ 随雷诺数 $Re = \rho v D/\eta$（式 6）的变化：引 Asai et al. 的 Physics World 实验曲线（Figure 4），插值得速度–阻力系数表（Table 2，$C_d$ 从 0.5 一路降到 0.06，即阻力危机）与拟合曲线（Figure 5）——这是三支题 B 队伍中唯一把 $C_d$ 做成速度函数的。Magnus 力用两侧流速 $v_1 = v+\omega R$、$v_2 = v-\omega R$（式 8）经 Bernoulli 得 $L = 2\pi\rho a^3 v\omega$（式 9），再用球体积与 Norkowski 环量理论修正为 $L = \frac{8}{3}\pi\rho\omega a^3 v$（式 10），与 358 的表达式殊途同归。</p>
 <p><strong>第二层：降维的运动方程。</strong> 引入随初速度方向的辅助坐标系 $X&#x27;Y&#x27;Z&#x27;$，由 $ds = r\,d\theta$ 推出方位角随时间线性增长的式 (1) $\theta = \theta_0 + \frac{G}{m}\omega_0 t$（Magnus 力充当水平向心力），从而把三维问题压缩为动力学方程组 (12)：</p>
 <p>$$m\frac{dv_h}{dt} = -mg - Cv^2\sin\alpha,\quad m\frac{dv_{xy}}{dt} = -Cv^2\cos\alpha,\quad m\frac{v_{xy}^2}{r} = G\omega v_{xy}$$</p>
@@ -63,11 +80,11 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <p><strong>第三层：单目标规划模型。</strong> 把"踢中上角"写成显式优化问题 (13)：决策变量 $[v_0, \theta, \omega]$，目标 $\min d = \sqrt{(x-x_0)^2 + (z-z_0)^2}$，约束含运动方程、初始条件与物理范围（$12 \le v \le 30$ 等），成功判据为距离 &lt; 0.05 m。把物理问题翻译成规划语言，是本文的方法论特色。</p>
 <p><strong>第四层：Goalkeeper Save-ball Model。</strong> 守门员身高 190 cm（引欧洲五大联赛均值 188–191 cm），重心高 $h_G = \frac{h}{1+0.618} \approx 117.43$ cm（黄金分割/肚脐）、肩高 $h_0 = \frac{5}{6}h \approx 159.33$ cm、控制半径 $R_0 \approx 233.33$ cm（式 16）；鱼跃起跳速度由 50 cm 弹跳高度反推 $v_s = \sqrt{2\times0.5g} = 3.13$ m/s（式 18）。扑救时间分两段（式 19）：低于重心需先降重心 $t_1 = \sqrt{2(h_G-z)/g}$，再平移 $(x-R_0)/v_s$；高于重心直接 $\frac{\sqrt{x^2+z^2}-R_0}{v_s}$。可行策略约束 $t_{simulation} \le t_s$（式 20）。</p>
 <p><strong>第五层：模型修正。</strong> 用 Stokes 黏性阻力 $F = -6\pi\eta\omega a^2$（式 22）作用于空心球（$I = \frac{2}{3}ma^2$），由角动量定理解出自转衰减 $\omega&#x27; = \omega_0 e^{-9\pi\eta a t/m}$（式 23）与方位角修正 $\theta&#x27; = \frac{G\omega_0}{9\pi\eta a}(1-e^{-9\pi\eta a t/m})$（式 24）——把"假设 4 忽略粗糙面"的伏笔回收，修正后最优解改为 $(17, 0.5236, 1.3963, 32.2593)$、偏差仅 1.18 cm，且物理解释合理（初期转速快、弧线大）。</p>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>数值核心是<strong>改进 Euler 法 + 梯度平均位移</strong>（递推式 14，位置更新取相邻两速度的平均值），Task 1 用 $dt = 0.0001$ s、Task 2 用 0.001 s（附录 MATLAB 代码）。搜索策略是本文亮点：<strong>四轮变步长搜索</strong>（Table 3–9，从 $v$ 步长 0.5、$\omega$ 步长 $\pi/4$ 逐轮收紧到 0.001），每轮输出距离散点热图与最优表，并在第 4 轮展示收敛。附独立的<strong>灵敏度分析</strong>（Figure 20 四联图，分别扫 $v_0, \theta_0, \alpha, \omega$），结论"各参数影响都大 → 步长必须足够小"，反向论证了变步长搜索的必要性。$C_d$ 用 <code>interp1</code> 的 pchip 插值处理。不足：Euler 法精度低于 RK 类方法且未与更高阶格式对比；附录 question1.m 实际只扫 $\omega$ 一维（$v_0=19$ 等已固定），四轮搜索的中间轮次代码未完整给出；成功判据 0.05 m 带一定人为性。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>首页（p1.png）是标准 MCM/ICM 竞赛论文版式：顶部三栏 "Problem Chosen / Summary Sheet / Team Control Number"，标题下接加粗关键词的 Summary——把方法与结论（0.0363 m、1108 组、0.0118 m）用黑体标出，评委一眼可抓重点；含目录、Page N of 44 页眉。正文 22 幅图：坐标系与流程图（Figure 2–3）、$C_d$–Re 文献图与插值曲线（4–5）、受力与轨迹示意（6–9）、守门员模型（10–11）、四轮搜索散点图（12–15）、成功轨迹与落点（16–19）、灵敏度四联图（20）、修正前后对比（21–22）。表格尤其丰富：符号表、$C_d$ 数据表、四轮搜索区间/步长与最优解表（Table 3–10）、可行策略表（Table 12）——数值结论全部落表，可核查性强。第 10 节 Case Study 配梅西照片与真实罚球数据，是全文最抓眼球的版面。公式编号 1–24 连续。瑕疵：目录与部分英文有笔误（"Differntial"、"regared"、"diﬃcult" 合字），论文以 MATLAB 代码为附录而非 Python。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>$C_d$ 随速度变化</strong>：用 Asai 的实验曲线插值让阻力系数从 0.5 连续降到 0.06（Table 2），捕捉 drag crisis——同题其余队伍都用常数阻力，这一处物理细节直接把精度等级拉开。</li>
 <li><strong>"物理 → 优化"的显式翻译</strong>：式 (13) 把射门写成带运动方程约束的单目标规划，决策变量、目标、约束一目了然，方法论上比"枚举试参数"清晰一个档次。</li>
@@ -76,7 +93,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>守门员模型参数全部有出处</strong>：身高取五大联赛统计、重心用黄金分割、弹跳 50 cm，式 (19) 分高低球两种时间公式，并给出"贴地球比高空球更难救"的物理讨论。</li>
 <li><strong>案例研究接地气</strong>：梅西 133 罚 103 中（77%）的统计与 8 次被扑位置"都在中路死角之外"的分析，把模型结论（提高球速、射死角）锚定在真实比赛数据与 The Economist 的研究上。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>涉及空气动力的球类问题，别用常数 $C_d$：查一条 $C_d$–Re 实验曲线做插值，工作量小但物理档次立升。</li>
 <li>用"辅助坐标系 + 方位角积分 $\theta = \theta_0 + \frac{G}{m}\omega_0 t$"把 Magnus 弧线降维成准二维问题，计算量和推导量同时大幅减少。</li>
@@ -86,7 +103,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>结尾做一个真实案例校验（球星数据、官方统计），一两页即可，却是"模型与现实现接"的最有力证据。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -98,6 +118,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>

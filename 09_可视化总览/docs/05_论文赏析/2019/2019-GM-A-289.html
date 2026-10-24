@@ -15,16 +15,18 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:radial-gradient(1200px 500px at 80% -10%,rgba(79,125,217,.14),transparent),var(--bg);color:var(--ink);
  font-family:"Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.85;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(10px);background:rgba(10,15,30,.86);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1020px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
-.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:10px 18px;flex-wrap:wrap}
+.topbar a{color:#8fb4ff;text-decoration:none;font-size:13.5px;border:1px solid var(--line);border-radius:99px;padding:3px 12px;transition:.2s;white-space:nowrap}
 .topbar a:hover{border-color:var(--acc);color:#fff}
-.crumb{color:var(--mut);font-size:13px}
-.wrap{max-width:1020px;margin:0 auto;padding:30px 20px 90px}
+.crumb{color:var(--mut);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
+.content{flex:1;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px 40px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;background:linear-gradient(90deg,#e8f0ff,#9fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em}
-h3{font-size:17px;color:#cfe0ff}
+h2{font-size:20px;border-left:4px solid var(--acc);padding-left:10px;margin-top:1.6em;scroll-margin-top:70px}
+h3{font-size:17px;color:#cfe0ff;scroll-margin-top:70px}
 a{color:#7fb0ff} a:hover{text-decoration:underline}
 code{background:#0d1526;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em;font-family:Consolas,Menlo,monospace}
 pre{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
@@ -39,23 +41,38 @@ img{max-width:100%}
 .mermaid{background:#0d1526;border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
 footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
-@media(max-width:700px){.card{padding:22px 18px}}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#081020;border:none;
+ border-radius:14px;width:44px;height:44px;font-size:19px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#top.on{opacity:1;pointer-events:auto}
+aside.toc{position:sticky;top:74px;width:250px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;
+ background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:700;font-size:13px;color:#8ea2c4;letter-spacing:1px;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;transition:.15s}
+aside.toc li.l3 a{padding-left:30px;font-size:12.3px}
+aside.toc li a:hover{color:#fff;background:rgba(79,125,217,.08)}
+aside.toc li a.on{color:#8fb4ff;border-left-color:var(--acc2);background:linear-gradient(90deg,rgba(79,125,217,.16),transparent)}
+aside.toc::-webkit-scrollbar{width:6px}aside.toc::-webkit-scrollbar-thumb{background:#22304c;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
 </style>
 </head>
 <body>
+<div id="pbar"></div>
 <div class="topbar"><div class="in">
   <a href="../../../index.html">🏆 总览首页</a>
-  <span class="crumb">05_论文赏析/2019</span>
+  <span class="crumb">05_论文赏析/2019 · Modelling an Active Radiation Shield for Manned Mission to Mars（2019 题A 队伍289）</span>
   <span style="flex:1"></span>
   <a href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2019/Problem%20A/2019-GM-A-289.pdf">📄 论文 PDF</a>
   <a href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2019/2019-GM-A-289.md">原文 .md</a>
 </div></div>
-<div class="wrap"><div class="card">
-<h1 id="modelling-an-active-radiation-shield-for-manned-mission-to-mars2019-a-289">Modelling an Active Radiation Shield for Manned Mission to Mars（2019 题A 队伍289）</h1>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="modelling-an-active-radiation-shield-for-manned-mission-to-mars2019-题a-队伍289">Modelling an Active Radiation Shield for Manned Mission to Mars（2019 题A 队伍289）</h1>
 <p><strong>页数</strong>: 28 页 ｜ <strong>对应题目</strong>: Protecting Travelers to Mars（火星旅行辐射防护）</p>
-<h2 id="1">1. 论文速览</h2>
+<h2 id="1-论文速览">1. 论文速览</h2>
 <p>与 105 队的"被动屏蔽"路线不同，289 队（BUET）押注<strong>主动磁屏蔽</strong>：以高温超导 MgB₂ 绕制的连续跑道（race-track）线圈环向环绕 1000 m³ 圆柱居住舱（半径 5 m、长 13 m），用洛伦兹力偏转 2–4 GeV/n 的高能带电粒子。论文先用 Størmer 理论否定 deployed（展开式）线圈方案，再对比 YBCO/MgB₂ 与三种线圈构型（Pumpkin、双螺旋、连续跑道）完成选型，用简化环形磁场做粒子轨道仿真（Euler 法解洛伦兹运动方程），配套 JWST 式遮阳罩热设计与 IMF 扰动力矩分析，最终算得附加质量 48.346 吨，并对比被动聚乙烯方案约 130 吨，论证主动方案的质量优势。</p>
-<h2 id="2">2. 建模体系逐层拆解</h2>
+<h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <ul>
 <li><strong>选型论证层（第 3、5 节）</strong>：三级决策树——(i) 被动 vs 主动：被动无法挡住 &gt;1 GeV/n 的 GCR 重核（会产生散裂次级粒子），故选主动；(ii) deployed vs confined：由 Størmer 定理，磁矩固定时展开式线圈的屏蔽能力随半径增大急剧下降，且要求线圈半径远小于被屏蔽区尺寸，故选 confined；(iii) HTSC 选型：MgB₂（$T_c=39$ K、密度 2.57 g/cm³、相干长度 5 nm）对比 YBCO（$T_c=70$ K、密度 6.3 g/cm³），以质量约束定 MgB₂（Table 2 决策矩阵）；线圈构型对比（Table 3）选有 ISS Columbus/Atlas 实证背景的连续跑道构型（场积分 4.9 T·m）。</li>
 <li><strong>磁场模型（5.5 节）</strong>：把跑道线圈理想化为完美螺旋管（toroid），$B=\frac{\mu NI}{2\pi\sqrt{x^2+y^2}}$，方向分量 $B(x,y)=|B|\cos(\theta+90°)\hat i+|B|\sin(\theta+90°)\hat j$；取 $I=800$ A、$N=3000$ 得最大场强 0.5 T，论文坦言低于理想值但受质量约束。</li>
@@ -63,11 +80,11 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>热控模型（5.6 节）</strong>：辐射热负载 $Q=F_{12}^*A_1e^*\sigma(T_1^4-T_2^4)$，取 $T_1=300$ K（太阳板背温）、$T_2=30$ K、视场因子 1、$A_1=113.0976\,\mathrm{m^2}$，三种发射率对应 519.37 W / 103.87 W / 0.052 W，论证 JWST 级 sunshield（$e^*=10^{-6}$）可把线圈热负载压到可忽略，从而避免不可靠的低温制冷机。</li>
 <li><strong>质量核算层（5.8 节）</strong>：Al-B₄C 支撑筒 $m_{cyl}=\rho V_{cyl}=1273$ kg + Kevlar 跑道护套 $m_{race}=43200$ kg + MgB₂ 线圈 $m_{coil}=2(w+h)N_L\pi r_{coil}^2\rho=3873$ kg，合计 48.346 吨；再用火箭方程 $\Delta v=v_e\ln(m_0/m_f)$ 推出附加质量对推进剂的比例放大关系。</li>
 </ul>
-<h2 id="3">3. 数学方法与算法</h2>
+<h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <p>数值部分是 Matlab 一阶 Euler 法解 6 维（位置+速度）运动方程组（附录给出完整代码：$R_1=5$、$R_2=10$ m 环形场区、$t_{min}=0.5\times10^{-7}$ s、1000 步、初始速度按相对论能量换算）。局限明显：Euler 法精度低、时间步与网格收敛性未检验、磁场为理想化 toroid（真实跑道线圈端部场未计）。补偿手段是"文献标定"：屏蔽效能对比引用 ESA/NIAC/MAARSS 等已发表研究的定量结果（4.9 T·m、14.7 g/cm² 面密度等）。亮点在于工程侧的封闭核算链：热负载 → 无需制冷机 → 质量不含制冷系统 → 火箭方程放大关系 → 与被动方案 130 吨对比，形成完整闭环。速度处理上正文声明"非相对论处理"，附录初速度却按相对论公式换算，两者略有张力（不确定作者是否有意为之）。</p>
-<h2 id="4">4. 排版与图表赏析</h2>
+<h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <p>标题页（p1 渲染图）为 Word 风格、Times 字体，摘要一整段直给结论 48.346 tons，页眉 "Team 289A"。28 页为六篇中最长，中段大量引用文献原图（Figure 2.1 能谱、Fig 2.2 剂量对比、Figure 4.2–4.3.3 线圈构型图均标注 [9] 等文献号），图片版权意识与出处标注规范。自绘图中 Figure 5.5.2 磁场可视化、Figure 5.5.3–5.5.5 三种初始方向的 α 粒子三维轨迹（Matlab plot3）、Figure 5.5.6/5.5.7 效能曲线构成核心证据链。公式编号稀疏（仅式 (1)、(i)、(ii)），行文中有少量机器翻译痕迹（如 "National Iranian American Council" 应为 NIAC 的误读）。表格使用出色：Table 1 风险数据、Table 2 超导材料决策矩阵、Table 3 三构型对比矩阵，直接支撑选型逻辑。参考文献 13 条且多为一手文献（MAARSS、ARSSEM、NIAC 报告），学术规范性六篇中最佳。</p>
-<h2 id="5">5. 获奖密码：为什么能拿金牌</h2>
+<h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>立场鲜明 + 反方论证</strong>：不是罗列方案，而是用 Størmer 定理主动否掉 deployed 路线、用散裂辐射论证被动屏蔽对 GCR 无效，先立靶再打靶，展现批判性思维。</li>
 <li><strong>选型全部落到可查证数据</strong>：$T_c$、密度、相干长度、载流能力、场积分 4.9 T·m、"Atlas 实验/Columbus 舱已验证"，把天马行空的磁屏蔽拉回工程现实，回应题目 "careful and thorough evaluation of practicality"。</li>
@@ -76,7 +93,7 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li><strong>诚实暴露弱点</strong>：承认 0.5 T 低于理想值、MgB₂ 有 flux jump 风险、通信受磁场干扰、未计次级辐射——评委对自知的模型更信任。</li>
 <li>摘要直给 48.346 tons，正文各分项质量可复算，数字链条闭合。</li>
 </ol>
-<h2 id="6">6. 可借鉴清单</h2>
+<h2 id="6-可借鉴清单">6. 可借鉴清单</h2>
 <ol>
 <li>方案类题目先写"否决论证"：用定理或标度律排除主要竞争方案，自己方案的合理性便不证自明。</li>
 <li>关键部件选型做成"决策矩阵表"（行=候选、列=判据），一页表格胜千言。</li>
@@ -86,7 +103,10 @@ footer{text-align:center;color:var(--mut);font-size:12.5px;padding:26px}
 <li>附录放可运行的仿真代码并注明参数初值，正文声明简化假设（非相对论）与代码实际处理的差异要自查一致性。</li>
 </ol>
 </div></div>
+<aside class="toc"><div class="tt">📑 本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
+</div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -98,6 +118,36 @@ document.addEventListener("DOMContentLoaded", function(){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
+  }
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
   }
 });
 </script>
