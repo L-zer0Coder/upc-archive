@@ -398,6 +398,8 @@ def write_deploy_helpers(root, site):
 !/08_物理模型综述
 !/09_可视化总览
 !/_工具脚本
+__pycache__/
+*.pyc
 """
     with open(os.path.join(root, ".gitignore"), "w", encoding="utf-8", newline="\n") as f:
         f.write(gi)
