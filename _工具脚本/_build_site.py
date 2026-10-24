@@ -28,6 +28,10 @@ def posix(p):
 def rel_root(path_abs):
     return posix(os.path.relpath(path_abs, ROOT))
 
+def site_rel(path_abs):
+    """URL for a target as seen from index.html (which lives in SITE dir)."""
+    return quote(posix(os.path.relpath(path_abs, SITE)))
+
 # ---------------- collect docs ----------------
 doc_mds = [P("README.md")]
 for d in DOC_DIRS:
@@ -274,9 +278,9 @@ def paper_entry(p):
     if base == "2013-GM-B-611":
         title = "（与 611a 同文异版）" + title
     return {"file": p["file"], "team": p["team"], "pages": p["pages"], "title": title,
-            "pdf": quote(rel_root(pdf)), "txt": quote(rel_root(txt)),
-            "ana": quote(rel_root(ana_html)), "png1": quote(rel_root(png1)),
-            "pngf": quote(rel_root(pngf))}
+            "pdf": site_rel(pdf), "txt": site_rel(txt),
+            "ana": site_rel(ana_html), "png1": site_rel(png1),
+            "pngf": site_rel(pngf)}
 
 years_data = []
 for y in YEARS:
@@ -289,8 +293,8 @@ for y in YEARS:
             "prob": prob, "cn": cn, "en": en, "dom": dom, "head": head_src[:320],
             "teams": p_.get(f"teams_{prob.lower()}", []),
             "papers": [paper_entry(x) for x in papers_by.get((y, prob), [])],
-            "interp": quote(rel_root(doc_html_abs(P("07_题目解读", INTERP[(y, prob)])))),
-            "summary": quote(rel_root(doc_html_abs(P("02_题目汇总", f"{y}_题目与官方信息.md")))),
+            "interp": site_rel(doc_html_abs(P("07_题目解读", INTERP[(y, prob)]))),
+            "summary": site_rel(doc_html_abs(P("02_题目汇总", f"{y}_题目与官方信息.md"))),
         })
     years_data.append(entry)
 
@@ -304,38 +308,38 @@ def sub_files(sub, exts):
 
 lib = []
 lib.append({"name": "01_官网原始页面", "desc": "抓取自 uphysicsc.com 的 17 个年份页 HTML 原件与提取文本",
-            "items": [{"n": os.path.basename(f), "u": quote(rel_root(f))}
+            "items": [{"n": os.path.basename(f), "u": site_rel(f)}
                       for f in sub_files("01_官网原始页面", {".html", ".txt", ".json"})]})
 lib.append({"name": "02_官方成绩单", "desc": "各年官方成绩公告 PDF（全部金银铜牌名单）",
-            "items": [{"n": os.path.basename(f), "u": quote(rel_root(f))}
+            "items": [{"n": os.path.basename(f), "u": site_rel(f)}
                       for f in sub_files("02_官方成绩单", {".pdf"})]})
 lib.append({"name": "02_题目汇总", "desc": "每年题目原文 + 金牌队伍 + 论文清单（文档页）",
-            "items": [{"n": doc_title(f), "u": quote(rel_root(doc_html_abs(f)))}
+            "items": [{"n": doc_title(f), "u": site_rel(doc_html_abs(f))}
                       for f in sorted(glob.glob(P("02_题目汇总", "*.md")))]})
 lib.append({"name": "03_优秀论文PDF", "desc": "74 篇金牌论文原件（见下方论文库搜索直达）", "items": []})
 lib.append({"name": "04_论文文本", "desc": "论文全文提取文本，便于检索",
-            "items": [{"n": os.path.basename(f), "u": quote(rel_root(f))}
+            "items": [{"n": os.path.basename(f), "u": site_rel(f)}
                       for f in sub_files("04_论文文本", {".txt", ".json"})]})
 lib.append({"name": "05_论文赏析", "desc": "73 篇论文逐篇赏析 + 12 份批次对比表（文档页）",
-            "items": [{"n": doc_title(f), "u": quote(rel_root(doc_html_abs(f)))}
+            "items": [{"n": doc_title(f), "u": site_rel(doc_html_abs(f))}
                       for f in sorted(glob.glob(P("05_论文赏析", "**", "*.md"), recursive=True))
                       if not os.path.basename(f).startswith("_parsed")]})
 lib.append({"name": "06_论文页面图", "desc": "148 张论文标题页/图表页渲染图（见论文库“图页”按钮）", "items": []})
 lib.append({"name": "07_题目解读", "desc": "32 道题目深度解读（文档页）",
-            "items": [{"n": doc_title(f), "u": quote(rel_root(doc_html_abs(f)))}
+            "items": [{"n": doc_title(f), "u": site_rel(doc_html_abs(f))}
                       for f in sorted(glob.glob(P("07_题目解读", "*.md")))]})
 lib.append({"name": "08_物理模型综述", "desc": "八大专题综述 + 总览（文档页）",
-            "items": [{"n": doc_title(f), "u": quote(rel_root(doc_html_abs(f)))}
+            "items": [{"n": doc_title(f), "u": site_rel(doc_html_abs(f))}
                       for f in sorted(glob.glob(P("08_物理模型综述", "*.md")))]})
 lib.append({"name": "_工具脚本", "desc": "抓取 / 建库 / 建站全流程 Python 脚本（构建时用，无需在线浏览）",
-            "items": [{"n": os.path.basename(f), "u": quote(rel_root(f))}
+            "items": [{"n": os.path.basename(f), "u": site_rel(f)}
                       for f in sorted(glob.glob(P("_工具脚本", "*.py")))]})
 
 # search index over all doc pages
 search_docs = []
 for md_abs, html_abs, title in built_docs:
     rel = rel_root(md_abs)
-    search_docs.append({"t": title, "u": quote(rel_root(html_abs)), "d": DIR_LABEL.get(rel, rel.split("/")[0])})
+    search_docs.append({"t": title, "u": site_rel(html_abs), "d": DIR_LABEL.get(rel, rel.split("/")[0])})
 
 SEARCH_INDEX = json.dumps({"docs": search_docs}, ensure_ascii=False)
 DATA_JS = json.dumps({"years": years_data, "domains": {k: {"name": v[0], "color": v[1]} for k, v in DOMAINS.items()},
@@ -423,4 +427,31 @@ render_index({"timeline": TIMELINE_SVG, "bars": BARS_SVG, "model": MODEL_SVG,
               "rules": RULES_HTML, "data": DATA_JS, "ndocs": len(search_docs), "site": SITE})
 write_deploy_helpers(ROOT, SITE)
 validate(ROOT, SITE)
+
+# runtime-data validation: every URL the index JS injects must resolve from SITE dir
+# (static validate() can't see these because they live inside the DATA blob)
+from urllib.parse import unquote as _unq
+_rt_bad = []
+def _rt(u):
+    if u and not os.path.exists(os.path.normpath(os.path.join(SITE, _unq(u)))):
+        _rt_bad.append(u)
+for _y in years_data:
+    for _p in _y["probs"]:
+        _rt(_p["interp"]); _rt(_p["summary"])
+        for _pp in _p["papers"]:
+            for _k in ("pdf", "txt", "ana", "png1", "pngf"):
+                _rt(_pp[_k])
+for _g in lib:
+    for _it in _g["items"]:
+        _rt(_it["u"])
+for _s in search_docs:
+    _rt(_s["u"])
+if _rt_bad:
+    print(f"RUNTIME-DATA VALIDATION FAILED: {len(_rt_bad)} broken urls")
+    for u in _rt_bad[:30]:
+        print("  ", u)
+    raise SystemExit(1)
+print(f"runtime-data validation ok: {sum(len(p['papers']) for y in years_data for p in y['probs'])} papers "
+      f"+ {len(lib)} lib groups + {len(search_docs)} search docs")
+
 print(f"docs built: {len(built_docs)} | papers: {len(papers)} | all done")
