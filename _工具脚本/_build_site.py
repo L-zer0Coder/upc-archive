@@ -357,7 +357,7 @@ def paper_entry(p):
     pdf = P("03_优秀论文PDF", p["year"], f"Problem {p['problem']}", p["file"])
     txt = P("04_论文文本", p["year"], base + ".txt")
     ana_md = P("05_论文赏析", p["year"], base + ".md")
-    if base == "2013-GM-B-611":  # duplicate of 611a → analysis lives under 611a
+    if base == "2013-GM-B-611":  # duplicate of 611a → analysis & deep-read live under 611a
         ana_md = P("05_论文赏析", "2013", "2013-GM-B-611a.md")
     ana_html = doc_html_abs(ana_md)
     png1 = P("06_论文页面图", p["year"], base + "_p1.png")
@@ -365,7 +365,8 @@ def paper_entry(p):
     title = " / ".join(p["first_lines"][:3])[:120]
     if base == "2013-GM-B-611":
         title = "（与 611a 同文异版）" + title
-    jd_md = P("10_论文精读", p["year"], base + "_精读.md")
+    jd_base = "2013-GM-B-611a" if base == "2013-GM-B-611" else base
+    jd_md = P("10_论文精读", p["year"], jd_base + "_精读.md")
     return {"file": p["file"], "team": p["team"], "pages": p["pages"], "title": title,
             "pdf": site_rel(pdf), "txt": site_rel(txt),
             "ana": site_rel(ana_html), "png1": site_rel(png1),
@@ -543,7 +544,7 @@ for _y in years_data:
     for _p in _y["probs"]:
         _rt(_p["interp"]); _rt(_p["summary"])
         for _pp in _p["papers"]:
-            for _k in ("pdf", "txt", "ana", "png1", "pngf"):
+            for _k in ("pdf", "txt", "ana", "png1", "pngf", "jd"):
                 _rt(_pp[_k])
 for _g in lib:
     for _it in _g["items"]:
