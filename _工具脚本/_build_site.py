@@ -67,77 +67,77 @@ DOC_TPL = """<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>__TITLE__ · UPC 全档案库</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
 <style>
-:root{--bg0:#070a12;--bg1:#0b111e;--bg2:#101828;--bg3:#161f33;--ink:#e9eef7;--mut:#9aa7bd;--dim:#68748e;
- --line:rgba(151,167,197,.13);--line2:rgba(151,167,197,.28);--acc:#8b9dff;--accS:#6366f1;--cyan:#5eead4;--r:14px;
- --mono:"JetBrains Mono","Cascadia Code",Consolas,"SFMono-Regular",monospace}
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
  color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
- line-height:1.85;font-size:15.5px}
-#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:linear-gradient(90deg,var(--accS),var(--cyan));transition:width .1s}
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
 .topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
-.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:99px;
- padding:3px 13px;transition:.15s;white-space:nowrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
 .topbar a:hover{border-color:var(--line2);color:var(--ink)}
-.crumb{color:var(--dim);font-size:12.5px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.layout{display:flex;gap:26px;max-width:1240px;margin:0 auto;padding:30px 20px 90px;align-items:flex-start}
-.content{flex:1;min-width:0}
-.card{background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0)),var(--bg2);border:1px solid var(--line);
- border-radius:var(--r);padding:36px 42px;box-shadow:0 24px 60px rgba(0,0,0,.25)}
-h1{font-size:27px;line-height:1.45;margin:.2em 0 .6em;font-weight:700;letter-spacing:-.015em;
- background:linear-gradient(180deg,#fff 30%,#a9b7d8);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{font-size:19.5px;padding-left:12px;margin-top:1.8em;scroll-margin-top:74px;font-weight:650;letter-spacing:-.01em;position:relative}
-h2::before{content:"";position:absolute;left:0;top:.28em;bottom:.28em;width:3px;border-radius:2px;background:var(--accS)}
-h3{font-size:16.5px;color:#cdd8ec;scroll-margin-top:74px;font-weight:650}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
 a{color:var(--acc)} a:hover{text-decoration:underline}
 code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
  font-family:var(--mono)}
 pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
 pre code{border:none;background:none;padding:0}
-blockquote{margin:1em 0;padding:8px 16px;border-left:3px solid var(--accS);background:rgba(99,102,241,.07);
- color:#c6d0e2;border-radius:0 10px 10px 0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
 table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
-th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
-th{background:var(--bg3);color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
-tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
 hr{border:none;border-top:1px solid var(--line);margin:2em 0}
 img{max-width:100%}
 .mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
 footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
 #top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
  border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
 #top.on{opacity:1;pointer-events:auto}
 #top:hover{background:var(--accS)}
-aside.toc{position:sticky;top:68px;width:250px;flex-shrink:0;max-height:calc(100vh - 92px);overflow-y:auto;
- background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px 8px 16px 0;font-size:13px}
-aside.toc .tt{font-weight:700;font-size:10.5px;color:var(--dim);letter-spacing:.18em;padding:0 16px 10px;font-family:var(--mono)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
 aside.toc ul{list-style:none;margin:0;padding:0}
-aside.toc li a{display:block;padding:5px 16px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;
- white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:.15s;font-size:12.8px}
-aside.toc li.l3 a{padding-left:30px;font-size:12px}
-aside.toc li a:hover{color:var(--ink);background:rgba(255,255,255,.03)}
-aside.toc li a.on{color:var(--acc);border-left-color:var(--accS);background:linear-gradient(90deg,rgba(99,102,241,.13),transparent)}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
 aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
-@media(max-width:1100px){aside.toc{display:none}.card{padding:26px 22px}}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
 </style>
 </head>
 <body>
 <div id="pbar"></div>
 <div class="topbar"><div class="in">
-  <a href="__HOME__">🏆 总览首页</a>
-  <span class="crumb">__CRUMB__ · __TITLE__</span>
-  <span style="flex:1"></span>
+  <a href="__HOME__" style="font-weight:500">← 总览首页</a>
   __PAPERTAG__
-  <a href="__RAWMD__">原文 .md</a>
+  <a href="__RAWMD__">Markdown</a>
+  <span class="crumb" style="flex:1">__CRUMB__ · __TITLE__</span>
 </div></div>
 <div class="layout">
   <div class="content"><div class="card">
@@ -146,7 +146,7 @@ __BODY__
 __TOC__
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
-<button id="top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button id="top" aria-label="回到顶部">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
@@ -159,6 +159,11 @@ document.addEventListener("DOMContentLoaded", function(){
       el.parentElement.replaceWith(d);});
     mermaid.run({querySelector:'.mermaid'});
   }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
   // reading progress
   var pb=document.getElementById('pbar');
   addEventListener('scroll',function(){
@@ -209,7 +214,7 @@ def toc_html(md_obj):
     walk(md_obj.toc_tokens, out, 0)
     if not out:
         return ""
-    return ('<aside class="toc"><div class="tt">📑 本页目录</div><ul>'
+    return ('<aside class="toc"><div class="tt">本页目录</div><ul>'
             + "".join(out) + "</ul></aside>")
 
 MATH_RE = re.compile(r"\$\$.*?(?:\$\$|\n\n)|\$[^$\n]+?\$", re.S)
@@ -260,7 +265,7 @@ def render_docs():
         if m and rel.startswith("05_论文赏析"):
             pdf = P("03_优秀论文PDF", m.group(1), f"Problem {m.group(2).upper()}", m.group(0) + ".pdf")
             if os.path.exists(pdf):
-                papertag = f'<a href="{link_from(page_dir, pdf)}">📄 论文 PDF</a>'
+                papertag = f'<a href="{link_from(page_dir, pdf)}">论文 PDF</a>'
         page_html = (DOC_TPL.replace("__TITLE__", title).replace("__CRUMB__", crumb)
                      .replace("__HOME__", home).replace("__RAWMD__", raw)
                      .replace("__PAPERTAG__", papertag).replace("__BODY__", body)
@@ -314,9 +319,9 @@ CN = {
  (2025,'B'):("19 世纪火炮弹道与无计算器射表","Artillery","fluid"),
 }
 DOMAINS = {
- "astro":("航天与轨道","#4f7dd9"), "fluid":("流体与空气动力","#2aa8a0"), "mech":("刚体与多体","#e08a3c"),
- "heat":("热学与能量","#d9584f"), "bio":("生物与标度律","#5aa64f"), "em":("电磁与辐射","#8f6fd9"),
- "acou":("声学与信号","#d96fa8"),
+ "astro":("航天与轨道","#7E9BE0"), "fluid":("流体与空气动力","#5CB3A8"), "mech":("刚体与多体","#D29A55"),
+ "heat":("热学与能量","#DB7A74"), "bio":("生物与标度律","#8CBA6E"), "em":("电磁与辐射","#A48BD9"),
+ "acou":("声学与信号","#D77FAD"),
 }
 YEARS = list(range(2010, 2026))
 
@@ -431,37 +436,42 @@ import math
 W,H = 960, 310
 tl = [f'<svg viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" role="img">']
 tl.append('<defs><filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>')
-tl.append(f'<line x1="40" y1="205" x2="{W-30}" y2="205" stroke="rgba(151,167,197,.22)" stroke-width="1.5"/>')
+tl.append(f'<line x1="40" y1="205" x2="{W-30}" y2="205" stroke="rgba(255,255,255,.12)" stroke-width="1"/>')
+tl.append('<text x="30" y="133" font-size="11" fill="#6B7482" text-anchor="end">A 题</text>')
+tl.append('<text x="30" y="175" font-size="11" fill="#6B7482" text-anchor="end">B 题</text>')
 for i,y in enumerate(YEARS):
     x = 60 + i*((W-100)/15)
-    tl.append(f'<text x="{x}" y="228" font-size="11.5" fill="#68748e" text-anchor="middle" font-family="Consolas,monospace">{y}</text>')
+    if i % 2 == 0:
+        tl.append(f'<text x="{x}" y="228" font-size="11" fill="#6B7482" text-anchor="middle">{y}</text>')
     for prob in "AB":
         cn,en,dom = CN[(y,prob)]
         col = DOMAINS[dom][1]
-        cy = 205 - (34 if prob=="A" else 76)
-        tl.append(f'<circle cx="{x}" cy="{cy}" r="13" fill="{col}" opacity="0.25"><title>{y} 题{prob}: {cn}</title></circle>')
-        tl.append(f'<circle cx="{x}" cy="{cy}" r="9" fill="{col}" opacity="0.95"><title>{y} 题{prob}: {cn}</title></circle>')
-        tl.append(f'<text x="{x}" y="{cy+3.4}" font-size="9.5" fill="#070a12" text-anchor="middle" font-weight="800">{prob}</text>')
+        cy = 205 - (76 if prob=="A" else 34)
+        tl.append(f'<circle cx="{x}" cy="{cy}" r="7" fill="{col}"><title>{y} 题{prob}: {cn}</title></circle>')
 lx = 40
 for k,(name,col) in DOMAINS.items():
-    tl.append(f'<circle cx="{lx}" cy="268" r="7" fill="{col}"/>')
-    tl.append(f'<text x="{lx+12}" y="272" font-size="12" fill="#9aa7bd">{name}</text>')
-    lx += 24 + len(name)*12.6
+    tl.append(f'<circle cx="{lx}" cy="268" r="6" fill="{col}"/>')
+    tl.append(f'<text x="{lx+13}" y="272" font-size="12" fill="#A9B2C0">{name}</text>')
+    lx += 26 + len(name)*13
 tl.append('</svg>')
 TIMELINE_SVG = "".join(tl)
 
 W2,H2 = 960, 260
 bc = [f'<svg viewBox="0 0 {W2} {H2}" xmlns="http://www.w3.org/2000/svg">']
-bc.append(f'<text x="40" y="26" font-size="13.5" fill="#9aa7bd">每年官方公开金牌论文数（共 {len(papers)} 篇；2024 官方未公开）</text>')
+bc.append(f'<text x="40" y="26" font-size="13" fill="#A9B2C0">每年官方公开金牌论文数（共 {len(papers)} 篇；2024 官方未公开）</text>')
 maxn = max(len(v) for v in papers_by.values())
 for i,y in enumerate(YEARS):
     n = len(papers_by.get((y,'A'),[])) + len(papers_by.get((y,'B'),[]))
     x = 60 + i*((W2-100)/15)
     bh = n/maxn*150 if n else 0
-    bc.append(f'<defs><linearGradient id="g{i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8b9dff"/><stop offset="1" stop-color="#4a55c9"/></linearGradient></defs>')
-    bc.append(f'<rect x="{x-16}" y="{206-bh}" width="32" height="{bh}" rx="5" fill="url(#g{i})"/>')
-    bc.append(f'<text x="{x}" y="{206-bh-8}" font-size="11.5" fill="#cbd5f0" text-anchor="middle" font-family="Consolas,monospace">{n if n else "—"}</text>')
-    bc.append(f'<text x="{x}" y="224" font-size="11.5" fill="#68748e" text-anchor="middle" font-family="Consolas,monospace">{y}</text>')
+    if n:
+        bc.append(f'<rect x="{x-15}" y="{206-bh}" width="30" height="{bh}" rx="3" fill="#6E7BF2"/>')
+        wt = ' font-weight="600"' if n == maxn else ''
+        bc.append(f'<text x="{x}" y="{206-bh-7}" font-size="11.5" fill="#F0F3F7" text-anchor="middle"{wt}>{n}</text>')
+    else:
+        bc.append(f'<line x1="{x-9}" y1="204" x2="{x+9}" y2="204" stroke="#6B7482" stroke-width="1.5"/>')
+        bc.append(f'<text x="{x}" y="193" font-size="10.5" fill="#6B7482" text-anchor="middle">无</text>')
+    bc.append(f'<text x="{x}" y="224" font-size="11" fill="#6B7482" text-anchor="middle">{y}</text>')
 bc.append('</svg>')
 BARS_SVG = "".join(bc)
 
@@ -477,10 +487,10 @@ for idx,(k,(name,col)) in enumerate(DOMAINS.items()):
     ang = -math.pi/2 + idx*(2*math.pi/8)
     cx = center + 330*math.cos(ang); cy = 210 + 150*math.sin(ang)
     mm.append(f'<line x1="{center+hub*math.cos(ang)}" y1="{210+hub*math.sin(ang)}" x2="{cx}" y2="{cy}" stroke="{col}" stroke-width="1.5" opacity="0.35"/>')
-    mm.append(f'<circle cx="{cx}" cy="{cy}" r="46" fill="{col}" opacity="0.88"/>')
+    mm.append(f'<circle cx="{cx}" cy="{cy}" r="46" fill="{col}" fill-opacity="0.14" stroke="{col}" stroke-width="1.5"/>')
     parts = name.split("与") if "与" in name else [name[:4], name[4:]]
-    mm.append(f'<text x="{cx}" y="{cy-3}" font-size="12.5" fill="#070a12" text-anchor="middle" font-weight="700">{parts[0]}</text>')
-    mm.append(f'<text x="{cx}" y="{cy+13}" font-size="12.5" fill="#0a0f1e" text-anchor="middle" font-weight="800">{parts[1] if len(parts)>1 else ""}</text>')
+    mm.append(f'<text x="{cx}" y="{cy-3}" font-size="12.5" fill="{col}" text-anchor="middle" font-weight="600">{parts[0]}</text>')
+    mm.append(f'<text x="{cx}" y="{cy+13}" font-size="12.5" fill="{col}" text-anchor="middle" font-weight="600">{parts[1] if len(parts)>1 else ""}</text>')
     mm.append(f'<a href="{dom_links[idx]}"><circle cx="{cx}" cy="{cy}" r="52" fill="transparent"><title>{name} → 综述</title></circle></a>')
 mm.append('</svg>')
 MODEL_SVG = "".join(mm)
@@ -492,7 +502,7 @@ RULES = [
  ("模型分层递进","理想（真空/点质量）→ 关键修正（阻力/大气/转动）→ 扩展（风/海拔/失效），每层给量级论证。"),
  ("验证三件套","收敛性（步长减半）、极限情形（退化为解析解）、灵敏度（参数扫描）。"),
  ("负结果显式报告","论据扎实的反直觉结论（放弃气动制动、太空塔不经济）恰是高分项。"),
- ("降维交付","交付'可用的东西'：射表、列线图、修正公式、心算口诀、设计准则。"),
+ ("降维交付","交付“可用的东西”：射表、列线图、修正公式、心算口诀、设计准则。"),
 ]
 RULES_HTML = "".join(
     f'<div class="rule"><div class="rule-n">{i+1}</div><div><div class="rule-t">{t}</div><div class="rule-d">{d}</div></div></div>'
