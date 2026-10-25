@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 04 · Lasercraft Dynamics and Design for Proxima Centauri b Flyby（2018 题A 金牌 · 队伍 158） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2018/2018-GM-A-158_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2018 · 精读 04 · Lasercraft Dynamics and Design for Proxima Centauri b Flyby（2018 题A 金牌 · 队伍 158）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-04-lasercraft-dynamics-and-design-for-proxima-centauri-b-flyby2018-题a-金牌-队伍-158">精读 04 · Lasercraft Dynamics and Design for Proxima Centauri b Flyby（2018 题A 金牌 · 队伍 158）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：左手边开论文 PDF（<code>03_优秀论文PDF/2018/Problem A/2018-GM-A-158.pdf</code>），右手边开本篇。每节按「它写了什么 → 为什么这样写 → 你要学什么」三层展开；每个公式给「物理直觉 → 完整推导 → 适用边界」；核心图附可运行复现代码（本文代码独立复现了附录 Table 1，非相对论列逐行吻合）。读完应当能独立复现全文数字。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<p>论文回答题面三问的方式是<strong>两条并行流水线 + 一个汇合点</strong>：</p>
+<pre><code class="language-mermaid">flowchart LR
+    A[&quot;§3-4 组合筛选流水线&lt;br/&gt;阵列(方/圆) × 帆形(球/锥/平)&lt;br/&gt;× 光束(平顶/高斯/多模) × 材料&lt;br/&gt;→ 定性稳定性淘汰&quot;] --&gt;|选定方帆+均匀束| C[&quot;§5-6 动力学流水线&lt;br/&gt;非相对论式(5)-(13)&lt;br/&gt;→ 相对论式(14)-(16)&lt;br/&gt;→ L0, v0, t0, β0&quot;]
+    B[&quot;§2 符号表钉死全部常数&lt;br/&gt;d=10km, P0=50GW, λ=1064nm&quot;] --&gt; C
+    C --&gt; D[&quot;§7 精度预算&lt;br/&gt;θdev=9.36e-9 → θ=1.06e-10 rad&lt;br/&gt;发散 1.06e-13 rad 可忽略&quot;]
+    D --&gt; E[&quot;§8 结论：稳定性最优≠工程最优&lt;br/&gt;球形帆稳但会烧蚀，方帆快但欠稳&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好？</strong> 稳定性（§4，定性+文献证据）与动力学（§5–6，定量+数值）被明确解耦——§4 末尾一句 "the stability is approached independently of the subsequent analysis"，先把"哪类组合原则上能活"筛掉，再对"能算的那一个"算到底。开放设计题最怕搅在一起：既没算清动力学，又没说服稳定性。此外 §2 的符号表带数值列（d=10 km、P₀=50 GW……），评委复算零成本。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-abstract第-1-页">1.1 Abstract（第 1 页）</h3>
+<p><strong>它写了什么</strong>：目标（帆形×材料×光束形态的最优组合）→ 评价标准（"stability, directional precision and maximum speed for a given mass"——三个目标一句话钉死）→ 方法（参数空间扫描）→ 两个分层结论（稳定性最优：球形帆+多模高斯束；动力学最优：均匀束下方帆）+ 一个精度数字（10⁻¹⁰ rad 量级）。</p>
+<p><strong>为什么这样写</strong>：摘要敢同时给"条件式结论"——"disregarding power efficiency and material limitations, a spherical sail... appears to be the best option. However, we conduct an analysis of dynamics using a uniform beam, with the square sail performing best in this limited comparison"——一个 However 引出两个结论各自的适用域，评委立刻明白作者没有把苹果和橘子硬比。</p>
+<p><strong>你要学什么</strong>：<strong>结论写成条件式</strong>（"在不考虑 X 时 A 最优；在 Y 的限定比较中 B 最优"），比一刀切的"最优方案"可信得多。</p>
+<h3 id="12-1-introduction-2-notations第-3-页">1.2 §1 Introduction + §2 Notations（第 3 页）</h3>
+<p><strong>它写了什么</strong>：Breakthrough Starshot 背景一段（50 GW、10–20 分钟加速、60 000 km 初始位移引 [4] Parkin）+ 任务约束（飞掠距离 ≤ 地月距离、帆面积 10 m²、0.2c）；然后符号表 7 行，每行带数值。</p>
+<p><strong>你要学什么</strong>：把题面约束（60 000 km 初始位移"consistent with a low-thrust non Keplerian orbit"）直接写进引言并挂文献——题面给的每个数都要被"认领"，否则后文用它时显得凭空。</p>
+<h3 id="13-3-laser-array-specifications第-4-页">1.3 §3 Laser Array Specifications（第 4 页）</h3>
+<p><strong>它写了什么</strong>：采用 Lubin 的 DE-STAR 4 方案（10 km 方阵、Nd:YAG、1064 nm，"minimal deviation by atmospheric disturbances"），给出唯一一个本节公式——发散角式 (1) θ = αλ/d（方形 α=1、圆形 α=1.22），并预告光束可编程为平顶/高斯/多模。</p>
+<p><strong>为什么这样写</strong>：一节只解决一个"输入参数从哪来"的问题。λ/d 是后文 L₀（式 11）的唯一光束来源，先钉死。</p>
+<h3 id="14-4-sail-fabrication第-47-页组合淘汰赛">1.4 §4 Sail Fabrication（第 4–7 页）——组合淘汰赛</h3>
+<p><strong>它写了什么</strong>：(a) 材料：列两层介质膜方案（金属化塑料膜 99.995%、金属化玻璃 99.999%、吸收 &lt;10 ppm），承认 "reflectivity has been considered to be unity in all subsequent demonstrated calculations. This has not yet been achieved"——先亮假设再辩护；又主动排除未证实的极限参数（"Sails as thin as 10 nm... have not been established as feasible... so we do not go near these limits"）。(b) 形状×光束稳定性：光压合力式 (2) 与光压矩式 (3) 是两个面积分；配 Euler 方程式 (4)；逐一评估球（质心-顶点距&gt;直径否则要自旋；非刚性会"deformed into an oblate spheroid"）、锥（避免多次反射要求半角≤30°，JPL 实验只在 25–30° 稳定，"a very small range"）、平（均匀辐照下不稳定）；再评四高斯空心束方案（稳但"80% of the laser energy would be lost"）。</p>
+<p><strong>为什么这样写</strong>：这是<strong>文献驱动的淘汰赛</strong>写法——每个候选都配一条文献证据（Popova 2016、Manchester &amp; Loeb 2017、Benford 实验 2003），淘汰理由全是物理量词（80% 能量损失、25–30° 窄窗口、扁球变形），没有一句"我们觉得不行"。</p>
+<p><strong>你要学什么</strong>：
+- 淘汰矩阵要<strong>先写一般理论再代特例</strong>：式 (2)(3) 对任意帆形成立，后面球/锥/平只是代入 P(x)、n(x) 不同——一般性写在前面，特例讨论就短。
+- "被放弃方案的价值剩余"：空心束方案虽被淘汰，但作者保留它作为"stability vs practicality 冲突"的证据链一环。负结果的用途不止于排除。</p>
+<h3 id="15-5-physics-of-laser-propulsion第-812-页全文数学主体">1.5 §5 Physics of Laser Propulsion（第 8–12 页）——全文数学主体</h3>
+<p><strong>它写了什么</strong>：三步走。<strong>5.1 非相对论</strong>：光压推力式 (5) F = P₀(1+ε_r)/c（ε_r=1 全反射），加速度式 (6)，帆质量式 (8) m_sail = D²hρ，帆尺寸式 (9)，光斑=帆尺寸时刻的速度式 (10)、距离式 (11) L₀ = Dd/2λ、时间式 (12)，持续照射的极限速度式 (13)，并证明"最大速度发生在帆质量=载荷质量时"。<strong>5.2 相对论</strong>：Compton 散射图像 + 双多普勒因子式 (14) E_f = ((1−β)/(1+β))E_i，得 β̇ 式 (15) = 2P/(mc²γ³)·(1−β)/(1+β)，单次碰撞能量转移效率式 (16) η = 2β/(1+β)；指出超过 L₀ 后功率按平方反比衰减→存在终端速度，且"reaches its terminal velocity within the mandated timeframe of 20 minutes"。<strong>5.3 三图对比</strong>：方阵+方帆的 β-载荷曲线（图 3，引出 2 g 载荷达 0.2c）；圆阵下三种帆形对比（图 4）；方/圆并排（图 5）→ 结论"方帆配方阵、圆帆配圆阵"。</p>
+<p><strong>为什么这样写</strong>：先非相对论再相对论，不是教学顺序而是<strong>论证顺序</strong>——非相对论式全部闭式可验算，相对论式 (15) 需要数值积分；有了 NR 基准，相对论修正多大一眼便知（附录 Table 1：2 g 载荷 23.5% vs 20.1%）。</p>
+<p><strong>你要学什么</strong>：
+- 式 (13) 后那句 "It can be shown that the maximum speed occurs when the sail mass = the payload mass"——这是把优化结论内嵌到公式节的高效写法（证明放引文，结论先落地）。
+- 相对论不是"加上 γ 就完了"：式 (14) 的双多普勒（到达率降 (1−β)、反射再红移 (1−β)/(1+β)）和式 (15) 的 γ⁻³，三个修正各来自一处，分开写清来源。</p>
+<h3 id="16-6-acceleration-dynamics第-1314-页">1.6 §6 Acceleration Dynamics（第 13–14 页）</h3>
+<p><strong>它写了什么</strong>：取 2 g 为"能接近 0.2c 的最高质量"，代出四个特征数：L₀ = 1.49×10⁷ km、t₀ = 9.97 min、v₀ = 4.99×10⁷ m/s、β₀ = 0.166；然后一段<strong>量级排除</strong>：太阳引力 0.00002 N vs 激光力 333.33 N，差 7 个量级，"Hence it is disregarded"。</p>
+<p><strong>为什么这样写</strong>：把 §5 的公式链"兑现"成 4 个可感知的数（1.49×10⁷ km——比地月距离远 40 倍；9.97 min——20 分钟照射的半程），论文从抽象回到工程。太阳引力的排除法是"每个被忽略的力都要给量级"的范本。</p>
+<h3 id="17-7-laser-precision第-15-页两级判据">1.7 §7 Laser Precision（第 15 页）——两级判据</h3>
+<p><strong>它写了什么</strong>：任务级判据式 (17) θ_dev = 3.844×10⁵ km / 4.105×10¹³ km = 9.364×10⁻⁹ rad（飞掠必须进入以行星为心、地月距离为半径的球）；系统级判据式 (18) θ = (D/2)/L₀ = 1.06×10⁻¹⁰ rad（光斑中心不滑出帆面）；最后自检式 (19)：激光自身衍射发散 λ/d = 1.064×10⁻¹³ rad，比判据小 3 个量级，"assuming that the laser points exactly where we want it to"。</p>
+<p><strong>你要学什么</strong>：<strong>精度预算分两级再取严者</strong>——任务级（9.4 nrad，保证命中）+ 系统级（0.1 nrad，保证光束始终推帆）。取严者后任务级自动满足，一段话讲完"为什么这样取就够了"。</p>
+<h3 id="18-8-conclusions-附录第-1618-页">1.8 §8 Conclusions + 附录（第 16–18 页）</h3>
+<p><strong>它写了什么</strong>：重申条件式结论（方帆动力学最优 / 球帆稳定性最优），补充淘汰理由的物理解释（球帆"thickness in the order of microns, would become ablated at high relativistic speeds"）；列出未做项（地球自转 20 分钟内的激光偏移会给力矩）；承认参数空间"huge"。附录 Table 1（方阵下方帆：1–10 g 载荷的相对论/非相对论 β 对比）、Table 2（圆阵下三方帆 β 对比）。</p>
+<p><strong>你要学什么</strong>：结论段把"两个最优的冲突"留给读者做工程判断，并明确指出下一步（稳定性是方帆方案的短板）——<strong>结论承接正文矛盾，而不是假装矛盾消失</strong>。</p>
+<hr>
+<h2 id="2-图表深析">2. 图表深析</h2>
+<table>
+<thead>
+<tr>
+<th>图</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fig 1（帆稳定性四要素，引 Atwater 2018）</td>
+<td>§4.2</td>
+<td>一张文献综述图顶替三页文字：帆形/光束剖面/刚度/质量分布四个维度</td>
+<td>直接引用 Nat. Mater. 图 + 自写图注（"red arrows denote schematically laser beam illumination..."）</td>
+</tr>
+<tr>
+<td>Fig 2（相对论曲线，引 Kulkarni/Lubin）</td>
+<td>§5.2</td>
+<td>相对论结论的文献背书：小质量先到终端速度、1 km 阵发散更快</td>
+<td>引用图，正文用文字转述两条读图结论</td>
+</tr>
+<tr>
+<td>Fig 3（方帆 β–载荷，方阵）</td>
+<td>§5.3</td>
+<td>定载荷上限：曲线在 2 g 处触 0.2c</td>
+<td>见下方代码（相对论+非相对论双线）</td>
+</tr>
+<tr>
+<td>Fig 4（三种帆形 β–载荷，圆阵）</td>
+<td>§5.3</td>
+<td>同一阵列下帆形横比 → 圆帆略优</td>
+<td>同一代码换 α=1.22 与帆几何</td>
+</tr>
+<tr>
+<td>Fig 5（方 vs 圆并排）</td>
+<td>§5.3 末</td>
+<td>回答"圆阵圆帆是否比方阵方帆好"——上一图留下的悬念</td>
+<td>双曲线同图</td>
+</tr>
+<tr>
+<td>Table 1/2（附录）</td>
+<td>全文数值底座</td>
+<td>对比表让"相对论修正在 2 g 不可忽略"从口号变成逐行数据</td>
+<td>数值积分（本文已复现，见下）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心图复现（Fig 3 + Table 1）：β–载荷双线图</strong></p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
+
+# ── 常量（对应论文 §2 符号表与式 (9)(11)）──
+P0, d, D, lam, c = 50e9, 1e4, 3.16, 1.064e-6, 3e8   # 50GW, 10km, 帆边长, 1064nm
+L0 = D*d/(2*lam)                                     # 式(11): 光斑=帆尺寸的距离
+
+def beta_rel(M):
+    &quot;&quot;&quot;积分式(15): db/dt = 2P/(mc^2 g^3) (1-b)/(1+b);
+       L&lt;=L0 全功率, L&gt;L0 捕获份额 (L0/L)^2 (平方反比), dL/dt = bc&quot;&quot;&quot;
+    def rhs(t, y):
+        b, L = y
+        P = P0 if L &lt;= L0 else P0*(L0/L)**2
+        g = 1/np.sqrt(1-b*b)
+        return [2*P/(M*c**2*g**3)*(1-b)/(1+b), b*c]
+    return solve_ivp(rhs, [0, 1200], [1e-8, 0], rtol=1e-8,
+                     atol=1e-12, max_step=0.05).y[0][-1]
+
+payload = np.array([1,2,3,4,5,6,7,8,9,10])*1e-3      # kg
+M = 2*payload          # 关键：式(13)之后的最优配置 —— 帆质量=载荷质量
+b_rel = np.array([beta_rel(m) for m in M])
+b_nr  = np.sqrt(2*2*P0*d*D/(c*lam*M))/c              # 式(13): v∞ 的 NR 极限
+
+fig, ax = plt.subplots(figsize=(6.5,4.2))
+ax.plot(payload*1e3, b_nr*100,  'o--', label='Non-relativistic, Eq.(13)')
+ax.plot(payload*1e3, b_rel*100, 's-',  label='Relativistic, Eq.(15) integrated')
+ax.axhline(20, color='gray', ls=':', lw=1); ax.text(9.2, 20.5, '0.2c target')
+ax.set(xlabel='Payload mass (g)', ylabel=r'$\beta_\infty$ (%)',
+       title='Square sail on DE-STAR 4 (50 GW, 10 km array)\n'
+             'NR column reproduces Table 1 exactly; '
+             r'relativistic 2g: mine 18.6% vs paper 20.1% $\bf{\approx}$')
+ax.legend(); plt.tight_layout(); plt.show()
+</code></pre>
+<p><strong>独立复现报告</strong>：非相对论列（式 13，取总质量=2×载荷）与附录 Table 1 <strong>逐行吻合</strong>（1 g：33.2/33.3；2 g：23.5/23.5；10 g：10.5/10.5）——证明"帆质量=载荷质量"确是他们表格的隐含配置。相对论列趋势与量级一致但低 1–3 个百分点（2 g：我的 18.6% vs 论文 20.1% ⚠ 差距应源于其引文 [2][3] 的 UCSB 模拟器对光束溢出/捕获份额的处理与本处 (L₀/L)² 近似不同）。§6 的四个特征数用总质量 4 g（载荷 2 g+帆 2 g，面密度 0.2 g/m²）复核：L₀=1.485×10⁷ km、v₀=4.97×10⁷ m/s（β₀=0.166）、t₀=9.95 min，全部与论文一致。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<h3 id="31-发散角式-1">3.1 发散角（式 1）</h3>
+<p>$$\theta = \frac{\alpha\lambda}{d},\qquad \alpha=1\;(\text{方阵}),\;1.22\;(\text{圆阵})$$</p>
+<ul>
+<li><strong>怎么想到</strong>：相控阵的衍射极限——口径 d、波长 λ，主瓣角宽 ~λ/d；圆孔径的艾里斑第一零点带 1.22 系数。</li>
+<li><strong>数值感</strong>：λ/d = 1.064×10⁻¹³ rad。飞到 L₀=1.49×10⁷ km 处光斑才张到帆面 3.16 m——发散之小是整个方案成立的根基（式 11 即由此反解）。</li>
+</ul>
+<h3 id="32-光压合力与力矩式-23">3.2 光压合力与力矩（式 2、3）</h3>
+<p>$$\frac{d\vec F}{dt}=\int_S \frac{2P(\vec x)\,\vec b\cdot\vec n(\vec x)}{c}\,\vec n(\vec x)\,dS,\qquad \frac{d\vec\tau}{dt}=\int_S \frac{2P(\vec x)\,\vec b\cdot\vec n(\vec x)}{c}\,\big(\vec r(\vec x)\times\vec n(\vec x)\big)\,dS$$</p>
+<ul>
+<li><strong>怎么想到</strong>：理想反射面上单位面积的动量流 = 2×(法向入射通量)/c；对面积分得合力，再叉乘位矢得力矩。系数 2 来自"反射掉 2 倍动量"；b·n 是斜入射投影。</li>
+<li><strong>适用边界</strong>：ε_r=1（正文已声明）、忽略透射与吸收——后文所有力都从这两个积分出发。</li>
+<li><strong>写作学</strong>：论文并不真去积这两个分（只对平顶束引用特例结论），它的作用是<strong>给稳定性讨论一个"第一性原理坐标"</strong>——所有文献结论（球稳、锥窄稳、平不稳）都是这两个积分在不同几何下的行为。</li>
+</ul>
+<h3 id="33-刚体姿态方程式-4">3.3 刚体姿态方程（式 4）</h3>
+<p>$$I\frac{d\vec\omega}{dt}+\vec\omega\times I\vec\omega=\vec\tau$$</p>
+<p>欧拉方程直接引用，前提"the sail is assumed to be rigid"——与 §1 的帆质量克级、面密度 0.1–1 g/m² 并置时读者应自问：10⁴–10⁵ m/s² 加速度下刚体假设其实最脆弱，作者在 §8 也承认变形/烧蚀是未竟问题。</p>
+<h3 id="34-推力与加速度式-56">3.4 推力与加速度（式 5、6）</h3>
+<p>$$F=\frac{P_0(1+\epsilon_r)}{c},\qquad a=\frac{P_0(1+\epsilon_r)}{mc}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：式 (2) 在"光斑完全罩住帆"时的退化：∫2P/c·dS = 2P/c（ε_r=1）。</li>
+<li><strong>数值感</strong>：2×50 GW/c = <strong>333.33 N</strong> 推 4 g → a ≈ 8.3×10⁴ m/s²（≈8500 g）。这个数就是 §6 太阳引力对比的分母。</li>
+</ul>
+<h3 id="35-帆质量与尺寸式-79">3.5 帆质量与尺寸（式 7–9）</h3>
+<p>$$m=m_0+m_{sail},\quad m_{sail}=D^2h\rho,\quad D=31.6\sqrt{\frac{m_{sail}(\text{kg})}{h(\mu)\rho(\text{g/cc})}}\ \text{(m)}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：帆是面积 10 m² 的薄膜，质量=面积×厚×密度；面积钉死（题面），自由度只剩面密度 hρ。式 (9) 的系数 31.6 就是 √(10 m²)。</li>
+<li><strong>数值感</strong>：帆 2 g ↔ 面密度 0.2 g/m² ↔（取 ρ=1400 kg/m³ 时）h≈143 nm——正落在"现有 1–10 µm"与"未证实 10 nm"之间，与他们"不碰未证实极限"的声明自洽。</li>
+</ul>
+<h3 id="36-三个特征量-v₀l₀t₀式-1012">3.6 三个特征量 v₀、L₀、t₀（式 10–12）</h3>
+<p>$$v_0=\sqrt{\frac{P_0(1+\epsilon_r)dD}{c\lambda(D^2h\rho+m)}},\qquad L_0=\frac{Dd}{2\lambda},\qquad t_0=\sqrt{\frac{cdD(D^2h\rho+m)}{P_0(1+\epsilon_r)\lambda}}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：光斑边长 2λL/d（方阵）随距离线性长大；等于帆边长 D 的时刻即 L₀ = Dd/2λ（纯几何，与功率无关！）。t₀ 前是恒定加速度 a（式 6），t₀ = v₀/a——三式只有两个独立。</li>
+<li><strong>推导细节</strong>：v₀² = 2aL₀（匀加速运动学），代入 a 与 L₀ 即得式 (10)；t₀ = √(2L₀/a) = v₀/a 即式 (12)。验算：v₀/t₀ = a = 2P₀/mc ✓（自检关系，读者 30 秒可核）。</li>
+<li><strong>适用边界</strong>：只描述 L&lt;L₀ 的"全功率段"；L₀ 之后力衰减，见式 (13)(15)。</li>
+</ul>
+<h3 id="37-极限速度与最优质量比式-13">3.7 极限速度与最优质量比（式 13）</h3>
+<p>$$v_\infty=\sqrt{\frac{2P_0(1+\epsilon_r)dD}{c\lambda(D^2h\rho+m)}}=\sqrt2\,v_0$$</p>
+<ul>
+<li><strong>怎么想到</strong>：L&gt;L₀ 后捕获功率 ∝1/L²，边际加速度 ∝1/L² 而速度增量收敛——总效果恰为 √2 因子（把"照射到无穷远"的能量收支积出来）。</li>
+<li><strong>最优条件推导</strong>（论文只述不证，补全）：m_total = m + D²hρ，v∞² ∝ 1/(m+D²hρ)，但 D²hρ 本身是变量——在 m_total = m + m_sail 中把 m_sail 加大同时 m 减小（总质量固定 M）时 v∞ 只取决于 M，为何"帆=载荷"最优？他们的语境是<strong>面密度给定、面积固定 10 m² 时帆质量被钉死</strong>，于是"帆=载荷"实为<strong>在总质量预算下分配质量使 v∞ 最大的配置</strong>：把质量从帆挪到载荷，帆要更厚才能反射……此处的论证依赖反射率-厚度耦合（§4.1 的多层膜物理），属于工程最优而非纯数学最优——精读时应看出这一步证明其实不完整，论文用引文带过。</li>
+<li><strong>数值感</strong>：√2×0.166 = 0.235，即 Table 1 中 2 g 载荷的 NR 列 23.5% ✓。</li>
+</ul>
+<h3 id="38-相对论三连式-1416">3.8 相对论三连（式 14–16）</h3>
+<p>$$E_f=\frac{1-\beta}{1+\beta}E_i,\qquad \dot\beta=\frac{2P}{mc^2\gamma^3}\cdot\frac{1-\beta}{1+\beta},\qquad \eta=\frac{\Delta E}{E_i}=\frac{2\beta}{1+\beta}$$</p>
+<ul>
+<li><strong>怎么想到（式 14）</strong>：迎面打上后退镜子的光子，到达率乘 (1−β)，反射后能量再乘 (1−β)/(1+β)（相对论多普勒），两个因子相乘得 E_f/E_i = (1−β)²/(1−β²) = (1−β)/(1+β)——论文原文 "due to 2 Doppler shift factors" 即此。</li>
+<li><strong>式 15 推导补全</strong>：光子损失能量 ΔE/Δt = P·[(E_i−E_f)/E_i] = P·2β/(1+β)；功率进飞船：d(γmc²)/dt = 2βP/(1+β)。左侧 = mc²γ³β̇（因 dγ/dβ = γ³β），解出 β̇ = 2P/(mc²γ³)·(1−β)/(1+β) ✓。注意 β≪1 时退化为 2P/mc²（NR 恒加速），β→1 时 (1−β)/(1+β)→0——<strong>终端速度的相对论根源</strong>。</li>
+<li><strong>式 16</strong>：单次碰撞能量转移份额 2β/(1+β)，β=0.166 时 η≈28.5%——每颗光子近三成能量给帆，效率可观但随加速衰减。</li>
+</ul>
+<h3 id="39-精度三角式-1719">3.9 精度三角（式 17–19）</h3>
+<p>$$\theta_{dev}=\frac{3.844\times10^5}{4.105\times10^{13}}=9.364\times10^{-9},\quad \theta=\frac{D/2}{L_0}=1.06\times10^{-10},\quad \theta=\frac{\lambda}{d}=1.064\times10^{-13}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：三层几何——命中行星（小角近似 tanθ≈θ）、光斑罩帆（半帆径/L₀）、物理发散（λ/d）。三者量级 10⁻⁹/10⁻¹⁰/10⁻¹³ 依次隔 1.5 与 3 个量级，<strong>取最严的 10⁻¹⁰ 其余自动满足</strong>。</li>
+<li><strong>数值感</strong>：1.06×10⁻¹⁰ rad 是什么概念——10 km 阵列指向抖动须小于…… 相当于在 1 km 外瞄准一枚硬币的中心。论文式 (18) 用"光斑中心不滑出帆半径"给出该值的物理上限来源，是全文最漂亮的工程翻译。</li>
+</ul>
+<hr>
+<h2 id="4-建模决策链">4. 建模决策链</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>动力学载体</td>
+<td>方帆+均匀束</td>
+<td>球帆+多模高斯束（稳定性最优）</td>
+<td>均匀束下方帆"simplest case to computationally analyze"，两框架（NR/R）可横比</td>
+</tr>
+<tr>
+<td>反射率</td>
+<td>ε_r=1</td>
+<td>按实测 99.995% 折算</td>
+<td>多层膜已"两个 9"，误差 &lt;0.01% 远小于其他不确定度，且明示假设</td>
+</tr>
+<tr>
+<td>材料参数域</td>
+<td>介于现有 1–10 µm 与未证实 10 nm 之间</td>
+<td>直接采用 Lubin 的 1000 nm/1400 g/m³</td>
+<td>"do not go near these limits"——优化结果不押注未证实技术</td>
+</tr>
+<tr>
+<td>相对论处理</td>
+<td>式(15) 数值积分 + Table 1 对比</td>
+<td>只做 NR 或只做 R</td>
+<td>用对比表量化"2 g 载荷时偏差 3.4 个百分点"，修正必要性有数</td>
+</tr>
+<tr>
+<td>载荷上限</td>
+<td>2 g</td>
+<td>更大载荷</td>
+<td>图 3 曲线在 2 g 处 β 触 0.2c，是任务约束下的最大可用质量</td>
+</tr>
+<tr>
+<td>引力</td>
+<td>忽略</td>
+<td>加入日/地引力</td>
+<td>0.00002 N vs 333.33 N 差 7 个量级，一句话排除</td>
+</tr>
+<tr>
+<td>未建模项</td>
+<td>地球自转致激光偏力矩</td>
+<td>—</td>
+<td>结论段明列，留给后续工作</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总规律</strong>：每个"不做"都配一个量级或一条文献；每个"做"都给出它所在的比较组（单因素结果无意义，成组才有意义）。</p>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板</strong>：</p>
+<pre><code>Abstract        评价标准三件套 → 条件式双结论 → 一个精度数字
+2 Notations     符号+数值列（评委可复算）
+3 系统输入      阵列/波长/发散角（式 1）
+4 组合淘汰      一般理论(式2-4) → 逐候选：文献证据+量级淘汰理由
+5 动力学        5.1 NR 闭式链(式5-13)
+                5.2 R 修正链(式14-16)
+                5.3 横比图组
+6 参数兑现      4 个特征数 + 量级排除段
+7 精度预算      两级判据取严者 + 自检
+8 结论          重申条件式 + 未做项清单
+Appendix       对比表（数值底座）
+</code></pre>
+<p><strong>句式库（原文摘录）</strong>：
+- "The best configuration is taken to be one that allows for stability, directional precision and maximum speed for a given mass."（开篇即钉评价标准——多目标设计题第一句）
+- "This has not yet been achieved, though there exist fabricated materials that have close to this value."（亮假设+诚实边界+证据，三合一）
+- "...have not been established as feasible at this point in time, and so we do not go near these limits while varying our parameters"（划定参数域，防止被质疑押注黑科技）
+- "It can be shown that the maximum speed occurs when..."（引证明结论入正文，省篇幅不省信息）
+- "However, in reality the spherical sail, whose thickness is in the order of microns, would become ablated at high relativistic speeds."（用物理机理否决理论最优）
+- "Thus, an equilibrium is established and a terminal velocity is reached."（一句话解释数值现象的物理来源）</p>
+<p><strong>图表配方</strong>：设计空间题 → "淘汰矩阵表 + 基准图 + 横比图 + 并排悬念图"四件套；数值对比 → 附录逐行表（NR vs R 双列），正文图只画结论。</p>
+<hr>
+<p><em>精读完这篇后，建议对照 <code>05_论文赏析/2018/2018-GM-A-158.md</code>（宏观赏析）与 <code>07_题目解读/2018_题A_光帆纳米飞行器.md</code>（题目全解）形成三位一体。同题对照精读：<code>2018-GM-A-258_精读.md</code>（球帆微扰模型）、<code>2018-GM-A-295_精读.md</code>（四子模型）。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-1-introduction-2-notations第-3-页">1.2 §1 Introduction + §2 Notations（第 3 页）</a></li><li class="l3"><a href="#13-3-laser-array-specifications第-4-页">1.3 §3 Laser Array Specifications（第 4 页）</a></li><li class="l3"><a href="#14-4-sail-fabrication第-47-页组合淘汰赛">1.4 §4 Sail Fabrication（第 4–7 页）——组合淘汰赛</a></li><li class="l3"><a href="#15-5-physics-of-laser-propulsion第-812-页全文数学主体">1.5 §5 Physics of Laser Propulsion（第 8–12 页）——全文数学主体</a></li><li class="l3"><a href="#16-6-acceleration-dynamics第-1314-页">1.6 §6 Acceleration Dynamics（第 13–14 页）</a></li><li class="l3"><a href="#17-7-laser-precision第-15-页两级判据">1.7 §7 Laser Precision（第 15 页）——两级判据</a></li><li class="l3"><a href="#18-8-conclusions-附录第-1618-页">1.8 §8 Conclusions + 附录（第 16–18 页）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-发散角式-1">3.1 发散角（式 1）</a></li><li class="l3"><a href="#32-光压合力与力矩式-23">3.2 光压合力与力矩（式 2、3）</a></li><li class="l3"><a href="#33-刚体姿态方程式-4">3.3 刚体姿态方程（式 4）</a></li><li class="l3"><a href="#34-推力与加速度式-56">3.4 推力与加速度（式 5、6）</a></li><li class="l3"><a href="#35-帆质量与尺寸式-79">3.5 帆质量与尺寸（式 7–9）</a></li><li class="l3"><a href="#36-三个特征量-v₀l₀t₀式-1012">3.6 三个特征量 v₀、L₀、t₀（式 10–12）</a></li><li class="l3"><a href="#37-极限速度与最优质量比式-13">3.7 极限速度与最优质量比（式 13）</a></li><li class="l3"><a href="#38-相对论三连式-1416">3.8 相对论三连（式 14–16）</a></li><li class="l3"><a href="#39-精度三角式-1719">3.9 精度三角（式 17–19）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

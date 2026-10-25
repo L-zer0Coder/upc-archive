@@ -1,0 +1,1704 @@
+SOLAR SALES ON YOUR TRIP TO MARS
+Team # 744
+Problem A
+Abstract
+We study Logarithmically Spiral Trajectories and, in particular, we look for a solution to minimize
+the transit time of a Spacecraft propelled by a Solar Sail, while simultaneously minimizing the area
+of the Solar Sail, which would allow us to carry more payload on board. We start by analyzing the
+forces that act on the Spacecraft taking into account that its propellant is a Solar Sail; we use the
+studied forces to deduce the motion equations. We then solve this motion equation with a Runge-
+Kutta 4 method and transform the problem of minimizing time and area to a Non-linear Optimization
+problem. When solving the NLP we also try to minimize the relative nal speed of th spacecraft with
+the destination planet in order to guarantee the possibility of a safe landing on its surface. The model
+improves when an angle parameter α (describing the angle formed by the Solar Sail with the colliding
+photons) is dened as a piecewise constant function and optimized whose values are optimized in every
+interval to minimize transit time and Area. Using the developed model to optimize the trajectory to
+be followed for sending from Earth to Mars a 2000 kg-spacecraft propelled by a Solar Sail, subject to
+the condition that at trajectory start Mars and Earth were at their closest approach, and the Arrival
+Relative Velocity is less than 9 km/s, give us a minimal transit time of 500 days and a minimal area
+for the Solar Sail of 183158 m2, meaning that the maximal payload would be 718 kg. Compared with
+dierent number of partitions of α, the optimum stays stable. This gives a solid optimal trajectory
+and a great result for the numerical method used. Actually, waiting until the best moment to throw
+the Spacecraft, id est, Mars is at 1.14 radians respectively to Earth initial position, the minimal sail
+area 145950 m2 and, therefore, ables to transport until 978 kg of payload with the same transit time.
+In addition and to conclude we tried the model to optimize the inverse trajectory.
+
+Team 744
+Page 1 of 34
+Contents
+1
+Introduction
+3
+2
+Non Solar Sail models
+4
+2.1
+Hohmann Transfer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2.2
+Gravity Assist Encounters . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+3
+The model
+6
+3.1
+Theoretical introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+3.1.1
+Logarithmic Spiral Trajectories . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+3.1.2
+SRP Force . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+3.1.3
+Sun Gravity Force . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9
+3.1.4
+Dierential Equation System . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10
+3.2
+Numerical model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10
+3.2.1
+α constant
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11
+3.2.2
+α = α (t)
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12
+4
+Results
+13
+4.1
+First results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+4.2
+Mass-Time optimization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+16
+5
+Further Analysis
+17
+6
+Strengths and Weaknesses
+19
+7
+Future Work
+20
+8
+Conclusions
+20
+Appendices
+22
+A
+Deducing motion equations for Hohmann transfer . . . . . . . . . . . . . . . . . . . . . . . .
+22
+
+Team 744
+Page 2 of 34
+B
+Codes
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+22
+
+Team 744
+Page 3 of 34
+1
+Introduction
+Ever since the rst success of Mariner 4, ying by Mars on November 1964, and the rst success of Mariner
+9, orbiting Mars on November 1971, many spatial missions have been conducted towards the red planet
+and its moons with mainly three dierent aims; Flying by the planet, entering its orbit and landing on the
+surface.
+Most missions among the last decades were conducted using fuel propellant based spaceships but in
+the meanwhile an alternative was growing in strength. Solar sails had in fact been proposed for the rst
+time in the 1920s, when Konstantin Tsiolkovsky and astronautical engineer Friedrich Zander had the
+original idea of taking advantage of the solar wind to navigate space. Later in the 1960s this idea was
+rediscovered and further investigated by Sands [1] and Fimple [2] who invented the concept of solar sail
+and theorized how to use them to abandon Earth. Nowadays these ideas have cemented into successful
+spacecrafts which have begun to pave the way for major investments into their research and use. The Japan
+Aerospace Exploration Agency (JAXA) launched its IKAROS spacecraft in 2010. NASA also deployed its
+NanoSail-D2 in early 2011 and The Planetary Society (TPS) successfully launched its rst of a series of
+solar sail-propelled CubeSats called the LightSail [3]. The main dierence between solar sails and the more
+famous chemical, ion, and nuclear rockets, is the fact that solar sails do not need to carry any fuel in order
+to produce thrust and accelerate [4]. Instead, they use large sails (from which they derive their name)
+made of very thin aluminized BoPET (Mylar) or aluminized Kapton lm that reect photons colliding on
+them. Thus doing, according to the momentum conservation law, they acquire the same momentum that
+the reected photon has lost when being reected. This transfer of momentum (see Figure 4) results in
+the acceleration of the sail away from the light source (usually the Sun) where the colliding photon was
+generated.
+The growing importance solar sails have been achieving is motivated not only by the economical that
+can be derived from the usage of free fuel (the solar wind) but mostly from the capacity of continuing
+accelerating (even at a slow rate) for long periods of time making them ideal for long, relatively fast, trips.
+The Goal of this paper is to design a model capable of, given certain information such as departure
+planet, arrival planet, maximum desired arrival speed and the angle formed by the vectors connecting the
+Sun to both planets, it could describe the optimal trajectory for a space sail in order to go from the rst
+planet to the second minimizing the Sail area and travel time.
+We will later use that model in a particular scenario in which we will nd the characteristics of a solar
+sail based trip from Earth to Mars under the conditions of reaching the planet with a small relative speed
+(less than 9 Km/s) and that the planets are initially aligned with the Sun. We will also briey compare
+this trip with a similar trip using a fuel based Rocket and the Homan maneuver. Finally, we will use our
+model to study solar sail based travel to larger distant regions of our solar system and trips in the opposite
+direction which go against the solar wind.
+
+Team 744
+Page 4 of 34
+2
+Non Solar Sail models
+Before starting with the description of our model we will make a brief recap of the most common models
+used to plan space trajectories in order to achieve a global vision on the matter. The non interested reader
+skip this section and go straight to section 3 where we start with our real model. On the other hand for
+the interested reader we can provide a computer simulation for this models that we had developed before
+the contest beginning and that can be found in the following github link1 that we have created for this
+sole purpose in order to maintain our identities anonymous as the contest rules require.
+2.1
+Hohmann Transfer
+Hohmann Transfer method is not a viable method in this case due to its necessity to change fast the object
+velocity in an specic point of an orbit, but it has some interest in order to compare the travel time with
+the mentioned method.
+This method it is an orbital changing method, very useful to place an object at an specic orbit, which
+could be an a proximate planet orbit as Mars is. Suppose that we have an object orbiting in an circular
+orbit, as the Earth orbit in Figure 1. The process to deduce the motion equations is similar than before
+and you can nd explicitly in Appendix A and it gives us the following equations:
+d2r
+dt2 −r
+ dθ
+dt
+ 2
+= −µ
+r2 + β µ
+r2 cos3α
+(1)
+rd2θ
+dt2 + 2r
+ dr
+dt
+   dθ
+dt
+ 
+= β µ
+r2 cos2αsinα
+(2)
+Figure 1: Hohmann Transfer trajectory.
+We want to change objects orbit to one bigger, as Mars orbit in this case, in order to arrive to the
+planet. So when the object is passing by the yellow dot we will give him more tangential speed in order to
+change his orbit to an elliptical orbit, which will have the perigee at this point and the apogee coinciding
+1https://github.com/team744UphysicsC/RocketTrajectory
+
+Team 744
+Page 5 of 34
+with the nally orbit that we want. Once the object ends half the orbit, it will be at the apogee and we
+will be able to give him one more time the needed velocity in order to change his orbit to the circular Mars
+orbit, we will also be able to land the object in Mars at these punt.
+Comparing this method with Logarithmic Spiral Trajectory for solar sail, about which we will talk about
+later, we see the dierences shown in table 1 taken from [5].
+Table 1: Hohmann Transfer & Logarithmic Spiral Trajectory for Earth to Mars
+Hohmann Transfer
+Solar Sail Logarithmic Spiral Trajectory
+β
+−
+0.05
+0.10
+0.125
+0.15
+0.20
+0.30
+a0 (mm/s)
+−
+0.27
+0.54
+0.67
+0.80
+1.07
+1.61
+α (deg)
+−
+34.84
+34.39
+34.15
+33.91
+33.40
+32.26
+γ (deg)
+−
+2.27
+4.66
+5.91
+7.19
+9.85
+15.63
+Time (days)
+259
+875
+431
+342
+283
+209
+135
+∆v1 (km/s)
+2.94
+1.24
+2.52
+3.18
+3.85
+5.22
+8.12
+∆v2 (km/s)
+2.65
+1.00
+2.04
+2.57
+3.12
+4.23
+6.58
+∆vT (km/s)
+5.59
+2.24
+4.56
+5.75
+6.96
+9.45
+14.69
+We can check easily how Hohmann transfer is faster than Logarithmic needing less velocity dierence
+in order to arrive faster.
+2.2
+Gravity Assist Encounters
+A gravity assist, or hyperbolic, encounter is one where the ship will swing around a planet or satellite,
+using the gravitational pull of the body to alter the direction of motion of the ship. Mission planners use
+gravity assists because they allow the objective to be accomplished with much less fuel (and hence with a
+much smaller, cheaper rocket) than would otherwise be required; but in Solar Sails this fuel saving doesn’t
+bring any new advantage, as our fuel resource is the radiation pressure exerted by sunlight [6].
+A hyperbolic gravity assist of our Moon can be used to aid departures or arrivals. A ship spiraling
+out from Earth can direct its trajectory around the Moon on the trailing side, opposite from the Moon’s
+direction of motion. This adds energy to the ship’s trajectory which will both reduce the time to escape
+and give to the ship a greater speed relative to Earth when it does break free and enters interplanetary
+space. An arriving ships would swing around the leading side of the Moon.
+The gains from using lunar gravity assists are modest, but may be sucient to justify the added
+operating complexity. To use the gravity assists, the departures and arrivals must be timed such that the
+Moon will be in satisfactory position, placing a major constraint on the interplanetary trajectory. It is
+possible that the constraint might cause a time delay greater than the savings resulting from the gravity
+assist [7].
+
+Team 744
+Page 6 of 34
+3
+The model
+3.1
+Theoretical introduction
+3.1.1
+Logarithmic Spiral Trajectories
+When the solar sail thrust is orientated at a xed pitch angle to the Sun-line, with a low sail performance,
+we obtain a logarithmic spiral trajectory [8] [5].
+The radial component of the sail thrust reduces the
+eective gravitational force on the sail as for zero pitch, however the component of thrust in the transverse
+direction acts to increase (or decrease) the orbital angular momentum of the orbit.
+It should be reiterated here that the solar sail can spiral away from the Sun by directing a component
+of thrust along the velocity vector in order to increase the orbital angular momentum and so spiral away
+from the Sun. Similarly, negative pitch angle can direct a component of the thrust against the velocity
+vector, so decreasing the orbital angular momentum as so spiral towards the Sun.
+For xed sail pitch angle in a two-dimensional planar case, a particular solution to the polar equations of
+motion in Eqs. 32 and 33, from appendix, can be found to Eq. 3.
+r(θ) = r0 exp(θ tanγ)
+(3)
+Where r0 is the initial distance from the Sun, and γ is the spiral angle, the angle between the transverse
+direction and the velocity. For a specic logarithmic spiral, the spiral angle will be xed, as shown in
+Figure 2. If we dierentiate the solution and substitute, we can obtain the velocity magnitude in Eq. 4,
+where it can be seen that the local solar sail speed is always less than the local circular orbit speed.
+v(r) =
+rµ
+r
+ 
+1 −β cos2α (cosα −sinα tanγ)
+ 1/2
+(4)
+Figure 2: Logarithmic spiral trajectory.
+This means that coplanar transfer between two circular orbits cannot be achieved without applying a
+hyperbolic excess at launch to place the solar sail onto the logarithmic spiral, and circularizing the orbit
+on arrival at the nal circular orbit. These discontinuities pose problems in the practical application of
+logarithmic spirals to orbit transfers. However, the logarithmic spiral often provides a good rst guess for
+a more advanced control law that can deal with this two-point boundary value problem.
+
+Team 744
+Page 7 of 34
+Figure 3: Implicit relationship between sail pitch angle and logarithmic spiral angle, for contours of sail
+lightness number.
+By combining the radial and transverse components of velocity, and substituting these into the equa-
+tions of motion, it can be shown that an implicit relationship exists between the sail pitch angle and spiral
+angle, as in Eq. 5, the result of this is depicted in Figure 3. For the lower branch of solutions, it is
+observed that there appears to be an optimal sail pitch angle that maximizes the spiral angle for each sail
+lightness number. This leads into the denition of the optimal pitch angle derived from optimal control
+theory [8] [5].
+sinγ cosγ
+2 −sin2γ = β cos2α sinα
+1 −β cos3α
+(5)
+3.1.2
+SRP Force
+Sunlight force acting at the solar sail is a result of the Sun Radiation Pressure (SRP), given by:
+P = P0
+ r0
+r
+ 2
+(6)
+where P0 = 4.563 µN/m2 is the solar radiation pressure at r0 = 1 Au, and r is the distance from the Sun.
+If we have an ideal model, the force given by SRP is normal to the surface of the sail. Let be α angle of the
+solar sail with the photons beam. The SRP impacting with the sun reection depend on the orientation
+of the sail, so if A is the area of the sail, we should consider the eective area as A cos(α). If we use a
+Cartesian coordinate system which has the x axis tangential to the sail surface and the y axis parallel to
+the surface normal, a photon particle linear momentum will be given by −→p 0 = p
+ 
+sin(α)−→i + cos(α)−→j
+ 
+,
+after reected, and his momentum will be given by −→p f = p
+ 
+sin(α)−→i −cos(α)−→j
+ 
+, so we conclude that
+the total momentum change of the photon will be:
+∆−→p = −2 p cos(α)−→j
+(7)
+
+Team 744
+Page 8 of 34
+Using the linear momentum conservation law, we have that the momentum wined by the sail will be −∆−→p .
+Using the SRP expression and taking into account the eective area, we conclude that the force acting at
+the sail will be:
+−→
+F 0 = 2 P0
+ r0
+r
+ 2
+A cos2(α)−→j = 2 P0
+ r0
+r
+ 2
+A cos2(α)−→
+n
+(8)
+Were −→
+n is the unitary normal vector to the surface. We can see this in the following gure:
+Figure 4: Incident photons momentum change.
+However, we shall consider also the absorbed photons by the sail, which give their lineal moment to
+totally to the sail, so if an absorbed photon haves a moment −→p = p ˆr where ˆr is the unitary radial vector
+considering our coordinates system centered at the Sun. So, let be ρ be the reection coecient and s the
+specular reection factor, we should rst correct the force given by reected photons,
+−→
+F 1 = ρ s −→
+F 0
+(9)
+Then, we calculate the force given by absorbed photons:
+−→
+F 2 = (1 −ρ s) P0
+ r0
+r
+ 2
+A cos(α) ˆr
+(10)
+We should also consider the diusely reected photons which, will be proportional to the reection coef-
+cient times the non-specular reected photons, 1 −s, times non-Lambertian coecient of the front side,
+Bf, which gives us the angular distribution of the diusely reected photons. So we have
+−→
+F 3 = ρ (1 −s) Bf P0
+ r0
+r
+ 2
+A cos(α) −→
+n
+(11)
+We nally considered the linear momentum added by emitted photons, we know that emitted photons
+quantity will be proportional to the absorbed ones, but we may consider also the proportion of the ones
+emitted by the front side and the ones emitted by the back side, the rst ones will accelerate our system
+and the seconds will brake it. Let be ϵf and ϵb the front and back emitted photons coecients, the ratio
+
+Team 744
+Page 9 of 34
+of the photons emitted in the front will be
+rf =
+ϵf
+ϵf + ϵb
+(12)
+And the ratio of the emitted ones at the back side
+rb =
+ϵb
+ϵf + ϵb
+(13)
+Taking Bb as the back non-Lambertian coecient, we can express the force given by photons emissions as
+−→
+F 4 = (1 −ρ) (rf Bf −rb Bb) P0
+ r0
+r
+ 2
+A cos(α) −→
+n
+(14)
+We nally can express the total SRP originated force given by
+−→
+F SRP = −→
+F 1 + −→
+F 2 + −→
+F 3 + −→
+F 4 = 2 P A cos(α) (b1 ˆr + (b2 cos(α) + b3) −→
+n )
+(15)
+were b1, b2 and b3 are characteristic constants of our sail
+b1 = 1 −ρ s
+2
+b2 = ρ s
+(16)
+b3 = 1
+2
+ 
+Bf ρ (1 −s) + (1 −ρ) ϵf Bf −ϵb Bb
+ϵf + ϵb
+ 
+In order to facilitate our work we consider all in polar coordinates, changing −→
+n = cos(α)ˆr + sin(α)ˆθ, and
+considering the force per mass unit, taking ac = 2 P0 A
+m
+, where ac represents the acceleration experienced
+by an ideal solar sail oriented perpendicular to the Sun, −→
+n = ˆr, at r = r0. So we have
+−→f SRP = ac
+ r0
+r
+ 2
+cos(α)
+  b1 + b2 cos2(α) + b3 cos(α)
+ 
+ˆr + (b2 cos(α) + b3) sin(α) ˆθ
+ 
+(17)
+3.1.3
+Sun Gravity Force
+As we know the gravitational force per mass unit is given by:
+fG = −G M
+r2 ˆr
+(18)
+where G is the gravitation universal constant and M the mass of the Sun. We can know consider a for
+variable vector
+−→x =
+
+
+r
+θ
+u
+v
+
+
+(19)
+where u is the radial velocity and v the tangential velocity. So if we only consider the Sun’s gravity eects
+we can use the following dierential system:
+˙−→x =
+
+
+˙r
+˙θ
+˙u
+˙v
+
+
+=
+
+
+u
+v
+r
+ 
+v2
+r −G M
+r2
+ 
+−u v
+r
+
+
+(20)
+
+Team 744
+Page 10 of 34
+3.1.4
+Dierential Equation System
+We can add to the last system the force given by the SRP, and we will nally have the dierential equation
+system needed in order to calculate the trajectory. So we have
+˙−→x =
+
+
+u
+v
+r
+ac
+  r0
+r
+ 2 cos(α)
+ b1 + b2 cos2(α) + b3 cos(α)
+ 
++ v2
+r −G M
+r2
+ac
+  r0
+r
+ 2 cos(α) sin(α) (b2 cos(α) + b3) −u v
+r
+
+
+(21)
+3.2
+Numerical model
+Once even though equation 21 describes uniquely the motion of a Solar Sail under the eects of the Sun
+(solar gravity eld and solar wind) it has an inconvenience, it is not analytically solvable. Therefore a
+numerical model is needed if we want to proceed. Before going on with the description of this numerical
+model we will have to stop a moment to enumerate a set of assumptions.
+• The orbits of all planets are exactly circular: This is a standard assumption that supposes
+little decrease in precision given that the orbits of the solar system planets are all approximately
+circular.
+• The gravitational elds produced by celestial bodies other than the Sun are negligible:
+This assumption is correct almost during almost all the trip except during the processes of escaping
+the starting planet’s orbit and when entering the destination planet orbit.
+However, since this
+processes are realized with auxiliary propulsion methods other than solar wind propulsion, these will
+not be considered in this paper.
+• The Sun and the planets orbiting can be projected in a 2 dimensional eld without loss
+of generality: This assumption is quite reasonable since all the planets in the solar system have
+almost coplanar orbits.
+• The Sun and planets are modeled as spherical objects: This assumption will help us dene
+a condition of reaching a planet as well as applying the known formula of the gravitational force
+exerted by a spherical object.
+• Atmospheric drag and shadowing eects of Earth and other planets are neglected: This
+assumption is based on the fact that most of the trip is done while away from any planet and under
+this condition shadowing eects are minimal and would unnecessarily dicult the model.
+• We consider that a Solar Sail has reached a destination planet when the distance be-
+tween the solar sail and the planet is lower than the planet’s radius: It is necessary to
+make this assumption since it is virtually impossible to nd a trajectory that goes through the exact
+center of the destination planet and thus we cannot consider it as a dimensionless point.
+• Equation 21 is valid and the values of b1, b2 and b3 are 0.0864, 0.8277 and −5.43 · 10−3,
+respectively: The validity of equation 21 was already deduced in the previous section as for the
+values of the dimensionless constants where extracted from [9].
+• We can give to our solar sail an initial velocity relative to Earth at most equal to Earth’s
+escape velocity: This is a necessary condition that must be satised to abandon the planet.
+
+Team 744
+Page 11 of 34
+• We can control the angle that the initial speed relative to Earth forms with the line
+tangent to Earth’s orbit: This assumption is perfectly reasonable since it would only be necessary
+to start the process of leaving the planet at a dierent point of it in order to change this angle.
+Once claried these points, we can proceed with the model’s explanation. Let’s rst study the simplest
+case where the α value that appears in equation 21 is constant during all the trajectory.
+3.2.1
+α constant
+In this scenario we can use a simple Runge-Kutta 4 algorithm to numerically solve the motion equation
+and, given initial conditions, nd the approximate position and velocity of the Solar Sail at a time tf. Using
+this result and denoting by r (tf) and θ (tf) the polar coordinates at time tf of the destination planet and
+by v (tf) the tangential velocity of the destination planet at that time tf 2. We can thus compute the
+nal distance from the Solar Sail and the destination planet and their relative velocities at any time tf
+as a function of tf, the parameters appearing in the motion equation 21 and the initial conditions. In
+other words denoting by Dp the distance between the Solar Sail and the destination planet and by Dv the
+module of their relative velocity, we can write
+Dp = Dp (α, tf, ac, v0)
+Dv = D (α, tf, ac, v0)
+(22)
+Where v0 is the initial speed of the Solar Sail. Since ac is dened as a function of solely the surface area
+of the sail (A), we can rewrite
+Dp = Dp (α, tf, A, v0)
+Dv = D (α, tf, A, v0)
+(23)
+If we now denote by R the radius of the destination planet and by V the maximal relative speed with
+which we want to reach the destination planet, we can dene the function
+f (α, tf, A, v0) = max (Dp −R, 0) + max (Dv −V, 0)
+(24)
+It is clear that this function is always positive and only equals 0 for those values of α, tf, A and v0 for
+which the conditions of reaching the destination planet at the desired speed are met. Thus the solutions
+of the non linear optimization problem (NLP) consisting on minimizing f are exactly the same solutions
+of the our initial (if this last solutions exist) problem which allows us to view the problem of reaching
+the destination planet at a given speed as something that we can numerically solve quite simply using
+the Successive Quadratic Programming algorithm (SQL) implemented in the Scipy Python Library. The
+function provided by this library has the additional feature, which we have used in our program, that we
+can impose condition on the parameters we use to optimize. This allows us to make sure that the optimal
+Sail area nd by the simulation will never surpass the threshold given by the weight limit or that the time
+trajectory time will never surpass a threshold set to 1.8 years. We still remain with the problem of nding
+the best optimal solution of all possible solutions, id est the solution that minimizes tf and A. This can
+be achieved quite simply by changing the objective function f of the previous NLP for the function
+g (α, tf, A, v0) = k1 max (Dp −R, 0) + k2 max (Dv −V, 0) + k3 tf + k4 A
+(25)
+Where ki are positive constants that are used to give preference to the minimization of certain parameters
+over others.
+The introduction of these parameters is necessary since this time we do not have a one
+2Let us note that according to our assumption of circularity of the planets orbits this velocity is constant in time and
+equal to
+q
+G M
+R
+where G is the gravitational constant, M the Sun’s mass and R the orbital radius of the destination planet.
+On the other hand the radial velocity of any planet at any time is 0 and therefore we can deduce very easily the position and
+velocity of the destination planet at any given time.
+
+Team 744
+Page 12 of 34
+to one correspondence between the solutions of the NLP and the solutions of our original problem. In
+fact, it could be possible for the minimal value of g (α, tf, A, v0) to be achieved for values such that
+max (Dp −R, 0), max (Dv −V, 0)̸ = 0, but tf and A are so small that they compensate for it. Taking
+values k1, k2 >> k3, k4 we can considerably decrease the possibility of this to happen.
+3.2.2
+α = α (t)
+Now that we have a model for the simplest case of α constant we would like to nd a solution for any
+function α = α (t). In order to do so, we will approximate a general α (t) by a piecewise function αn (t)
+dened as
+αn (t) =
+n
+X
+k=1
+αk
+n χ[ k−1
+n
+tf ; k
+n tf ) (t)
+(26)
+where αk
+n ∈R, tf has the same value as before and χ[ k−1
+n
+tf ; k
+n tf ) (t) is dened as
+χ[ k−1
+n
+tf ; k
+n tf ) (t) =
+(
+1
+if t ∈[ k−1
+n tf; k
+n tf)
+0
+if t̸ ∈[ k−1
+n tf; k
+n tf)
+(27)
+Once done this, it is theoretically possible to proceed as before in order to reduce the problem to an NLP
+but the dependence of the denition of the function αn on the parameter tf makes it harder to program
+the method to solve the dierential equation 21 using the Runge-Kutta-4 method and Python’s default
+libraries in order to solve the problem3. We can make up for this problem introducing the variable change
+s =
+t
+tf this way equation 21can be rewritten as
+˙−→x = tf
+
+
+u
+v
+r
+ac
+  r0
+r
+ 2 cos(αn(s))
+ b1 + b2 cos2(αn(s)) + b3 cos(αn(s))
+ 
++ v2
+r −G M
+r2
+ac
+  r0
+r
+ 2 cos(αn(s)) sin(α(s)) (b2 cos(αn(s)) + b3) −u v
+r
+
+
+(28)
+Where now αn(s) does not depend on tf and is dened by
+αn (s) =
+n
+X
+k=1
+αk
+n χ[ k−1
+n ; k
+n ) (s)
+(29)
+And we can apply the same procedure followed in the case of α constant to reduce our problem to an
+NLP problem which can be solved using Scipy libraries.
+3This approach can also be used in the case of α constant and would result in an improvement of the result since the
+variable integration interval [0, tf] would become the xed interval [0, 1] and this would make it easier to choose an integration
+step.
+
+Team 744
+Page 13 of 34
+4
+Results
+4.1
+First results
+We have tested our model to nd the initial conditions, α(t) function, sail size and trajectory time that
+would minimize sail size and trajectory time while succeeding at bringing a Solar Sail from Earth to Mars
+reaching Mars with a relative speed lower than 9 Km/s and considering that at initial time Sun, Earth
+and Mars are aligned. The values of the four ki constants that appear in equation 25 and that we used to
+perform this test are
+k1 = 1E −4
+k2 = 5E −3
+k3 = 0.005555555
+k4 = 5
+(30)
+Note that the values of k1 and k2 are much smaller than k3 and k4 which, at rst sight may seem to
+contradict our explanation of the model where we said that k1, 2 >> k3, 4. This is due to the fact that the
+variables Db and Dv are of many orders of magnitude greater than tf and A. Therefore, even if the values
+of k1 and k2 are, in fact, smaller than k3 and k4, this dierence is only apparent, since if we were to scale
+Db, Dv, tf and A to make them have values of the same magnitude order under normal conditions (for
+example writing A in cm2 units instead of km2 units and tf in minutes instead of hours) we would nd
+new ki values which would follow k1, 2 >> k3, 4. With this parameters we have run several simulations
+where we dened α as a function dened in 10, 15, 20, 25 and 30 dierent sections. The results obtained
+can be seen in table 2 and Figures 5 and 6.
+Table 2: Results of the simulation for dierent values of the partitioning of α. It is important to remember
+when reading this table that Mars’ radius measures 3396 Km. Table with values for dierent number
+of partitions and its correspondence with ARV (Arrival Relative Velocity), D (nal distance from Mars
+center) and V (initial speed relative to the Earth)
+#Partitions
+time (days)
+ARV (km/s)
+A (Km2)
+D (Km)
+V (Km/s)
+10
+518.95
+7.14
+0.21
+3157.40
+0.08
+15
+499.79
+8.03
+0.19
+3710.8
+0.11
+20
+500.57
+8.24
+0.18
+3524.3
+0.11
+25
+500.68
+8.64
+0.19
+1165.27
+0.12
+30
+497.93
+7.32
+0.20
+361.18
+0.17
+Figure 5: Optimal function α(t) with α variating the number of partitions.
+
+Team 744
+Page 14 of 34
+Figure 6: Optimal trajectories found when variating the number of partitions of α.
+As we can observe from table 2, using these parameters of ki, all our simulations succeeded at reaching
+Mars with the desired velocity and we obtain a maximal eciency between 15 and 20 partitions of the
+function α. At rst, this result can seem contradictory since a greater number of partitions of α should
+result in a better approximation of the ideal α function. However, we must keep in mind that, when
+we increase the number of parameters we use to solve the NLP (which happens when we increase the
+number of partitions of α), we also increase the numerical error in the solving process, which can result in
+a worsening of the nal result. It is also important to notice that, in the last column of the table, where
+the initial speed with respect to Earth is reported, the fact that this value is dierent from 0 in every
+line and it keeps increasing together with the number of partitions. This means that probably the best
+possible traveling method is neither purely based on Solar wind propulsion nor in fuel propulsion method
+with only one burst. On the other hand, the fact that this initial value is clearly inferior to the one used
+for the Hohmann maneuver (2.49 Km/s as reported in table 1) and, even so, the trajectory described by
+the Solar Sail easily surpasses Mars orbit, what indicates us the power of this traveling system which is
+able to reach further destinations with an input energy 10 times lower. Another interesting fact that we
+can intermediately see by observing Figures 5 and 6 has little eect on the variation of the trajectory
+which indicates that the obtained solution has a certain degree of stability. In order to further study this
+degree of stability we have run the simulation multiple times changing a set of initial parameters obtaining
+a similar result for the optimal trajectory found (we decided not to report these results as images since it
+would be like copying the already shown ones). This evidences suggest us that the optimal solution found
+is a very good minimum if not an absolute minimum. Before we conclude, two more things are worth
+noticing when observing gure 5. The rst one is that the solutions obtained with 10 and 30 partitions are
+very similar, in the sense that both show a sudden increase for the central period of time when the Solar
+Sail is the furthest away from the Sun. This is probably related with the Sail size, which is greater in these
+
+Team 744
+Page 15 of 34
+two cases and has probably resulted in the Solar Sail achieving a greater velocity, escaping from the Sun at
+this point of the trajectory. Therefore, velocity must be compensated with a sharper change of the value
+α, in order to accelerate in the opposite direction, to decrease their speed. Finally, it is worth noticing
+how the α functions all have the same decreasing behavior, which is translated in an initial increase in
+velocity which sends the solar ship away from the Sun followed by a decrease of this that helps keeping
+the Solar Sail closer to the Sun. This behavior can be better comprehended by observing the animation
+produced by our code, reported in Annex B. To conclude this subsection is worth studying what happens
+in the case we only realize one, two or three partitions of the function α. Under this conditions we obtain
+once again a trajectory identical to those shown in gure 6 and that, therefore, are not worth showing.
+Other results can be observed in table 3 and 7.
+Table 3: Results of the simulation for dierent values of the partitioning of α. It is important to remember
+when reading this table that Mars’ radius measures 3396 Km. Table with values for dierent number
+of partitions and its correspondence with ARV (Arrival Relative Velocity), D (nal distance from Mars
+center) and V (initial speed relative to the Earth)
+#Partitions
+time (days)
+ARV (km/s)
+A (Km2)
+D (Km)
+V (Km/s)
+1
+502.33
+4.43
+0.23
+2414.46
+0.11
+2
+500.04
+7.75
+0.19
+3395.82
+0.11
+3
+500.15
+7.97
+0.19
+3395.83
+0.13
+Figure 7: Optimal function α(t) with α variating the number of partitions.
+As we can observe from the results shown in the table 3 there is almost no dierence with those observed
+in 2 (except for a greater value on the Sail area when we have just one partition). This fact supposes
+another evidence on the fact that our solution and, more importantly shows us that it is not necessary
+to perform many steering maneuvers in order to achieve a good approximation of the optimal trajectory.
+This is a very important fact since steering maneuvers can result complicate and it may be preferable to
+keep them to a minimum.
+In gure 7 we can once again observe the decreasing tendency of the α function which means that in
+order to achieve optimal results we must accelerate at the beginning and decrease speed once reached or
+surpassed the desired orbit.
+
+Team 744
+Page 16 of 34
+4.2
+Mass-Time optimization
+Using non-linear optimization at Python programming, we have been able to change the weight for the
+area/time optimization, so we obtain our results by giving more importance to one of them against the
+other: We see that the result maintains the Arrival Relative Velocity (ARV) under 9 km/s.
+Table 4: Area-Time-Mass optimization changes
+Area (m2)
+time (days)
+ARV (km/s)
+Maximal Payload (kg)
+182215
+508
+8.49
+724.5
+183031
+501
+8.88
+718.5
+183158
+500
+8.31
+718.0
+186755
+500
+8.13
+692.7
+189426
+500
+8.07
+674.0
+190419
+500
+8.96
+667.1
+199866
+500
+7.82
+601.0
+200746
+505
+7.56
+594.8
+200958
+501
+7.73
+593.3
+209168
+501
+7.51
+535.8
+As we see, the dependence on changing weights is not very relevant, so we have the minimal time at
+500 days. However, having a bigger area does not mean arriving faster, because if the area is too big, we
+may change the trajectory for a longer one in order to arrive under the required ARV. We can see this
+eect when the area becomes bigger than 200000 m2. We take as optimal value the one with 183158 m2
+and 500 days; then with a solar sail mass of 7 g/m2, it gives us a maximal payload charge of 718 kg.
+As we work with an 1.8 years boundary conditions we may can reduce the needed area by increasing
+this boundary time. It will depends on which is more relevant to us, increasing the payload quantity or
+reducing the travel time.
+
+Team 744
+Page 17 of 34
+5
+Further Analysis
+Now that we have tested our model to learn the optimal trajectory to go from one planet to another
+one given the initial conditions, we can try to slightly modify the model to optimize the orbit variation.
+We study to optimize the solution, without considering the initial condition that Mars and Earth are
+aligned with the Sun. In order to adapt the model to solving this problem, we just have to redene the
+parameters Dp and Dv shown in equation 25 as Dp the distance between the orbit radium and the Solar
+Sail distance from the Sun and Dv the dierence between Solar Sail velocity and orbital velocity4. Thus
+doing we obtained that the optimal sail size is 0.15 Km2, which is much better than the ones obtained
+before, while the transit time remains more or less the same, 499.99 days. Even though, according to our
+model, the Solar Sail spends 500 days to reach Martian orbit and Martian orbital speed. But according to
+gure 8 (left), the Solar Sail reaches the orbit much before, but it still tries a little while to reach orbital
+velocity and in the meanwhile it maintains the orbit thanks to the solar wind pressure. So we are able
+to calculate the Mars-Earth angle, centered at the Sun, when launching in order to arrive to Mars. Mars
+initial position should be at 1.14 rad (65.38 o) respectively to Earth initial position see gure 8 (right) .
+Figure 8: Trajectory followed by a Spacecraft propelled with a Solar Sail to change orbit from Earth to
+Mars (left). Initial relative positions of the planets in order to arrive to Mars (right).
+To conclude this section we will test the model for other two trajectories. The rst to study is the
+trajectory from the Martian orbit to Earth’s Orbit and the second one, the trajectory from Earth’s orbit
+to Jupiter’s Orbit. Unfortunately, due to errors of overow, our python script was not able to give a
+proper result for the Earth-Jupiter trajectory and crushed prematurely. In order to solve these problems
+it would be necessary to either hope for them to be solved simply changing the dimensions of the values
+(instead of hours, use days and instead of kilometers, use astronomical units) or change the code to a lower
+level language as C++ that would allow us to dene personalized variables capable of handling the needed
+calculations without throwing an overow error. On the other hand, our script was easily able to reach a
+solution for bringing the Solar Sail from Martian Orbit to Earth orbit. According to the obtained result,
+the optimal Sail size for this trajectory would be 0.24 km2, while the optimal time remains at 499.98days.
+It is worth mentioning that, according to this model, the optimal initial velocity for the Spacecraft would
+be in the opposite direction of Mars’ velocity. The graphical results obtained in this model are shown in
+images 9 and 10. Notice how, contrarily on how happened in the other trajectories the angle value grows
+4Orbital velocity for an orbit of radium R is dened as the purely tangential velocity of modulus
+p
+G M/R where G is
+the mass of the Sun and M Sun’s mass.
+
+Team 744
+Page 18 of 34
+in time instead of decreasing.
+Figure 9: Trajectory followed by a Spacecraft propelled with a Solar Sail to change orbit from Mars to
+Earth.
+Figure 10: Optimal computed values of α over time for the trajectory from Mars to Earth.
+To perform all the simulations realized during this section we have used the same parameters used in
+section 4.1 and we have kept the number of partitions of the function α to 15.
+
+Team 744
+Page 19 of 34
+6
+Strengths and Weaknesses
+On the one hand, we should mention that we have worked with a non-ideal solar sail, given by some specic
+constants in Eq. 16. Therefore, we are able to adapt our simulation to the material characteristic as we do
+not use an ideal one. Moreover, our program works ne calculating nal relative velocities under 9 km/s.
+Likewise, we have the option of working with dierent values of the orientation angle α during the travel.
+We can easily adapt our program in order to calculate the best moment to throw the solar sail, instead of
+waiting until Earth and Mars are aligned.
+On the other hand, we should consider some overows given sometimes by the program. Unfortunately, we
+cannot ensure that the found optimal value is not a local minimum. Moreover, we need to do a rst manual
+testing in order to approximate the best values and later use them in order to nd the best ones. We also
+did not consider the possible diculties to maneuver the sail, i.e. changing the α angle. In addition, not
+having an analytical result complicates more our work as we do not know an estimation of the expected
+value.
+
+Team 744
+Page 20 of 34
+7
+Future Work
+There have been some extra factors to consider, which would accuracy our model result or, moreover,
+improve the optimization result. First of all, we are able to improve our simulation results accuracy by
+adding the gravitational attraction made from Earth and Mars to our sail, at least considering it when the
+sail is not to much far from one of the planets. Furthermore, we could consider the launch and landing
+and how the sail is aected by the planets atmospheres, rotation, etc.. However, in order to optimize more
+the area or time, we can also think about the gravity assist using the Moon, as we mentioned before.
+In addition, we have no considered the sail conguration, which will be the best shape for instance, as we
+can see at [10] [11]. Besides, we should consider that not all the solar sail is a sail, so we may study the
+eect of the SRP in each part of it, and also think about compound solar sails as [12].
+Finally, we shall consider some improvements which would help us going faster or using less area, as
+dierent materials or painted materials [13].
+8
+Conclusions
+Logarithmic spiral trajectories model have been modeled successfully with our numerical method. The
+numerical model is solid and always ensures a ARV lower than the security velocity required. It gives
+stability for our optimal trajectory when varying the number of partitions of α. This means that with a
+lower number of angle changes, the optimal trajectory can be performed. Our objective to reach a method
+to nd the optimum of the trajectory from Earth to Mars starting from an aligned conguration of the
+planets has been reached. The same numerical method can be used to nding the optimal method for
+any initial positions of Earth and Mars, and this gives a general scenario where you can choose a better
+optimal trajectory if the date of launch is variable.
+Our optimal values for the parameters of total mass equal to 2000 kg, a Solar Sail made of material of
+mass 7 g/m2 and a security maximal velocity of 9 km/s when arriving on Mars are: the minimal area of
+the Solar Soil is 183158 m2, the minimal transit time is 500 days and the maximal payload is 718 kg.
+In our further analysis, we study the optimal trajectory in case that we could choose the day of
+launching, which means that the initial relative position of Earth and Mars could be dierent than the
+proposed one. In this case, the minimal area of the Solar Soil is 145950 m2, the minimal transit time is
+500 days and the maximal payload is 978 kg.Therefore, we clearly see that the improvement of the maximal
+payload could be an important motivation to change the initial positions of Earth and Mars, id est, change
+the launching date. As our Python code has also a parameter dened as the angle between the Earth and
+Mars, or any two planets, we see that the optimal value for launching the Spacecraft is for an angle of
+1.14 rad.
+
+Team 744
+Page 21 of 34
+References
+[1] N. Sands, “Generalised three-dimensional trajectory analysis of planetary escape by solar sail,” in
+American Rocket Society Journal, no. 31, pp. 527–531, 1962.
+[2] W. Fimple, “Escape from planetary gravitational elds by use of solar sails,” in American Rocket
+Society Journal, no. 32, pp. 883–887, 1961.
+[3] Y. I. H. Furuya and T. Masuoka, “Deployment characteristics of rotationally skew fold membrane
+for spinning solar sail,” in AIAA/ASME/ASCEA/AHS/ASC Structures, Structural Dynamics and
+Materials Conference, vol. 46, pp. 139–143, April 2005.
+[4] R. H. Frisbee, “Advanced space propulsion for the 21st century,” in Journal of Propulsion and Power,
+vol. 19, pp. 1129–1154, November 2003.
+[5] K. Tetzla, “Solar Sails: An Analysis of Interplanetary Logarithmic Spiral Trajectories,” 2004.
+[6] D. Shortt, “Gravity assist,” The Planetary Society.
+[7] J. L. Wright, Space Sailing. Gordon and Breach Science Publishers, 1992.
+[8] M. . Hughes, “Solar sailing lectures,” in Summer Workshop on Advanced Topics in Astrodynamics,
+July 2004.
+[9] M. Zhang, G. Wang, and Y. Sun, “Solar sail trajectory optimization for earth-mars mission,” in
+Proceedings of the 29th Chinese Control Conference, pp. 139–143, July 2010.
+[10] unknown,
+“Solar
+Sail
+Technology
+Development:
+Design
+&
+Construction.”
+https://web.
+archive.org/web/20050311004606/http://solarsails.jpl.nasa.gov/introduction/
+design-construction.html. Accessed: 2017-11-12.
+[11] M. Macdonald, Advances in Solar Sailing. Springer and Praxis Publishing, 2014.
+[12] G. Mengali and A. A. Quarta, “Compound solar sail with optical properties: Models and perfor-
+mance,” vol. 43, pp. 239–245, 01 2006.
+[13] B. Christensen, “Earth to mars in a month with painted solar sail,” 02 2005.
+[14] B. Dachwald, “Optimal solar sail trajectories for missions to the outer solar system,” in AIAA/AAS
+Astrodynamics Specialist Conference and Exhibit, August 2004.
+
+Team 744
+Page 22 of 34
+Appendix
+A
+Deducing motion equations for Hohmann transfer
+In the rst instance, the sun-centred orbital dynamics of solar sail spacecraft will be described, since this
+is traditionally where solar sailing is applied and where the bulk of the mission concepts exist, due to the
+large ∆v requirements [14].The vector equation of motion of a solar sail spacecraft moving in a heliocentric
+orbit is dened by Eq. 31, where r is the position vector of the spacecraft with respect to the Sun, at time
+t. The gravitational parameter of the Sun is dened by µ. For an ideal sail, the thrust vector is aligned
+along the sail normal direction, n.
+d2−→r
+dt2 + µ
+r2 ˆr = β µ
+r2 (ˆr · −→
+n )2
+(31)
+For the simple analysis to follow, it is appropriate to show how this equation is represented in two-
+dimensional polar coordinates, shown in Eq. 32 and 33 Here, θ is the azimuth angle from the x-axis, r is
+the distance of the spacecraft from the Sun. The pitch or cone angle, α is dened as the angle between
+the sail normal and the radial vector, as dened in the SRP theoretical model.
+d2r
+dt2 −r
+ dθ
+dt
+ 2
+= −µ
+r2 + β µ
+r2 cos3α
+(32)
+rd2θ
+dt2 + 2r
+ dr
+dt
+   dθ
+dt
+ 
+= β µ
+r2 cos2αsinα
+(33)
+The parameter, β is known as the sail lightness number and is dened as the ratio of the local solar
+radiation pressure acceleration produced by the sail to the local solar gravitational acceleration. This
+number is a useful parameter since it is independent of the solar distance and denes the performance of
+the sail. Another useful performance parameter is the sail characteristic acceleration, ac, which is the solar
+radiation pressure induced acceleration of an ideal sail, pitched face on to the Sun (α = 0) at 1AU from the
+Sun. It is easy to calculate that a characteristic acceleration of 1.0mms−2 corresponds to a dimensionless
+sail lightness number of 0.1686. As has been discussed the solar sail characteristic acceleration is dependent
+on the surface area and reectivity of the sail assembly and the mass of the spacecraft [8].
+B
+Codes
+Codes in Python:
+from matplotlib import pyplot as plt
+from matplotlib import animation
+from math import cos, sin, sqrt, pi
+import json
+from scipy.integrate import ode
+from scipy.optimize import fmin_slsqp
+H_TO_S = 3600
+
+Team 744
+Page 23 of 34
+S_TO_H = 1 / 3600
+M_TO_KM = 1 / 1000
+KM_TO_M = 1000
+G_TO_KG = 1 / 1000
+KG_TO_G = 1000
+CM_TO_KM = 1 / 100000
+KM_TO_CM = 100000
+MICRO_TO_UNI = 1E-6
+UNI_TO_MICRO = 1E6
+DISTANCE_SUN_EARTH = 149600000 # Km
+DISTANCE_SUN_MARS = 227940000 # Km
+DISTANCE_SUN_JUPITER = 7786000000 # Km
+EARTH_ORBITAL_VELOCITY = 29.8 / S_TO_H # Km/h
+MARS_ORBITAL_VELOCITY = 24.1 / S_TO_H # Km/h
+EARTH_ANGULAR_VELOCITY = EARTH_ORBITAL_VELOCITY / DISTANCE_SUN_EARTH # rad/h
+MARS_ANGULAR_VELOCITY = MARS_ORBITAL_VELOCITY / DISTANCE_SUN_MARS # rad/h
+SUN_RADIUS = 695700 # Km
+SUN_MASS = 1988500E4 # 10^20Kg
+GRAVITATIONAL_CONSTANT = 6.67408 * 1E9 * M_TO_KM ** 3 / S_TO_H ** 2 # 10^(-20) Km^3/(kg*h^2)
+GM = GRAVITATIONAL_CONSTANT * SUN_MASS # Km^3/h^2
+MAX_SPEED_DIFFER = 9 / S_TO_H # Km/h
+MARS_RADIUS = 6792 / 2 # Km
+MARS_EARTH_INITIAL_ANGLE_DIFF = 0 # rad
+EARTH_ESCAPE_VELOCITY = 11.186 / S_TO_H # Km/h
+ODE_SOLVER_STEP = 1 / 500
+MAX_WEIGHT = 2E3 # Kg maximum weight we can carry with our sail
+SAIL_DENSITY = 7 * G_TO_KG / CM_TO_KM ** 2 # Kg/Km^2
+P0 = 4.563 * MICRO_TO_UNI / (M_TO_KM * S_TO_H ** 2) # (Kg/Km*h^2)
+r02 = DISTANCE_SUN_EARTH ** 2 # Km
+ac = 2 * P0 * r02 / MAX_WEIGHT # Km/h^2
+b1 = 0.0864
+b2 = 0.8277
+b3 = -5.45e-3
+N = 15 # Default number of partitions
+AREA_RELEVANCE = 1. # default relevance given to area minimization
+TIME_RELEVANCE = 1. # default relevance given to time minimization
+R_init = DISTANCE_SUN_EARTH
+R_fin = DISTANCE_SUN_MARS
+# define a function which given a value s between 0 and 1 returns the angle that the sail should
+be
+# form with the position vector at the corresponding time.
+def alpha(s, alpha_list):
+s = min(s, 0.99)
+return alpha_list[int(s * len(alpha_list))]
+
+Team 744
+Page 24 of 34
+# Define the ordinary differential equation we must solve in order to compute the final position
+# and velocity of our solar wind propelled rocket first parameter is radius (from Sun), second is
+# angle (respect to initial angle) third is radial speed and last is angular speed. The
+parameters
+# consist on a list of N+3 doubles. First N doubles correspond to the angle the sail is forming
+with
+# the position vector taking the Sun as coordinates origin. The fourth to last parameter is a
+value
+# between 0 and 1 which indicates the initial speed the sail has whith respect to the Earth
+# (in proortion to escape velocity). The third to last parameter is the initial
+# angle that the ship forms with Earth’s orbit. The second to last parameter is the sail area
+# and the last parameter is the expected time the trip is going to last.
+def f(t, y, params):
+r, theta, u, v = y
+A = params[-2]
+tf = params[-1]
+r_deriv = tf * u
+theta_deriv = tf * v / r
+u_deriv = tf * (v ** 2 - GM / r) / r
+v_deriv = -tf * u * v / r
+a = alpha(t, params[:-4])
+cosalpha = cos(a)
+sinalpha = sin(a)
+aux = tf * ac * A * cosalpha / r ** 2
+u_deriv += aux * (b1 + cosalpha * (b2 * cosalpha + b3))
+v_deriv += aux * sinalpha * (b2 * cosalpha + b3)
+return [r_deriv, theta_deriv, u_deriv, v_deriv]
+# define function that solves the differential equation and returns the final values of position
+and speed in
+# polar coordinates.
+def solve_ode(params):
+# Initialize an object to solve the previous differential equation using Runge-Kutta 4(5)
+method.
+ode_solver = ode(f).set_integrator(’dopri5’, nsteps=10000)
+# Set initial value
+theta_init = params[-3]
+v_init = params[-4]
+ode_solver.set_initial_value([DISTANCE_SUN_EARTH, 0, sin(theta_init) * v_init,
+cos(theta_init) * v_init + EARTH_ORBITAL_VELOCITY],
+0)
+ode_solver.set_f_params(params)
+while ode_solver.successful() and ode_solver.t < 1:
+ode_solver.integrate(ode_solver.t + ODE_SOLVER_STEP)
+return ode_solver.y
+# define function that solves the differential equation and returns the final values of position
+and speed in
+# polar coordinates.
+def solve_ode_orbital(params):
+global R_init
+# Initialize an object to solve the previous differential equation using Runge-Kutta 4(5)
+
+Team 744
+Page 25 of 34
+method.
+ode_solver = ode(f).set_integrator(’dopri5’, nsteps=10000)
+# Set initial value
+theta_init = params[-3]
+v_init = params[-4]
+ode_solver.set_initial_value([R_init, 0, sin(theta_init) * v_init,
+cos(theta_init) * v_init + sqrt(GM/R_init)],
+0)
+ode_solver.set_f_params(params)
+while ode_solver.successful() and ode_solver.t < 1:
+ode_solver.integrate(ode_solver.t + ODE_SOLVER_STEP)
+return ode_solver.y
+# Our goal is that of maximizing the amount of material we can receive and return per time unit.
+def objective(params):
+global AREA_RELEVANCE, TIME_RELEVANCE
+r_fin, theta_fin, radial_speed, theta_speed = solve_ode(params)
+tang_speed_diff = (theta_speed - DISTANCE_SUN_MARS * MARS_ANGULAR_VELOCITY)
+speed_condition = sqrt(max(tang_speed_diff ** 2 + radial_speed ** 2 - MAX_SPEED_DIFFER ** 2,
+0))
+Mars_theta = MARS_EARTH_INITIAL_ANGLE_DIFF + MARS_ANGULAR_VELOCITY * params[-1]
+x_diff = r_fin * cos(theta_fin) - DISTANCE_SUN_MARS * cos(Mars_theta)
+y_diff = r_fin * sin(theta_fin) - DISTANCE_SUN_MARS * sin(Mars_theta)
+pos_condition = sqrt(max(x_diff ** 2 + y_diff ** 2 - MARS_RADIUS ** 2, 0))
+# we square the value to make sure it is not negative.
+# this option results in error, the NLP solver learns to make the value params[-1]
+infinitely small.
+# return -((MAX_WEIGHT - SAIL_DENSITY * params[-2]) / params[-1]) ** 2
+# we add constraints (terms multiplied by 1e8) in order to achieve the desired results that
+being a small
+# final distance to Mars (of the order of Mars radius) and a small relative speed to Mars
+(smaller that 9 Km/s)
+time_condition = TIME_RELEVANCE * abs(params[-1])
+area_condition = AREA_RELEVANCE * params[-2] ** 2
+return pos_condition * 1E-4 + speed_condition * 5E-3 + time_condition / 180 + area_condition
+* 5
+# Our goal is that of maximizing the amount of material we can receive and return per time unit.
+def orbit_objective(params):
+global R_fin
+r_fin, theta_fin, radial_speed, theta_speed = solve_ode_orbital(params)
+tang_speed_diff = abs(theta_speed - sqrt(GM/R_fin))
+speed_condition = sqrt(max(tang_speed_diff**2 + radial_speed ** 2 - MAX_SPEED_DIFFER ** 2,
+0))
+orbit_condition = abs(r_fin - R_fin)
+# we square the value to make sure it is not negative.
+# we add constraints (terms multiplied by 1e8) in order to achieve the desired results that
+being a small
+# final distance to Mars (of the order of Mars radius) and a small relative speed to Mars
+(smaller that 9 Km/s)
+
+Team 744
+Page 26 of 34
+time_condition = TIME_RELEVANCE * abs(params[-1])
+area_condition = AREA_RELEVANCE * params[-2] ** 2
+return orbit_condition * 1E-4 + speed_condition * 5E-3 + time_condition / 180 +
+area_condition * 5
+def find_optimal_values(n=N, verbose=True, area_relevance=AREA_RELEVANCE,
+time_relevance=TIME_RELEVANCE):
+global AREA_RELEVANCE, TIME_RELEVANCE
+AREA_RELEVANCE = area_relevance
+TIME_RELEVANCE = time_relevance
+# Define constraints for the angles values (angles must be in the range [-pi/2, pi/2])
+bounds = [(-pi / 2, pi / 2) for i in range(n)]
+# Define bounds for initial speed respect to Earth (from 0 to escape velocity).
+bounds.append((0, EARTH_ESCAPE_VELOCITY))
+# Define bounds for the initil angle formed with Earth.
+bounds.append((-pi, pi))
+# Define constraints for the Area of the sail (area must be between 0 and maximum
+transportable weight.
+bounds.append((0, 0.28))
+# Define time constraints between 10 hours and 1.8 years
+bounds.append((10, 24 * 1.8 * 365))
+initial = [11 * pi / 180 for i in range(n)] # angles
+initial.append(EARTH_ESCAPE_VELOCITY / 100) # Initial speed relative to Earth
+initial.append(0) # initial angle with Earth orbit
+initial.append(0.14) # Area sail.
+initial.append(500 * 24) # Time.
+if verbose:
+results = fmin_slsqp(objective, initial, bounds=bounds, iprint=2, iter=1000)
+else:
+results = fmin_slsqp(objective, initial, bounds=bounds, iter=1000)
+show_results(results)
+return results
+def show_results(params):
+angles = params[:-4]
+speed_init, angle_init, sail_size, time = params[-4:]
+print("\nThe optimal angle values are:")
+for angle in angles:
+print("\t{:.2f} radians".format(angle))
+print("\nThe optimal initial speed respect to Earth is:")
+print("\t{:.2f} Km/s".format(speed_init / H_TO_S))
+print("\nThe optimal initial angle formed with the Earth’s orbit is:")
+print("\t{:.2f} radians".format(angle_init))
+print("\nThe optimal sail size is:")
+print("\t{:.2f} Km^2".format(sail_size))
+print("\nThe optimal travel time is:")
+
+Team 744
+Page 27 of 34
+print("\t{:.2f} days".format(time / 24))
+r_fin, theta_fin, radial_speed, tangential_speed = solve_ode(params)
+print("\nSpeed difference between solar sail and Mars is:")
+tang_speed_diff = tangential_speed - DISTANCE_SUN_MARS * MARS_ANGULAR_VELOCITY
+print("\t{:.2f} Km/s".format(sqrt(tang_speed_diff ** 2 + radial_speed ** 2) / H_TO_S))
+print("\nDistance between the center of Mars (with radius 3396 Km) and the solar sail at
+trajectory end is:")
+theta_mars = MARS_EARTH_INITIAL_ANGLE_DIFF + MARS_ANGULAR_VELOCITY * params[-1]
+x_diff = (r_fin * cos(theta_fin) - DISTANCE_SUN_MARS * cos(theta_mars))
+y_diff = (r_fin * sin(theta_fin) - DISTANCE_SUN_MARS * sin(theta_mars))
+print("\t{:.2f} Km".format(sqrt(x_diff ** 2 + y_diff ** 2)))
+def show_orbital_results(params):
+angles = params[:-4]
+speed_init, angle_init, sail_size, time = params[-4:]
+print("\nThe optimal angle values are:")
+for angle in angles:
+print("\t{:.2f} radians".format(angle))
+print("\nThe optimal initial speed respect to Earth is:")
+print("\t{:.2f} Km/s".format(speed_init / H_TO_S))
+print("\nThe optimal initial angle formed with the Earth’s orbit is:")
+print("\t{:.2f} radians".format(angle_init))
+print("\nThe optimal sail size is:")
+print("\t{:.2f} Km^2".format(sail_size))
+print("\nThe optimal travel time is:")
+print("\t{:.2f} days".format(time / 24))
+r_fin, theta_fin, radial_speed, tangential_speed = solve_ode_orbital(params)
+print("\nSpeed difference between solar sail Orbital speed and Mars is:")
+tang_speed_diff = tangential_speed - sqrt(GM/R_fin)
+print("\t{:.2f} Km/s".format(sqrt(tang_speed_diff ** 2 + radial_speed ** 2) / H_TO_S))
+print("\nDistance between the solar sail and the orbit:")
+print("\t{:.2f} Km".format(abs(r_fin-R_fin)))
+print("\nThe Mars angle respect Earth should be:")
+print("\t{:.2f} radians".format(theta_fin - MARS_ANGULAR_VELOCITY * params[-1]))
+# Define function that solves the differential equation and .
+def generate_plotting_data(params):
+# Initialize an object to solve the previous differential equation using Runge-Kutta 4(5)
+method.
+ode_solver = ode(f).set_integrator(’dopri5’, nsteps=10000)
+# Set initial value
+theta_init = params[-3]
+v_init = params[-4]
+ode_solver.set_initial_value([DISTANCE_SUN_EARTH, 0, sin(theta_init) * v_init,
+
+Team 744
+Page 28 of 34
+cos(theta_init) * v_init + EARTH_ORBITAL_VELOCITY],
+0)
+ode_solver.set_f_params(params)
+positions = []
+while ode_solver.successful() and ode_solver.t + ODE_SOLVER_STEP < 1:
+ode_solver.integrate(ode_solver.t + ODE_SOLVER_STEP)
+positions.append([ode_solver.y[0] * cos(ode_solver.y[1]), ode_solver.y[0] *
+sin(ode_solver.y[1])])
+return positions
+# Define function that solves the differential equation and .
+def generate_orbital_plotting_data(params):
+# Initialize an object to solve the previous differential equation using Runge-Kutta 4(5)
+method.
+ode_solver = ode(f).set_integrator(’dopri5’, nsteps=10000)
+# Set initial value
+theta_init = params[-3]
+v_init = params[-4]
+ode_solver.set_initial_value([R_init, 0, sin(theta_init) * v_init,
+cos(theta_init) * v_init + sqrt(GM/R_init)],
+0)
+ode_solver.set_f_params(params)
+positions = []
+while ode_solver.successful() and ode_solver.t + ODE_SOLVER_STEP < 1:
+ode_solver.integrate(ode_solver.t + ODE_SOLVER_STEP)
+positions.append([ode_solver.y[0] * cos(ode_solver.y[1]), ode_solver.y[0] *
+sin(ode_solver.y[1])])
+return positions
+# Creating celestial_object class
+class CelestialObject(object):
+def __init__(self, x=0, y=0):
+self.x = x
+self.y = y
+def move(self, newx, newy):
+self.x = newx
+self.y = newy
+def save_params(params, file=’learned_parameters.json’):
+angles = [angle for angle in params[:-4]]
+results = {’angles’: angles,
+’initial_speed’: params[-4],
+’initial_angle’: params[-3],
+’sail_size’: params[-2],
+’time’: params[-1]}
+with open(file, ’w’) as outfile:
+json.dump(results, outfile)
+
+Team 744
+Page 29 of 34
+def load_params(file=’learned_parameters.json’):
+json_data = open("learned_parameters.json", "r")
+results = json.load(json_data)
+params = [results[’initial_speed’], results[’initial_angle’], results[’sail_size’],
+results[’time’]]
+params = results[’angles’] + params
+return params
+def show_animated_plot(params):
+positions = generate_plotting_data(params)
+tf = params[-1]
+n = len(positions)
+step = tf / n
+# Initializing dots
+Earth = CelestialObject(DISTANCE_SUN_EARTH, 0)
+Ship = CelestialObject(DISTANCE_SUN_EARTH, 0)
+Mars = CelestialObject(DISTANCE_SUN_MARS, 0)
+plt.clf()
+fig = plt.figure()
+ax = plt.axes(xlim=(-2 * DISTANCE_SUN_MARS, 2 * DISTANCE_SUN_MARS),
+ylim=(-2 * DISTANCE_SUN_MARS, 2 * DISTANCE_SUN_MARS))
+d, = ax.plot([Earth.x, Mars.x, Ship.x],
+[Earth.y, Mars.y, Ship.y], ’ro’, markersize=4)
+circle = plt.Circle((0, 0), DISTANCE_SUN_MARS, color=’r’, fill=False)
+ax.add_artist(circle)
+circle = plt.Circle((0, 0), DISTANCE_SUN_EARTH, color=’b’, fill=False)
+ax.add_artist(circle)
+circle = plt.Circle((0, 0), 10 * SUN_RADIUS, color=’y’)
+ax.add_artist(circle)
+# animation function. This is called sequentially
+def animate(i):
+Earth_theta = i * step * EARTH_ANGULAR_VELOCITY
+Earth.move(DISTANCE_SUN_EARTH * cos(Earth_theta), DISTANCE_SUN_EARTH * sin(Earth_theta))
+Mars_theta = MARS_EARTH_INITIAL_ANGLE_DIFF + i * step * MARS_ANGULAR_VELOCITY
+Mars.move(DISTANCE_SUN_MARS * cos(Mars_theta), DISTANCE_SUN_MARS * sin(Mars_theta))
+x, y = positions[i]
+Ship.move(x, y)
+d.set_data([Earth.x, Mars.x, Ship.x],
+[Earth.y, Mars.y, Ship.y])
+plt.title("Time: {:.2f} days".format(i * step / 24))
+return d,
+# call the animator.
+anim = animation.FuncAnimation(fig, animate, frames=n, interval=5)
+plt.show()
+def show_orbital_animated_plot(params):
+positions = generate_orbital_plotting_data(params)
+
+Team 744
+Page 30 of 34
+tf = params[-1]
+n = len(positions)
+step = tf / n
+# Initializing dots
+Earth = CelestialObject(DISTANCE_SUN_EARTH, 0)
+Ship = CelestialObject(DISTANCE_SUN_EARTH, 0)
+Mars = CelestialObject(DISTANCE_SUN_MARS, 0)
+plt.clf()
+fig = plt.figure()
+ax = plt.axes(xlim=(-2 * DISTANCE_SUN_MARS, 2 * DISTANCE_SUN_MARS),
+ylim=(-2 * DISTANCE_SUN_MARS, 2 * DISTANCE_SUN_MARS))
+d, = ax.plot([Earth.x, Mars.x, Ship.x],
+[Earth.y, Mars.y, Ship.y], ’ro’, markersize=4)
+circle = plt.Circle((0, 0), DISTANCE_SUN_MARS, color=’r’, fill=False)
+ax.add_artist(circle)
+circle = plt.Circle((0, 0), DISTANCE_SUN_EARTH, color=’b’, fill=False)
+ax.add_artist(circle)
+circle = plt.Circle((0, 0), 10 * SUN_RADIUS, color=’y’)
+ax.add_artist(circle)
+# animation function. This is called sequentially
+def animate(i):
+Earth_theta = i * step * EARTH_ANGULAR_VELOCITY
+Earth.move(DISTANCE_SUN_EARTH * cos(Earth_theta), DISTANCE_SUN_EARTH * sin(Earth_theta))
+Mars_theta = MARS_EARTH_INITIAL_ANGLE_DIFF + i * step * MARS_ANGULAR_VELOCITY
+Mars.move(DISTANCE_SUN_MARS * cos(Mars_theta), DISTANCE_SUN_MARS * sin(Mars_theta))
+x, y = positions[i]
+Ship.move(x, y)
+d.set_data([Earth.x, Mars.x, Ship.x],
+[Earth.y, Mars.y, Ship.y])
+plt.title("Time: {:.2f} days".format(i * step / 24))
+return d,
+# call the animator.
+anim = animation.FuncAnimation(fig, animate, frames=n, interval=5)
+plt.show()
+def save_animated_plot(params, file_name=’animated_plot.html’):
+Writer = animation.writers[’ffmpeg’]
+writer = Writer(fps=15, metadata=dict(artist=’Team 744’), bitrate=1800)
+positions = generate_plotting_data(params)
+tf = params[-1]
+n = len(positions)
+step = tf / n
+# Initializing dots
+Earth = CelestialObject(DISTANCE_SUN_EARTH, 0)
+Ship = CelestialObject(DISTANCE_SUN_EARTH, 0)
+Mars = CelestialObject(DISTANCE_SUN_MARS, 0)
+fig = plt.figure()
+
+Team 744
+Page 31 of 34
+ax = plt.axes(xlim=(-2 * DISTANCE_SUN_MARS, 2 * DISTANCE_SUN_MARS),
+ylim=(-2 * DISTANCE_SUN_MARS, 2 * DISTANCE_SUN_MARS))
+d, = ax.plot([Earth.x, Mars.x, Ship.x],
+[Earth.y, Mars.y, Ship.y], ’ro’, markersize=4)
+circle = plt.Circle((0, 0), DISTANCE_SUN_MARS, color=’r’, fill=False)
+ax.add_artist(circle)
+circle = plt.Circle((0, 0), DISTANCE_SUN_EARTH, color=’b’, fill=False)
+ax.add_artist(circle)
+circle = plt.Circle((0, 0), 10 * SUN_RADIUS, color=’y’)
+ax.add_artist(circle)
+# animation function. This is called sequentially
+def animate(i):
+Earth_theta = i * step * EARTH_ANGULAR_VELOCITY
+Earth.move(DISTANCE_SUN_EARTH * cos(Earth_theta), DISTANCE_SUN_EARTH * sin(Earth_theta))
+Mars_theta = i * step * MARS_ANGULAR_VELOCITY
+Mars.move(DISTANCE_SUN_MARS * cos(Mars_theta), DISTANCE_SUN_MARS * sin(Mars_theta))
+x, y = positions[i]
+Ship.move(x, y)
+d.set_data([Earth.x, Mars.x, Ship.x],
+[Earth.y, Mars.y, Ship.y])
+plt.title("Time: {:.2f} days".format(i * step / 24))
+return d,
+# call the animator.
+anim = animation.FuncAnimation(fig, animate, frames=n, interval=5)
+anim.save(filename=file_name, writer=writer)
+def plot_trajectory(params):
+positions = generate_plotting_data(params)
+x = [pos[0] for pos in positions]
+y = [pos[1] for pos in positions]
+plt.clf()
+plt.plot(x, y, ’r’, color=’black’)
+N = 100
+x = [DISTANCE_SUN_EARTH * cos(2 * pi * i / N) for i in range(N + 1)]
+y = [DISTANCE_SUN_EARTH * sin(2 * pi * i / N) for i in range(N + 1)]
+plt.plot(x, y, ’r’, color=’blue’)
+x = [DISTANCE_SUN_MARS * cos(2 * pi * i / N) for i in range(N + 1)]
+y = [DISTANCE_SUN_MARS * sin(2 * pi * i / N) for i in range(N + 1)]
+plt.plot(x, y, ’r’, color=’red’)
+plt.title(’{} angle variations’.format(len(params) - 4))
+show_results(params)
+plt.show()
+def save_trajectory(params, file_name=’animated_plot.mp4’):
+positions = generate_plotting_data(params)
+x = [pos[0] for pos in positions]
+y = [pos[1] for pos in positions]
+plt.clf()
+plt.plot(x, y, ’r’, color=’black’)
+N = 100
+x = [DISTANCE_SUN_EARTH * cos(2 * pi * i / N) for i in range(N + 1)]
+
+Team 744
+Page 32 of 34
+y = [DISTANCE_SUN_EARTH * sin(2 * pi * i / N) for i in range(N + 1)]
+plt.plot(x, y, ’r’, color=’blue’)
+x = [DISTANCE_SUN_MARS * cos(2 * pi * i / N) for i in range(N + 1)]
+y = [DISTANCE_SUN_MARS * sin(2 * pi * i / N) for i in range(N + 1)]
+plt.plot(x, y, ’r’, color=’red’)
+plt.title(’{} angle variations’.format(len(params) - 4))
+plt.savefig(file_name)
+def save_orbital_trajectory(params, file_name=’animated_plot.mp4’):
+positions = generate_orbital_plotting_data(params)
+x = [pos[0] for pos in positions]
+y = [pos[1] for pos in positions]
+plt.clf()
+plt.plot(x, y, ’r’, color=’black’)
+N = 100
+x = [R_init * cos(2 * pi * i / N) for i in range(N + 1)]
+y = [R_init * sin(2 * pi * i / N) for i in range(N + 1)]
+plt.plot(x, y, ’r’, color=’blue’)
+x = [R_fin * cos(2 * pi * i / N) for i in range(N + 1)]
+y = [R_fin * sin(2 * pi * i / N) for i in range(N + 1)]
+plt.plot(x, y, ’r’, color=’red’)
+plt.title(’{} angle variations’.format(len(params) - 4))
+plt.savefig(file_name)
+def save_areatime(params, file=’learned_parameters.json’):
+angles = [angle for angle in params[:-4]]
+results = {’angles’: angles,
+’initial_speed’: params[-4],
+’initial_angle’: params[-3],
+’sail_size’: params[-2],
+’time’: params[-1]}
+with open(file, ’w’) as outfile:
+json.dump(results, outfile)
+def plot_angles(params):
+angles = params[:-4]
+n = len(angles)
+t = params[-1] / n
+x = [(i + 1 / 2) * t / 24 for i in range(n)]
+plt.clf()
+plt.xlabel(’time (days)’)
+plt.ylabel(’Angle (radians)’)
+plt.plot(x, angles, ’r’)
+plt.show()
+def plot_multiple_angles(params_list):
+angles_list = [params[:-4] for params in params_list]
+x_list = [[(i + 1 / 2) * params_list[j][-1] / (len(angles_list[j])*24) for i in
+range(len(angles_list[j]))] for j in
+range(len(angles_list))]
+plt.clf()
+
+Team 744
+Page 33 of 34
+plt.xlabel(’time (days)’)
+plt.ylabel(’Angle (radians)’)
+lines = []
+for i in range(len(angles_list)):
+line, = plt.plot(x_list[i], angles_list[i], label=str(len(x_list[i])))
+lines.append(line)
+plt.legend(handles=lines)
+plt.show()
+def find_optimal_value_list(n_list, verbose=False, area_relevance=AREA_RELEVANCE,
+time_relevance=TIME_RELEVANCE):
+param_list = [find_optimal_values(n, verbose, area_relevance=area_relevance,
+time_relevance=time_relevance) for n in
+n_list]
+return param_list
+def optimizing_area_time(n=20):
+x = []
+y = []
+d = []
+s = []
+for i in range(n):
+params = find_optimal_values(15, True, area_relevance=i / n, time_relevance=(1 - i / n))
+angles = params[:-4]
+init_speed, init_angle, area, time = params[-4:]
+r_fin, theta_fin, radial_speed, tangential_speed = solve_ode(params)
+tang_speed_diff = tangential_speed - DISTANCE_SUN_MARS * MARS_ANGULAR_VELOCITY
+s.append(sqrt(tang_speed_diff ** 2 + radial_speed ** 2) / H_TO_S)
+theta_mars = MARS_EARTH_INITIAL_ANGLE_DIFF + MARS_ANGULAR_VELOCITY * params[-1]
+x_diff = (r_fin * cos(theta_fin) - DISTANCE_SUN_MARS * cos(theta_mars))
+y_diff = (r_fin * sin(theta_fin) - DISTANCE_SUN_MARS * sin(theta_mars))
+d.append(sqrt(x_diff ** 2 + y_diff ** 2))
+x.append(area)
+y.append(time / 24)
+print("n \t area (km^2)\t time (days) \t Dv (km/s)\t dist (km) \n")
+for i in range(n):
+print(i, "\t", x[i], "\t", y[i], "\t", s[i], "\t", d[i], "\n")
+# apply the same algorithm bu to transfer from orbit to orbit and not from planet to planet
+def inter_orbital_transport(n=N, verbose=True, initial_orbit_radius=DISTANCE_SUN_EARTH,
+final_orbit_radius=DISTANCE_SUN_MARS):
+global R_init, R_fin
+R_init = initial_orbit_radius
+R_fin = final_orbit_radius
+# Define constraints for the angles values (angles must be in the range [-pi/2, pi/2])
+bounds = [(-pi / 2, pi / 2) for i in range(n)]
+# Define bounds for initial speed respect to Earth (from 0 to escape velocity).
+bounds.append((0, EARTH_ESCAPE_VELOCITY))
+# Define bounds for the initil angle formed with Earth.
+bounds.append((-pi, pi))
+
+Team 744
+Page 34 of 34
+# Define constraints for the Area of the sail (area must be between 0 and maximum
+transportable weight.
+bounds.append((0, 0.28))
+# Define time constraints between 10 hours and 15 years
+bounds.append((10, 24 * 15 * 365))
+initial = [11 * pi / 180 for i in range(n)] # angles
+initial.append(EARTH_ESCAPE_VELOCITY / 100) # Initial speed relative to Earth
+initial.append(0) # initial angle with Earth orbit
+initial.append(0.14) # Area sail.
+initial.append(500 * 24) # Time.
+if verbose:
+results = fmin_slsqp(orbit_objective, initial, bounds=bounds, iprint=2, iter=1000)
+else:
+results = fmin_slsqp(orbit_objective, initial, bounds=bounds, iter=1000)
+show_orbital_results(results)
+return results
+def test_model():
+n_list = [10, 15, 20, 25, 30]
+# n_list = [1, 2, 3]
+param_list = find_optimal_value_list(n_list, False)
+# param_list = [load_params(’learned_parameters_n={}.json’.format(n)) for n in n_list]
+for params in param_list:
+n = len(params) - 4
+save_params(params, ’learned_parameters_n={}.json’.format(n))
+# save_animated_plot(params, ’animated_plot_n={}.html’.format(n))
+save_trajectory(params, ’trajectory_plot_n={}.png’.format(n))
+n = input(’insert number of different angles in the simulation you want to see\n’)
+params = load_params(’learned_parameters_n={}.json’.format(n))
+show_animated_plot(params)
+plot_multiple_angles(param_list)
+def test_inter_orbital():
+params = inter_orbital_transport(initial_orbit_radius=DISTANCE_SUN_MARS,
+final_orbit_radius=DISTANCE_SUN_EARTH)
+save_params(params, ’learned_orbital_parameters_earth_mars.json’)
+save_orbital_trajectory(params, ’learned_orbital_parameters_mars_earth.png’)
+plot_angles(params)
+show_orbital_animated_plot(params)
+print("")
+if __name__ == ’__main__’:
+# test_model()
+test_inter_orbital()

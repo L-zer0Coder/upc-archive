@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 · Analysis of Nuclear Waste Disposal into Space（2016 题A 金牌 · 队伍 331） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2016/2016-GM-A-331_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2016 · 精读 · Analysis of Nuclear Waste Disposal into Space（2016 题A 金牌 · 队伍 331）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-analysis-of-nuclear-waste-disposal-into-space2016-题a-金牌-队伍-331">精读 · Analysis of Nuclear Waste Disposal into Space（2016 题A 金牌 · 队伍 331）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：左手边开论文 PDF（<code>03_优秀论文PDF/2016/Problem A/2016-GM-A-331.pdf</code>），右手边开本篇。每节按「它写了什么 → 为什么这样写 → 你要学什么」三层展开；每个公式给「物理直觉 → 完整推导 → 适用边界」，式号用论文原编号 [1]–[11]（本篇是 revTeX 方括号风格）。这篇的两大看点：<strong>用 Δv 做所有方案的统一货币</strong>，以及<strong>用 5 万颗真实小行星的数据回答"能安全存多久"</strong>——读完你要能复现 Fig 1 那条"藏着一个第三方案"的曲线。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<p>论文回答一个问题：<strong>把地球上的核废料送进太阳还是存进小行星带，哪种更容易实现？存进去安全吗？</strong></p>
+<pre><code class="language-mermaid">flowchart LR
+    A[&quot;I-II 前提&lt;br/&gt;放射性寿命数十亿年&lt;br/&gt;'等衰变'不可行&quot;] --&gt; B[&quot;III-VII 坠日方案&lt;br/&gt;Vis-Viva[3] → Hohmann[6]&lt;br/&gt;Δv(d) 曲线→渐近线=逃逸速度&lt;br/&gt;发现第三方案：直接逃逸&quot;]
+    A --&gt; C[&quot;IV-VI 存带方案&lt;br/&gt;反向风险：被撞改道撞地球？&lt;br/&gt;[7]-[10] 危险阈值 ≥4000 m/s&lt;br/&gt;[11]+Poisson：撞率0.0001%/千年&quot;]
+    B --&gt; D[&quot;VIII 对比&lt;br/&gt;Tsiolkovsky[5] 换算载荷&lt;br/&gt;166 vs 558 kg/枚 → 发射数 15e5 vs 4.5e5&quot;]
+    C --&gt; D
+    D --&gt; E[&quot;IX 结论&lt;br/&gt;存带胜出但仍需 $500 万亿&lt;br/&gt;'强烈建议考虑别的方法'&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好？</strong> 比较——度量——闭环：先立 Δv 这个统一度量（III），两条路线各自算 Δv（坠日 IV、存带 IV/VI），反向风险各自建模（坠日=容器回落烧毁；存带=碰撞改道），最后经 Tsiolkovsky 换算成发射次数与钱。<strong>每个方案都配有自己的失败模式分析</strong>，比较才显得公平。Fig 1 的水平渐近线（=太阳逃逸速度）顺藤摸瓜引出"直接逃逸更省"的第三方案——<strong>从曲线形态反哺物理判断</strong>是全文最漂亮的一笔。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-标题页摘要第-1-页">1.1 标题页摘要（第 1 页）</h3>
+<p><strong>它写了什么</strong>：直接给出全部数字：坠日（10 AU 二次点火）Δv=14106.2 m/s；存带（2.7 AU 入轨）Δv=10977.4 m/s；千年撞率 0.0001%；处理 2.5×10⁸ kg 废料需 15×10⁵ vs 4.5×10⁵ 枚火箭；最省也要 500 万亿美元。</p>
+<p><strong>为什么这样写</strong>：摘要是一张"成绩单"——每个问句一行答案，还预埋了结论的火药味（"even the most efficient launches would still cost over $500 trillion"）。评委读完摘要已经拿到全文。</p>
+<p><strong>你要学什么</strong>：比较型论文的摘要结构：<strong>方案 A 数字 → 方案 B 数字 → 安全性数字 → 成本数字 → 倾向性结论</strong>。</p>
+<h3 id="12-i-introduction第-2-页">1.2 §I Introduction（第 2 页）</h3>
+<p><strong>它写了什么</strong>：核废料储存现状（水池+干桶、铅/水的 halving distance——铅 1 cm、水 18 cm）与两个候选方案；然后做关键的<strong>前提手术</strong>："if we decided that the only solution ... would be to move it off-planet, then we can also disregard the rocket failure rate as it would be a constant that we could do nothing about."——6% 的火箭失败率对所有方案一视同仁，从比较中剔除。</p>
+<p><strong>为什么这样写</strong>：先剔除对两方案等权重的因素（发射失败率），把比较收敛到"轨道效率、长期安全、清运速率"三个真正能分出高下的判据——<strong>比较题先做变量控制</strong>。</p>
+<p><strong>你要学什么</strong>：halving distance（半值层）一段是"顺手解题"的典范：用水多但便宜解释水池储存，一段背景介绍同时完成了一次屏蔽物理的小教学。</p>
+<h3 id="13-ii-radioactivity第-2-页">1.3 §II Radioactivity（第 2 页）</h3>
+<p><strong>它写了什么</strong>：衰变定律 [1] ẋ=−kx 与解 [2] N(t)=N₀e^{−t/τ}；指出废料以贫铀为主、τ 达数十亿年——"waiting for the nuclear waste to decay is not an option."</p>
+<p><strong>为什么这样写</strong>：题目问"能安全存放多久"，答案的物理前提是<strong>存放期限不受放射性限制</strong>（自然衰变在工程时标上不下降），于是问题转化为轨道稳定性问题。两行公式完成问题的重新定义。</p>
+<p><strong>你要学什么</strong>：每个公式下都附"Where:"变量表（revTeX 惯例）——公式自足，读者不用回上文找符号。</p>
+<h3 id="14-iii-space-travel第-3-页工具箱一页化">1.4 §III Space Travel（第 3 页）——工具箱一页化</h3>
+<p><strong>它写了什么</strong>：三条公式装一个工具箱：Vis-Viva [3]（轨道任意点速度）、Δv 定义 [4]（两次 Vis-Viva 之差）、Tsiolkovsky 火箭方程 [5]（Δv→质量比）。全部附变量表与常数取值（G、M☉）。</p>
+<p><strong>为什么这样写</strong>：全文后面所有计算都调用这三件工具。集中一页陈列，后文零重复——<strong>工具箱式写法</strong>让读者随时回查。</p>
+<p><strong>你要学什么</strong>：[4] 这个"同一点、两个半长轴"的 Δv 定义看似平凡，实为 Hohmann 变轨的紧凑表述：变轨发生在切点，速度差=轨道半长轴跳变的效果。</p>
+<h3 id="15-iv-computations第-34-页坠日方案与渐近线的发现">1.5 §IV Computations（第 3–4 页）——坠日方案与渐近线的发现</h3>
+<p><strong>它写了什么</strong>：坠日的两段式 [6]：先把轨道远日点抬到 r，再在 r 处压低近日点到太阳表面；总 Δv 为两段 Hohmann 之和。Fig 1 画 Δv(d) 曲线："The plot has a horizontal asymptote at the escape velocity of the Sun, which is 12337.5 ms⁻¹."；并讨论 r→∞ 的极限等价于直接逃逸——"barring some lucky and extremely improbable slingshot around a distant black hole, the nuclear waste would never return. Unfortunately, this would not qualify as a sundive."</p>
+<p><strong>为什么这样写</strong>：§VII 里点破这一发现的方法论——"Using [3], it was found that as d increased, the required Δv throughout the journey decreased. Thus, it was found to be more cost-effective to first build up speed and go far away from the sun, where a small burn would allow the waste to just fall into the sun."。<strong>反直觉结论（先飞远再坠日更省）完全由曲线形状自己说出来</strong>。还顺带回应了两个担忧：太阳风回流（扩散+平方反比稀释）与容器回落烧毁（"a more pressing concern"）。</p>
+<p><strong>你要学什么</strong>：① "先抬远再压低"的两段 Hohmann 是坠日类问题的标准操作；② 渐近线是物理信息的富矿——本题它=逃逸速度，直接给出第三方案；③ 对每个方案写"最坏后果"段（回落大气烧毁散布）是风险对称性的要求。</p>
+<h3 id="16-iv-后半-vi-asteroid-belt-stability第-46-页反向风险的数据科学">1.6 §IV 后半 + §VI Asteroid Belt Stability（第 4–6 页）——反向风险的数据科学</h3>
+<p><strong>它写了什么</strong>：存带方案的风险=被撞改道成地球交叉轨道。三步：① <strong>危险阈值</strong>：从 2.7 AU 圆轨道被撞入近日点 1 AU 的椭圆，用极坐标椭圆 [8]、反解角 [9]、切向夹角 [10]、矢量合成 [7]，算出改道所需 Δv 随新轨道远日点的曲线（Fig 2），下限约 4000 m/s；② <strong>撞率</strong>：curl 抓取 JPL 小天体数据库 5 万+ 颗小行星（附录连原始 curl 命令都附上），Python 求平均密度 3400 kg/m³、按球体补全质量（Fig 4 体积排序图）；速度按正态分布（3σ 覆盖 2.2–3.2 AU 主带一切可能轨道速度），扫掠体积模型 [11] P_coll=ΣA_kv_k/V，Poisson 外推千年撞率 0.0001%；③ <strong>累积效果</strong>：期望碰撞能量 5.67×10⁻⁷ J/s ⇒ 10 亿年累积 Δv=2115 m/s &lt; 4000 m/s 阈值——"the danger to Earth from putting the container in the asteroid belt was negligible."</p>
+<p><strong>为什么这样写</strong>：这是"安全论证"的完整三段式：<strong>要多少扰动才危险（阈值）→ 多大概率被扰动（撞率）→ 扰动会累积多少（剂量）</strong>，最后用"2115 &lt; 4000"的不等式闭环。数据来源真实（JPL 库）、方法可复现（全部代码）、假设自辩（偏心轨道的少数派"do not change the resulting values"）。</p>
+<p><strong>你要学什么</strong>：① [11] 的扫掠概率（单位时间扫过的体积/总体积）是稀疏碰撞问题的万能模型；② 5000 万颗级真实数据能买来的说服力，是任何解析估算给不了的；③ "expected Δv over 1 Gy"这种<strong>剂量学视角</strong>比"单次碰撞概率"更切题——危险来自累积偏移而非单次事件。</p>
+<h3 id="17-v-designing-the-container第-45-页">1.7 §V Designing the Container（第 4–5 页）</h3>
+<p><strong>它写了什么</strong>：工人年剂量限 50 mSv；设废料近距离暴露约 5 Sv/天 → 年 1825 Sv；需衰减 36500 倍 → log₂36500≈15 个半值层 → 铅壁 15 cm，取安全余量 20 cm。</p>
+<p><strong>为什么这样写</strong>：一个对数量纲估算（几行算术）完成容器设计，且"extended to be 20cm"体现工程余量习惯。<strong>估算题不必复杂，但每一步的物理量（剂量率、限值）要有出处</strong>（[SOURCES] 引 Sievert 词条）。</p>
+<h3 id="18-viii-comparison-ix-conclusion第-78-页">1.8 §VIII Comparison + §IX Conclusion（第 7–8 页）</h3>
+<p><strong>它写了什么</strong>：五种方案的 Δv 总表（直坠 26919.4 / 10AU 坠日 14106.2 / 逃逸 12337.5 / 2.7AU 入轨 10997.4 / 2.2AU 入轨 9346.67）；Saturn V（I_sp=263 s）单枚有效载荷 166 kg（坠日）vs 558 kg（存带）→ 发射数 15×10⁵ vs 4.5×10⁵ → 按 1970 年单价 $185M 通胀换算，总量超 $500T。结论：存带显著更优，但"the authors of this paper strongly urge the consideration of a different method"。</p>
+<p><strong>为什么这样写</strong>：表格把 Δv 排序一步到位；Tsiolkovsky 把物理量（Δv）翻译成工程量（载荷、发射数）再翻译成钱——<strong>三级贯通</strong>。结论敢下"强烈建议不做"的负结论，与 2010-A 篇的"advise against"异曲同工。</p>
+<p><strong>你要学什么</strong>：注意结论里的假设传播声明：Tsiolkovsky 简化"高估载荷、低估燃料"，但"any comparisons between the methods still behaved the same way"——<strong>共同偏置不改变相对排序</strong>，这是比较型论文对自身误差的正确处理。</p>
+<hr>
+<h2 id="2-图表深析每张图为什么放为什么这样画怎么画">2. 图表深析（每张图：为什么放、为什么这样画、怎么画）</h2>
+<table>
+<thead>
+<tr>
+<th>图</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Fig 1 Δv–d 曲线</strong>（核心）</td>
+<td>§IV</td>
+<td>坠日成本随二次点火距离单调降、以逃逸速度为渐近线——曲线形状本身孕育第三方案（直接逃逸）</td>
+<td>附录 Python：dv(d)=两段 [4] 之和，linspace(0.1,20)</td>
+</tr>
+<tr>
+<td>Fig 2 改道 Δv–远日点曲线</td>
+<td>§IV</td>
+<td>给"危险阈值 ≥4000 m/s"提供来源；小 a 处无值（轨道够不着主带）自身就是信息</td>
+<td>[7]–[10] 链条代入扫描</td>
+</tr>
+<tr>
+<td>Fig 3/5/6 轨道示意图三连</td>
+<td>§VI/VII</td>
+<td>同构对比三种飞行计划（存带/坠日/逃逸）：实线=内行星轨道、虚线=主带边界</td>
+<td>参数化椭圆叠加</td>
+</tr>
+<tr>
+<td>Fig 4 小行星体积排序图</td>
+<td>§VI</td>
+<td>semilog 下 64346 颗小行星的体量分布一目了然（头几颗是异常值）</td>
+<td>数据清洗后 volumes.sort+semilogy</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心图（Fig 1）的 Python 复现</strong>（论文附录代码的整理版，常数与式号一一对应）：</p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+
+# ── 常数（论文 §III：G、太阳质量；§IV：re=ae=1 AU，太阳半径 R）──
+GM   = 6.67408e-11 * 1.98855e30
+au   = 1.49597871e11
+sunr = 6.957e8
+v    = lambda a, r: np.sqrt(GM*(2/r - 1/a))          # 式[3] Vis-Viva
+dv   = lambda d: (abs(v((d+au)/2, au)  - v(au, au))  # 第一段：抬远日点到 d
+                + abs(v((d+sunr)/2, d) - v((d+au)/2, d)))  # 第二段：压近日点到日面，式[6]
+
+d = np.linspace(0.3, 15, 800)*au
+v_esc_dv = np.sqrt(2*GM/au) - v(au, au)    # 渐近线 = 直接逃逸所需 Δv = 12337.5 m/s
+plt.figure(figsize=(6.2, 4.3))
+plt.plot(d/au, [dv(x) for x in d], 'b', lw=2, label='two-burn sundive $\\Delta v(d)$')
+plt.axhline(v_esc_dv, color='r', ls='--',
+            label='asymptote = direct-escape $\\Delta v$ = %.1f m/s' % v_esc_dv)
+plt.scatter([10], [dv(10*au)], c='k', zorder=5)
+plt.annotate('d=10 AU: $\\Delta v$=14106 m/s (paper)', (10, dv(10*au)),
+             textcoords='offset points', xytext=(-130, 14))
+plt.xlabel('d (AU)'); plt.ylabel('$\\Delta v$ (ms$^{-1}$)')
+plt.title('Necessary $\\Delta v$ for solar deorbiting:\n'
+          'farther second burn is cheaper; limit $\\to$ direct escape')
+plt.legend(); plt.grid(alpha=.3); plt.tight_layout(); plt.show()
+</code></pre>
+<p>四个绘图决策：<strong>① 渐近线用虚线显式画出并标注数值</strong>（12337.5 m/s）——渐近线是这张图的全部思想，不画等于白算；<strong>② 在论文引用点 d=10 AU 打标</strong>（14106.2 m/s），图与文互相锚定；<strong>③ 曲线在 d→小处陡增</strong>（复现时从 0.3 AU 起画即可看到），对应"直坠最贵"；<strong>④ 图题写结论</strong>（farther is cheaper）。运行后你会亲眼看到：坠日的两段 Δv 之和随 d 单调下降、以逃逸速度为下界——"为什么不干脆逃逸"这个问题，是这条曲线自己提出来的。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<h3 id="31-衰变定律式-12">3.1 衰变定律（式 [1][2]）</h3>
+<p>$$\dot x=-kx\;\Rightarrow\;N(t)=N_0e^{-t/\tau}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：一阶线性 ODE，分离变量即解；τ=1/k 是平均寿命。</li>
+<li><strong>用法</strong>：不是用来算剂量的，是用来<strong>宣判"等待无效"</strong>的——贫铀 τ~10⁹ 年，工程时标上放射性强度是常数。<strong>公式可以只为关闭一扇门而存在</strong>。</li>
+</ul>
+<h3 id="32-vis-viva-方程式-3">3.2 Vis-Viva 方程（式 [3]）</h3>
+<p>$$v_{r,a}=\sqrt{GM\Big(\frac{2}{r}-\frac{1}{a}\Big)}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：能量守恒（E=−GM/2a）在轨道上任一点的表述——只要知道 r 和 a，不需要知道轨道形状细节就能算速度。</li>
+<li><strong>完整推导</strong>：总能量 E=½v²−GM/r=−GM/(2a)（椭圆轨道能量只依赖 a），移项开方即得。</li>
+<li><strong>数值感</strong>：r=a=1 AU 得地球速度 29.78 km/s；a→∞ 退化为逃逸速度 √(2GM/r)=42.1 km/s。<strong>全文每一种速度都由 [3] 生成</strong>——一件工具用到底。</li>
+</ul>
+<h3 id="33-两段-hohmann-的-δv式-46">3.3 两段 Hohmann 的 Δv（式 [4][6]）</h3>
+<p>$$\Delta v_{r,a_1,a_2}=|v(r,a_1)-v(r,a_2)|\ [4]$$
+$$\Delta v_{sun,r}=\Delta v_{r_e\to\frac{a_e+r}{2}}+\Delta v_{r\to\frac{r+R}{2}}\ [6]$$</p>
+<ul>
+<li><strong>怎么想到</strong>：Hohmann 变轨=切点处两次瞬时变速；每次变轨只改半长轴（切点 r 不变），所以 Δv=同 r、两个 a 的 Vis-Viva 之差——[4] 就是 [3] 的差分。坠日需要两串：① 在地球轨道把 a 从 1 AU 抬到 (1+d)/2 AU；② 在远日点 d 把 a 压到 (d+R☉)/2 AU（近日点触日）。</li>
+<li><strong>数值感复核</strong>（d=10 AU）：Δv₁=|v(1AU,5.5AU)−v(1AU,1AU)|≈40.16−29.78=10.38 km/s；Δv₂≈|v(10AU,5.002AU)−v(10AU,5.5AU)|≈3.9 km/s；合计 ≈14.1–14.3 km/s，论文报 14106.2 m/s ✓。<strong>注意 Δv₁ 占大头</strong>——先把轨道"抬出去"才是贵的那一步，这也解释了为何渐近线是逃逸速度：d→∞ 时第二段趋于 0，第一段趋于逃逸 Δv。</li>
+<li><strong>适用边界</strong>：共面圆轨道起点、脉冲变轨；d 太小时第二段火箭方程失真（近日点深入日冕）。</li>
+</ul>
+<h3 id="34-改道阈值式-710">3.4 改道阈值（式 [7]–[10]）</h3>
+<p>$$\Delta v_{coll}=\sqrt{(v_f\cos\phi-v_i)^2+(v_f\sin\phi)^2}\ [7],\qquad r(\theta)=\frac{a(1-e^2)}{1+e\cos\theta}\ [8]$$
+$$\theta=\cos^{-1}\frac{a(1-e^2)-r}{re}\ [9],\qquad \phi=\tan^{-1}\frac{d[r\sin\theta]}{d[\theta\cos\theta]}+\frac\pi2-\theta\ [10]$$</p>
+<ul>
+<li><strong>怎么想到</strong>：小行星撞容器=给容器一个速度增量 Δv_vec；新轨道与原轨道在撞点相切与否由夹角 φ 决定。[8] 是椭圆极坐标方程；[9] 由其反解（撞点在椭圆上的极角）；[10] 是新轨道切线方向与原圆轨道切向的夹角（对 [8] 微分得切向）。[7] 就是矢量差的模。</li>
+<li><strong>推导要点</strong>：[9] 的反解——r(1+e cosθ)=a(1−e²) ⇒ cosθ=(a(1−e²)−r)/(re)。附录代码的 θ 表达式 (a²−ad−(a−p)²)/(d(a−p)) 与此代数等价（e=(a−p)/a 代入即得），<strong>文与码互证</strong>。</li>
+<li><strong>数值感</strong>：扫描新轨道远日点 2.7–10 AU，Δv_coll 下限 ≈4000 m/s（Fig 2）——这就是后文不等式"2115 &lt; 4000"的右端。</li>
+<li><strong>适用边界</strong>：假设新轨道近日点恰为 1 AU（地球交叉的最省改道）；撞点取在 2.7 AU 圆轨道上。</li>
+</ul>
+<h3 id="35-tsiolkovsky-火箭方程式-5">3.5 Tsiolkovsky 火箭方程（式 [5]）</h3>
+<p>$$\Delta v=v_e\ln\frac{m_0}{m_f}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：把 §III 的 Δv 翻译成质量比——火箭方程是"物理量→工程量"的汇率。</li>
+<li><strong>数值感</strong>：Saturn V（I_sp=263 s ⇒ v_e≈2580 m/s）总 Δv≈Δv入轨+Δv任务；载荷比随 Δv 指数恶化——坠日 14106+11185=25.3 km/s 只运 166 kg，存带 10977+11185=22.2 km/s 运 558 kg：<strong>Δv 省 12%，载荷多 236%</strong>（指数的杠杆）。</li>
+<li><strong>适用边界</strong>：论文自评"高估载荷、低估燃料"（忽略级间抛壳、恒定排气），但两方案被同样高估，<strong>相对结论稳健</strong>——误差传播的正确论述。</li>
+</ul>
+<h3 id="36-扫掠碰撞概率式-11">3.6 扫掠碰撞概率（式 [11]）</h3>
+<p>$$P_{coll}=\frac{\sum_k A_kv_k}{V}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：在容器参考系里，每颗小行星单位时间扫过体积 A_kv_k（截面×相对速度）；扫到容器=碰撞。除以主带总体积 V（2.2–3.2 AU 的球壳）=单位时间碰撞概率。</li>
+<li><strong>完整推导链</strong>：单颗：Δt 内扫过 A_kv_kΔt ⇒ P₁=A_kv_kΔt/V；N 颗独立叠加 ⇒ P=ΣA_kv_kΔt/V；碰撞是稀有独立事件 ⇒ Poisson 过程 ⇒ t 时间内至少一次碰撞概率 P(t)=1−e^{−P_coll·t}。附录代码更进一步：v_k 不用常数而用<strong>正态分布下的期望相对速率</strong>（闭式 D 因子，3σ 覆盖主带速度范围 15.03–21.86 km/s 的极值由 Vis-Viva 在 2.2/3.2 AU 端点轨道算出）。</li>
+<li><strong>数值感</strong>：千年撞率 0.0001%（=1−e^{−P·t}）；期望能量注入 5.67×10⁻⁷ J/s ⇒ 10 亿年累积 Δv=2115 m/s &lt; 4000 m/s ⇒ 即便被撞十亿年也改不成地球交叉轨道。<strong>不等式闭环=安全结论</strong>。</li>
+<li><strong>适用边界</strong>：小行星位置随机均匀假设、速度正态假设（偏心越界者占比 ~1/1000，作者论证不改变结果）；忽略引力聚焦（截面用几何截面，对 km 级天体偏差可忽略）。</li>
+</ul>
+<hr>
+<h2 id="4-建模决策链为什么这么建放弃了什么">4. 建模决策链（为什么这么建、放弃了什么）</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>比较度量</td>
+<td>Δv（[3][4] 统一生成）</td>
+<td>能量、时间、直接用钱</td>
+<td>Δv 可加、可比、可经 [5] 换算成任何工程量</td>
+</tr>
+<tr>
+<td>火箭失败率</td>
+<td>从比较中剔除</td>
+<td>计入风险模型</td>
+<td>6% 对两方案是常数，剔除后比较更纯（§I 明说）</td>
+</tr>
+<tr>
+<td>坠日路线</td>
+<td>先抬远再压低（两段 Hohmann）</td>
+<td>地球轨道直接刹车</td>
+<td>Fig 1 曲线显示远处二次点火更省；渐近线还送了第三方案</td>
+</tr>
+<tr>
+<td>存带轨道</td>
+<td>2.7 AU 圆轨道（也算了 2.2 AU）</td>
+<td>3.2 AU 外缘</td>
+<td>主带中部最典型；2.2 AU 展示 Δv 对目标半径的敏感度</td>
+</tr>
+<tr>
+<td>撞击数据</td>
+<td>JPL 真库 5 万+ 颗，密度 3400 补全</td>
+<td>解析估算撞率</td>
+<td>真实样本给出数量级可信的 ΣA_kv_k；代码全部公开</td>
+</tr>
+<tr>
+<td>速度分布</td>
+<td>正态 3σ 覆盖速度极值</td>
+<td>均匀分布/实测直方图</td>
+<td>正态有闭式期望速率（D 因子）；3σ 论证有正文自辩</td>
+</tr>
+<tr>
+<td>累积效应</td>
+<td>期望 Δv（剂量学）与阈值比较</td>
+<td>只报单次撞率</td>
+<td>危险来自累积偏移；2115&lt;4000 才是完整的安全论证</td>
+</tr>
+<tr>
+<td>容器屏蔽</td>
+<td>半值层数=剂比对数（15 层铅）</td>
+<td>蒙卡辐射输运</td>
+<td>量级估算足够，工程余量 20 cm 兜底</td>
+</tr>
+<tr>
+<td>成本口径</td>
+<td>1970 单价通胀换算</td>
+<td>现价火箭</td>
+<td>有公开单价可查；共同偏置不影响排序</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总规律</strong>：全文没有一处"两个方案用不同精度算"——同一套 [3][4][5] 工具、同一种数据源、同一种误差论述。<strong>比较的公平性是比较型论文的生命</strong>，本文把它做成了方法论。</p>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板</strong>：</p>
+<pre><code>Abstract        成绩单式：方案A数 → 方案B数 → 安全数 → 成本数 → 倾向
+I Introduction  背景小教学（半值层）+ 剔除等权重因素（失败率）
+II 物理前提     两行公式关闭&quot;等待&quot;选项（衰变太慢）
+III 工具箱      Vis-Viva / Δv / 火箭方程一页陈列，每个附 Where 表
+IV 方案A        两段式 + Δv(d) 曲线 + 渐近线解读（第三方案）
+IV/VI 方案B     反向风险三段式：阈值([7]-[10]) → 撞率([11]+Poisson) → 累积剂量 vs 阈值
+V  工程件      半值层估算（几行算术）
+VIII 对比       Δv 总表 → [5]换算载荷 → 发射数 → 钱
+IX Conclusion   负结论 + 替代方向（离子引擎缓降、直接逃逸）+ 假设传播声明
+附录            分析代码 + 数据抓取代码 + 原始 curl 命令
+</code></pre>
+<p><strong>句式库（原文摘录）</strong>：
+- "then we can also disregard the rocket failure rate as it would be a constant that we could do nothing about"（剔除等权重因素）
+- "The plot has a horizontal asymptote at the escape velocity of the Sun"（渐近线的物理指认）
+- "barring some lucky and extremely improbable slingshot around a distant black hole"（极小概率的生动排除）
+- "This overestimated the amount of payload ..., and underestimated the fuel needed. However, any comparisons between the methods still behaved the same way."（误差的方向+传播性论述）
+- "This approach fully solved the completely infeasible problem of moving all of Earth's nuclear waste off-planet."（自嘲式总结：完整地解决了不可行的问题）
+- "the authors of this paper strongly urge the consideration of a different method"（负结论的强表达）</p>
+<p><strong>图表配方</strong>：成本-参数曲线 → 必画渐近线并标注其物理身份；风险论证 → 阈值曲线（[7]-[10]）+ 剂量累积对比不等式；数据分布 → semilog 排序图；多方案对比 → Δv 总表 + 载荷/发射数两级换算。</p>
+<hr>
+<p><em>精读完这篇后，建议对照 <code>05_论文赏析/2016/2016-GM-A-331.md</code>（宏观赏析）与 <code>07_题目解读/2016_题A_核废料太空处置.md</code>（题目全解）形成三位一体。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-标题页摘要第-1-页">1.1 标题页摘要（第 1 页）</a></li><li class="l3"><a href="#12-i-introduction第-2-页">1.2 §I Introduction（第 2 页）</a></li><li class="l3"><a href="#13-ii-radioactivity第-2-页">1.3 §II Radioactivity（第 2 页）</a></li><li class="l3"><a href="#14-iii-space-travel第-3-页工具箱一页化">1.4 §III Space Travel（第 3 页）——工具箱一页化</a></li><li class="l3"><a href="#15-iv-computations第-34-页坠日方案与渐近线的发现">1.5 §IV Computations（第 3–4 页）——坠日方案与渐近线的发现</a></li><li class="l3"><a href="#16-iv-后半-vi-asteroid-belt-stability第-46-页反向风险的数据科学">1.6 §IV 后半 + §VI Asteroid Belt Stability（第 4–6 页）——反向风险的数据科学</a></li><li class="l3"><a href="#17-v-designing-the-container第-45-页">1.7 §V Designing the Container（第 4–5 页）</a></li><li class="l3"><a href="#18-viii-comparison-ix-conclusion第-78-页">1.8 §VIII Comparison + §IX Conclusion（第 7–8 页）</a></li><li class="l2"><a href="#2-图表深析每张图为什么放为什么这样画怎么画">2. 图表深析（每张图：为什么放、为什么这样画、怎么画）</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-衰变定律式-12">3.1 衰变定律（式 [1][2]）</a></li><li class="l3"><a href="#32-vis-viva-方程式-3">3.2 Vis-Viva 方程（式 [3]）</a></li><li class="l3"><a href="#33-两段-hohmann-的-δv式-46">3.3 两段 Hohmann 的 Δv（式 [4][6]）</a></li><li class="l3"><a href="#34-改道阈值式-710">3.4 改道阈值（式 [7]–[10]）</a></li><li class="l3"><a href="#35-tsiolkovsky-火箭方程式-5">3.5 Tsiolkovsky 火箭方程（式 [5]）</a></li><li class="l3"><a href="#36-扫掠碰撞概率式-11">3.6 扫掠碰撞概率（式 [11]）</a></li><li class="l2"><a href="#4-建模决策链为什么这么建放弃了什么">4. 建模决策链（为什么这么建、放弃了什么）</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

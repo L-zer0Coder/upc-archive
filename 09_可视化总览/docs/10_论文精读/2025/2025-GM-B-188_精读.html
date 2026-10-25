@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 62 · Efficient Artillery Trajectory Approximation Method（2025 题B 金牌 · 队伍 188 · 69 页） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2025/2025-GM-B-188_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2025 · 精读 62 · Efficient Artillery Trajectory Approximation Method（2025 题B 金牌 · 队伍 188 · 69 页）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-62-efficient-artillery-trajectory-approximation-method2025-题b-金牌-队伍-188-69-页">精读 62 · Efficient Artillery Trajectory Approximation Method（2025 题B 金牌 · 队伍 188 · 69 页）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：左手论文（<code>03_优秀论文PDF/2025/Problem B/2025-GM-B-188.pdf</code>，69 页含 23 页附录代码与射表），右手本篇。这支队伍的标签是"<strong>高保真物理 + 线性度检验</strong>"：全场最全的气动建模（ISA 大气 + Sutherland 黏度 + Loth 2021 Cd(M,Re) + ode113），交付端却收敛到四个<strong>修正系数 C_X/C_H/C_W/C_Z</strong> 和一道心算例题。你最该学的是 §5.2 那套<strong>"线性度检验"</strong>——用 R² 证明"可以用线性修正"本身，这是所有"查表+线性修正"类方法的科学性背书；本篇审计同时发现它的射表数值与常数 Cd≈0.5 模型吻合、而与文中 Loth 模型不符（⚠ 重大口径疑点），是"物理模型与数值实现脱节"的活案例。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<pre><code class="language-mermaid">flowchart TB
+    A[&quot;§3 历史定型&lt;br/&gt;9-Pounder 滑膛炮&lt;br/&gt;实用仰角 5-8°&quot;] --&gt; B[&quot;§4 高保真模型&lt;br/&gt;ISA ρ,T,c0,μ(式4-4~4-7)&lt;br/&gt;Loth Cd(M,Re)(式4-11~4-14)&lt;br/&gt;2D/3D ODE + ode113(式4-15~4-28)&quot;]
+    B --&gt; C[&quot;§5.1 第一问&lt;br/&gt;双支 θ-V0 曲线&lt;br/&gt;vmin=142.06 m/s&quot;]
+    C --&gt; D[&quot;§5.2 线性度检验&lt;br/&gt;C_Z R²=1.000 / C_W 0.997&lt;br/&gt;C_H 0.814(最弱)&quot;]
+    D --&gt; E[&quot;§7.3 军官方法&lt;br/&gt;θ_final=θ_std+ΔθX+ΔθH+ΔθW&lt;br/&gt;Z=C_Z·W_side + 心算例题 4.02°&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好？</strong> 它把"无计算器"问题的本质说破了：<strong>不是不用模型，而是把模型的一切非线性都冻结成查表值与常数斜率</strong>。§5.2 的三个 R² 就是"冻结是否合法"的检验——这一步使交付物从"经验凑合"升级为"经过验证的一阶展开"，是全文最亮的方法论。69 页的体量里正文仅 26 页，附录占 43 页（代码+三张全射表），"正文薄、附录厚"的配比值得抄。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-abstract">1.1 Abstract</h3>
+<p><strong>它写了什么</strong>：三大模块声明（动态 ISA / Mach-Reynolds 阻力 / 2D+3D 动力学）→ 三类修正系数（Range/Altitude/Wind）→ "pre-calculated parameter correlation tables and linear interpolation"。
+<strong>你要学什么</strong>：摘要用"模块清单"写方法——每个模块名即一个可检查的承诺。对比 155 队摘要给数值结论，188 队摘要给<strong>架构</strong>：两种风格都对，但开放题下"架构式摘要"更能撑起 69 页的体量感。</p>
+<h3 id="12-31-artillery-type历史定型节全文最有味道的假设节">1.2 §3.1 Artillery type（历史定型节，全文最有味道的假设节）</h3>
+<p><strong>它写了什么</strong>：三步论证弹种是 19 世纪中叶滑膛野战炮（年代排除线膛 → 球形+5 kg 排除长弹 → 11 cm≈4.33 in 吻合 9/12-Pounder，配图 M1857 拿破仑炮）；随后大段引出<strong>"实用仰角通常限于 0°–8°（直射）"</strong>的历史事实，宣布全文优先取 &lt;10° 的低伸弹道但"不拒绝其他解"。
+<strong>为什么这样写</strong>：这不是装饰性历史，而是<strong>解空间的预筛选</strong>：低伸弹道飞时短、风敏度低——这直接决定了后文军官方法只给 low-angle 表。460 队走得更远（直接把答案锁定在 5°–8° 走廊），207 队则按直射/间射双模式给表，三队同源不同深度。
+<strong>你要学什么</strong>："According to related documents, the practical elevation range... was typically limited to a relatively narrow range between 0°...and about 5° to 8° of elevation"——<strong>用历史文献给解空间加先验</strong>，再声明" wouldn't reject other possible trajectories"保留完备性。假设节的最高境界是"假设即筛选，筛选即策略"。</p>
+<h3 id="13-42-大气模型式-4-44-7">1.3 §4.2 大气模型（式 4-4~4-7）</h3>
+<p><strong>它写了什么</strong>：对流层 T=T₀+λY（λ=−0.0065 K/m）、ρ=ρ₀(T/T₀)^(−(g₀/Rλ)−1)（幂指数 4.256）、c₀=√(γRT)、<strong>Sutherland 黏度</strong> μ=μ₀(T/T₀)^{3/2}(T₀+S)/(T+S)（S=110.4 K）。
+<strong>为什么这样写</strong>：黏度是本队独有的零件——Re=ρVd/μ 需要它，而 Re 又是 Loth 公式的输入。<strong>零件环环相扣</strong>：ISA(T)→c₀→M；ISA(ρ,μ)→Re；(M,Re)→C_D。你可以批评 1200 m 弹道用不上这么细的大气，但不能批评它不自洽。
+<strong>你要学什么</strong>：<strong>模型复杂度要被"下游输入"倒逼</strong>，而不是堆料。若阻力用常数 Cd（428 队），ISA 整节都可以删——428 队正是这么干的，两篇对照读，你会懂"复杂度守恒"。</p>
+<h3 id="14-43-loth-动态阻力系数式-4-84-14">1.4 §4.3 Loth 动态阻力系数（式 4-8~4-14）</h3>
+<p><strong>它写了什么</strong>：F_D=½ρV²AC_D（4-8）、M=V/c₀（4-9）、Re=ρVd/μ（4-10），然后是核心的复合公式（4-11）：C_D = 24/Re·(1+0.15Re^{0.687})·H_M + 0.42C_M/(1+42500/Re^{1.16C_M}+G_M/Re^{0.5})，其中 H_M（亚/超声速两段多项式）、C_M（1.65+0.65tanh(4M−3.4) 等）、G_M（166M³+…20 / 5+40M⁻³）三个分段函数由式 (4-14) 给出，并加 C_D≥0.01 的数值下限。出处：Loth et al. 2021 AIAA Journal。
+<strong>为什么这样写</strong>：常数 Cd（0.47）在 M≈1.33 出膛时<strong>低估一倍</strong>（Loth 给 ~0.98，见 §3 审计）——这是"必须用 Cd(M)"的定量理由，188 用一句 "accurately capture the severe drag variations experienced by the projectile during transonic and supersonic flight (up to 450 m/s)" 点题。
+<strong>你要学什么</strong>：把复合公式拆成 Term1/Term2（式 4-12）再合成的写法——<strong>命名中间量</strong>是长公式的可读性技巧；同时注意 "The minimum drag coefficient is constrained such that C_D≥0.01 to ensure numerical stability"——<strong>给经验公式加数值护栏</strong>是工程素养。</p>
+<h3 id="15-4445-ode-与数值实现式-4-154-28">1.5 §4.4–4.5 ODE 与数值实现（式 4-15~4-28）</h3>
+<p><strong>它写了什么</strong>：状态向量 (x,y,vx,vy)（4-15）→ 定义阻力加速度因子 <strong>Φ=−ρAC_D V/(2m)</strong>（4-21）→ 方程塌缩成 (4-22) 的极简形式；3D 扩展加 (z,vz)（4-23~4-26）；初值（4-27）；<strong>事件函数 E=y−Y_initial</strong>（4-28）；求解器 <strong>ode113</strong>（Adams–Bashforth–Moulton 变阶多步法，RelTol 1e-9/AbsTol 1e-11）。
+<strong>你要学什么</strong>：① <strong>Φ 因子</strong>与 155 队的 σ、428 队的 k(y) 同为"组合参数"手法，三篇对照；② <strong>求解器要写名字</strong>——ode113 是多步法，对光滑右端项比 RK45 省一半函数调用，写出来就是品味；③ 事件函数用"返回初始高度"而非"落地"，因为炮和目标同高——终止条件的物理化表述（"signaling the end of the flight path"）。</p>
+<h3 id="16-52-线性度检验全文方法论之魂">1.6 §5.2 线性度检验（全文方法论之魂）</h3>
+<p><strong>它写了什么</strong>：围绕标准工况 (V₀=400, X_std=1200, H_std=500) 对三个修正系数做线性检验：C_Z（侧风每 m/s 造成的侧偏）R²=1.000000、斜率 1.314 m/(m/s)；C_W（纵风角度修正）R²=0.997210、斜率 −0.011287°/(m/s)；C_H（高度修正）R²=0.814267、斜率 −0.0094°/HM——并解释 C_H 为何最弱（"the change in drag due to altitude is exponential, not linear"）。
+<strong>为什么这样写</strong>：所有"查表+线性修正"方法都默认 Δθ=C·ΔX 可加线性。别的队默认，<strong>这队检验了</strong>。而且分级处理：R²≈1 的直接用常数，R²=0.8 的声明"acceptable for engineering approximations over a limited operational range"。
+<strong>你要学什么</strong>：这是本篇最值得搬走的东西——<strong>给"线性化"本身做回归检验</strong>，三个 R² + 一段非必要性解释。哪怕只写一句 "R²=0.997 justifies treating C_W as a constant factor"，论文的科学性档次就不同。</p>
+<h3 id="17-73-军官方法式-7-37-8">1.7 §7.3 军官方法（式 7-3~7-8）</h3>
+<p><strong>它写了什么</strong>：θ_final=θ_std+Δθ_total（7-3），Δθ_total=Δθ_X+Δθ_H+Δθ_W（7-4）；三步修正 Δθ_X=C_X(X_t−X_std)、Δθ_H=C_H·ΔH（ΔH 以百米计）、Δθ_W=C_W·W_X；侧风不改仰角而改横移 Z=C_Z·W_side（7-8，"aim the cannon laterally by the distance Z into the wind"）；心算例题：V₀=400 打 1300 m、800 m 高、5 m/s 逆风+10 m/s 横风 → 0.46−0.05+0.06=0.47°，θ_final=4.02°，Z=13.1 m。
+<strong>你要学什么</strong>：<strong>纵风改仰角、横风改方位/横移</strong>的职责划分（207 队用密位、428 队用 mil 公式、460 队用 arctan，本队用"横移米数"）——四种表述一个物理。例题每一步都只剩乘法和加法，最后一句 "This procedure transforms complex ballistic computations into simple multiplication and addition" 可以直接抄进任何同类论文。</p>
+<hr>
+<h2 id="2-图表深析">2. 图表深析</h2>
+<table>
+<thead>
+<tr>
+<th>图/表</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fig 3-1 M1857 拿破仑炮照片</td>
+<td>§3.1</td>
+<td>历史定型的视觉证据</td>
+<td>实物图</td>
+</tr>
+<tr>
+<td>Fig 3-2 受力示意</td>
+<td>§3.2</td>
+<td>外弹道阶段的力分解</td>
+<td>教材图</td>
+</tr>
+<tr>
+<td><strong>Fig 5-1 Cd–Ma 曲线（500 m 高度）</strong></td>
+<td>§5.1</td>
+<td>验证 Loth 模型呈现跨声速峰，是"为什么不用常数 Cd"的单图论证</td>
+<td>见下方代码</td>
+</tr>
+<tr>
+<td>Fig 5-2 轨迹族</td>
+<td>§5.1</td>
+<td>低角/高角双支的直观</td>
+<td>ode113 输出</td>
+</tr>
+<tr>
+<td>Fig 5-3 速度-时间/距离曲线</td>
+<td>§5.1</td>
+<td>解释"高角速度先减后增"的能量学</td>
+<td>同上</td>
+</tr>
+<tr>
+<td><strong>Fig 5-4 θ–V₀ 双支曲线</strong></td>
+<td>§5.1</td>
+<td>第一问核心：两支汇聚于 vmin=142.06</td>
+<td>见下方代码</td>
+</tr>
+<tr>
+<td>Fig 5-5 落点速度分析</td>
+<td>§5.1</td>
+<td>Max Vx=182.23 / |Vy|min=129.79 m/s</td>
+<td>数值标注</td>
+</tr>
+<tr>
+<td><strong>Fig 5-7/8/9 三个线性度图</strong></td>
+<td>§5.2</td>
+<td>散点+拟合线+R²，"线性可否用"的证据链</td>
+<td>见下方代码</td>
+</tr>
+<tr>
+<td>附录 Table 1–3</td>
+<td>附录 A–C</td>
+<td>修正系数表+89 行射表+θ 查找表</td>
+<td>批量计算</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心图复现——Loth Cd(M) 曲线与 θ–V₀ 双支（Fig 5-1 + Fig 5-4 的最小实现，常量对应式 (4-11)(4-14)）</strong>：</p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
+from scipy.optimize import brentq
+
+def isa(y):                       # 式(4-4)(4-5)(4-6)(4-7)
+    y = max(y, 0.0)
+    T = 288.15 - 0.0065*y
+    rho = 1.225*(T/288.15)**(-(9.81/(287.05*-0.0065))-1)
+    mu = 1.7894e-5*(T/288.15)**1.5*((288.15+110.4)/(T+110.4))
+    return rho, np.sqrt(1.4*287.05*T), mu
+def CD(v, y):                     # 式(4-11)(4-14): Loth 2021 复合公式
+    rho, c0, mu = isa(y); M = v/c0; Re = rho*v*0.11/mu
+    HM = 0.0239*M**3+0.212*M**2-0.074*M+1 if M &lt; 1 else 0.93+1/(3.5+M**5)
+    CM = 1.65+0.65*np.tanh(4*M-3.4) if M &lt; 1.5 else 2.18-0.13*np.tanh(0.9*M-2.7)
+    GM = 166*M**3+3.29*M**2-10.9*M+20 if M &lt; 0.8 else 5+40*M**-3
+    return max((24/Re)*(1+0.15*Re**0.687)*HM + 0.42*CM/(1+42500/Re**(1.16*CM)+GM/np.sqrt(Re)), 0.01)
+k = lambda v, y: 0.5*isa(y)[0]*CD(v, y)*np.pi*(0.11/2)**2/5.0
+def shoot(th_deg, v0):
+    th = np.radians(th_deg)
+    ev = lambda t, s: s[1]; ev.terminal, ev.direction = True, -1
+    sol = solve_ivp(lambda t, s: [s[2], s[3], -k(np.hypot(*s[2:]), s[1]+500)*np.hypot(*s[2:])*s[2],
+                                 -9.81 - k(np.hypot(*s[2:]), s[1]+500)*np.hypot(*s[2:])*s[3]],
+                    [0, 60], [0, 0, v0*np.cos(th), v0*np.sin(th)], events=ev, rtol=1e-9, max_step=0.05)
+    return sol.y_events[0][0][0] if sol.t_events[0].size else 0.0
+def angle_lo(v0):
+    ths = np.arange(0.2, 45, 0.5); prev = None
+    for th in ths:
+        val = shoot(th, v0) - 1200.0
+        if prev and prev[1] &lt; 0 &lt;= val: return brentq(lambda a: shoot(a,v0)-1200, prev[0], th, xtol=1e-6)
+        prev = (th, val)
+fig, ax = plt.subplots(1, 2, figsize=(10, 4))
+Ms = np.linspace(0.2, 2.0, 200)
+ax[0].plot(Ms, [CD(M*np.sqrt(1.4*287.05*(288.15-0.0065*500)), 500) for M in Ms])
+ax[0].set(xlabel='Mach number', ylabel='C_D', title='Loth C_D(M) at 500 m: transonic peak ~0.98\n(paper Fig 5-1; constant-C_D=0.5 misses it entirely)')
+Vs = np.arange(150, 451, 15)
+ax[1].plot(Vs, [angle_lo(v) for v in Vs], 'o-')
+ax[1].set(xlabel='V0 (m/s)', ylabel='low-branch theta (deg)',
+          title='theta_std,low vs V0 (X=1200 m): Loth refit gives 3.9 deg @450,\nvs paper 2.79 deg -- paper values match constant C_D~0.5 instead')
+for a in ax: a.grid(alpha=.3)
+plt.tight_layout(); plt.show()
+</code></pre>
+<p>复现结论写进了两条图题：①Loth 模型在 M≈1.05–1.3 处有 Cd≈0.98 的跨声速峰；②用该模型复算的低支射角（450 m/s→3.86°）与论文报告的 2.79° 不符——这是 §4 审计的核心证据。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<h3 id="31-真空基线式-4-24-3">3.1 真空基线（式 4-2、4-3）</h3>
+<p>$$\theta=\tfrac12\arcsin\!\Big(\frac{gx}{V_0^2}\Big)$$
+- <strong>怎么想到</strong>：同高抛体的射程 R=v₀²sin2θ/g 反解。论文用它给两个锚点：x=1200、V₀=450 → θ≈1.67°；θ=45° 时最小初速 <strong>V_min=√(gx)=√(9.81×1200)=108.50 m/s</strong>。
+- <strong>⚠ 审计</strong>：§4.1 写 108.50 m/s（正确），§5.1 又写 "free resistance model (108.44m/s)"——同文两个数，108.50 才对（108.44²=11719≠11772）。对照：496 队也写 108.44（同错），207 队未给此数。
+- <strong>数值感</strong>：真空角 1.67° vs 有阻力后 ~2.7–3.9°（取决于 Cd 模型）——<strong>阻力让射角几乎翻倍</strong>，这是所有队伍 Table 2 型对照表的共同结论。</p>
+<h3 id="32-isa-大气链式-4-44-7">3.2 ISA 大气链（式 4-4~4-7）</h3>
+<p>$$T=T_0+\lambda Y,\quad \rho=\rho_0\Big(\frac{T}{T_0}\Big)^{-(g_0/R\lambda)-1},\quad c_0=\sqrt{\gamma RT},\quad \mu=\mu_0\Big(\frac{T}{T_0}\Big)^{3/2}\frac{T_0+S}{T+S}$$
+- <strong>怎么想到</strong>：温度线性递减 + 静力学平衡 + 理想气体 → 密度的幂律（指数 −(g₀/Rλ)−1=4.256）；声速与黏度都只是温度的函数。
+- <strong>数值感</strong>：500 m 处 T=284.9 K、ρ≈1.167 kg/m³（海平面的 95.3%）、c₀≈338.0 m/s、μ≈1.80×10⁻⁵。弹道顶点 &lt;100 m 时全部大气量的变化 &lt;2%——<strong>这就是为什么本队的大气"高配"其实不影响结果</strong>（见 §4 审计）。
+- <strong>适用边界</strong>：幂律只在对流层（&lt;11 km）成立；代码里对 &gt;11 km 加了等温层的外推分支，虽用不上但写全了——"防御性编程"。</p>
+<h3 id="33-loth-复合阻力公式式-4-114-14">3.3 Loth 复合阻力公式（式 4-11~4-14）</h3>
+<p>$$C_D=\underbrace{\frac{24}{Re}(1+0.15Re^{0.687})H_M}_{\text{黏性项}}+\underbrace{\frac{0.42\,C_M}{1+42500/Re^{1.16C_M}+G_M/\sqrt{Re}}}_{\text{压差项}}$$
+- <strong>怎么想到</strong>：亚声速球阻力的经典 Schiller–Naumann 形式 24/Re·(1+0.15Re^{0.687}) 在跨声速会失效；Loth et al. (2021) 用三个马赫函数修补：H_M 乘在黏性项上修"可压缩黏性"，C_M 进入压差项分子定标"激波阻力平台"，G_M 出现在分母抑制低 Re 区的压差项。
+- <strong>完整推导（使用层面）</strong>：本文不推导（半经验公式无推导可言），但它做了<strong>极限检验</strong>：M→0 时 H_M→1、C_M→1.65+0.65tanh(−3.4)≈0.998、G_M→20——退化为标准球阻力公式 ✓；Re→10⁶ 高马赫时 C_D→0.42·C_M≈0.9–1.0，与超声速球实验平台一致 ✓。<strong>用极限行为背书经验公式</strong>，这是引用型公式的正确打开方式。
+- <strong>数值感</strong>（本文复算）：500 m 高度上 M=0.87→C_D≈0.75、M=1.16→0.95、M=1.33→0.98。<strong>出膛即峰、落地（233 m/s，M≈0.69）回 0.5 附近</strong>——450 m/s 档全程跨峰，常数 Cd 无从模拟。
+- <strong>适用边界</strong>：Loth 公式适用 Re≤10⁶、Ma 0.2–10（光滑球、无自旋）；Re 由 ρVd/μ 逐点算，所以 C_D 是<strong>位置+速度的二元函数</strong>，这是"动态 Cd"的含义。</p>
+<h3 id="34-阻力加速度因子-φ式-4-214-22">3.4 阻力加速度因子 Φ（式 4-21、4-22）</h3>
+<p>$$\Phi=-\frac{\rho A C_D V}{2m}\ \Rightarrow\ \frac{d}{dt}\begin{pmatrix}x\\y\\v_x\\v_y\end{pmatrix}=\begin{pmatrix}v_x\\v_y\\\Phi v_x\\-g+\Phi v_y\end{pmatrix}$$
+- <strong>怎么想到</strong>：a_drag = F_D/m ·(−v̂) = −(ρAC_D/2m)·|v|·v⃗。把随时间变的标量打包成 Φ，方程只剩四行——与 155 队式 (4) 的 0.235πr²ρ₀、428 队式 (16) 的 k(y) 三篇同构，可对照记忆。
+- <strong>数值感</strong>：Φ(450 m/s, 500 m) = −0.5×1.167×0.978×9.5e-3/5×450 ≈ −0.49 s⁻¹，即速度衰减时间尺度 ~2 s（低角 3.8 s 飞行内损失一半速率，与落点 233 m/s 一致，见 428 队同型数据）。</p>
+<h3 id="35-线性修正族式-7-37-8">3.5 线性修正族（式 7-3~7-8）</h3>
+<p>$$\theta_{final}=\theta_{std}+\underbrace{C_X\Delta X}_{\text{射程}}+\underbrace{C_H\Delta H}_{\text{海拔}}+\underbrace{C_W W_X}_{\text{纵风}},\qquad Z=C_Z W_{side}$$
+- <strong>怎么想到</strong>：在标准点做一阶 Taylor 展开：θ(X,H,W)≈θ_std+θ_X·ΔX+θ_H·ΔH+θ_W·W。三个斜率 C 就是偏导数的数值版；§5.2 的 R² 检验回答"一阶展开在 ±多少范围内够用"。
+- <strong>数值感</strong>：C_X(400)=0.00456°/m → 每 100 m 射程 +0.46°；C_W(400)=−0.0117°/(m/s) → 5 m/s 逆风 +0.06°；C_Z=1.314 m/(m/s) → 10 m/s 侧风 13.1 m 横移。<strong>量级排序</strong>：射程差 ≫ 海拔 &gt; 纵风 ≫ 横风（角度上）——军官的注意力应按这个顺序分配。
+- <strong>⚠ 审计</strong>：① §5.2.3 的斜率 −0.0094°/HM 与附录 Table 1 的 C_h,low(400)=−0.016932 °/hm <strong>差 80%</strong>，心算例题用的是后者；② §5.2.2 斜率 −0.011287 与附录 C_w,low(400)=−0.011747 差 4%。正文检验值与附录交付值不同源，引用时要选一个。</p>
+<hr>
+<h2 id="4-建模决策链-独立复现审计">4. 建模决策链 + 独立复现审计</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>历史定型</td>
+<td>M1857 滑膛野战炮、低伸弹道优先</td>
+<td>泛化"19世纪火炮"</td>
+<td>让 5–8° 仰角、1.5 km 射程成为先验</td>
+</tr>
+<tr>
+<td>大气</td>
+<td>全套 ISA+黏度</td>
+<td>指数大气（204/428）</td>
+<td>Re 需要逐点 μ；物理自洽</td>
+</tr>
+<tr>
+<td>阻力</td>
+<td>Loth Cd(M,Re)（声称）</td>
+<td>常数/分段 Cd</td>
+<td>出膛 M=1.33 跨声速峰</td>
+</tr>
+<tr>
+<td>求解器</td>
+<td>ode113 + 事件函数 + fzero/fminbnd</td>
+<td>RK4 手写（155/207）</td>
+<td>变阶多步法+严格容差</td>
+</tr>
+<tr>
+<td>交付</td>
+<td>四系数表 + 心算程序 + 例题</td>
+<td>完整射表卡片（207/428）</td>
+<td>89 行射表在附录，正文只给系数</td>
+</tr>
+<tr>
+<td>验证</td>
+<td><strong>线性度 R² 检验</strong>（全场唯一）</td>
+<td>盲测（155）、误差图（207）</td>
+<td>检验"线性化"这个方法本身</td>
+</tr>
+</tbody>
+</table>
+<p><strong>独立复现审计汇总</strong>（Python+scipy，复算 Loth 模型与其对照）：
+- <strong>⚠ 重大疑点：论文交付数值与 Loth 模型不符，与常数 Cd≈0.5 模型吻合。</strong> 复算 Loth：θ_std,low = 6.83/5.48/4.56/3.86°（V₀=300/350/400/450）；论文：6.15/4.59/3.55/2.79°；而常数 Cd=0.5 复算给 6.21/4.54/3.47/2.74°，与论文几乎逐点吻合。射表交叉验证：论文 Table 2 (400 m/s, 3°)→1076 m，Loth 复算 925 m，常数 0.47 复算 1113 m——同样倒向常数模型。
+- vmin：Loth 复算 ≈143 m/s，论文 142.06 m/s ✓（低马赫区 Loth≈常数 Cd，无法区分，此项相容）。
+- 修正系数心算例题内部算术自洽 ✓（0.46−0.05+0.06=0.47，θ_final=4.02 ✓），但 ⚠ C_H 正文斜率（−0.0094）与附录（−0.0169）差 80%；C_W 两处差 4%。
+- ⚠ §4.1 说真空 vmin=108.50，§5.1 又引 108.44，前者正确。
+- 另一处工艺问题：式 (7-1) 把阻力写成 "C_d=½C_dρV²A"（左端应为 F_D），符号笔误。
+- 值得肯定：附录代码含 AI 辅助声明脚注（"Generative AI Assisted Coding on program framework...Algorithms...are not included"），这是合规披露的范本。</p>
+<p><strong>总评</strong>：物理叙事（ISA+Loth+线性度检验）是十三篇里最完整的，但<strong>"所述模型"与"所出数据"脱节</strong>——大概率是最终数值由某版常数 Cd 代码生成后未随模型升级同步。教训：模型升级后必须重跑全部交付表，并保留一张"模型版本-数据版本"对照。</p>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板</strong>：</p>
+<pre><code>1-2 引言/记号      历史背景 + 符号表(含&quot;具体数值后文给出&quot;)
+3 Assumptions      历史定型(炮型/仰角先验) + 三阶段 firing process + 重力
+4 Modelling        4.1 真空基线 → 4.2 大气 → 4.3 动态Cd → 4.4 2D → 4.5 3D
+                   → 4.6 风场假设(均匀/无垂直风/方位角)
+5 Verification     5.1 第一问(双支曲线+极限速度)  5.2 线性度检验(R²×3)
+6 S&amp;W              按模型分 Model 1 / Model 2 各自评
+7 Discussion       外形影响 + Navier-Stokes 为何解不动 + 军官方法(表+程序+心算例)
+8 Conclusion       方法论一句话 + R² 复述
+Appendix           系数表 + 89行射表 + θ查找表 + 23页代码(含AI声明)
+</code></pre>
+<p><strong>句式库（原文英文句）</strong>：
+- "The core methodology integrates a high-precision physical model with simplified correction coefficients for manual estimation..."（架构式摘要）
+- "The development of a practical field estimation method ... relies fundamentally on the assumption that correction factors ... can be treated as linear constants within the operational envelope. To validate this assumption, a linearity check was performed..."（线性度检验的标准开场）
+- "While the R² value is the lowest of the three tests, a value above 0.8 is generally considered an acceptable fit for engineering approximations over a limited operational range."（弱拟合的分级辩护）
+- "This procedure transforms complex ballistic computations into simple multiplication and addition, suitable for rapid, non-digital field estimation."（交付物定位句）
+- "However, we wouldn't reject other possible trajectories, for there might be cases where direct firing is impossible..."（先验筛选留后门）</p>
+<p><strong>图表配方</strong>：动态系数模型 → "Cd–Ma 曲线必画（跨声速峰=叙事核心）"；线性化方法 → "每个修正系数一张散点+拟合线+R² 标注"；双支解 → "θ–V₀ 曲线两支合并于 vmin，交点即物理"。</p>
+<hr>
+<p><em>对照阅读：<code>05_论文赏析/2025/2025-GM-B-188.md</code>、<code>07_题目解读/2025_题B_火炮弹道射表.md</code>；Loth 模型的正确打开方式看 207（精读 64，其 Table 1 与本文复算吻合到 0.005°）；同样讲 5–8° 历史仰角的还有 460（精读 67）。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract">1.1 Abstract</a></li><li class="l3"><a href="#12-31-artillery-type历史定型节全文最有味道的假设节">1.2 §3.1 Artillery type（历史定型节，全文最有味道的假设节）</a></li><li class="l3"><a href="#13-42-大气模型式-4-44-7">1.3 §4.2 大气模型（式 4-4~4-7）</a></li><li class="l3"><a href="#14-43-loth-动态阻力系数式-4-84-14">1.4 §4.3 Loth 动态阻力系数（式 4-8~4-14）</a></li><li class="l3"><a href="#15-4445-ode-与数值实现式-4-154-28">1.5 §4.4–4.5 ODE 与数值实现（式 4-15~4-28）</a></li><li class="l3"><a href="#16-52-线性度检验全文方法论之魂">1.6 §5.2 线性度检验（全文方法论之魂）</a></li><li class="l3"><a href="#17-73-军官方法式-7-37-8">1.7 §7.3 军官方法（式 7-3~7-8）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-真空基线式-4-24-3">3.1 真空基线（式 4-2、4-3）</a></li><li class="l3"><a href="#32-isa-大气链式-4-44-7">3.2 ISA 大气链（式 4-4~4-7）</a></li><li class="l3"><a href="#33-loth-复合阻力公式式-4-114-14">3.3 Loth 复合阻力公式（式 4-11~4-14）</a></li><li class="l3"><a href="#34-阻力加速度因子-φ式-4-214-22">3.4 阻力加速度因子 Φ（式 4-21、4-22）</a></li><li class="l3"><a href="#35-线性修正族式-7-37-8">3.5 线性修正族（式 7-3~7-8）</a></li><li class="l2"><a href="#4-建模决策链-独立复现审计">4. 建模决策链 + 独立复现审计</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

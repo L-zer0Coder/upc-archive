@@ -15,10 +15,12 @@ SITE = os.path.join(ROOT, "09_可视化总览")
 DOCS = os.path.join(SITE, "docs")
 P = lambda *a: os.path.join(ROOT, *a)
 
-DOC_DIRS = ["05_论文赏析", "07_题目解读", "08_物理模型综述", "02_题目汇总"]
+DOC_DIRS = ["05_论文赏析", "07_题目解读", "08_物理模型综述", "02_题目汇总",
+             "10_论文精读", "11_论文模板与工具"]
 DIR_LABEL = {
     "05_论文赏析": "论文赏析", "07_题目解读": "题目深度解读", "08_物理模型综述": "物理模型综述",
-    "02_题目汇总": "题目与官方信息", "README.md": "档案库说明",
+    "02_题目汇总": "题目与官方信息", "10_论文精读": "论文精读教程",
+    "11_论文模板与工具": "论文模板与工具", "README.md": "档案库说明",
 }
 GM_RE = re.compile(r"(\d{4})-GM-([AB])-(\w+)", re.I)
 
@@ -363,10 +365,12 @@ def paper_entry(p):
     title = " / ".join(p["first_lines"][:3])[:120]
     if base == "2013-GM-B-611":
         title = "（与 611a 同文异版）" + title
+    jd_md = P("10_论文精读", p["year"], base + "_精读.md")
     return {"file": p["file"], "team": p["team"], "pages": p["pages"], "title": title,
             "pdf": site_rel(pdf), "txt": site_rel(txt),
             "ana": site_rel(ana_html), "png1": site_rel(png1),
-            "pngf": site_rel(pngf)}
+            "pngf": site_rel(pngf),
+            "jd": site_rel(doc_html_abs(jd_md)) if os.path.exists(jd_md) else None}
 
 years_data = []
 for y in YEARS:
@@ -417,6 +421,14 @@ lib.append({"name": "07_题目解读", "desc": "32 道题目深度解读（文�
 lib.append({"name": "08_物理模型综述", "desc": "八大专题综述 + 总览（文档页）",
             "items": [{"n": doc_title(f), "u": site_rel(doc_html_abs(f))}
                       for f in sorted(glob.glob(P("08_物理模型综述", "*.md")))]})
+lib.append({"name": "10_论文精读", "desc": "73 篇金牌论文逐篇手把手精读（逐节导读/图表深析/公式推导/建模决策链）",
+            "items": [{"n": doc_title(f), "u": site_rel(doc_html_abs(f))}
+                      for f in sorted(glob.glob(P("10_论文精读", "**", "*.md"), recursive=True))]})
+lib.append({"name": "11_论文模板与工具", "desc": "LaTeX 模板 / 图表配方库 / 写作句库 / 建模决策树 / 48h 手册 / 终检清单（文档页）",
+            "items": [{"n": doc_title(f), "u": site_rel(doc_html_abs(f))}
+                      for f in sorted(glob.glob(P("11_论文模板与工具", "**", "*.md"), recursive=True))
+                      ] + [{"n": "matplotlib_recipes.py（图表配方库源码）", "u": site_rel(P("11_论文模板与工具", "图表配方库", "matplotlib_recipes.py"))},
+                           {"n": "main.tex（LaTeX 模板源码）", "u": site_rel(P("11_论文模板与工具", "LaTeX模板", "main.tex"))}]})
 lib.append({"name": "_工具脚本", "desc": "抓取 / 建库 / 建站全流程 Python 脚本（构建时用，无需在线浏览）",
             "items": [{"n": os.path.basename(f), "u": site_rel(f)}
                       for f in sorted(glob.glob(P("_工具脚本", "*.py")))]})

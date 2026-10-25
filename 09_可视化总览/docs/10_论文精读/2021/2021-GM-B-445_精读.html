@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 41 · Asteroid Ocean Impact and Its Relationship with the Mass of the Object（2021 题B 金牌 · 队伍 445） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2021/2021-GM-B-445_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2021 · 精读 41 · Asteroid Ocean Impact and Its Relationship with the Mass of the Object（2021 题B 金牌 · 队伍 445）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-41-asteroid-ocean-impact-and-its-relationship-with-the-mass-of-the-object2021-题b-金牌-队伍-445">精读 41 · Asteroid Ocean Impact and Its Relationship with the Mass of the Object（2021 题B 金牌 · 队伍 445）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：左手论文 PDF，右手本篇。这篇的招牌是"<strong>自己推公式 + 自己写模拟</strong>"：从变质量牛顿第二定律亲手导出烧蚀耦合 ODE（并证明与 Chyba 1993 一致），再用 FFT 谱方法真实演化波场、顺手验证 1/√r 衰减律。你要学的是"推导链的完整"与"数值验证理论标度"这两手；精读最后会给出我对其 10¹⁰ kg 答案的复现结果——一路 ✓ 到底、只在一处掉出 1.7 倍。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<p>论文只回答一个问题：<strong>1000 km 外撞海的最小小行星质量是多少？</strong>（附赠第二、第三输出：对应半径 97 m、内陆纵深 715 m）</p>
+<pre><code class="language-mermaid">flowchart LR
+    A[&quot;§4.1 大气进入&lt;br/&gt;变质量牛二(3)+汽化能量账(7)&lt;br/&gt;→耦合ODE(8)(9) Julia/RK&quot;] --&gt; B[&quot;§4.2 撞击与多害排序&lt;br/&gt;Ward腔(10)(11)&lt;br/&gt;标度律: 冲击波1/r² vs 海啸1/√r&lt;br/&gt;地震&lt;1% → 只算海啸&quot;]
+    B --&gt; C[&quot;§4.3 深水传播&lt;br/&gt;Fourier积分解(12)+色散(14)&lt;br/&gt;FFT/IFFT数值演化(Fig1/2)&quot;]
+    C --&gt; D[&quot;§4.4 Run-up&lt;br/&gt;Green型放大(15)&lt;br/&gt;内陆纵深(16)&quot;]
+    D --&gt; E[&quot;阈值10 m → **m≈1e10 kg**&lt;br/&gt;R≈97 m → X≈715 m&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好？</strong> 每一环都是"理论式 + 数值实现"成对出现：进入段 ODE 配 RK、传播段积分解配 FFT、run-up 配一行代数。对手 385 全解析、216 全链经验式，445 是三篇中唯一"模型跑起来"的——Figure 1/2 的波场快照就是可复现性的直接证据。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-abstract第-1-页">1.1 Abstract（第 1 页）</h3>
+<p><strong>它写了什么</strong>：目标（最小质量）→ 结论先行（海啸为主导害，故只建模其传播）→ 三个数：<strong>10 m 阈值 ↔ 10¹⁰ kg ↔ 半径 97 m</strong>，外加 715 m 内陆纵深 → 末句预告改进方向。
+<strong>你要学什么</strong>：摘要给"输出维度"加码——多数队伍只给质量，这里多给了半径（把质量翻译成尺寸直觉）与纵深（把波高翻译成城市尺度），一个模型榨三层结论。</p>
+<h3 id="12-2-problem-analysis-3-assumptions第-3-页">1.2 §2 Problem Analysis + §3 Assumptions（第 3 页）</h3>
+<p><strong>它写了什么</strong>：分析段直接给出三类波的阈值草表——"tsunami wave about 10 metres high, blast wave that destroys smaller building or seismic wave with magnitude of about 7 Richter"；假设 14 条，从"球形、垂直入射"到"腔径深比固定、柱对称传播"。
+<strong>⚠ 审计</strong>：正文先说"历史数据显示 5 m 已足够致实质破坏"，计算却用 10 m，未解释取舍——阈值口径前后摇摆是可避免的扣分点（第 2 节原文与 §5.3 实际采用值对照，以 PDF 为准）。</p>
+<h3 id="13-41-大气进入第-46-页全文最硬的一段推导">1.3 §4.1 大气进入（第 4–6 页）——全文最硬的一段推导</h3>
+<p><strong>它写了什么</strong>：三步——① 受力：阻力 (1) 与重力 (2) 代入<strong>含 ṁẋ 项的变质量牛顿第二定律</strong> d/dt(mẋ)=ṁẋ+mẍ=−mg+½C_dSρ ẋ²（式 3–4，令 η=½C_dSρ）；② 烧蚀：机械能 Q=½mẋ²+mgx（式 5）的变化率 (6) 拆成"蒸汽带走的比机械能 ṁ(ẋ²/2+gx)"与"汽化耗热"，得 <strong>C_p ṁ = mẋ(ẍ+g)</strong>（式 7）；③ 联立 (4)(7) 消 ṁ，得耦合 ODE
+$$\ddot x=-g+\frac{\eta\dot x^2}{m(1+\dot x^2/C_p)}\;(8),\qquad C_p\dot m=-\frac{\eta\dot x^3}{1+\dot x^2/C_p}\;(9)$$
+并明示："Obtained formula agrees with results from [1] and generalises that result in case, when the mass lost during the entry is not negligible."
+<strong>为什么这样写</strong>：对手 385 直接引 Bronshten 烧蚀律，445 从能量账本自推并指出与经典文献一致且是其推广——<strong>理论深度与文献自觉一次拿满</strong>。
+<strong>你要学什么</strong>：变质量系统第一反应写 d(mv)/dt 而非 ma；烧蚀本质是"机械能损失 = 汽化热"的能量收支，不是黑箱公式。</p>
+<h3 id="14-42-撞击与多害排序第-67-页">1.4 §4.2 撞击与多害排序（第 6–7 页）</h3>
+<p><strong>它写了什么</strong>：Ward 空腔模型 [2]——抛物面、R_D=√2·R_C（"in that way we minimise energy loss due to splashed water"），深度 D_C=√(2ερv²R³/(ρ_w g R_C²))（式 10），固定径深比后化简为 D_C=(8ερv²/9ρ_wg)^{1/4}R^{3/4}（式 11），ε≈0.15 由炸药实验标定。多害排除只用<strong>标度律</strong>：冲击波球对称、强度∝1/r²；海啸柱对称、振幅∝1/√r；"Because energy which contributes to generation of both waves is similar, we can conclude that for greater distances, like 1000 km, tsunami waves will have bigger impact"——地震波不足动能 1% [5]，热辐射"要先汽化整片海洋"。
+<strong>你要学什么</strong>：442 用三节做排除、216 用三段论，445 用两条标度律两行带过——<strong>维度不同的能量稀释（1/r² vs 1/√r）是排序杀伤性武器</strong>，省下的篇幅全部投给主模型。</p>
+<h3 id="15-4344-传播与-run-up第-78-页">1.5 §4.3–4.4 传播与 run-up（第 7–8 页）</h3>
+<p><strong>它写了什么</strong>：柱对称降为 2D，Ward 讲义 [4] 的线性化积分解 u(x,0,t)=Re∫dk·u₀(k)/2π·e^{i(kx−ω(k)t)}（式 12），不可压缩近似砍掉泛音 → 色散关系 ω²=gk·tanh(kH)（式 14）；最大波幅用 Ward 拟合式 u_max=D_C/(1+r/R_C)·(0.5+(γ₁−0.5)e^{γ₂R_C/h})（式 13，γ₁=1.075、γ₂=−0.035）。还写了<strong>模型选型比较</strong>：调研到 shallow water wave model [6] 但"it doesn't account for effect of the impact on initial tsunami wave amplitude"，故不用。run-up 段：Ward 公式在陆架会高估，改用 Green 定律型 H=A^{4/5}(r)·h^{1/5}(r)（式 15）并给出物理机制（能量守恒→水深减→波幅增、波速降）；内陆纵深 X(R,H)≈10√(gH)(2R)^{3/8}（式 16，引 Chesley &amp; Ward 2006）。
+<strong>你要学什么</strong>：<strong>"知情但不用"的替代方案段</strong>——写了你调研过什么、为什么不用，比根本不知道强一档。</p>
+<h3 id="16-5-simulation第-912-页">1.6 §5 Simulation（第 9–12 页）</h3>
+<p><strong>它写了什么</strong>：① 进入段用 Julia 的 Runge–Kutta 解 (8)(9)，x₀=100 km、v₀≈22 km/s；② 波场用 FFT：u₀ 采样 → 各波数分量独立乘 e^{−iω(k)t}（式 18）→ IFFT 合成；并交代<strong>周期边界的数值约束</strong>（"we must solve the equation when all interesting phenomena happen near small x compared to the domain"）；③ 从 Figure 2 的模拟中读出振幅随 r 按 1/√r 衰减——<strong>用自家数值复现理论标度</strong>。
+<strong>你要学什么</strong>：线性波方程的标准数值套路三句话——采样、各波数独立演化、逆变换合成；以及数值论文的"边界条件自白"。</p>
+<h3 id="17-67-结果与总结第-1315-页">1.7 §6–7 结果与总结（第 13–15 页）</h3>
+<p><strong>它写了什么</strong>：22 km/s 进入、撞击速度"about 20 km/s"，质量速度变化可忽略（Figure 3 三联图）；995 km/深 5 km 处波幅-质量曲线有渐近线（Figure 4），岸边波高-质量曲线（Figure 5）给出 <strong>10 m ↔ 10¹⁰ kg ↔ R≈97 m ↔ X≈715 m</strong>。Summary 自评"quite inaccurate"，改进点名 hydrocodes 与多模型对比。
+<strong>你要学什么</strong>：负面的自我措辞要克制——"inaccurate"不如"accurate to within a factor of N"（用误差倍数说话），这是本文包装上的小教训。</p>
+<hr>
+<h2 id="2-图表深析">2. 图表深析</h2>
+<table>
+<thead>
+<tr>
+<th>图</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fig 1 波场快照序列</td>
+<td>§5.2</td>
+<td>10 s 间隔的多联图，展示<strong>空腔坍塌与波列诞生</strong>的最初时刻</td>
+<td>FFT 演化，10⁵ 点，(−1000,1000)</td>
+</tr>
+<tr>
+<td>Fig 2 波场快照（4000 s 步）</td>
+<td>§5.2</td>
+<td>大时空尺度：<strong>色散把单一扰动撕成波列</strong>，并验证 1/√r</td>
+<td>5×10⁵ 点，(−5000,5000)</td>
+</tr>
+<tr>
+<td>Fig 3 进入段三联图</td>
+<td>§6</td>
+<td>v、x、m 随时间并排——"大气段不重要"一图定案</td>
+<td>RK 输出</td>
+</tr>
+<tr>
+<td>Fig 4 波幅-质量（995 km）</td>
+<td>§6</td>
+<td>渐近线说明"再大质量波幅封顶"</td>
+<td>式 (13)</td>
+</tr>
+<tr>
+<td>Fig 5 岸边波高-质量</td>
+<td>§6</td>
+<td>答案图：10 m 阈值对应 10¹⁰ kg</td>
+<td>式 (13)+(15)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心图复现——FFT 谱方法演化 Ward 空腔</strong>（式 (11) 给初条件，式 (12)(14) 演化；即 Figure 1/2 的最小版）：</p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+g, H = 9.81, 4000.                      # 深海 4 km（§5.2）
+# ── 式(11) 空腔深度：DC=(8ερv²/9ρwg)^{1/4} R^{3/4}，ε=0.15，ρ=2616，vI=20 km/s ──
+rho, R, vI = 2616., 97., 2e4
+DC = (8*0.15*rho*vI**2/(9*1000*g))**0.25 * R**0.75
+RC = 1.5*DC                             # 径深比 3:1 -&gt; R_C = 1.5 D_C（Ward [2]）
+m  = 4/3*np.pi*R**3*rho                 # = 1.00e10 kg（论文质量，独立复现 OK）
+print(f'DC={DC:.0f} m, RC={RC:.0f} m, mass={m:.3e} kg')
+
+N, L = 2**16, 400e3                     # 周期域 400 km（快照只取域内早期 -&gt; 周期性无害）
+x  = np.linspace(-L/2, L/2, N, endpoint=False); dx = x[1]-x[0]
+k  = 2*np.pi*np.fft.fftfreq(N, d=dx)
+u0 = -DC*(1-(x/RC)**2)*(np.abs(x) &lt; RC)     # 抛物空腔为初始水面位移
+U0 = np.fft.fft(u0)
+w  = np.sqrt(g*k*np.tanh(k*H)); w[0] = 0     # 式(14) 色散关系
+fig, ax = plt.subplots(figsize=(8.5, 4.2))
+for t, c in [(0,'k'), (300,'tab:blue'), (600,'tab:orange'), (1200,'tab:red')]:
+    u = np.real(np.fft.ifft(U0*np.exp(-1j*w*t)))   # 式(12)+(18)
+    ax.plot(x/1e3, u, c=c, lw=1, label=f't = {t} s')
+ax.set(xlabel='x (km)', ylabel='surface elevation u (m)',
+       title='FFT evolution of the Ward cavity, eq(11)-&gt;(12)(14):\n'
+             'dispersion splits one disturbance into a wave train (paper Fig. 1/2)')
+ax.legend(); plt.tight_layout(); plt.show()
+</code></pre>
+<p>三个可偷的绘图决策：<strong>① 快照序列图展示"过程"而非"终点"</strong>（Fig 1/2 让评委看见动力学）；<strong>② 三联图排同一物理量族</strong>（Fig 3 的 v/x/m）；<strong>③ 数值实验顺手验证理论标度</strong>（1/√r 写进正文）。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<h3 id="31-变质量运动方程式-34">3.1 变质量运动方程（式 3–4）</h3>
+<p>$$\frac{d}{dt}(m\dot x)=\dot m\dot x+m\ddot x=-mg+\tfrac12C_dS\rho_{atm}\dot x^2,\qquad \eta\equiv\tfrac12C_dS\rho_{atm}$$
+<strong>怎么想到</strong>：烧蚀中 m=m(t)，牛顿第二定律必须作用于动量而非质量×加速度——<strong>多出的 ṁẋ 项正是蒸汽以本体速度脱离带走的动量</strong>。组合参数 η 同 2010-A 的 σ 一样是"给后文减负"。<strong>适用边界</strong>：ẋ 取负（下降）时阻力项为正（向上），式 (8) 的 ẋ² 自动保证方向正确。</p>
+<h3 id="32-烧蚀能量账式-57">3.2 烧蚀能量账（式 5–7）</h3>
+<p>$$Q=\tfrac12m\dot x^2+mgx,\quad \dot Q=\dot m\big(\tfrac{\dot x^2}{2}+gx\big)+m\dot x(\ddot x+g),\quad C_p\dot m=m\dot x(\ddot x+g)$$
+<strong>推导要点</strong>：Q̇ 求导后<strong>第一项=蒸汽带走的比机械能</strong>（质量流×单位质量机械能），第二项=留在物体内的耗散热；令第二项=汽化热流 C_p ṁ 即式 (7)。⚠ 注意符号：ṁ&lt;0（质量流失），故式 (9) 中 C_p ṁ&lt;0 ✓。<strong>与文献对接</strong>：ẋ²≫C_p 时 1/(1+ẋ²/C_p)→C_p/ẋ²，式 (9) 退化为 C_p ṁ≈−ηẋ——即 Chyba 1993 的经典烧蚀律；一般情形是它的推广。
+<strong>数值感（独立复现）</strong>：R=97 m、v=22 km/s 时 ẋ²/C_p≈60——<strong>烧蚀修正把有效阻力削掉 60 倍</strong>！我用 RK45 积 (8)(9)：入水速度 <strong>22.04 km/s</strong>（比入射还快 0.04，重力净赢）、质量损失 0.95%——"变化可忽略"的定性结论 ✓，但论文的"22→20 km/s"我未能复现（疑为图读数或参数差异，以 PDF 渲染图为准）⚠。</p>
+<h3 id="33-ward-空腔式-1011">3.3 Ward 空腔（式 10–11）</h3>
+<p>$$D_C=\sqrt{\frac{2\epsilon\rho_{ast}v_I^2R^3}{\rho_w g R_C^2}}\;\xrightarrow{\;R_C=1.5D_C\;}\;D_C=\Big(\frac{8\epsilon\rho_{ast}v_I^2}{9\rho_wg}\Big)^{1/4}R^{3/4}$$
+<strong>怎么想到</strong>：ε·(½ρv²·πR³) 的撞击能量 = 抬起抛物腔内水体的势能（½ρ_w g·(2/3)πR_C²D_C² 量级）——能量守恒直接闭式。<strong>数值感</strong>：R=97 m → D_C≈1900 m、R_C≈2850 m（腔比小行星大一个量级——这就是为什么 100 km 外的"初始波"由腔而非小行星尺寸决定）。<strong>适用边界</strong>：D_C&gt;水深时腔被海底截断并成坑（文中给出处理：真实腔深=水深，引 [3]）。</p>
+<h3 id="34-深水波幅拟合式式-13">3.4 深水波幅拟合式（式 13）</h3>
+<p>$$u_{max}(r,h)=\frac{D_C}{1+r/R_C}\big[0.5+(\gamma_1-0.5)e^{\gamma_2 R_C/h}\big],\quad \gamma_1=1.075,\ \gamma_2=-0.035$$
+<strong>怎么理解</strong>：主项 D_C/(1+r/R_C) 在 r≫R_C 时即 1/√r 的离散 cousins（r 小时过渡到 D_C·R_C/r… 实为经验形）；方括号是浅水修正因子（h→∞ 时 →0.5——深水减半）。<strong>⚠ 独立审计</strong>：代入 D_C=1898 m、R_C=2847 m、r=995 km、h=5 km 得 u_max=<strong>5.76 m</strong>，而论文 Figure 4 在 m=10¹⁰ kg 处约 3.4 m——系数级偏差 1.7×（疑 v_I 或 R_C 约定与我的读法不同，以 PDF 数值轴为准）。好消息是<strong>后续链条自洽</strong>：以 3.4 m 代入式 (15) 得 H=3.4^{0.8}×500^{0.2}=<strong>9.2 m ≈ 10 m</strong> ✓——阈值判定成立。</p>
+<h3 id="35-色散关系与积分解式-121418">3.5 色散关系与积分解（式 12、14、18）</h3>
+<p>$$u(x,0,t)=\mathrm{Re}\int\frac{dk\,u_0(k)}{2\pi}e^{i(kx-\omega(k)t)},\qquad \omega^2=gk\tanh(kH)$$
+<strong>推导要点</strong>：线性化后每个波数是独立简谐模态，通解=模态叠加（Fourier 积分）；色散关系来自自由面边界条件，kH≫1 时 ω≈√(gk)（深水）、kH≪1 时 ω≈k√(gH)（浅水无色散）——海啸在深海是浅水波（λ=2π/k≫H），长波先到、短波尾随，这正是 Figure 2 波列被"撕开"的原因。<strong>数值感</strong>：√(gH)=198 m/s，1000 km 传约 84 分钟——海啸的典型预警窗口。</p>
+<h3 id="36-run-up-与内陆纵深式-1516">3.6 Run-up 与内陆纵深（式 15–16）</h3>
+<p>$$H=A^{4/5}(r)\,h^{1/5}(r),\qquad X(R,H)\approx10\sqrt{gH}\,(2R)^{3/8}$$
+<strong>怎么想到</strong>：Green 定律 A∝h^{−1/4} 的 Ward 变体（把"能量守恒+波速降低"折成 4/5 与 1/5 的幂组合）；X 式是 Chesley &amp; Ward 的经验式。<strong>独立复现</strong>：H=10 m、R=97 m → X=10×√(98.1)×194^{0.375}=<strong>714.1 m</strong> ✓（论文 715 m，精确命中）。</p>
+<hr>
+<h2 id="4-建模决策链">4. 建模决策链</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>烧蚀处理</td>
+<td>自推变质量 ODE (8)(9)</td>
+<td>直接引 Bronshten/Chyba</td>
+<td>推导链完整，且能声明"推广了 [1]"</td>
+</tr>
+<tr>
+<td>多害排序</td>
+<td>标度律两行排除</td>
+<td>逐项精算（442 式）</td>
+<td>1/r² vs 1/√r 一比即知，省篇幅</td>
+</tr>
+<tr>
+<td>波传播</td>
+<td>Ward 积分解 + FFT</td>
+<td>浅水波模型 [6] / CFD</td>
+<td>[6] 缺初始振幅输入；CFD 48h 不可行</td>
+</tr>
+<tr>
+<td>传播对称性</td>
+<td>柱对称 → 2D</td>
+<td>全 3D</td>
+<td>线性叠加下等价，算力省 10³</td>
+</tr>
+<tr>
+<td>近岸</td>
+<td>Green 型 (15)</td>
+<td>Ward 式 (13) 续用</td>
+<td>Ward 式在陆架高估（正文明说）</td>
+</tr>
+<tr>
+<td>数值方法</td>
+<td>Julia RK + FFT/IFFT</td>
+<td>有限差分</td>
+<td>谱方法对线性波天然精确</td>
+</tr>
+<tr>
+<td>阈值</td>
+<td>10 m</td>
+<td>5 m（正文曾提）</td>
+<td>⚠ 口径摇摆未解释，以计算采用值为准</td>
+</tr>
+<tr>
+<td>输出维度</td>
+<td>质量+半径+纵深</td>
+<td>仅质量</td>
+<td>同一模型多榨两层结论</td>
+</tr>
+</tbody>
+</table>
+<p><strong>审计汇总</strong>：✓ 质量-半径换算（R=97 m ↔ 1.00×10¹⁰ kg，ρ=2616）；✓ 式 (11) D_C≈1900 m；✓ 式 (15) 链条（3.4 m→9.2 m≈10 m）；✓ 式 (16) X=714 m 精确；✓ 大气段"变化可忽略"（我算 22.0→22.04 km/s，比论文更"可忽略"）；⚠ Figure 4 波幅（复算 5.76 m vs 图读 ~3.4 m，1.7×）；⚠ 撞击速度 20 km/s 未能复现；⚠ 阈值 5 m/10 m 前后不一。</p>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板</strong>：</p>
+<pre><code>2 Problem analysis  先给三类波的阈值草表（后文逐一对号）
+3 Assumptions       14 条偏多，逐条在正文有回收
+4 Theoretical model 4.1 进入段：受力→能量账→耦合ODE（自推+对接文献）
+                   4.2 撞击：空腔闭式（能量守恒）+ 标度律排序
+                   4.3 传播：积分解+色散关系（写明替代模型为何不用）
+                   4.4 run-up：换模型+物理机制一段
+5 Simulation        方法（RK/FFT）+边界条件自白+标度律数值验证
+6 Results           多输出量（质量/半径/纵深）
+7 Summary           用误差倍数说话，不用&quot;quite inaccurate&quot;
+</code></pre>
+<p><strong>句式库（原文摘录）</strong>：
+- "Now, notice that during ablation some vaporised mass detaches ... keeping its mechanical energy"（推导中的物理旁白）
+- "Obtained formula agrees with results from [1] and generalises that result in case when ..."（自推结果对接文献）
+- "In that way we minimise energy loss due to splashed water not contributing to ..."（几何假设的功能性理由）
+- "Because energy which contributes to generation of both waves is similar, we can conclude that ..."（标度律排序收尾）
+- "Because of that we decided not to use that model in our estimations."（知情但不用）
+- "Notice that solution is assumed to be periodical, so in order to get proper result ..."（数值边界条件自白）</p>
+<p><strong>图表配方</strong>：波动类问题三件套——波场快照序列（过程）、物理量三联图（进入段）、结果-参数曲线+阈值线（答案）；数值验证理论标度写进正文；周期边界约束必须交代。</p>
+<hr>
+<p><em>对照阅读：<code>05_论文赏析/2021/2021-GM-B-445.md</code> 与 <code>07_题目解读/2021_题B_小行星撞击沿海城市.md</code>；队友精读 216/385/442（同一道题的四种浅水方案对比）。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-2-problem-analysis-3-assumptions第-3-页">1.2 §2 Problem Analysis + §3 Assumptions（第 3 页）</a></li><li class="l3"><a href="#13-41-大气进入第-46-页全文最硬的一段推导">1.3 §4.1 大气进入（第 4–6 页）——全文最硬的一段推导</a></li><li class="l3"><a href="#14-42-撞击与多害排序第-67-页">1.4 §4.2 撞击与多害排序（第 6–7 页）</a></li><li class="l3"><a href="#15-4344-传播与-run-up第-78-页">1.5 §4.3–4.4 传播与 run-up（第 7–8 页）</a></li><li class="l3"><a href="#16-5-simulation第-912-页">1.6 §5 Simulation（第 9–12 页）</a></li><li class="l3"><a href="#17-67-结果与总结第-1315-页">1.7 §6–7 结果与总结（第 13–15 页）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-变质量运动方程式-34">3.1 变质量运动方程（式 3–4）</a></li><li class="l3"><a href="#32-烧蚀能量账式-57">3.2 烧蚀能量账（式 5–7）</a></li><li class="l3"><a href="#33-ward-空腔式-1011">3.3 Ward 空腔（式 10–11）</a></li><li class="l3"><a href="#34-深水波幅拟合式式-13">3.4 深水波幅拟合式（式 13）</a></li><li class="l3"><a href="#35-色散关系与积分解式-121418">3.5 色散关系与积分解（式 12、14、18）</a></li><li class="l3"><a href="#36-run-up-与内陆纵深式-1516">3.6 Run-up 与内陆纵深（式 15–16）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

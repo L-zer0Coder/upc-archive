@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11_论文模板与工具 —— 从 73 篇金牌论文提炼的实战工具包 · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/README.md">Markdown</a>
+  <span class="crumb" style="flex:1">11_论文模板与工具 · 11_论文模板与工具 —— 从 73 篇金牌论文提炼的实战工具包</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="11_论文模板与工具-从-73-篇金牌论文提炼的实战工具包">11_论文模板与工具 —— 从 73 篇金牌论文提炼的实战工具包</h1>
+<blockquote>
+<p>与 <code>10_论文精读/</code> 配套：精读教你"看懂每一篇"，本工具包教你"写出一篇"。</p>
+</blockquote>
+<h2 id="目录">目录</h2>
+<table>
+<thead>
+<tr>
+<th>文件/目录</th>
+<th>内容</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LaTeX模板/main.tex</code></td>
+<td>金牌风格论文骨架（标题页/一页摘要/章.序号公式/三线表/附录代码/参考文献样式）</td>
+<td>复制为起点，逐节替换；摘要有注释教你写</td>
+</tr>
+<tr>
+<td><code>图表配方库/matplotlib_recipes.py</code></td>
+<td>8 类金牌核心图的可运行配方（轨迹图/可行域/龙卷风/收敛双曲线/Pareto/多子图/射表热力图/建模路线图），每条注明出处论文与设计要点</td>
+<td><code>python matplotlib_recipes.py</code> 生成预览；写论文时按需 import 单个函数</td>
+</tr>
+<tr>
+<td><code>写作句库.md</code></td>
+<td>按论文部位分类的英文句式（摘要/基准/建模/数值/结果/局限/结论），每句注明金牌出处</td>
+<td>写作卡壳时查表套句</td>
+</tr>
+<tr>
+<td><code>建模决策树.md</code></td>
+<td>拿到题后的第一张决策流程图 + 五条主干原则 + 常见效应量级速查表 + 模型分层模板</td>
+<td>开赛后第 2 小时对着走</td>
+</tr>
+<tr>
+<td><code>48小时作战手册.md</code></td>
+<td>逐时段任务单、三人分工模板、危机预案</td>
+<td>赛前打印，贴墙执行</td>
+</tr>
+<tr>
+<td><code>提交前终检checklist.md</code></td>
+<td>按 7 条评审不变量组织的 40+ 项打勾清单 + "评委三分钟视角"模拟</td>
+<td>交卷前三人各过一遍</td>
+</tr>
+</tbody>
+</table>
+<h2 id="与其他目录的关系">与其他目录的关系</h2>
+<pre><code class="language-mermaid">flowchart LR
+    A[07_题目解读&lt;br/&gt;吃透题目] --&gt; B[10_论文精读&lt;br/&gt;看懂金牌怎么写]
+    B --&gt; C[本目录&lt;br/&gt;直接动手写]
+    D[08_物理模型综述&lt;br/&gt;补物理模型] --&gt; C
+</code></pre>
+<h2 id="快速上手模拟赛建议流程">快速上手（模拟赛建议流程）</h2>
+<ol>
+<li>挑一道历年题（推荐 2023-A 太空跳伞：六篇金牌可对照）；</li>
+<li>按 <code>建模决策树.md</code> 走完 Q1–Q5；</li>
+<li>用 <code>LaTeX模板/main.tex</code> 起稿，图表用 <code>图表配方库</code> 出；</li>
+<li>卡表述就查 <code>写作句库.md</code>；</li>
+<li>48 小时按 <code>作战手册</code> 时间线走；</li>
+<li>交卷前跑一遍 <code>checklist</code>；</li>
+<li>与对应金牌论文（<code>03_优秀论文PDF</code>）+ 精读对照复盘。</li>
+</ol>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#目录">目录</a></li><li class="l2"><a href="#与其他目录的关系">与其他目录的关系</a></li><li class="l2"><a href="#快速上手模拟赛建议流程">快速上手（模拟赛建议流程）</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

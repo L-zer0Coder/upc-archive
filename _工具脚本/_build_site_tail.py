@@ -218,7 +218,7 @@ body{transition:margin-left .25s}
     <div class="stat"><b>16</b><span>届赛事</span></div>
     <div class="stat"><b>32</b><span>道官方题目</span></div>
     <div class="stat"><b>74</b><span>篇金牌论文</span></div>
-    <div class="stat"><b>144</b><span>份库内文档</span></div>
+    <div class="stat"><b>__NDOCS__</b><span>份库内文档</span></div>
   </div>
   <div class="hero-act">
     <a class="btn solid" href="#papers">进入论文库</a>
@@ -321,7 +321,7 @@ DATA.years.forEach(y=>{
     const dm = D[p.dom];
     const papers = p.papers.length? `<table style="margin-top:8px"><thead><tr><th>队伍</th><th>论文（PDF 首行）</th><th>页</th><th>直达</th></tr></thead><tbody>` +
       p.papers.map(pp=>`<tr><td><b>#${pp.team}</b></td><td style="max-width:320px">${pp.title}</td><td class="num">${pp.pages}</td>
-        <td><div class="btns"><a class="btn solid" href="${pp.ana}">赏析</a><a class="tlink" href="${pp.pdf}">PDF</a><a class="tlink" href="${pp.txt}">文本</a><a class="tlink" href="${pp.pngf}">图页</a></div></td></tr>`).join('')
+        <td><div class="btns"><a class="btn solid" href="${pp.ana}">赏析</a>${pp.jd?`<a class="tlink" style="color:var(--acc)" href="${pp.jd}">精读</a>`:`<span class="tlink" style="opacity:.35">精读</span>`}<a class="tlink" href="${pp.pdf}">PDF</a><a class="tlink" href="${pp.txt}">文本</a><a class="tlink" href="${pp.pngf}">图页</a></div></td></tr>`).join('')
       + `</tbody></table>` : `<p class="note" style="margin-top:8px">${y.year===2024?'该年官方未公开论文':''}</p>`;
     const teams = p.teams.length? `<details class="teams"><summary>金牌队伍（${p.teams.length}）</summary>
       <table>${p.teams.map(t=>`<tr><td><b>#${t.team}</b></td><td>${t.names}</td><td>${t.institution}</td></tr>`).join('')}</table></details>`:'';
@@ -368,7 +368,7 @@ function render(list){
     <td><a href="${p.png1}" target="_blank"><img class="tr-thumb" loading="lazy" src="${p.png1}" alt="标题页"></a></td>
     <td>${p.y} 题${p.prob}<br><span style="color:var(--dim);font-size:11px">${D[p.dom].name}</span></td>
     <td>#${p.team}</td><td style="max-width:400px">${p.title}</td><td class="num">${p.pages}</td>
-    <td><div class="btns"><a class="btn solid" href="${p.ana}">赏析</a><a class="tlink" href="${p.pdf}">PDF</a><a class="tlink" href="${p.txt}">文本</a><a class="tlink" href="${p.pngf}">图页</a></div></td>
+    <td><div class="btns"><a class="btn solid" href="${p.ana}">赏析</a>${p.jd?`<a class="tlink" style="color:var(--acc)" href="${p.jd}">精读</a>`:`<span class="tlink" style="opacity:.35">精读</span>`}<a class="tlink" href="${p.pdf}">PDF</a><a class="tlink" href="${p.txt}">文本</a><a class="tlink" href="${p.pngf}">图页</a></div></td>
   </tr>`).join('');
   document.getElementById('cnt').textContent = `${list.length} / ${all.length} 篇`;
 }

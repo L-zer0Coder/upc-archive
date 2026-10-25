@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 13 · Design and Dynamic Analysis of a Roller Coaster（2019 题B 金牌 · 队伍 389） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2019/2019-GM-B-389_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2019 · 精读 13 · Design and Dynamic Analysis of a Roller Coaster（2019 题B 金牌 · 队伍 389）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-13-design-and-dynamic-analysis-of-a-roller-coaster2019-题b-金牌-队伍-389">精读 13 · Design and Dynamic Analysis of a Roller Coaster（2019 题B 金牌 · 队伍 389）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：左手边开论文 PDF（<code>03_优秀论文PDF/2019/Problem B/2019-GM-B-389.pdf</code>），右手边开本篇。这篇与精读 12（队伍 190）同题：190 走"逐段 ODE + Euler 数值积分"路线，389 走"<strong>逐段动能定理 + 解析递推 + 专用仿真器独立验证</strong>"路线。两篇对读，你会看到同一道题的两条正交解法。本篇公式编号 (1)–(16) 照论文；独立复算验证了首俯冲末速 24.31 m/s 的能量账，也核出三处数据不闭合（平均误差 2.1 m/s 与附录表 1.34 m/s、拟合度 94.26% 与自算 92.4%、v₁ 无法从给定几何复现），均已 ⚠ 标出。论文文本提取乱码较多（Word 公式对象），凡重构处均已注明，以 PDF 原图为准。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<p>论文只回答一个问题：<strong>一条 30 m 高、纯重力驱动的九段式轨道，能否用"手算的能量链 + 仿真器的独立复算"双重证明安全且刺激？</strong></p>
+<pre><code class="language-mermaid">flowchart LR
+    A[&quot;§1-2 立框架&lt;br/&gt;5 条假设 + 两张参数表&lt;br/&gt;NoLimits 2 五向建模&quot;] --&gt; B[&quot;§2.4 动能定理框架&lt;br/&gt;式1-7：重力功+阻力功=动能增量&lt;br/&gt;风阻按段平均速度 v̄=(vᵢ+vᵢ₊₁)/2&quot;]
+    B --&gt; C[&quot;九段逐段递推（式8-16）&lt;br/&gt;圆弧/抛物线/50m大回转/&lt;br/&gt;竖直环+螺旋+clothoid环&quot;]
+    C --&gt; D[&quot;§3 结果&lt;br/&gt;10 个特征点速度表&lt;br/&gt;62.67 s / 518.16 m&quot;]
+    D --&gt; E[&quot;§4 双轨验证&lt;br/&gt;理论 vs 仿真逐点对照&lt;br/&gt;误差与拟合度量化&quot;]
+    E --&gt; F[&quot;安全/刺激判定&lt;br/&gt;4.1g 仅 0.01s（限 4~5g/0.1s）&lt;br/&gt;超重失重占比 87%&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好？</strong> 它是<strong>"理论–仿真双轨互验"</strong>的完整示范：B–C 是手算轨道（每步可验账），D 是黑箱仿真（NoLimits 2 是过山车行业级仿真器），E 把两条轨道放到同一张图上量化差距。评委对任何单轨结果都能质疑，但对<strong>两条独立来源吻合 94%</strong> 的结果无从下手。与 190 队"单轨道数值仿真"相比，389 牺牲了时间序列的精细（只有 10 个特征点），换来了解析透明与独立验证——这正是两篇金牌的路线差异。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-abstract第-1-页">1.1 Abstract（第 1 页）</h3>
+<p><strong>它写了什么</strong>：按题目三问分三段，每段"方法一句 + 硬数字一句"——(1) 安全刺激：<strong>最大竖直加速度 4.1 g、持续 0.01 s（文献限 4~5 g/0.1 s）、其余 &lt;4 g、超重失重时间占 87%</strong>；(2) 动力学：九段动能定理递推，特征点速度"correspond well with results of simulation"，总时长 <strong>1 分 02.67 秒</strong>；(3) 三维轨迹：据 (1)(2) 精确描述。</p>
+<p><strong>为什么这样写</strong>：这是<strong>"任务分解式摘要"的范本</strong>——题目有三问，摘要就三段，每段自足（方法+数字），评委逐问打分时每段都能直接抄走。注意 (1) 的数字结构："4.1 g，duration 0.01 s"——<strong>幅值与持续时间成对出现</strong>，因为判据本身就是二维的（下一层会讲）。你在写任何"体验/安全"类论文时，摘要里的加速度都应该带持续时间。</p>
+<h3 id="12-1-problem-analysis第-34-页">1.2 §1 Problem Analysis（第 3–4 页）</h3>
+<p><strong>它写了什么</strong>：题面约束复述（起点 20 m 平段、升至 30 m、势能是唯一能源、轨道闭合且不低于初始高度）→ 三问分解 → 一段"刺激的物理来源"分析："roller coaster stimulation mainly depends on the acceleration, through the appropriate overweight, weightlessness, impact, vibration and other sensory stimulation... However, excessive acceleration will cause harm to human body, if affect vestibular organ..."，结论是"把加速度控制在既刺激又安全的区间"。</p>
+<p><strong>你要学什么</strong>：这段与 190 队 §2.2 的思路相同但更短——先定义"刺激的机制"（超重/失重/冲击），再定义"安全的边界"（前庭器官、心脏血压），两句话就把"加速度区间"立为全文唯一调控对象。<strong>开放题先做"机制分析"再谈方案</strong>，方案的每个设计选择就都有了靶子。</p>
+<h3 id="13-21-五条假设第-56-页">1.3 §2.1 五条假设（第 5–6 页）</h3>
+<p><strong>它写了什么</strong>：①风阻只计迎风面、不计横向；②山顶出发初速为零；③车轮只受滚动摩擦、取最大滚动摩擦力矩估算耗功、全程摩擦系数相等；④<strong>某些小弧段近似无阻力</strong>（风阻与滚阻都不计）；⑤车轮保持直立。</p>
+<p><strong>为什么这样写</strong>：注意假设③④是<strong>一对"精度换可行性"的操作</strong>——滚动摩擦取"最大力矩"是偏保守的单值化（真实滚阻随载荷变化），假设④直接把若干过渡小弧设为无耗散。这两条让式 (8)–(16) 的每一段都能闭式解出。⚠ 但④也带来了后文 v₇=v₈=v₉=15.32 m/s 三点速度完全相同的"平顶"——被免阻力的段落不耗能也不换能，这个近似你用时要知道它的可见代价。<strong>假设紧跟目的</strong>（"to facilitate theoretical modeling and calculation"），每条都能回答"省掉了什么"。</p>
+<h3 id="14-22-参数双表第-68-页">1.4 §2.2 参数双表（第 6–8 页）</h3>
+<p><strong>它写了什么</strong>：Table 1 列符号含义（rᵢ、vᵢ、v̄ⱼ、Wᵢ、lᵢ、hᵢ、F_w、f、ρ、A_D、C_D、K、s、θ、α、m），Table 2 给取值（r₁=3、r₂=r₃=5、r₄=50、r₅=30 m、l₁=15、l₂=30 m、ρ=1.3 kg/m³、A_D=1.5 m²、C_D=0.3、K=0.05、m=2.2 t）。</p>
+<p><strong>你要学什么</strong>：<strong>"已知量表"与"未知量表"分开列</strong>是 48 小时论文的好习惯——评委核对参数只看 Table 2，理解符号只看 Table 1，互不干扰。⚠ 一处单位笔误：表中 g 写作"9.8 newton per meter"，应为 m/s²——小错但暴露交卷前没通读；⚠ α=6 未标单位（度还是弧度不明），这类"符号表不自足"的问题要自查。</p>
+<h3 id="15-23-nolimits-2-建模先建看得见的轨道第-810-页">1.5 §2.3 NoLimits 2 建模：先建"看得见"的轨道（第 8–10 页）</h3>
+<p><strong>它写了什么</strong>：用专业过山车仿真器 NoLimits 2 按分段尺寸/角度/高度输入建模，给出前/后/左/右/顶五向视图（Figure 2–6）。</p>
+<p><strong>为什么这样写</strong>：这一节放在公式推导<strong>之前</strong>——先有三维实体，再有数学模型。五向视图的作用是让评委在进入 16 个公式之前就对 518 m 轨道建立全局图像（哪里俯冲、哪里回转、哪里翻滚）。<strong>设计题的"眼见为实"层</strong>：SolidWorks（190 队）、Planet Coaster（190 队）、NoLimits 2（本队）都是这一层的工具，选哪个不重要，重要的是"数学之前先给图"。</p>
+<h3 id="16-24-动能定理框架式-17第-1112-页">1.6 §2.4 动能定理框架（式 1–7）（第 11–12 页）</h3>
+<p><strong>它写了什么</strong>：核心五式——动能定理 W_gravity + W_resistance = ½mv_t² − ½mv_o²（式 1）；风阻 F_w = ½ρA_D C_D v̄ⱼ²（式 2）；段内平均速度取两端算术平均 v̄ⱼ = (vᵢ+vᵢ₊₁)/2（式 3）；滚动摩擦 f = KN（式 4）；总阻力 = 风阻+摩擦（式 5）；阻力功 W = ∫F ds + ∫f ds（式 6）；联立成"模型 1"（式 7）。</p>
+<p><strong>为什么这样写</strong>：与 190 队逐段写二阶 ODE 不同，389 全程只用<strong>一个标量方程</strong>（动能定理）。代价是时间信息丢失（要靠仿真补），收益是每段一个代数方程、可手算。两个技巧值得背：
+1. <strong>平均速度封闭</strong>（式 3）：风阻功 ∫v²ds 依赖未知速度剖面，用 v̄² 近似 v² 的段平均——把积分方程封闭成代数方程。这是全文唯一的近似核心，作者在 §5 自我检讨（"the velocity ... doesn't change linearly"），<strong>核心近似自我点名</strong>是加分动作。
+2. <strong>框架与分段分离</strong>：式 (1)–(7) 只写一遍通用框架，九个分段只代入各自的重力功与几何——结构上"发动机只有一个，轮子换九个"。</p>
+<h3 id="17-24-九段递推式-816第-1217-页">1.7 §2.4 九段递推（式 8–16）（第 12–17 页）</h3>
+<p><strong>它写了什么</strong>：每段一图一方程组：段1 山顶 30° 圆弧过渡（式 8）；段2 切线直线下坡（式 9，含 h₁/h₂ 提升段高度与 8.5、10√27+1.5√3 等几何代入）；段3 半圆+45° 圆弧（式 10）；段4 15 m 直段（式 11）；段5 抛物线山丘+50 m 大半圆回转（式 12，风阻沿弧长积分）；段6 竖直圆环（式 13，πr₆+...）；段7 clothoid 回旋线环（式 14，v₈=v₇）；段8 螺旋（corkscrew）段参数化 x=r cosθ, y=r sinθ, z=bθ（式 15）；段9 r₅=30 m 回弯+刹车（式 16）。</p>
+<p><strong>为什么这样写</strong>：这一节的含金量在<strong>轨道元素选型的工程理由</strong>（详见 §4 决策链）：30°/3 m 圆弧是坡底过渡（避免曲率突变）；50 m 大半径回转用大 R 压低 v²/R；竖直环选 <strong>clothoid（回旋线）</strong>而非正圆——回旋线的曲率随弧长线性增大，环底（速度大）曲率小/半径大、环顶（速度小）半径小，让 v²/R 趋于恒定、<strong>环顶不至于过载、环底不至于太"闷"</strong>，这是真实过山车工程的标准做法。多数队伍画个正圆环就完事，这一处选型直接拉开档次。</p>
+<p><strong>你要学什么</strong>：⚠ 这部分的 Word 公式在文本提取中错位严重（如段 2 的数字串、Step2 的"ʹʹ 庣ξ͵"乱码），复现请以 PDF 图为准。我按式 (8) 的结构独立复算了段 1+2：从 v₁=4.486 m/s 经 ~30 m 落差（滚阻 K=0.05、风阻 0.2925v̄² 一起扣）得 v₂ ≈ 24.0–24.3 m/s ✓ 与论文 24.31 一致——<strong>能量链账目闭合</strong>。但 v₁=4.486 本身无法从"30°/3 m 圆弧"几何复现（纯落差 r₁(1−cos30°)=0.40 m 只够 v≈2.5 m/s，4.486 需要 ~1.1 m 落差）⚠，疑有未写明的高度差或弧段定义不同，引用时注意。</p>
+<h3 id="18-3-results第-1722-页">1.8 §3 Results（第 17–22 页）</h3>
+<p><strong>它写了什么</strong>：Task 1 安全刺激判定——最大竖直 4.1 g @首次俯冲、持续 0.01 s；其余 &lt;4 g、均值 0.4132 g；最大横向 0.7 g @竖直环上升段（限 3 g）；超重失重占时 87%。Task 2——Table 3 十个特征点速度（v₁=4.486 → v₁₀=10.37 m/s）+ Table 4 总时长 62.67 s、全长 518.16 m。Task 3——按 Step1–6 用文字+图精确描述三维轨迹。</p>
+<p><strong>为什么这样写</strong>：结果与摘要严格对表（摘要的每个数字都能在这一节找到出处）。Task 1 的判读句式值得学："the maximum vertical acceleration ... is 4.1g, and the duration is 0.01s, ... The rest of the vertical acceleration is less than 4g"——<strong>最大值、持续时间、其余值的上界</strong>三个量一起报告，判据的二维性（幅值×时长）贯穿到底。"87% 超重失重占比"则是刺激性的时间覆盖度指标——不只是峰值刺激，还要<strong>刺激的覆盖率</strong>，这是比 190 队 S 曲线更朴素的量化，但同样回答"持续刺激"。</p>
+<h3 id="19-4-model-verification第-2123-页">1.9 §4 Model Verification（第 21–23 页）</h3>
+<p><strong>它写了什么</strong>：在 NoLimits 2 中按同一套分段参数重建轨道、输入质量/摩擦/风阻后跑运动学仿真，输出速度（Figure 18）与加速度（Figure 17）曲线；Figure 19 把理论值与仿真值逐点对比；结论句："The calculated average error is 2.1m/s, and the fitting degree of the two groups of data is as high as 94.26%."</p>
+<p><strong>为什么这样写</strong>：这是全文的<strong>可信度支柱</strong>。附录给出十点对照表（v₂: 24.31 vs 22.11、v₉: 15.32 vs 12.63 等），理论值系统性略高于仿真值——方向合理（理论的小弧免阻假设少扣了能量）。⚠ 但我按附录表自算：平均误差 = 1.34 m/s（论文称 2.1）、按 R² = 1 − SS_res/SS_tot 得 92.4%（论文称 94.26%）——两个数都对不上自己的数据表，量级一致但数字有漂移。<strong>报告统计量时给出计算口径</strong>（哪组数、什么公式）是应有的严谨；你要学双轨验证这个动作，但报告数字时别学它。</p>
+<h3 id="110-57-改进评价结论第-2324-页">1.10 §5–7 改进、评价、结论（第 23–24 页）</h3>
+<p><strong>它写了什么</strong>：改进三条（滚阻更精细、被忽略段补回、平均速度改非算术平均）；优势（逐段详析 + 理论仿真双轨）；劣势（"In some sections ... the situations are simplified so greatly, that the results could have relatively much deviation from reality"）；结论复述速度变化趋势与"safe but especially exciting"。</p>
+<p><strong>你要学什么</strong>：改进节第一条就是自我点名式 (3) 的算术平均——<strong>把全文最关键的近似放在改进节第一条</strong>，评委立刻知道作者清楚自己模型的软肋在哪。劣势一句"simplified so greatly"虽然笼统，但与前文的假设④呼应，形成闭环。</p>
+<hr>
+<h2 id="2-图表深析">2. 图表深析</h2>
+<table>
+<thead>
+<tr>
+<th>图/表</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Figure 1 车厢图</td>
+<td>§2.1 假设处</td>
+<td>假设⑤"车轮直立"、A_D=1.5 m² 都要指着车厢说——实物图让假设可对照</td>
+<td>照片/示意</td>
+</tr>
+<tr>
+<td>Figure 2–6 五向视图</td>
+<td>§2.3</td>
+<td>前/后/左/右/顶五个正交视图 = 三维轨道的完备投影——比一张透视图信息更足</td>
+<td>NoLimits 2 截图</td>
+</tr>
+<tr>
+<td>Figure 7–16 九段几何图</td>
+<td>§2.4</td>
+<td>每段一图，与式 (8)–(16) 一一对应——<strong>方程的几何锚</strong>，读者看图即知式子在算什么</td>
+<td>软件截取+标注</td>
+</tr>
+<tr>
+<td>Figure 14 clothoid 环</td>
+<td>§2.4 段 7</td>
+<td>单独给回旋线环一张图：它是全文最有工程品味的选择，值得一张专属图</td>
+<td>NoLimits 2</td>
+</tr>
+<tr>
+<td>Table 3 特征点速度</td>
+<td>§3.2</td>
+<td>十点速度即能量链的输出主干——每个数都能用式 (1) 手验</td>
+<td>递推结果汇总</td>
+</tr>
+<tr>
+<td>Table 4 总账</td>
+<td>§3.2</td>
+<td>时长+长度一行收口（62.67 s / 518.16 m）</td>
+<td>仿真输出</td>
+</tr>
+<tr>
+<td>Figure 17 加速度图</td>
+<td>§3.2</td>
+<td>刺激性的证据（4.1 g 峰、87% 占比从它统计）</td>
+<td>NoLimits 2 导出</td>
+</tr>
+<tr>
+<td>Figure 18 速度曲线</td>
+<td>§4</td>
+<td>仿真侧的全程速度剖面</td>
+<td>NoLimits 2 导出</td>
+</tr>
+<tr>
+<td><strong>Figure 19 速度对照</strong></td>
+<td>§4</td>
+<td><strong>全文可信度支柱</strong>：理论 vs 仿真逐点对比，附误差与拟合度</td>
+<td>本文复现（下方代码）</td>
+</tr>
+<tr>
+<td>附录 66 点加速度表</td>
+<td>附录</td>
+<td>把 Figure 17 的曲线离散成可查数据——曲线给结论、表格给证据</td>
+<td>数据表</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心图复现：Figure 19（理论 vs 仿真速度对照）</strong>——它是"双轨互验"方法论的落点。绘制决策：<strong>散点 + y=x 对角线</strong>（点落在对角线上=两轨一致，偏离方向一眼可读）+ <strong>自算统计量写进图注与图题</strong>（而不是只抄论文的数）。</p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+
+# ── 数据：论文附录&quot;理论值/仿真值&quot;十点对照表 ──
+v_calc = np.array([4.486, 24.31, 19.874, 20.28, 20.16, 20.04, 15.32, 15.32, 15.32, 10.37])
+v_sim  = np.array([6.26,  22.11, 18.22,  19.83, 19.27, 19.06, 14.36, 14.02, 12.63,  9.86])
+idx = np.arange(1, 11)
+
+err = np.abs(v_calc - v_sim)                       # 逐点绝对误差
+mean_err = err.mean()                              # 自算：1.34 m/s（论文称 2.1 ⚠）
+ss_res = ((v_calc - v_sim)**2).sum()
+ss_tot = ((v_calc - v_calc.mean())**2).sum()
+r2 = 1 - ss_res/ss_tot                             # 自算：R²≈92.4%（论文称 94.26% ⚠）
+
+fig, ax = plt.subplots(figsize=(6, 6))
+ax.plot([0, 26], [0, 26], 'k--', lw=1, label='y = x (perfect agreement)')
+ax.scatter(v_calc, v_sim, c=idx, cmap='viridis', s=90, zorder=3)
+for x, y, i in zip(v_calc, v_sim, idx):
+    ax.annotate(f'$v_{{{i}}}$', (x, y), textcoords='offset points', xytext=(8, -3))
+lo, hi = 0, 26
+ax.plot([lo, hi], [lo*0.9, hi*0.9], ':', color='gray', label='±10% band')
+ax.plot([lo, hi], [lo*1.1, hi*1.1], ':', color='gray')
+ax.set(xlabel='theory v (m/s, kinetic-energy chain)', ylabel='simulation v (m/s, NoLimits 2)',
+       xlim=(0, 26), ylim=(0, 26), aspect='equal',
+       title=f'Theory vs simulation at 10 landmarks: mean |err| = {mean_err:.2f} m/s,\n'
+             f'R² = {r2:.1%} — theory sits systematically high (drag-free arcs)')
+ax.legend(loc='lower right'); ax.grid(alpha=0.3); plt.tight_layout(); plt.show()
+</code></pre>
+<p><strong>独立复现结果</strong>：十个点全部落在对角线附近且<strong>系统性偏上方</strong>（理论 &gt; 仿真，平均 +1.9 m/s）——方向与假设④（小弧免阻）的预期一致；最大偏差在 v₉（15.32 vs 12.63，+2.69 m/s，正是被免阻的螺旋段）。自算统计量：平均绝对误差 <strong>1.34 m/s</strong>（论文 2.1 ⚠）、R² ≈ <strong>92.4%</strong>（论文 94.26% ⚠）——量级与结论（模型工程可行）成立，但引用具体数字时建议用自算值并注明口径。另核一例能量账：v₁=4.486 → v₂=24.31 的首俯冲，按 30 m 落差扣滚阻 K=0.05 与风阻 ½ρA_DC_D v̄² 自算得 v₂ ≈ 24.0–24.3 m/s ✓ 闭合；但 v₁=4.486 与"30°/3 m 圆弧"的几何不闭合 ⚠（见导读 1.7）。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<h3 id="31-动能定理框架式-1">3.1 动能定理框架（式 1）</h3>
+<p>$$W_{\text{gravity}}-W_{\text{resistance}}=\tfrac12 mv_t^2-\tfrac12 mv_o^2$$</p>
+<ul>
+<li><strong>怎么想到</strong>：无驱动轨道只有一个标量守恒量（能量），而题目只需要特征点速度（不需要 v(t) 全程剖面）——<strong>问题决定工具</strong>：要速度不要时间 ⇒ 用能量不用牛顿。这是与 190 队（要画 G(t) 曲线 ⇒ 必须 ODE）路线分岔的根因。</li>
+<li><strong>完整推导</strong>：牛顿第二定律沿路径点乘位移：m(v⃗·dv⃗/dt) = F⃗·v⃗ ⇒ m v dv/ds = F_t ⇒ ∫F_t ds = ½m(v_t²−v_o²)。左端分重力（保守，= mgΔh）与阻力（耗散，取负）即得式 (1)。</li>
+<li><strong>适用边界</strong>：只给出段端速度，段内剖面未知（这正是式 3 补洞的地方）；对有约束力（法向）自动消去——法向力不做功，这正是能量法比牛顿法省事的原因。</li>
+</ul>
+<h3 id="32-风阻与平均速度封闭式-23">3.2 风阻与平均速度封闭（式 2–3）</h3>
+<p>$$F_w=\tfrac12\rho A_D C_D\bar v_j^2,\qquad \bar v_j=\frac{v_i+v_{i+1}}{2}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：风阻功 ∫½ρA_DC_D v² ds 里 v(s) 未知——最简单的封闭假设是段内速度线性变化，则 v̄ = 端点算术平均，而 ∫v²ds ≈ v̄²·s（略去方差项，误差 O((Δv/v̄)²)）。</li>
+<li><strong>数值感</strong>：v̄=14.4 m/s 时 F_w = 0.5×1.3×1.5×0.3×207 = 60.6 N，滚阻 f = Kmg = 0.05×2200×9.8 = 1078 N——<strong>滚阻是风阻的 ~18 倍</strong>，所以假设④只免小弧没问题，但全程绝不能免滚阻。</li>
+<li><strong>适用边界</strong>：速度剧变段（首俯冲 v 从 4.5 到 24.3）算术平均会系统性低估 ∫v²ds（凸函数），这正是理论速度偏高的原因之一；§5 已自我点名。</li>
+</ul>
+<h3 id="33-滚动摩擦式-46">3.3 滚动摩擦（式 4–6）</h3>
+<p>$$f=KN,\qquad F_{\text{resistance}}=F_w+f,\qquad W_{\text{resistance}}=\int F_w\,ds+\int f\,ds$$</p>
+<ul>
+<li><strong>怎么想到</strong>：滚动摩擦工程上用 f = KN（K 为滚动摩擦系数，N 为法向压力）——注意 <strong>N 在圆弧上是变量</strong>（N = mgcosθ ± mv²/R，同 190 队式 23），但假设③把它单值化（取最大力矩），∫f ds ≈ Kmgs。这是<strong>保守方向的简化</strong>（多扣能量），误差偏向安全侧——简化可以，方向要偏得聪明。</li>
+<li><strong>适用边界</strong>：K=0.05 对钢轮钢轨偏大一个量级（真实 ~0.002），属于刻意保守；好处是阻力功不会被低估。</li>
+</ul>
+<h3 id="34-段-1山顶圆弧式-8">3.4 段 1：山顶圆弧（式 8）</h3>
+<p>$$mg\,r_1(\cos\alpha-\cos\theta)-\int(F_w+f)\cos\theta\,r_1 d\theta=\tfrac12 mv_1^2$$</p>
+<ul>
+<li><strong>怎么想到</strong>：圆弧段的势能变化直接用极角表达：dh = r₁cosθ·dθ（θ 从初始角 α=6° 扫到 30°），重力功、阻力功都写成对 θ 的积分——<strong>圆弧段的能量账以圆心角为积分变量</strong>，与 190 队以 θ 为状态变量的 ODE 同构，但这里只积分一次（标量）。</li>
+<li><strong>复算与 ⚠</strong>：θ 从 6° 到 30°，Δh = r₁(cos6°−cos30°) = 3×(0.9945−0.866) = 0.386 m，扣损后 v₁ ≈ 2.4 m/s——<strong>与论文 4.486 不闭合</strong>（差近一倍，需 ~1.1 m 落差）。式子的结构正确，数值疑来自未写明的几何（也许弧从水平转入 60°+）。引用该链时以 v₂ 以后为准。</li>
+</ul>
+<h3 id="35-段-5大半圆回转的风阻积分式-12">3.5 段 5：大半圆回转的风阻积分（式 12）</h3>
+<ul>
+<li><strong>怎么想到</strong>：r₄=50 m 的半圆弧长 πr₄ ≈ 157 m 是全程最长段，风阻功不能再当常数——论文把 v 沿弧的变化写成位置函数 v = √(v₅²+2×0.04×(35−x))（0.04 为折合重力坡度因子，提取乱码，结构为"能量随 x 线性变化"）再对弧长积分 W = ∫½ρA_DC_D v²(x)ds。<strong>长段必须让阻力跟着速度走</strong>，这是全文最细的一个积分。</li>
+<li><strong>数值感</strong>：v≈20 m/s 时 F_w ≈ 117 N，157 m 弧上做功 ~18 kJ ≈ 折合速度损失 √(2×18000/2200×...)——每段速度从 v₅=20.16 缓降到 v₆=20.04，量级自洽 ✓。</li>
+</ul>
+<h3 id="36-段-7clothoid-回旋线环式-14">3.6 段 7：clothoid 回旋线环（式 14）</h3>
+<p>$$v_8=v_7$$</p>
+<ul>
+<li><strong>怎么想到</strong>：回旋线（clothoid）的曲率 κ 与弧长 s 成正比（κ = s/A²，A 为回旋线参数）。用作过山车竖直环时：<strong>环底（速度最大处）半径最大、环顶（速度最小处）半径最小</strong>，于是向心加速度 a = v²/r 沿环近似恒定——正圆环的致命伤（环底 v 大 r 同大 → a 还好；但以恒定速度进入时环顶 v 小 r 小，设计不当要么环顶过载要么掉速）被根治。</li>
+<li><strong>为什么式子只有一行</strong>：该段近似无阻力、进出口同高（环的进出口在同一高度），能量账为零 ⇒ v₈=v₇。<strong>一行式子背后是几何选型的全部功劳</strong>——clothoid 的价值不在方程复杂，而在让这行式子成立的同时过载被压平。这也是为什么 Figure 14 值得单独一张图。</li>
+<li><strong>适用边界</strong>：忽略环内高度起伏的能量交换（进出口同高的标准环成立）；真实 clothoid 环的参数（A、环高 20 m）论文由 NoLimits 2 内置生成。</li>
+</ul>
+<h3 id="37-段-8螺旋段参数化式-15">3.7 段 8：螺旋段参数化（式 15）</h3>
+<p>$$x=a\cos\theta,\quad y=a\sin\theta,\quad z=b\theta$$</p>
+<ul>
+<li><strong>怎么想到</strong>：corkscrew（螺旋翻滚）就是圆柱螺旋线的标准参数化——半径 a、螺距比 b（每转一圈升/降 2πb）。给出参数化即"accurately describe the motion trajectory in three dimensions"（题目第 3 问）的最小实现：<strong>三维轨迹 = 参数方程 + 分段拼接</strong>。与 190 队"ρ/√(ρ²+k²) 折算坡度"是把同一段轨道塞进能量/力两种框架的两种写法，可对照体会。</li>
+</ul>
+<h3 id="38-段-9末段与刹车式-16">3.8 段 9：末段与刹车（式 16）</h3>
+<p>$$W_9=\Big(\pi\frac{r_5}{2}+l_2\Big)\Big(\tfrac12\rho A_DC_D\bar v^2+Kmg\Big),\qquad 0-W_9=\tfrac12 m v_{10}^2-\tfrac12 m v_7^2$$</p>
+<ul>
+<li><strong>怎么想到</strong>：末段 r₅=30 m 回弯 + 30 m 直段刹车，末速取 0（回站停稳），全部动能被阻力+制动耗尽——能量账写成"末动能为零"的终值条件，闭合整条链。</li>
+<li><strong>数值感</strong>：v₉=15.32 → v₁₀=10.37，末段折合损耗 ½(v₉²−v₁₀²) ≈ 61 J/kg，靠 (π·30/2+30)≈77 m 的弧长消化，需要平均制动力 ~0.8 N/kg——量级合理（磁涡流刹车正处此区间）。</li>
+</ul>
+<h3 id="39-安全判据31无编号">3.9 安全判据（§3.1，无编号）</h3>
+<p>$$\text{竖直：}4\sim5g\ \text{且持续}\le0.1\,\text{s}；\qquad \text{横向：}\le3g$$</p>
+<ul>
+<li><strong>怎么想到</strong>：来自游乐设施 G 加速度判据文献 [5] 与 EN13814 标准（附录引用）——<strong>幅值×时长双门限</strong>，与 190 队引 NASA 数据同源但阈值口径不同（4~5g/0.1s vs 4.8g/2.5s）：前者是游乐设施行业标准（短促高峰容忍），后者是航天医学口径。两篇对照可知：<strong>判据的出处决定口径，引用时必须报文献</strong>，不能混用。</li>
+<li><strong>适用边界</strong>：0.1 s 的时长门限意味着 4.1 g @ 0.01 s 是十倍余量通过——本设计的竖直加速度峰值安全裕度极大，真正的约束在设计层（clothoid 选型让峰值本来就不高）。</li>
+</ul>
+<hr>
+<h2 id="4-建模决策链">4. 建模决策链</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主方程</td>
+<td>动能定理（标量代数递推）</td>
+<td>牛顿 ODE + 数值积分</td>
+<td>题目只要特征点速度与总时长，不要 v(t) 剖面——问题决定工具</td>
+</tr>
+<tr>
+<td>时间信息</td>
+<td>仿真器补（NoLimits 2）</td>
+<td>解析积分 t=∫ds/v</td>
+<td>分段可解析但风阻下无闭式；专用仿真器顺带产出加速度曲线</td>
+</tr>
+<tr>
+<td>验证方式</td>
+<td>理论-仿真双轨对照（10 点）</td>
+<td>只交一条轨道</td>
+<td>两条独立来源吻合是最强自洽证据；误差量化（误差+拟合度）</td>
+</tr>
+<tr>
+<td>竖直环形状</td>
+<td>clothoid 回旋线</td>
+<td>正圆环</td>
+<td>曲率随弧长线性 → v²/r 沿环近似恒定，压平峰值过载（真实工程标准做法）</td>
+</tr>
+<tr>
+<td>回转半径</td>
+<td>r₄=50 m 大半圆</td>
+<td>小半径急转</td>
+<td>a = v²/r：20 m/s 下要压横向 g 值只有加大 R</td>
+</tr>
+<tr>
+<td>坡底过渡</td>
+<td>30°/3 m 圆弧</td>
+<td>折线直连</td>
+<td>避免曲率突变的冲击加速度（190 队"no sharp turns"同款理由）</td>
+</tr>
+<tr>
+<td>滚阻处理</td>
+<td>f=KN 取最大力矩（保守）</td>
+<td>载荷变化精细模型</td>
+<td>简化偏向安全侧；K=0.05 偏大一个量级（刻意保守）</td>
+</tr>
+<tr>
+<td>小弧段</td>
+<td>免阻（假设④）</td>
+<td>全段计阻</td>
+<td>让递推可闭式；代价 v₇=v₈=v₉ 平顶与理论系统性偏高（已被仿真对照暴露）</td>
+</tr>
+<tr>
+<td>段平均速度</td>
+<td>算术平均 (vᵢ+vᵢ₊₁)/2</td>
+<td>段内积分平均</td>
+<td>封闭 ∫v²ds；误差 O((Δv/v̄)²)，§5 自我点名</td>
+</tr>
+<tr>
+<td>判据口径</td>
+<td>4~5g/0.1s + 横向 3g（EN13814/行业文献）</td>
+<td>NASA 航天口径</td>
+<td>游乐设施题用行业标准更贴切（对照 190 队用 NASA——两篇都自洽）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总规律</strong>：这张表几乎所有行都指向同一个词——<strong>可行性与验证</strong>：每处简化（保守滚阻、免阻小弧、算术平均）都牺牲一点精度换取手算闭环，然后<strong>用仿真器把牺牲掉的精度买回来</strong>（对照表暴露的系统性偏高正是这些近似的签名）。"手算保透明、仿真保精度、对照保可信"是这套方法论的三位一体。</p>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板（理论-仿真双轨型论文）</strong>：</p>
+<pre><code>Abstract        按题目分任务，每任务一句方法+一句硬数字（幅值×时长成对）
+1 Analysis      机制分析（刺激=过载，伤害=过载）→ 唯一调控对象=加速度区间
+2 Model         2.1 假设（每条注明省掉什么） 2.2 参数双表（已知/未知分开）
+                2.3 先建&quot;看得见&quot;的轨道（五向视图） 2.4 框架式(1)-(7) + 分段式(8)-(16)
+3 Results       判据判定（max/duration/其余上界三连报）→ 特征点表 → 总账表 → 轨迹分步描述
+4 Verification  仿真重建 → 逐点对照图 → 误差+拟合度量化
+5-7             改进（核心近似自我点名第一条）→ 优劣 → 结论
+Appendix       对照数据表 + 66点加速度表 + 引用标准全文出处
+</code></pre>
+<p><strong>句式库（原文摘录，括号内为使用场景）</strong>：
+- "Normal adults can withstand 4~5g vertical acceleration with a duration of no more than 0.1s."（判据句：幅值+时长成对）
+- "Through the calculation of the theoretical model, we modify the design scheme, so as to obtain final design scheme."（理论→设计反馈环的宣告）
+- "These velocities correspond well with results of simulation."（双轨一致的一句声明，正文随后给数字）
+- "The calculated average error is 2.1m/s, and the fitting degree ... is as high as 94.26%."（验证节报告统计量——口径要写清，见 ⚠）
+- "The average velocity in this paper is approximated as the arithmetic mean. However, ... so we'll use other ways to calculate the average velocity."（改进节自我点名核心近似）
+- "In some sections of its track, the situations are simplified so greatly, that the results could have relatively much deviation from reality."（劣势节诚实承认）</p>
+<p><strong>图表配方</strong>：双轨验证型 → "对照散点 + y=x 对角线 + ±10% 带，统计量写进图题"；轨道设计型 → "五向视图（正交完备投影）+ 每段一图对一式 + 关键选型（clothoid）单独配图"；结果收口 → "特征点速度表 + 时长/长度总账表 + 分步文字轨迹（题目第 3 问的最小完备答案）"。</p>
+<hr>
+<p><em>精读完这篇后，建议对照 <code>05_论文赏析/2019/2019-GM-B-389.md</code>（宏观赏析）与 <code>07_题目解读/2019_题B_过山车设计.md</code>（题目全解）形成三位一体。同题对照：精读 12（队伍 190）——把两篇的判据口径（NASA vs EN13814）、求解工具（ODE 数值 vs 能量递推）、验证方式（自查能量账 vs 独立仿真器）逐项列表比较，是 2019 题B 最有效的读法。下一篇精读 14：2020 题A 离子推进去土星（队伍 340）。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-1-problem-analysis第-34-页">1.2 §1 Problem Analysis（第 3–4 页）</a></li><li class="l3"><a href="#13-21-五条假设第-56-页">1.3 §2.1 五条假设（第 5–6 页）</a></li><li class="l3"><a href="#14-22-参数双表第-68-页">1.4 §2.2 参数双表（第 6–8 页）</a></li><li class="l3"><a href="#15-23-nolimits-2-建模先建看得见的轨道第-810-页">1.5 §2.3 NoLimits 2 建模：先建"看得见"的轨道（第 8–10 页）</a></li><li class="l3"><a href="#16-24-动能定理框架式-17第-1112-页">1.6 §2.4 动能定理框架（式 1–7）（第 11–12 页）</a></li><li class="l3"><a href="#17-24-九段递推式-816第-1217-页">1.7 §2.4 九段递推（式 8–16）（第 12–17 页）</a></li><li class="l3"><a href="#18-3-results第-1722-页">1.8 §3 Results（第 17–22 页）</a></li><li class="l3"><a href="#19-4-model-verification第-2123-页">1.9 §4 Model Verification（第 21–23 页）</a></li><li class="l3"><a href="#110-57-改进评价结论第-2324-页">1.10 §5–7 改进、评价、结论（第 23–24 页）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-动能定理框架式-1">3.1 动能定理框架（式 1）</a></li><li class="l3"><a href="#32-风阻与平均速度封闭式-23">3.2 风阻与平均速度封闭（式 2–3）</a></li><li class="l3"><a href="#33-滚动摩擦式-46">3.3 滚动摩擦（式 4–6）</a></li><li class="l3"><a href="#34-段-1山顶圆弧式-8">3.4 段 1：山顶圆弧（式 8）</a></li><li class="l3"><a href="#35-段-5大半圆回转的风阻积分式-12">3.5 段 5：大半圆回转的风阻积分（式 12）</a></li><li class="l3"><a href="#36-段-7clothoid-回旋线环式-14">3.6 段 7：clothoid 回旋线环（式 14）</a></li><li class="l3"><a href="#37-段-8螺旋段参数化式-15">3.7 段 8：螺旋段参数化（式 15）</a></li><li class="l3"><a href="#38-段-9末段与刹车式-16">3.8 段 9：末段与刹车（式 16）</a></li><li class="l3"><a href="#39-安全判据31无编号">3.9 安全判据（§3.1，无编号）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

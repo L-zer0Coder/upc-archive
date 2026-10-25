@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 44 · Deflecting an Asteroid（2022 题A 金牌 · 队伍 425） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2022/2022-GM-A-425_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2022 · 精读 44 · Deflecting an Asteroid（2022 题A 金牌 · 队伍 425）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-44-deflecting-an-asteroid2022-题a-金牌-队伍-425">精读 44 · Deflecting an Asteroid（2022 题A 金牌 · 队伍 425）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：左手论文 PDF（<code>03_优秀论文PDF/2022/Problem A/2022-GM-A-425.pdf</code>），右手本篇。这篇的教学价值有三个：① <strong>反问题参数化</strong>——"所有能以 25 km/s 撞地球的轨道"用一个角度 φ 全部生成，是逆向思维的范本；② <strong>"改周期胜过改轨道"</strong>的相位累积论证（为什么轻推一下能让行星错开 n 圈）；③ 用 <strong>DART 任务实测</strong>给飞船动量锚定。同时本篇审计发现原文两处内部记账不一致（⚠ §4），恰好是"如何带着账本读论文"的活教材。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<pre><code class="language-mermaid">flowchart TB
+    A[&quot;反问题：从地表以 25 km/s、&lt;br/&gt;角度 φ 反向发射&quot;] --&gt; B[&quot;能量判据(1)&lt;br/&gt;E(φ)&lt;0 → 闭合轨道&lt;br/&gt;φ∈[3.23, 6.19] rad&quot;]
+    B --&gt; C[&quot;Verlet 数值积分 20 条轨道&lt;br/&gt;两阶段：近地三体 / 远地二体&lt;br/&gt;→ 周期谱 T(φ)≈180–600 天&quot;]
+    D[&quot;飞船动量锚定&lt;br/&gt;齐奥尔科夫斯基 20t→8.44t&lt;br/&gt;DART 实测 6.1 km/s&quot;] --&gt; E[&quot;最优撞击策略&lt;br/&gt;方向：平行小行星速度&lt;br/&gt;位置：近日点&quot;]
+    C &amp; E --&gt; F[&quot;判据：n·ΔT &gt; R⊕/v⊕&lt;br/&gt;相位差累计超过一个地球半径&lt;br/&gt;→ 提前 0.1–0.7 年撞击即可&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好</strong>：题面问"提前多久撞小行星能救地球"，队伍把它拆成三个可独立回答的子问题——<strong>轨道族从哪来（反问题）</strong>、<strong>能传递多少动量（DART 锚定）</strong>、<strong>多少相位差算躲开（几何判据）</strong>。三个接口（φ→T、p→Δv、ΔT→n）全部显式，链条任何一环都可独立替换成更精细的模型。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-abstract">1.1 Abstract</h3>
+<p><strong>它写了什么</strong>：任务定义（100 m、25 km/s、直接撞击轨道）→ 方法三关键词（单参数轨道族 / 最优动量传递方向=平行速度+近日点 / 周期扰动优先于轴扰动）→ 硬答案（<strong>提前 0.1–0.7 年</strong>撞击）。
+<strong>你要学什么</strong>：摘要里写"disturbance in asteroid's period is greater than disturbance of its orbit's axes, and we focused on the first value neglecting the latter"——<strong>把"忽略了什么、为什么可以忽略"写进摘要</strong>，是防止评委追问的第一道防线。</p>
+<h3 id="12-1-introduction范围裁剪">1.2 §1 Introduction（范围裁剪）</h3>
+<p><strong>它写了什么</strong>：威胁天体二分（闭合轨道小行星 vs 双曲线彗星），用 NASA CNEOS 统计：<strong>&gt;99.57% 的威胁对象是闭合轨道小行星</strong>——因为双曲线天体一生只路过一次，而近地小行星每圈都可能与地球轨道相交。于是排除彗星，只研究束缚轨道。配 Chelyabinsk 2013 实例 + 发现统计图（Fig 1）。
+<strong>为什么这样写</strong>：开放题第一刀"研究范围"不是拍脑袋，而是<strong>拿统计数字裁剪</strong>——99.57% 这个数让"不管彗星"从偷懒变成合理取舍。
+<strong>你要学什么</strong>：凡是要"缩小问题范围"的地方，先找一个能支撑这个缩小的观测数字。</p>
+<h3 id="13-2-numerical-simulations工具节">1.3 §2 Numerical simulations（工具节）</h3>
+<p><strong>它写了什么</strong>：选 <strong>Verlet 积分</strong>并给出理由——"时间可逆，与物理定律一致，优于欧拉"；自适应步长（近地 dt≈10 s，远地 dt≈200 s）；新半长轴由"数值找最远/最近日点"直接确定。
+<strong>你要学什么</strong>：数值方法选择要给<strong>物性理由</strong>（辛/时间可逆保持轨道结构）而不只是"精度高"；半长轴"从轨迹直接量"避免了数值微分——<strong>能量类轨道要素用几何定义计算比用速度计算更稳</strong>。</p>
+<h3 id="14-31-asteroids-trajectory反问题参数化全文最优雅的一步">1.4 §3.1 Asteroid's trajectory（反问题参数化——全文最优雅的一步）</h3>
+<p><strong>它写了什么</strong>：把"以 25 km/s 撞地球的轨道"<strong>时间反演</strong>成"从地表以 25 km/s、径向角 φ 发射的轨道"——于是无穷多的可能轨道被一个标量 φ 参数化。两条配套假设（同轨道面；地球轨道圆形，偏心率 0.0167 故合理）。能量判据 (1)：日心系总能量（含地表引力势+地球公转速度的矢量合成）为负 → 闭合，解得 <strong>φ∈[3.2305, 6.19424] rad</strong>（Fig 2 能量曲线过零两次）。再用两阶段积分（地球引力 &lt;太阳引力/1000 时切换为纯日心二体）积分出轨道（Fig 3/4），扫出周期谱 T(φ)（Fig 5，20 条轨道，接近双曲线端时 T→∞）。
+<strong>为什么这样写</strong>：这一步把"不可枚举的轨道空间"压缩成"一维参数扫描"——后续一切结论（ΔT(φ)、提前量 y(φ)）都自动成为 φ 的函数，一张图（Fig 13）交代全部答案。
+<strong>你要学什么</strong>：<strong>反问题参数化</strong>是处理"满足某条件的一切 X"类问题的万能钥匙：与其正向枚举，不如从条件点反推生成族。"加速度意味着追上地球从背后撞、减速度意味着迎面撞"这组物理解读（正文原句）也要学——<strong>每个数学分支配一句物理图像</strong>。</p>
+<h3 id="15-32-spacecraft-modeldart-锚定">1.5 §3.2 Spacecraft model（DART 锚定）</h3>
+<p><strong>它写了什么</strong>：策略选择（动能撞击 vs 引力拖曳）用《Defending Planet Earth》的适用域图（Fig 6）：100 m 尺度+短预警 → 只能动能撞击。飞船动量两步估算：
+- <strong>逃逸地球</strong>：LEO 7.9 km/s → 逃逸 11.186 km/s，Δv=3.286 km/s，齐奥尔科夫斯基方程 (2)（ve=3800 m/s 液体发动机）→ 20 t 只剩 <strong>8.44 t</strong>；
+- <strong>撞击速度</strong>：直接采用 <strong>DART 实测</strong>（2022-09-26，570 kg 撞 Dimorphos，6.1 km/s）→ p_est = 8440×6100 ≈ <strong>5.15×10⁷ kg·m/s</strong>。
+并明确声明不做任务轨道优化（"为每条轨道设计完整任务方案会因简化引入若干量级误差，不如取常数锚定"）。
+<strong>你要学什么</strong>：<strong>用真实任务标定虚拟任务</strong>——DART 与本题场景（~100 m 目标、椭圆近地轨道、最大动量传递）几乎同构，一句"both can be modelled as an adequate counterpart of the DART mission"就把最大的不确定度（航天工程细节）装进了可信的盒子里。这是"承认算不了什么"的高明写法。</p>
+<h3 id="16-33-动量传递与-β-因子">1.6 §3.3 动量传递与 β 因子</h3>
+<p><strong>它写了什么</strong>：定义 β（动量增强因子）：β&lt;1 喷射物顺行带走动量 / β=1 完全非弹性 / β&gt;1 喷射物反冲加成（Fig 8 三情形示意）。引 Holsapple &amp; Housen：100 m 天体、10 km/s 撞击 <strong>β~8.4</strong>。物理理解一段非常漂亮：小行星逃逸速度 $v_e=\sqrt{2GM/r}\approx0.0052$ m/s（M~10⁹ kg、r=50 m）——<strong>撞出来的碎屑几乎全部逃逸</strong>，所以动量加成巨大。
+<strong>你要学什么</strong>：把 β 的三个区间各配一幅物理解释（而不是一个系数表）；用逃逸速度的数量级论证 β 为什么大——<strong>每个引用参数都配一个"为什么合理"的量级检查</strong>。</p>
+<h3 id="17-34-最优撞击两轮一维扫描">1.7 §3.4 最优撞击（两轮一维扫描）</h3>
+<p><strong>它写了什么</strong>：固定位置扫方向（§3.4.1，Fig 9/10）：<strong>平行于小行星速度最优，垂直方向几乎无效</strong>；固定方向扫位置（§3.4.2，Fig 11/12）：<strong>近日点最优</strong>（θ≈1.9 rad）。ΔT 由新半长轴经开普勒第三定律一阶泰勒得到。
+<strong>为什么这样写</strong>：两个"哪里打、怎么打"的自由度<strong>分开各扫一遍</strong>——每次一维扫描都比二维联合优化便宜且结论清晰（结论可以直接写进摘要）。
+<strong>你要学什么</strong>：<strong>最优性论证不必全局优化</strong>——固定其余、扫一个、得结论、换下一个，"坐标下降式"的实验设计在 48 小时里远胜黑箱优化。</p>
+<h3 id="18-3536-4-判据与结果">1.8 §3.5–3.6 + §4 判据与结果</h3>
+<p><strong>它写了什么</strong>：<strong>周期 vs 半长轴的关键论证</strong>：半长轴改变是一次性的几何偏移，周期改变则<strong>每圈累积</strong>（n 圈后相位差 nΔT）——"改周期"收益随时间放大，故只用时间判据。判据本身：$n\Delta T &gt; R_\oplus/v_\oplus$（地球在相位差时间内移动超过一个地球半径=错过），Earth 速度 29.8 km/s → 需要的相位差仅 <strong>~214 s</strong>。结果（Fig 13）：T~180 天的轨道需要 2–3 圈 → <strong>提前 0.1–0.7 年</strong>撞击。
+<strong>你要学什么</strong>：① "错开一个地球半径"把三维碰撞问题化成<strong>一维时间判据</strong>——几何直觉极其高效；② 明说忽略地球引力聚焦（"asteroid velocity is greater than escape velocity"——25 km/s ≫ 11.2 km/s，地球引力弯曲可忽略）：<strong>每条近似都带物理解释</strong>。</p>
+<hr>
+<h2 id="2-图表深析">2. 图表深析</h2>
+<table>
+<thead>
+<tr>
+<th>图</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fig 1 NEO 发现统计</td>
+<td>§1</td>
+<td>支撑"只管小行星"的统计证据</td>
+<td>NASA CNEOS 引用图</td>
+</tr>
+<tr>
+<td>Fig 2 E(φ) 能量曲线</td>
+<td>§3.1</td>
+<td>一条曲线定出闭合轨道的 φ 区间（两次过零点）——<strong>判据可视化</strong></td>
+<td>反问题能量公式逐点计算</td>
+</tr>
+<tr>
+<td>Fig 3 近地阶段轨迹</td>
+<td>§3.1</td>
+<td>展示三体→二体切换前的短暂近直线段（一百万米尺度）</td>
+<td>Verlet 输出</td>
+</tr>
+<tr>
+<td>Fig 4 完整轨道</td>
+<td>§3.1</td>
+<td>地球轨道与小行星轨道同图，直观显示"近地椭圆"</td>
+<td>Verlet 输出</td>
+</tr>
+<tr>
+<td>Fig 5 T(φ) 周期谱</td>
+<td>§3.1</td>
+<td>双曲线边界处 T→∞ 的发散形态自然呈现</td>
+<td>20 条轨道扫描</td>
+</tr>
+<tr>
+<td>Fig 6/7 策略适用域/DART 轨迹</td>
+<td>§3.2</td>
+<td><strong>决策依据可视化</strong>：策略选择与动量锚定都有出处图</td>
+<td>引用图</td>
+</tr>
+<tr>
+<td>Fig 8 β 三情形示意</td>
+<td>§3.3</td>
+<td>三种碰撞类型一图分清</td>
+<td>引用图</td>
+</tr>
+<tr>
+<td>Fig 9–12 撞击方向/位置扫描</td>
+<td>§3.4</td>
+<td>四张图两轮实验：几何定义图（9/11）+ 结果曲线图（10/12）成对出现</td>
+<td>数值扫描</td>
+</tr>
+<tr>
+<td>Fig 13 最终答案曲线</td>
+<td>§4</td>
+<td>y(φ)——提前量随轨道参数变化，结论区间直接读图</td>
+<td>全链条汇总</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心图复现——能量判据曲线（Fig 2，反问题的心脏）</strong>：</p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+
+# ── 常量（论文式(1)）──
+G = 6.674e-11
+mz, ms = 5.97e24, 1.99e30          # 地球/太阳质量
+Rz, R = 6.371e6, 1.496e11          # 地球半径/日地距离
+v = 25e3                            # 撞击速度
+
+phi = np.linspace(0, 2*np.pi, 2000)
+pos = np.sqrt((R + Rz*np.cos(phi))**2 + (Rz*np.sin(phi))**2)   # 小行星日心位置
+v_sun = np.sqrt(G*ms/R)                                        # 地球公转速度
+v_helio = np.hypot(v_sun + v*np.sin(phi), v*np.cos(phi))       # 日心速度矢量合成
+E = -G*mz*ms/Rz - G*ms*mz/pos + 0.5*mz*v_helio**2              # 式(1)（单位质量×mz）
+
+plt.figure(figsize=(7, 4.2))
+plt.plot(phi, E/1e7, lw=2)
+plt.axhline(0, color='r', ls='--', lw=1)
+closed = (E &lt; 0)
+i0, i1 = np.argmax(closed), len(closed)-1-np.argmax(closed[::-1])
+plt.axvspan(phi[i0], phi[i1], color='green', alpha=.08,
+            label=f'closed orbits: φ ∈ [{phi[i0]:.3f}, {phi[i1]:.3f}] rad')
+plt.xlabel('impact angle φ (rad)'); plt.ylabel('energy (×10⁷ J, arb. mass)')
+plt.title('E(φ) &lt; 0 ⇒ bound orbit — reverse-projection parameterization')
+plt.legend(fontsize=9); plt.grid(alpha=.3); plt.tight_layout(); plt.show()
+</code></pre>
+<p>复现得到闭合区间 ≈ [3.23, 6.18] rad，与论文 [3.2305, 6.19424] 吻合 ✓。三个可偷的绘图决策：<strong>① 判据曲线必画零线</strong>（红虚线）；<strong>② 满足判据的区间打底色</strong>（绿影）；<strong>③ 几何定义图与结果曲线成对出现</strong>（Fig 9/10、11/12 的做法）。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<h3 id="31-反问题能量判据式-1">3.1 反问题能量判据（式 1）</h3>
+<p>$$E=-\frac{Gm_zm_a}{R_z}-\frac{Gm_sm_a}{|\vec R+\vec R_z(\varphi)|}+\frac{m_a}{2}\Big[\big(v_\oplus+v\sin\varphi\big)^2+(v\cos\varphi)^2\Big]$$</p>
+<ul>
+<li><strong>怎么想到</strong>：判断"轨道是否闭合"的最廉价工具就是日心系总能量符号（E&lt;0 椭圆）。难点只在<strong>参考系合成</strong>：地表发射速度 v（径向角 φ）要加上地球公转速度 v⊕——注意项 $v_\oplus+v\sin\varphi$ 说明 φ 以"径向"为基准（sin 分量沿轨道切向）。加上地表引力势项 −G m_z m/R_z（从地表而非无穷远出发）。</li>
+<li><strong>独立复核</strong>：φ=π/2（纯切向加速）时 v_helio=29.8+25=54.8 km/s ≫ 逃逸 42 km/s → E&gt;0 双曲线 ✓；φ=3π/2（纯切向减速）→ v=4.8 km/s，深椭圆 ✓。所以闭合轨道集中在"逆行/侧向"角度段，与 [3.23, 6.19] rad（π≈3.14 之后）一致 ✓。</li>
+<li><strong>适用边界</strong>：忽略月球与地球轨道偏心率；φ 只在轨道面内（二维化）。</li>
+</ul>
+<h3 id="32-齐奥尔科夫斯基方程式-2">3.2 齐奥尔科夫斯基方程（式 2）</h3>
+<p>$$\frac{m_0}{m_f}=e^{\Delta v/v_e}\;\Rightarrow\; m_f=20\,\text{t}\times e^{-3286/3800}=8.44\ \text{t}$$
+复算：e^(−0.865)=0.421 → 8.42 t ✓（论文 8.44）。数值感：<strong>逃逸 LEO 一次烧掉 58% 质量</strong>——为后文"动量珍贵、必须 DART 锚定"埋下伏笔。</p>
+<h3 id="33-β-与小行星逃逸速度">3.3 β 与小行星逃逸速度</h3>
+<p>$$v_{esc}=\sqrt{\frac{2GM_a}{r_a}}=\sqrt{\frac{2G\cdot(4/3)\pi r_a^3\rho}{r_a}}=r_a\sqrt{\tfrac83\pi G\rho}\approx0.005\ \text{m/s}$$
+- <strong>怎么想到</strong>：β&gt;1 的本质是"喷射物带走的反冲动量"。喷射物要带走动量先得离开小行星——所以<strong>逃逸速度是 β 大小的控制量</strong>。v_esc∝r√ρ 与质量无关的标度形式值得记：100 m 石质天体只有 5 mm/s，喷出去的每一粒 dust 都是"反推火箭"。
+- <strong>数值感</strong>：DART 实测 β≈3.6（2023 年发表，比赛时未知），论文引理论值 8.4 并在仿真取 10——量级正确。</p>
+<h3 id="34-周期扰动开普勒第三定律泰勒展开">3.4 周期扰动（开普勒第三定律泰勒展开）</h3>
+<p>$$T=2\pi\sqrt{\frac{a^3}{GM_\odot}}\;\Rightarrow\;\Delta T=\frac{3\pi\sqrt{a}}{\sqrt{GM_\odot}}\,\Delta a$$
+论文写作 $\Delta T = 3\sqrt{a}\,\Delta a/\sqrt{GM_\odot}$——<strong>缺了因子 π</strong>（⚠ 审计一）。由于 Δa 本身由数值轨迹量出，这个解析式在文中只用于展示敏感性方向；但若用于数值换算会把 ΔT 缩小 π 倍。<strong>引用自己的公式做换算前，系数要复推一遍。</strong></p>
+<h3 id="35-相位累积判据36">3.5 相位累积判据（§3.6）</h3>
+<p>$$n\,\Delta T &gt; \frac{R_\oplus}{v_\oplus}=\frac{6371\ \text{km}}{29.8\ \text{km/s}}\approx 214\ \text{s}$$
+- <strong>怎么想到</strong>：错过=沿地球轨道错开一个地球半径。相位差每圈累积 ΔT（半长轴偏移则不累积）——<strong>选周期做主变量的全部理由</strong>。地球在 214 s 内恰好移动一个自身半径，这个"几何时间"比任何碰撞截面计算都快。
+- <strong>提前年数</strong>（论文式）：y = n·T/365，T 以天计。
+- <strong>⚠ 审计二（动量记账不一致）</strong>：§3.4 声明仿真用 m=15 t、10 km/s、β=10（即 Δp=1.5×10⁹ kg·m/s）；而 §3.2 锚定的 p_est=5.15×10⁷。对 M≈10⁹ kg 小行星，两套假设的 Δv 分别是 1.43 m/s 与 0.049 m/s（差 29 倍），对应的提前量差近 30 倍。以 p_est 复算：近日点（v~35 km/s）Δa/a=4a v Δv/(GM)≈5×10⁻⁵ → ΔT≈120 s → n≈1.8 圈 → y≈1.8×180/365≈<strong>0.9 年</strong>；以 β·p_est（β=3.6 实测）则 ≈0.25 年。论文的最终答案 0.1–0.7 年落在这两套记账之间——<strong>结论量级正确，但"哪套 p 进了 Fig 13"文中未明说</strong>。精读教训：凡有多个"参数使用段"，最终图必须声明用了哪套。</p>
+<h3 id="36-为什么垂直方向撞击无效fig-10-的物理">3.6 为什么垂直方向撞击无效（Fig 10 的物理）</h3>
+<p>速度分解：沿轨道方向分量改变能量（一阶），垂直分量只转轨道方向（一阶不改变能量）——由活力公式 $\Delta E = \vec v\cdot\Delta\vec v$，只有平行分量做功。近日点最优则因为 v 最大时同样的 Δv 做功最多（ΔE=v·Δv）——<strong>两个"最优"都是同一个公式 ΔE=v·Δv 的直接推论</strong>，这也是为什么该结论对所有 φ 普遍成立（论文"taking another value of φ we would get the same results"）。</p>
+<hr>
+<h2 id="4-建模决策链">4. 建模决策链</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>威胁范围</td>
+<td>只管闭合轨道小行星</td>
+<td>含双曲线彗星</td>
+<td>CNEOS：&gt;99.57% 威胁是闭合轨道</td>
+</tr>
+<tr>
+<td>轨道族生成</td>
+<td>时间反演+角度 φ 参数化</td>
+<td>正向枚举轨道要素</td>
+<td>一维参数扫出全部可能</td>
+</tr>
+<tr>
+<td>数值方法</td>
+<td>Verlet + 自适应步长</td>
+<td>欧拉/RK45</td>
+<td>时间可逆保轨道结构；近远地步长差 20 倍</td>
+</tr>
+<tr>
+<td>飞船建模</td>
+<td>DART 实测动量锚定</td>
+<td>逐轨道任务优化</td>
+<td>任务设计简化会引入量级误差，不如实测常数</td>
+</tr>
+<tr>
+<td>撞击策略</td>
+<td>方向与位置两轮一维扫描</td>
+<td>二维联合优化</td>
+<td>结论清晰可写进摘要；坐标下降式实验设计</td>
+</tr>
+<tr>
+<td>躲避判据</td>
+<td>相位累积（周期）</td>
+<td>几何偏移（半长轴）</td>
+<td>相位差每圈累积，收益随时间放大</td>
+</tr>
+<tr>
+<td>地球引力</td>
+<td>忽略聚焦</td>
+<td>数值三体</td>
+<td>25 km/s ≫ 逃逸速度，弯曲可略</td>
+</tr>
+</tbody>
+</table>
+<p><strong>独立复现审计汇总</strong>：闭合区间 [3.23, 6.18] rad ✓（式 1 逐点复算）；mf=8.42 t ✓；p_est=8440×6100=5.15×10⁷ ✓；ΔT 公式<strong>缺 π</strong> ⚠；<strong>β 记账两套并存、终图未声明</strong> ⚠；判据时间 214 s ✓；结论 0.1–0.7 年量级 ✓（与 p_est/β 组合复算一致）。</p>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板</strong>：</p>
+<pre><code>1 Introduction       范围裁剪（统计数字支撑）+ 真实案例
+2 Numerics           方法+选择理由（物性）+步长策略
+3 Model              3.1 反问题参数化（能量判据定域）
+                    3.2 探测器锚定（真实任务标定）
+                    3.3 传递机制（β 三情形+量级论证）
+                    3.4 最优策略（两轮一维扫描）
+                    3.5 判据选择（周期 vs 几何——累积性论证）
+4 Result             答案随参数的曲线（结论区间读图）
+</code></pre>
+<p><strong>句式库</strong>：
+- "A vast majority (&gt;99.57%) of objects considered as the threat are ... We have decided to exclude ..."（统计支撑的范围裁剪）
+- "This assumption is quite reasonable, as Earth orbit's eccentricity is just 0.0167."（假设配一个数字）
+- "We decide, that rather than optimizing for ..., we will estimate ... as a constant value ..., based on ..."（承认算不了+锚定策略）
+- "These assumptions are rather more optimistic than they could be in reality, but we assume them only to get some qualitative results."（乐观参数的用途声明）
+- "When we change the period by ∆T, then after three encirclements the total time difference becomes 3∆T."（累积效应的直觉解释）
+- "The later probably bigger approximation could be easily reduced by numerical simulation of the collision."（近似+出路一句话）</p>
+<p><strong>图表配方</strong>：判据曲线画零线+满足域打影（Fig 2）；几何定义图与结果曲线<strong>成对</strong>出现（Fig 9/10、11/12）；策略选择配适用域图（Fig 6）；答案=随参数变化的曲线+结论区间（Fig 13）。</p>
+<hr>
+<p><em>对照阅读：<code>05_论文赏析/2022/2022-GM-A-425.md</code>、<code>07_题目解读/2022_题A_偏转小行星.md</code>（四队答案谱 58 天–14 年的口径分析）、队友精读 346/395/460。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract">1.1 Abstract</a></li><li class="l3"><a href="#12-1-introduction范围裁剪">1.2 §1 Introduction（范围裁剪）</a></li><li class="l3"><a href="#13-2-numerical-simulations工具节">1.3 §2 Numerical simulations（工具节）</a></li><li class="l3"><a href="#14-31-asteroids-trajectory反问题参数化全文最优雅的一步">1.4 §3.1 Asteroid's trajectory（反问题参数化——全文最优雅的一步）</a></li><li class="l3"><a href="#15-32-spacecraft-modeldart-锚定">1.5 §3.2 Spacecraft model（DART 锚定）</a></li><li class="l3"><a href="#16-33-动量传递与-β-因子">1.6 §3.3 动量传递与 β 因子</a></li><li class="l3"><a href="#17-34-最优撞击两轮一维扫描">1.7 §3.4 最优撞击（两轮一维扫描）</a></li><li class="l3"><a href="#18-3536-4-判据与结果">1.8 §3.5–3.6 + §4 判据与结果</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-反问题能量判据式-1">3.1 反问题能量判据（式 1）</a></li><li class="l3"><a href="#32-齐奥尔科夫斯基方程式-2">3.2 齐奥尔科夫斯基方程（式 2）</a></li><li class="l3"><a href="#33-β-与小行星逃逸速度">3.3 β 与小行星逃逸速度</a></li><li class="l3"><a href="#34-周期扰动开普勒第三定律泰勒展开">3.4 周期扰动（开普勒第三定律泰勒展开）</a></li><li class="l3"><a href="#35-相位累积判据36">3.5 相位累积判据（§3.6）</a></li><li class="l3"><a href="#36-为什么垂直方向撞击无效fig-10-的物理">3.6 为什么垂直方向撞击无效（Fig 10 的物理）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 · Analysis of Biological Structures in Hypergravity Environments（2013 题B 金牌 · 队伍 611） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2013/2013-GM-B-611a_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2013 · 精读 · Analysis of Biological Structures in Hypergravity Environments（2013 题B 金牌 · 队伍 611）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-analysis-of-biological-structures-in-hypergravity-environments2013-题b-金牌-队伍-611">精读 · Analysis of Biological Structures in Hypergravity Environments（2013 题B 金牌 · 队伍 611）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：左手边开论文 PDF（<code>03_优秀论文PDF/2013/Problem B/2013-GM-B-611a.pdf</code>），右手边开本篇。每节按「它写了什么 → 为什么这样写 → 你要学什么」三层展开；每个公式给「物理直觉 → 完整推导 → 适用边界」。<strong>特别提示</strong>：本文 Word 版公式全部是嵌入式对象，文本提取后公式符号丢失，本文的公式依据「正文文字描述 + 页面渲染图 + 附录 C++ 代码」三方交叉复原，凡属复原处均已标注（不确定处以 ⚠ 注明）。另注意：<strong>这篇论文全文公式无编号</strong>（这本身就是一个可以批评的学习点），因此本篇用「§节号 + 公式名」定位，引用原文关键句保留英文。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<p>论文回答一个问题：<strong>在 8M⊕、2R⊕（表面重力恰为 2g）的行星上，动物会长成什么样？</strong></p>
+<pre><code class="language-mermaid">flowchart LR
+    A[&quot;§2.1 前置筛查&lt;br/&gt;g∝M/R²=2g&lt;br/&gt;一张 log-log 图排除自转效应&quot;] --&gt; B[&quot;§2.2 心血管线&lt;br/&gt;N-S 方程→血压梯度∝g&lt;br/&gt;Dawson 异速律→血量∝g&quot;]
+    A --&gt; C[&quot;§2.3 骨骼线&lt;br/&gt;应力分解+力矩平衡&lt;br/&gt;l-曲线角点→骨长/附着角 -30%&quot;]
+    A --&gt; D[&quot;§2.4 步态线&lt;br/&gt;Froude 数 Fr=v²/gl&lt;br/&gt;同速度下步态降档&quot;]
+    B --&gt; E[&quot;§3 环境&lt;br/&gt;250K 温度带 / 标高减半&quot;]
+    C --&gt; E
+    D --&gt; E
+    E --&gt; F[&quot;§4-6 画像：更矮、更壮、更慢&lt;br/&gt;骨截面积×2、血量×2、器官更大&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好？</strong> 三条建模主线（心血管、骨骼、步态）物理上互相独立，却<strong>收敛到同一个形态学结论</strong>（矮、壮、短肢）——作者在 §5.2 明确把这种"双模型交叉验证"当最大卖点。对开放性预测题，两条独立证据链胜过一条精细的证据链。另外注意 §2.1 只用了半页就"请走"了自转这个干扰变量——先做排除法，再建模，是本题最值得抄的起手式。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-abstract第-1-页">1.1 Abstract（第 1 页）</h3>
+<p><strong>它写了什么</strong>：一段约 350 词的摘要，按"方法链 → 结论清单"组织：N-S 方程 + 异速标度（心血管）→ 应力分解 + 力矩平衡（骨骼）→ Froude 数（步态）→ 环境修正，最后给出全部数字结论——"bones with twice the cross sectional area and approximately 30% less length"、"blood volume would approximately double"、"animals would be shorter and more compact"。</p>
+<p><strong>为什么这样写</strong>：摘要不写一个"我们研究了……"的空壳，而是把每个模型对应一个可检验的定量预言。评委读完摘要就能复述结论，这正是 48 小时评审制度下最讨巧的写法。</p>
+<p><strong>你要学什么</strong>：开放题摘要的"结论密度"要高到什么程度——本文 8 个分句给出 8 个独立结论，每个都挂在某个模型上。</p>
+<h3 id="12-1-interpretation-of-the-problem-21第-23-页">1.2 §1 Interpretation of the Problem + §2.1（第 2–3 页）</h3>
+<p><strong>它写了什么</strong>：先把题目钉死为"质量 8 倍、半径 2 倍 ⇒ g∝M/R² = 2g"；再处理一个潜在混淆变量——行星自转的离心加速度。原文写得很干净：</p>
+<blockquote>
+<p>"the exoplanet would have to be rotating at least 10 times faster than earth for the centripetal acceleration to factor significantly"</p>
+</blockquote>
+<p>即 Fig 2.1.1（log-log 图）显示自转加速度占比要变得显著，行星得自转快 10 倍以上，于是安全地忽略它。</p>
+<p><strong>为什么这样写</strong>：不排除自转，后文所有"2g"都要打折。作者用一张图而不是一句话来排除——图上曲线（相对旋转加速度 ∝ 转速²，附页图复核为 0.0034·x²，x 为 rev/day）让"10 倍"这个数字有出处。</p>
+<p><strong>你要学什么</strong>：<strong>每引入一个简化，就消灭一个潜在质疑</strong>。把"为什么不考虑 X"的回答画成图放进正文，比留在心里强一百倍。</p>
+<h3 id="13-22-cardiovascular-system第-46-页">1.3 §2.2 Cardiovascular System（第 4–6 页）</h3>
+<p><strong>它写了什么</strong>：从 Navier–Stokes 方程出发（层流、中大型动脉适用，引 [4]），列出四条假设：单位体积外力 f = f_sup、速度只有沿管方向分量且只随 r 变化、定常、密度恒定；然后逐步化简为柱坐标下的泊松叶问题（⚠ 原文公式为嵌入对象，提取丢失；从上下文与 [9] 文献可复原为 1/r·d/dr(r·du/dr) = (1/μ)(∂P/∂z − f_sup) 型），积分两次并用"管心有限 + 壁面无滑移"两个边界条件得抛物线速度剖面，最后收敛到关键物理判断：</p>
+<blockquote>
+<p>"the gradient is roughly proportional to the external force per volume"（压强梯度大致正比于单位体积外力）</p>
+</blockquote>
+<p>于是 2g 下沿附肢的血压梯度翻倍。接着做 <strong>Case 1 / Case 2</strong> 两分支讨论：心血管不变 → 缩短附肢省泵功（W∝F·dz）；附肢长度不变 → 心脏变大变强。结论：真实生物大概率两者兼有。</p>
+<p><strong>为什么这样写</strong>：作者在 §5.1 坦承 N-S 方程"proved exceedingly difficult to solve numerically"——既然算不动，就把 PDE 降维成"梯度∝外力"这一条定性但严格的推论，再用能量量纲论证（W∝F dz）把定性推论翻译成形态学预言。<strong>算不动的模型也有正确的用法</strong>。</p>
+<p><strong>你要学什么</strong>：① Case 1/Case 2 的"两端夹逼"写法——真实答案在两极端之间，比硬选一端可信；② 论文自己承认"不严格"的地方（qualitative analysis, not completely rigorous），这反而是在向评委传递判断力。</p>
+<h3 id="14-221-blood-volume-as-a-function-of-weight第-78-页">1.4 §2.2.1 Blood Volume as a Function of Weight（第 7–8 页）</h3>
+<p><strong>它写了什么</strong>：用 V₂/V₁=(L₂/L₁)³、A₂/A₁=(L₂/L₁)² 引出异速生长（allometry），引用 Dawson [3] 的三条标度律：毛细血管特征半径、长度、数量都随 g 增大（⚠ 三条律的具体指数在文本提取中丢失，页面渲染图上亦难以可靠辨认，此处不作编造）；把毛细血管当圆柱，总血量 V = Nπrc²lc，推出 <strong>V ∝ g</strong>——2g 下血量翻倍，器官尺寸随之增大。</p>
+<p><strong>为什么这样写</strong>：自己不造标度律，直接借 Dawson 的教科书结论，再用一条体积合成公式接到自己的问题上。<strong>文献定律 + 一行几何 = 一条定量预言</strong>，这是省力且安全的打法。</p>
+<p><strong>你要学什么</strong>：作者主动写了失效域——"if blood volume indeed increases in proportion with gravitational acceleration, then volume approaches infinity in the limiting case"（§5.1）。线性律只适用于 g 的小幅变化，写明这一点比装作普适高明。</p>
+<h3 id="15-23-musculoskeletal-system第-810-页全文最核心一节">1.5 §2.3 Musculoskeletal System（第 8–10 页）——全文最核心一节</h3>
+<p><strong>它写了什么</strong>：骨视作匀质圆柱，把应力分解为正应力 σ = mg·cosθ/A 与剪应力 τ = mg·sinθ/A（θ 为骨-体附着角，A 为骨截面积）；行走时足部竖直力 mg 对半腿高处的关节产生力矩，肌肉以应力 σ_m、截面积 A_m、力臂 r_m 提供等效力矩，力矩平衡给出 L ∝ 1/(g·sinθ)（附录 2 的 C++ 代码中即 <code>L = 1.12/(sin(x)*9.8)</code>，常数 1.12 由附录 1 的人体股骨/股四头肌参数合成）。三条约束依次用掉：① 恒应力 ⇒ g 翻倍则 A 翻倍；② 剪切强度校核：τ_max = 51.6 MPa（人股骨实测 [10]，跨物种近似常数）⇒ θ ∈ (0, π/2) 全范围安全；③ 骨长 L ≤ L₀。然后把 L–θ 等应力曲线画成 Fig 2.3.1，用"演化最小化肌应力"这一生态假设选<strong>曲线角点</strong>为最优解，读出 2g 下骨长与附着角各降约 30%，腿更柱状。</p>
+<p><strong>为什么这样写</strong>：这一节把两个自由度（L、θ）压进一条约束曲线，再用一条生物学假设选点——<strong>抽象模型落地为具体数字（30%）的全过程只用了一张图</strong>。注意角点的选取：正文说角点是"L 与 θ 乘积最小"的点，但未给显式解析式；附录代码硬编码角点坐标 θ≈0.1068 rad（1g）与 0.0756 rad（2g），两者比值恰为 1/√2（⚠ 角点定位公式的推导过程原文缺失，此比值关系是从代码数值反推的观察）。作者自己在 §5.1 也承认 σ_m 恒定而 L、θ 各自变化的解同样可能。</p>
+<p><strong>你要学什么</strong>：① "应力分解 + 力矩平衡"是所有支撑结构题的标准起手；② 51.6 MPa 这种<strong>实测生理常数</strong>给科幻题装上了实验地基；③ 对自己选点假设的敏感性，主动写进 Weaknesses。</p>
+<h3 id="16-24-gait-patterns第-1012-页">1.6 §2.4 Gait Patterns（第 10–12 页）</h3>
+<p><strong>它写了什么</strong>：行走肢体=倒立摆，Froude 数 Fr = v²/(gL)（L 取腿全长），步频 = √(g·Fr/L)（由附录代码 FroudeNumber() 复核）；引用 Alexander [2] 的步态转换阈值：走→小跑 Fr∈[0.3, 0.8]，小跑→飞奔 Fr∈[2.0, 3.0]。2g 使同一速度下 Fr 减半——"At the speed of a gallop on earth, for example, an animal would merely be trotting on the exoplanet"。</p>
+<p><strong>为什么这样写</strong>：不试图算"最高速度"（那是 §5.1 承认做不到的），只算"步态何时换挡"——这是一个纯比值问题，g 只以 Fr 的形式进入，结论对体型、物种全部通用。</p>
+<p><strong>你要学什么</strong>：<strong>量纲分析的降维打击</strong>：把问题化成无量纲数后，答案自动适用于"任何等效地球动物"——与 §1 的假设（同功能等价动物）严丝合缝。</p>
+<h3 id="17-3-additional-considerations第-1315-页">1.7 §3 Additional Considerations（第 13–15 页）</h3>
+<p><strong>它写了什么</strong>：温度：250 K 均温按 Lambert 余弦律摊为极区 190 K / 赤道 285 K，类比北极熊推出极地生物需要脂肪保温 + 从食物取水；并指出 250 K 恰是地球的<strong>有效</strong>温度，有温室与板块活动的话表面可以更高（引 Stefan–Boltzmann 平衡，地球 T_eff≈252 K）。气压：标高公式 P(h)=P₀e^(−h/λ)、λ=k_BT/(m̄g)，同组成同温下 2g 使标高减半（代码复核 λ≈3.66 km，地球约两倍），于是同表面气压下压强衰减更快、飞行生物要付出更多代谢代价；反之同大气柱下表面气压翻倍、氧分压升高、对红细胞需求降低（Fig 3.3.1，注意编号与所在小节 3.2 不一致，小疏漏）。</p>
+<p><strong>为什么这样写</strong>：题目只给了 250 K 这一个环境参数，作者把它"榨"出温度带和气压两套推论，并把生物学后果（保温、取水、飞行能耗、血氧）挂上去——<strong>每个输入参数都要用到极致</strong>。</p>
+<h3 id="18-4-results-summary5-discussion6-closing第-1518-页">1.8 §4 Results Summary、§5 Discussion、§6 Closing（第 15–18 页）</h3>
+<p><strong>它写了什么</strong>：§4 以"一只生活在赤道的四足动物"为叙述载体，把三条线的结论拼成完整画像；§5 分 Weaknesses（N-S 未解出、血量线性律发散、角点假设可替代、Fr 给不出极速）与 Strengths（排除法、Case 分析、<strong>双模型收敛</strong>、l-曲线方法）；§6 一句话收束："animals would likely be shorter, slower, and stockier"。</p>
+<p><strong>你要学什么</strong>：Strengths 里最有力的一条原文——"The independent modelling of the cardiovascular and musculoskeletal systems led us to the same conclusions about changes in shape and stature, which indicates their efficacy in solving this problem."。<strong>独立模型的一致性本身就是证据</strong>，这句话值得原样抄进你的模板。</p>
+<hr>
+<h2 id="2-图表深析每张图为什么放为什么这样画怎么画">2. 图表深析（每张图：为什么放、为什么这样画、怎么画）</h2>
+<table>
+<thead>
+<tr>
+<th>图</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fig 2.1.1 自转筛查</td>
+<td>§2.1</td>
+<td>log-log 下"加速度占比∝转速²"是直线，"10 倍才显著"一眼读出；用一张图正式放行"忽略自转"</td>
+<td>对 a_c/g=0.0034·x² 双对数作图（附录代码 CentripitalForce()）</td>
+</tr>
+<tr>
+<td><strong>Fig 2.3.1 l-曲线</strong>（全文核心）</td>
+<td>§2.3</td>
+<td>一图锁定两个自由度（L、θ）；1g/2g 两条双曲型曲线 + 十字虚线标角点，30% 结论直接从图上量出</td>
+<td>ROOT 的 TF1 画 1.12/(sinθ·g)，TLine 硬编码角点十字线</td>
+</tr>
+<tr>
+<td>Fig 2.4.1 步频</td>
+<td>§2.4</td>
+<td>Fr、L 双自变量的三维曲面，1g/2g 各一块，"同 Fr 下步频更高"可视化</td>
+<td>TH2F 网格填 √(Fr·g/L)，SURF2 渲染</td>
+</tr>
+<tr>
+<td>Fig 2.4.2 速度</td>
+<td>§2.4</td>
+<td>与上图同构，v=√(Fr·gL)，保持图式一致降低阅读成本</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>Fig 3.3.1 气压族</td>
+<td>§3.2</td>
+<td>0.2–5 atm 一族实线 + 地球虚线对照，"标高减半⇒衰减更快"无须文字</td>
+<td>P=101.325·k·exp(−h/3.66)（k=0.2~5）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心图 Fig 2.3.1 的 Python 复现</strong>（常量对应附录 1 的人体参数与附录 2 代码）：</p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+
+# ── 常数（论文附录 2 代码：L = 1.12/(sinθ·g)，1.12 由附录 1 人体股骨/股四头肌参数合成）──
+C = 1.12                      # C = 2σ_m·A_m·r_m / m（力矩平衡常数，见 §3.5 精讲）
+TH1, TH2 = 0.1068, 0.075557   # 附录代码硬编码的 1g / 2g 角点横坐标（比值恰 1/√2）
+th = np.linspace(0.03, np.pi/6, 500)
+
+L1, L2 = C/(np.sin(th)*9.8), C/(np.sin(th)*19.6)   # §2.3 等肌应力曲线 L∝1/(g·sinθ)
+
+fig, ax = plt.subplots(figsize=(6.5, 4.5))
+ax.plot(th, L1, 'r',  lw=2, label='earth (1g)')    # 红=1g（对应原 Fig 2.3.1 颜色语义）
+ax.plot(th, L2, 'b',  lw=2, label='other planet (2g)')
+for T, L, c in [(TH1, C/(np.sin(TH1)*9.8), 'r'), (TH2, C/(np.sin(TH2)*19.6), 'b')]:
+    ax.plot(T, L, '+', ms=14, mew=2, color=c)      # 角点十字
+    ax.plot([T, T], [0, L], c+'--', lw=1); ax.plot([0, T], [L, L], c+'--', lw=1)
+ax.set(xlabel='attachment angle θ [rad]', ylabel='bone length L [m]',
+       title=f'l-curve: corners at θ={TH1:.3f}/{TH2:.3f} rad, '
+             f'L={C/(np.sin(TH1)*9.8):.2f}→{C/(np.sin(TH2)*19.6):.2f} m (~30% shorter)')
+ax.legend(); ax.set_ylim(0, 3.7); plt.tight_layout(); plt.show()
+</code></pre>
+<p>三个绘图决策直接可抄：<strong>① 角点十字线把"最优解"钉在图上</strong>（读者不需要读正文就能看到结论）；<strong>② 1g/2g 两曲线同图、颜色语义全文统一</strong>；<strong>③ 结论（30%）写进图题</strong>。运行后可见 2g 曲线整体压向左下——既矮又直的腿，正是摘要的预言。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<blockquote>
+<p>本篇论文公式无编号，以下按"§节 + 名称"定位；凡由文字+代码复原的公式均已注明。</p>
+</blockquote>
+<h3 id="31-表面重力标度21复原自正文">3.1 表面重力标度（§2.1，复原自正文）</h3>
+<p>$$g&#x27;=\frac{GM&#x27;}{R&#x27;^2}=\frac{G\cdot 8M_\oplus}{(2R_\oplus)^2}=2\,\frac{GM_\oplus}{R_\oplus^2}=2g$$</p>
+<ul>
+<li><strong>怎么想到</strong>：题目给了 M 和 R 各自的倍数，g 是它们唯一的组合输出——一步除法立出全文基石。</li>
+<li><strong>适用边界</strong>：球对称假设；本文同时检查了自转修正（下条）后才敢用它。</li>
+</ul>
+<h3 id="32-自转筛查21-fig-211由附录代码复原">3.2 自转筛查（§2.1 + Fig 2.1.1，由附录代码复原）</h3>
+<p>$$\frac{a_c}{g}=\frac{\omega^2R\cos\varphi}{g}\Big|_{\varphi=0}=0.0034\,x^2,\qquad x=\text{转速 [rev/day]}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：地球上赤道离心加速度占比本就只有 ~0.3%；本题 R 与 g 同乘 2，比值公式里恰好约掉，曲线形状不变。</li>
+<li><strong>数值感</strong>：x=1（一天一转）时占比 0.34%；要到"显著"（≥10% 量级）需 x≈5–10——这就是正文"10 倍"的来源。x² 增长是对数图上斜率为 2 的直线，一眼可验。</li>
+</ul>
+<h3 id="33-血管流动与速度剖面22复原n-s-poiseuille">3.3 血管流动与速度剖面（§2.2，复原：N-S → Poiseuille）</h3>
+<p><strong>物理直觉</strong>：中等以上动脉里血流是层流（Re&lt;1000，仅主动脉瓣峰值有失稳 [4]），最普适的出发点是 N-S 方程。四条假设（定常、不可压、轴向速度 u_z(r)、单位体积外力 f_sup）把三维 PDE 压成一个常微分方程（⚠ 原式提取丢失，以下为按正文叙述与文献 [9] 复原的标准形式）：</p>
+<p>$$\rho\Big(\frac{\partial \vec u}{\partial t}+(\vec u\cdot\nabla)\vec u\Big)=-\nabla P+\mu\nabla^2\vec u+\vec f_{sup}\;\xrightarrow{\text{四假设}}\;\frac{1}{r}\frac{d}{dr}\Big(r\frac{du}{dr}\Big)=\frac{1}{\mu}\Big(\frac{\partial P}{\partial z}-f_{sup}\Big)$$</p>
+<p><strong>完整推导</strong>（比论文更细地展开）：
+1. 左边 = 0（定常 + 纯轴向速度的对流项为 0）；右边只剩黏性项与外力项。
+2. 第一次积分：$r\,\dfrac{du}{dr}=\dfrac{r^2}{2\mu}\Big(\dfrac{dP}{dz}-f_{sup}\Big)+C_1$；
+3. 第二次积分：$u(r)=\dfrac{r^2}{4\mu}\Big(\dfrac{dP}{dz}-f_{sup}\Big)+C_1\ln r+C_2$；
+4. 边界条件①：r→0 处 u 有限 ⇒ C₁=0（对数项必须消去）；
+5. 边界条件②：r=R 处无滑移 u(R)=0 ⇒ $C_2=-\dfrac{R^2}{4\mu}\Big(\dfrac{dP}{dz}-f_{sup}\Big)$；
+6. 合并得抛物线剖面：$u(r)=\dfrac{1}{4\mu}\Big(\dfrac{dP}{dz}-f_{sup}\Big)\,(R^2-r^2)$（与论文页 6 渲染图上 R²−r² 的形式一致）。</p>
+<ul>
+<li><strong>怎么用它</strong>：论文没有停留在此，而是回读方程结构——维持同样的 u，∂P/∂z 必须随 f_sup（= ρg）线性增长，这就是"血压梯度∝g"的出处。</li>
+<li><strong>适用边界</strong>：层流、牛顿流体、刚性直管、充分发展流；毛细血管径接近红细胞直径时失效（作者在 §5.1 主动点名）。</li>
+</ul>
+<h3 id="34-血量异速律221">3.4 血量异速律（§2.2.1）</h3>
+<p>$$V_{blood}=N\pi r_c^2\,l_c\;\xrightarrow{\;r_c,l_c,N\text{ 各随 }g\text{ 增（Dawson [3]）}\;}\;V_{blood}\propto g$$</p>
+<ul>
+<li><strong>怎么想到</strong>：三条 Dawson 标度律（⚠ 具体指数在提取中丢失，不作编造）代入圆柱体积公式，指数相加恰为 1。</li>
+<li><strong>数值感</strong>：2g ⇒ 血量、器官尺寸约翻倍——与 N-S 线"心脏必须变大"互相印证。</li>
+<li><strong>适用边界</strong>：小幅 g 变化；g→∞ 时线性外推发散（§5.1 自曝失效域）。</li>
+</ul>
+<h3 id="35-骨应力分解与力矩平衡23由正文附录代码复原全文定量核心">3.5 骨应力分解与力矩平衡（§2.3，由正文+附录代码复原，全文定量核心）</h3>
+<p><strong>应力分解</strong>（θ 为骨与身体轴的附着角）：</p>
+<p>$$\sigma=\frac{mg\cos\theta}{A}\ (\text{压}),\qquad \tau=\frac{mg\sin\theta}{A}\ (\text{剪})$$</p>
+<p><strong>力矩平衡</strong>：竖直力 mg 作用在足，对半腿高处的关节取矩，水平力臂为 (L/2)sinθ；肌肉力矩 = 应力×截面×力臂：</p>
+<p>$$m g\,\frac{L}{2}\sin\theta=\sigma_m A_m r_m\;\Longrightarrow\; L=\frac{2\sigma_m A_m r_m}{m\,g\sin\theta}=\frac{C}{g\sin\theta}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：把"骨头会不会断"（应力）和"肌肉拽不拽得住"（力矩）拆成两个独立判据，各自给一条约束。</li>
+<li><strong>数值感</strong>：附录 1 取人体参数（m=74.1 kg、骨截面积 273、骨半径 3 cm、肌应力 100×10³ 单位——单位标注在提取中不完整），合成出附录代码里的 C=1.12：1g 角点 θ≈0.107 rad、L≈1.07 m；2g 角点 θ≈0.0756 rad、L≈0.76 m——<strong>骨长缩短 ≈29%，论文取整为 30%</strong>。</li>
+<li><strong>适用边界</strong>：肌肉应力恒定（生理性质不随 g 变）、肌截面积近似不变 [1]；"角点=演化最优"只是假设（§5.1 自认）。</li>
+</ul>
+<h3 id="36-剪切强度上限23">3.6 剪切强度上限（§2.3）</h3>
+<p>$$\tau_{max}=\frac{mg\sin\theta}{A}\le 51.6\ \text{MPa}\ (\text{人股骨纯剪实验 }[10])\;\Rightarrow\;\theta\in(0,\tfrac{\pi}{2})\ \text{安全}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：θ 越大剪应力越大，最坏点在 π/2；代人股骨数据一算，即便大质量也远未到 51.6 MPa——于是 θ 的物理可行域不再受限，选择权完全交给 l-曲线角点。原文评价这个结果"a conclusion which seems both sensible and reassuring"——<strong>算出一个安心结论也要写出来</strong>。</li>
+</ul>
+<h3 id="37-froude-数与步态24">3.7 Froude 数与步态（§2.4）</h3>
+<p>$$Fr=\frac{v^2}{gL}\;(\text{倒摆：向心力 } mv^2/L \text{ 对重力 } mg\text{ 之比})，\quad f_{stride}=\sqrt{\frac{g\,Fr}{L}}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：行走动力学由"重力摆"支配，天然无量纲数就是 Fr；Alexander 的转换阈值 [0.3–0.8 / 2.0–3.0] 提供经验标尺。</li>
+<li><strong>数值感</strong>：同 v 同 L，2g ⇒ Fr 减半；地球上的飞奔速度在系外行星上只够小跑。步频 ∝ √g ⇒ 快 ~41%。</li>
+<li><strong>适用边界</strong>：给不出极速（§5.1 承认），只给步态档位。</li>
+</ul>
+<h3 id="38-大气标高32代码复核">3.8 大气标高（§3.2，代码复核）</h3>
+<p>$$\lambda=\frac{k_B T}{\bar m\,g}=\frac{1.38\times10^{-23}\times 250}{4.808\times10^{-26}\times 2\times 9.8}\approx 3.66\ \text{km}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：等温大气 + 流体静力学平衡的标准产物；同组成（m̄ 同）同温下 λ∝1/g，2g ⇒ 标高减半、气压衰减加倍。</li>
+<li><strong>适用边界</strong>：等温假设、成分不变假设（作者用"两颗宜居行星大气组成应相似"自辩）。</li>
+</ul>
+<hr>
+<h2 id="4-建模决策链为什么这么建放弃了什么">4. 建模决策链（为什么这么建、放弃了什么）</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主变量</td>
+<td>只追 g 的影响</td>
+<td>温度/大气/磁场全套</td>
+<td>一张 log-log 图证明自转需 10 倍转速才显著，其余扰动相对 2g 是小量</td>
+</tr>
+<tr>
+<td>心血管模型</td>
+<td>N-S 定性推论 + Case 1/2</td>
+<td>全数值求解 N-S</td>
+<td>论文自承数值解不动；定性梯度关系已足够支撑形态学预言</td>
+</tr>
+<tr>
+<td>血量标度</td>
+<td>借 Dawson 异速律</td>
+<td>自建微循环模型</td>
+<td>数据稀缺，借定律一行到位；失效域（g→∞）主动标注</td>
+</tr>
+<tr>
+<td>骨骼模型</td>
+<td>应力分解 + 力矩平衡 + l-曲线</td>
+<td>有限元骨骼模型</td>
+<td>48 小时不可能；解析曲线已能读出 30% 定量结论</td>
+</tr>
+<tr>
+<td>角点选择</td>
+<td>演化最小化肌应力</td>
+<td>扫描整条曲线族</td>
+<td>一条生态假设把二维选择压成一个点；敏感性在 Weaknesses 补偿</td>
+</tr>
+<tr>
+<td>步态</td>
+<td>无量纲 Fr + 经验阈值</td>
+<td>肌肉功率极限模型</td>
+<td>Fr 结论与体型解耦，自动适配"等效地球动物"假设</td>
+</tr>
+<tr>
+<td>环境层</td>
+<td>温度带 + 标高两条独立小模型</td>
+<td>忽略环境</td>
+<td>250 K 是题面唯一环境输入，不榨干等于丢分</td>
+</tr>
+<tr>
+<td>工具</td>
+<td>ROOT（CERN C++ 框架）</td>
+<td>MATLAB/Mathematica</td>
+<td>团队顺手；全部代码入附录保证可复现</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总规律</strong>：这是一篇"零数值模拟"的金牌论文——所有定量结论都来自守恒律、量纲分析与文献标度律。它证明 UPC 评委要的是<strong>物理判断力</strong>而不是算力。</p>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板</strong>：</p>
+<pre><code>Abstract        方法链 + 逐条结论（每个模型挂一个数字）
+1 Interpretation 界定等效性假设（&quot;same functionality as earth animal&quot;）
+2 Model
+  2.0 前置筛查   一张图排除干扰变量（自转/潮汐/磁场）
+  2.1 主线 A     PDE → 定性推论 → Case 两端讨论
+  2.2 主线 B     守恒/平衡方程 → 约束曲线 → 生态假设选点
+  2.3 主线 C     无量纲数 + 经验阈值
+3 Additional    把题面每个环境参数榨出独立小模型
+4 Results       以&quot;一只动物&quot;为载体拼装画像
+5 Discussion    Weaknesses（含失效域）/ Strengths（含双模型收敛）
+6 Closing       一句话画像
+Appendix       参数表 + 全部绘图代码
+</code></pre>
+<p><strong>句式库（原文摘录）</strong>：
+- "We deem it probable that ... will show a combination of the alterations in Cases 1 and 2."（两端讨论后取折中）
+- "the exoplanet would have to be rotating at least 10 times faster than earth for ... to factor significantly"（用图定量排除干扰项）
+- "This value is nearly constant between different species."（论证借用跨物种常数的合法性）
+- "a conclusion which seems both sensible and reassuring"（安心结论也要明说）
+- "The independent modelling of ... led us to the same conclusions ..., which indicates their efficacy in solving this problem."（双模型收敛=自证）
+- "then volume approaches infinity in the limiting case, indicating that this relationship fails at higher ..."（主动标注失效域）</p>
+<p><strong>图表配方</strong>：排除干扰 → log-log 幂律直线；双自由度选优 → 约束曲线族 + 角点十字线 + 结论进图题；g 依赖类问题 → 1g/2g 同图双曲线、颜色语义全文统一。</p>
+<hr>
+<p><em>精读完这篇后，建议对照 <code>05_论文赏析/2013/2013-GM-B-611a.md</code>（宏观赏析）与 <code>07_题目解读/2013_题B_超重力生物结构.md</code>（题目全解）形成三位一体。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-1-interpretation-of-the-problem-21第-23-页">1.2 §1 Interpretation of the Problem + §2.1（第 2–3 页）</a></li><li class="l3"><a href="#13-22-cardiovascular-system第-46-页">1.3 §2.2 Cardiovascular System（第 4–6 页）</a></li><li class="l3"><a href="#14-221-blood-volume-as-a-function-of-weight第-78-页">1.4 §2.2.1 Blood Volume as a Function of Weight（第 7–8 页）</a></li><li class="l3"><a href="#15-23-musculoskeletal-system第-810-页全文最核心一节">1.5 §2.3 Musculoskeletal System（第 8–10 页）——全文最核心一节</a></li><li class="l3"><a href="#16-24-gait-patterns第-1012-页">1.6 §2.4 Gait Patterns（第 10–12 页）</a></li><li class="l3"><a href="#17-3-additional-considerations第-1315-页">1.7 §3 Additional Considerations（第 13–15 页）</a></li><li class="l3"><a href="#18-4-results-summary5-discussion6-closing第-1518-页">1.8 §4 Results Summary、§5 Discussion、§6 Closing（第 15–18 页）</a></li><li class="l2"><a href="#2-图表深析每张图为什么放为什么这样画怎么画">2. 图表深析（每张图：为什么放、为什么这样画、怎么画）</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-表面重力标度21复原自正文">3.1 表面重力标度（§2.1，复原自正文）</a></li><li class="l3"><a href="#32-自转筛查21-fig-211由附录代码复原">3.2 自转筛查（§2.1 + Fig 2.1.1，由附录代码复原）</a></li><li class="l3"><a href="#33-血管流动与速度剖面22复原n-s-poiseuille">3.3 血管流动与速度剖面（§2.2，复原：N-S → Poiseuille）</a></li><li class="l3"><a href="#34-血量异速律221">3.4 血量异速律（§2.2.1）</a></li><li class="l3"><a href="#35-骨应力分解与力矩平衡23由正文附录代码复原全文定量核心">3.5 骨应力分解与力矩平衡（§2.3，由正文+附录代码复原，全文定量核心）</a></li><li class="l3"><a href="#36-剪切强度上限23">3.6 剪切强度上限（§2.3）</a></li><li class="l3"><a href="#37-froude-数与步态24">3.7 Froude 数与步态（§2.4）</a></li><li class="l3"><a href="#38-大气标高32代码复核">3.8 大气标高（§3.2，代码复核）</a></li><li class="l2"><a href="#4-建模决策链为什么这么建放弃了什么">4. 建模决策链（为什么这么建、放弃了什么）</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

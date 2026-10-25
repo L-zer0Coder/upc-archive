@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>48 小时作战手册 —— UPC 比赛时间线与分工 · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/48%E5%B0%8F%E6%97%B6%E4%BD%9C%E6%88%98%E6%89%8B%E5%86%8C.md">Markdown</a>
+  <span class="crumb" style="flex:1">11_论文模板与工具 · 48 小时作战手册 —— UPC 比赛时间线与分工</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="48-小时作战手册-upc-比赛时间线与分工">48 小时作战手册 —— UPC 比赛时间线与分工</h1>
+<blockquote>
+<p>依据 73 篇金牌论文的结构共性逆推出的执行方案。比赛从周五 20:00（美东）开始，周日晚截止。<strong>最大的失败模式不是算不出来，而是 40 小时在建模、8 小时在写作。</strong></p>
+</blockquote>
+<h2 id="0-赛前准备比赛前一周">0. 赛前准备（比赛前一周）</h2>
+<ul>
+<li>装好工具链：LaTeX（Overleaf 或本地 + 本库 <code>LaTeX模板/main.tex</code>）、Python（numpy/matplotlib/scipy）或 MATLAB、文献检索入口（NASA ADS / Google Scholar）。</li>
+<li>打印/熟读 <code>08_物理模型综述/08_方法论与数值算法总论.md</code> 与本手册，队伍三人各背一块：A=力学/轨道，B=流体/热学，C=数值+写作。</li>
+<li>约定协作规则：共享代码仓库、图统一由一人出（风格一致）、公式编号规范当场定（章.序号）。</li>
+</ul>
+<h2 id="1-时间线总览">1. 时间线总览</h2>
+<pre><code class="language-mermaid">gantt
+    title 48 小时分配（按 12 个时段）
+    dateFormat X
+    axisFormat %H
+    section 开局
+    读题+选题         :0, 2
+    去模糊化+路线图    :2, 4
+    section 建模
+    基准方案(解析)     :4, 8
+    主模型推导         :8, 20
+    数值实现           :14, 26
+    section 深化
+    修正项+扩展        :26, 34
+    验证三件套         :30, 38
+    section 收官
+    图表精修           :36, 41
+    写作+摘要          :20, 46
+    交叉互查+提交      :46, 48
+</code></pre>
+<h2 id="2-逐阶段任务单">2. 逐阶段任务单</h2>
+<h3 id="t0第-02-小时读题与选题">T0（第 0–2 小时）：读题与选题</h3>
+<ul>
+<li>两道题各自 15 分钟独立读 → 队内各写 3 行：考什么物理、要交付什么、最大风险。</li>
+<li>选题判据：<strong>离你们的"主场模型"更近</strong>（UPC 评审不奖励难题，奖励自洽）；A 题偏航天/建模深度，B 题常偏工程/数据处理，参考 <code>07_题目解读/</code> 历年两题风格。</li>
+<li>❌ 不要选"看起来好写"但你们都不熟的领域——48 小时学不完新物理。</li>
+</ul>
+<h3 id="t1第-24-小时去模糊化-作战路线图">T1（第 2–4 小时）：去模糊化 + 作战路线图</h3>
+<ul>
+<li>把题面每个模糊词（significant / quickly / safely / damage…）翻译成<strong>可计算判据</strong>，写成一页"判定标准清单"（学 2010-A 的 20% 燃耗、2021-B 的"2 m 涌浪高度"）。</li>
+<li>画出建模路线图（真空→主修正→扩展，参考 <code>图表配方库</code> 配方 8 的 roadmap 图——它也可以直接进论文）。</li>
+<li>列数据需求清单：哪些参数要查文献（提前查！越晚查越慌）。</li>
+<li>✅ 里程碑 1：一页纸作战图（判据+层级+分工+数据清单）。</li>
+</ul>
+<h3 id="t2第-48-小时基准方案必须解析">T2（第 4–8 小时）：基准方案（必须解析）</h3>
+<ul>
+<li>先算一个<strong>闭式可得的对照情形</strong>：真空抛体 / 纯燃料减速 / 无阻力轨道……</li>
+<li>它的作用：①给主模型提供量化参照；②当数值出 bug 时当 sanity check；③论文第 1 节现成素材。</li>
+<li>✅ 里程碑 2：基准的数值+公式（如 95.15% 燃耗这类"锚数字"）。</li>
+</ul>
+<h3 id="t3第-820-小时主模型推导白天主力时段">T3（第 8–20 小时）：主模型推导（白天主力时段）</h3>
+<ul>
+<li>从守恒律/牛顿第二定律出发写主方程；每个假设旁边用一句话+一个量级数字自辩。</li>
+<li><strong>组合参数打包</strong>（Define σ≡…）让方程干净。</li>
+<li>每推完一块立刻编号，写作时直接引用。</li>
+<li>⚠️ 中点检查（第 14 小时）：如果主方程还没落地，立即降级模型复杂度——评审宁可要完整闭环的简单模型，不要半成品复杂模型。</li>
+</ul>
+<h3 id="t4第-1426-小时与-t3-并行数值实现">T4（第 14–26 小时，与 T3 并行）：数值实现</h3>
+<ul>
+<li>写主积分器（RK45 或步长受控欧拉），初值/边界/终止条件一次写全。</li>
+<li><strong>先跑通一条轨迹再谈参数扫描</strong>。</li>
+<li>出第一版"结论进图题"的图（配方 1）。</li>
+</ul>
+<h3 id="t5第-2634-小时修正项与扩展">T5（第 26–34 小时）：修正项与扩展</h3>
+<ul>
+<li>按量级表逐项决定：必须建模 / 可忽略（写一行数字证明）/ 有余力再上。</li>
+<li>常见扩展方向（按性价比排序）：灵敏度龙卷风图（配方 3，半天）&gt; 一个失败模式分析 &gt; 更精细的物理修正。</li>
+</ul>
+<h3 id="t6第-3038-小时验证三件套金牌与银牌的分水岭">T6（第 30–38 小时）：验证三件套（金牌与银牌的分水岭）</h3>
+<ol>
+<li><strong>收敛性</strong>：步长减半，报有效位数（配方 4）。</li>
+<li><strong>极限情形</strong>：关掉阻力/令质量→∞，数值必须退回基准解析解。</li>
+<li><strong>灵敏度</strong>：核心参数 ±20% 扫描（配方 3）。
+- ✅ 里程碑 3：三张验证图 + 误差声明段落。</li>
+</ol>
+<h3 id="t7第-3641-小时图表精修">T7（第 36–41 小时）：图表精修</h3>
+<ul>
+<li>每张图过 checklist：有编号？被正文点名？轴标签带单位？结论进图题？配色语义全文一致？</li>
+<li>用 <code>图表配方库</code> 的 8 个配方对照自查，缺哪类补哪类。</li>
+</ul>
+<h3 id="t8第-2046-小时贯穿写作">T8（第 20–46 小时，贯穿）：写作</h3>
+<ul>
+<li><strong>写作与建模并行</strong>：每完成一节推导当天就写成英文初稿，最后 6 小时只做整合润色。</li>
+<li>按模板结构逐节填：Abstract 最后写，但<strong>必须带数值结论</strong>。</li>
+<li>摘要句式、模糊词自辩句式直接查 <code>写作句库.md</code>。</li>
+</ul>
+<h3 id="t9第-4648-小时交叉互查与提交">T9（第 46–48 小时）：交叉互查与提交</h3>
+<ul>
+<li>三人互换只读摘要+图：能否 5 分钟复述结论？不能→改摘要。</li>
+<li>查重式自查三件事：①每张图被引用；②每个符号有定义；③每 5 个公式至少有 1 处与文字/图的交叉引用。</li>
+<li>提交前导出 PDF 检查字体嵌入与页码，<strong>提前 2 小时交</strong>（官网截止不等人）。</li>
+</ul>
+<h2 id="3-三人分工模板">3. 三人分工模板</h2>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>主责</th>
+<th>兼职</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>物理推导手</td>
+<td>主模型方程、量级论证</td>
+<td>摘要与结论初稿</td>
+</tr>
+<tr>
+<td>数值实现手</td>
+<td>积分器、参数扫描、验证三件套</td>
+<td>全部图表输出（风格统一）</td>
+</tr>
+<tr>
+<td>写作整合手</td>
+<td>逐节成文、句库运用、参考文献</td>
+<td>数据查找与锚点核对</td>
+</tr>
+</tbody>
+</table>
+<p>三人每晚（第 24 小时）对一次表：路线图有没有偏、判据有没有变。</p>
+<h2 id="4-危机预案">4. 危机预案</h2>
+<table>
+<thead>
+<tr>
+<th>症状</th>
+<th>处方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第 20 小时主模型仍不收敛</td>
+<td>立刻切到"简化模型+完整验证"路线，把已做的复杂尝试写进 discussion</td>
+</tr>
+<tr>
+<td>数值结果与基准差 3 个量级</td>
+<td>先查单位（90% 是单位），再查初值符号，再查坐标系手性</td>
+</tr>
+<tr>
+<td>摘要写不出数字</td>
+<td>说明没算完 → 回 T6 砍扩展项保闭环</td>
+</tr>
+<tr>
+<td>队友方向分歧</td>
+<td>用"哪条路线能让验证三件套更完整"做裁决标准</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-赛前准备比赛前一周">0. 赛前准备（比赛前一周）</a></li><li class="l2"><a href="#1-时间线总览">1. 时间线总览</a></li><li class="l2"><a href="#2-逐阶段任务单">2. 逐阶段任务单</a></li><li class="l3"><a href="#t0第-02-小时读题与选题">T0（第 0–2 小时）：读题与选题</a></li><li class="l3"><a href="#t1第-24-小时去模糊化-作战路线图">T1（第 2–4 小时）：去模糊化 + 作战路线图</a></li><li class="l3"><a href="#t2第-48-小时基准方案必须解析">T2（第 4–8 小时）：基准方案（必须解析）</a></li><li class="l3"><a href="#t3第-820-小时主模型推导白天主力时段">T3（第 8–20 小时）：主模型推导（白天主力时段）</a></li><li class="l3"><a href="#t4第-1426-小时与-t3-并行数值实现">T4（第 14–26 小时，与 T3 并行）：数值实现</a></li><li class="l3"><a href="#t5第-2634-小时修正项与扩展">T5（第 26–34 小时）：修正项与扩展</a></li><li class="l3"><a href="#t6第-3038-小时验证三件套金牌与银牌的分水岭">T6（第 30–38 小时）：验证三件套（金牌与银牌的分水岭）</a></li><li class="l3"><a href="#t7第-3641-小时图表精修">T7（第 36–41 小时）：图表精修</a></li><li class="l3"><a href="#t8第-2046-小时贯穿写作">T8（第 20–46 小时，贯穿）：写作</a></li><li class="l3"><a href="#t9第-4648-小时交叉互查与提交">T9（第 46–48 小时）：交叉互查与提交</a></li><li class="l2"><a href="#3-三人分工模板">3. 三人分工模板</a></li><li class="l2"><a href="#4-危机预案">4. 危机预案</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

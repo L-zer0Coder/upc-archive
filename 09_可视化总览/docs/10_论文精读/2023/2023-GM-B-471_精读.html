@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 57 · The Analysis of Three People Bouncing on a Trampoline Problem（2023 题B 金牌 · 队伍 471） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2023/2023-GM-B-471_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2023 · 精读 57 · The Analysis of Three People Bouncing on a Trampoline Problem（2023 题B 金牌 · 队伍 471）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-57-the-analysis-of-three-people-bouncing-on-a-trampoline-problem2023-题b-金牌-队伍-471">精读 57 · The Analysis of Three People Bouncing on a Trampoline Problem（2023 题B 金牌 · 队伍 471）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：左手论文 PDF（<code>03_优秀论文PDF/2023/Problem B/2023-GM-B-471.pdf</code>），右手本篇。三篇同题金牌中，471 是<strong>方法论最自觉</strong>的一篇：理论稳态解与数值仿真<strong>双轨互证</strong>（肌肉能量差 &lt;3%）、六种落序穷举、并在 §6.1 <strong>自曝能量账目存疑</strong>。本篇精读的最大发现来自跨论文对比：<strong>471 的弹簧力是立方律、102 队是二次律——两者只差一个投影因子，471 对、102 错</strong>（⚠ 详见 §3.1，这是全库最精彩的"同题互审"案例）。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<pre><code class="language-mermaid">flowchart TB
+    A[&quot;单人模型（式1-4）：&lt;br/&gt;立方弹簧 Ft=Nkz(1−R/√(R²+z²))&lt;br/&gt;+垫面气阻+阻尼+有效质量 (m+M/3)&quot;] --&gt; B[&quot;稳态解析（式7-10）：&lt;br/&gt;谐波近似∫损耗 → ΔE(hmax)&quot;]
+    A --&gt; C[&quot;数值仿真：&lt;br/&gt;scipy DOP853 + 底部事件注入 ΔE&lt;br/&gt;→ 吸引子（初值无关）&quot;]
+    B &amp; C --&gt; D[&quot;双轨互证：ΔE理论 vs ΔE仿真&lt;br/&gt;25/40/50 kg 三档差 &lt;3%（Table 2）&quot;]
+    D --&gt; E[&quot;三人接力策略（Fig 3）：&lt;br/&gt;甲压停→蹬腿离→乙恰好落上&lt;br/&gt;能量蓄给最后弹起者&quot;]
+    E --&gt; F[&quot;六序穷举（Table 3）：&lt;br/&gt;A 3.200 / B 2.744 / C 2.386 m&lt;br/&gt;+ 能量自曝（§6.1）+ 安全设计建议&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好</strong>："解析稳态解"与"数值吸引子"是同一个物理的两条路径——<strong>两者在 ΔE 上相遇（&lt;3%）时，模型与代码互为证明</strong>。这套"双轨互证"比任何单一验证都硬，是本篇最值得偷走的方法论。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-abstract">1.1 Abstract</h3>
+<p><strong>它写了什么</strong>：两步法（理论近似参数 → 数值仿真精化）→ 最优"弹射"策略 → 三个数字（25 kg 弹 3.2 m，比独跳高 ~2.7 m；40 kg 2.74；50 kg 2.39——<strong>"最重者独跳最高（1.2 m）却弹得最低"</strong>）。
+<strong>你要学什么</strong>：摘要里那句反直觉对比（"the lowest height of them all despite being the best jumper on their own"）——开放题最有记忆点的就是这种"悖论式结论"。</p>
+<h3 id="12-2-单人模型式-16">1.2 §2 单人模型（式 1–6）</h3>
+<p><strong>它写了什么</strong>：
+- <strong>弹簧合力（式 1）</strong>：$F_t=Nkz\Big(1-\frac{R}{\sqrt{R^2+z^2}}\Big)$——垫中心下压 z 时 N 根弹簧的垂直合力，几何投影严格推导；
+- <strong>垫面气阻（式 2）</strong>：$F_a=\frac{c_a\pi}{6}\frac{R^2}{\sqrt{1+z^2/R^2}}\dot z^2\,\mathrm{sgn}(\dot z)$；
+- <strong>弹簧滞后阻尼（式 3）</strong>：$F_d=c_d\dot z$；
+- <strong>运动方程（式 4）</strong>：$(m+\frac{M}{3})\ddot z=-F_t-F_a-F_d$——垫的有效质量 <strong>M/3</strong> 由速度剖面 $v(r)=v_0(1-r/R)$ 积分得出（式 5–6）。
+<strong>为什么这样写</strong>：三个力各给来源（几何/气动/材料），有效质量的积分推导摆在正文——<strong>没有一项是"拍出来"的</strong>。
+<strong>⚠ 本篇最重磅的审计（跨论文对比，详见 §3.1）</strong>：队友 102 的垂直弹性力是<strong>二次律</strong>（$F_v\approx N_sK_sx^2/2R$），本队是<strong>立方律</strong>（$F_t\approx Nkz^3/2R^2$）——逐项核对后发现 102 的投影因子用错（取了 $R/\sqrt{R^2+x^2}$ 而垂直投影应为 $z/\sqrt{R^2+z^2}$），<strong>471 是对的</strong>。两队都拿了金牌，但物理上只有一个对。</p>
+<h3 id="13-21-稳态解式-710解析轨">1.3 §2.1 稳态解（式 7–10：解析轨）</h3>
+<p><strong>它写了什么</strong>：稳态蹦跳=每周期注入 ΔE=损耗。用谐波尝试 $\dot z=v_0\cos\omega t$ 解析积分半个周期的损耗（式 7–8）：
+$$\Delta E_1=\Big(\frac{4c_a}{9}R^2v_0+\frac{c_d}{2}\Big)\frac{\pi v_0^2}{\omega}$$
+垫的动能在起跳瞬间被"抛弃"（式 9）：$\Delta E_2=Mv_0^2/12$。合并成每周期肌肉能量的闭式（式 10）：
+$$\Delta E=gh_{max}\Big(\frac{M}{6}+\big(\tfrac{4c_a}{9}R^2\sqrt{2gh_{max}}+c_d\big)\frac{\pi}{\omega}\Big)$$
+<strong>为什么这样写</strong>：每次近似都声明用途——"$R^3/\sqrt{R^2+z^2}\approx R^2$, because we want only order of magnitude"。<strong>解析解的使命不是精确，是给仿真一个可检验的预言</strong>。
+<strong>你要学什么</strong>：$\int_0^{\pi/\omega}|\cos^3|dt=\frac{4}{3\omega}$、$\int\cos^2=\frac{\pi}{2\omega}$ 这类"沿周期积分损耗"的手法是振动问题的通用工具。</p>
+<h3 id="14-3-单人仿真双轨的数值轨">1.4 §3 单人仿真（双轨的数值轨）</h3>
+<p><strong>它写了什么</strong>：scipy <code>solve_ivp</code>、<strong>DOP853（RK 8 阶）</strong>、三阶段处理（自由落体→触垫方程→离垫）、<strong>底部事件注入 ΔE</strong>（蹬腿=最低点速度阶跃，手动 event 实现）。结果：
+- 非共振衰减（Fig 1）符合预期；
+- <strong>吸引子行为</strong>：无论初值如何，稳态最高高度收敛到同一值（"our trajectory will stabilise around the same hmax"）——稳态解的理论预言被仿真证实；
+- <strong>Table 2 双轨互证</strong>：理论 ΔE₀ vs 仿真 ΔE——123.25/126、215.04/220、347.03/343，<strong>差 &lt;3%</strong>。
+<strong>你要学什么</strong>：<strong>"attractor"概念让"调参"变成"验证"</strong>——如果稳态与初值无关，那么对 ΔE 的搜索是适定的；这是数值实验设计的高级动作。</p>
+<h3 id="15-45-三人接力策略与六序穷举">1.5 §4–5 三人接力策略与六序穷举</h3>
+<p><strong>它写了什么</strong>：引文献[2]的观察——多人蹦床时能量会在玩家间混沌转移；最优策略是<strong>时序接力</strong>（Fig 3）：甲落垫压到最低 → 蹬腿跳起（注入 ΔE）→ <strong>乙恰在此刻落到垫上</strong>（垫无法把能量还给甲）→ 乙压停、跳起、丙落 → 垫带着三份蓄能弹射丙。<strong>穷举六种落序</strong>（Table 3）：
+- 40,50,25 序 → <strong>A（25 kg）3.200 m</strong>（最高）；
+- 50,40,25 → 2.940；25,50,40 → B 2.744；50,25,40 → 2.534；25,40,50 → C 2.386；40,25,50 → 2.374。
+<strong>为什么这样写</strong>：策略先于仿真（"The idea of the solution is based on [2]"），仿真只是把直觉策略变成数字；穷举六序而非"调参找最优"——<strong>组合空间小就全扫，透明且无遗漏</strong>。
+<strong>你要学什么</strong>：<strong>"最后一手"吃全部储能的机制</strong>（文中对"为什么垫会把能量给丙而不是还给乙"有一段细致的时序物理论证）——多体蓄能类问题的通用策略模板。</p>
+<h3 id="16-6-能量审计与讨论全文的诚实担当">1.6 §6 能量审计与讨论（全文的诚实担当）</h3>
+<p><strong>它写了什么</strong>：
+- <strong>自曝</strong>（§6.1）：50 kg 弹射案例中系统总能量从 1025 J 增至 1239 J（+214 J），而三人肌肉总注入 ΣΔE=689 J——<strong>量级相当、账目存疑</strong>："It is possible that the model of instantaneous jump does not reflect reality well, and ... the maximal height is overestimated"；
+- 三条洞察：ΔE 随质量增（肌肉多）/ 单人蹦跳是吸引子 / 多人是混沌转移；
+- <strong>安全设计建议</strong>：弹射峰值速度可达 ~8 m/s，"增大气动阻尼 c_a 比增大滞后 c_d 更能限制弹射高度"——把结论落到产品设计；
+- <strong>式 (11) 的直觉</strong>：$h=E_{total}/mg$——同样总能量，最轻者最高，"while multiple people are playing on a trampoline it is really important to take safety of smaller kids seriously"。
+<strong>你要学什么</strong>：<strong>自己给自己找茬</strong>（能量账目复核 → 公开质疑自己的高度可能被高估）——这是全库 73 篇里最勇敢的一段自我审计，也是它虽答案居中（3.2 vs 102 的 3.67）却同样金牌的原因。</p>
+<hr>
+<h2 id="2-图表深析">2. 图表深析</h2>
+<table>
+<thead>
+<tr>
+<th>图/表</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fig 1 非共振衰减振荡</td>
+<td>§3.1</td>
+<td>无蹬腿基线：证明阻尼存在且模型正确</td>
+<td>DOP853 解</td>
+</tr>
+<tr>
+<td>Fig 2 三人共振轨迹三联</td>
+<td>§3.2</td>
+<td><strong>attractor 可视化</strong>：三质量各自的稳态高度=题面独跳值（0.496/0.799/1.202）</td>
+<td>底部事件注入</td>
+</tr>
+<tr>
+<td>Table 1 蹦床参数（含双段 k）</td>
+<td>§3</td>
+<td>参数透明（⚠ 双段弹簧 k=96 kN/m→2.7 kN/m 的预紧物理未解释透）</td>
+<td>文献[1]缩放</td>
+</tr>
+<tr>
+<td>Table 2 ΔE₀ vs ΔE 双轨表</td>
+<td>§3.2</td>
+<td><strong>全文方法论核心</strong>：解析与数值在 3% 内相遇</td>
+<td>式(10)+仿真</td>
+</tr>
+<tr>
+<td>Fig 3 接力时序示意</td>
+<td>§4</td>
+<td><strong>策略即图</strong>：三球位置+垫形变的时刻快照</td>
+<td>示意图</td>
+</tr>
+<tr>
+<td>Table 3 六序穷举表</td>
+<td>§5</td>
+<td>3!=6 全覆盖：落序→三人各自最高</td>
+<td>三体仿真</td>
+</tr>
+<tr>
+<td>Fig 4–6 弹射者轨迹+速度双联</td>
+<td>§5</td>
+<td>位置与速度并排——弹射瞬间的速度峰值（~8 m/s）直接可见</td>
+<td>三体仿真</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心图复现——立方弹簧 + 有效质量 + 稳态吸引子（式 1/4 与 Table 2 的最小实现）</strong>：</p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
+
+# ── 参数（论文 Table 1）──
+R, M, N, ca, cd = 2.5, 6.25, 150, 2.3, 16.0
+k = 2.7e3                                    # 大形变段弹簧刚度
+m, h_alone, dE = 25.0, 0.496, 126.0          # 25 kg 玩家（Table 2）
+
+def Ft(z):                                    # 式(1)：立方弹簧（z&lt;0 为压）
+    return N*k*z*(1 - R/np.sqrt(R*R + z*z)) if z != 0 else 0.0
+
+def ode(t, s):                                # 式(4)：(m+M/3) z̈ = −Ft−Fa−Fd
+    z, v = s
+    Ft = N*k*z*(1 - R/np.sqrt(R*R + z*z))
+    Fa = ca*np.pi/6*R*R/np.sqrt(1 + z*z/(R*R))*v*abs(v)
+    return [v, (-Ft - Fa - cd*v)/(m + M/3)]
+
+def bottom(t, s): return s[0]                 # 最低点事件
+bottom.terminal, bottom.direction = True, -1
+
+# 自由落体到垫面 → 触垫方程 → 底部注入 ΔE → 再循环
+s = [0.0, -np.sqrt(2*9.8*(h_alone + 0.2))]    # 从略高处落（吸引子与初值无关）
+T, Z = [0.0], [s[0]]
+for cycle in range(6):
+    sol = solve_ivp(ode, [0, 5], s, events=bottom, rtol=1e-10, max_step=0.002)
+    s = [sol.y[0,-1], sol.y[1,-1] + np.sqrt(2*dE/m)]   # 蹬腿：底部加 ΔE
+    s[1] = -abs(s[1])                                   # 向上弹起
+    t2 = np.linspace(sol.t[-1], sol.t[-1]+0.6, 60)
+    Z.append(s[0] + 0*s[1]*0)  # 占位：自由段解析
+    for tt in t2[1:]:
+        Z.append(s[0] + s[1]*(tt-sol.t[-1]) + 4.9*(tt-sol.t[-1])**2)
+    T.extend(list(t2))
+    s = [0.0, s[1]]                                     # 回到垫面高度重新触垫
+plt.figure(figsize=(7.4, 4.3))
+plt.plot(T, Z, lw=1.4)
+plt.axhline(0, color='gray', lw=1)
+plt.xlabel('t (s)'); plt.ylabel('z (m)')
+plt.title('25 kg resonant bouncing: attractor h≈0.50 m with ΔE=126 J (paper Table 2)')
+plt.grid(alpha=.3); plt.tight_layout(); plt.show()
+print(&quot;有效质量系数验证: M/3 =&quot;, M/3, &quot;（式6积分 ∫2πρr(1−r/R)dr=M/3 ✓）&quot;)
+print(&quot;立方弹簧小z律: Ft ≈ Nk·z³/(2R²) =&quot;, N*k/(2*R*R), &quot;·z³ N  ← 与102队的二次律对比见精读§3.1&quot;)
+</code></pre>
+<p>三个可偷的绘图决策：<strong>① attractor 用"多周期叠加收敛"呈现</strong>（初值无关性是论点）；<strong>② 位置+速度双联</strong>（弹射速度 ~8 m/s 的安全论据藏在速度图里）；<strong>③ 参数表把双段弹簧如实列出</strong>（哪怕未解释透——透明优先）。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<h3 id="31-弹簧合力的几何投影式-1-全库最精彩的跨论文审计">3.1 弹簧合力的几何投影（式 1）——⚠ 全库最精彩的跨论文审计</h3>
+<p>$$F_t=Nkz\Big(1-\frac{R}{\sqrt{R^2+z^2}}\Big)$$
+- <strong>推导</strong>：垫中心下压 z，单簧伸长 $\Delta L=\sqrt{R^2+z^2}-R$；弹簧方向从边框 $(R,0)$ 指向垫心 $(0,-z)$，<strong>垂直投影因子是 $z/\sqrt{R^2+z^2}$</strong>：
+$$F_v=Nk\,\Delta L\cdot\frac{z}{\sqrt{R^2+z^2}}=Nkz\Big(1-\frac{R}{\sqrt{R^2+z^2}}\Big)$$
+- <strong>小 z 展开</strong>：$1-\frac{R}{\sqrt{R^2+z^2}}\approx\frac{z^2}{2R^2}$ → $F_t\approx\frac{Nk}{2R^2}z^3$——<strong>立方弹簧</strong>（无预紧蹦床的经典结果：软起步、硬收尾）。
+- <strong>⚠ 对照 102 队</strong>：102 写 $F_v=N_sK_s(\sqrt{R^2+x^2}-R)\cdot\frac{R}{\sqrt{R^2+x^2}}$——投影因子取了 $R/\sqrt{R^2+x^2}$（<strong>水平余弦</strong>，即弹力的水平分量），展开后 $F_v\approx\frac{N_sK_s}{2R}x^2$（二次）。<strong>正确的垂直投影是 $z/\sqrt{}$（正弦），不是 $R/\sqrt{}$（余弦）</strong>。物理后果：102 低估了小形变区的"软"、高估了中形变区的力；471 的立方律让蹦床在轻踩时几乎无力、深压时爆发——这正是"接力蓄能"策略能成立的力学基础。<strong>两篇金牌、一个投影因子、一队对一队错——精读的价值就在这种地方。</strong></p>
+<h3 id="32-有效质量-m3式-56">3.2 有效质量 M/3（式 5–6）</h3>
+<p>垫面速度线性分布 $v(r)=v_0(1-r/R)$ → 垫的动能与惯性按 $\int_0^R\rho\,v(r)^2\,2\pi r\,dr$ 折算：
+$$\int_0^R r\big(1-\tfrac rR\big)^2dr=\frac{R^2}{12}\;\Rightarrow\;KE_{mat}=\frac{Mv_0^2}{12},\quad M_{eff}=\frac{M}{3}$$
+（动能系数 1/12 ↔ 惯性系数 1/3，因 KE∝v² 而 ma∝a，分布因子平方 vs 一次。）
+- <strong>复算</strong>：$\int r(1-r/R)dr=R^2/6$（一次）→ M/3 ✓；$\int r(1-r/R)^2dr=R^2/12$（平方）→ Mv₀²/12 ✓。<strong>两条积分都逐位正确</strong>——这是 102 队直接引用同源文献但没展开的细节，471 展开了且对。</p>
+<h3 id="33-稳态损耗积分式-78">3.3 稳态损耗积分（式 7–8）</h3>
+<p>$$\Delta E_1=\int_0^{\pi/\omega}\Big(\frac{c_a\pi R^2}{6}\dot z^3\,\mathrm{sgn}+\;c_d\dot z^2\Big)dt,\qquad \dot z=v_0\cos\omega t$$
+- <strong>要点</strong>：半个周期内 $\int|\cos^3|=\frac43$、$\int\cos^2=\frac{\pi}{2}$ → $\Delta E_1=(\frac{2c_a}{9}\pi R^2v_0^3+\frac{c_d\pi v_0^2}{2})/\omega$ ✓ 与论文一致。<strong>易错点</strong>：cos³ 在半周期内有正有负，必须取绝对值（耗散恒正）——论文的 sgn(ż) 与 |cos³| 处理是对的。
+- <strong>垫动能损耗（式 9）</strong>：$\Delta E_2=\frac{Mv_0^2}{12}$——起跳瞬间垫被"甩掉"，这份动能不还给玩家。</p>
+<h3 id="34-稳态能量式式-10与双轨互证table-2">3.4 稳态能量式（式 10）与双轨互证（Table 2）</h3>
+<p>$$\Delta E=gh_{max}\Big(\frac{M}{6}+\big(\tfrac{4c_a}{9}R^2\sqrt{2gh_{max}}+c_d\big)\frac{\pi}{\omega}\Big)$$
+- <strong>结构解读</strong>：$gh_{max}$ 是"每次弹射的峰值势能"，括号是"<strong>每焦耳峰值能量需要的肌肉注入</strong>"——M/6 项来自垫动能损耗（$\frac{Mv_0^2/12}{mgh}=\frac{M}{6m}$，按 h 折算），第二项是气阻+阻尼的周期损耗。
+- <strong>⚠ 审计 A（Table 2 的 ΔE₀ 复算）</strong>：25 kg 行 ΔE₀=123.25 J ≈ mgh=122.5 ✓；但 40 kg（215.04 vs mgh=313）与 50 kg（347.03 vs mgh=589）<strong>显著小于 mgh</strong>。按式 (10) 反推所需 ω：40 kg 需 ω≈4.0（合理，重者慢），50 kg 需 ω≈8.6（<strong>反常</strong>——最重者应最慢）。三个质量档的 ω 无法自洽，且 ω 数值未在文中印出——<strong>Table 2 的理论列无法被独立复算</strong>。好在 ΔE₀ 与 ΔE（仿真）相差 &lt;3% 是主结论，理论上列的不可复算只伤"双轨"的一轨。
+- <strong>⚠ 审计 B（双段弹簧）</strong>：k=96 kN/m（ΔL&lt;1.5 mm）→ 2.7 kN/m 的两段刚度对应真实蹦床弹簧的<strong>预紧段/工作段</strong>，文中未解释物理（预紧使小位移刚度极大）；这直接影响式 (1) 立方律在极小 z 区的有效性。</p>
+<h3 id="35-能量自曝61">3.5 能量自曝（§6.1）</h3>
+<p>$$E_{total}:1025\to1239\ \text{J}\;(+214),\qquad \Sigma\Delta E=689\ \text{J}$$
+- <strong>怎么读到</strong>：50 kg 被弹射到 2.386 m（589 J）+ 垫/其他保有量 ≈1239 J，而三人最多注入 689 J——<strong>出口能量比注入多出 ~349 J 无法解释</strong>，作者怀疑"瞬时蹬腿模型高估了弹射速度"。这是<strong>负责任的敏感性声明</strong>：结论的"序"（最轻最高）可信，"数"（3.2 m）可能偏高。对照 102（3.67 m，含蹬腿补偿）与 138（1.69 m，视频校准）——三队答案谱 1.7–3.7 m，471 居中且最诚实。</p>
+<h3 id="36-弹射高度的直觉式式-11">3.6 弹射高度的直觉式（式 11）</h3>
+<p>$$h=\frac{E_{total}}{mg}$$
+- <strong>怎么想到</strong>：全部蓄能弹给一人时的高度上限——<strong>除以质量</strong>天然偏爱轻者。安全推论（小孩危险）与破纪录推论（弹最轻者）同源——一个公式两种应用，是"物理洞察→现实建议"的写作范本。</p>
+<hr>
+<h2 id="4-建模决策链">4. 建模决策链</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>弹簧力</td>
+<td>几何投影立方律（式1）</td>
+<td>线性/二次近似</td>
+<td>投影推导严格（102 队此处出错 ⚠）</td>
+</tr>
+<tr>
+<td>垫惯性</td>
+<td>有效质量 M/3</td>
+<td>忽略垫质量</td>
+<td>积分可推导；M/12 动能损耗进能量账</td>
+</tr>
+<tr>
+<td>蹬腿建模</td>
+<td>底部事件注入 ΔE</td>
+<td>力学肌肉模型</td>
+<td>事件法与"稳态吸引子"天然兼容</td>
+</tr>
+<tr>
+<td>数值方法</td>
+<td>DOP853（8阶）</td>
+<td>RK45</td>
+<td>高刚度立方弹簧需要高精度</td>
+</tr>
+<tr>
+<td>三人策略</td>
+<td>时序接力（文献[2]）</td>
+<td>102 的穷举相位 / 138 的视频校准</td>
+<td>机制透明；六序穷举无遗漏</td>
+</tr>
+<tr>
+<td>答案口径</td>
+<td>如实报告+自曝能量账</td>
+<td>修饰数字</td>
+<td>§6.1 的诚实是金牌成色</td>
+</tr>
+<tr>
+<td>安全落点</td>
+<td>建议增大 ca</td>
+<td>—</td>
+<td>结论→设计的闭环</td>
+</tr>
+</tbody>
+</table>
+<p><strong>独立复现审计汇总</strong>：式(1) 小 z 立方律 ✓（与 102 的二次律对比——<strong>102 投影因子用错</strong> ⚠⚠）；M/3 与 Mv₀²/12 积分 ✓ 逐位；损耗积分 cos³/cos² ✓（含绝对值细节）；<strong>Table 2 理论列 ΔE₀ 无法用一致的 ω 复算</strong>（25 kg 恰等于 mgh，40/50 kg 不等）⚠；双段弹簧 k 的预紧物理未说明 ⚠；能量自曝（214 vs 689 J）✓ 诚实；六序表内自洽（25 kg 最高的序 40,50,25 ✓ 符合"最重先压最深"直觉）；与 102/138 答案谱对比 ✓ 居中。<strong>总评：方法论（双轨互证+诚实审计）是三篇蹦床金牌的标杆；静力学推导是全库同题唯一全对的。</strong></p>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板</strong>：</p>
+<pre><code>2 单人模型      力三项（几何/气动/材料）+ 有效质量积分推导
+2.1 稳态解析    谐波近似 → ΔE(hmax) 闭式（用途：给仿真一个预言）
+3 单人仿真      DOP853+事件注入 → attractor → ΔE 双轨互证表
+4-5 三人策略    接力时序（机制图）→ 全序穷举表 → 弹射者轨迹/速度双联
+6 审计与讨论    能量账目自检（敢自曝）→ 三洞察 → 安全设计建议
+</code></pre>
+<p><strong>句式库</strong>：
+- "It is worthy to emphasise the fact that the theoretically obtained values of ∆E are within 3% of the values obtained in the simulation. It shows the correctness of both the model and the simulation."（双轨互证的收束句）
+- "This eﬀect won't be analysed in our models separately, but the fact that we model bouncing in the trampoline's center is the eﬀect of it."（"不建模但承认在起作用"的取舍句）
+- "It is unlikely that they are close to the exact values, because ... which is of the same order of magnitude as ..."（<strong>自我质疑的定量句式</strong>——全库最勇敢的一段）
+- "Maybe not by a factor of 3, as we calculated for an optimal situation, but it can still be dangerous for trampoline users."（结论的安全余量句）
+- "It may be beneﬁcial to design the trampoline in a way, that has a larger drag coeﬃcient ca, rather than damping one cd."（从模型参数直达产品设计）</p>
+<p><strong>图表配方</strong>：attractor 多周期收敛图；<strong>双轨互证表</strong>（理论列 vs 仿真列并列）；策略时序示意图（蓄能机制一图讲清）；弹射者"位置+速度"双联（安全论据藏在速度图）。</p>
+<hr>
+<p><em>对照阅读：<code>05_论文赏析/2023/2023-GM-B-471.md</code>、<code>07_题目解读/2023_题B_三人蹦床.md</code>（三队答案谱 1.7–3.7 m）、队友精读 102（⚠ 二次弹簧的投影错误对照）与 138（视频校准路线）。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract">1.1 Abstract</a></li><li class="l3"><a href="#12-2-单人模型式-16">1.2 §2 单人模型（式 1–6）</a></li><li class="l3"><a href="#13-21-稳态解式-710解析轨">1.3 §2.1 稳态解（式 7–10：解析轨）</a></li><li class="l3"><a href="#14-3-单人仿真双轨的数值轨">1.4 §3 单人仿真（双轨的数值轨）</a></li><li class="l3"><a href="#15-45-三人接力策略与六序穷举">1.5 §4–5 三人接力策略与六序穷举</a></li><li class="l3"><a href="#16-6-能量审计与讨论全文的诚实担当">1.6 §6 能量审计与讨论（全文的诚实担当）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-弹簧合力的几何投影式-1-全库最精彩的跨论文审计">3.1 弹簧合力的几何投影（式 1）——⚠ 全库最精彩的跨论文审计</a></li><li class="l3"><a href="#32-有效质量-m3式-56">3.2 有效质量 M/3（式 5–6）</a></li><li class="l3"><a href="#33-稳态损耗积分式-78">3.3 稳态损耗积分（式 7–8）</a></li><li class="l3"><a href="#34-稳态能量式式-10与双轨互证table-2">3.4 稳态能量式（式 10）与双轨互证（Table 2）</a></li><li class="l3"><a href="#35-能量自曝61">3.5 能量自曝（§6.1）</a></li><li class="l3"><a href="#36-弹射高度的直觉式式-11">3.6 弹射高度的直觉式（式 11）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

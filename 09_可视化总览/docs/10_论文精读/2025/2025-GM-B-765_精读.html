@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 58 · Artillery Trajectory Modeling via Simplified Aerodynamic-Kinematic Assumptions and Development of Manual Calculation Tools（2025 题B 金牌 · 队伍 765 · 52 页） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2025/2025-GM-B-765_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2025 · 精读 58 · Artillery Trajectory Modeling via Simplified Aerodynamic-Kinematic Assumptions and Development of Manual Calculation Tools（2025 题B 金牌 · 队伍 765 · 52 页）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-58-artillery-trajectory-modeling-via-simplified-aerodynamic-kinematic-assumptions-and-development-of-manual-calculation-tools2025-题b-金牌-队伍-765-52-页">精读 58 · Artillery Trajectory Modeling via Simplified Aerodynamic-Kinematic Assumptions and Development of Manual Calculation Tools（2025 题B 金牌 · 队伍 765 · 52 页）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：左手论文 PDF（<code>03_优秀论文PDF/2025/Problem B/2025-GM-B-765.pdf</code>），右手本篇。国防科大这篇是十三篇同题金牌中<strong>工程体系最完整</strong>的一篇：Q1 自建 <strong>Re–Ma 耦合 Cd 模型</strong>（全库唯一从流体力学第一性原理分段构造阻力系数的队伍），Q2 用 <strong>Levenberg–Marquardt 最小二乘</strong>（全库唯一把"求射角"写成非线性优化问题的队伍），Q3 交付<strong>射表+修正表+列线图+心算公式四件套</strong>（唯一画出列线图 nomogram 的队伍）。你要学的是：① 从 Stokes→Oseen→跨声速峰，如何"分段+耦合"地造一个动态 Cd；② 打靶问题如何变成最小二乘问题；③ 交付物家族的完整形态。审计发现其<strong>快速公式只覆盖高角支、与自家 U 形曲线矛盾</strong>（⚠ §4），以及 Cd 图读数与公式复算不符等——照例是"细节账本"教材。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<pre><code class="language-mermaid">flowchart TB
+    Q1[&quot;Q1 静风 2D 模型：&lt;br/&gt;ISA 指数大气(推导表) + Sutherland 黏性(推导表)&lt;br/&gt;+ Re-Ma 耦合 Cd(四段×两支+权重融合)&lt;br/&gt;→ DP45 积分 → U 形 θ-v₀ 曲线&lt;br/&gt;→ v_min=122 m/s @41.8°&quot;] --&gt; Q2[&quot;Q2 3D ENU+风：&lt;br/&gt;g(z,λ) 国际重力式 + ISA 对流层&lt;br/&gt;+ Magnus/Coriolis 推导后排除&lt;br/&gt;RK45(rtol=1e-8) + **LM 最小二乘**&lt;br/&gt;求 (v₀,θ,φ)&quot;]
+    Q2 --&gt; Q3[&quot;Q3 交付四件套：&lt;br/&gt;①基础射表+三张修正表&lt;br/&gt;②列线图 nomogram（直尺读数）&lt;br/&gt;③心算公式 v₀≈3√R×1.2、θ=45°+k₁R/β&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好</strong>：三层递进不是"三个模型"而是<strong>同一个模型的三次降维</strong>——Q1 的高保真 Cd 在 Q2 简化为 Morrison 式（式 6.10），Q2 的数值结果在 Q3 蒸馏成四件套。每个降维处都声明"为什么可以简"。<strong>52 页的体量靠"推导逻辑表"（Table 5.1–5.3 每个公式配来历四步表）撑住可读性</strong>——这是长文不失控的秘诀。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-abstract-2-problem-restatement">1.1 Abstract + §2 Problem Restatement</h3>
+<p><strong>它写了什么</strong>：三问三答的摘要（每问一段、各带方法名与硬数字：122 m/s @41.8°、U 形关系、四件套）。
+<strong>你要学什么</strong>：三问结构的题目，摘要<strong>逐问给方法+结论</strong>——评委按问给分，摘要就按问组织。</p>
+<h3 id="12-4-assumptions六条全带-justification">1.2 §4 Assumptions（六条全带 Justification）</h3>
+<p><strong>它写了什么</strong>：刚性球/忽略科氏与曲率/忽略 Magnus/大气规则变化/二次阻力/准静态——每条 2–3 行论证。亮点是假设 6"准静态过程"：<strong>多数队伍根本不会想到要声明这个</strong>（气动力建立时间 ≫ 弹道时间尺度），敢写说明流体力学功底。
+<strong>你要学什么</strong>：假设清单的"含金量"看两条——有没有一条是别的队伍想不到的；每条理由是否可检验。</p>
+<h3 id="13-512-大气与黏性模型两张推导逻辑表">1.3 §5.1.2 大气与黏性模型（两张"推导逻辑表"）</h3>
+<p><strong>它写了什么</strong>：
+- <strong>密度</strong>（式 5.7）：ISA 指数律 ρ=ρ₀e^{−h/H_p}，H_p=8500 m——用 Table 5.1 四步表展示来历（静力学平衡 dP/dh=−ρg → 理想气体 → 等温积分 → ρ=P/RT）；
+- <strong>黏性</strong>（式 5.9）：<strong>Sutherland 公式</strong> µ=µ₀(T/T₀)^{3/2}(T₀+S)/(T+S)——Table 5.2 三步表（动理学 µ∝√T → Lennard-Jones 碰撞积分修正 T^{3/2} → Sutherland 低温项）；
+- 两个<strong>下界约束</strong>（ρ≥0.1 kg/m³、µ≥10⁻⁶）防止高空奇异。
+<strong>为什么这样写</strong>：<strong>"公式的家谱表"是长文的杀手锏</strong>——评委不用信你，只需检查四步推导链。黏性模型看似多余（Re 进 Cd 才需要它），恰是 Q1 Re-Ma 模型的零件。
+<strong>你要学什么</strong>：给每个物理公式配一张"来历四步表"，是 52 页长文保持可信度的核心技巧。</p>
+<h3 id="14-513-rema-耦合-cd全文的技术招牌式-510520">1.4 §5.1.3 Re–Ma 耦合 Cd（全文的技术招牌，式 5.10–5.20）</h3>
+<p><strong>它写了什么</strong>：四段 Re 基线 × 五段 Ma 修正 × 权重融合：
+- <strong>Re 基线</strong>：低 Re（Stokes 24/Re + Oseen 4.5/√Re + 经验 0.42）/ 过渡区对数律 / 高 Re 平台 0.47 / 超临界阻力危机式 (5.13)；
+- <strong>Ma 修正因子</strong>：不可压缩 1.0 → Prandtl–Glauert $1/\sqrt{1-Ma^2}$（0.3–0.8）→ 线性升 1.67→2.0（0.8–1.0）→ 线性降 2.0→1.5（1.0–1.2）→ 二次增长 1.5+0.3(Ma−1.2)²（超声速）；
+- <strong>耦合权重</strong>：$w_{Re}=1-0.8\frac{Ma-0.5}{1.0}$（0.5≤Ma&lt;1.5），端点 w=1（纯 Re）与 0.2（Ma 主导）；
+- <strong>融合</strong>（式 5.20）：$C_d=w_{Re}\cdot C_{d,base}\cdot C_{d,Ma}+(1-w_{Re})\cdot C_{d,Ma-only}$，约束 Cd∈[0.08, 1.2]。
+<strong>为什么这样造</strong>：低空低速黏性主导（Re 说了算）、跨声速压缩性主导（Ma 说了算）——<strong>用一个随 Ma 衰减的权重在两个物理 régime 之间插值</strong>。每段公式都注明出处类型（Stokes 解/Oseen 修正/实验拟合/NASA 数据）。
+<strong>你要学什么</strong>：<strong>"分段+加权融合"是构造跨 régime 物理量的标准套路</strong>（学过之后，凡是"某个系数在不同区间服从不同规律"的问题都可套用）。每段还配了"物理后果"一句（如 Ma=0.7 因子 1.4 → 射程略降）——公式-后果-数字三点一线。</p>
+<h3 id="15-52-q1-求解与结果">1.5 §5.2 Q1 求解与结果</h3>
+<p><strong>它写了什么</strong>：状态向量 (5.21) + 阻力因子 k=½CdρAv_rel/m (5.22)；低速阈值 v_rel&lt;10⁻⁶ 时退化为自由落体 (5.23)（数值保护）；DP45 积分。结果：<strong>θ-v₀ U 形曲线</strong>（最低点 v_min=122 m/s @41.8°，"consistent with ballistics' minimum energy principle"）；三典型解（最低角/最高角/最小能量）各配战术解释；三轨迹的 Cd(t) 曲线（低伸轨迹 Cd 从 0.57 单调降到 0.27；高角轨迹在 600/800 m 处剧烈振荡 0.2–0.6——"穿越跨声速临界区"）。
+<strong>你要学什么</strong>：<strong>Cd(t) 曲线是弹道论文的"心电图"</strong>——它把"我的动态 Cd 真的在动态"可视化；振荡对应跨声速穿越，是模型自洽的展示窗口。</p>
+<h3 id="16-6-q2-三维风场模型式-61624">1.6 §6 Q2 三维风场模型（式 6.1–6.24）</h3>
+<p><strong>它写了什么</strong>：ENU 坐标系；<strong>g(z,λ) 国际重力公式</strong>（纬度+高度两项，全库唯一）；ISA 对流层模型；Magnus 力<strong>从伯努利推起</strong>（式 6.12–6.14：F_M=2πρR³vω）再以升力系数形式 (6.15) 重写，<strong>然后排除</strong>（估算累计效应不显著）；Coriolis 同样"先写矢量式再排除"。数值：RK45（rtol=atol=10⁻⁸、max_step=0.05 s、事件检测+二分精化落点）；<strong>打靶=非线性最小二乘</strong>（式 6.37–6.39）：残差取水平落点误差二维向量，<strong>Levenberg–Marquardt</strong>（scipy least_squares、三点有限差分 Jacobian、自适应阻尼 λ_k）解 (v₀,θ,φ)，含参数边界与初值策略（dz&gt;50 m 时 v₀ 猜 0.95v_max）。
+<strong>你要学什么</strong>：
+1. <strong>"求射角"= 非线性最小二乘</strong>——把打靶从"逐个二分"升级为"三参数联合优化"，这是全库独一份的解法升级（还顺带解决了方位角 φ 与仰角 θ 的耦合）；
+2. <strong>LM 的初值策略值得抄</strong>（dz 大→高抛猜值；否则用平均水平速度反推 t 再猜 θ）——<strong>优化算法的成败在初值</strong>；
+3. Magnus/Coriolis "推导后排除"的写法（不是不提，而是给出公式再给排除的量级理由）——<strong>排除也要付出推导的诚意</strong>。</p>
+<h3 id="17-64-参数扫描三组单因素实验">1.7 §6.4 参数扫描（三组单因素实验）</h3>
+<p><strong>它写了什么</strong>：固定两变一（风/高度/距离），每组给轨迹族+参数趋势图，并总结出几条<strong>非平凡规律</strong>：目标高于发射点时"初速先降后升"（仰角先陡增后稳定）；目标低于发射点时 v₀ 最省且曲线平滑；同高 1000–1100 m 处出现"高/低弹道切换"（优化器在不同局部最优间跳变）。
+<strong>你要学什么</strong>：<strong>单因素扫描 + 把异常读成物理</strong>（"optimizer exploring different local optimal ballistic strategies"）——扫描图不是贴数据，是发现结构。</p>
+<h3 id="18-7-交付四件套全文的落点">1.8 §7 交付四件套（全文的落点）</h3>
+<p><strong>它写了什么</strong>：
+1. <strong>基础射表</strong>（500–3000 m，静风 500 m 标准态）+ <strong>三张修正表</strong>（海拔修正：每 500 m −1.2°/+2.1 m·s⁻¹ 线性；顺风修正；高度差修正表——正负对称七档）；
+2. <strong>列线图 nomogram</strong>（射程-仰角-初速三尺一线，"直尺一连、交点直读"）——<strong>全库唯一</strong>，并说明其原理（对数尺度+几何投影）与优点（免插值免累计修正）；
+3. <strong>心算公式</strong>：初速 $v_0\approx3\sqrt{R}\times1.2$（由真空 $v_0=\sqrt{gR}$、g=10、×1.2 阻力修正；心算规则"R=1000→3×32×1.2≈115 m/s、距离加倍速度×√2"）；仰角 $\theta=45°+k_1(R/\beta)$——<strong>用弹道系数 β=m/(ρC_dA) 做无量纲化</strong>的泰勒展开（式 7.3），k₁≈0.01°·β/m 由阻力功分析或实验定。
+<strong>你要学什么</strong>：四件套的<strong>分层逻辑</strong>——查表（准）→列线图（快）→心算（更快但糙），并声明"心算公式的误差由修正表兜底"。三种交付物对应三种战场时间预算，<strong>交付物设计=用户时间预算设计</strong>。</p>
+<h3 id="19-910-局限与改进五对五">1.9 §9–10 局限与改进（五对五）</h3>
+<p><strong>它写了什么</strong>：五条局限（几何简化/大气理想化/远程地球物理/二次阻力律适用域/准静态近似）严格对应五条改进方向——<strong>" limitation ↔ improvement"一一配对</strong>的写法。
+<strong>你要学什么</strong>：弱点与改进一一对应，让"我承认不足"变成"我知道怎么修"——这比罗列弱点高级一档。</p>
+<hr>
+<h2 id="2-图表深析">2. 图表深析</h2>
+<table>
+<thead>
+<tr>
+<th>图/表</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fig 1 方法流程图</td>
+<td>§5</td>
+<td>模块化（大气子模块/Cd 子模块/ODE45 子模块）——长文的导航图</td>
+<td>绘图软件</td>
+</tr>
+<tr>
+<td>Table 5.1–5.3 公式家谱表</td>
+<td>§5.1</td>
+<td><strong>每个公式四步来历</strong>——52 页长文的可信度支柱</td>
+<td>排版表</td>
+</tr>
+<tr>
+<td>Fig 3/4 Re-Ma 耦合结果</td>
+<td>§5.1.3</td>
+<td>融合 Cd 曲线 vs Re 曲线/Ma 修正因子——<strong>权重插值的可视化验证</strong></td>
+<td>Python 画 Cd(Ma,Re)</td>
+</tr>
+<tr>
+<td>Fig 6 θ-Cd-v₀ 关系</td>
+<td>§5.2.3</td>
+<td>U 形曲线+飞行时间第三维</td>
+<td>参数扫描</td>
+</tr>
+<tr>
+<td>Fig 7 三轨迹 Cd(t) 心电图</td>
+<td>§5.2.3</td>
+<td>动态 Cd 的自证窗口（振荡=跨声速穿越）</td>
+<td>积分输出</td>
+</tr>
+<tr>
+<td>Fig 8/9 三典型解对比</td>
+<td>§5.2.3</td>
+<td>低伸/高抛/最小能量三解各配战术定位</td>
+<td>打靶输出</td>
+</tr>
+<tr>
+<td>Fig 18–24 三组单因素扫描</td>
+<td>§6.4</td>
+<td>固定两变一；异常点（局部最优跳变）当物理发现讲</td>
+<td>LM 优化输出</td>
+</tr>
+<tr>
+<td>Fig 25–27 射表/修正表/列线图</td>
+<td>§7.1–7.2</td>
+<td><strong>交付物本体</strong>（列线图是全库唯一）</td>
+<td>数据后处理</td>
+</tr>
+<tr>
+<td>Fig 28 可行解曲线</td>
+<td>§8</td>
+<td>结论图</td>
+<td>Q1 输出</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心图复现——Re–Ma 耦合 Cd（式 5.10–5.20 的最小实现 + 审计复算）</strong>：</p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+
+def cd_base(Re):                       # 式(5.10)-(5.13)：Re 四段
+    if Re &lt; 1e3:        return 24/Re + 4.5/np.sqrt(Re) + 0.42
+    if Re &lt; 2e5:        return 0.5 - 0.1*np.log10(Re/1e3)
+    if Re &lt;= 3e5:       return 0.47
+    return 0.47*(0.2/0.47 + 0.8*np.exp(-(Re-3e5)/1e5))     # 阻力危机(式5.13)
+
+def cd_ma_factor(Ma):                  # 式(5.14)-(5.18)：Ma 五段
+    if Ma &lt;= 0.3:  return 1.0
+    if Ma &lt; 0.8:   return 1/np.sqrt(1-Ma*Ma)                  # Prandtl–Glauert
+    if Ma &lt; 1.0:   return 1.67 + (2.0-1.67)*(Ma-0.8)/0.2
+    if Ma &lt; 1.2:   return 2.0 - (2.0-1.5)*(Ma-1.0)/0.2
+    return 1.5 + 0.3*(Ma-1.2)**2
+
+def wRe(Ma):                           # 式(5.24)：耦合权重
+    if Ma &lt; 0.5:  return 1.0
+    if Ma &lt; 1.5:  return 1.0 - 0.8*(Ma-0.5)
+    return 0.2
+
+def Cd(Re, Ma):                        # 式(5.25)：融合
+    cdb, f = cd_base(Re), cd_ma_factor(Ma)
+    w = wRe(Ma)
+    return min(max(w*cdb*f + (1-w)*0.47*f, 0.08), 1.2)
+
+# ── 审计复算：出膛工况（450 m/s @500 m ISA）──
+rho, T, mu0, T0, S = 1.168, 285.1, 1.789e-5, 288.15, 110.4
+mu = mu0*(T/T0)**1.5*(T0+S)/(T+S)                       # Sutherland(式5.9)
+v, d = 450.0, 0.11
+Ma, Re = v/np.sqrt(1.4*287.05*T), rho*d*v/mu
+print(f&quot;出膛: Ma={Ma:.3f}  Re={Re:.3e}&quot;)
+print(f&quot;Cd-base(Re)={cd_base(Re):.3f}  Ma因子={cd_ma_factor(Ma):.3f}  wRe={wRe(Ma):.3f}&quot;)
+print(f&quot;融合 Cd = {Cd(Re, Ma):.3f}   ← 出膛跨声速，物理真值 ~0.9-1.0，模型给 0.7x 偏低&quot;)
+# Ma=1.33: wRe=0.336, Cd_base=0.47, 因子=1.505 → Cd=0.336×0.47×1.505+0.664×0.707=0.71
+
+Mas = np.linspace(0.1, 2.5, 300)
+Res = [rho*d*Mas*340/mu for Mas in Mas*0+300]           # 近似固定 Re 画形状
+plt.figure(figsize=(7.4, 4.3))
+plt.plot(Mas, [Cd(rho*d*m_*340/mu, m_) for m_, r_ in zip(Mas, Res)], lw=2,
+         label='coupled model (Eq.5.20)')
+plt.plot(Mas, [0.47*cd_ma_factor(m_) for m_ in Mas], 'r--', lw=1.4, label='0.47×Ma-factor')
+plt.axvspan(0.8, 1.2, color='orange', alpha=.12, label='transonic')
+plt.xlabel('Mach number'); plt.ylabel('Cd')
+plt.title('Re–Ma coupled drag: 5-segment Ma factor × weight fusion (paper Eq.5.14–5.25)')
+plt.legend(fontsize=9); plt.grid(alpha=.3); plt.tight_layout(); plt.show()
+</code></pre>
+<p>复算与发现：出膛 Ma=1.33 处模型给 <strong>Cd≈0.71</strong>（真实球体跨声速 ~0.9–1.0，偏低——Ma 超声速段因子 1.5 起步偏保守）；<strong>Fig 7 文字读数（最低速轨迹 Cd≈0.2、低伸轨迹终段 0.27）与自家公式复算（~0.50）不符</strong> ⚠。三个可偷的绘图决策：<strong>① 公式家谱表</strong>；<strong>② Cd(t) 心电图</strong>；<strong>③ 耦合模型与"纯 Ma 修正"双曲线同图</strong>（权重融合的效果自证）。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<h3 id="31-指数大气式-57与-sutherland-黏性式-59">3.1 指数大气（式 5.7）与 Sutherland 黏性（式 5.9）</h3>
+<p>$$\rho=\rho_0e^{-h/H_p},\quad H_p=\frac{RT_0}{g}\approx8500\ \text{m};\qquad \mu=\mu_0\Big(\frac{T}{T_0}\Big)^{3/2}\frac{T_0+S}{T+S}$$
+- <strong>怎么想到</strong>：等温静力学积分给指数律（四步表 5.1）；黏性由动理学 µ∝√T 起步、Lennard-Jones 碰撞积分修正到 T^{3/2}、Sutherland 项修低温——<strong>为 Re 数提供 µ(h)</strong>，是 Re-Ma 模型的前置零件。
+- <strong>⚠ 审计 A（两套大气并存）</strong>：Q1 用指数律（ρ₀=1.225），Q2 用 ISA 对流层幂律（ρ₀=1.205，式 6.5）——<strong>同文两种大气、海平面密度差 1.7%</strong>，且未解释为何换。量级无害，口径不洁。
+- <strong>数值感</strong>：弹道最高点（高角解）~1–2 km，ρ 变化 &lt;20%——<strong>大气模型的选型在这里其实是低敏感项</strong>，真正敏感的是 Cd。</p>
+<h3 id="32-re-基线四段式-510513">3.2 Re 基线四段（式 5.10–5.13）</h3>
+<ul>
+<li>低 Re：$C_d=\frac{24}{Re}+\frac{4.5}{\sqrt{Re}}+0.42$——<strong>Stokes 解+Oseen 惯性修正+经验项</strong>的标准合成（Clift-Gauvin 型关联），物理链条完整；</li>
+<li>过渡区对数律、高 Re 平台 0.47、超临界式 (5.13) 落到 0.2（阻力危机）。</li>
+<li><strong>数值感</strong>：本题 Re=ρdv/µ≈1.17×0.11×450/1.75e-5≈<strong>3.3×10⁶</strong>（出膛）——落在超临界段！式 (5.13) 给 Cd-base=0.2+0.376e^{−3}≈0.24。<strong>弹丸全程在阻力危机后的低阻区飞行</strong>——这与多数队伍假设的"跨声速峰 Cd≈0.9–1.0"大相径庭，是 765 与其他队答案差异的最大来源。真实球体在 Ma&gt;1 时波阻重新拉高 Cd 至 ~0.9；他们的 Ma 因子给 1.5×0.47×…≈0.7 部分补偿。<strong>精读要点：分段模型的"段边界"选择本身就是最大的建模决策。</strong></li>
+</ul>
+<h3 id="33-ma-修正五段与权重融合式-514520">3.3 Ma 修正五段与权重融合（式 5.14–5.20）</h3>
+<p>Prandtl–Glauert $1/\sqrt{1-Ma^2}$ 是线性化位势流的经典压缩性修正（Ma→1 发散，故只能在 Ma&lt;0.8 用）；跨声速用线性插值（实验曲线）；超声速二次增长（波阻 ∝Ma²−1 的标度）。权重 $w_{Re}=1-0.8(Ma-0.5)$ 让 Re 效应随 Ma 线性退场。
+- <strong>复算</strong>（§2 代码）：出膛 Cd≈0.71；Ma=0.36（122 m/s 低速解）处 wRe=1、Cd=0.47×PG(0.36)=0.47×1.071=<strong>0.50</strong>。
+- <strong>⚠ 审计 B（Fig 7 读数矛盾）</strong>：正文称"最小初速轨迹 Cd 稳定在 ~0.2"、"低伸轨迹终段 ~0.27"——与公式复算 0.50 不符；0.2 更像是把<strong>阻力危机段公式</strong>误用到了亚声速区。图文不符是本文最刺眼的内部问题。</p>
+<h3 id="34-levenbergmarquardt-打靶式-637639">3.4 Levenberg–Marquardt 打靶（式 6.37–6.39）</h3>
+<p>$$\min_{v_0,\theta,\phi}\|\vec r\|_2^2,\qquad \vec r=\begin{bmatrix}x_{imp}-x_t\\ y_{imp}-y_t\end{bmatrix},\qquad \vec p_{k+1}=\vec p_k-(J_k^\top J_k+\lambda_k I)^{-1}J_k^\top\vec r$$
+- <strong>怎么想到</strong>：传统打靶（二分/扫描）一次解一个标量；本题有三参数（v₀,θ,φ）且互相耦合——<strong>LM 是"最小二乘+阻尼牛顿"的混合，小残差区像牛顿（快）、大残差区像梯度下降（稳）</strong>。三点有限差分 Jacobian 免去解析导数。
+- <strong>为什么其余 12 队没用</strong>：二分法对"角-射程"单调段足够；但高角/低角双解共存时二分会漏解（只能找到初值区间内的那个）——<strong>LM+多初值能自然暴露双解与局部最优跳变</strong>（§6.4 的"1000–1100 m 处波动"正是优化器在两个弹道支间切换——作者把这读成了物理发现，其实部分是优化器行为 ⚠ 精读时应区分）。
+- <strong>初值策略</strong>（dz&gt;50 m→v₀=0.95v_max、θ=45°）与参数边界——<strong>优化的工程性一半在初值</strong>。</p>
+<h3 id="35-心算公式族式-71737475">3.5 心算公式族（式 7.1/7.3/7.4–7.5）</h3>
+<p>$$v_0\approx3\sqrt{R}\times1.2;\qquad \theta=45^\circ+k_1\frac{R}{\beta},\quad \beta=\frac{m}{\rho C_dA}$$
+- <strong>初速式</strong>：真空 v_min=√(gR)（g=10）→ ×1.2 阻力修正 → R=1200 时 ≈131 m/s（其 Q1 精算 122——差 7%，可接受）；心算规则"距离加倍速度×√2"来自 √R 标度 ✓。
+- <strong>⚠ 审计 C（仰角式的口径断裂）</strong>：θ=45°+k₁(R/β) 以 45° 为基准、只增不减——<strong>只能描述高角支</strong>。但其 Q1 结论是最小能量角 <strong>41.8°&lt;45°</strong>、且低角支 3° 量级的解才是军官实战用的（Table 2 里的主力解）。公式、U 形曲线、修正表三者口径不一致；k₁ 的单位"°·β/m"含混。<strong>心算式交付前必须与自家曲线对表</strong>——这与 127 队的拟合式事故同款，是全库交付层的通病。
+- <strong>弹道系数 β</strong>：β=m/(ρC_dA)=5/(1.17×0.7×0.0095)≈643 m——<strong>β 是"阻力特征长度"</strong>（速度衰减长度 1/k），R/β 即"射程占几个衰减长度"——无量纲化的物理图像极清晰，值得背。</p>
+<hr>
+<h2 id="4-建模决策链">4. 建模决策链</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cd 模型</td>
+<td>Re-Ma 分段耦合+权重融合</td>
+<td>常数/单变量 Cd(M)</td>
+<td>低速黏性+跨声速压缩性两 régime 都要照顾</td>
+</tr>
+<tr>
+<td>大气</td>
+<td>Q1 指数律 / Q2 ISA 幂律</td>
+<td>单一模型</td>
+<td>⚠ 两套并存未解释（ρ₀ 还差 1.7%）</td>
+</tr>
+<tr>
+<td>黏性</td>
+<td>Sutherland 公式</td>
+<td>常数 µ</td>
+<td>Re 数需要 µ(h)</td>
+</tr>
+<tr>
+<td>Q2 求解</td>
+<td>LM 最小二乘</td>
+<td>二分/扫描打靶</td>
+<td>三参数耦合+方位角；多初值可暴露双解</td>
+</tr>
+<tr>
+<td>Magnus/Coriolis</td>
+<td>推导→量级排除</td>
+<td>直接忽略</td>
+<td>展示"知道并会算"</td>
+</tr>
+<tr>
+<td>交付物</td>
+<td>射表+修正表+<strong>列线图</strong>+心算</td>
+<td>单一射表</td>
+<td>战场时间预算分层</td>
+</tr>
+<tr>
+<td>合规</td>
+<td>AI 报告附 GPT-5/Claude 双输出</td>
+<td>—</td>
+<td>2025 新赛制的极致合规</td>
+</tr>
+</tbody>
+</table>
+<p><strong>独立复现审计汇总</strong>：H_p=RT₀/g≈8435≈8500 ✓；Re 出膛 3.3×10⁶ → 超临界段 ✓（式 5.13 生效）；融合 Cd 出膛 0.71（真值 ~0.9，Ma 因子保守）⚠；<strong>Fig 7 读数（0.2/0.27）与公式复算（0.50）不符</strong> ⚠⚠；ρ₀ 双值（1.225/1.205）⚠；v_min=122@41.8° 合理 ✓（真空 108.4@45°+阻力修正）；<strong>心算仰角式只覆盖高角支、与 U 形曲线 41.8° 及低角支矛盾</strong> ⚠⚠；v₀≈3√R×1.2 复算 131 vs 122（7% 内）✓；LM 初值策略与参数边界 ✓ 规范；两套 Cd 模型并存（Q1 Re-Ma / Q2 Morrison 式 6.10）未解释 ⚠。<strong>总评：全库技术野心最大的一篇，"体系分"满分；但多模型并存的口径卫生与图文一致性是它的软肋——52 页的体量下，账本越厚越要勤对账。</strong></p>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板</strong>：</p>
+<pre><code>4 Assumptions       六条全带 Justification（含一条冷门：准静态）
+5 Q1 模型           物理公式+家谱表 → 动态 Cd(分段+耦合) → U 形解
+6 Q2 扩展           环境模型(g/ISA/µ) → 三力&quot;推导后排除&quot; → LM 打靶
+                    单因素扫描（异常读成物理）
+7 Q3 交付四件套     射表→修正表→列线图→心算式（分层=时间预算）
+9-10 局限↔改进      五对五一一配对
+附录                代码 + AI 使用报告(双系统输出)
+</code></pre>
+<p><strong>句式库</strong>：
+- "Employing a constant Cd value—such as the classical 0.47—could lead to range errors of several tens of meters or more, particularly in the transonic regime."（动态建模必要性句）
+- "Physically, at Ma = 0.7, the factor is ∼1.4, leading to a slight range reduction."（公式-后果-数字三点一线）
+- "Note the vertical error zimp−zt is implicitly enforced by the event detection ..., so it is not explicitly minimized."（优化问题边界的技术声明）
+- "These observations collectively demonstrate that the Re-Ma coupling performs effectively."（耦合有效性自证句）
+- "This method is particularly suitable for rapid decision-making in battlefield environments, simplifying the original table lookup and correction process into a single line-drawing and reading step."（交付物价值句）</p>
+<p><strong>图表配方</strong>：公式家谱表（四步来历）；动态 Cd 的"心电图"；耦合模型自证双曲线；单因素扫描三组；<strong>列线图</strong>（多参数一线直读）；局限↔改进配对表。</p>
+<hr>
+<p><em>对照阅读：<code>05_论文赏析/2025/2025-GM-B-765.md</code>、<code>07_题目解读/2025_题B_火炮弹道射表.md</code>（十三队速算流派全景）、队友精读 264（Morrison 公式——本文 Q2 实际采用的 Cd）、796（四层渐进+自旋的全模型对照）。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract-2-problem-restatement">1.1 Abstract + §2 Problem Restatement</a></li><li class="l3"><a href="#12-4-assumptions六条全带-justification">1.2 §4 Assumptions（六条全带 Justification）</a></li><li class="l3"><a href="#13-512-大气与黏性模型两张推导逻辑表">1.3 §5.1.2 大气与黏性模型（两张"推导逻辑表"）</a></li><li class="l3"><a href="#14-513-rema-耦合-cd全文的技术招牌式-510520">1.4 §5.1.3 Re–Ma 耦合 Cd（全文的技术招牌，式 5.10–5.20）</a></li><li class="l3"><a href="#15-52-q1-求解与结果">1.5 §5.2 Q1 求解与结果</a></li><li class="l3"><a href="#16-6-q2-三维风场模型式-61624">1.6 §6 Q2 三维风场模型（式 6.1–6.24）</a></li><li class="l3"><a href="#17-64-参数扫描三组单因素实验">1.7 §6.4 参数扫描（三组单因素实验）</a></li><li class="l3"><a href="#18-7-交付四件套全文的落点">1.8 §7 交付四件套（全文的落点）</a></li><li class="l3"><a href="#19-910-局限与改进五对五">1.9 §9–10 局限与改进（五对五）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-指数大气式-57与-sutherland-黏性式-59">3.1 指数大气（式 5.7）与 Sutherland 黏性（式 5.9）</a></li><li class="l3"><a href="#32-re-基线四段式-510513">3.2 Re 基线四段（式 5.10–5.13）</a></li><li class="l3"><a href="#33-ma-修正五段与权重融合式-514520">3.3 Ma 修正五段与权重融合（式 5.14–5.20）</a></li><li class="l3"><a href="#34-levenbergmarquardt-打靶式-637639">3.4 Levenberg–Marquardt 打靶（式 6.37–6.39）</a></li><li class="l3"><a href="#35-心算公式族式-71737475">3.5 心算公式族（式 7.1/7.3/7.4–7.5）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 49 · Maximum Height of Space Diving（2023 题A 金牌 · 队伍 131） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2023/2023-GM-A-131_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2023 · 精读 49 · Maximum Height of Space Diving（2023 题A 金牌 · 队伍 131）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-49-maximum-height-of-space-diving2023-题a-金牌-队伍-131">精读 49 · Maximum Height of Space Diving（2023 题A 金牌 · 队伍 131）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：左手论文 PDF（<code>03_优秀论文PDF/2023/Problem A/2023-GM-A-131.pdf</code>），右手本篇。这篇的教学价值有三：① <strong>跨声速 Cd 状态机</strong>——用当地声速判据在"亚声速 Cd=1 / 跨超声速 Cd=5 / 低空俯卧 Cd=1.2"间切换，把"声障"变成可编程的分支逻辑；② <strong>用 Baumgartner 39 km 实跳校验模型</strong>（入口高度误差 0.56%）；③ 多判据取最严（加速度 94 km / 温度 120 km / 平旋 78 km → 综合 80 km）。本篇审计复现了 39 km 校验的三个数（✓ §2），同时发现其高速段速度输出<strong>超出能量守恒上限</strong>（⚠ §3.4），是"带着物理直觉读数值论文"的活教材。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<p>问题：穿舱外服从多高跳下，能活着回到地面？</p>
+<pre><code class="language-mermaid">flowchart TB
+    A[&quot;§3 安全判据&lt;br/&gt;±5Gz（NASA 1992）&lt;br/&gt;舱外服耐温 121°C&lt;br/&gt;60rpm 平旋=危险&quot;] --&gt; B[&quot;§4 大气+动力学&lt;br/&gt;NRLMSIS(2.0) 温度谱（图3）→121km=402K&lt;br/&gt;自推密度式(1)（含g随高度）&lt;br/&gt;d(v²/2)/dx = GM/r² − ½CdAρv²/m&quot;]
+    B --&gt; C[&quot;§4.3 声速状态机&lt;br/&gt;Cs=√(γR*T/M0)&lt;br/&gt;v&gt;0.8Cs→Cd=5,A=0.2；回落→Cd=1,A=0.18&lt;br/&gt;&lt;25km→Cd=1.2,A=0.8（俯卧）&quot;]
+    C --&gt; D[&quot;§5 模型校验&lt;br/&gt;39km 实跳：入超声速 35.8km(实测36)✓&lt;br/&gt;出 20.3km ✓ / 1km 处 59.1m/s ✓&quot;]
+    D --&gt; E[&quot;§7-8 多判据&lt;br/&gt;加速度: 94km（95km 时 −47.65m/s² 持续3.1km）&lt;br/&gt;温度: 120km / 平旋(激波压差): 78km&lt;br/&gt;→ §9 综合结论 ≈80km&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好</strong>：先把"安全"操作化成三条可计算的判据，再用同一套动力学分别求每条判据的临界高度，<strong>最后取最严</strong>——这个"判据先行、逐条约束、取 min"的框架是所有安全类问题（最大高度/最大载荷/最大速度）的通用解法。校验环节（§5）插在判据与扫描之间：<strong>模型先对账历史实测，再外推到未知区间</strong>——顺序不能反。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-abstract">1.1 Abstract</h3>
+<p><strong>它写了什么</strong>：目标（找诱发危险加速度的临界高度）→ 方法关键词（supersonic phenomena、39 km 实测验证）→ 主结论 <strong>94 km</strong>。
+<strong>你要学什么</strong>：摘要报 94 km，结论章却收敛到 80 km——<strong>摘要放主判据答案、结论放综合答案</strong>，两个数都要出现且要能互相解释（94=加速度判据、80=三判据取严后的工程值）。这种"双数字"结构在多约束问题里很实用，但务必像本文一样在 §9 明说综合逻辑。</p>
+<h3 id="12-3-假设把安全钉成数字">1.2 §3 假设：把"安全"钉成数字</h3>
+<p><strong>它写了什么</strong>：G 值方向定义（Gx/Gy/Gz）→ 引 NASA 1992 人体耐受（+Gz 4G/5s、10G/0.1s）→ 取 ±5Gz 为界；姿态取"Delta"（头朝下）；耐温 −156~121 °C（NASA 舱外服）；50 rpm≈−0.9Gz、100 rpm≈−3.5Gz（Pattarini 2013）；科里奥利力 2ωv≈0.15 m/s²≪g 弃算。
+<strong>为什么这样写</strong>：每条安全线都有<strong>文献+数值</strong>双背书，且区分了"我们算的"（科氏力）与"我们引的"（G 耐受）。原句 "the most stable position in a high-altitude free fall is the 'Delta' position"——姿态选择直接影响后续 A 的取值，假设与参数链打通。
+<strong>你要学什么</strong>：安全阈值的选取要"留白说明"：4G/5s 与 10G/0.1s 之间取 5G 是工程折中——把折中写明，评委就不追问。</p>
+<h3 id="13-41-大气模型温度查表-密度自推式-1">1.3 §4.1 大气模型：温度查表 + 密度自推（式 1）</h3>
+<p><strong>它写了什么</strong>：温度不推公式，直接调 <strong>NRLMSIS(2.0)</strong> 取 0–150 km、1 km 步长（图 3），发现 121 km 处 402.2 K（129 °C）超舱外服耐温 → 温度上限 120 km。密度自己推：由大气柱重量积分 ∫ρGM/r²dτ=P(r)A(r) 出发求导、等温理想气体 P=kρ，得
+$$\rho(s)=\frac{\rho_0R_e^2e^{-\frac{GM\rho_0s}{P_0R_e(R_e+s)}}}{(R_e+s)^2}\tag{1}$$
+数值形式 5.236×10¹³·e^{−805.525(h−x)/(6.371×10⁶+h−x)}/(6.371×10⁶+h−x)²。§5.1 把式 (1) 与 NRLMSIS 密度叠图（图 4）验证。
+<strong>为什么这样写</strong>：<strong>温度用权威数据、密度用自推公式</strong>的分工很聪明：温度谱形状复杂（四层起伏），任何解析式都是伪精度；而密度在等温近似下有闭式，自推还能展示推导力，且立刻用数据反验证。
+<strong>你要学什么</strong>：① ρ₀R²/(R+s)² 与指数里的 GMρ₀/(P₀R)——<strong>把 g 随高度变化编进密度公式</strong>，比标准指数大气多一层物理（虽然等温假设仍是粗粒度）；② 常数复算：ρ₀=1.29（5.236e13=1.29·R_e² ✓）、805.525 km⁻¹=GMρ₀/(P₀R_e)（P₀=1.0×10⁵ Pa，非 101325 ⚠ 口径细节）。</p>
+<h3 id="14-42-终端安全性预检式前-h-积分">1.4 §4.2 终端安全性预检（式前 h 积分）</h3>
+<p><strong>它写了什么</strong>：先用常数 k 的二次阻力估计减速距离：dv/dt=g−kv²/m → h=∫vdv/(g−kv²/m)=−(m/2k)ln[(g−kv_t²/m)/(g−kv₀²/m)]，取 v₀=400、v_t=100 m/s 得 h≈613 m——<strong>低空减速只需要 613 m，开伞余量充足</strong>。
+<strong>你要学什么</strong>：这是"<strong>预检算例</strong>"（sanity check）：在跑大模型前，先用简化模型回答一个必要性问题（开伞前来得及减速吗），成本低、说服力高——与 2010-160 篇"对照组"同源的思维。</p>
+<h3 id="15-43-跨声速状态机全文核心">1.5 §4.3 跨声速状态机（全文核心）</h3>
+<p><strong>它写了什么</strong>：基础方程 d²x/dt²=GM_e/(R_e+h−x)²−(1/2m)C_D A ρ(h−x)(dx/dt)²，链式法则化成 d(v²/2)/dx（对 x 积分更稳）。声速 C_s=(γR*T_M/M₀)^{1/2} 随高度变（用 NRLMSIS 温度）。<strong>状态机</strong>：每 100 m 步比较 v 与 0.8C<strong>——超过则进入"t</strong>nsonic phase"，<strong>C_D 突跳到 5**、A=0.2（姿态失控投影</strong>）；回落到 0.8C<strong> 以下且高度</strong>5 km → C<strong>=1、A=0.18；**距地&lt;25 k</strong>→ C<strong>=1.2、</strong>0.8<strong>（转俯卧备</strong>）。参数取值声明对齐 Baumgartner 实测（引 Colino 2013）。
+<strong>为什么这样写</strong>：原句 "the value of CD will abruptly be adjusted to 5. Apart from this, the motion obey the base model."——<strong>用声速做切换条件、用 Cd 做切换动作</strong>，一句话完成"声障"的程序化。0.8 Ma 这个门槛也是从 39 km 实跳数据反标定的（"consistent with the data from the 39km jump"）。
+<strong>你要学什么</strong>：连续物理里的"突变"（阻力危机）可以用<strong>离散状态机</strong>建模，前提是切换变量（当地马赫）有明确物理含义；状态切换点要能在结果图上被识别和检验（后文图 8 的 16 km 尖峰正是状态切换的产物）。</p>
+<h3 id="16-5-模型校验39-km-实跳">1.6 §5 模型校验（39 km 实跳）</h3>
+<p><strong>它写了什么</strong>：h=39 km 代入：入超声速高度 35.8 km（实测 36 km，误差 0.56%）、出超声速 20.3 km（实测 ~20 km，1.5%）、最大速度 467.7 m/s、1 km 处 59.1 m/s、a∈[−5.16, 9.68] m/s²；加速度曲线形状与文献一致（进入超声速时阻力脉冲）。
+<strong>你要学什么</strong>：校验报告的写法=<strong>逐量对比+相对误差百分数</strong>。但注意它只对了"高度门槛"与"末速"，<strong>没对最大速度 467.7</strong>——实测是 377.1 m/s（Mach 1.25），偏高 24%（⚠ §3.4 审计）。<strong>校验时要挑最严格的量对账</strong>，别只挑对得上的。</p>
+<h3 id="17-7-扩展危险-89-结果">1.7 §7 扩展危险 + §8–9 结果</h3>
+<p><strong>它写了什么</strong>：① 激波：斜激波总压比式 (2)（表 1：1–5 Ma 的 P_t1/P_t0 从 1.004 掉到 0.105）；② 平旋：人体=圆柱 R=0.24 m，I=½mR²=5.472，判据 Iω_d=R(t_rF) → 危险力 F_d=171.9 N，配合压差公式扫 70–90 km（图 7 柱状图），<strong>78 km 以上激波压差足以在 1 s 反应时间内把人拧到 60 rpm</strong>；③ 加速度扫描：95 km 首次破 5G（−47.65 m/s² @57.4 km，持续 3.1 km）→ 上限 94 km；④ 图 8 解释 16 km 处的加速度尖峰（低空短暂跨声速+高密度→阻力脉冲）——<strong>对反常点主动归因</strong>。§9 综合：94/120/78 取严+不确定性 → <strong>约 80 km</strong>。
+<strong>你要学什么</strong>：多判据问题的结论句式："mainly focus on ... while ... also ..."——主判据给精度，副判据给安全边际，最终取比最严判据更保守的整数（78→80），体现工程冗余意识。</p>
+<hr>
+<h2 id="2-图表深析">2. 图表深析</h2>
+<table>
+<thead>
+<tr>
+<th>图</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fig 1 Delta/Belly-down 姿态</td>
+<td>§3.2</td>
+<td>两姿态对应 A=0.18/0.8 的视觉背书</td>
+<td>引用图</td>
+</tr>
+<tr>
+<td>Fig 2 大气分层</td>
+<td>§4.1</td>
+<td>四层高度范围的引用锚点</td>
+<td>NASA 引用图</td>
+</tr>
+<tr>
+<td>Fig 3 温度–高度（NRLMSIS）</td>
+<td>§4.1.1</td>
+<td>温度判据（121 km=402K）直接读图</td>
+<td>NRLMSIS 数据</td>
+</tr>
+<tr>
+<td>Fig 4 密度双曲线对比</td>
+<td>§5.1</td>
+<td><strong>自推式(1) vs 权威数据</strong>：验证图的黄金格式</td>
+<td>双线叠图</td>
+</tr>
+<tr>
+<td>Fig 5 39km 的 v–x / a–x</td>
+<td>§5.2</td>
+<td>校验主图：超声速区打影、峰值标注</td>
+<td>ode45 输出</td>
+</tr>
+<tr>
+<td>Fig 6 斜激波示意</td>
+<td>§7.1</td>
+<td>式 (2) 的几何（激波角 s）</td>
+<td>引用图</td>
+</tr>
+<tr>
+<td>Fig 7 Max Mach / 估计力柱状图</td>
+<td>§7.2</td>
+<td>平旋判据可视化：力柱 vs 171.9N 危险线（黑线）</td>
+<td>扫描+bar</td>
+</tr>
+<tr>
+<td>Fig 8 加速度–初始高度曲线</td>
+<td>§7.3</td>
+<td>全文答案曲线：16km 尖峰+95km 破线</td>
+<td>逐 h 扫描</td>
+</tr>
+<tr>
+<td>Fig 9–10 16km/95km 个案</td>
+<td>§7.3/§8.1</td>
+<td>对答案曲线上两个特征点做"解剖"</td>
+<td>同一套模型</td>
+</tr>
+<tr>
+<td>表 1 压比–Mach</td>
+<td>§7.1</td>
+<td>式 (2) 的离散化，5 Ma 处 9.52 倍压差一目了然</td>
+<td>公式列表</td>
+</tr>
+</tbody>
+</table>
+<p><strong>复现代码</strong>：跨声速状态机 + 39 km 校验（v–h 与 a–h 双联图）。</p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+
+GM, Re, m = 3.979e14, 6.371e6, 190.           # 式(1)与数值形式常量
+rho = lambda h: 5.236e13*np.exp(-805.525*h/(Re+h))/(Re+h)**2   # 式(1)
+T1 = [280.5,274.6,269.7,265.0,259.8,253.5,246.1,238.3,230.9,224.6,220.0,217.4,
+216.2,215.9,216.0,216.0,215.5,214.5,213.2,212.0,211.0,210.3,210.0,209.9,210.0,
+210.3,210.7,211.3,212.0,213.0,214.4,216.2,218.4,220.9,223.6,226.4,229.1,231.8,
+234.6,237.4,240.2,243.2,246.2,249.0,251.6,253.8,255.3,256.2,256.6,256.6,256.2,
+255.5,254.6,253.6,252.4,251.2,249.8,248.5,247.0,245.4,243.7,241.9,239.9,237.8,
+235.6,233.2,230.8,228.2,225.6,222.9,220.3,217.7,215.1,212.7,210.3,208.0,205.9,
+203.9,202.2,201.1,200.7,201.3,202.8,205.1,207.8,210.5,212.8,214.2,214.7,214.4,
+213.3,211.6,209.4,206.7,203.7,200.4,197.2,194.2,191.5,189.2,187.6,186.7,186.6,
+187.6,189.8,193.4,198.5,205.0,212.9,222.4,233.3,245.6,259.4,274.4,290.4,306.7,
+323.2,339.6,355.8,371.7,387.2,402.2,416.6,430.5,443.8,456.7,469.3,481.6,493.6,
+505.2,516.6,527.6,538.4,548.9,559.2,569.1,578.9,588.3,597.6,606.6,615.4,623.9,
+632.3,640.4,648.3,656.0,663.5,670.9,678.0,685.0]        # 附录A NRLMSIS温度表(2km步长)
+Tat  = lambda hkm: np.interp(hkm, np.arange(len(T1))*2, T1)
+cs   = lambda hkm: np.sqrt(1.4*8.314*Tat(hkm)/0.029)     # §3.6.1 声速公式
+
+def dive(h0, dt=0.002):                                   # §4.3 状态机
+    x = v = 0.; Cd, A, stage = 1., 0.18, 0
+    H, V, A_ = [], [], []
+    while h0-x &gt; 1000:
+        h = h0-x; r = Re+h
+        if stage==0 and v &gt; 0.8*cs(h/1000): Cd, A, stage = 5., 0.2, 1      # 入跨声速
+        elif stage==1 and v &lt;= 0.8*cs(h/1000):
+            Cd, A, stage = (1., 0.18, 2) if h&gt;25000 else (1.2, 0.8, 3)    # 出/低空
+        a = GM/r**2 - 0.5*Cd*A*rho(h)/m*v**2
+        H.append(h); V.append(v); A_.append(a)
+        v = max(0., v+a*dt); x += v*dt
+    return np.array(H), np.array(V), np.array(A_)
+
+H, V, A_ = dive(39000.)
+fig, ax = plt.subplots(1, 2, figsize=(10,3.8))
+ax[0].plot(H/1000, V); ax[0].set_xlabel('height (km)'); ax[0].set_ylabel('v (m/s)')
+ax[0].set_title(f'复现39km校验: 入超声速{H[np.argmax(V&gt;0.8*cs(H/1000))]/1000:.1f}km'
+                f'(论文35.8/实测36) 峰值{V.max():.0f}(论文467.7,实测377.1)')
+ax[1].plot(H/1000, A_); ax[1].axhline(-5*9.8, ls='--', c='r', label='-5G')
+ax[1].set_xlabel('height (km)'); ax[1].set_ylabel('a (m/s²)')
+ax[1].set_title(f'a_min={A_.min():.1f} (论文−5.16)；末段收敛于开伞姿态终端速度')
+ax[1].legend(); plt.tight_layout(); plt.show()
+print(f&quot;1km 处速度={V[-1]:.1f} m/s（论文 59.1）&quot;)
+</code></pre>
+<p><strong>独立复现审计</strong>：入超声速高度复现 <strong>36.1 km</strong>（论文 35.8、实测 36）✓；出口 20.7 km（论文 20.3）✓；1 km 处 59.1 m/s <strong>精确吻合</strong> ✓（该值由低空终端速度 √(2mg/C_D Aρ) 决定，与 Cd=1.2/A=0.8 自洽）；a_min=−4.6 vs 论文 −5.16（量级一致）。⚠ 偏差项：峰值速度复现 336 m/s（准终端平衡解 ~370），论文 467.7 偏高 24%，且高于实测 377——见 §3.4。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<h3 id="31-含-gh-的密度公式式-1">3.1 含 g(h) 的密度公式（式 1）</h3>
+<p>$$\rho(s)=\frac{\rho_0R_e^2e^{-\frac{GM\rho_0s}{P_0R_e(R_e+s)}}}{(R_e+s)^2}$$
+- <strong>完整推导</strong>：静力平衡 dP/dr=−ρGM/r²；等温理想气体 P=kρ（k=P₀/ρ₀）→ k dρ/dr=−ρGM/r² → dρ/ρ=−(GM/k)dr/r² → ρ(r)=ρ₀exp[(GM/k)(1/r−1/Re)]；指数展开 1/r−1/Re=s/(Re(Re+s)) 即得指数部分。（论文多出的 Re²/(Re+s)² 因子来自其对积分式求导的 P∝ρr² 假设，使密度比纯等温式衰减更快。）
+- <strong>数值感</strong>：地面标高 H=Re/805.525≈7.9 km（隐含等温温度 ~270 K）；100 km 处 ρ≈4.9×10⁻⁶ kg/m³。
+- <strong>适用边界</strong>：全程等温 270 K——平流层以上明显失真，故论文用图 4 与 NRLMSIS 叠图"以图代辩"；温度才是它的真短板（所以温度直接查表）。</p>
+<h3 id="32-声速与切换判据361434">3.2 声速与切换判据（§3.6.1、§4.3.4）</h3>
+<p>$$C_s=\Big(\frac{\gamma R^*T_M}{M_0}\Big)^{1/2},\qquad \text{切换条件 } v\gtrless 0.8\,C_s(h)$$
+- <strong>怎么想到</strong>：理想气体绝热声速；<strong>用"当地声速"而非海平面声速</strong>做判据是本题正确性的关键——30 km 处 T≈220 K，C_s≈295 m/s，比海平面低 15%，门槛随之降低。0.8 Ma 的入口值从实跳数据反标定，出口用同一阈值形成滞回带。
+- <strong>数值感</strong>：39 km 跳伞在 ~36 km 首破 0.8 Ma，与 Baumgartner 25 s 左右开始跨声速的记录一致。</p>
+<h3 id="33-三段-cda-的取值432">3.3 三段 Cd/A 的取值（§4.3.2）</h3>
+<p>亚声速 Cd=1、A=0.18（Delta 头朝下）；跨超声速 <strong>Cd=5</strong>、A=0.2；&lt;25 km Cd=1.2、A=0.8（俯卧）。Cd=5 是"阻力危机+姿态失控"的联合放大；A 从 0.18→0.8 是姿态改变（4.4 倍），比 Cd 的改变更能解释末段强减速（终端速度 ∝1/√A：√4.4≈2.1 倍降幅）。
+- <strong>审计</strong>：三段常数是对图 4 类实验曲线的"阶梯化"；<strong>Cd=1 对人体（非流线体）偏低</strong>（真实亚声速人体 Cd≈1.0–1.3，尚可），但 Cd=5 的跨声速平台缺乏出处——论文在 §6.2 自认 "we didn't dive into the factors of CD"。</p>
+<h3 id="34-峰值速度的能量审计">3.4 峰值速度的能量审计 ⚠</h3>
+<p>论文 39 km 校验报 vmax=467.7 m/s；95 km 扫描报 vmax=6.13×10³ m/s（"约 10 Mach"）。<strong>能量上限检验</strong>：从 95 km 无阻力自由下落到 60 km，Δ(gh)≈9.5×35,000=3.3×10⁵ m²/s² → v_max=√(2Δ)≈815 m/s；即使一路无阻力也绝无可能达到 6.13 km/s（能量差 57 倍）。同理 Fig 7a 的 Max Mach 7.4–16.4（70–90 km）同样超限（90 km 落到 45 km 的能量上限约 930 m/s≈Ma 2.9）。复现中 39 km 的 vmax=336 m/s、95 km 的 a_min=−24.8 m/s²@29 km（论文 −47.65@57.4）⚠⚠——<strong>入口高度、出口高度、末速三个"积分型"量可复现，而"峰值型"量（vmax、峰值减速度）系统性偏大</strong>，指向其 ode45 分段调用中状态变量 U(=v²) 的衔接或高度索引 h−(k−1)×10（附录 A 第 195 行，与 100 m 步长不一致）存在实现缺陷。精读教训：<strong>数值结果先过量纲/能量守恒这类"免费审计"，再谈精度</strong>。</p>
+<h3 id="35-激波压比式-2">3.5 激波压比（式 2）</h3>
+<p>$$\frac{P_{t1}}{P_{t0}}=\Big[\frac{(\gamma+1)M^2\sin^2s}{(\gamma-1)M^2\sin^2s+2}\Big]^{\gamma/(\gamma-1)}\Big[\frac{\gamma+1}{2\gamma M^2\sin^2s-\gamma+1}\Big]^{1/(\gamma-1)}$$
+- <strong>复算</strong>：γ=1.4、s=60°（sin²s=0.75）时 1/2/3/4/5 Ma → 1.004/0.842/0.461/0.220/0.105，<strong>与表 1 五个数全部吻合</strong> ✓（附录 B 代码同式）。5 Ma 时下游总压仅为上游 1/9.52——"Pt0=9.52Pt1!"的惊叹有出处。
+- <strong>适用边界</strong>：斜激波总压比公式用于<strong>尖劈绕流</strong>；钝体（人体）前是脱体弓激波（论文 §3.6 讨论里也承认 detached），此处作量级估计。</p>
+<h3 id="36-平旋判据72">3.6 平旋判据（§7.2）</h3>
+<p>$$I=\tfrac12mR^2=5.472\ \text{kg·m}^2,\qquad I\omega_d=R\cdot(t_rF)\;\Rightarrow\;F_d=\frac{I\omega_d}{Rt_r}$$
+- <strong>怎么想到</strong>：压差力作用偏心 1 个反应时间 → 角冲量 R·t_r·F → 达到危险转速 ω_d=2π rad/s（60 rpm）所需的力。
+- <strong>⚠ 复算</strong>：F_d=5.472×2π/(0.24×1)=<strong>143.3 N</strong>，论文 171.9 N 偏大约 20%（疑似 R 或 m 取值笔误）；由于图 7b 中 70–90 km 的估计力 39–1313 N 跨越两个量级，78 km 的平旋临界对这 20% 不敏感（按 143 N 复算仍落在 77–78 km）✓。
+- <strong>你要学什么</strong>：把"旋转失控"简化成"角冲量 vs 转动惯量"的单式判据——复杂危险的最小化建模。</p>
+<hr>
+<h2 id="4-建模决策链">4. 建模决策链</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>温度模型</td>
+<td>NRLMSIS(2.0) 查表</td>
+<td>分段解析拟合</td>
+<td>温度谱复杂，查表无伪精度</td>
+</tr>
+<tr>
+<td>密度模型</td>
+<td>自推式 (1)（含 g(h)）</td>
+<td>标准指数大气 / 直接用 NRLMSIS</td>
+<td>展示推导+图 4 反验证</td>
+</tr>
+<tr>
+<td>声障处理</td>
+<td>0.8Ma 状态机切换 Cd/A</td>
+<td>连续 Cd(Ma) 函数</td>
+<td>状态机可编程、门槛用实测标定；代价是不连续尖峰（§7.3 主动解释）</td>
+</tr>
+<tr>
+<td>数值格式</td>
+<td>ode45 分段+对 x 积分</td>
+<td>对 t 积分</td>
+<td>d(v²/2)/dx 消去一个状态变量</td>
+</tr>
+<tr>
+<td>校验</td>
+<td>39 km 实跳三量对比</td>
+<td>无校验直接外推</td>
+<td>入口/出口/末速对账 ✓（但峰值速度未对账 ⚠）</td>
+</tr>
+<tr>
+<td>判据集</td>
+<td>加速度+温度+平旋</td>
+<td>只算加速度</td>
+<td>§7 明说 "based our final results on the 'worst' case"</td>
+</tr>
+<tr>
+<td>最终答案</td>
+<td>80 km（比最严判据 78 再保守）</td>
+<td>94 km（主判据）</td>
+<td>工程冗余+模型不确定性</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板</strong>：</p>
+<pre><code>1 背景（历史案例：Baumgartner）
+3 假设=安全判据操作化（每条带文献数值）
+4 建模：4.1 环境（查表温度+自推密度）
+        4.2 预检算例（简化模型答必要性问题）
+        4.3 主模型（方程+状态机+分段参数表）
+5 校验（权威实测逐量对账+相对误差）
+7 扩展危险（激波+平旋：单式判据+柱状图）
+8 结果（每判据一个临界高度）
+9 结论（取最严+工程余量）
+附录 全部 MATLAB
+</code></pre>
+<p><strong>句式库</strong>：
+- "we usually use Gx, Gy, Gz to describe the acceleration the human body endures"（术语先行）
+- "Therefore, we use NRLMSIS (2.0) Atmosphere Model to simulate ... There is neither usable experimental data ... nor simple formula ..."（查表决策的理由句）
+- "If the velocity is indeed greater than the speed of the sound at that stage, the program will enter 'transonic phase' ... the value of CD will abruptly be adjusted to 5."（状态机的一句式描述）
+- "the standard error between previous researches value and ours is only ... = 0.56%, both of which are acceptable"（校验误差句）
+- "This seems to be a unreasonable discontinuity in the result. ... This is reasonable. When ..."（反常点先承认再归因）
+- "we have the rough modelling and deducing to discuss the effect of ..."（粗模型免责声明）</p>
+<p><strong>图表配方</strong>：自建模型必配<strong>双线验证图</strong>（自推 vs 权威数据）；扫描答案用"<strong>量–初始高度</strong>"曲线并在特征点放解剖图；危险判据用<strong>柱状图+水平危险线</strong>（图 7）；Cd/A 状态切换应在 a–x 图上留下可辨认的尖峰，并专门解释。</p>
+<hr>
+<p><em>对照阅读：<code>05_论文赏析/2023/2023-GM-A-131.md</code>（宏观赏析）与 <code>07_题目解读/2023_题A_太空跳伞安全高度.md</code>（题目全解）；同题队友精读 50（227 队：出舱即开伞+麦克斯韦阻力推导）。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract">1.1 Abstract</a></li><li class="l3"><a href="#12-3-假设把安全钉成数字">1.2 §3 假设：把"安全"钉成数字</a></li><li class="l3"><a href="#13-41-大气模型温度查表-密度自推式-1">1.3 §4.1 大气模型：温度查表 + 密度自推（式 1）</a></li><li class="l3"><a href="#14-42-终端安全性预检式前-h-积分">1.4 §4.2 终端安全性预检（式前 h 积分）</a></li><li class="l3"><a href="#15-43-跨声速状态机全文核心">1.5 §4.3 跨声速状态机（全文核心）</a></li><li class="l3"><a href="#16-5-模型校验39-km-实跳">1.6 §5 模型校验（39 km 实跳）</a></li><li class="l3"><a href="#17-7-扩展危险-89-结果">1.7 §7 扩展危险 + §8–9 结果</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-含-gh-的密度公式式-1">3.1 含 g(h) 的密度公式（式 1）</a></li><li class="l3"><a href="#32-声速与切换判据361434">3.2 声速与切换判据（§3.6.1、§4.3.4）</a></li><li class="l3"><a href="#33-三段-cda-的取值432">3.3 三段 Cd/A 的取值（§4.3.2）</a></li><li class="l3"><a href="#34-峰值速度的能量审计">3.4 峰值速度的能量审计 ⚠</a></li><li class="l3"><a href="#35-激波压比式-2">3.5 激波压比（式 2）</a></li><li class="l3"><a href="#36-平旋判据72">3.6 平旋判据（§7.2）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

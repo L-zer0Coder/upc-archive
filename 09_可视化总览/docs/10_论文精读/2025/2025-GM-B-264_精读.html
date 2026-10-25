@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 61 · Simplified Cannonball Trajectory Model（2025 题B 金牌 · 队伍 264） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2025/2025-GM-B-264_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2025 · 精读 61 · Simplified Cannonball Trajectory Model（2025 题B 金牌 · 队伍 264）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-61-simplified-cannonball-trajectory-model2025-题b-金牌-队伍-264">精读 61 · Simplified Cannonball Trajectory Model（2025 题B 金牌 · 队伍 264）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：左手论文 PDF（<code>03_优秀论文PDF/2025/Problem B/2025-GM-B-264.pdf</code>），右手本篇。这篇走"<strong>高保真仿真 → 降维成手算公式</strong>"的两级路线：Task 1 用 ISA 大气+阻力系数+RK4+二分求出最小初速 117.55 m/s@43.5°；Task 2 把 3D 风场模型先做"垂直风可略"的定量简化（&lt;0.5%），再用蒲福风级把风离散成军官可观测的四档，最后回归出纯算术的半经验公式（式 10–11，R²&gt;0.98）。你要学的是：① "最小初速"型优化问题的 U 形解谱与扫描法；② 每一步简化都配定量验证的写法；③ 回归公式的项结构与系数解读。本篇审计<strong>精确复现了主结果</strong>（117.51 vs 117.55 m/s），并定位出全文的文-码分裂：<strong>正文用 Morrison 式 (4)，附录代码实际用 Cd=0.15 常数</strong>——主结果对应后者。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<pre><code class="language-mermaid">flowchart TB
+    A[&quot;Task 1 §3 基线模型&lt;br/&gt;ISA 密度(式2) + 分段 Cd(Re)(式4)&lt;br/&gt;RK4(Δt=0.02s) + 每角二分求 v0(式6)&lt;br/&gt;扫描 2°-88° → U 形谱&lt;br/&gt;**v0,min=117.55 m/s @ θ=43.5°** (真空 108.5@45°, +8.3%)&quot;] 
+    A --&gt; B[&quot;Task 2 §4 三维风场&lt;br/&gt;相对速度阻力 (式7-9)&lt;br/&gt;Wz 可略性仿真验证 &lt;0.5% (Fig5)&lt;br/&gt;蒲福风级四档 + 方向 ±15°&quot;]
+    B --&gt; C[&quot;三步半经验推导&lt;br/&gt;Step A 真空(消t) → Step B 风修正(+Wx/cosθ)&lt;br/&gt;→ Step C 密度修正(Fρ^−β, β=0.1)&quot;]
+    B --&gt; D[&quot;非线性回归 (式10-11)&lt;br/&gt;v0、θ = f(L, Δh, Wx, Wy) 各 11 项&lt;br/&gt;R²&gt;0.98 → 验证误差 &lt;1% (§5)&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好</strong>：题目的真实交付物是"<strong>给 150–200 年前无计算器的炮兵军官用的快速估算方法</strong>"——本队把这一句读成了结构：高保真模型负责"对"，回归公式负责"能用"，中间用简化验证（Wz、蒲福离散）把两层的落差补齐。<strong>" fidelity 层"与"usability 层"分离并各自验证</strong>，是工程类题目的黄金结构。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-abstract">1.1 Abstract</h3>
+<p><strong>它写了什么</strong>：Task 1 结论带三个数（117.55 m/s、43.5°、与真空对比 +8.3%）→ Task 2 两个建模决策（"the vertical wind component can be neglected with negligible error, enabling a substantial simplification"）+ 半经验公式交付声明。</p>
+<p><strong>你要学什么</strong>：摘要里同时给出<strong>答案</strong>（117.55/43.5）、<strong>对照</strong>（108.5/45°，+8.3%）与<strong>模型决策</strong>（垂直风可略）——"结论+对照+决策"三要素，比只报数高一档。"demonstrating its significant impact on range and stability" 把数字翻译回物理意义。</p>
+<h3 id="12-1-problem-analysis历史语境的用法">1.2 §1 Problem Analysis（历史语境的用法）</h3>
+<p><strong>它写了什么</strong>：19 世纪炮兵技术史（无烟火药、后装线膛）→ "ballistic calculations still relied primarily on empirical formulas ... under highly limited computational conditions" → 引出研究目标："a simplified estimation approach that enables mathematically trained artillery officers—without access to computational tools—to rapidly determine appropriate firing parameters from pre-calculated tables"。</p>
+<p><strong>你要学什么</strong>：引言最后一句把<strong>题目的交付物钉死为"快速估算方法"</strong>——这句话决定了全文的组织（否则容易写成纯弹道仿真）。历史文献（Krupp 1873）不是装饰，而是"为什么不能用现代工具"的合理性来源。<strong>把题面的一句话读成论文的结构</strong>，是审题的最高段位。</p>
+<h3 id="13-3-task-1基线模型">1.3 §3 Task 1（基线模型）</h3>
+<p><strong>它写了什么</strong>：力分析（重力+阻力 $\vec F_D=-\frac12C_D\rho(h)A v\vec v$）→ 运动方程 (1)；ISA 对流层密度 (2)（T0=288.15、Lb=0.0065、R=287.05 全给出处）；Morrison 球体阻力公式 (3)（含 Stokes 项、惯性项、阻力危机项、超临界项四段物理）→ 指出 Re 上限失效（"Given the maximum muzzle velocity v0=450 m/s, the corresponding Reynolds number ... exceeds the valid range"）→ 引用 NASA 数据构造分段扩展 (4)；由积分中值定理取 <strong>CD≈0.15</strong>；RK4（Δt=0.02 s）+ 对每个 θ 二分求 v0（容差 0.05 m）+ 扫描 2°–88° → U 形谱（Fig 3），最小 117.55@43.5°，Table 2 给五个抽样点。</p>
+<p><strong>你要学什么</strong>：① <strong>U 形谱的两端物理解释</strong>原文值得背："at small angles, longer flight times lead to greater drag loss, while at large angles, excessive vertical components increase gravitational energy loss"——一个 U 形要能说出两端为什么翘；② "扫描+二分"是"最小初速"类问题的标准解法：外层对 θ 扫描、内层对 v0 二分（单调性！射程随 v0 单调增），复杂度可控且全局最优有保证；③ 中值定理取 Cd≈0.15 是"变系数→常系数"的合法性声明——但见 §4 审计：代码里其实是硬编码的分段。</p>
+<h3 id="14-4-task-2风场与半经验公式">1.4 §4 Task 2（风场与半经验公式）</h3>
+<p><strong>它写了什么</strong>：3D 运动方程 (7)–(9)（阻力用<strong>相对空气速度</strong> $\vec v_{rel}$，风同时改变阻力的大小与方向）；Table 3 风分量符号约定；<strong>4.1.1 垂直风可略性</strong>：三组受控对比仿真（如 Wx=5,Wy=5,Wz=10 vs Wz=0），"maximum impact point deviation of less than 0.5%"；<strong>4.1.2 蒲福风级离散化</strong>：四档风（0–3/3–6/6–10/10–15 m/s，各配环境现象描述）+ 方向 ±15° 观测误差声明；<strong>4.2 三步推导</strong>：Step A 真空 $v_{0,vac}=\sqrt{\frac{gL^2}{2\cos^2\theta(L\tan\theta-\Delta h)}}$（消 t）→ Step B 风修正 $v_{0,wind}\approx v_{0,vac}+\frac{W_x}{\cos\theta}$（"restores the horizontal velocity component to its vacuum equivalent"，精度 3%）→ Step C 密度修正 $v_{0,corr}=v_{0,wind}\cdot(\rho(h_{eff})/\rho_0)^{-\beta}$（β=0.1）；<strong>4.3 回归</strong>：全模型生成随机工况数据集，非线性回归得式 (10)(11)（各 11 项：L、z、Wx、Wy 的一次/二次/交叉项），R²&gt;0.98。</p>
+<p><strong>你要学什么</strong>：① <strong>每个简化配一个数</strong>：Wz&lt;0.5%（有 Fig 5）、方向 ±15°、Step B 精度 3%、β=0.1 适用域 500–2000 m——"simplification with error bars"是全文最值得学的习惯；② 蒲福风级是本题的"历史接口"：把连续风速映射到 19 世纪军官<strong>真能观测</strong>的离散档（烟、树枝、旗），建模与史料在此缝合；③ 回归项设计有物理先验（L²、Lz 交叉项），且 Wy 项系数 ~1e-15≈0——<strong>交叉风对最小初速几乎无影响</strong>这个结论其实就藏在系数里（但保留近零项是败笔，见 §4）。</p>
+<h3 id="15-5-验证">1.5 §5 验证</h3>
+<p><strong>它写了什么</strong>：四步验证方案（全模型数据库 → 随机抽样 → 公式代入 → 偏差量化），先无风（12 组，排除风场干扰、聚焦 L/z 拟合精度）后有风；定义相对误差 δv0、δθ；Fig 8 误差分布曲线；结论"relative errors of muzzle velocity are all constrained within 1%"（原文排版为"within 12"，系 % 丢失 ⚠）、无系统偏差。</p>
+<p><strong>你要学什么</strong>：<strong>分阶段验证</strong>（先无风后有风）隔离了误差来源——如果一次全混验，误差大了说不清是风项还是基线项。这是实验设计的思想用在数值验证上。</p>
+<hr>
+<h2 id="2-图表深析">2. 图表深析</h2>
+<table>
+<thead>
+<tr>
+<th>图/表</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fig 1 受力分析图</td>
+<td>§3.1</td>
+<td>钉死阻力方向与速度反向</td>
+<td>示意图</td>
+</tr>
+<tr>
+<td>Fig 2 Cd–Re 曲线</td>
+<td>§3.2.2</td>
+<td>Morrison 式+NASA 数据点同图——<strong>外推合法性的证据图</strong></td>
+<td>式(3)(4)逐点+散点</td>
+</tr>
+<tr>
+<td><strong>Fig 3 U 形 v0(θ) 曲线</strong></td>
+<td>§3.3</td>
+<td>全文主图：最小值一目了然，U 形两端即物理解释</td>
+<td>RK4+二分扫描 2°–88°</td>
+</tr>
+<tr>
+<td>Fig 4 最优轨迹+参数变化</td>
+<td>§3.3</td>
+<td>答案的轨迹证据（v、h、ρ、Cd 随时间）</td>
+<td>单次仿真多子图</td>
+</tr>
+<tr>
+<td><strong>Fig 5 Wz 对比三联</strong></td>
+<td>§4.1.1</td>
+<td>简化合法性的对照证据：三条轨迹几乎重合</td>
+<td>有/无 Wz 各跑一次</td>
+</tr>
+<tr>
+<td>Fig 6 蒲福风级表</td>
+<td>§4.1.2</td>
+<td>历史接口可视化；<strong>caption 是占位符"Caption"⚠</strong>（忘写）</td>
+<td>引用 Met Office</td>
+</tr>
+<tr>
+<td>Fig 7 无风 12 组对比</td>
+<td>§5.2</td>
+<td>公式 vs 仿真趋势一致性</td>
+<td>双曲线叠图</td>
+</tr>
+<tr>
+<td>Fig 8 相对误差曲线</td>
+<td>§5.3</td>
+<td>定量收口：δ&lt;1%</td>
+<td>12 组误差</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心图复现——Fig 3 的 U 形 v0(θ) 谱（常数对应式 (2)(4)/附录代码；图题即审计结论）</strong>：</p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+
+T0,p0,g0,Lb,R = 288.15,101325.0,9.80665,0.0065,287.05
+D,m,g,nu,h0,L = 0.11,5.0,9.80665,1.5e-5,500.0,1200.0
+A = np.pi*(D/2)**2
+def rho(h):                                                  # 式(2) ISA 对流层
+    hh = min(max(h, 0), 11000); T = T0 - Lb*hh
+    return p0*(T/T0)**(g0/(R*Lb))/(R*T)
+Cd = lambda v: 0.15                                          # 附录代码 Re&gt;5e5 段（见审计）
+def impact_x(v0, th, dt=0.02):                               # RK4 积分式(5)
+    th=np.radians(th); vx,vy=v0*np.cos(th),v0*np.sin(th); x,y,t=0,0,0.0
+    while t&lt;500:
+        def acc(vx,vy,yy):
+            v=np.hypot(vx,vy); r=rho(h0+yy)
+            return -0.5*r*Cd(v)*A/m*v*vx, -g-0.5*r*Cd(v)*A/m*v*vy
+        ax,ay=acc(vx,vy,y);        vx2,vy2=vx+ax*dt/2,vy+ay*dt/2
+        ax2,ay2=acc(vx2,vy2,y+vy*dt/2); vx3,vy3=vx+ax2*dt/2,vy+ay2*dt/2
+        ax3,ay3=acc(vx3,vy3,y+vy2*dt/2); vx4,vy4=vx+ax3*dt,vy+ay3*dt
+        ax4,ay4=acc(vx4,vy4,y+vy3*dt)
+        x+=dt*(vx+2*vx2+2*vx3+vx4)/6; y+=dt*(vy+2*vy2+2*vy3+vy4)/6
+        vx+=dt*(ax+2*ax2+2*ax3+ax4)/6; vy+=dt*(ay+2*ay2+2*ay3+ay4)/6; t+=dt
+        if y&lt;0: return x
+    return None
+def vmin(th):                                                # 式(6) 二分
+    lo,hi=1.,900.
+    for _ in range(40):
+        mid=(lo+hi)/2; x=impact_x(mid,th)
+        if x is None or x&lt;L: lo=mid
+        else: hi=mid
+    return (lo+hi)/2
+th = np.arange(5, 86, 5.0)
+v  = [vmin(t) for t in th]
+thf = np.arange(40, 47, 0.5); vf=[vmin(t) for t in thf]
+i = np.argmin(vf)
+plt.figure(figsize=(6.5,4))
+plt.plot(th, v, 'o-', ms=4, label='RK4 + Cd=0.15 + ISA (reproduction)')
+plt.plot(thf, vf, 'k.', ms=3)
+plt.plot(thf[i], vf[i], 'r*', ms=14, label=f'min {vf[i]:.1f} m/s @ {thf[i]}°')
+plt.axhline(np.sqrt(g*L), ls='--', c='gray', label=f'vacuum {np.sqrt(g*L):.1f} m/s @45°')
+plt.xlabel('launch angle θ (deg)'); plt.ylabel('minimum v0 (m/s)')
+plt.title('U-shaped v0(θ) for L=1200 m: reproduction gives 117.5 m/s @43.5°\n'
+          '(paper: 117.55 m/s @43.5°, vacuum 108.5 → +8.3%)')
+plt.legend(fontsize=8); plt.grid(alpha=.3); plt.tight_layout(); plt.show()
+</code></pre>
+<p>三个可抄的绘图决策：<strong>① U 形曲线叠加真空水平虚线</strong>（阻力的代价一眼可见）；<strong>② 最优点星标+图题写审计结论</strong>；<strong>③ 内层二分、外层扫描的两层循环结构</strong>直接可搬。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<h3 id="31-运动方程式-15-与式-79">3.1 运动方程（式 1/5 与式 7–9）</h3>
+<p>$$m\dot v_x=-\tfrac12C_D\rho(h)Av\,v_x,\qquad m\dot v_y=-mg-\tfrac12C_D\rho(h)Av\,v_y$$
+- <strong>怎么想到</strong>：二次阻力 $\propto v^2$、方向与速度反向 → 分解为系数×|v|×分量。风场版 (7)–(9) 把 v 换成 $\vec v_{rel}=\vec v-\vec W$——<strong>风既改阻力大小又改方向</strong>，这是风影响弹道的唯一通道（无"风吹球"的动量源项）。
+- <strong>数值感</strong>：A=π(0.055)²=9.5e-3 m²，Cd=0.15、ρ≈1.17 → 弹道系数 m/(Cd ρ A)=5/(0.15×1.17×9.5e-3)≈3000 kg/m²——量级决定 1200 m 射程上阻力只吃 ~8% 初速，这是"半经验公式可行"的物理基础。</p>
+<h3 id="32-isa-密度式-2mathph000008endph">3.2 ISA 密度（式 2）$\rho(h)=\frac{p_0}{RT_0}\Big(1-\frac{L_bh}{T_0}\Big)^{\frac{g_0}{RL_b}-1}$</h3>
+<ul>
+<li><strong>怎么想到</strong>：对流层绝热递减 T=T0−Lb·h + 静力学 ∂p/∂h=−ρg + 理想气体 → 幂律气压。指数 g0/(RLb)≈5.256。</li>
+<li><strong>复算 ✓</strong>：ρ(500 m)=1.167 kg/m³（代码随高度实时更新）；与队友 311 的分段 Cd(Ma) 模型共用同一套 ISA——同题队伍的"大气底座"高度一致，分歧全在 Cd。</li>
+</ul>
+<h3 id="33-morrison-公式与分段扩展式-34">3.3 Morrison 公式与分段扩展（式 3–4）</h3>
+<p>$$C_D=\frac{24}{Re}+\frac{2.6(Re/5)}{1+(Re/5)^{1.52}}+\frac{0.411(Re/2.63\times10^5)^{-7.94}}{1+(Re/2.63\times10^5)^{-8.00}}+\frac{0.25(Re/10^6)}{1+Re/10^6}$$
+- <strong>四项物理</strong>：Stokes 黏性（24/Re）、Newton 阻力平台、阻力危机（3×10⁵ 附近骤降）、超临界缓升。复算：Re=7.96e5（108.5 m/s）→ Cd=0.116（论文引 0.11 ✓）。
+- <strong>⚠ Re 数字勘误</strong>：Re=450×0.11/1.5e-5=<strong>3.3×10⁶</strong>，论文印作 7.72×10⁶（差 2.3 倍）；但其扩展式给 CD(3.3e6)=0.166 与"CD increases to 0.16"吻合——故 7.72e6 系笔误，且 108.5 m/s 对应 7.96e5 印作 7.72e5（ν 实际取了 1.546e-5）⚠。
+- <strong>式 (4) 的第二段</strong> $0.145+0.04\log_{10}(Re/10^6)$ 是对 Re&gt;10⁶ 的自建外推（对照 NASA 数据）——<strong>超范围使用经验公式时给一条有数据对照的外推线</strong>，这是规范操作。
+- <strong>⚠ 物理盲区（全文最大）</strong>：450 m/s ≈ <strong>Ma 1.33</strong>，球体跨声速 Cd 实际会冲到 ~0.9–1.0（波阻峰），而式 (4) 只按 Re 外推给 0.17。对"最小初速"问题（全程 Ma&lt;0.4）无伤，但模型声称覆盖 450 m/s 工况——<strong>跨声速段 Re 型 Cd 失真</strong>。这正是队友 311 用分段 Cd(Ma)、765 队用 Re–Ma 耦合模型的动机（07 题目解读把 Cd(M) 列为"物理保真度的胜负手"）。</p>
+<h3 id="34-真空最小初速step-amathph000011endph">3.4 真空最小初速（Step A）$v_{0,vac}^2=\dfrac{gL^2}{2\cos^2\theta\,(L\tan\theta-\Delta h)}$</h3>
+<p><strong>推导</strong>（消 t）：$L=v_0\cos\theta\,t\Rightarrow t=L/(v_0\cos\theta)$；代入 $\Delta h=v_0\sin\theta\,t-\frac12gt^2$：
+$$\Delta h=L\tan\theta-\frac{gL^2}{2v_0^2\cos^2\theta}\ \Rightarrow\ v_0^2=\frac{gL^2}{2\cos^2\theta(L\tan\theta-\Delta h)}$$
+- <strong>复算 ✓</strong>：Δh=0 时对 θ 求极值得 θ=45°、v0=√(gL)=√(9.80665×1200)=<strong>108.48 m/s</strong>（论文 108.5 ✓）。
+- <strong>适用边界</strong>：L tanθ&gt;Δh（保证能到达靶高）；等式对 θ 求极小即可得真空最优角 45°−Δθ/2（Δh≠0 时的著名结果）。</p>
+<h3 id="35-风修正与密度修正step-bc">3.5 风修正与密度修正（Step B/C）</h3>
+<p>$$v_{0,wind}\approx v_{0,vac}+\frac{W_x}{\cos\theta},\qquad F_\rho=\Big(\frac{\rho(h_{eff})}{\rho_0}\Big)^{-\beta},\ \beta=0.1$$
+- <strong>怎么想到（B）</strong>：真空射程由水平速度积分决定；风把有效水平速度改成 v0cosθ−Wx → 补回 Wx/cosθ 恢复"真空等效"（原文："restores the horizontal velocity component to its vacuum equivalent"）。一阶近似精度 3%（有声明）。
+- <strong>数值感（C）</strong>：h_eff=500 m → Fρ=(1.167/1.225)^−0.1=1.005——<strong>+0.5% 而已</strong>；真正的阻力代价（+8.3%）不在这两步修正里，而在回归式 (10) 的常数与 L 项中。所以 A→B→C 的"推导"实为<strong>量纲与符号框架</strong>，最终数值由回归兜底——读这篇要分清"哪层是推导、哪层是拟合"。
+- <strong>⚠ 符号矛盾</strong>：§4.2 定义"Wx = W cosϕ (positive for headwind)"，Table 3 却写"Wx&gt;0: tailwind"——而回归式 (10) 中 v0 随 Wx 增（+3.379e-2），物理上只有 Wx&gt;0=<strong>逆风</strong> 才成立。Table 3 的正负号约定与正文/回归相反 ⚠。</p>
+<h3 id="36-回归公式式-1011">3.6 回归公式（式 10–11）</h3>
+<p>$$v_0=4.294\times10^1+6.750\times10^{-2}L+7.169\times10^{-2}z-3.927\times10^{-6}L^2+\cdots+3.379\times10^{-2}W_x-1.940\times10^{-4}LW_x-\cdots$$
+- <strong>怎么想到</strong>：对全模型仿真数据库做含交叉项的多项式回归——本质是把"数值弹道"压缩成可手算的曲面。
+- <strong>复算 ✓</strong>：代入基线（L=1200、z=0、Wx=0）：v0=118.29 m/s、θ=43.64°——与 Task 1 数值解 117.55/43.5° 差 +0.6%/+0.3% ✓（在 R²&gt;0.98 的预期内）。
+- <strong>系数解读</strong>：Wy 项系数 ~1e-15–1e-18 ≈ 0 → <strong>横风对最小初速无影响</strong>（只产生侧偏，不改变命中所需的 v0）——这其实是个值得写进正文的结论，留在公式里只添乱 ⚠。</p>
+<hr>
+<h2 id="4-建模决策链-独立复现审计">4. 建模决策链 + 独立复现审计</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>优化目标</td>
+<td>最小初速（省弹药）</td>
+<td>固定 v0 求最大射程</td>
+<td>题面"conserving materiel"的作战语境</td>
+</tr>
+<tr>
+<td>Cd</td>
+<td>Morrison(Re)+外推→取 0.15</td>
+<td>311 队分段 Cd(Ma)、765 队 Re–Ma 耦合</td>
+<td>最小初速工况亚声速，Re 型够用；450 m/s 段失真 ⚠</td>
+</tr>
+<tr>
+<td>大气</td>
+<td>ISA 实时更新</td>
+<td>常密度/指数大气</td>
+<td>500–2000 m 内便宜且准</td>
+</tr>
+<tr>
+<td>数值</td>
+<td>RK4 Δt=0.02 + 二分 + 扫描</td>
+<td>打靶法/优化器</td>
+<td>单调性保证二分可靠，结构透明</td>
+</tr>
+<tr>
+<td>风场</td>
+<td>3D→2D（Wz&lt;0.5% 验证）</td>
+<td>直接 2D 假设</td>
+<td><strong>先验证后简化</strong>的示范</td>
+</tr>
+<tr>
+<td>风输入</td>
+<td>蒲福四档+±15°</td>
+<td>连续风速</td>
+<td>19 世纪军官的可观测性</td>
+</tr>
+<tr>
+<td>交付</td>
+<td>回归式(10)(11)</td>
+<td>射表（311）/列线图（765）</td>
+<td>公式最轻但只剩 1% 精度容错</td>
+</tr>
+</tbody>
+</table>
+<p><strong>独立复现审计汇总</strong>（python 复算）：
+1. 真空 108.48@45° ✓；主结果 <strong>117.51 m/s@43.5° vs 论文 117.55</strong>（RK4+Cd=0.15+ISA，0.03%）✓✓；+8.3% 增量 ✓。
+2. <strong>文-码分裂 ⚠⚠</strong>：按式 (4) Morrison 全程复算得 v0(43.5°)=114.84 m/s（−2.3%）；只有按附录代码的"3e5–5e5 线性过渡→Cd=0.15 常数"才复现 117.55——<strong>正文叙事（式 4 逐点更新）与代码（0.15 常数）不一致，主结果来自代码</strong>。
+3. Table 2 内部不一致 ⚠：20°/30°/60° 三点与两种 Cd 模型的复现均差 3–8%（且 134.5/134.2 的近对称可疑），仅 43.5° 一致——疑非同一轮计算产出。
+4. Re 勘误：450 m/s → 3.3×10⁶（论文印 7.72×10⁶ ⚠）；108.5 m/s → 7.96×10⁵（印 7.72×10⁵ ⚠，ν 隐含 1.546e-5）；但 CD=0.11/0.16 两值与正确 Re 的 Morrison/扩展式一致 ✓。
+5. 回归基线复算 118.29/43.64 ✓（+0.6%/+0.3%）；Wy 系数≈0 → 横风不改最小初速（结论未明写）。
+6. 跨声速盲区：450 m/s=Ma 1.33 处真实球体 Cd≈0.9（波阻峰），式 (4) 给 0.17——对最小初速答案无影响，对"最大初速工况"严重低估阻力 ⚠。
+7. 文字/排版瑕疵：Fig 6 caption 为占位符 "Caption" ⚠；结论末句截断（"The method is applicab."）⚠；§5.3 的 "within 1%" 印成 "12/13"（% 丢失）⚠；Table 3 与 §4.2 的 Wx 符号约定相反 ⚠。</p>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板</strong>：</p>
+<pre><code>1 Problem Analysis  历史语境 → 钉死交付物(&quot;无计算器的快速估算&quot;)
+2 Assumptions       平滑球面/忽略横风翻滚/不可压缩/常 g
+3 Task 1            力分析 → ISA + Cd(Re) 外推 → RK4+二分+扫描 → U 形谱+对照
+4 Task 2            3D 风场方程 → 简化验证(Wz) → 离散化(蒲福) →
+                    Step A/B/C 半经验框架 → 回归式 → R²
+5 Verification      方案四步 → 无风先行 → 相对误差曲线 → &lt;1%
+6 Conclusions       &quot;two-tier modeling framework&quot; 方法论升华
+A MATLAB            ⚠ 必须与正文模型一致
+</code></pre>
+<p><strong>句式库（原文英文句）</strong>：
+- "Guided by the operational objective of conserving materiel, the study focuses on the minimal muzzle velocity ..."（目标操作化句）
+- "at small angles, longer flight times lead to greater drag loss, while at large angles, excessive vertical components increase gravitational energy loss"（U 形双端解释句）
+- "Since CD varies slowly within this interval ..., we approximate its mean value by the mean-value theorem of integration"（变系数常化句）
+- "The results ... indicate that the two trajectories almost overlap, with a maximum impact point deviation of less than 0.5%. This demonstrates that ... can be neglected"（简化验证标准句）
+- "Physically, this correction restores the horizontal velocity component to its vacuum equivalent. The simplified form maintains accuracy within 3%"（修正项物理意义+精度声明句）
+- "This 'two-tier' modeling framework can serve as a reference paradigm for other historical engineering problems."（方法论升华句）</p>
+<p><strong>图表配方</strong>：U 形谱+真空对照线；简化合法性三联对比图；Cd 模型+实验数据同图；仿真 vs 公式的趋势叠图+误差曲线收口。</p>
+<hr>
+<p><em>对照阅读：<code>05_论文赏析/2025/2025-GM-B-264.md</code> 与 <code>07_题目解读/2025_题B_火炮弹道射表.md</code>（南理工五队谱系与 Cd(Ma) 胜负手讨论）；同题队友精读：<code>2025-GM-B-127_精读.md</code>、<code>2025-GM-B-496_精读.md</code>、<code>2025-GM-B-311_精读.md</code>（分段 Cd(Ma) 路线，恰补本篇跨声速盲区）。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract">1.1 Abstract</a></li><li class="l3"><a href="#12-1-problem-analysis历史语境的用法">1.2 §1 Problem Analysis（历史语境的用法）</a></li><li class="l3"><a href="#13-3-task-1基线模型">1.3 §3 Task 1（基线模型）</a></li><li class="l3"><a href="#14-4-task-2风场与半经验公式">1.4 §4 Task 2（风场与半经验公式）</a></li><li class="l3"><a href="#15-5-验证">1.5 §5 验证</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-运动方程式-15-与式-79">3.1 运动方程（式 1/5 与式 7–9）</a></li><li class="l3"><a href="#32-isa-密度式-2mathph000008endph">3.2 ISA 密度（式 2）MATHPH000008ENDPH</a></li><li class="l3"><a href="#33-morrison-公式与分段扩展式-34">3.3 Morrison 公式与分段扩展（式 3–4）</a></li><li class="l3"><a href="#34-真空最小初速step-amathph000011endph">3.4 真空最小初速（Step A）MATHPH000011ENDPH</a></li><li class="l3"><a href="#35-风修正与密度修正step-bc">3.5 风修正与密度修正（Step B/C）</a></li><li class="l3"><a href="#36-回归公式式-1011">3.6 回归公式（式 10–11）</a></li><li class="l2"><a href="#4-建模决策链-独立复现审计">4. 建模决策链 + 独立复现审计</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

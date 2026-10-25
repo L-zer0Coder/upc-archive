@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 · Space Tower Launch Costs（2011 题A 金牌 · 队伍 352） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2011/2011-GM-A-352_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2011 · 精读 · Space Tower Launch Costs（2011 题A 金牌 · 队伍 352）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-space-tower-launch-costs2011-题a-金牌-队伍-352">精读 · Space Tower Launch Costs（2011 题A 金牌 · 队伍 352）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：左手边开论文 PDF（<code>03_优秀论文PDF/2011/Problem A/2011-GM-A-352.PDF</code>），右手边开本篇。每节按「它写了什么 → 为什么这样写 → 你要学什么」三层展开；每个公式给「物理直觉 → 完整推导 → 适用边界」。本篇 LaTeX 源、公式 (1)–(17) 编号清晰，文本提取质量高；唯一缺图注的是 Figure 6（推测为成本图，⚠ 不确定处已注明）。另注意：本文参数存在一处内在矛盾（§1.4 会讲），这本身就是极好的批判性阅读素材。读完你应当能复现"低于卡门线净亏 \$12,000/km、高于卡门线省 87%"的双分支结论。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<p>论文只回答一个问题：<strong>从高度 h₀ 的塔顶把 10,000 kg 载荷送入 300 km 圆轨道，塔建多高才划算？</strong></p>
+<pre><code class="language-mermaid">flowchart LR
+    A[&quot;§1-2 问题转译与基准&lt;br/&gt;$15,000/kg → $1.5×10⁸ 基准&lt;br/&gt;Falcon 9 Surrogate + 指数大气 Θ(h)&quot;] --&gt; B[&quot;§3 力学公式库&lt;br/&gt;式(1)-(15)：引力/共转阻力/推力&lt;br/&gt;重力转弯/vis-viva/Hohmann&quot;]
+    B --&gt; C[&quot;§4 两套发射方案&lt;br/&gt;h₀&lt;100km：垂直起飞+程序转弯&lt;br/&gt;+重力转弯+远地点圆化（数值）&lt;br/&gt;h₀&gt;100km：切向脉冲 Hohmann（解析）&quot;]
+    C --&gt; D[&quot;§5 仿真+成本模型&lt;br/&gt;CT=C0+CΔv+Cm+CΔh&lt;br/&gt;低于线净亏 $12,000/km&lt;br/&gt;高于线 51 t → $19M ≈ 13%&quot;]
+    D --&gt; E[&quot;§6-7 自评与结论&lt;br/&gt;天基发射省约 87%，&lt;br/&gt;但建塔成本未计入&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好？</strong> 全文最重要的判断在 §4 开头一句话："We consider two regimes of tower heights and design a distinct launch strategy for each of them."（我们按塔高分两个 regime，各设计一套发射策略。）卡门线（100 km）以下大气是主角→用含阻力与重力转弯的数值积分；以上大气消失→切向脉冲 Hohmann 全解析。<strong>一个物理判据切开两套数学工具</strong>，而不是一个模型硬套到底——这是评委眼中"物理洞察力"的直接证据。再往下，所有物理量（Δv、质量、能耗）都被折算成美元，问题问 cost，论文就答 cost。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-abstract第-1-页">1.1 Abstract（第 1 页）</h3>
+<p><strong>它写了什么</strong>：两分支方法概述（大气段仿真 Falcon 9 Surrogate / 天基段 Hohmann）+ 成本结论：塔高 100–300 km 时发射成本约 <strong>\$19 million，即 \$1,900/kg</strong>（对比基准 \$15,000/kg）。</p>
+<p><strong>为什么这样写</strong>：摘要里给"每公斤多少钱"这个唯一可比的市场化指标。评委读完第一段就知道答案的量级与比较基准。</p>
+<p><strong>你要学什么</strong>：摘要用"单价"（\$/kg）而非总额来表达成本——它是跨方案比较的通用语言。顺带一个反面教材：首句 "from an from an" 重复词——48 小时末尾务必留出校对时间。</p>
+<h3 id="12-1-interpretation-2-assumptions第-13-页">1.2 §1 Interpretation + §2 Assumptions（第 1–3 页）</h3>
+<p><strong>它写了什么</strong>：先把成本锚定在题目给的 \$15,000/kg × 10,000 kg = \$1.5×10⁸；然后构造"虚拟对标载具"Falcon 9 Surrogate（Table 1：A_f=π(2.3)²、C_D=0.3、一级满/空 342,859/20,000 kg、二级满/空 54,000/3,000 kg，取自 SpaceX 用户手册）；大气密度用式 (1) ρ=ρ₀exp[(r−R_E)/H]（H=8 km、ρ₀=1.225 kg/m³），并乘阶跃函数 Θ(h) 在 100 km 硬截断。</p>
+<p><strong>为什么这样写</strong>：注意那个 Θ(h)——<strong>它把"卡门线以上忽略阻力"这条假设直接焊进了公式</strong>，代码里不用再写 if。假设、公式、代码三者自洽，这是工程化建模的标志。</p>
+<p><strong>你要学什么</strong>：<strong>Surrogate（替身载具）法</strong>：不虚构参数、也不照抄实弹，而是"对标真实型号构造一个可自由修改的替身"，既保留真实性又保留灵活性。</p>
+<h3 id="13-3-launch-mechanics第-36-页先建公式库再谈方案">1.3 §3 Launch Mechanics（第 3–6 页）：先建"公式库"再谈方案</h3>
+<p><strong>它写了什么</strong>：一节塞进发射力学全部标准件——重力 (2)、变质量 m(t) (3)、<strong>共转大气相对速度</strong> v⃗_rel=v_r r̂+(v_θ−rΩ_E) θ̂ (4)、阻力 (5)、推力"火箭方程" (6) 与理想 Δv=v_e ln(m_i/m_f) (7)、重力转弯率 α̇=μ sinα/(v r²) (8)；随后按受力集合写三个力学期：大气内燃烧 (9)、大气外燃烧 (10)、惯性滑行 (11)；轨道段补 vis-viva (12)、偏心率与远地点 r_a=(1+e)a (13)、Hohmann 双脉冲 (14)(15)。</p>
+<p><strong>为什么这样写</strong>：作者把 §3 当作"库文件"写：与塔高无关的动力学一次性推完，§4 的两套方案只是从库里取函数拼装。公式复用率极高——式 (12)(13) 既当关机判据又当圆化预算。</p>
+<p><strong>你要学什么</strong>：式 (4) 的 v_θ−Ω_E r 是全文最容易被参赛队漏掉的细节——大气随地球共转，阻力取决于<strong>相对</strong>速度；赤道上这项值 463 m/s，约占轨道速度 6%。</p>
+<h3 id="14-4-launch-design第-68-页两套方案">1.4 §4 Launch Design（第 6–8 页）：两套方案</h3>
+<p><strong>它写了什么</strong>：
+- <strong>低于卡门线</strong>：一级 ṁ≈720 kg/s、v_e≈4020 m/s（T≈2890 kN）；垂直起飞 10 s → 程序转弯 0.5°/s 至天顶角 8.5° → 重力转弯 (8)；<strong>关机写成状态判据</strong>："engines cut off when E and L are such that r_a exceeds 300 km"；二级在远地点做脉冲圆化 (16)(17)。
+- <strong>高于卡门线</strong>：无阻力 → <strong>切向发射</strong>（liftoff tangent to Earth's surface）；先把式 (14) 修正为含"塔随地球自转线速度 (R_E+h)Ω_E"的 Δv₁，再直接套式 (15) 得 Δv₂。</p>
+<p><strong>为什么这样写</strong>：两处都值得抄。状态判据关机（能量、角动量满足远地点=目标）比"定时关机"稳健，也正是真实火箭的制导逻辑；切向发射的论证只有一句但分量十足——"A liftoff tangent to Earth's surface is much more energy efficient than a vertical launch in this regime since atmospheric drag is no longer an issue."</p>
+<p><strong>你要学什么</strong>：⚠ <strong>批判性阅读点</strong>：用论文自己的数检查——T=ṁ·v_e=720×4020≈2.89 MN，而起飞重量 =407 t×9.8≈3.99 MN，<strong>推重比只有 0.72，根本飞不起来</strong>（真实 Falcon 9 约 1.2–1.5）。论文的仿真显然在别处补了推力或减了质量，但正文没有交代。<strong>用两个参数的乘积做量级自检，是读任何论文的第一步。</strong></p>
+<h3 id="15-51-simulation第-89-页">1.5 §5.1 Simulation（第 8–9 页）</h3>
+<p><strong>它写了什么</strong>：Python 积分器、Δt=0.1 s 的 for-loop；俯仰率 0.5°/s 与 8.5° 门限"由人工微调"（manual fine tuning）；Figure 2/3 双参考系轨迹（南视共转系 / 北视惯性系——后者专门展示地球自转给火箭的初速）、Figure 4 五联时序图（a、v、h、α、m）；天基火箭平均总质量 51,000 kg。</p>
+<p><strong>你要学什么</strong>：① 双参考系画同一组轨迹是聪明的可视化决策——共转系看"弹道形状"，惯性系看"自转白送了多少速度"；② "manual fine tuning" 直说不装——比虚构一个"优化算法"诚实得多；③ 积分器粗糙（0.1 s for-loop）也照实写进 Weaknesses。</p>
+<h3 id="16-52-cost-analysis第-912-页全文的经济学闭环">1.6 §5.2 Cost Analysis（第 9–12 页）：全文的经济学闭环</h3>
+<p><strong>它写了什么</strong>：C_T=C₀+C_Δv+C_m+C_Δh。三个标定动作：(a) Δv 边际成本：LEO/GEO 发射差价 \$6.1 M 对应 Δv 差约 4 km/s → **\$1500 per m/s<strong>；(b) 提升成本：太空电梯文献给 \$220/kg 对应 50 MJ/kg → **\$4.4×10⁻⁶/J</strong>；(c) 结论对账：低于卡门线，每升高 1 km 省 Δv 约 3 m/s（值 \$5,000）但提升费 \$17,000 → <strong>净亏 \$12,000/km，塔不划算**；高于卡门线，载具缩到 51 t（12%），提升费降到 \$2,000/km 且高度引起总成本变化 &lt;\$2 M → 干脆删掉 C_m、C_Δh 项，按 \$368/kg×51,000 kg≈</strong>\$19 M**（13%）收尾。</p>
+<p><strong>为什么这样写</strong>：三个无法直接定价的量（Δv、势能、质量）全部锚定到可查证的市场/文献数据，然后用一个不等式论证"哪一项小于不确定度、可以删"——<strong>成本模型也要做量级论证</strong>。</p>
+<p><strong>你要学什么</strong>：负结果照写（"The tower thus does not save money below the Kármán line"）——证明某种塔不值得建，同样是完整答案。</p>
+<h3 id="17-6-discussion-7-closing第-1214-页">1.7 §6 Discussion + §7 Closing（第 12–14 页）</h3>
+<p><strong>它写了什么</strong>：Weaknesses 四条（赤道二维假设、二级脉冲化、粗糙积分器、载具质量固定未随塔高优化）；Strengths 四条（二维而非一维、计自转与共转大气、流程贴近真实发射、两 regime 各有意义）；结论"省近 90%，但建塔的工程与成本'cannot be understated'"。</p>
+<p><strong>你要学什么</strong>：Strengths 的写法不是自夸"我们很准确"，而是逐条说明<strong>为什么这些选择让结果可信</strong>（"we used a two-dimensional analysis instead of a simple 1D liftoff"——对比式自证）。</p>
+<hr>
+<h2 id="2-图表深析每张图为什么放为什么这样画怎么画">2. 图表深析（每张图：为什么放、为什么这样画、怎么画）</h2>
+<table>
+<thead>
+<tr>
+<th>图</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Figure 1（Falcon 9 发射照片）</td>
+<td>§2 载具设定处</td>
+<td>替身载具配上真身照片，一图建立"我们在模拟真东西"的可信度</td>
+<td>官方照片 + 一句引用</td>
+</tr>
+<tr>
+<td>Figure 2（共转系轨迹族，南视）</td>
+<td>§5.1</td>
+<td>0–100 km 各起飞高度的曲线族并置，弹道形状差异一眼可比</td>
+<td>Python 积分 → 逐条画线</td>
+</tr>
+<tr>
+<td>Figure 3（惯性系轨迹族，北视）</td>
+<td>§5.1</td>
+<td>同一批轨迹换参考系，专门暴露"地球自送 463 m/s"的初速差异</td>
+<td>同一批数据重画</td>
+</tr>
+<tr>
+<td>Figure 4（a/v/h/α/m 五联时序）</td>
+<td>§5.1</td>
+<td>一张图交代飞全程：加速度过载峰、速度分量（蓝径向/绿切向）、高度、俯仰角、质量阶梯</td>
+<td>同一次仿真的状态量分五个子图</td>
+</tr>
+<tr>
+<td>Figure 5（Δv–高度总图，<strong>全文核心</strong>）</td>
+<td>§5.2</td>
+<td>burnout Δv（理想）与 burnout v（实际）两条曲线之差把"重力+阻力损耗"可视化；apogee Δv 叠加得总 Δv；&gt;100 km 换 elevator Δv 曲线</td>
+<td>数值仿真 + 解析 Hohmann 分支拼接</td>
+</tr>
+<tr>
+<td>Figure 6（图注缺失，⚠ 推测为成本对比图）</td>
+<td>§5.2 末</td>
+<td>承接 "\$19 M vs \$150 M" 的结论</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Table 1（Surrogate 参数表）</td>
+<td>§2</td>
+<td>"假设"变"数据"：七个参数全部有出处</td>
+<td>手工三线表</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心复现：Figure 5 的双分支 Δv–高度图</strong>。高于卡门线的分支用论文自己的公式（修正 Δv₁ + 式 15）可精确复现；低于卡门线的分支依赖论文未公开的调参仿真，这里按论文正文自报的两个锚点（总 Δv 量级 ≈9.4 km/s、斜率"每公里省 3 m/s"）线性重构，并在图题中注明：</p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+
+# ── 常量（论文 §2，WGS84 + Table 1）──
+mu, RE, OmE = 3.986e14, 6378e3, 7.29e-5
+rf = RE + 300e3                                # 目标圆轨道半径
+
+h_hi = np.linspace(100e3, 300e3, 200)          # ── 高于卡门线：论文修正式 + 式(15) ──
+ri   = RE + h_hi
+Dv1  = np.sqrt(mu/ri)*np.sqrt(2*rf/(ri+rf)) - ri*OmE   # 修正 Δv₁（切向点火，含塔速 ri·ΩE）
+Dv2  = np.sqrt(mu/rf)*(1 - np.sqrt(2*ri/(ri+rf)))      # 式(15) 圆化脉冲
+dv_hi = Dv1 + Dv2
+
+h_lo = np.linspace(0, 100e3, 100)              # ── 低于卡门线：按论文自报锚点线性重构 ──
+dv_lo = 9400 - 3.0*(h_lo/1e3)                  # 总 Δv ≈9.4 km/s @h=0，斜率 −3 m/s per km
+
+fig, ax = plt.subplots(figsize=(7, 4.5))
+ax.plot(h_lo/1e3, dv_lo, 'b-',  label='Atmospheric Falcon 9 Surrogate (anchored: 9.4 km/s, 3 m/s per km)')
+ax.plot(h_hi/1e3, dv_hi, 'r-',  label='Ideal tower rocket: modified $\\Delta v_1$ + eq.(15)')
+ax.axvline(100, ls=':', c='gray'); ax.text(102, 7600, 'Kármán line', rotation=90, c='gray')
+ax.annotate(f'{dv_hi[0]:.0f} m/s', (100, dv_hi[0]), xytext=(130, 8300),
+            arrowprops=dict(arrowstyle='-&gt;'))
+ax.annotate(f'{dv_lo[-1]:.0f} m/s', (100, dv_lo[-1]), xytext=(30, 8700),
+            arrowprops=dict(arrowstyle='-&gt;'))
+ax.set(xlabel='Launch altitude $h_0$ (km)', ylabel='Total $\\Delta v$ to 300 km orbit (m/s)',
+       title='Two regimes: below the line each km saves only ~3 m/s;\n'
+             'above it the vehicle shrinks to 51 t and $\\Delta v$ drops ~1.9 km/s')
+ax.legend(loc='upper right', fontsize=8); plt.tight_layout(); plt.show()
+</code></pre>
+<p><strong>绘图设计决策</strong>：① <strong>两个分支画在同一坐标系但用不同颜色并注明方法来源</strong>——评委立刻看到"低于线缓降（省得少）、跨线跳降（换载具）"，这正是结论"要建就建到 100 km 以上"的图形版；② <strong>卡门线画竖直虚线</strong>，物理 regime 的边界必须可视化；③ <strong>每条线的定标依据写进图例</strong>（anchored/eq.15），复现路径透明。数值自检：Δv₁(100 km)≈7.43 km/s、Δv₁(300 km)≈7.24 km/s——斜率约 1 m/s/km，与论文"Δv savings grow much more slowly"一致。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<h3 id="31-指数大气-阶跃截断式-1-与其-θh-修正">3.1 指数大气 + 阶跃截断（式 1 与其 Θ(h) 修正）</h3>
+<p>$$\rho=\rho_0\,e^{(r-R_E)/H}\times\Theta(h),\qquad \Theta(h)=\begin{cases}1,&amp; h\le 100\text{ km}\\ 0,&amp; h&gt;100\text{ km}\end{cases}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：等温大气 + 流体静力学平衡 dP=−ρg dz 直接积分给出指数廓线；标高 H=RT/(Mg)≈8 km。</li>
+<li><strong>数值感</strong>：ρ(100 km)/ρ₀=e^{−12.5}≈3.7×10⁻⁶——所以在 100 km 处硬截断，砍掉的阻力总量远小于 C_D 本身的不确定度。<strong>用不等式给截断找借口，截断就不再是"偷懒"。</strong></li>
+<li><strong>适用边界</strong>：H 实际随高度在 6–8.5 km 间变化；对入轨 Δv 这种积分量影响很小。</li>
+</ul>
+<h3 id="32-共转大气的相对速度式-4">3.2 共转大气的相对速度（式 4）</h3>
+<p>$$\vec v_{rel}=v_r\hat r+(v_\theta-r\Omega_E)\hat\theta$$</p>
+<ul>
+<li><strong>怎么想到</strong>：阻力取决于气流相对球的速度；假设大气被地球"刚体拖转"，切向相对速度就是 v_θ−Ω_E r。</li>
+<li><strong>数值感</strong>：赤道 Ω_E R_E=7.29×10⁻⁵×6.378×10⁶≈465 m/s。向东发射等于阻力"起跑就少 465 m/s"，同时这也是高于卡门线分支里 (R_E+h)Ω_E 项的来源——<strong>同一个物理量在两个 regime 里被用了两次</strong>。</li>
+</ul>
+<h3 id="33-推力与理想火箭方程式-67">3.3 推力与理想火箭方程（式 6、7）</h3>
+<p>$$\vec T=-v_e\dot m(\cos\alpha\,\hat r+\sin\alpha\,\hat\theta),\qquad \Delta v=v_e\ln\frac{m_i}{m_f}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：推力沿弹体轴，弹体轴与矢径成 α 角；ṁ&lt;0 使 T 沿 +弹体方向。对 m v̇=T 从点火到关机积分（无外力时）得 Δv 公式（完整动量守恒推导见本系列 2010-A 精读 §3.3）。</li>
+<li><strong>本文用法</strong>：式 (7) 在成本层反向使用——由 Δv 配额反推质量比，这正是"$368/kg × 51,000 kg"那笔账的物理引擎。</li>
+</ul>
+<h3 id="34-重力转弯式-8">3.4 重力转弯（式 8）</h3>
+<p>$$\dot\alpha=\frac{\mu\sin\alpha}{v\,r^2}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：大气中飞行要推力对准速度（减阻+结构安全），于是俯仰程序被"交还给重力"：速度矢量被重力以 g_perp/v 的角速度弯曲。设 γ=90°−α 为弹道角，dγ/dt=−(μ/v r²)cosγ=−(μ/v r²)sinα，反号即 α̇=+μ sinα/(v r²)。</li>
+<li><strong>数值感</strong>：α=8.5°、v=300 m/s 时 α̇≈0.24°/s——与程序转弯的 0.5°/s 同量级，衔接平顺。</li>
+<li><strong>适用边界</strong>：推力始终沿速度（零攻角）；文中通过 10 s 垂直段 + 程序转弯把 α"递"给重力转弯，避免低速段 α̇∝1/v 发散。</li>
+</ul>
+<h3 id="35-三力学期运动方程式-911">3.5 三力学期运动方程（式 9–11）</h3>
+<p>$$m\ddot{\vec r}=\vec F_g+\vec D+\vec T\;(9)\;\to\;\vec F_g+\vec T\;(10)\;\to\;\vec F_g\;(11)$$</p>
+<ul>
+<li><strong>怎么想到</strong>：按"阻力在不在、推力在不在"切三种受力组合，分别展开成 r、θ 分量。分段的依据正是式 (1) 的 Θ(h)（阻力）与关机判据（推力）——<strong>假设层的每个开关，方程层都有一条对应分支</strong>。</li>
+<li><strong>注意</strong>：极坐标切向方程论文写作 r θ̈，实为 a_θ=r θ̈+2ṙθ̇ 的记法简化；复现时按标准极坐标加速度展开即可。</li>
+</ul>
+<h3 id="36-vis-viva-与远地点式-1213">3.6 vis-viva 与远地点（式 12、13）</h3>
+<p>$$\frac{mv^2}{2}-\frac{\mu m}{r}=E=-\frac{\mu m}{2a}\;\Rightarrow\;v=\sqrt{\mu\left(\frac2r-\frac1a\right)},\qquad r_a=(1+e)a,\;\; e=\sqrt{1+\frac{2EL^2}{\mu^2m^3}}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：束缚轨道（E&lt;0）能量只依赖半长轴 a——这是"同一能量两种写法"的守恒律套利；e 由 E、L 组合出，于是<strong>状态向量 (r, v) → (E, L) → (a, e) → r_a</strong> 一条流水线，关机判据与远地点速度共用。</li>
+<li><strong>用途</strong>：关机条件 "r_a≥300 km" 与远地点圆化速度 (16) 全由这两式供血。</li>
+</ul>
+<h3 id="37-hohmann-双脉冲式-1415与本题修正-δv₁">3.7 Hohmann 双脉冲（式 14、15）与本题修正 Δv₁</h3>
+<p>$$\Delta v_1=\sqrt{\frac{\mu}{r_i}}\left(\sqrt{\frac{2r_f}{r_i+r_f}}-1\right),\qquad \Delta v_2=\sqrt{\frac{\mu}{r_f}}\left(1-\sqrt{\frac{2r_i}{r_i+r_f}}\right)$$</p>
+<ul>
+<li><strong>推导骨架</strong>：转移椭圆 a=(r_i+r_f)/2；近地点速度由 vis-viva 算出，减圆轨道速度得 Δv₁；远地点同理得 Δv₂。</li>
+<li><strong>本题修正（§4.2 无编号式）</strong>：塔顶火箭先随地球共转（速度 (R_E+h)Ω_E），要先加速到该高度圆速度再做切向点火，故 Δv₁ 增加两项，合并后：
+$$\Delta v_1=\sqrt{\frac{\mu}{R_E+h}}\sqrt{\frac{2r_f}{R_E+h+r_f}}-(R_E+h)\Omega_E$$</li>
+<li><strong>怎么想到</strong>：教科书公式假设初始已在圆轨道上共速飞行；本题初始条件不同 → <strong>改写而不是重推</strong>，并把"为什么改"写明。这是"文献公式落地"的标准姿势。</li>
+<li><strong>数值感</strong>：h=100 km 时 Δv₁≈7.43 km/s、Δv₂≈59 m/s——圆化脉冲小两个量级，因为转移椭圆远地点已贴着目标轨道。</li>
+</ul>
+<h3 id="38-远地点圆化式-1617">3.8 远地点圆化（式 16、17）</h3>
+<p>$$v_i=\sqrt{\mu\left(\frac{2}{r_a}-\frac1a\right)}\;\to\; v_f=\sqrt{\frac{\mu}{r_a}}\;\to\; \Delta v=v_f-v_i$$</p>
+<p>vis-viva 在 r=r_a 处取值减圆速度——式 (12) 的第三次复用。<strong>一篇论文把 vis-viva 用成"万能钥匙"</strong>：关机判据、远地点速度、圆化预算。</p>
+<h3 id="39-成本模型与两项删除">3.9 成本模型与两项删除</h3>
+<p>$$C_T=C_0+C_{\Delta v}+C_m+C_{\Delta h},\qquad \frac{dC}{d\Delta v}=\$1500/(\text{m/s}),\qquad C_{\Delta h}=\$4.4\times10^{-6}/\text{J}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：Δv 无法直接标价 → 用 LEO/GEO 差价反推边际成本；势能无法标价 → 借太空电梯文献的 \$/J；最后用&quot;高度项总变化 &lt;\$2 M ≪ 成本不确定度"论证删除 C_m、C_Δh 的合法性。</li>
+<li><strong>适用边界</strong>：固定成本与塔的建造费全部记为 sunk cost——这是题意允许的简化，但结论里必须重申（论文确实重申了）。</li>
+</ul>
+<hr>
+<h2 id="4-建模决策链为什么这么建放弃了什么">4. 建模决策链（为什么这么建、放弃了什么）</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>总体架构</td>
+<td>以卡门线分两个 regime</td>
+<td>单一模型全高度硬套</td>
+<td>两侧物理主导项不同（大气 vs 无大气），工具自然分化</td>
+</tr>
+<tr>
+<td>载具</td>
+<td>Falcon 9 Surrogate（对标真实参数）</td>
+<td>完全虚构 / 完全照抄</td>
+<td>有出处又可改；成本结论还能与公开报价对照</td>
+</tr>
+<tr>
+<td>大气模型</td>
+<td>指数 + Θ(h) 硬截断</td>
+<td>分层实测大气表</td>
+<td>Δv 是积分量，对廓线细节不敏感；截断误差 ≪ C_D 不确定度</td>
+</tr>
+<tr>
+<td>阻力参考系</td>
+<td>相对共转大气（式 4）</td>
+<td>惯性系速度</td>
+<td>赤道差 465 m/s，6% 量级不可忽略</td>
+</tr>
+<tr>
+<td>发射程序（&lt;100 km）</td>
+<td>10 s 垂直→0.5°/s 至 8.5°→重力转弯</td>
+<td>最优控制/攻角调度</td>
+<td>手工调参足够（作者明说 manual fine tuning），省下时间做成本层</td>
+</tr>
+<tr>
+<td>关机判据</td>
+<td>状态判据（E,L 使 r_a=300 km）</td>
+<td>固定时间关机</td>
+<td>状态判据对塔高扰动稳健，也是真实制导逻辑</td>
+</tr>
+<tr>
+<td>二级</td>
+<td>远地点脉冲近似</td>
+<td>有限燃烧时长仿真</td>
+<td>脉冲误差远小于其他不确定度，且换来闭式解</td>
+</tr>
+<tr>
+<td>天基发射方向</td>
+<td>切向（水平）</td>
+<td>垂直</td>
+<td>无阻力时垂直起飞纯浪费（重力损失），一句物理论证完成决策</td>
+</tr>
+<tr>
+<td>成本表达</td>
+<td>Δv、势能、质量全部折 \$/kg | 只报告 Δv 节省 | 题目问 cost；且 \$/kg 可与市场数据互检</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>项的删除</td>
+<td>天基情形删 C_m、C_Δh</td>
+<td>保留全部四项</td>
+<td>两项总变化 &lt;\$2 M，小于定标不确定度——量级论证支持的简化</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总规律</strong>：每个"换工具/删项/截断"的决定都附带一个量级论证或物理判据，这正是 regime 切分式建模的完整礼仪。</p>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板（可直接映射成论文章节）</strong>：</p>
+<pre><code>1 Interpretation   把题目基准($/kg)钉死；列出待比较方案
+2 Assumptions      替身载具表 + 环境模型(式1+Θ) + 常数出处
+3 Mechanics Library引力/阻力/推力/转弯/轨道公式一次推完（式1-15）
+4 Design           按 regime 给发射程序：程序段+关机判据+脉冲化
+5 Numerical+Cost   轨迹族图 → Δv-高度汇总图 → 成本模型与两项删除
+6 Discussion       Weaknesses(逐条+改进方向) / Strengths(对比式自证)
+7 Closing          总结论 + 不可忽略的现实约束(建塔成本)
+</code></pre>
+<p><strong>句式库（原文摘录，括号内为使用场景）</strong>：
+- "We consider two regimes of ... and design a distinct ... for each of them."（切 regime 总起句）
+- "This marks the end of the 'sensible atmosphere' for our purposes"（给截断阈值起名并自辩）
+- "The values of the pitch rate and threshold pitch were determined by manual fine tuning."（诚实交代调参）
+- "we chose to base our model on SpaceX's Falcon 9 ... We name our fictitious spacecraft Falcon 9 Surrogate"（替身载具法）
+- "The tower thus does not save money below the Kármán line."（负结果一句话定论）
+- "Although the incredible costs and engineering challenges of building a tower extending into space cannot be understated, the savings of nearly 90% ..."（结论不忘现实约束）</p>
+<p><strong>图表配方</strong>：混合 regime 问题 → "双分支同图 + regime 边界竖线 + 每条曲线注明方法来源"；轨迹族 → "双参考系各画一张（共转系看形状、惯性系看自转贡献）"；飞行剖面 → "a/v/h/α/m 五联时序图"；成本结论 → "统一折算 \$/kg 再对比"。</p>
+<hr>
+<p><em>精读完这篇后，建议对照 <code>05_论文赏析/2011/2011-GM-A-352.md</code>（宏观赏析）与 <code>07_题目解读/2011_题A_太空塔发射成本.md</code>（题目全解）形成三位一体。姊妹篇：<code>10_论文精读/2010/2010-GM-A-160_精读.md</code>（火箭方程的完整动量守恒推导）。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-1-interpretation-2-assumptions第-13-页">1.2 §1 Interpretation + §2 Assumptions（第 1–3 页）</a></li><li class="l3"><a href="#13-3-launch-mechanics第-36-页先建公式库再谈方案">1.3 §3 Launch Mechanics（第 3–6 页）：先建"公式库"再谈方案</a></li><li class="l3"><a href="#14-4-launch-design第-68-页两套方案">1.4 §4 Launch Design（第 6–8 页）：两套方案</a></li><li class="l3"><a href="#15-51-simulation第-89-页">1.5 §5.1 Simulation（第 8–9 页）</a></li><li class="l3"><a href="#16-52-cost-analysis第-912-页全文的经济学闭环">1.6 §5.2 Cost Analysis（第 9–12 页）：全文的经济学闭环</a></li><li class="l3"><a href="#17-6-discussion-7-closing第-1214-页">1.7 §6 Discussion + §7 Closing（第 12–14 页）</a></li><li class="l2"><a href="#2-图表深析每张图为什么放为什么这样画怎么画">2. 图表深析（每张图：为什么放、为什么这样画、怎么画）</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-指数大气-阶跃截断式-1-与其-θh-修正">3.1 指数大气 + 阶跃截断（式 1 与其 Θ(h) 修正）</a></li><li class="l3"><a href="#32-共转大气的相对速度式-4">3.2 共转大气的相对速度（式 4）</a></li><li class="l3"><a href="#33-推力与理想火箭方程式-67">3.3 推力与理想火箭方程（式 6、7）</a></li><li class="l3"><a href="#34-重力转弯式-8">3.4 重力转弯（式 8）</a></li><li class="l3"><a href="#35-三力学期运动方程式-911">3.5 三力学期运动方程（式 9–11）</a></li><li class="l3"><a href="#36-vis-viva-与远地点式-1213">3.6 vis-viva 与远地点（式 12、13）</a></li><li class="l3"><a href="#37-hohmann-双脉冲式-1415与本题修正-δv₁">3.7 Hohmann 双脉冲（式 14、15）与本题修正 Δv₁</a></li><li class="l3"><a href="#38-远地点圆化式-1617">3.8 远地点圆化（式 16、17）</a></li><li class="l3"><a href="#39-成本模型与两项删除">3.9 成本模型与两项删除</a></li><li class="l2"><a href="#4-建模决策链为什么这么建放弃了什么">4. 建模决策链（为什么这么建、放弃了什么）</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

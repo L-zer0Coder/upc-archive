@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 52 · Digital Preservation of Sasando Acoustics via Parametric IIR Filter Design（2025 题A 金牌 · 队伍 112） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2025/2025-GM-A-112_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2025 · 精读 52 · Digital Preservation of Sasando Acoustics via Parametric IIR Filter Design（2025 题A 金牌 · 队伍 112）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-52-digital-preservation-of-sasando-acoustics-via-parametric-iir-filter-design2025-题a-金牌-队伍-112">精读 52 · Digital Preservation of Sasando Acoustics via Parametric IIR Filter Design（2025 题A 金牌 · 队伍 112）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：左手论文 PDF（<code>03_优秀论文PDF/2025/Problem A/2025-GM-A-112.pdf</code>），右手本篇。这是 73 篇里第一篇<strong>信号处理型</strong>金牌——物理推导退居二线，胜负手变成"参数化建模 + 数字滤波器设计 + 七域验证矩阵"。你要学的是：① 怎么把"乐器的声音指纹"翻译成四个共振峰参数；② 双线性变换→SOS 级联的完整设计链；③ 工程交付物（延迟/内存/MOPS/稳定性裕度）的呈现方式。本篇审计还会带你看<strong>如何用极点数学验证一张系数表</strong>——我们发现原文系数表至少四处内部不一致（⚠ §4），是"逐数字审计"的最佳练习。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<pre><code class="language-mermaid">flowchart LR
+    A[&quot;声学表征&lt;br/&gt;频谱分析→4 个共振峰&lt;br/&gt;245/490/735/980 Hz, Q=8&quot;] --&gt; B[&quot;模拟原型 H(s)&lt;br/&gt;二阶带通之和(式2/7)&quot;]
+    B --&gt; C[&quot;双线性变换(式4-6)&lt;br/&gt;fs=44.1kHz, 频率畸变0.01%&quot;] --&gt; D[&quot;6 节 SOS 级联(式8-12)&lt;br/&gt;通带平坦度优化(式13)&lt;br/&gt;G=0.002191&quot;]
+    D --&gt; E[&quot;七域验证矩阵&lt;br/&gt;频响/脉冲/频谱/THD/&lt;br/&gt;极点/实时性/音乐信号&quot;]
+    E --&gt; F[&quot;工程指标交付&lt;br/&gt;THD 0.4033% / 延迟 0.27ms&lt;br/&gt;内存 0.58KB / 2778× 实时&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好</strong>：题面要求"让电声沙桑托复刻原声"——一个模糊的美学目标被翻译成<strong>四峰参数化模型</strong>（可计算），再走标准 DSP 流水线（变换→级联→验证），最后以<strong>嵌入式可部署的工程指标</strong>收尾。"物理模型→数字替身→交付物"三层递进，是所有"乐器/振动+信号处理"类题目的通用骨架。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-abstract工程摘要的范本">1.1 Abstract（工程摘要的范本）</h3>
+<p><strong>它写了什么</strong>：任务一句话（拾音信号→原声复刻）→ 方法四件套（高阶 IIR/双线性变换/SOS 分解）→ <strong>量化指标八连发</strong>：通带平坦度 &lt;0.1 dB、Q=8、四峰 245/490/735/980 Hz、阻带衰减 &gt;50 dB、包络衰减 182 ms、THD 0.4033%、延迟 0.27 ms、内存 0.58 KB、2778× 实时、稳定裕度 0.0479。
+<strong>你要学什么</strong>：工程型摘要的密度标准——<strong>每个形容词都配一个数</strong>。评委读完摘要就能给"可行性"打满分。</p>
+<h3 id="12-1-introduction问题去模糊化的信号处理版">1.2 §1 Introduction（问题去模糊化的信号处理版）</h3>
+<p><strong>它写了什么</strong>：文化背景（Rote 岛、lontar 棕榈叶共振腔）→ 电声版牺牲了什么（"包含音高与节奏信息，但缺少音色丰富性"）→ <strong>核心问题句</strong>："how can we digitally restore the authentic acoustic resonance characteristics to electric pickup signals...?" → 五个目标（表征/设计/稳定/验证/实现框架），范围明确锁定 98–1047 Hz。
+<strong>为什么这样写</strong>：把"音色 authenticity"这种主观词锚定到<strong>频段 + 共振峰结构</strong>两个客观对象上——信号处理题的去模糊化就是"定义你要复刻的传递函数长什么样"。
+<strong>你要学什么</strong>：那段"traditional sasandos face several practical limitations..."（体积/易碎/工匠流失）不是闲话——它论证了<strong>这道题为什么存在</strong>。开放题引言的最后一问，永远是要被你的模型回答的那句话。</p>
+<h3 id="13-2-notation-贡献清单">1.3 §2 Notation + 贡献清单</h3>
+<p><strong>它写了什么</strong>：符号表 22 项（DSP 全家桶：H(s)/H(z)/b,a 系数/群延迟/脉冲响应）+"五项新贡献"列表。
+<strong>你要学什么</strong>：<strong>贡献清单放符号表旁</strong>——评审扫读时先看"你声称新在哪"，再去正文验证。注意其措辞全部可检验（"0.58 KB memory and 2.4 MOPS"），没有一个空形容词。</p>
+<h3 id="14-3-声学表征物理模型层">1.4 §3 声学表征（物理模型层）</h3>
+<p><strong>它写了什么</strong>：
+- 弦振动基础 (1)：$f_n=n\cdot\frac{1}{2L}\sqrt{T/\mu}$（理想弦谐波）；
+- <strong>共振腔模型 (2)</strong>：$H(s)=\sum_k g_k\frac{\omega_{0,k}s}{s^2+\frac{\omega_{0,k}}{Q_k}s+\omega_{0,k}^2}$——N 个二阶带通之和，每峰三参数（频率/品质因数/增益）；
+- Q 定义 (3)：$Q=f_0/\Delta f_{-3dB}$，并给出物理预期"lontar 叶片 Q=6–10"；
+- <strong>参数识别</strong>（表 1）：四峰 245/490/735/980 Hz（≈谐波系列 1:2:3:4）、Q=8、相对增益 1.00/0.95/0.85/0.75；<strong>半波共振验证</strong>：λ=c/f=343/245≈1.4 m ≈ 2×管长（70 cm×2）——"谐波间距与圆柱腔纵向基频一致"。
+<strong>为什么这样写</strong>：四个共振峰不是拍的——<strong>谐波比例 + 半波长几何论证</strong>双重锚定。这是全文物理含金量最高的一段。
+<strong>你要学什么</strong>：<strong>参数要有物理出身</strong>。哪怕做纯信号处理，每个中心频率都值得问一句"为什么是这四个？"——答案（管长半波共振）让评委无法质疑参数来源。</p>
+<h3 id="15-4-数字滤波器设计方法层主体">1.5 §4 数字滤波器设计（方法层主体）</h3>
+<p><strong>它写了什么</strong>：四步流水线——
+1. <strong>采样率</strong>：fs=44.1 kHz，四条理由（奈奎斯特余量 21×/过渡带空间/工业标准/算力余量）；
+2. <strong>双线性变换</strong> (4)：$s\to\frac{2}{T_s}\frac{1-z^{-1}}{1+z^{-1}}$；<strong>频率畸变分析</strong> (5)(6)：980 Hz 处 warping≈1.0001（0.01%）→ 无需预畸变——<strong>先量化误差再决定要不要补偿</strong>的决策写法；
+3. <strong>SOS 设计</strong> (7)–(11)：每节 RBJ 风格带通系数（α=sinω₀/2Q；b0=α, b1=0, b2=−α；a1=−2cosω₀, a2=1−α）；四峰需四节，为通带平坦度加到<strong>六节</strong>，总传递函数 (12) 带 G=0.002191；
+4. <strong>平坦度优化</strong> (13)：min-max 目标（通带内最大偏差最小化）+ 稳定性约束 |a2|&lt;1；
+5. <strong>稳定性验证</strong> (14)：极点公式+数值（245 Hz 节极点 0.9912·e^{±j0.0349}，裕度 0.88%）。
+<strong>你要学什么</strong>：<strong>"选什么方法"都要有对比理由</strong>——为什么双线性而不是脉冲不变（映射 jω 轴→单位圆、无混叠）；为什么 SOS 而不是直接型高阶（数值稳健）；为什么 44.1k 而不是更高（四条理由）。方法节的每个岔路口都该有一个"为什么不走另一条路"。</p>
+<h3 id="16-57-实现验证与音乐信号交付层">1.6 §5–§7 实现、验证与音乐信号（交付层）</h3>
+<p><strong>它写了什么</strong>：Direct-Form-II 转置结构差分方程 (15)；<strong>算力账本</strong>（每样本 31 乘+24 加 → 1.37 MOPS，ARM M4 都够）；内存账本（48 读+12 写/样本，总 0.58 KB）；验证七域（频响/脉冲响应 182 ms 衰减/频谱/THD 0.4033%/极点图/实时性/多音符与扫频音乐信号）。
+<strong>你要学什么</strong>：① <strong>逐样本算力账本</strong>是实时系统的标准呈现（乘加分开数）；② 验证矩阵覆盖频域/时域/失真/稳定/实时五维——<strong>每维一张图</strong>，任何一维单独看都不充分；③ §10 的 <strong>AI 使用报告</strong>（系统/范围/作者权/质检四节）是 2025 年新出现的合规要素，值得整段照抄结构。</p>
+<hr>
+<h2 id="2-图表深析">2. 图表深析</h2>
+<table>
+<thead>
+<tr>
+<th>图/表</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fig 1 乐器照片（传统/结构两张）</td>
+<td>§1</td>
+<td>信号处理题也要"物理对象可视化"——评委未必认识 sasando</td>
+<td>实物图</td>
+</tr>
+<tr>
+<td>Fig 2 方法论四阶段流程图</td>
+<td>§1.3</td>
+<td>(a)表征→(b)设计→(c)实现→(d)验证，每格 3-4 个产物名——<strong>全文地图</strong></td>
+<td>绘图软件</td>
+</tr>
+<tr>
+<td>表 1 共振峰参数表</td>
+<td>§3.2</td>
+<td>四峰的频率/音名/Q/带宽/增益全参数公开（含音乐音名 B3/B4/F#5/B5！）</td>
+<td>识别结果</td>
+</tr>
+<tr>
+<td>表 2 SOS 系数表</td>
+<td>§4.4</td>
+<td>系数精确到 6 位——<strong>可复现性的最高承诺</strong>（但见 ⚠ 审计）</td>
+<td>计算输出</td>
+</tr>
+<tr>
+<td>§6 验证图组（频响/极点零点/脉冲/频谱/THD）</td>
+<td>§6</td>
+<td>每域一图；极点图配单位圆参考线</td>
+<td>scipy.signal</td>
+</tr>
+<tr>
+<td>§7 音乐信号时频图</td>
+<td>§7.2</td>
+<td>扫频的 spectrogram 展示"滤波器在何时强调何频"</td>
+<td>STFT 热图</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心图复现——四峰共振器的频响（模型核心 Fig + 系数验证一体）</strong>：</p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+from scipy import signal
+
+fs = 44100
+peaks = [245, 490, 735, 980]              # 表 1：四峰（谐波系列）
+Q, gains = 8, [1.00, 0.95, 0.85, 0.75]    # 品质因数与相对增益
+
+sos = []
+for f0, g in zip(peaks, gains):
+    w0 = 2*np.pi*f0/fs
+    alpha = np.sin(w0)/(2*Q)              # 式(9)：RBJ 带通
+    b = [alpha, 0, -alpha]                # 式(10)
+    a = [1+alpha, -2*np.cos(w0), 1-alpha] # 式(11)（含 a0 归一化）
+    sos.append(signal.lp2sos_none if False else
+               [x/(1+alpha) for x in [b[0]*(1+alpha)/(1+alpha), 0, -alpha*(1+alpha)/(1+alpha),
+               1+alpha, -2*np.cos(w0), 1-alpha]][0:3] +
+               [1, -2*np.cos(w0)/(1+alpha), (1-alpha)/(1+alpha)])
+# 上面一行演示归一化易错；正确做法：
+sos = []
+for f0, g in zip(peaks, gains):
+    w0 = 2*np.pi*f0/fs; alpha = np.sin(w0)/(2*Q)
+    sos.append([alpha/(1+alpha), 0, -alpha/(1+alpha),
+                1, -2*np.cos(w0)/(1+alpha), (1-alpha)/(1+alpha)])
+w, h = signal.sosfreqz(np.array(sos), worN=8000, fs=fs)
+Hdb = 20*np.log10(np.abs(h)+1e-12) + 20*np.log10(gains)   # 相对增益按表1
+
+plt.figure(figsize=(7.5, 4.4))
+plt.semilogx(w, Hdb, lw=2)
+for f0 in peaks: plt.axvline(f0, ls=':', c='gray', lw=1)
+plt.axvspan(98, 1047, color='green', alpha=.06, label='sasando passband 98–1047 Hz')
+plt.annotate(&quot;four peaks\n245/490/735/980 Hz, Q=8&quot;, xy=(490, Hdb[np.argmin(abs(w-490))]),
+             xytext=(60, -8), arrowprops=dict(arrowstyle='-&gt;'))
+plt.xlabel('frequency (Hz)'); plt.ylabel('|H| (dB, rel.)')
+plt.title('Sasando resonator = cascade of 4 biquads (paper Eq.7–12)')
+plt.legend(fontsize=9); plt.grid(alpha=.3, which='both'); plt.tight_layout(); plt.show()
+print(&quot;系数自检（245Hz节）: b0=%.6f a1=%.6f a2=%.6f&quot; % (
+      np.sin(2*np.pi*245/fs)/16/(1+np.sin(2*np.pi*245/fs)/16),
+      -2*np.cos(2*np.pi*245/fs)/(1+np.sin(2*np.pi*245/fs)/16),
+      (1-np.sin(2*np.pi*245/fs)/16)/(1+np.sin(2*np.pi*245/fs)/16)))
+</code></pre>
+<p>运行后对照论文表 2 第 1 行（b0=0.003482, a1=−1.9824, a2=0.9930）：你算出的正确值约为 <strong>b0≈0.002177, a1≈−1.99661, a2≈0.99782</strong>——与印刷值不符（详见 §4 审计）。三个可偷的绘图决策：<strong>① 对数频率轴+通带底色</strong>（音频问题标配）；<strong>② 每个峰画参考竖线</strong>；<strong>③ 系数表后立刻给一行"自检公式"</strong>（本代码最后一行就是示范）。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<h3 id="31-弦谐波与共振腔模型式-12">3.1 弦谐波与共振腔模型（式 1–2）</h3>
+<p>$$f_n=\frac{n}{2L}\sqrt{\frac{T}{\mu}},\qquad H(s)=\sum_{k=1}^{N}\;g_k\,\frac{\omega_{0,k}\,s}{s^2+\frac{\omega_{0,k}}{Q_k}s+\omega_{0,k}^2}$$
+- <strong>怎么想到</strong>：弦给频率内容（谐波系列），共振腔给<strong>频率依赖的放大</strong>——"放大器"最自然的数学替身就是二阶带通（每个物理共振模态对应一个极点对）。模态叠加=带通求和，这是结构声学的标准等价（与 RLC 电路、量子能级共振同构）。
+- <strong>分子为什么是 ω₀s</strong>：保证谐振峰增益与 ω₀ 无关（标准化），峰高只由 g_k 控制——<strong>设计成"参数正交"</strong>，后续优化才不互相打架。
+- <strong>适用边界</strong>：LTI 假设（小振幅线性）、单点响应（论文自己在 8.1.4 承认）。</p>
+<h3 id="32-品质因数式-3">3.2 品质因数（式 3）</h3>
+<p>$$Q=\frac{f_0}{\Delta f_{-3\text{dB}}}\;\Longleftrightarrow\;\text{衰减时间}\;\tau\approx\frac{Q}{\pi f_0}$$
+- <strong>数值感</strong>：Q=8 @245 Hz → Δf=30.6 Hz（表 1 ✓）→ 60 dB 衰减时间 τ₆₀≈6.91/(2π·30.6)≈36 ms/峰。<strong>⚠ 审计点 A</strong>：论文声称脉冲包络衰减 182 ms——比单峰 τ₆₀（36 ms）大 5 倍，可能测的是整个级联的复合尾部或用不同分贝基准；作为指标无定义细节（几分贝？单峰还是级联？）。</p>
+<h3 id="33-双线性变换与频率畸变式-46">3.3 双线性变换与频率畸变（式 4–6）</h3>
+<p>$$s=\frac{2}{T_s}\cdot\frac{1-z^{-1}}{1+z^{-1}},\qquad \Omega=\frac{2}{T_s}\tan\!\Big(\frac{\omega T_s}{2}\Big)$$
+- <strong>怎么想到</strong>：连续→离散有两条主路——脉冲响应不变法（混叠）与双线性（无混叠但频率轴弯曲）。音频滤波要保稳态频响 → 双线性；代价是 tan 畸变，<strong>必须量化</strong>。
+- <strong>复算</strong>：980 Hz 处 tan(π·980/44100)/(π·980/44100)=1.00012 ✓ 论文 1.0001——0.012%，确实可忽略。<strong>"误差量化→补偿决策"这两行是 DSP 论文的必写动作</strong>。</p>
+<h3 id="34-sos-系数式-911与-审计-b系数表验证本篇精华">3.4 SOS 系数（式 9–11）与 ⚠ 审计 B（系数表验证——本篇精华）</h3>
+<p>由式 (9)–(11)，245 Hz、Q=8、fs=44100 的正确系数：
+$$\omega_0=2\pi f_0/f_s=0.034906,\quad\alpha=\frac{\sin\omega_0}{2Q}=0.0021812$$
+$$b_0=\frac{\alpha}{1+\alpha}=0.002177,\quad a_1=-\frac{2\cos\omega_0}{1+\alpha}=-1.99661,\quad a_2=\frac{1-\alpha}{1+\alpha}=0.99782$$
+对照论文表 2 第 1 行（b0=0.003482, a1=−1.9824, a2=0.9930）——<strong>全部对不上</strong>。而且表 2 内部也自相矛盾：
+1. <strong>a1 与 a2 不相容</strong>：复极点对 $z=re^{\pm j\theta}$ 满足 a1=−2r·cosθ、a2=r²。由 a2=0.9930 → r=0.99649；代入 a1=−1.9824 → cosθ=0.99496 → θ=0.1005 rad → <strong>极点频率 ≈705 Hz</strong>，不是标注的 245 Hz！而 §4.5 文字里"245 Hz 节极点 0.9912e^{±j0.0349}"（θ=0.0349 ✓ 对应 245 Hz）又与表 2 的 a2（0.9930→r=0.9965≠0.9912）矛盾。
+2. <strong>b0 呈 1:2:3:4:5:6 完美线性</strong>（0.003482×k）——真实优化出的系数不可能如此规整，疑为演示值。
+3. <strong>增益全为 1.000</strong>：与表 1 的 0.95/0.85/0.75 直接矛盾。
+4. <strong>六节 vs 四峰</strong>：第 5/6 节无频率标注，且文中未说明多余两节的用途。
+- <strong>教学价值</strong>：用极点恒等式（a1=−2r cosθ, a2=r²）两行算术就能审计任何 biquad 系数表——<strong>这是读 DSP 论文的必备手检工具</strong>。同时注意：该论文仍获金牌——因为<strong>叙事链、验证矩阵、工程指标框架全部成立</strong>，评委未必逐系数复算。但你写论文时，系数表务必让脚本自动生成（人工誊写正是这类断裂的来源）。</p>
+<h3 id="35-min-max-通带平坦度优化式-13">3.5 min-max 通带平坦度优化（式 13）</h3>
+<p>$$\min_{g_1..g_6,G}\;\max_{f\in[98,1047]}|H(e^{j2\pi f/f_s})|_{dB}$$
+- <strong>怎么想到</strong>：级联带通在峰谷间会凹陷——Chebyshev 式 minimax 正是"通带最大偏差最小化"的标准表述。约束 |a2|&lt;1 是离散稳定条件（极点在单位圆内的必要条件）。
+- <strong>适用边界</strong>：只优化幅度；相位（群延迟起伏）未入目标——音乐信号相位失真听感影响小，取舍合理但未声明 ⚠。</p>
+<h3 id="36-算力与延迟账本式-16">3.6 算力与延迟账本（式 16）</h3>
+<p>$$\text{MOPS}=\frac{(5\times6+1)\times44100}{10^6}=1.37$$
+<strong>⚠ 审计 C</strong>：贡献清单写 "2.4 MOPS"，式 (16) 算出 1.37——<strong>同一论文两处口径不一致</strong>（2.4 或许把加法也计为 op：(31+24)×44100/1e6=2.42 ✓）。另有 <strong>⚠ 审计 D</strong>：THD 指标概念存疑——<strong>线性滤波器对正弦输入不产生谐波</strong>，THD 恒为零/仅剩量化噪声；0.4033% 的来源（系数量化？非线性实现？）未说明。"给线性系统测 THD"作为验证条目，说服力弱于一次系数敏感性分析。这些口径细节正是工程论文的"单位卫生"。</p>
+<hr>
+<h2 id="4-建模决策链">4. 建模决策链</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>复刻对象</td>
+<td>4 个共振峰（频响特征）</td>
+<td>波形级/时域卷积复刻</td>
+<td>听感由频谱包络主导（模态正交、参数少）</td>
+</tr>
+<tr>
+<td>峰参数</td>
+<td>245/490/735/980（谐波系）+ Q=8</td>
+<td>频谱细峰逐个拟合</td>
+<td>半波共振几何论证：λ=1.4m≈2×管长</td>
+</tr>
+<tr>
+<td>离散化</td>
+<td>双线性变换</td>
+<td>脉冲响应不变</td>
+<td>无混叠；畸变 0.01% 已量化可忽略</td>
+</tr>
+<tr>
+<td>结构</td>
+<td>6×SOS 级联（DF-II 转置）</td>
+<td>12 阶直接型</td>
+<td>数值稳健 + 嵌入式友好</td>
+</tr>
+<tr>
+<td>平坦度</td>
+<td>min-max 优化增益</td>
+<td>手调</td>
+<td>(13) 式正规化</td>
+</tr>
+<tr>
+<td>验证</td>
+<td>频域+时域+THD+极点+实时 七域</td>
+<td>单一频响</td>
+<td>每维单独不充分</td>
+</tr>
+<tr>
+<td>合规</td>
+<td>AI 使用报告独立成节</td>
+<td>不声明</td>
+<td>2025 年赛制新要素</td>
+</tr>
+</tbody>
+</table>
+<p><strong>独立复现审计汇总</strong>：频率畸变 1.00012 ✓；表 1 带宽 Δf=f0/Q（30.6/61.3/91.9/122.5 ✓ 全对）；τ₆₀≈36 ms vs 声称 182 ms ⚠（定义未注明）；<strong>系数表四处内部不一致</strong> ⚠⚠（a1/a2 隐含极点 705 Hz≠245；b0 线性规律；增益全 1.000；六节四峰无说明）；MOPS 1.37 vs 2.4 两口径 ⚠；THD 对 LTI 系统概念存疑 ⚠。<strong>结论的定性可信（方法链与验证框架完整），定量细节需以自算系数为准。</strong></p>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板</strong>：</p>
+<pre><code>1 Introduction     背景价值→核心问题句→五目标→范围
+2 Notation+贡献    符号表+可检验贡献清单
+3 物理表征         基础公式→参数化模型→参数识别表→物理出身论证
+4 设计方法         采样率(四理由)→变换(误差量化→补偿决策)→结构→优化→稳定性
+5 实现             差分方程+逐样本算力/内存账本
+6-7 验证           七域矩阵(每域一图)+音乐信号
+8-9 讨论+结论      局限四条分小节+替代方案对比
+10 AI 使用报告     (新赛制要素)
+</code></pre>
+<p><strong>句式库</strong>：
+- "The fundamental challenge addressed by this research can be articulated as follows: how can we ...?"（核心问题句模板）
+- "This 0.01% deviation is negligible for musical applications, so explicit pre-warping compensation is unnecessary."（误差量化→决策句）
+- "Higher Q values indicate narrower, more selective resonances..., contributing to ..."（参数的听感翻译）
+- "This modest load is easily handled by modern processors, including low-power ARM Cortex-M4..."（算力结论落到具体硬件）
+- "The methodology is generalizable to other ... offering practical pathways to ..."（推广性声明）</p>
+<p><strong>图表配方</strong>：方法论四阶段流程图（每格列产物）；参数表带音乐音名列；频响图=对数轴+通带底色+峰参考线；验证矩阵"每域一图"；时频图展示动态处理；<strong>系数表后附一行自检公式</strong>（防誊写错误）。</p>
+<hr>
+<p><em>对照阅读：<code>05_论文赏析/2025/2025-GM-A-112.md</code>、<code>07_题目解读/2025_题A_电声沙桑托琴.md</code>（信号处理题全解）、队友精读 182/485（同题光学拾音与 DSP 路线）。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract工程摘要的范本">1.1 Abstract（工程摘要的范本）</a></li><li class="l3"><a href="#12-1-introduction问题去模糊化的信号处理版">1.2 §1 Introduction（问题去模糊化的信号处理版）</a></li><li class="l3"><a href="#13-2-notation-贡献清单">1.3 §2 Notation + 贡献清单</a></li><li class="l3"><a href="#14-3-声学表征物理模型层">1.4 §3 声学表征（物理模型层）</a></li><li class="l3"><a href="#15-4-数字滤波器设计方法层主体">1.5 §4 数字滤波器设计（方法层主体）</a></li><li class="l3"><a href="#16-57-实现验证与音乐信号交付层">1.6 §5–§7 实现、验证与音乐信号（交付层）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-弦谐波与共振腔模型式-12">3.1 弦谐波与共振腔模型（式 1–2）</a></li><li class="l3"><a href="#32-品质因数式-3">3.2 品质因数（式 3）</a></li><li class="l3"><a href="#33-双线性变换与频率畸变式-46">3.3 双线性变换与频率畸变（式 4–6）</a></li><li class="l3"><a href="#34-sos-系数式-911与-审计-b系数表验证本篇精华">3.4 SOS 系数（式 9–11）与 ⚠ 审计 B（系数表验证——本篇精华）</a></li><li class="l3"><a href="#35-min-max-通带平坦度优化式-13">3.5 min-max 通带平坦度优化（式 13）</a></li><li class="l3"><a href="#36-算力与延迟账本式-16">3.6 算力与延迟账本（式 16）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

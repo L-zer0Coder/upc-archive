@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 · Using Gravity Assist Maneuver to Increase Fuel Consumption Efficiency for a Space Probe Entering Jupiter's Orbit（2013 题A 金牌 · 队伍 538） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2013/2013-GM-A-538_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2013 · 精读 · Using Gravity Assist Maneuver to Increase Fuel Consumption Efficiency for a Space Probe Entering Jupiter's Orbit（2013 题A 金牌 · 队伍 538）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-using-gravity-assist-maneuver-to-increase-fuel-consumption-efficiency-for-a-space-probe-entering-jupiters-orbit2013-题a-金牌-队伍-538">精读 · Using Gravity Assist Maneuver to Increase Fuel Consumption Efficiency for a Space Probe Entering Jupiter's Orbit（2013 题A 金牌 · 队伍 538）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：左手边开论文 PDF（<code>03_优秀论文PDF/2013/Problem A/2013-GM-A-538.PDF</code>），右手边开本篇。每节按「它写了什么 → 为什么这样写 → 你要学什么」三层展开；公式给「物理直觉 → 完整推导 → 适用边界」。本篇 13 页、公式 (1)–(7)、图 7 幅全部是几何示意图——<strong>一篇"能解析就绝不模拟"的论文</strong>。⚠ 两点提取警示：(a) 式 (6) 在 §5 被复用时根号内符号与 §4 相反（"+/−"排版笔误，以式 (7) 的化简结果反推应为 "+"）；(b) §6.2 的角度链条（β、γ、δ 的转向约定）依赖 Figures 5–7 的图示，文本提取不完整，本篇对其复现性做了数值实验并如实报告（见 §3.6）——<strong>两端数值（98.5%、96.8%）可精确复现，中间的 α 扫描约定存在歧义</strong>。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<p>论文只回答一个问题：<strong>以 20 km/s 飞抵木星系统的探测器，借 Io 引力辅助减速入轨（1.2 R_J 圆轨道），到底能省多少燃料？</strong></p>
+<pre><code class="language-mermaid">flowchart LR
+    A[&quot;§3 工具层&lt;br/&gt;动量守恒现推&lt;br/&gt;Tsiolkovsky 式(1)&quot;] --&gt; B[&quot;§4 直接入轨（对照组）&lt;br/&gt;式(2)相对速度 23.89&lt;br/&gt;式(3)(4)近木点速度/圆速度&lt;br/&gt;→ 燃料 98.5%&quot;]
+    B --&gt; C[&quot;§4.1+§5 飞掠三件套&lt;br/&gt;式(5) b、式(6) 近心距&lt;br/&gt;式(7) 偏转半角 θ&quot;]
+    C --&gt; D[&quot;§6 绕 Io 引力辅助&lt;br/&gt;选 Io 的量化理由&lt;br/&gt;α 扫描 + b1=b2 匹配&lt;br/&gt;→ v'p=11.15 → 燃料 96.8%&quot;]
+    D --&gt; E[&quot;§7 结论&lt;br/&gt;非燃料载荷翻倍&lt;br/&gt;引力辅助显著省燃料&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好？</strong> 它是"<strong>同框架对照实验</strong>"：有/无引力辅助两种情形用完全相同的公式链（式 1–7）计算，唯一差别是有无飞掠——98.5% vs 96.8% 的对比因此逻辑上无懈可击（没有"两套模型精度不同"的漏洞）。此外全文只有最后一个环节（α 扫描）用了计算机：<strong>先把所有几何自由度压缩成一个参数，数值部分就只剩一页</strong>——这与"上来就写数值积分"的论文是两个物种。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-abstract第-1-页">1.1 Abstract（第 1 页）</h3>
+<p><strong>它写了什么</strong>：问题（20 km/s 探测器入 1.2 R_J 轨道，有无引力辅助对比）→ 方法一句话（"最优释放点的速度 → 与轨道速度之差 → 火箭方程"）→ 两个百分比（98.5% vs 96.8%）→ 实际意义（"the probe can now carry twice the amount of non-fuel material"）。</p>
+<p><strong>为什么这样写</strong>：注意摘要的翻译动作——98.5% vs 96.8% 看起来只差 1.7 个百分点，作者立刻换算成"非燃料载荷翻倍"（剩余质量 1.5%→3.2%）。<strong>百分比省油是火箭语言，载荷翻倍是任务语言</strong>；评委（和读者）对后者更有感。</p>
+<p><strong>你要学什么</strong>：两个"消耗百分比"的比较容易被误读为"只省一点"——主动给出对数尺度下的正确读法（火箭方程是指数的，剩余质量才是线性指标）。</p>
+<h3 id="12-1-background-2-introduction第-12-页">1.2 §1 Background + §2 Introduction（第 1–2 页）</h3>
+<p><strong>它写了什么</strong>：引力辅助的历史（Kondratyuk/Zander 1925-1938 提出、Luna 3 1959 首飞、Mariner 10/Voyager/Galileo 应用）；假设清单——只计木星与 Io 引力、机动时段内轨道近似直线、<strong>飞掠期间忽略木星引力</strong>（因 Io 距木星约 15 R_J，问题可拆成"飞掠段 + 再减速段"两段）。</p>
+<p><strong>为什么这样写</strong>：历史段落不是装饰——它顺势列出三个真实任务，为"该技术成熟可靠"提供背书；假设清单紧跟在问题陈述之后，<strong>每条假设都指向一个"拆解问题的切口"</strong>（分段近似正是全文的求解策略）。</p>
+<p><strong>你要学什么</strong>：⚠ 读出一个事实性瑕疵：文中取 Io–木星距离 1.022×10⁶ km（≈15 R_J [7]），但 Io 的真实轨道半径是 4.217×10⁵ km（≈6 R_J）；1.022×10⁶ km 更接近 Ganymede。<strong>引用二手资料（ThinkQuest 网页）要交叉核对</strong>——不过该值只影响 b₁ 的尺度，不影响方法论。</p>
+<h3 id="13-3-the-tsiolkovsky-rocket-equation第-23-页">1.3 §3 The Tsiolkovsky Rocket Equation（第 2–3 页）</h3>
+<p><strong>它写了什么</strong>：不直接引用火箭方程，而是从动量守恒一步步现推——m v = (m+Δm)(v+Δv) + (−Δm)(v−u) → 展开 → 舍去 dmdv 二阶小量 → 分离变量积分 → Δv = u ln(m₀/m)（式 1）。Figure 1 画喷气前后的动量。</p>
+<p><strong>为什么这样写</strong>：题眼公式亲手重推，既展示功底，又把隐含假设（无外力、排气速度恒定、Δm 为负的符号约定）全部暴露在纸面上。<strong>48 小时论文里，"重推核心方程"是性价比最高的篇幅投资之一。</strong></p>
+<p><strong>你要学什么</strong>：注意它对 dmdv 的处理只有一句——"The term dmdv is the product of two differentials, so it is extremely small and negligible."——<strong>丢高阶小量要明说，一句话即可</strong>。</p>
+<h3 id="14-4-fuel-needed-without-gravity-assist第-35-页">1.4 §4 Fuel Needed without Gravity Assist（第 3–5 页）</h3>
+<p><strong>它写了什么</strong>：两件事。<strong>其一，"在哪里刹车"的证明</strong>：由能量守恒，同样的 Δv 在速度最大处带走的能量最多（ΔE≈v·Δv），速度最大点=近木点 → 应瞄准"近心点=目标轨道半径"的轨迹并在该点制动——<strong>最优制动点是推出来的，不是假设的</strong>。其二，速度基准与账目：木星在动，到达速度 20 km/s 是相对太阳的，与木星公转速度 v_J=13.07 km/s 垂直合成 v₀=√(v_p²+v_J²)=23.89 km/s（式 2）；近木点速度 v=√(v₀²+2μ_J/r)（式 3，能量守恒）；圆轨道速度 v=√(μ_J/r)（式 4，引力=向心力）；Δv=两者之差代入式 (1) → <strong>m/m₀=1.5%，即燃料 98.5%</strong>。</p>
+<p><strong>为什么这样写</strong>："ΔE≈vΔv 所以在最快处刹车"是全文最漂亮的两行物理——很多队会略过这个隐藏子问题直接算近木点。§4.1 顺手给出飞掠三件套（b=√(r²+2μr/v₀²) 式 5；近心距 r=(−μ+√(μ²+v₀⁴b²))/v₀² 式 6——⚠ §5 复用处根号内误排为"−"，以式 7 反推应为"+"），为 §6 备料。</p>
+<p><strong>你要学什么</strong>：<strong>"在哪里做"（最优作用点）与"做多少"（Δv 大小）分成两个小节论证</strong>——过程分就是这样挣的。</p>
+<h3 id="15-5-space-probe-passing-io第-56-页">1.5 §5 Space Probe Passing Io（第 5–6 页）</h3>
+<p><strong>它写了什么</strong>：飞掠几何的解析工具——双曲线过剩速度 v₀=√(μ/a) 给出 a=μ/v₀²；偏转半角 θ=arcsin[b/(a+r)]，代入式 (6) 化简为
+$$\theta=\sin^{-1}\!\Big(1\Big/\sqrt{\mu^2/(b^2v_{pm}^4)+1}\Big)\;\;(7)$$
+Figure 3 标注 2θ 为入射/出射速度矢量夹角。</p>
+<p><strong>为什么这样写</strong>：θ 的推导链是"几何定义（sinθ=b/(a+r)）→ 代入式 (6) 消 r → 代数化简"三步，每步可手工复核。式 (5)(6)(7) 构成<strong>飞掠三件套</strong>：给 v₀ 和 b → 近心距 → 偏转角。这三个式子是处理一切借力飞行题的"库函数"。</p>
+<p><strong>你要学什么</strong>：注意化简的技巧——把 sinθ=bv₀²/√(μ²+v₀⁴b²) 倒过来写成 1/√(μ²/(b²v₀⁴)+1)，分母变成"无量纲大数 + 1"的形式，量级一眼可读（μ/(bv₀²)≫1 时 θ≈bv₀²/μ）。</p>
+<h3 id="16-6-gravity-assist-maneuver-around-io第-611-页主战场">1.6 §6 Gravity Assist Maneuver around Io（第 6–11 页）：主战场</h3>
+<p><strong>它写了什么</strong>：
+- <strong>为什么选 Io</strong>：木星最大卫星之一（引力强）+ 轨道最靠内所以相对木星速度大（17.33 km/s，"引力辅助的效率主要取决于飞掠体的速度"[2]）+ 轨道倾角仅 2.21°（可按二维处理）。三条理由全部量化。
+- <strong>机制教学</strong>：棒球-火车类比（50 km/h 的球砸向 20 km/h 的火车，相对火车 30 进 30 出，回到你手里只剩 10——减速 40；迎面火车则加速 40）；方向法则："要减速，先与卫星同向、后反向——从卫星前方通过"。能量从哪来？"It gets absorbed by the moon, but since the moon has so much mass ... the effect will not be noticeable at all."
+- <strong>几何链条</strong>（§6.2，按 Figures 5–7）：余弦定理算相对速度 v_pm 与夹角 β → 绕 Io 偏转 180°−2θ → γ=β−(180°−2θ) → 余弦定理回到木星系 v'_p 与夹角 δ → 匹配条件 b₁=r_Jm·sin(α+γ+δ−90°) = b₂=√(r²+2μ_J r/v'_p²)。
+- <strong>求解（§6.3）</strong>：唯一自由参数 α（发射时机），Python 以 0.0001 rad 步长扫 0–90°，找 b₁≈b₂ → <strong>α=0.8366 rad，v'_p=11.15 km/s，m/m₀=3.2%</strong>。</p>
+<p><strong>为什么这样写</strong>：先讲机制再列方程——棒球类比让评委在任何公式之前就"懂了"引力辅助；随后的三角学只是把类比量化。扫描变量 α 被赋予物理含义（发射时机），<strong>数值搜索就有了叙事位置</strong>：不是"我们优化了一个参数"，而是"我们选择何时出发"。</p>
+<p><strong>你要学什么</strong>：⚠ <strong>复现性注记（本篇精读的独立实验）</strong>：按文本字面实现 β、γ、δ 链条，无论尝试哪种转向约定，都无法同时满足"显著减速 + b₁=b₂ 瞄准条件"——问题出在文本提取丢失了 Figures 5–7 定义的角度方向约定。但<strong>给定论文报告的 v'_p=11.15 km/s，后续账目可精确复现</strong>：Δv=17.21 km/s → m/m₀=3.2% ✓；对照组 98.5% 也精确复现 ✓。学习结论：<strong>先复现能复现的（两端），再挑战模糊的（中间约定）</strong>；写你自己的论文时，角度约定必须文字+图双重锁定。</p>
+<h3 id="17-7-concluding-remarks第-12-页">1.7 §7 Concluding Remarks（第 12 页）</h3>
+<p><strong>它写了什么</strong>：汇总两个百分比与"载荷翻倍"的意义；改进方向两条（计入其他天体引力、多次引力辅助）；结尾重申结论。</p>
+<p><strong>你要学什么</strong>：改进方向具体到"same or even different moons"（同卫星或不同卫星多次借力）——<strong>出路的颗粒度要能直接变成下一篇论文的标题</strong>。</p>
+<hr>
+<h2 id="2-图表深析每张图为什么放为什么这样画怎么画">2. 图表深析（每张图：为什么放、为什么这样画、怎么画）</h2>
+<table>
+<thead>
+<tr>
+<th>图</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Figure 1（喷气前后动量）</td>
+<td>§3</td>
+<td>火箭方程推导的符号约定图：m、v、u 的方向一图钉死</td>
+<td>方框+箭头示意</td>
+</tr>
+<tr>
+<td>Figure 2（绕木轨迹）</td>
+<td>§4</td>
+<td>直接入轨的"近木点制动"策略图</td>
+<td>双曲线+圆轨道相切示意</td>
+</tr>
+<tr>
+<td>Figure 3（绕 Io 双曲线）</td>
+<td>§5</td>
+<td>定义偏转角 2θ 与近心距——式 (7) 的几何载体</td>
+<td>双曲线+两条渐近线</td>
+</tr>
+<tr>
+<td>Figure 4（Io 相对木星位置）</td>
+<td>§6.2</td>
+<td>定义 α（发射时机）与"从 Io 前方通过"的方位</td>
+<td>圆轨道+卫星+速度箭头</td>
+</tr>
+<tr>
+<td>Figure 5（相对 Io 的速度三角形）</td>
+<td>§6.2</td>
+<td>余弦定理求 v_pm 与 β 的图示</td>
+<td>三角形+标注</td>
+</tr>
+<tr>
+<td>Figure 6（绕 Io 后的速度）</td>
+<td>§6.2</td>
+<td>偏转 180°−2θ 后的合成图——γ 的定义处</td>
+<td>三角形+标注</td>
+</tr>
+<tr>
+<td>Figure 7（相对木星的速度）</td>
+<td>§6.2</td>
+<td>v'_p、δ 的定义 + b₁ 的几何——链条收口</td>
+<td>三角形+标注</td>
+</tr>
+</tbody>
+</table>
+<p><strong>这篇论文没有一张数据图</strong>——7 幅全是几何示意图，每幅精确服务一个角度量（α、β、γ、δ、θ）。<strong>当论文的灵魂是"角度约定"时，示意图就是它的数据图。</strong> 复现其核心账目的"数据图版"如下（两端精确 + α 窗口的物理扫描）：</p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+
+muJ, RJ = 1.266e17, 6.991e7          # 木星引力参数/半径 [论文6]
+r  = 1.2*RJ                          # 目标轨道半径（题设）
+u  = 5000.0                          # 排气速度（&quot;对探测器而言很高的速度&quot;[1]）
+vJ, vm = 13.07e3, 17.33e3            # 木星公转速度 [6] / Io 轨道速度 [7]
+v0 = np.hypot(20e3, vJ)              # 式(2)：23.89 km/s（两速度垂直）
+vc = np.sqrt(muJ/r)                  # 圆轨道速度（式 4）
+
+def fuel_frac(v_inf):                # 远方到达速度 → 燃料份额
+    v_peri = np.sqrt(v_inf**2 + 2*muJ/r)          # 式(3) 近心点速度
+    return 1 - np.exp(-(v_peri - vc)/u)           # 式(1) 反解（Δv=v_peri−vc）
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.4))
+v = np.linspace(6e3, 30e3, 300)
+ax1.plot(v/1e3, fuel_frac(v)*100, 'b-')
+ax1.plot(v0/1e3, fuel_frac(v0)*100, 'ro', ms=8)
+ax1.plot(11.15, fuel_frac(11150.0)*100, 'go', ms=8)
+ax1.annotate('no assist: v0=23.89 km/s -&gt; fuel 98.5%',
+             (v0/1e3, fuel_frac(v0)*100), xytext=(13, 76), fontsize=9,
+             arrowprops=dict(arrowstyle='-&gt;'))
+ax1.annotate('Io assist: vp=11.15 km/s -&gt; fuel 96.8%',
+             (11.15, fuel_frac(11150.0)*100), xytext=(6.5, 45), fontsize=9,
+             arrowprops=dict(arrowstyle='-&gt;'))
+ax1.set(xlabel='speed far from Jupiter (km/s)', ylabel='fuel mass fraction (%)',
+        title='Eq.(1)+(3)+(4): same task, two arrival speeds\npayload fraction doubles (1.5% -&gt; 3.2%)')
+
+a   = np.linspace(0.001, np.pi/2, 400)             # §6.2：v_pm(alpha) 余弦定理
+vpm = np.sqrt(v0**2 + vm**2 - 2*v0*vm*np.sin(a))
+ax2.fill_between(a, np.abs(vm-vpm)/1e3, (vm+vpm)/1e3, alpha=0.25, color='gray',
+                 label='reachable post-flyby speed band')
+ax2.plot(a, np.abs(vm-vpm)/1e3, 'k--', lw=1, label='|vpm-vm| ideal U-turn floor')
+ax2.plot(0.8366, 11.15, 'ro', ms=8, label='paper: alpha=0.8366, vp=11.15 km/s')
+ax2.set(xlabel='moon phase angle alpha (rad)', ylabel='post-flyby speed (km/s)',
+        title='The deceleration window vs alpha:\nthe paper solution sits inside it')
+ax2.legend(fontsize=8)
+plt.tight_layout(); plt.show()
+</code></pre>
+<p><strong>绘图设计决策</strong>：① 左图是"<strong>火箭方程的陡峭性</strong>"可视化——燃料份额对到达速度的曲线在 10–24 km/s 间下降不到 2 个百分点，但剩余载荷翻倍；两个彩点直接钉上论文的两个工作点（98.5%/96.8% 均精确复现）。② 右图给出 α 扫描的<strong>物理可达带</strong>：任意偏转下 |v'_p| 只能落在 [|v_pm−v_m|, v_pm+v_m] 带内，其下界在 α≈0.76 rad 附近触零（v_pm≈v_m 时相对速度可被完全"对消"）——<strong>论文的解 α=0.8366 恰落在减速窗口内</strong>，这验证了其解的物理合理性（也是对无法复现的角链约定的替代性检验）。③ 图题承担结论。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<h3 id="31-tsiolkovsky-火箭方程式-1">3.1 Tsiolkovsky 火箭方程（式 1）</h3>
+<p>$$\Delta v=u\ln\frac{m_0}{m}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：无外力 + 变质量 → 系统总动量守恒是唯一入口。喷出质量 −Δm 以相对速度 u 向后，箭体获得 +Δv。</li>
+<li><strong>完整推导（论文式 (1) 前的展开，逐步）</strong>：
+  1. 喷气前总动量：mv；
+  2. 喷气后：箭体 (m+Δm)(v+Δv)（Δm&lt;0）+ 尾气 (−Δm)(v−u)；
+  3. 守恒展开：mv = mv + mΔv + vΔm + ΔmΔv − vΔm + uΔm → mΔv = −uΔm − ΔmΔv ≈ −uΔm；
+  4. 分离变量：−dv/u = dm/m → 两边积分得式 (1)。</li>
+<li><strong>数值感（本文的引擎）</strong>：Δv/u=17207/5000=3.44 → e^{−3.44}=3.2%；对照组 Δv/u=4.21 → 1.5%。<strong>指数的无情</strong>：Δv 每增加 u=5 km/s，剩余质量再除以 e≈2.7。</li>
+</ul>
+<h3 id="32-相对木星的到达速度式-2">3.2 相对木星的到达速度（式 2）</h3>
+<p>$$v_0=\sqrt{v_p^2+v_J^2}=23.89\ \text{km/s}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：刹车刹的是"相对木星"的速度；题给 20 km/s 是日心速度。论文取两者垂直（探测器沿与木星轨道切向垂直的方向抵达——一种特定交会几何），勾股合成。</li>
+<li><strong>适用边界</strong>：若交会角不同，v₀ 与最优飞掠几何都会变——<strong>"垂直"是本题未声明的隐藏几何假设</strong>，敏感性留给读者（家庭作业：交会角 60° 时 v₀=？燃料几何变化？）。</li>
+</ul>
+<h3 id="33-近心点速度与圆轨道速度式-34">3.3 近心点速度与圆轨道速度（式 3、4）</h3>
+<p>$$v=\sqrt{v_0^2+\frac{2\mu_J}{r}}\;(3),\qquad v_{circ}=\sqrt{\frac{\mu_J}{r}}\;(4)$$</p>
+<ul>
+<li><strong>怎么想到</strong>：式 (3) 是能量守恒（远方动能 + 落到 r 的势能增益）；式 (4) 是牛顿第二定律（GMm/r²=mv²/r）。前者答"会在近木点多快"，后者答"需要多快才能被俘获成圆轨道"——<strong>两问之差就是刹车预算 Δv</strong>。</li>
+<li><strong>最优性的证明（§4 的灵魂，两行）</strong>：E_new=½m(v−Δv)²≈½mv²−mvΔv——同样 Δv，v 越大 E 降越多；v 最大处在近心点 → 在近心点刹车，剩余能量最容易落入束缚区。<strong>"在哪里做"由此不再是直觉而是定理。</strong></li>
+<li><strong>数值感</strong>：μ_J/r=1.266e17/8.389e7 → v_circ=38.8 km/s；v_peri(直入)=59.9 km/s → Δv=21.1；v_peri(辅助后，v'_p=11.15)=56.1 → Δv=17.2 km/s。</li>
+</ul>
+<h3 id="34-飞掠三件套式-57">3.4 飞掠三件套（式 5–7）</h3>
+<p>$$b=\frac{vr}{v_0}=\sqrt{r^2+\frac{2\mu r}{v_0^2}}\;(5),\qquad r=\frac{-\mu+\sqrt{\mu^2+v_0^4b^2}}{v_0^2}\;(6),\qquad \theta=\sin^{-1}\!\left(\frac{1}{\sqrt{\mu^2/(b^2v_{pm}^4)+1}}\right)\;(7)$$</p>
+<ul>
+<li><strong>怎么想到</strong>：飞掠问题的自然三元组是"瞄准参数 b ↔ 近心距 r ↔ 偏转角 2θ"。式 (5)：角动量守恒 mv₀b=mvr，配合式 (3) 消 v；式 (6)：把 v=v₀b/r 代回能量方程得二次方程，取物理根（+号；⚠ §5 复用处排印为 −，为笔误）；式 (7)：双曲线几何 sinθ=b/(a+r)，a=μ/v₀²（双曲过剩速度关系），代入式 (6) 消 r 化简。</li>
+<li><strong>推导（式 7 的化简，补全）</strong>：a+r=μ/v₀²+(−μ+√(μ²+v₀⁴b²))/v₀²=√(μ²+v₀⁴b²)/v₀² → sinθ=bv₀²/√(μ²+v₀⁴b²)=1/√(1+μ²/(b²v₀⁴)) ✓。</li>
+<li><strong>数值感</strong>：本文参数下（v_pm≈24 km/s、r_m=2186 km）偏转角 2θ≈176°——<strong>近乎 U 形转弯</strong>！Io 的引力足以把探测器相对速度几乎反向，这正是引力辅助威力（与局限）的来源。</li>
+<li><strong>适用边界</strong>：二体近似（飞掠段忽略木星——距离比 ~15:1 支撑此近似）、无推力、无第三体摄动。</li>
+</ul>
+<h3 id="35-余弦定理链62-无编号式组">3.5 余弦定理链（§6.2 无编号式组）</h3>
+<p>$$v_{pm}=\sqrt{v_0^2+v_m^2-2v_0v_m\sin\alpha},\qquad v&#x27;_p=\sqrt{v_{pm}^2+v_m^2-2v_{pm}v_m\cos(\alpha+\gamma)}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：相对速度合成就是矢量三角形，两边一夹角 → 余弦定理；绕 Io 偏转改变夹角（180°−2θ），合成回去再用一次。<strong>引力辅助的全部几何 = 两次余弦定理 + 一次偏转</strong>。</li>
+<li><strong>能量账</strong>：v'_p²=v_pm²+v_m²−2v_pm·v_m·cos(∠)——在卫星参考系中 |v_pm| 不变（弹性引力交会），变的是与 v_m 的夹角；当出射相对速度与 v_m 反向程度更大，v'_p 变小。<strong>"减速"的实质：把相对速度矢量转到与卫星速度相反的一侧</strong>。</li>
+</ul>
+<h3 id="36-匹配条件与-α-扫描62-末-63">3.6 匹配条件与 α 扫描（§6.2 末 + §6.3）</h3>
+<p>$$b_1=r_{Jm}\sin(\alpha+\gamma+\delta-90^\circ),\qquad b_2=\sqrt{r^2+\frac{2\mu_J r}{(v&#x27;_p)^2}}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：飞掠后探测器从 Io 附近以 v'_p 出发，其对木星的瞄准参数是 b₁（几何正弦公式）；而要使随后近心距恰为 1.2 R_J，需要 b₂（式 5 反解）。令 b₁=b₂ 即"飞掠轨迹自动衔接目标轨道"——<strong>用几何守恒代替轨道机动</strong>。</li>
+<li><strong>求解策略</strong>：唯一自由参数 α（发射时机）→ 0–90°、步长 1e-4 rad 穷举 → α=0.8366 rad。</li>
+<li><strong>⚠ 复现性注记（本篇的独立数值实验）</strong>：文本字面的 β→γ→δ 约定无法在任一转向组合下同时满足"减速 + b₁=b₂"（出射速度总也无法同时瞄准木星）；推断 Figures 5–7 的图形约定与文字描述存在未对齐处。但两个外部锚点（α 解落在减速窗口内；v'_p=11.15 → 96.8% 精确复现）支持论文结果合理。<strong>教训：角度链必须"文字定义+图示+代码变量名"三处一致，否则 48 小时后连作者自己都复现不了。</strong></li>
+</ul>
+<hr>
+<h2 id="4-建模决策链为什么这么建放弃了什么">4. 建模决策链（为什么这么建、放弃了什么）</h2>
+<table>
+<thead>
+<tr>
+<th>円策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>对照组</td>
+<td>直接入轨（同公式链计算）</td>
+<td>只算引力辅助方案</td>
+<td>同框架对照，98.5% vs 96.8% 无口径争议</td>
+</tr>
+<tr>
+<td>火箭方程</td>
+<td>现场推导（式 1）</td>
+<td>直接引用</td>
+<td>暴露隐含假设（无外力、u 恒定）；展示功底</td>
+</tr>
+<tr>
+<td>制动点</td>
+<td>近心点（ΔE≈vΔv 证明）</td>
+<td>假设/别处制动</td>
+<td>隐藏子问题显式化——过程分</td>
+</tr>
+<tr>
+<td>飞掠卫星</td>
+<td>Io</td>
+<td>Europa/Ganymede/多次借力</td>
+<td>质量大 + 轨道速度快（17.33 km/s）+ 倾角 2.21° 可二维化，三条量化理由</td>
+</tr>
+<tr>
+<td>问题拆分</td>
+<td>飞掠段与再减速段分开（忽略段间木星引力）</td>
+<td>全程统一积分</td>
+<td>Io 距木星 ~15 R_J，两段近似各自干净；解析可得</td>
+</tr>
+<tr>
+<td>几何自由度</td>
+<td>压缩为单参数 α（发射时机）</td>
+<td>多参数联合数值优化</td>
+<td>能解析就别模拟；单参数扫描透明可复现</td>
+</tr>
+<tr>
+<td>最近距离</td>
+<td>1.2 R_Io（留 20% 安全余量）</td>
+<td>贴星飞行（更大偏转）</td>
+<td>"to be safe from crashing"——安全余量声明</td>
+</tr>
+<tr>
+<td>出排气速度</td>
+<td>u=5000 m/s（注明"很高"）</td>
+<td>更现实值（3000–4000）</td>
+<td>大 u 保守估计燃料份额；引用 [1]</td>
+</tr>
+<tr>
+<td>文献</td>
+<td>NASA fact sheet + Wikipedia + 把 Python 2.6 列为文献 [8]</td>
+<td>全部一手文献</td>
+<td>2013 年学生论文风貌；学习时应替换为原始来源</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总规律</strong>：<strong>"重推题眼公式 → 证明最优作用点 → 飞掠三件套 + 两次余弦定理 → 单参数扫描收口"</strong>——解析优先的论文，每一行都可手工复核，这是它对评委的最大说服力。</p>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板（解析优先的对照实验型论文）</strong>：</p>
+<pre><code>Abstract          方法一句话 + 两个百分比 + 任务语言翻译
+Background        技术史与真实任务背书
+Introduction      假设清单（每条指向一个&quot;拆解切口&quot;）
+工具层            题眼公式现推（式1）+ 飞掠三件套（式5-7）
+对照组            最优作用点证明 → Δv 账目 → 基准结果
+实验组            选对象的三条量化理由 → 机制类比（棒球-火车）→ 几何链 → 单参数扫描
+Concluding        意义 + 可直接开做的改进方向
+</code></pre>
+<p><strong>句式库（原文摘录，括号内为使用场景）</strong>：
+- "But at which point should it do this? We claim that ..."（把隐藏子问题做成显式问答）
+- "the change in energy is greatest for a given change in speed when the speed itself is the highest"（最优性的一句话证明）
+- "This idea ... may at first seem to violate the Law of Conservation of Energy"（预判读者的困惑并回应）
+- "where does the excess energy go? It gets absorbed by the moon, but since the moon has so much mass ..."（能量账的问答式交代）
+- "The parameter in all of these equations that we can change is α, since we can time the launch of the probe"（给扫描变量赋予物理身份）
+- "we can look at the situation upside down if it is counterclockwise"（对称性免损简化）</p>
+<p><strong>图表配方</strong>：解析型论文 → "示意图即数据图"——每个角度量配一幅定义图（α、β、γ、δ、θ 各有归属）；对照结果 → "火箭方程曲线 + 两个工作点彩标 + 任务语言注释"；机制教学 → "生活类比（棒球-火车）+ 方向法则"；角度约定 → "文字定义 + 图示 + 代码变量名三处一致"（本篇的反面教训）。</p>
+<hr>
+<p><em>精读完这篇后，建议对照 <code>05_论文赏析/2013/2013-GM-A-538.md</code>（宏观赏析）与 <code>07_题目解读/2013_题A_木星引力辅助入轨.md</code>（题目全解）形成三位一体。姊妹篇：<code>10_论文精读/2010/2010-GM-A-160_精读.md</code>（同为火箭方程+轨道力学的"省燃料"叙事）。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-1-background-2-introduction第-12-页">1.2 §1 Background + §2 Introduction（第 1–2 页）</a></li><li class="l3"><a href="#13-3-the-tsiolkovsky-rocket-equation第-23-页">1.3 §3 The Tsiolkovsky Rocket Equation（第 2–3 页）</a></li><li class="l3"><a href="#14-4-fuel-needed-without-gravity-assist第-35-页">1.4 §4 Fuel Needed without Gravity Assist（第 3–5 页）</a></li><li class="l3"><a href="#15-5-space-probe-passing-io第-56-页">1.5 §5 Space Probe Passing Io（第 5–6 页）</a></li><li class="l3"><a href="#16-6-gravity-assist-maneuver-around-io第-611-页主战场">1.6 §6 Gravity Assist Maneuver around Io（第 6–11 页）：主战场</a></li><li class="l3"><a href="#17-7-concluding-remarks第-12-页">1.7 §7 Concluding Remarks（第 12 页）</a></li><li class="l2"><a href="#2-图表深析每张图为什么放为什么这样画怎么画">2. 图表深析（每张图：为什么放、为什么这样画、怎么画）</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-tsiolkovsky-火箭方程式-1">3.1 Tsiolkovsky 火箭方程（式 1）</a></li><li class="l3"><a href="#32-相对木星的到达速度式-2">3.2 相对木星的到达速度（式 2）</a></li><li class="l3"><a href="#33-近心点速度与圆轨道速度式-34">3.3 近心点速度与圆轨道速度（式 3、4）</a></li><li class="l3"><a href="#34-飞掠三件套式-57">3.4 飞掠三件套（式 5–7）</a></li><li class="l3"><a href="#35-余弦定理链62-无编号式组">3.5 余弦定理链（§6.2 无编号式组）</a></li><li class="l3"><a href="#36-匹配条件与-α-扫描62-末-63">3.6 匹配条件与 α 扫描（§6.2 末 + §6.3）</a></li><li class="l2"><a href="#4-建模决策链为什么这么建放弃了什么">4. 建模决策链（为什么这么建、放弃了什么）</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

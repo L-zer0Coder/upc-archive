@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 55 · Research on Rapid Aiming of Cannon（2025 题B 金牌 · 队伍 127） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2025/2025-GM-B-127_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2025 · 精读 55 · Research on Rapid Aiming of Cannon（2025 题B 金牌 · 队伍 127）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-55-research-on-rapid-aiming-of-cannon2025-题b-金牌-队伍-127">精读 55 · Research on Rapid Aiming of Cannon（2025 题B 金牌 · 队伍 127）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：左手论文 PDF（<code>03_优秀论文PDF/2025/Problem B/2025-GM-B-127.pdf</code>），右手本篇。这支南航队伍在十三篇同题金牌里有<strong>一个独门判据：末速侵彻</strong>——他们发现高角解虽然也能命中，但落点速度只有 ~136 m/s，达不到杀伤所需的 200 m/s，于是一票否决高角解、只交付低角方案。你要学的是：① 用"杀伤终端速度"这个物理判据给多解问题做<strong>唯一性剪枝</strong>；② RK45+Brent 的数值流水线怎么写才规范；③ 四步心算口诀的设计。本篇审计发现了<strong>两处结论与自己数据表的严重冲突</strong>（拟合公式在工作点差 5.7°、海拔修正口诀差 45 倍）——这是全库审计中"交付物与数据脱节"最极端的案例，教学价值极高。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<pre><code class="language-mermaid">flowchart TB
+    A[&quot;四层递进模型：&lt;br/&gt;真空→阻力→变目标位→风&quot;] --&gt; B[&quot;数值流水线：&lt;br/&gt;RK45(DP4(5), rtol=1e-6)&lt;br/&gt;+Brent 求角(xtol=1e-8)&quot;]
+    B --&gt; C[&quot;命中带：x=1200 处 500≤h≤510&lt;br/&gt;（10 m 城墙）&quot;]
+    C --&gt; D[&quot;独门剪枝：末速侵彻判据&lt;br/&gt;高角解末速 ~136 m/s &lt; 200 m/s&lt;br/&gt;→ 只保留低角解&quot;]
+    D --&gt; E[&quot;三条敏感度律：&lt;br/&gt;0.2°/50m 距离 · 1.1-1.2°/25m 海拔*&lt;br/&gt;0.01°/(m/s) 纵风&quot;]
+    E --&gt; F[&quot;四步口诀交付&lt;br/&gt;（查速度→拟合式→距离/海拔修正→风修）&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好</strong>：四层模型是全库同题队的"公共骨架"，但这支队伍在每层都加了一个<strong>收敛性约束</strong>（目标有高度→命中是区间不是点；杀伤要末速→高角被否决；历史装药离散→固定 450 m/s），把开放解空间一步步剪到"一个公式+三条修正律"——<strong>剪枝逻辑比求解逻辑更能体现工程判断</strong>。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-abstract">1.1 Abstract</h3>
+<p><strong>它写了什么</strong>：四场景清单 → 方法（RK45）→ 低角优先的理由（"To ensure sufficient impact energy, firing should occur at a low angle"）→ <strong>拟合式 θL=0.0001v₀²−0.1145v₀+29.312</strong> → 三条敏感度律（0.2°/50m、1.1–1.2°/25m、0.01°/(m/s)）→ 口诀交付。
+<strong>你要学什么</strong>：摘要里放<strong>拟合公式与三条修正律</strong>——交付物要素直接进摘要，评委 30 秒拿到全部可用结果（⚠ 但见 §4 审计：这条公式与其自身数据在 450 m/s 处矛盾）。</p>
+<h3 id="12-2-assumptions-and-analysis">1.2 §2 Assumptions and Analysis</h3>
+<p><strong>它写了什么</strong>：五条假设（粗糙球/常重力/点质量/三力/定常风）+ 四点分析——其中第 3 点值得细读：<strong>"历史攻城炮主要用于打城墙"→ 目标有 10 m 高 → 末速不能太低（侵彻）</strong>。这两句话把"目标是什么"从几何问题升级成了<strong>杀伤判据</strong>。
+<strong>你要学什么</strong>：<strong>给题目找历史使用场景</strong>（siege warfare，引 1768/1800 年炮术专著）——场景一旦具体，"怎么算命中"和"什么算有效"就都有了物理标准。</p>
+<h3 id="13-4142-真空与阻力模型式-17">1.3 §4.1–4.2 真空与阻力模型（式 1–7）</h3>
+<p><strong>它写了什么</strong>：真空标准推导（R=v₀²sin2θ/g）→ 阻力 F=½c_dρ₀e^{−h/H_b}Av²（指数大气，H_b=8500 m、ρ₀=1.125 kg/m³ @500 m、<strong>c_d=0.47 常数</strong>）→ 分量方程 (5)–(7)，并明说"含指数与二次项的方程组解析困难，转数值"。
+<strong>⚠ 关键简化</strong>：450 m/s 在 500 m 高度是 <strong>马赫 1.33</strong>（当地声速 ~338 m/s），球体 Cd 在跨声速峰可达 ~0.9–1.0，而全队取常数 0.47（亚声速平台值）——<strong>超声速段的阻力被系统性低估约一倍</strong>。对照队友 496（用 Cd(M) 得 450 m/s 需 3.36°）与本队（常数 Cd 得 3.70°）：更低阻力却要更大射角，方向相反 ⚠——两队的模型口径必然有一处不止 Cd 的差异（大气/命中带/阻力实现细节），这正是同题对照的价值：<strong>不比不知道，一比全是口径</strong>。
+<strong>你要学什么</strong>：用常数 Cd 可以（48 小时内的合法取舍），但<strong>必须声明适用域并给量级影响</strong>——本队没声明，是失分点。</p>
+<h3 id="14-4344-变目标与风式-811">1.4 §4.3–4.4 变目标与风（式 8–11）</h3>
+<p><strong>它写了什么</strong>：固定 v₀=450 m/s（历史装药论据："初速由装药决定、比射角更难控制"）扫距离/高度；纵风用相对速度 v′=v−v_w 进阻力（式 8–9）；<strong>横风用解析估计</strong>：横向恒加速 x=½at² → 侧偏 $\Delta s=\frac{c_dA\rho v_{cw}^2t^2}{4m}$（式 10），方位修正 tanθ_b=Δs/R（式 11）。
+<strong>你要学什么</strong>：<strong>纵风数值、横风解析</strong>的分工——横风是二阶小效应（侧向初速为零、位移 ∝t²），解析估计足够且透明；纵风改主弹道必须数值。两类效应不同精度工具，是好工程。</p>
+<h3 id="15-45-数值方法规范写法的范本">1.5 §4.5 数值方法（规范写法的范本）</h3>
+<p><strong>它写了什么</strong>：RK45=Dormand–Prince 4(5)（<strong>为什么</strong>：4 阶主估计+5 阶辅估计做自适应步长）、max_step=0.2、rtol=atol=1e-6；<strong>Brent 法求射角</strong>（区间端点变号判根存在、迭代至 xtol=1e-8）。
+<strong>你要学什么</strong>：数值节的最小完备信息=<strong>方法全名+选择理由+精度参数</strong>。Dormand–Prince 这种"报全名"的写法（而不是笼统 RK45）显专业；Brent 的"变号判根存在"一句还顺带回答了"多解怎么办"（每个解所在区间分别夹逼）。</p>
+<h3 id="16-5-结果与讨论含两个招牌表">1.6 §5 结果与讨论（含两个招牌表）</h3>
+<p><strong>它写了什么</strong>：
+- 真空：双角对称、v_min=108.4 m/s @45°、450 m/s 时 1.7°/88.3° 两解；
+- 加阻力+10m 目标：<strong>命中成为 ~0.5° 的角度区间</strong>（不只一个角）——低角区间下界拟合成式 (12)；
+- <strong>Table 2/3（招牌）</strong>：六档距离×五档高度，每格给低角 θ/末速 与 高角 θ/末速——高角末速全部 ~133–136 m/s、低角 208–268 m/s → <strong>"高角无杀伤力"</strong>，军官应选低角；
+- 风：低角 0.01°/(m/s)（3.7 s 飞行短）、高角 0.35°/(m/s)；横风低角可忽略。
+<strong>⚠ 表格与正文的两处断裂（重要审计，详见 §4）</strong>：① 拟合式 (12) 在 v₀=450 代入得 <strong>−1.96°</strong>，而 Table 2 明明是 3.70°；② 正文/口诀"海拔每 25 m 修 1.1–1.2°"，但 Table 3 自己的数据是 500→1000 m 才 3.695→4.185°（<strong>0.0245°/25 m，差 45 倍</strong>）。
+<strong>你要学什么</strong>：结果表的设计值得学（工况×低角/高角×角度/末速，一表回答"打不打得中+杀不杀得伤"）；但<strong>口诀类交付物必须逐条对表回代</strong>——本队恰好栽在这。</p>
+<h3 id="17-6-四步口诀-7-强弱">1.7 §6 四步口诀 + §7 强弱</h3>
+<p><strong>它写了什么</strong>：口诀四步（查初速→拟合式算基准角→距离/海拔修正→风修正），声明"只需加减法和解一元二次——对受过数学训练的军官 a piece of cake"；弱点三条自认（风随高度变、Cd 无实测、逐方向固定变量）。
+<strong>你要学什么</strong>：口诀收尾的<strong>难度声明</strong>（"simple addition and subtraction... a piece of cake"）呼应题面的"trained in mathematics, but lacking computers"——交付物要对着题面的人机约束标定难度。</p>
+<hr>
+<h2 id="2-图表深析">2. 图表深析</h2>
+<table>
+<thead>
+<tr>
+<th>图/表</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fig 1 南北战争火炮照片</td>
+<td>§1</td>
+<td>历史场景锚定（美国国家公园公版图）</td>
+<td>实物照</td>
+</tr>
+<tr>
+<td>Fig 2/4 受力分析图</td>
+<td>§4.2/4.4</td>
+<td>阻力/重力/相对速度的矢量几何</td>
+<td>手绘</td>
+</tr>
+<tr>
+<td>Fig 3 相对速度矢量合成</td>
+<td>§4.4</td>
+<td>v′=v−v_w 的三角形合成——风修正的几何基础</td>
+<td>手绘</td>
+</tr>
+<tr>
+<td>Fig 5 侧偏角示意</td>
+<td>式(11)</td>
+<td>tanθ_b=Δs/R 一图定坐标</td>
+<td>手绘</td>
+</tr>
+<tr>
+<td>Fig 6/8 真空：角-速度/时间-速度</td>
+<td>§5.1</td>
+<td>双解对称性与 v_min 竖线</td>
+<td>解析式直接绘</td>
+</tr>
+<tr>
+<td>Fig 7/9/10 轨迹图（含局部放大）</td>
+<td>§5.1/5.2</td>
+<td><strong>"整体+局部放大"双联图</strong>：抛物线对称 vs 阻力下坠段变陡</td>
+<td>RK45 输出</td>
+</tr>
+<tr>
+<td>Fig 11/12 阻力下角-速度（低/高分开）</td>
+<td>§5.2</td>
+<td>命中区间（0.5° 带）画成竖直厚度</td>
+<td>扫描+区间标注</td>
+</tr>
+<tr>
+<td>Fig 13–19 变距离/变高度族</td>
+<td>§5.3/5.4</td>
+<td>每工况一图（轨迹+角度曲线成对）</td>
+<td>扫描</td>
+</tr>
+<tr>
+<td>Fig 20–22 风敏感度</td>
+<td>§5.5</td>
+<td>角-风速线性律的直接可视化</td>
+<td>扫描</td>
+</tr>
+<tr>
+<td>Table 2/3 招牌表</td>
+<td>§5.3/5.4</td>
+<td>工况×(低角θ,末速)×(高角θ,末速)——<strong>末速列就是否决高角的证据</strong></td>
+<td>数值输出汇编</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心图复现——末速否决高角（Table 2/3 背后的物理，含 127 vs 496 口径对照）</strong>：</p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
+from scipy.optimize import brentq
+
+m, r, cd, g = 5.0, 0.055, 0.47, 9.81
+A = np.pi*r**2
+rho = lambda h: 1.125*np.exp(-max(h-500,0)/8500.0)      # 式(3)：ρ₀@500m + 指律
+
+def fly(theta, v0=450.0, wind=0.0):
+    def ode(t, s):
+        x, h, vx, vh = s
+        v = np.hypot(vx-wind, vh)
+        F = 0.5*cd*rho(h)*A*v**2/m
+        return [vx, vh, -F*(vx-wind)/max(v,1e-9), -g - F*vh/max(v,1e-9)]
+    hit = lambda t, s: s[1]-505.0                        # 命中带中线（城墙 500-510）
+    hit.terminal, hit.direction = True, -1
+    s0 = [0, 500, v0*np.cos(theta), v0*np.sin(theta)]
+    sol = solve_ivp(ode, [0, 200], s0, events=hit, rtol=1e-8, max_step=0.05)
+    if sol.t_events[0].size:
+        return sol.y[0,-1], np.hypot(sol.y[2,-1], sol.y[3,-1])
+    return np.nan, np.nan
+
+print(&quot; v0   θL(°)  末速L  | θH(°)  末速H&quot;)
+for v0 in (250, 350, 450):
+    thL = brentq(lambda a: fly(a, v0)[0]-1200, 1e-3, 0.75)
+    thH = brentq(lambda a: fly(a, v0)[0]-1200, 0.78, 1.55)
+    _, vL = fly(thL, v0); _, vH = fly(thH, v0)
+    print(f&quot;{v0:4.0f} {np.degrees(thL):6.2f} {vL:6.1f} | {np.degrees(thH):6.2f} {vH:6.1f}&quot;)
+# 复现要点：末速 H ≈ 135-150 m/s &lt; 200 阈值（否决）；末速 L ≈ 240-300 m/s（可用）
+
+v0s = np.linspace(150, 450, 40)
+fit = 0.0001*v0s**2 - 0.1145*v0s + 29.312               # 论文式(12)
+plt.figure(figsize=(7.2, 4.2))
+plt.plot(v0s, fit, 'r--', lw=2, label=&quot;paper fit Eq.(12)&quot;)
+plt.plot(450, 3.70, 'bo', ms=9, label=&quot;paper Table 2 @450 m/s: 3.70°&quot;)
+plt.annotate(f&quot;fit(450) = {0.0001*450**2-0.1145*450+29.312:.2f}°  ← 与自家表格矛盾&quot;,
+             xy=(450, -1.96), xytext=(180, 2), fontsize=9,
+             arrowprops=dict(arrowstyle='-&gt;'))
+plt.xlabel('v0 (m/s)'); plt.ylabel('θL (°)')
+plt.title('Audit: printed mnemonic formula vs own Table 2')
+plt.legend(fontsize=9); plt.grid(alpha=.3); plt.tight_layout(); plt.show()
+</code></pre>
+<p>三个可偷的绘图决策：<strong>① 轨迹"全景+局部放大"双联</strong>（对称性/不对称性一眼对比）；<strong>② 命中区间画成曲线的竖直厚度</strong>（0.5° 带可视化）；<strong>③ 表格用"末速列"承载判据证据</strong>（数值表不只是参数表，还是论证表）。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<h3 id="31-真空双解与最小速度式-12">3.1 真空双解与最小速度（式 1–2）</h3>
+<p>$$R=\frac{v_0^2\sin2\theta}{g}\;\Rightarrow\;\theta_{L,H}=\tfrac12\arcsin\frac{gR}{v_0^2},\;\frac{\pi}{2}-\tfrac12\arcsin\frac{gR}{v_0^2}$$
+- <strong>复算</strong>：v_min=√(gR)=√(9.81×1200)=108.4 ✓；450 m/s → θ_L=0.5·arcsin(0.05813)=<strong>1.67°</strong> ✓（论文 1.7）。
+- <strong>物理</strong>：双解关于 45° 对称是"等射程两种抛法"；v_min 点两解合并——<strong>这组解析结构是后面所有数值结果的对照锚</strong>。</p>
+<h3 id="32-指数大气阻力式-37">3.2 指数大气阻力（式 3–7）</h3>
+<p>$$F_d=\tfrac12 c_d\rho_0 e^{-h/H_b}A v^2,\qquad \ddot x=-\frac{c_d\rho_0e^{-h/H_b}A v\,v_x}{2m},\;\; \ddot h=-g-\frac{c_d\rho_0e^{-h/H_b}A v\,v_h}{2m}$$
+- <strong>怎么想到</strong>：阻力 ∝ρ(h)v²，高度 500→510 m 变化仅 0.1%，<strong>指数律在本题其实近乎常数</strong>（ρ 变化 &lt;0.2%）——严格说引入 e^{−h/8500} 是"仪式性复杂度"；真正的大气效应在于<strong>ρ₀ 本身取 500 m 海拔的值</strong>（1.125 vs 海平面 1.225，−8%）。精读时能识别"哪些复杂度是必要的、哪些是装饰"很重要。
+- <strong>⚠ Cd=0.47 的适用域问题</strong>（§1.3 已述）：出膛 Ma=1.33，处于跨声速峰区，真实 Cd≈0.9–1.0。影响：低角 450 m/s 解的角度应更小（阻力大→弹道更弯→其实需更大角？注意方向：阻力大→射程短→需更大射角补偿。496 队用 Cd(M) 得 3.36° &lt; 本队 3.70°，方向矛盾提示两队还有别的口径差——<strong>同题复现对不上时，先怀疑口径再怀疑物理</strong>）。</p>
+<h3 id="33-横风侧偏解析式式-1011">3.3 横风侧偏解析式（式 10–11）</h3>
+<p>$$\Delta s=\frac{c_dA\rho v_{cw}^2t^2}{4m},\qquad \theta_b=\arctan\frac{\Delta s}{R}$$
+- <strong>推导</strong>：横向初速为零、横向加速度 a_⊥=F_⊥/m=½c_dAρv_cw²/m（假设侧向相对风速恒为 v_cw）→ x=½a_⊥t²。分子分母约掉 ½ 得式 (10) ✓ 代数自洽。
+- <strong>适用边界</strong>：假设弹丸横向速度始终≪v_cw（相对侧风不衰减）——<strong>高估</strong>侧偏的上界式；低角 3.7 s 飞行时侧偏 ~厘米-分米级，可忽略 ✓（结论稳健）；高角 t~100+ s 时上界式显著高估。⚠ 注意正文说"高角飞行时间约 45 s"与表格口径（θ_H≈45°、末速 136 m/s）疑似混淆——45 是<strong>角度</strong>不是秒数（详见审计 B）。</p>
+<h3 id="34-命中区间与拟合式式-12-审计-a全库最严重的公式-数据断裂">3.4 命中区间与拟合式（式 12）⚠ 审计 A（全库最严重的"公式-数据"断裂）</h3>
+<p>$$\theta_L=0.0001v_0^2-0.1145v_0+29.312$$
+代入工作点 v₀=450：20.25−51.525+29.312=<strong>−1.96°</strong>。而其 Table 2 在同一工况给 <strong>3.6953°</strong>——<strong>差 5.7°，且符号都翻了</strong>。检查拟合形状：该二次式在 v₀=304 处取最小 −3.7°，在 [108,450] 区间根本不像"单调下降的命中角下界"（Table 数据是 18.9°@108 → 3.7°@450 的单调降）。可能的成因：系数誊写错误（如 0.0001 应为 0.0002、或 29.312 应为 ~24）或拟合用了未修正的数据版本。<strong>教训（写给你的）</strong>：任何拟合式交付前，把<strong>工作点+两个端点</strong>代回去对表——三行算术的事，本队若有这步就能拦住。
+- <strong>教学价值</strong>：这条公式被写进了摘要、结论和口诀 Step 2——<strong>错误一旦进入"交付物层"就被三处放大</strong>。数据→公式→口诀的每一跳都要回代验证。</p>
+<h3 id="35-敏感度律与-table-3-的矛盾-审计-b">3.5 敏感度律与 Table 3 的矛盾 ⚠ 审计 B</h3>
+<p>正文与口诀：海拔每 25 m 修 <strong>1.1–1.2°</strong>；Table 3 自家数据：H=500→1000 m，θ_L=3.6953→4.1851°，即 <strong>0.0245°/25 m</strong>——<strong>差约 45 倍</strong>。图（Fig 18）纵轴若是"θ_H−θ_L"或别的量也无从对上 1.1°/25 m。距离律（0.2°/50 m）与 Table 2 自洽 ✓（2.91→5.04°/500 m）；风律与 §5.5 自洽 ✓。<strong>唯独海拔律与自家表断裂</strong>——疑似图 18 读数错误或单位（每 100 m？每 25 m×45=每 1.1 km？）错位。结论层照抄进摘要与口诀，形成三处传播。
+- <strong>复算佐证</strong>：目标升高 ΔH，低角近似下需 dθ/dH ≈ 1/(v²cos2θ·...)——450 m/s、θ=3.7° 处一阶估计 ~0.005°/m=0.125°/25 m 量级（介于两者之间，更靠近表格值）——<strong>表格是对的，口诀是错的</strong>。</p>
+<hr>
+<h2 id="4-建模决策链">4. 建模决策链</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>求解结构</td>
+<td>固定 v₀=450 求 θ</td>
+<td>二元搜索</td>
+<td>历史装药离散化的映射</td>
+</tr>
+<tr>
+<td>多解处理</td>
+<td>末速 ≥200 m/s 否决高角</td>
+<td>两个解都交付</td>
+<td>杀伤判据——全库唯一</td>
+</tr>
+<tr>
+<td>目标模型</td>
+<td>10 m 高城墙（命中带 0.5°）</td>
+<td>点目标</td>
+<td>历史攻城场景 → 命中是区间</td>
+</tr>
+<tr>
+<td>Cd</td>
+<td>常数 0.47</td>
+<td>Cd(Ma) 分段</td>
+<td>简化（⚠ 未声明 Ma=1.33 越界）</td>
+</tr>
+<tr>
+<td>大气</td>
+<td>指数律 ρ₀@500m</td>
+<td>ISA 分层</td>
+<td>500→510 m 变化 &lt;0.2%，等价</td>
+</tr>
+<tr>
+<td>纵风/横风</td>
+<td>数值 / 解析上界</td>
+<td>全数值</td>
+<td>横风二阶效应，解析透明</td>
+</tr>
+<tr>
+<td>数值</td>
+<td>DP4(5)+Brent，容差全报</td>
+<td>—</td>
+<td>规范写法范本</td>
+</tr>
+</tbody>
+</table>
+<p><strong>独立复现审计汇总</strong>：v_min=108.4 ✓；真空 1.67°@450 ✓；距离律 0.2°/50m 与 Table 2 ✓；风律 0.01°/(m/s) 合理 ✓；高角末速 ~136 m/s（否决依据）复现量级 ✓；<strong>拟合式 (12) 在 450 m/s 给 −1.96° vs 自家表 3.70°</strong> ⚠⚠⚠；<strong>海拔律 1.1–1.2°/25m vs 自家表 0.0245°/25m（45×）</strong> ⚠⚠⚠；Cd=0.47 未声明超声速越界 ⚠；"高角 45 s"疑为角度/时间混淆 ⚠。<strong>总评：模型设计与数值规范是上乘的（末速否决高角是全题最佳洞察之一），但交付层（公式/口诀）与数据层脱节严重——金牌证明评审重链条轻数字，而你应两者都要。</strong></p>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板</strong>：</p>
+<pre><code>1 Intro+Problem      历史场景锚定（攻城→目标有高度→末速判据）
+2 Assumptions+Analysis  假设+逐因素分析（分析节=路线图）
+4 Modelling          4 层递进：真空→阻力→变位→风（每层一收敛约束）
+4.5 Numerics         方法全名+理由+容差（DP45/Brent 范本）
+5 Results            工况×(θ,末速) 招牌表；敏感度三律
+6 Conclusion         四步口诀+难度声明（对题面人机约束）
+</code></pre>
+<p><strong>句式库</strong>：
+- "Historically, this cannon saw extensive use against city walls in siege warfare. ... To ensure effective impact, the projectile's terminal velocity should not be excessively low."（场景→判据的推导句）
+- "Due to trajectory diversity, the solution to this problem is not unique."（多解预告句）
+- "This is a system of partial differential equations with exponential and quadratic terms, making analytical solutions challenging."（转数值的正当性声明）
+- "Following this mnemonic, officers need only perform simple addition and subtraction operations along with solving quadratic equations — a piece of cake for officers trained in mathematics."（交付物难度对题面标定）
+- "Numerous complex factors within the model were not fully accounted for. For example: ..."（弱点具体化句）</p>
+<p><strong>图表配方</strong>：轨迹"全景+局部放大"双联；命中区间=曲线竖直厚度；招牌表用<strong>末速列承载判据证据</strong>；每个敏感度律配一张线性图。</p>
+<p><strong>反面清单（本篇独有）</strong>：拟合式交付前必须回代工作点+两端点；口诀修正律必须逐条对表；"45"这类数值要写清单位与量名。</p>
+<hr>
+<p><em>对照阅读：<code>05_论文赏析/2025/2025-GM-B-127.md</code>、<code>07_题目解读/2025_题B_火炮弹道射表.md</code>（十三队口径全景）、队友精读 496（Cd(M) 全模型对比本篇常数 Cd）、460（同选历史直射仰角带）。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract">1.1 Abstract</a></li><li class="l3"><a href="#12-2-assumptions-and-analysis">1.2 §2 Assumptions and Analysis</a></li><li class="l3"><a href="#13-4142-真空与阻力模型式-17">1.3 §4.1–4.2 真空与阻力模型（式 1–7）</a></li><li class="l3"><a href="#14-4344-变目标与风式-811">1.4 §4.3–4.4 变目标与风（式 8–11）</a></li><li class="l3"><a href="#15-45-数值方法规范写法的范本">1.5 §4.5 数值方法（规范写法的范本）</a></li><li class="l3"><a href="#16-5-结果与讨论含两个招牌表">1.6 §5 结果与讨论（含两个招牌表）</a></li><li class="l3"><a href="#17-6-四步口诀-7-强弱">1.7 §6 四步口诀 + §7 强弱</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-真空双解与最小速度式-12">3.1 真空双解与最小速度（式 1–2）</a></li><li class="l3"><a href="#32-指数大气阻力式-37">3.2 指数大气阻力（式 3–7）</a></li><li class="l3"><a href="#33-横风侧偏解析式式-1011">3.3 横风侧偏解析式（式 10–11）</a></li><li class="l3"><a href="#34-命中区间与拟合式式-12-审计-a全库最严重的公式-数据断裂">3.4 命中区间与拟合式（式 12）⚠ 审计 A（全库最严重的"公式-数据"断裂）</a></li><li class="l3"><a href="#35-敏感度律与-table-3-的矛盾-审计-b">3.5 敏感度律与 Table 3 的矛盾 ⚠ 审计 B</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

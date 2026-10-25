@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 04 · Low-Thrust Interplanetary Trip to Saturn Using Ion Thrusters（2020 题A 金牌 · 队伍 447） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2020/2020-GM-A-447_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2020 · 精读 04 · Low-Thrust Interplanetary Trip to Saturn Using Ion Thrusters（2020 题A 金牌 · 队伍 447）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-04-low-thrust-interplanetary-trip-to-saturn-using-ion-thrusters2020-题a-金牌-队伍-447">精读 04 · Low-Thrust Interplanetary Trip to Saturn Using Ion Thrusters（2020 题A 金牌 · 队伍 447）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：这篇论文把题目第三问"如何控制推力器"翻译成<strong>最优控制的标准语言</strong>（状态 s、控制 a=θ），然后做了一件 48 小时内最可行的事——<strong>对控制参数穷举扫描</strong>。本精读逐节拆"它写了什么/为什么/学什么"，§2 附我复现"推力角 θ 扫描"核心图的可运行代码（到达时间与速度均与论文吻合到 1%），并标注两处参数口径风险（⚠）。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<p>论文回答：<strong>推力方向角 θ 怎么选，飞船才能最快最省地到土星？</strong> 路线是"螺旋逃逸 → （月球弹弓被证明不可行）→ 木星弹弓 → 直线冲刺"。</p>
+<pre><code class="language-mermaid">flowchart LR
+    A[&quot;式(1)-(5)&lt;br/&gt;写成最优控制问题&lt;br/&gt;状态s∈R⁵, 控制a=θ&quot;] --&gt; B[&quot;Stage 1 逃逸&lt;br/&gt;三种指向对比(式15-18)&lt;br/&gt;沿速度最优: 1.87y, 694 m/s&quot;]
+    B --&gt; C[&quot;月球弹弓可行性检验&lt;br/&gt;式(19)-(21)&lt;br/&gt;❌ β被迫=0 无增益&quot;]
+    C --&gt; D[&quot;Stage 2 日心奔木星&lt;br/&gt;θ=0/π/4/π/2 扫描(式24-25)&lt;br/&gt;θ=0最快: 5.42y, 16.60 km/s&quot;]
+    D --&gt; E[&quot;木星弹弓(式11)&lt;br/&gt;16.60→22.02 km/s&quot;]
+    E --&gt; F[&quot;Stage 3 直线段&lt;br/&gt;V&gt;Vesc,J(式30)→线性假设&lt;br/&gt;反推减速 1.00y&quot;]
+    F --&gt; G[&quot;总计 8.29y&lt;br/&gt;燃料 1308 kg&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好？</strong> 每个"yes"都算过、每个"no"都证过：月球弹弓不可行不是被跳过，而是用公式 (19)–(21) <strong>证明</strong>根号内退化、β 只能取 0；径向推力策略失败保留成图 4 并解释失败机理。<strong>控制问题的答案藏在这些"排除"里</strong>——三选一、四选一逐个淘汰后，θ=0 的胜利才有说服力。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-abstract-与-1-introduction第-13-页">1.1 Abstract 与 §1 Introduction（第 1–3 页）</h3>
+<p><strong>它写了什么</strong>：摘要一句话点题："The problem is the optimum control of the thrust to reach Saturn with the maximum mass and minimum time elapsed." 符号表（第 3 页）带数值：G、各行星质量、V_saturn=9680 m/s、V_jupiter=13007 m/s、r_m=384 400 km、I_sp=4000 s、M_thi=5000 kg、T_i=90 min、T_f=40 h。</p>
+<p><strong>你要学什么</strong>：开篇即<strong>问题重述为控制问题</strong>——"problem definition can be stated as following: Given the constant force of the thrusters find the control function on the direction of force applied..."。这一步抽象决定了后文方法论：既然控制量是"方向角"，那答案自然是对方向角做枚举/扫描。<strong>你怎么定义问题，就决定了你怎么解题</strong>。</p>
+<p>⚠ 口径预警：符号表 V_jupiter=13007 m/s（真实值），但正文 (28)–(30) 一律用 14.04 km/s（由其代码 R_sat=6.55×10¹¹ m≈4.38 AU 反推——木星实际轨道 5.2 AU≈7.78×10¹¹ m）。两个口径并存，好在 (30) 用的是 13.070。</p>
+<h3 id="12-11-假设与动力学框架第-34-页">1.2 §1.1 假设与动力学框架（第 3–4 页）</h3>
+<p><strong>它写了什么</strong>：三条假设（二维开普勒运动；同时只受一个引力场——出地球前只算地球、出地球后只算太阳；木星弹弓后木土段按直线）；自由体图（图 1）；方程 (1)(2)：$M_{th}(t)\ddot{\vec r}=\vec F_{th}\hat r-GM_EM_{th}(t)\vec r/|r|^3$，质量线性衰减 $M_{th}(t)=M_0-\alpha t$ (3)；状态 $s=[\vec r,\dot{\vec r},M_{th}(t)]^T\in\mathbb R^5$ (4)；控制 $a=\theta,\ \theta\in[0,2\pi]$ (5)。</p>
+<p><strong>为什么这样写</strong>：假设按"任务段边界"组织（每条对应一段物理），不是泛泛的"忽略空气阻力"式套话。"单引力场"假设直接定义了阶段的切换条件。</p>
+<p><strong>你要学什么</strong>：<strong>状态-控制分离的记法</strong>（式 4–5）是从"物理建模"跨到"控制问题"的门票。写出 s 和 a 之后，"最优控制"不再是空话，而是"找 a(t) 的最优函数"——哪怕最后只做网格搜索，框架已经对了。</p>
+<h3 id="13-21-离子推力器与流量率减半第-45-页">1.3 §2.1 离子推力器与流量率减半（第 4–5 页）</h3>
+<p><strong>它写了什么</strong>：F_th=2ηP/(g·I_sp) (6)、I_sp=F_th/(αg) (7) 解出 α=10⁻⁵ kg/s，<strong>然后主动取半</strong>："We found α = 10⁻⁵ but we preferred to use its half value for real life application version. Because we need to take into account the geometry corrections, temperature changes etc. [2]"（引 Goebel &amp; Katz 专著）。</p>
+<p><strong>你要学什么（含风险警示）</strong>：这是全文最大胆的决定——⚠ <strong>偏离题目给定参数 50%</strong>。工程动机真实（真实推进器有束流发散、效率修正），文献也对口；但 UPC 题面给的就是 400 mN/4000 s，改 ṁ 直接把燃料预算砍半（8.29 年 × 5×10⁻⁶ = 1308 kg；若用 10⁻⁵ 应约 2600 kg）。<strong>可以偏离题面，但必须在摘要或结论显式声明</strong>——本篇只在正文一句话带过，读者容易漏看。对照：354/426 队都老实用 1.02×10⁻⁵。</p>
+<h3 id="14-22-引力弹弓公式第-56-页">1.4 §2.2 引力弹弓公式（第 5–6 页）</h3>
+<p><strong>它写了什么</strong>：从"行星参考系中弹性碰撞"出发：$|\vec V_{ri}|=|\vec V_{thi}-\vec V_m|$ (8)(9)(10)，解出 (11)：
+$$V_{thf}=V_m\cos\beta+\sqrt{(V_m\cos\beta)^2+V_{thi}^2-2V_{thi}V_m\cos\alpha}$$
+配图 2（借自 Kerbal Space Program Wiki！）说明"正离开角加速、负离开角减速、接近角不能太小"。</p>
+<p><strong>为什么这样写</strong>：用游戏 Wiki 的图讲几何，坦率、省时、且图确实直观。48 小时比赛里<strong>"图对不对口"比"图高不高级"重要</strong>。</p>
+<p><strong>你要学什么</strong>：(11) 的推导值得自己过一遍：相对速度大小不变 $|\vec V_{rf}|=|\vec V_{ri}|$ (10) 展开平方，解关于 V_thf 的二次方程取正根。α 是接近角、β 是离开角；"Vthf is increasing with the low and positive β and higher α"——一句符号分析给出使用手册。</p>
+<h3 id="15-231-stage-1三种逃逸策略对比第-57-页本篇第一个亮点">1.5 §2.3.1 Stage 1：三种逃逸策略对比（第 5–7 页）——本篇第一个亮点</h3>
+<p><strong>它写了什么</strong>：先由 (12)–(14) 算圆轨道速度（V³=2πGM/T → 7740 m/s；40 h → 11820 m/s），然后三种指向逐一列方程并仿真：
+- <strong>沿速度</strong>（式 15）：图 3 密螺旋成功逃逸，150 R_E 处视为脱离，t=5.909×10⁷ s，v=694 m/s；
+- <strong>恒径向</strong>（式 16）：图 4 轨迹退化为近椭圆，"Spacecraft can not find enough propulsion to accelerate itself and leave the Earth"——<strong>负结果保留展示</strong>；
+- <strong>合成方向 c=r̂+v̂</strong>（式 17–18）：可行但慢（约 1.7 年后方向切换）。</p>
+<p><strong>你要学什么</strong>：三个方案的方程 (15)(16)(18) 只差<strong>推力单位向量</strong>一项——$\vec F_{th}\dot{\vec r}/|\dot{\vec r}|$ vs $\vec F_{th}\vec r/|r|$ vs $\vec F_{th}\vec c/|c|$。写方程时把"策略差异"压缩成"一个向量替换"，代码里就是一个函数参数。<strong>失败方案的图必须保留</strong>：图 4 的近椭圆是"径向推力不改变能量"的视觉证据（径向力⊥速度不做功）。</p>
+<h3 id="16-232-月球弹弓不可行证明第-78-页本篇第二个亮点">1.6 §2.3.2 月球弹弓不可行证明（第 7–8 页）——本篇第二个亮点</h3>
+<p><strong>它写了什么</strong>：先算月球距离处逃逸速度 $V_{esc,m}=\sqrt{2GM_E/r_m}=1.44$ km/s (19)；弹弓时刻飞船速度 1044 m/s 与月球速度 1022 m/s 几乎相等（V_thi/V_m=1.02），代入 (11) 根号内退化为 $(\cos\beta)^2-0.994$ (21)——要非负只能 β≈0，速度无增益。"Then this Gravity assist method is not applicable for us at this stage."</p>
+<p><strong>为什么这样写</strong>：<strong>用三行公式杀死一个方案</strong>，比仿真一整天便宜得多。物理直觉：弹弓增益来自"相对速度方向的偏转"，而飞船与月球几乎同速同向（相对速度≈0），无偏转可用。</p>
+<p><strong>你要学什么</strong>：对每个候选借力天体先做<strong>解析可行性检查</strong>（相对速度够不够大、转折角受不受近心点限制），不可行就果断换目标。本文由此转向木星——相对速度 16.60 km/s，弹弓空间巨大。</p>
+<h3 id="17-233234-stage-23θ-扫描与木星弹弓第-810-页核心方法">1.7 §2.3.3–2.3.4 Stage 2/3：θ 扫描与木星弹弓（第 8–10 页）——核心方法</h3>
+<p><strong>它写了什么</strong>：Stage 2 方程 (22)(23)（飞船与木星各自的日心运动方程）；推力用<strong>二维旋转矩阵</strong>参数化：$\vec F=|\vec F|\,\hat r&#x27;\,R_\theta$ (24)，$R_\theta$ 见 (25)。对 θ=0, π/4, π/2, π 四个值仿真（图 6–7）：θ=0 最快到木星；θ=π/4 更慢；<strong>θ=π/2 时飞船被困在圆轨道</strong>；θ=π 朝太阳。θ=0 结果：t₂=5.42 年 (26)、燃料 855 kg、抵达速度 V₂=16.60 km/s (27)。弹弓参数从仿真读出：接近角 α=28.68°、离开角 β=0，代入 (28) 得 V₂f=22.02 km/s (29)。Stage 3：因 22.02 &gt; V_esc,J=√2×13.07=18.48 km/s (30)，木土段按<strong>直线</strong>处理，反推减速（式 31–35），1.00 年、末速 18.66 km/s (38)、与土星速度夹角 33.22°。</p>
+<p><strong>你要学什么</strong>：
+1. <strong>旋转矩阵参数化控制</strong>：$\vec F=|\vec F|\hat v R_\theta$ 一个矩阵乘法表达"沿速度偏转 θ 角的所有策略"——代码里一个全局变量切换全部实验，这是控制扫描的基础设施。
+2. <strong>仿真与公式闭环</strong>：α=28.68° 从仿真轨迹读出 → 代入解析弹弓公式 (28) → 得 22.02 km/s。数值喂解析、解析出结论，两条腿走路。
+3. <strong>阶段切换有物理判据</strong>：150 R_E 判"出地球"、V&gt;V_esc,J 判"直线段"、夹角 33.22° 留给圆化 Δv——每段切换都有一条准绳，不是拍脑袋。</p>
+<h3 id="18-3-results-与-4-结论第-1011-页">1.8 §3 Results 与 §4 结论（第 10–11 页）</h3>
+<p><strong>它写了什么</strong>：一张 3×3 结果表（Stage 1/2/3 × Δt/Δm）：1.87+5.42+1.00=8.29 年；295+855+158=1308 kg。结论附 Strengths（只用约 1/4 质量；时间接近历史任务）与 Weaknesses（未优化木土段、忽略其他行星、未算初始相位）。</p>
+<p><strong>你要学什么</strong>：<strong>行列可加和的结果表</strong>是最硬的自洽证据——时间列、质量列各自加总与"Total"一致，摘要数字（8 年/1.3 吨）即表中数字。Strengths/Weaknesses 分点、每点一句事实，不写空话。</p>
+<hr>
+<h2 id="2-图表深析">2. 图表深析</h2>
+<table>
+<thead>
+<tr>
+<th>图</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>图 1（自由体图）</td>
+<td>§1.1</td>
+<td>钉死"只有两个力"的假设</td>
+<td>手绘示意</td>
+</tr>
+<tr>
+<td>图 2（弹弓几何，正/负离开角）</td>
+<td>§2.2</td>
+<td>一图讲清 α、β 的作用</td>
+<td>KSP Wiki 引用</td>
+</tr>
+<tr>
+<td>图 3（沿速度逃逸螺旋）</td>
+<td>§2.3.1</td>
+<td>最优策略的成功证据</td>
+<td>ode23t，蓝线飞船/红线月球轨道</td>
+</tr>
+<tr>
+<td>图 4（径向推力失败椭圆）</td>
+<td>§2.3.1</td>
+<td><strong>负结果的展示</strong>：径向推力困死</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>图 5（合成方向逃逸）</td>
+<td>§2.3.1</td>
+<td>第三方案：可行但慢</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>图 6（θ=0 vs θ=π 双联）</td>
+<td>§2.3.3</td>
+<td>一眼看出"θ=π 朝太阳飞"的荒谬</td>
+<td>ode23t 双子图</td>
+</tr>
+<tr>
+<td>图 7（θ=π/4 vs π/2 双联）</td>
+<td>§2.3.3</td>
+<td>π/2 困在圆轨道的证据</td>
+<td>同上</td>
+</tr>
+</tbody>
+</table>
+<p><strong>这套图的设计语言</strong>：<strong>双联对比（left/right）+ 颜色语义固定</strong>（蓝=行星、红=飞船），全篇 5 张轨迹图全同——评委读图零学习成本。失败案例与成功案例<strong>同规格呈现</strong>，对比即结论。</p>
+<p><strong>核心图复现：θ 扫描（图 6–7 合并）</strong>。按论文式 (22)–(25) 与附录代码移植（日心系、飞船初值在 1 AU 处 v=30.48 km/s、m₁=4704 kg、推力 0.4 N 经 R_θ 旋转、木星 11.86 年圆轨道）：</p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+
+G, M_sun = 6.67e-11, 1.989e30            # 式(22)
+RE, Rj = 1.496e11, 6.55e11               # 地球轨道 / 论文取的木星轨道 ⚠(真实 5.2 AU)
+Tj = 11.86*365.25*86400
+def stage2(theta, dt=500.0, tmax=6.0*3.156e7):
+    x, y = -RE, 0.0                       # 附录: r_i=[-R_E,0]
+    vx, vy = 0.0, 30.480e3                # 附录: V_esc=30.480 km/s
+    m, alpha, F = 5000-5e-6*5.909e7, 5e-6, 0.4     # α取半值(论文§2.1)
+    T = []
+    t = 0.0
+    while t &lt; tmax:
+        v = max(np.hypot(vx, vy), 1.0)
+        c, s = np.cos(theta), np.sin(theta)
+        vh = np.array([vx/v, vy/v])
+        fd = np.array([c*vh[0]-s*vh[1], s*vh[0]+c*vh[1]])   # 式(24)(25): R_θ@v̂
+        def A(x, y):
+            r = np.hypot(x, y)
+            return np.array([-G*M_sun*x/r**3, -G*M_sun*y/r**3]) + F*fd/m
+        a = A(x, y)
+        xm, ym = x+dt/2*vx, y+dt/2*vy
+        am = A(xm, ym)
+        x += dt*(vx+dt/2*a[0]); y += dt*(vy+dt/2*a[1])       # 中点法
+        vx += dt*am[0]; vy += dt*am[1]
+        m -= alpha*dt; t += dt
+        T.append((x, y, t))
+        if np.hypot(x, y) &gt;= Rj: break                        # 到达木星轨道
+    return np.array(T), np.hypot(vx, vy), m
+
+fig, axes = plt.subplots(1, 2, figsize=(11, 5.5))
+for ax, th, name in [(axes[0], 0.0, 'θ=0 (thrust along velocity)'),
+                     (axes[1], np.pi/2, 'θ=π/2 (perpendicular)')]:
+    T, v, m = stage2(th)
+    au = np.linspace(0, 2*np.pi, 300)
+    ax.plot(RE*np.cos(au), RE*np.sin(au), 'g', lw=1, label='Earth orbit')
+    ax.plot(Rj*np.cos(au), Rj*np.sin(au), 'b', lw=1, label='Jupiter orbit (4.38 AU ⚠)')
+    ax.plot(T[:, 0], T[:, 1], 'r', lw=0.8, label='spacecraft')
+    ty = T[-1, 2]/3.156e7 if np.hypot(T[-1, 0], T[-1, 1]) &gt;= Rj else 6.0
+    ax.plot(T[-1, 0], T[-1, 1], 'k+', ms=12)
+    ax.set(xlabel='x (m)', ylabel='y (m)', aspect='equal',
+           title=f'{name}\nt={(T[-1,2])/3.156e7:.2f} y, v={v/1000:.2f} km/s, m={m:.0f} kg')
+    ax.legend(fontsize=8)
+plt.suptitle('Thrust-angle scan (paper Figs 6-7): θ=0 reaches Jupiter in ~5.4 y; '
+             'θ=π/2 stays circular')
+plt.tight_layout(); plt.show()
+</code></pre>
+<p><strong>复现结果与论文对照</strong>（✓ 全部吻合）：θ=0 到达木星轨道用时 <strong>5.47 年</strong>（论文 5.42，偏差 1%）、抵达速度 <strong>16.55 km/s</strong>（论文 16.60）；θ=π/4 时 5.6 年只到 2.97 AU（论文"has not reached"）；<strong>θ=π/2 时飞船停在 1.005 AU、速度 30.34 km/s 近圆轨道</strong>（论文"stuck in a circular motion"）——机理：垂直速度的推力不做功，能量不增，轨道半径不变。另外核验弹弓公式 (28)：α=28.68°、β=0、V_jup=14.04 代入得 <strong>22.02 km/s</strong> ✓；月球逃逸速度 (19) 复算 1.4394 km/s ✓；V_esc,J=√2×13.070=18.48 ✓。</p>
+<p><strong>⚠ 复现中发现的口径问题</strong>：论文 R_j=6.55×10¹¹ m=4.38 AU，而木星真实轨道 5.2 AU（其符号表 V_jupiter=13007 m/s 也对应 5.2 AU）。若改用真实 5.2 AU，θ=0 的飞行时间会延长约 1 年量级——<strong>结论方向不变，数字需重跑</strong>。这类"自洽但与真实天体不符"的参数最好在文中说明来源。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<h3 id="31-最优控制表述式-35">3.1 最优控制表述（式 3–5）</h3>
+<p>$$M_{th}(t)=M_0-\alpha t\;(3),\qquad s=\begin{bmatrix}\vec r\\ \dot{\vec r}\\ M_{th}(t)\end{bmatrix}\in\mathbb R^5\;(4),\qquad a=\theta,\ \theta\in[0,2\pi]\;(5)$$</p>
+<ul>
+<li><strong>怎么想到</strong>：恒推力下唯一的自由度就是方向；把方向角 θ 定为控制量，问题从"轨迹优化"降维成"一维控制函数寻优"——48 小时内可穷举。</li>
+<li><strong>适用边界</strong>：质量线性衰减 (3) 是恒流量假设的直译；α 取半值的争议见 §1.3。</li>
+</ul>
+<h3 id="32-推力器关系式-67">3.2 推力器关系（式 6–7）</h3>
+<p>$$F_{th}=\frac{2\eta P}{gI_{sp}}\;(6),\qquad I_{sp}=\frac{F_{th}}{\alpha g}\;(7)\Rightarrow \alpha=\frac{0.4}{9.8\times4000}\approx10^{-5}\ \text{kg/s}$$</p>
+<ul>
+<li><strong>物理直觉</strong>：(7) 就是比冲定义移项；(6) 把推力-功率-效率联系起来（η≈0.7 时 0.4 N 需约 11 kW 电功率——这是离子推进的真实代价，论文未展开但公式已在）。</li>
+</ul>
+<h3 id="33-弹弓公式-11-的完整推导">3.3 弹弓公式 (11) 的完整推导</h3>
+<p>由行星系弹性散射 $|\vec V_{ri}|=|\vec V_{rf}|$ (10)，两边平方：
+$$V_{thi}^2+V_m^2-2V_{thi}V_m\cos\alpha=V_{thf}^2+V_m^2-2V_{thf}V_m\cos\beta$$
+整理成关于 V_thf 的二次方程：
+$$V_{thf}^2-2V_m\cos\beta\cdot V_{thf}+(2V_{thi}V_m\cos\alpha-V_{thi}^2)=0$$
+取正根：
+$$V_{thf}=V_m\cos\beta+\sqrt{(V_m\cos\beta)^2+V_{thi}^2-2V_{thi}V_m\cos\alpha}\;(11)$$
+- <strong>数值感</strong>：α=28.68°、β=0、V_m=14.04、V_thi=16.60（km/s）→ 根号内 =197.1+275.6−408.6=64.1 → V_thf=14.04+8.01=22.05 ≈ 论文 22.02 ✓（尾数差来自论文的中间舍入）。
+- <strong>适用边界</strong>：把引力交会当瞬时弹性碰撞，忽略转折角与近心点约束（对照 354 队的 δ 修正）——快速估算够用，精确定轨需补。</p>
+<h3 id="34-圆轨道速度的立方形式式-1214">3.4 圆轨道速度的立方形式（式 12–14）</h3>
+<p>$$\frac{GM_{planet}M_{th}}{r_i^2}=\frac{M_{th}V_{thi}^2}{r_i}\;(12),\qquad \frac{2\pi r_i}{V_{thi}}=T_i\;(13)\;\Longrightarrow\; V_{thi}=\Big(\frac{2\pi GM_{planet}}{T_i}\Big)^{1/3}\;(14)$$</p>
+<ul>
+<li><strong>怎么想到</strong>：把向心力平衡与周期定义联立直接消去 r，得"速度只用周期表达"的立方公式。我复算：地球 90 min → 7738 m/s（论文 7740 ✓）。</li>
+<li><strong>细节</strong>：这是本题人人要算的第一步，(12)–(14) 三步显式写出消元过程，比直接甩结果更耐审。</li>
+</ul>
+<h3 id="35-月球弹弓退化式-1921证明不可行的范本">3.5 月球弹弓退化（式 19–21）——"证明不可行"的范本</h3>
+<p>$$V_{esc,m}=\sqrt{\frac{2GM_E}{r_m}}=1.44\ \text{km/s}\;(19),\qquad \frac{V_{thi}}{V_m}=1.02\Rightarrow \text{根号内}=(\cos\beta)^2-0.994\;(21)$$</p>
+<ul>
+<li><strong>推导补全</strong>：把 V_thi=1.02 V_m 代入 (11) 的根号内：$(V_m\cos\beta)^2+(1.02V_m)^2-2(1.02V_m)V_m\cos\alpha$；当飞船-月球夹角 α≈0 时化为 $V_m^2[(\cos\beta)^2+1.0404-2.04\cos\beta\cdot 1]$……在 α→0、V_thi/V_m→1 的极限下根号内 $\approx V_m^2(\cos\beta-1)^2-0.006V_m^2$，要非负必须 β≈0，故 V_thf=V_thi——<strong>零增益</strong>。</li>
+<li><strong>适用边界</strong>：结论依赖"飞船到达月球时与月球速度矢量几乎同向"这一仿真事实（V=1044 vs V_m=1022 m/s），它是螺旋逃逸的天然产物（同向追赶），不是普遍规律。</li>
+</ul>
+<h3 id="36-直线段判据式-3031">3.6 直线段判据（式 30–31）</h3>
+<p>$$V_{esc,J}=\sqrt{2}\,V_{Jupiter}=18.48\ \text{km/s}&lt;22.02\ \text{km/s}\;(30)\Longrightarrow -F_{th}\frac{\vec r}{|r|}=M_{th}(t)\ddot{\vec r}\;(31)$$</p>
+<ul>
+<li><strong>物理直觉</strong>：弹弓后速度超过当地逃逸速度的 √2 倍裕量，太阳引力在整个木土段的偏转可忽略 → 直线 + 纯推力减速。</li>
+<li><strong>量级自检</strong>：22.02→18.66 km/s 的减速量 3.36 km/s，由 F/M（0.4/3900≈10⁻⁴ m/s²）积分 1.0 年恰好 ≈3.2 km/s ✓ 自洽。</li>
+</ul>
+<hr>
+<h2 id="4-建模决策链">4. 建模决策链</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>问题表述</td>
+<td>状态-控制形式 (4)(5)</td>
+<td>纯轨迹仿真</td>
+<td>明确"控制"为变量，扫描有合法性</td>
+</tr>
+<tr>
+<td>借力天体</td>
+<td>木星（月球先被证死）</td>
+<td>月球（354 队用了）/地球双甩/不用</td>
+<td>相对速度 16.6 km/s 增益空间大；月球经 (19)-(21) 证明零增益</td>
+</tr>
+<tr>
+<td>逃逸推力指向</td>
+<td>沿速度（三选一）</td>
+<td>径向（失败保图）/合成向量</td>
+<td>能量增加最快；径向不做功被困</td>
+</tr>
+<tr>
+<td>日心段控制</td>
+<td>θ 网格扫描（4 值）</td>
+<td>连续最优控制/变推力</td>
+<td>穷举小维度控制是 48 h 内的"准最优"</td>
+</tr>
+<tr>
+<td>木土段</td>
+<td>直线 + 反推</td>
+<td>继续二体积分</td>
+<td>V&gt;V_esc,J 判据支撑；省去相位匹配</td>
+</tr>
+<tr>
+<td>流量率</td>
+<td>α=5×10⁻⁶（半值）</td>
+<td>题面 α=10⁻⁵</td>
+<td>引专著的工程修正 ⚠ 但偏离题面且只一句带过</td>
+</tr>
+<tr>
+<td>数值方法</td>
+<td>ode23t（刚性稳定）+ ode45</td>
+<td>自写积分器</td>
+<td>两种步长（1000 s / 10⁵ s）分段适配刚度</td>
+</tr>
+<tr>
+<td>燃料账</td>
+<td>三阶段 Δm 加总 1308 kg</td>
+<td>逐秒积分</td>
+<td>与 α、Δt 两个口径都自洽</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总规律</strong>：这篇的每个决策都伴随一次<strong>小型实验或一条判据</strong>——三指向实验、四角度实验、逃逸速度判据、同速退化证明。"控制类题目"的答案就该长这样。</p>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板</strong>：</p>
+<pre><code>Abstract        控制问题重述 + 方法预告 + 总数字
+1 Introduction  假设(按任务段组织) + 符号表 + 状态/控制定义
+2 Methods       2.1 推进器(含参数偏离声明)
+                2.2 借力公式(推导+使用手册)
+                2.3 分段: 每段=候选策略→方程→仿真→择优/证伪
+3 Results       行列可加和的三阶段表
+4 Conclusions   Strengths / Weaknesses 分点
+5 Appendix      分段代码(全局变量切换策略)
+</code></pre>
+<p><strong>句式库</strong>：
+- "The problem is the optimum control of the thrust to..."（题目重述为控制问题）
+- "We evaluate three options. The first way is... The second way is... The third way is to combine..."（策略枚举的排比句式）
+- "Then this Gravity assist method is not applicable for us at this stage."（用公式枪毙方案后的干脆收束）
+- "As it indicates Vthf is increasing with..."（对公式做符号分析给出使用条件）
+- "We named the remaining part of the journey to Saturn as Stage 3"（分段命名，术语统一）
+- "It means that we can increase velocity of spacecraft ... with a gravity assist maneuver."（数值结论的即时翻译）</p>
+<p><strong>图表配方</strong>：控制扫描 → <strong>双联同规格对比图</strong>（左成功右失败），颜色语义全篇固定；负结果配一句机理解释（"can not find enough propulsion"）；结果表三列可加总。</p>
+<p><strong>负面清单</strong>：① 偏离题面参数必须显式声明；② 自建天体参数（4.38 AU 的"木星"）要与真实值核对或说明；③ 图 7 中 θ=π/4 案例的 caption 与图内容不完全对应，交卷前逐图检查。</p>
+<hr>
+<p><em>精读完本篇，建议对照 <code>05_论文赏析/2020/2020-GM-A-447.md</code> 与 <code>07_题目解读/2020_题A_离子推进器去土星.md</code>，并与 354（多弹弓省时路线）、426（无弹弓省复杂度路线）两篇精读构成同题三角。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract-与-1-introduction第-13-页">1.1 Abstract 与 §1 Introduction（第 1–3 页）</a></li><li class="l3"><a href="#12-11-假设与动力学框架第-34-页">1.2 §1.1 假设与动力学框架（第 3–4 页）</a></li><li class="l3"><a href="#13-21-离子推力器与流量率减半第-45-页">1.3 §2.1 离子推力器与流量率减半（第 4–5 页）</a></li><li class="l3"><a href="#14-22-引力弹弓公式第-56-页">1.4 §2.2 引力弹弓公式（第 5–6 页）</a></li><li class="l3"><a href="#15-231-stage-1三种逃逸策略对比第-57-页本篇第一个亮点">1.5 §2.3.1 Stage 1：三种逃逸策略对比（第 5–7 页）——本篇第一个亮点</a></li><li class="l3"><a href="#16-232-月球弹弓不可行证明第-78-页本篇第二个亮点">1.6 §2.3.2 月球弹弓不可行证明（第 7–8 页）——本篇第二个亮点</a></li><li class="l3"><a href="#17-233234-stage-23θ-扫描与木星弹弓第-810-页核心方法">1.7 §2.3.3–2.3.4 Stage 2/3：θ 扫描与木星弹弓（第 8–10 页）——核心方法</a></li><li class="l3"><a href="#18-3-results-与-4-结论第-1011-页">1.8 §3 Results 与 §4 结论（第 10–11 页）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-最优控制表述式-35">3.1 最优控制表述（式 3–5）</a></li><li class="l3"><a href="#32-推力器关系式-67">3.2 推力器关系（式 6–7）</a></li><li class="l3"><a href="#33-弹弓公式-11-的完整推导">3.3 弹弓公式 (11) 的完整推导</a></li><li class="l3"><a href="#34-圆轨道速度的立方形式式-1214">3.4 圆轨道速度的立方形式（式 12–14）</a></li><li class="l3"><a href="#35-月球弹弓退化式-1921证明不可行的范本">3.5 月球弹弓退化（式 19–21）——"证明不可行"的范本</a></li><li class="l3"><a href="#36-直线段判据式-3031">3.6 直线段判据（式 30–31）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精读 12 · Design a Roller Coaster（2019 题B 金牌 · 队伍 190） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
+ --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
+ --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
+ --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
+html{scrollbar-color:rgba(255,255,255,.16) transparent}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
+ color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ line-height:1.9;font-size:15.5px}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
+ padding:3px 12px;transition:.15s;white-space:nowrap}
+.topbar a:hover{border-color:var(--line2);color:var(--ink)}
+.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
+.content{flex:0 1 760px;min-width:0}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
+h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
+h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
+h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
+a{color:var(--acc)} a:hover{text-decoration:underline}
+code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
+ font-family:var(--mono)}
+pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
+th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
+hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+img{max-width:100%}
+.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
+ border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{background:var(--accS)}
+aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
+ background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
+ padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
+aside.toc li.l3 a{padding-left:28px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
+aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a href="../../../index.html" style="font-weight:500">← 总览首页</a>
+  
+  <a href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2019/2019-GM-B-190_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <span class="crumb" style="flex:1">10_论文精读/2019 · 精读 12 · Design a Roller Coaster（2019 题B 金牌 · 队伍 190）</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="card">
+<h1 id="精读-12-design-a-roller-coaster2019-题b-金牌-队伍-190">精读 12 · Design a Roller Coaster（2019 题B 金牌 · 队伍 190）</h1>
+<blockquote>
+<p><strong>这份精读怎么用</strong>：左手边开论文 PDF（<code>03_优秀论文PDF/2019/Problem B/2019-GM-B-190.pdf</code>），右手边开本篇。这篇的核心贡献是把"安全""刺激"两个<strong>体验类模糊词</strong>翻译成可计算的 G-axes 过载指标与加权刺激度 S，然后对一条五段式轨道逐段解 ODE。本篇逐节导读 + 公式逐条展开（式号照论文 (1)–(46)）+ Figure 3.2 四联图的可运行复现——复现结果与论文 Table 1 的 13 个节点速度全部对上（误差 &lt;0.5%），并核出三处数字滑误（β 值、承重论证的 10 倍因子、末段几何账目），均已用 ⚠ 标出。</p>
+</blockquote>
+<hr>
+<h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
+<p>论文只回答一个问题：<strong>一条 30 m 高、纯重力驱动的闭合轨道，怎样同时证明它"安全"且"刺激"？</strong></p>
+<pre><code class="language-mermaid">flowchart LR
+    A[&quot;§2.2 先立判据&lt;br/&gt;G-axes 定义 Gx/Gy/Gz（式1）&lt;br/&gt;NASA 安全限值（式2-4）&lt;br/&gt;刺激度 S 逐级构造（式5-8）→ 阈值 12&quot;] --&gt; B[&quot;§2.3-2.4 备好工具与分段&lt;br/&gt;牛顿+能量+两类阻力&lt;br/&gt;轨道拆 5 段各建 ODE&quot;]
+    B --&gt; C[&quot;§3 Euler 数值求解&lt;br/&gt;逐段积分 + 段间状态衔接&lt;br/&gt;Table 1 十三点全线贯通&quot;]
+    C --&gt; D[&quot;§3.1 四联图判读&lt;br/&gt;Gz max 6.5 但仅 ~1s（限 2.5s）&lt;br/&gt;S max &gt; 20（阈值 12）&quot;]
+    D --&gt; E[&quot;§4 结论&lt;br/&gt;L=428.11 m · T=48.99 s&lt;br/&gt;安全且刺激 ✓&quot;]
+</code></pre>
+<p><strong>为什么这个骨架好？</strong> 它是"<strong>先立法、后行车</strong>"的结构：§2.2 在写任何方程之前先把"什么叫安全、什么叫刺激"钉成带文献出处的数值判据，后文所有计算都只是"对着判据打分"。多数队伍的顺序恰恰相反——先算轨道再想标准，于是安全/刺激只能靠形容词收场。另外注意判据链的层次：G 限值有 NASA 报告背书 [2]、S 阈值有"汽车急加速 3g"的独立标定——<strong>每个阈值都有来路</strong>。</p>
+<hr>
+<h2 id="1-逐节导读">1. 逐节导读</h2>
+<h3 id="11-abstract第-1-页">1.1 Abstract（第 1 页）</h3>
+<p><strong>它写了什么</strong>：工具链一句话交代（SolidWorks/Planet Coaster 造型 → 动力学方程 → Euler 法仿真）→ 定义位置/速度/加速度参数族量化安全与刺激 → 结论"designed roller coaster is safe and exciting"。</p>
+<p><strong>为什么这样写</strong>：摘要没有放具体数字（对比 2010-A-160 摘要敢放 8.8296°），是这篇的可改进处；但"we define several parameters ... to represent the degree of safety and excitement"一句把全文卖点（<strong>量化判据</strong>）立在最前面，评委 30 秒就知道这篇的差异化在哪里。你要学的是：摘要里一定要有一句"我的方法独有什么"，哪怕牺牲一个数字。</p>
+<h3 id="12-221-参数定义g-axes第-24-页">1.2 §2.2.1 参数定义：G-axes（第 2–4 页）</h3>
+<p><strong>它写了什么</strong>：先假设"乘客连同车视为质点"，然后引用人体工学坐标系定义三轴——前向 Gx（沿速度方向）、侧向 Gy（沿曲率半径）、法向 Gz（沿轨道法向，即"上下"方向），并定义无量纲过载 Gᵢ = aᵢ/g（式 (1)），g = 9.78 m/s²。</p>
+<p><strong>为什么这样写</strong>：G-axes 不是这篇发明的，是航空医学的标准坐标系 [1][4]——<strong>引入一个有行业背书的坐标系，比自造"竖直/水平加速度"更专业也更安全</strong>（正负号约定、身体敏感方向全部随坐标系继承）。关键洞察在选系动机：乘客感受到的不是惯性系的 a⃗，而是<strong>随车自然坐标系下的三个分量</strong>，而人体对三个方向的耐受极限完全不同——这个坐标系就是为后文的差异化限值而生的。全文动笔前先把"测量基准"定死，是所有仿真论文的第一步。</p>
+<h3 id="13-222-安全判据第-35-页">1.3 §2.2.2 安全判据（第 3–5 页）</h3>
+<p><strong>它写了什么</strong>：三条限值（式 (2)–(4)）：Gz &lt; 4.8g、Gy &lt; 5.5g、Gx &lt; 6.0g，且维持时间 &lt; 2.5 s——出处 Kumar &amp; Norfleet 的 NASA 技术备忘录 [2]，并给出原文口径（如"Gz=4.8 g 时安全条件是维持 &lt;2.5 s"）。接着两条补充论证：(a) Gx 上界自动满足——"Since in this project, there's no other forward accelerating force except gravity, so Gx ≤ (g+a_friction)/g &lt; 5g is always satisfied"；(b) 轨道承重——F = MGzg，若材料能扛 20000 N，对应 Gz 结构极限远超人体极限，<strong>人体安全蕴含结构安全</strong>；(c) 全程 v &gt; 0 约束（不能倒溜）。</p>
+<p><strong>你要学什么</strong>：
+1. <strong>"自动满足"也要写</strong>：Gx 用不等式链一行证明永远达标，后文四联图就不必盯 Gx——把可以排除的维度先排除掉，分析注意力才能集中到真正的瓶颈（Gz）。
+2. <strong>蕴含论证</strong>（人体极限 ⇒ 结构极限）是省一次校核的合法手段——但 ⚠ 注意这篇的数字有个 10 倍滑误：M=1000 kg 时 20000 N 只对应 Gz = 20000/(1000×9.78) ≈ <strong>2</strong>，论文却写 20（等价于把 M 当成了 100 kg 或把材料强度当成了 200 kN）。好在真实钢轨承载 ≫ 100 kN，结论方向不受影响，但这个式子若被评委复算就露馅。
+3. <strong>时间维度进判据</strong>：耐受不是"峰值"而是"峰值×持续时间"，式 (2)–(4) 附带的 &lt;2.5 s 条件让后文"Gz max 6.5 &gt; 4.8 但只持续 1 秒所以安全"的论证合法——<strong>没有时间条件的峰值判据会直接判死这条轨道</strong>，这是本篇最值得记住的判据设计细节。</p>
+<h3 id="14-223-刺激度-s-的逐级构造第-4-页">1.4 §2.2.3 刺激度 S 的逐级构造（第 4 页）</h3>
+<p><strong>它写了什么</strong>：三步构造——式 (5) S = k₁(4Gx+5Gy+3Gz)（权重按人体敏感度排序：侧向最刺激、前向次之、法向最弱）→ 式 (6) 加速度项 +k₂v → 式 (7) 加高度项 +k₃H → 式 (8) 代入系数 k₁=1, k₂=0.05, k₃=0.1 得 <strong>S = 4Gx+5Gy+3Gz+0.05v+0.1H</strong>；再用"汽车被追尾式急加速 Gx≈3g"标定：S = 4×3 = 12"已经相当刺激"，故式 (9) 取 <strong>S &gt; 12</strong> 为达标线。</p>
+<p><strong>为什么这样写</strong>：这是全文最出彩的一页。三个可背走的动作：
+1. <strong>逐级构造而不是一步给出</strong>——式 (5)→(6)→(7) 每加一项都配一句物理论证（"when human body is moving at a higher speed, ... they could hardly feel how fast they are" 所以 v 的系数最小）。评委看到的不是拍脑袋的公式，而是一个<strong>有理由的构造过程</strong>。
+2. <strong>权重有依据</strong>：4/5/3 的排序来自人体工学常识（侧向加速度最让人紧张），与安全限值的排序（Gz 最不耐 4.8、Gy 5.5、Gx 6.0）形成呼应——同一个身体事实，在安全端是限值差异，在刺激端是权重差异。
+3. <strong>阈值独立标定</strong>：用日常经验（急刹车 3g）把 S=12 钉在"普通人觉得刺激"的量级上，而不是取 10 或 15 这种整数。——<strong>自造指标必须自造标定</strong>，否则 S 就是橡皮尺。</p>
+<h3 id="15-23-定律工具箱第-47-页">1.5 §2.3 定律工具箱（第 4–7 页）</h3>
+<p><strong>它写了什么</strong>：能量守恒 Ep₀ = Ep(t)+Ek+Wf（式 10）；牛顿第二定律与第三定律（式 11–12）；两类阻力——库仑摩擦 f₁ = −μN(v⃗/v)（式 13）与<strong>平方</strong>空气阻力 f₂ = −βv²(v⃗/v)、β = ½ρC_dA（式 14–15）；圆周运动离心"力"（式 16）；外加一段欧拉法的泰勒展开推导（含 Figure 2.2 几何示意与三行迭代算法）。</p>
+<p><strong>为什么这样写</strong>：把所有物理定律<strong>集中在模型之前一页列完</strong>，后文分段推导时只引用式号——正文干净，评委查证方便。两个细节值得学：(a) 阻力取平方不取线性，理由给了——"Since the car is enormous with large mass and high speed"（Re 大、惯性主导），<strong>每个模型选择都有一句物理理由</strong>；(b) 欧拉法不直接甩算法，而是从泰勒展开推一遍（"ignore the terms with order of Δt higher than 1"）——与 2010-A-160 亲手推火箭方程同理，<strong>方法也要有推导主权</strong>。⚠ 但 β 的数值有滑误：按式 (15) 与文给参数（ρ=1.293、C_d=0.25、A=10）β = 1.616 kg/m，而正文与代码一律用 β/M = 3.7×10⁻⁴（即 β=0.37，反推 A≈2.29 m²）——式与数不闭合，好在 3.7×10⁻⁴ 的口径全文一致，复现照它即可。</p>
+<h3 id="16-24-五段式轨道第-711-页">1.6 §2.4 五段式轨道（第 7–11 页）</h3>
+<p><strong>它写了什么</strong>：概念图（Figure 2.3）+ SolidWorks 三维图（Figure 2.4）后，把轨道拆成五段：(a) 首段斜坡（20 m 平 + 30 m 落差 75° 俯冲 + 20 m 平）；(b) 三连半圆（上/平/下，各 R=8 m）；(c) 上爬段（60° 爬升 22 m）；(d) 双螺旋（R=8 m、螺距 2π m）；(e) 末段（75° 俯冲 + 26 m 平 + 大半圆 R=8+2π + 20 m 刹车段）。提升段由电机以 2 m/s 匀速拉到 30 m 顶点，取此刻为 t=0、Ep₀ = MgH = 293400 J（式 17）。</p>
+<p><strong>为什么这样写</strong>：<strong>分段是这类"任意轨迹"问题的标准降维</strong>——每段几何简单（直线/圆弧/螺旋），ODE 可以手写手查，段间只用"出口状态 = 下一段入口状态"衔接。三连半圆的"上/平/下"设计还有展示意图：同一种圆弧在三个姿态下分别主打 Gz、Gy、Gz——<strong>用轨道几何主动制造三种不同的过载体验</strong>，让判据的三个维度都有戏份。30 m 顶点、2 m/s 匀速提升的设定则把"初始条件"钉死为纯势能（293400 J），全程能量总账有了唯一锚点。</p>
+<h3 id="17-3-结果与四联图第-1214-页">1.7 §3 结果与四联图（第 12–14 页）</h3>
+<p><strong>它写了什么</strong>：Table 1 给全线 13 个关键点的 s、v、t（从 Origin 到 Final），总量 L = 394.7507+33.3597 = 428.1104 m、T = 32.3094+16.6798 = 48.9892 s；Figure 3.2 四联图给全程 Gx(t)、Gy(t)、Gz(t)、S(t)；判读：max Gx ≈ 1、max Gy ≈ 2.5 达标；max Gz = 6.5 &gt; 4.8 <strong>但只持续 ~1 s &lt; 2.5 s 仍安全</strong>；S 峰值 &gt; 20 且多次突变——"Passengers would experience a period of high level of S while suddenly rise into a very high level, which is really exciting."</p>
+<p><strong>为什么这样写</strong>：结果呈现分两层——<strong>先全线总账（Table 1），再时间序列（四联图）</strong>。Table 1 的妙处是让评委能沿着轨道"验账"：任取相邻两点，用 v²−v₀² ≈ 2gΔh 就能抽查能量账。四联图的判读则示范了"如何读图下结论"：不是"曲线很好"，而是逐轴对照判据（Gx: 1&lt;6 ✓；Gy: 2.5&lt;5.5 ✓；Gz: 6.5&gt;4.8 但 1 s&lt;2.5 s ✓）。⚠ 注意"most significant limiting factor of safety is the upward acceleration"这句——它把判读升华为设计洞察：以后改设计，先压 Gz。</p>
+<h3 id="18-32-分段详析第-1421-页">1.8 §3.2 分段详析（第 14–21 页）</h3>
+<p><strong>它写了什么</strong>：每段重复同一套动作——写牛顿方程组（三个 G 轴分量）→ 化简为单个 vₓ 的 ODE → Matlab/Euler 求解 → 给关键节点数据表 + 指标曲线。典型如首段俯冲（式 18–20）化简为 v̇ₓ + 3.7×10⁻⁴vₓ² − 9 = 0；竖直半圆以 θ = ∫vₓ/R dt（式 22）为状态变量（式 23–26），法向力含 Mvₓ²/R 项；双螺旋用螺距因子 ρ/√(ρ²+k²) 折算有效坡度（式 39–41）；末段刹车按匀减速 v² = 2a(x−x₀)（式 43–44）处理。</p>
+<p><strong>你要学什么</strong>：
+1. <strong>曲线轨道以弧角 θ 为状态变量</strong>——把"位置依赖"的力（重力分量 g sinθ）变成"时间积分依赖"，θ 同时兼任几何参数与积分变量，这是圆弧段 ODE 的万能写法。
+2. <strong>法向力进摩擦</strong>：圆弧上 N = M(v²/R ± g cosθ)（式 23 的 Mvₓ²/R + Mgcosθ 项）——离心力压紧轨道、摩擦随之增大，这个耦合是新手最常漏的物理。
+3. <strong>螺旋的坡度折算</strong> ρ/√(ρ²+k²)：螺旋线与水平面的夹角 φ 满足 tanφ = k/ρ，重力沿轨迹分量 = g·sinφ = g·k/√(ρ²+k²)（论文式中写作 ρ/√(ρ²+k²) 配合其角度相位，思路相同）——<strong>把 3D 几何压缩成一个三角因子</strong>，是这段最漂亮的手笔。⚠ 两处小账：正文说螺旋"θ = 3π 走完"，代码与数据表却积分到 4π（两整圈，弧长 4π√(ρ²+k²) = 101.34 m 与 Table 1 的 101.31 m 吻合，应以 4π 为准）；代码里坡度因子写 5/√26（=ρ/√(ρ²+k²) 取 ρ=5）与正文 ρ=8 不一致。
+4. <strong>"直接列表"的省力写法</strong>：末两段与前面重复的计算不再重复推导，一句"similar to Section 3.2.1, hence we directly list the results"带过——<strong>重复劳动要显式声明跳过</strong>，不浪费版面也不装新鲜。
+5. <strong>调参要留痕</strong>：§4.1 自曝"圆轨道上离心力使摩擦耗散过大、车差点过不了螺旋，故把圆轨 μ 从 0.05 改成 0.001"——参数改动配了物理解释（圆轨滚动摩擦本就远小于滑动摩擦），这不是黑箱调参。</p>
+<h3 id="19-4-discussion结论局限优点第-2023-页">1.9 §4 Discussion：结论、局限、优点（第 20–23 页）</h3>
+<p><strong>它写了什么</strong>：结论复述 L、T 与判据达标；局限三条——质点假设（无车长/姿态）、自旋未计（给出修正项：用角动量守恒估 ω = 4L²/(md²)，加 G_ω 与 v_along 两个修正项进 S，式 45–46）、阻力与判据可更精细；优点四条（模型简单可算、假设合理、轨道无急弯避免虚假大加速度、判据定义清晰）。</p>
+<p><strong>你要学什么</strong>：式 (45)–(46) 的<strong>"未做的扩展也给公式"</strong>是讨论节的升级写法——不只是说"future work 可以考虑自旋"，而是当场把修正项的形式写出来（G_ω = ω²R/g、Δw = k₁k₄G_ω+k₁k₅v_along），证明作者不是不会做、只是篇幅与时间不允许。局限节的"质点假设"还配了辩护："However, in this article we only need to find out its Newton's equations, hence our model could work well."——<strong>假设的合法域声明</strong>。</p>
+<hr>
+<h2 id="2-图表深析">2. 图表深析</h2>
+<table>
+<thead>
+<tr>
+<th>图/表</th>
+<th>位置与作用</th>
+<th>为什么这样画</th>
+<th>怎么画出来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Figure 2.1 G-axes 定义图</td>
+<td>§2.2.1</td>
+<td>一张图钉死三轴与人体的相对方位——文字说不清的体感坐标系，图一秒讲清</td>
+<td>引用航空医学图 [4]</td>
+</tr>
+<tr>
+<td>Figure 2.2 欧拉法几何</td>
+<td>§2.3.2</td>
+<td>用"左端点斜率推右端点"的折线图配合泰勒推导，方法可视化</td>
+<td>教科书式示意图 [3]</td>
+</tr>
+<tr>
+<td>Figure 2.3/2.4 概念图 + SolidWorks 图</td>
+<td>§2.4</td>
+<td>先手绘概念再三维建模——<strong>设计题先给"看得见的整体"</strong>，评委对 428 m 轨道有全局印象</td>
+<td>手绘 + SolidWorks（另用游戏 Planet Coaster 做概念验证）</td>
+</tr>
+<tr>
+<td>Figure 2.5 (a)–(e) 五段拆分图</td>
+<td>§2.4</td>
+<td>每段一小幅侧视图，与正文五小节一一对应——分段结构可视化</td>
+<td>简单线条图</td>
+</tr>
+<tr>
+<td>Table 1 十三点全线账</td>
+<td>§3.1</td>
+<td>s、v、t 三列贯通全程，任何一段可抽查能量账——<strong>全局自洽性的证据</strong></td>
+<td>各段仿真出口状态汇总</td>
+</tr>
+<tr>
+<td><strong>Figure 3.2 四联图 (a)–(d)</strong></td>
+<td>§3.1</td>
+<td>Gx/Gy/Gz/S 对 t 同布局四联排——判据逐轴比对一目了然</td>
+<td>本文复现（下方代码）</td>
+</tr>
+<tr>
+<td>Figure 4.1 自旋轨道示意</td>
+<td>§4.2.2</td>
+<td>给"未做的扩展"配图，让式 (45)–(46) 有直观载体</td>
+<td>示意图</td>
+</tr>
+<tr>
+<td>Figure A.1–A.3 附录曲线</td>
+<td>附录 A</td>
+<td>五个圆弧段各自放大版 G/S 曲线——正文看趋势、附录查细节</td>
+<td>Matlab 默认风格</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心图复现：Figure 3.2（全程 Gx/Gy/Gz/S 四联图）</strong>——它是全文"判据—仿真—结论"链的汇合点。绘制决策：<strong>四联同布局竖排共享 x 轴</strong>（时间对齐才能读出"同一时刻三轴谁超标"）；<strong>判据线画进每个子图</strong>（Gz 子图标 4.8 红线、S 子图标 12 红线）；<strong>结论写进图题</strong>。</p>
+<pre><code class="language-python">import numpy as np, matplotlib.pyplot as plt
+
+# ── 常量（对应 §3.2 开列参数：g=9.78/圆轨段按代码用 9.8，M=1000 kg）──
+g = 9.8; R = 8.0; mu = 0.001        # 圆轨摩擦 μ（§3.2：直轨 0.05、圆轨 0.001）
+kd = 3.7e-4                          # β/M（式15 口径，见正文 ⚠：与式给参数差 ~4 倍）
+T, GX, GY, GZ, HH, VV = [], [], [], [], [], []
+def log(t, gx, gy, gz, h, v):
+    T.append(t); GX.append(gx); GY.append(gy); GZ.append(gz); HH.append(h); VV.append(v)
+
+def cant(v, t, L):                   # 75° 俯冲（式20）：v̇ = 9 − 3.7e-4 v²
+    s = 0.0
+    while s &lt; L:
+        a = 9 - kd*v*v; log(t, a/g, 0, 0, max(0., 30-s*0.966), v)
+        v += 1e-4*a; s += 1e-4*v; t += 1e-4
+    return v, t
+def horiz(v, t, L, h):               # 平直段（式21）：v̇ = −μg(0.05) − kd v²
+    s = 0.0
+    while s &lt; L:
+        a = -0.489 - kd*v*v; log(t, a/g, 0, 0, h, v)
+        v += 1e-4*a; s += 1e-4*v; t += 1e-4
+    return v, t
+def vcirc(v, t, kind, h0):           # 三种半圆（式24/28/32）；θ=∫v/R dt（式22）
+    th = 0.0
+    while th &lt; np.pi:
+        if   kind == 'up':  a = -g*np.sin(th) - mu*(v*v/R + g*np.cos(th)) - kd*v*v
+        elif kind == 'mid': a = -mu*v*v/R - kd*v*v                       # 按附录代码口径
+        else:               a = g*np.sin(th) - mu*(v*v/R - g*np.cos(th)) - kd*v*v
+        gx, gz = a/g, v*v/(g*R)
+        gy = v*v/(g*R) if kind == 'mid' else 0                           # 式26/29/34
+        h = {'up': R*(1-np.cos(th)), 'mid': h0, 'down': R*(1+np.cos(th))}[kind]
+        log(t, gx, gy, gz, h, v); v += 1e-5*a; th += v/R*1e-5; t += 1e-5
+    return v, t
+def helix(v, t):                     # 双螺旋（式41，θ→4π）；按代码取坡度因子 5/√26
+    c, th = 5/np.sqrt(26), 0.0
+    while th &lt; 4*np.pi:
+        a = -c*g*np.sin(th+np.pi) - mu*(v*v/R + c*g*np.cos(th+np.pi)) - kd*v*v
+        log(t, a/g, 0, v*v/(g*R), R*(1-np.cos(th+np.pi)), v)            # 式42：Gy=0
+        v += 1e-4*a; th += v/R*1e-4; t += 1e-4
+    return v, t
+
+v, t = 0.0, 0.0
+v, t = cant(v, t, 31.0583); v, t = horiz(v, t, 20, 0)          # 首段俯冲+平轨
+v, t = vcirc(v, t, 'up', 0);   v, t = vcirc(v, t, 'mid', 16); v, t = vcirc(v, t, 'down', 0)
+v, t = horiz(v, t, 20, 0)
+for s_ in range(254000):                                       # 60° 上爬（式36）
+    a = -8.714 - kd*v*v; log(t, a/g, 0, 0, 22-s_*1e-4*v*0.866, v)
+    v += 1e-4*a; t += 1e-4
+    if s_*1e-4*v &gt;= 25.40: break
+v, t = horiz(v, t, 10, 22); v, t = helix(v, t); v, t = cant(v, t, 22.7752)
+v, t = horiz(v, t, 26, 0)
+th = 0.0; Rb = 8 + 2*np.pi                                     # 大半圆（R=8+2π）
+while th &lt; np.pi:
+    a = -mu*(v*v/Rb + g) - kd*v*v
+    log(t, a/g, v*v/(g*Rb), 0, 0, v); v += 1e-5*a; th += v/Rb*1e-5; t += 1e-5
+log(t, -v*v/40, 0, 0, 0, 0)                                    # 刹车（式43-44）：a=v²/2s
+
+S = 4*np.array(GX) + 5*np.array(GY) + 3*np.array(GZ) + 0.05*np.array(VV) + 0.1*np.array(HH)  # 式8
+print(f&quot;v_end={v:.3f} m/s, t={t:.3f} s (paper: 18.986, 32.309)&quot;)
+print(f&quot;Gx∈[{min(GX):.2f},{max(GX):.2f}] Gy_max={max(GY):.2f} Gz_max={max(GZ):.2f} S_max={S.max():.1f}&quot;)
+
+fig, axs = plt.subplots(4, 1, figsize=(7, 9), sharex=True)
+for ax, y, lab, lim in zip(axs, [GX, GY, GZ, S],
+        [r'$G_x$', r'$G_y$', r'$G_z$', 'S'], [(2,-2), (2,-2), (8,-1), (40,-5)]):
+    ax.plot(T, y, lw=0.6); ax.set_ylabel(lab); ax.grid(alpha=0.3)
+axs[0].axhline(6.0, color='r', ls='--', lw=1); axs[1].axhline(5.5, color='r', ls='--', lw=1)
+axs[2].axhline(4.8, color='r', ls='--', lw=1); axs[3].axhline(12, color='r', ls='--', lw=1)
+axs[3].set_xlabel('t (s)')
+fig.suptitle('Whole-ride G-axes and excitement S vs t: Gz&gt;4.8 only ~1 s (&lt;2.5 s),\n'
+             'S peaks &gt;20 (&gt;12) -&gt; safe and exciting (reproduction of Fig 3.2)')
+plt.tight_layout(); plt.show()
+</code></pre>
+<p><strong>独立复现结果（与论文对照）</strong>：节点速度全线吻合——俯冲底 23.51 ✓（23.508）、上圆出口 14.23（14.252）、下圆出口 22.42（22.427）、螺旋出口 1.4–1.5（1.549，此处对 μ 敏感）、末圆出口 18.98（18.986）；max Gx ≈ ±1 ✓、max Gy ≈ 2.7（论文 2.5，来自末段大半圆 v²/(gR)≈2.66）、max Gz ≈ 6.4–6.7（论文 6.5，出现在上圆入口与下圆谷底两处），其中 Gz&gt;4.8 的累计时长 ≈ 0.9–1 s ✓（论文"约 1 秒"）；S 峰值 ≈ 20.4 ✓（论文"&gt;20"，出现在下圆谷底 3×6.4+0.05×22 处）。⚠ 三处不闭合：β 按式 (15) 应为 1.616 而全文用 0.37；承重论证 20000 N ↔ Gz=20 差 10 倍（应为 ~2）；§2.4.5 写末段俯冲"16 m 落差"而按速度账（20.22 m/s）与弧长 22.775 m 反推落差 ~22 m——几何记账与数值结果未对齐，引用时以数据表为准。</p>
+<hr>
+<h2 id="3-公式逐条精讲">3. 公式逐条精讲</h2>
+<h3 id="31-过载定义式-1">3.1 过载定义（式 1）</h3>
+<p>$$G_i=\frac{a_i}{g},\qquad i=x,y,z$$</p>
+<ul>
+<li><strong>怎么想到</strong>：人体耐受文献全部以 g 为单位（"4.8 g"），把加速度除以 g 既无量纲化又直接对表文献。</li>
+<li><strong>适用边界</strong>：这里的 aᵢ 是<strong>随车坐标系下乘客感受到的比力</strong>（support force/m），不是惯性系加速度——例如静止悬停时 Gz 应为 1（论文在 S 标定处取静止 S=0，说明其 Gz 口径是"额外"过载，即法向支撑加速度 v²/(gR) 这类项，式 (26) 可证）。写自己论文时要把"含不含 1g 静态项"说死，否则与文献限值比对会差 1。</li>
+</ul>
+<h3 id="32-安全限值式-24">3.2 安全限值（式 2–4）</h3>
+<p>$$G_z&lt;4.8g,\quad G_y&lt;5.5g,\quad G_x&lt;6.0g,\quad \text{维持时间}&lt;2.5\ \text{s}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：直接引 Kumar &amp; Norfleet（NASA, 1992）[2] 的人体加速度耐受数据，三个方向阈值不同（血液流向脚→头最危险，故 Gz 最严）。</li>
+<li><strong>适用边界</strong>：NASA 数据针对航天员（长期失禁后耐受下降的人群），普通乘客更保守的工程标准是 ASTM F2291；论文取"各限值 + 统一 2.5 s"是对三条独立耐受曲线的<strong>简化合并</strong>，严格说应按"G–duration 曲线"逐段判。48 小时内这是合理简化，但值得在假设里声明。</li>
+</ul>
+<h3 id="33-刺激度-s式-58">3.3 刺激度 S（式 5–8）</h3>
+<p>$$S=k_1(4G_x+5G_y+3G_z+k_2v+k_3H),\qquad k_1=1,\,k_2=0.05,\,k_3=0.1$$</p>
+<ul>
+<li><strong>怎么想到</strong>：刺激 = 体感强度的加权和。三轴权重 5&gt;4&gt;3 按人体敏感度排序；速度、高度作为两个弱修正。</li>
+<li><strong>数值感</strong>：量级体检——急刹 3g → S=12（阈值）；本轨道谷底 3×6.4+0.05×22 ≈ 20。若 k₂ 取 1，则 25 m/s 的巡航就贡献 25，速度项会淹没加速度项——<strong>k₂=0.05 的取值让加速度始终主导</strong>，这是系数选择的隐性原则。</li>
+<li><strong>适用边界</strong>：线性加权隐含"各因素独立可叠加"，忽略适应/疲劳效应；权重未经实验拟合，属于<strong>工程 heuristics</strong>——论文用"标定一个锚点 + 排序合理"来辩护，是可接受的写法，但你要知道它的证据等级低于安全限值。</li>
+</ul>
+<h3 id="34-两类阻力式-1315">3.4 两类阻力（式 13–15）</h3>
+<p>$$\vec f_1=-\mu N\frac{\vec v}{v},\qquad \vec f_2=-\beta v^2\frac{\vec v}{v},\qquad \beta=\tfrac12\rho C_dA$$</p>
+<ul>
+<li><strong>完整推导</strong>：摩擦沿速度反方向、大小 μN（库仑定律）；气动阻力在高速（Re ≳ 10³）时压差主导，F ∝ ρv²A/2，写成"大小 βv² + 方向 −v̂"。β = ½×1.293×0.25×10 = 1.616 kg/m（⚠ 论文用 0.37，对应 A≈2.29 m²，见导读 1.5）。</li>
+<li><strong>数值感</strong>：v=23.5 m/s 时 βv² ≈ 0.37×552 = 204 N ≈ 0.02Mg——比摩擦（μN，平轨 489 N）小一半，两者同量级，都必须保留；这就是"为什么要平方阻力"的定量回答。</li>
+</ul>
+<h3 id="35-能量总账式-1017">3.5 能量总账（式 10、17）</h3>
+<p>$$E_{p0}=E_p(t)+E_k+W_f,\qquad E_{p0}=MgH=1000\times9.78\times30=293400\ \text{J}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：无驱动轨道的全部本钱是初始势能，能量账是<strong>全场最强校验器</strong>：任一时刻 v² /2 + gh + Wf(s) 必须恒等于 293400 J。复算 ✓：俯冲底 v=23.51 → ½v²+gh = 276.8+0 = 276.8，损耗 = ∫(μN+βv²)ds ≈ 16.6 J/... 数值上 276.8+损耗 ≈ 293 ✓。</li>
+<li><strong>适用边界</strong>：提升段电机做的功不计入（t=0 从顶点起算）；刹车段的摩擦"浪费"掉剩余动能——全程能量图是单调整递减的势能账。</li>
+</ul>
+<h3 id="36-首段俯冲-ode式-1820">3.6 首段俯冲 ODE（式 18–20）</h3>
+<p><strong>推导链</strong>：沿轨切向写牛顿方程 Mgsinθ − μN − βv² = Mv̇，N = Mgcosθ（式 18 的三分量形式 + 式 19 两侧多乘的 cosθ 约去后代入），得</p>
+<p>$$\dot v_x+3.7\times10^{-4}v_x^2-9=0$$</p>
+<ul>
+<li><strong>逐项对号</strong>：9 ≈ gsin75° − μgcos75° = 9.32 的取整（⚠ 取整丢了 3%，复现用 9.32 时底速 23.92，用 9 时 23.51——论文数据表按 9 算）；3.7×10⁻⁴ = β/M。</li>
+<li><strong>怎么想到</strong>：一维 ODE、可分离变量——其实有解析解 v(t) = v_T tanh(at) 形式（v_T = √(9/3.7e-4) = 156 m/s 远未达到），论文没用解析解而直接 Euler，因为后文圆弧段的 θ 积分项让解析解不可行——<strong>全线统一数值方法</strong>比"能解析的解析、不能的数值"更工程化。</li>
+</ul>
+<h3 id="37-圆弧段θ-作状态变量-法向力进摩擦式-2226">3.7 圆弧段：θ 作状态变量 + 法向力进摩擦（式 22–26）</h3>
+<p>$$\theta=\int_0^t\frac{v_x}{R}\,dt,\qquad M\dot v_x=-Mg\sin\theta-\mu\Big(\frac{Mv_x^2}{R}+Mg\cos\theta\Big)-\beta v_x^2,\qquad G_z=\frac{v_x^2}{gR}$$</p>
+<ul>
+<li><strong>怎么想到</strong>：竖直圆环上重力切向分量随位置变化（gsinθ），把位置参数化为弧角 θ，θ 与 v 通过 dθ/dt = v/R 挂钩——一组两个一阶 ODE 恰好适合 Euler。</li>
+<li><strong>完整推导</strong>：切向：重力分量 Mgsinθ（上圆中前半程阻碍、θ&gt;π/2 后...按其相位约定）+ 摩擦 + 阻力；法向：N − Mgcosθ = Mv²/R（向心），故 N = M(v²/R + gcosθ)——<strong>离心项把车压向轨道、N 增大、摩擦增大</strong>，这是式 (23) 括号里 Mv²/R 项的来历，也是螺旋段"差点过不去"的元凶（v²/R 高达 60+ m/s²，μ=0.05 时摩擦减速 0.05×70 ≈ 3.5 m/s²，一个圆就掉 10 m/s）。</li>
+<li><strong>数值感</strong>：上圆入口 Gz = 23.5²/(9.8×8) = 7.06... 论文口径 Gz = v²/(gR)（式 26），入口即峰值区——这就是四联图 Gz 第一个鼓包的来源；出口 v=14.25，最低点出现在 θ=π（顶部，重力全程做负功）。</li>
+</ul>
+<h3 id="38-双螺旋的坡度折算式-3941">3.8 双螺旋的坡度折算（式 39–41）</h3>
+<p>$$M\dot v_x=-\frac{\rho}{\sqrt{\rho^2+k^2}}Mg\sin\Big(\pi+\int\frac{v_x}{\rho}dt\Big)-\mu\Big(\frac{Mv_x^2}{\rho}+\cdots\Big)-\beta v_x^2$$</p>
+<ul>
+<li><strong>怎么想到</strong>：螺旋线展开是斜率为 k/ρ 的斜面——重力沿轨迹的有效分量要乘 sinφ = k/√(ρ²+k²)（论文按其角度约定写作 ρ/√(ρ²+k²) 配 sin(π+θ) 相位，展开后同构）。<strong>3D 问题降为"折算坡度 + 平面圆"</strong>，一步完成。</li>
+<li><strong>数值感</strong>：ρ=8、k=1 时因子 0.992——螺距缓，重力分量几乎和竖直圆一样；但出口速度低（1.5 m/s）说明整段净耗散，两个整圈把能量磨光，全靠末段俯冲"回血"到 20 m/s。这段是全线能量最紧张处，也是 μ 改 0.001 的直接原因。</li>
+<li><strong>适用边界</strong>：忽略螺旋两端的过渡曲线（真实轨道必须 clothoid 过渡，否则曲率突变会造成冲击——论文优点节"no sharp turns"指的是其分段连接处斜率连续的设计意图）。</li>
+</ul>
+<h3 id="39-刹车段式-4344">3.9 刹车段（式 43–44）</h3>
+<p>$$v^2=2a(x-x_0),\qquad t=t_0+v/a$$</p>
+<ul>
+<li><strong>怎么想到</strong>：末段用大摩擦制动，制动力近似恒定 → 匀减速运动学直接套。忽略气动阻力（μ₀ 大）的量级论证也写了一句。</li>
+<li><strong>复算</strong>：v=18.986 m/s、20 m 内停死 → a = v²/40 = 9.0 m/s²；论文报 9.3971（对应刹停距离 19.18 m ⚠ 与 20 m 段长不闭合，小误）。Gx = 0.92 &lt; 6 ✓ 且持续 ~2.1 s——刹车本身也过安全判据。</li>
+</ul>
+<hr>
+<h2 id="4-建模决策链">4. 建模决策链</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>作者的选择</th>
+<th>被放弃的替代</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>判据体系</td>
+<td>G-axes 三轴 + 时长条件（式 2–4）</td>
+<td>单一"总加速度"限值</td>
+<td>人体对三方向耐受差异巨大；峰值判据无时长会误杀</td>
+</tr>
+<tr>
+<td>刺激量化</td>
+<td>加权标量 S + 锚点标定（式 5–9）</td>
+<td>只用速度/高度</td>
+<td>体感主体是加速度；纯速度判据会把高速巡行误判为刺激</td>
+</tr>
+<tr>
+<td>轨道几何</td>
+<td>五段直线/圆弧/螺旋组合</td>
+<td>任意样条曲线</td>
+<td>每段 ODE 可手写、可查、可复现；无急弯避免曲率突变冲击</td>
+</tr>
+<tr>
+<td>阻力</td>
+<td>库仑摩擦 + 平方气动（式 13–15）</td>
+<td>无阻力 / 线性阻力</td>
+<td>定量论证：两项同量级（~200 N vs ~490 N @23 m/s）都必须保留</td>
+</tr>
+<tr>
+<td>圆轨摩擦</td>
+<td>μ=0.001（直轨 0.05）</td>
+<td>统一 μ=0.05</td>
+<td>离心使 N 巨大、μ=0.05 时螺旋段无法通过（§4.1 自曝调参理由）</td>
+</tr>
+<tr>
+<td>数值方法</td>
+<td>Euler，Δt=10⁻⁴ s（爬升/螺旋 10⁻³）</td>
+<td>RK45 / 解析解</td>
+<td>全线统一；部分段其实有解析解但圆弧 θ 积分项不可解析</td>
+</tr>
+<tr>
+<td>判定口径</td>
+<td>Gz 用 v²/(gR)（式 26）</td>
+<td>惯性系加速度</td>
+<td>乘客体感=比力；与 NASA 限值同口径</td>
+</tr>
+<tr>
+<td>提升段</td>
+<td>电机 2 m/s 匀速、t=0 从顶点起算</td>
+<td>计入电机动力学</td>
+<td>提升段无刺激无风险，一段话排除</td>
+</tr>
+<tr>
+<td>自旋扩展</td>
+<td>给出修正项公式（式 45–46）不做数值</td>
+<td>直接忽略</td>
+<td>"未做也给形式"——展示能力边界而非留白</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总规律</strong>：这张表的每一条都能在正文找到一句"为什么"——包括调参（μ 改小）都有物理解释。<strong>决策透明比决策高级更重要</strong>：Euler 法并不先进，但配上 Δt、递归代码、Table 1 可验账，可信度反而超过用黑箱求解器的队伍。</p>
+<hr>
+<h2 id="5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</h2>
+<p><strong>结构模板（体验量化型论文）</strong>：</p>
+<pre><code>Abstract        卖点一句话（量化判据）+ 工具链 + 结论
+2 Model         2.2 先立法：坐标系(G-axes) → 安全限值(文献) → 刺激指标(逐级构造+锚点标定)
+                2.3 工具箱：定律集中列（能量/牛顿/阻力/圆周），方法(Euler)给推导
+                2.4 分段模型：概念图 → 三维图 → 每段几何参数
+3 Results       全线总账表(关键点 s,v,t) → 四联时间序列图 → 逐轴对照判据下结论
+                3.2 每段：牛顿方程 → 单变量 ODE → 数据表 + 曲线（重复段显式跳过）
+4 Discussion    结论 → 局限(含未做扩展的公式形式) → 优点(含设计意图)
+Appendix       全部代码 + 分段放大图
+</code></pre>
+<p><strong>句式库（原文摘录，括号内为使用场景）</strong>：
+- "To simplify the model, in this project, it is assumed that if: ... the safety requirement is satisfied."（把文献耐受数据压缩成简明判据组）
+- "Since in this project, there's no other forward accelerating force except gravity, so ... is always satisfied."（排除法证明某维度自动达标）
+- "Moreover, we notice that the degree of excitement also has some relation to ... Hence another item ... should be added."（指标逐级构造的连接句）
+- "Consequently, finally we choose the coefficients k1 = 1, k2 = 0.05, k3 = 0.1."（系数给出后立刻用锚点标定阈值）
+- "But value of Gz larger than 4.8 only lasting for 1 second, much smaller than the maximal lasting time 2.5s, hence it is also safe according to NASA's study."（超标但合法：峰值×时长联合判读）
+- "we find that the most significant limiting factor of safety is the upward acceleration."（把结果升华为设计洞察）
+- "The calculation ... is similar to ..., so we directly list results here."（显式跳过重复推导）
+- "we replace the origin µ with a smaller one for circular track."（调参留痕：附物理理由）</p>
+<p><strong>图表配方</strong>：体验/指标类 → "判据线画进每张指标图（红线=限值）+ 四联图共享时间轴"；全线结果 → "关键点账目表（s/v/t）+ 总量收口（L、T）"；设计感 → "概念图 + CAD 三维图双呈现，游戏引擎当概念验证"。</p>
+<hr>
+<p><em>精读完这篇后，建议对照 <code>05_论文赏析/2019/2019-GM-B-190.md</code>（宏观赏析）与 <code>07_题目解读/2019_题B_过山车设计.md</code>（题目全解）形成三位一体。同题对照：下一篇精读 13（队伍 389，九分段能量法）——两篇同题金牌放到一起读，比较"指标法"与"能量法"两条路线的取舍。</em></p>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-221-参数定义g-axes第-24-页">1.2 §2.2.1 参数定义：G-axes（第 2–4 页）</a></li><li class="l3"><a href="#13-222-安全判据第-35-页">1.3 §2.2.2 安全判据（第 3–5 页）</a></li><li class="l3"><a href="#14-223-刺激度-s-的逐级构造第-4-页">1.4 §2.2.3 刺激度 S 的逐级构造（第 4 页）</a></li><li class="l3"><a href="#15-23-定律工具箱第-47-页">1.5 §2.3 定律工具箱（第 4–7 页）</a></li><li class="l3"><a href="#16-24-五段式轨道第-711-页">1.6 §2.4 五段式轨道（第 7–11 页）</a></li><li class="l3"><a href="#17-3-结果与四联图第-1214-页">1.7 §3 结果与四联图（第 12–14 页）</a></li><li class="l3"><a href="#18-32-分段详析第-1421-页">1.8 §3.2 分段详析（第 14–21 页）</a></li><li class="l3"><a href="#19-4-discussion结论局限优点第-2023-页">1.9 §4 Discussion：结论、局限、优点（第 20–23 页）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-过载定义式-1">3.1 过载定义（式 1）</a></li><li class="l3"><a href="#32-安全限值式-24">3.2 安全限值（式 2–4）</a></li><li class="l3"><a href="#33-刺激度-s式-58">3.3 刺激度 S（式 5–8）</a></li><li class="l3"><a href="#34-两类阻力式-1315">3.4 两类阻力（式 13–15）</a></li><li class="l3"><a href="#35-能量总账式-1017">3.5 能量总账（式 10、17）</a></li><li class="l3"><a href="#36-首段俯冲-ode式-1820">3.6 首段俯冲 ODE（式 18–20）</a></li><li class="l3"><a href="#37-圆弧段θ-作状态变量-法向力进摩擦式-2226">3.7 圆弧段：θ 作状态变量 + 法向力进摩擦（式 22–26）</a></li><li class="l3"><a href="#38-双螺旋的坡度折算式-3941">3.8 双螺旋的坡度折算（式 39–41）</a></li><li class="l3"><a href="#39-刹车段式-4344">3.9 刹车段（式 43–44）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>
