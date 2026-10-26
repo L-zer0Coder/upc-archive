@@ -1,0 +1,123 @@
+% ============================================================
+%  UPC 论文模板 · 双栏紧凑款
+%  适用：图表多、想一页塞下更多论证的队伍；评委翻页快，"信息密度"高。
+%  结构同金牌骨架（基线 → 分层模型 → 结果 → 误差 → 结论），仅版式不同。
+%  编译：pdflatex 两遍
+% ============================================================
+\documentclass[10pt,a4paper,twocolumn]{article}
+
+\usepackage[margin=0.8in,columnsep=0.25in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{newtxtext,newtxmath}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{amsmath,amssymb}
+\numberwithin{equation}{section}
+\usepackage{enumitem}
+\setlist{itemsep=2pt,topsep=3pt,leftmargin=*}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+\usepackage{balance}   % 末页双栏配平，交卷前记得保留 \balance
+
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\unit}[1]{\,\mathrm{#1}}
+
+% 双栏下摘要横贯页首：\twocolumn[ ... ] 的标准用法
+\title{\LARGE\bfseries Your Descriptive Paper Title Here\\[2pt]
+       \large Team \#1234 --- Problem A}
+\author{}
+\date{}
+
+\begin{document}
+\twocolumn[
+  \begin{@twocolumnfalse}
+    \maketitle
+    \begin{abstract}
+    \noindent
+    We define the key quantities and identify the central trade-off: if [A] is
+    too large, [failure 1]; if too small, [failure 2].
+    Section~1 establishes a baseline costing 95\% of initial mass; Section~2
+    develops the model, integrated by [method] and verified by step-halving.
+    The admissible window is
+    $\boxed{8.8296^\circ < \theta < 8.8549^\circ}$.
+    We therefore \emph{advise against} the maneuver.
+    \vspace{12pt}
+    \end{abstract}
+  \end{@twocolumnfalse}
+]
+
+\section{Baseline: The Cost of Doing Nothing}
+We first compute the cost of [baseline option]:
+\begin{equation}
+  E = \tfrac12 m v_0^2 - \frac{GMm}{R} > 0,
+\end{equation}
+hence the unmodified trajectory is hyperbolic; a circular orbit requires
+$\Delta v = 13.62\unit{km/s}$, a 95.15\% mass cost by the rocket equation
+\begin{equation}
+  m_f = m_0 e^{-\Delta v/v_{ex}} \approx 121\unit{kg}.
+  \label{eq:rocket}
+\end{equation}
+This anchors all comparisons below.
+
+\section{Model}
+\subsection{Governing Equations}
+Quadratic drag and Newtonian gravity give
+\begin{equation}
+  m\ddot{\vect{r}} = -\frac{GMm}{r^3}\vect{r}
+  \;-\; \sigma\,\frac{P(h)}{T(h)}\,|\dot{\vect r}|\,\dot{\vect{r}},
+  \label{eq:eom}
+\end{equation}
+with $P(h)$, $T(h)$ anchored at literature points~\cite{Key1993}.
+
+\subsection{Numerical Method}
+Equation~\eqref{eq:eom} is integrated with $\Delta t = 10^{-3}\unit{s}$;
+termination at [condition]. Code in Appendix~A.
+
+% 双栏里宽图用 table*/figure* 横跨两栏
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.92\textwidth]{Figure1}
+  \caption{[This figure proves one point: ...] 宽图横跨双栏，只给最关键的论证图。}
+  \label{fig:1}
+\end{figure*}
+
+\section{Results}
+The admissible set is one interval; bracketing gives
+$8.8295^\circ < q_{min} < 8.8296^\circ$.
+\begin{table}[h]
+  \centering
+  \caption{[One claim per table.]}
+  \label{tab:1}
+  \begin{tabular}{lccc}
+    \toprule
+    phase & 1 & 2 & 3 \\
+    \midrule
+    gold   & $-0.4$ & $-0.4$ & $-1.9$ \\
+    silver & $-0.8$ & $1.9$  & $-1.1$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Uncertainty}
+Step-halving changes the result in the fifth digit; unmodeled: [rotation, winds].
+
+\section{Conclusion}
+The window is $0.0253^\circ$ wide --- a 75\% fuel saving at an impractical
+corridor. We advise against the maneuver.
+
+\appendix
+\section{Simulation Code}
+
+\balance
+\begin{thebibliography}{9}
+\bibitem{Key1993} J.~Author, ``Title,'' \emph{Journal} \textbf{31}, 217 (1993).
+\end{thebibliography}
+
+\end{document}

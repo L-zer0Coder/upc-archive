@@ -1,0 +1,149 @@
+% ============================================================
+%  UPC 论文模板 · 官方 elsarticle 款
+%  来源：官方 template.tex（Elsevier elsarticle），清理了占位内容，
+%        按金牌论文惯例补齐注释与结构说明。
+%  适用：想要和官方示例完全同源、依赖 TeX Live/MiKTeX 自带 elsarticle.cls。
+%  编译：pdflatex（两遍，含 bibtex 则三遍）
+%  搭配：总览页「论文模板工坊」对比选择；写作流程见《一篇金牌论文的完整历程》
+% ============================================================
+\documentclass[final,3p,times,onecolumn]{elsarticle}
+% 其他版式开关（官方注释保留）：
+%   \documentclass[preprint,12pt]{elsarticle}      草稿大字距
+%   \documentclass[final,5p,times,twocolumn]{elsarticle}  期刊双栏
+
+\usepackage[fleqn]{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}                 % 三线表：\toprule\midrule\bottomrule
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\usepackage{mhchem}                   % 化学式（如需）
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+
+% 金牌高频宏
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\unit}[1]{\,\mathrm{#1}}
+
+\biboptions{numbers,sort&compress}
+
+\begin{document}
+
+\begin{frontmatter}
+
+% 匿名规范：只写队号与题号，不出现姓名/学校
+\title{Your Descriptive Paper Title Here}
+\author{Team \#1234}
+\address{Problem A}
+\date{\today}
+
+% 摘要一页：符号定义 → 问题两难 → 方法路线 → 带数字的结论（评委只读摘要也能拿结果）
+\begin{abstract}
+We define the key quantities ($R \approx 2.5\times10^{4}\unit{km}$,
+$v_0 = 30\unit{km/s}$) and identify the central trade-off: if [A] is too large,
+[failure 1]; if too small, [failure 2].
+Section~1 establishes a baseline costing 95\% of initial mass.
+Section~2 develops the model with data-anchored parameters, integrated by
+[method] and verified by step-halving to 4--5 significant figures.
+The admissible window is
+\[
+  \boxed{\;8.8296^\circ < \theta < 8.8549^\circ\;}
+\]
+We therefore \emph{advise against} the maneuver and identify [parameter] as the
+most promising lever.
+\end{abstract}
+
+% \begin{keyword}
+%   keyword1 \sep keyword2
+% \end{keyword}
+
+\end{frontmatter}
+
+% ---------- 1 基线：先算"什么都不做"的成本，给后文量化参照 ----------
+\section{Baseline: The Cost of Doing Nothing}
+We first compute the cost of [baseline option]:
+\begin{equation}
+  E = \tfrac12 m v_0^2 - \frac{GMm}{R},
+\end{equation}
+which is positive --- the unmodified trajectory is hyperbolic. A circular orbit
+requires $\Delta v = 13.62\unit{km/s}$, i.e.\ by the rocket equation
+\begin{equation}
+  m_f = m_0\, e^{-\Delta v / v_{ex}} \approx 121\unit{kg},
+  \label{eq:rocket}
+\end{equation}
+a 95.15\% mass cost. This anchors all comparisons below.
+
+% ---------- 2 模型：理想 → 关键修正 → 扩展，每层给量级论证 ----------
+\section{Model}
+\subsection{Governing Equations}
+Quadratic drag and Newtonian gravity give
+\begin{equation}
+  m\ddot{\vect{r}} = -\frac{GMm}{r^3}\vect{r}
+  \;-\; \sigma\,\frac{P(h)}{T(h)}\,|\dot{\vect r}|\,\dot{\vect{r}},
+  \qquad \sigma \equiv \frac{c_d \mu A}{2k_B},
+  \label{eq:eom}
+\end{equation}
+where $P(h)$ and $T(h)$ are anchored at two literature points each~\cite{Key1993}.
+
+\subsection{Numerical Method}
+Equation~\eqref{eq:eom} is integrated by [method] with $\Delta t = 10^{-3}\unit{s}$;
+the run terminates at [condition]. Full code in Appendix~B.
+
+\subsection{Operationalizing the Criterion}
+A ``significant'' saving is not quantitative; we require $m_f \ge 0.8\,m_0$,
+which bounds the admissible [quantity] to
+\begin{equation}
+  q_{min} \le q \le q_{max}.
+\end{equation}
+
+% ---------- 3 结果：单调性 + 反例夹逼 ----------
+\section{Results}
+Exit speed increases monotonically with [parameter] (App.~A), so the admissible
+set is one interval. Bracketing by counterexample simulations:
+\begin{equation}
+  8.8295^\circ < q_{min} < 8.8296^\circ .
+\end{equation}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\linewidth]{Figure1}
+  \caption{[This figure proves one point: ...]}
+  \label{fig:1}
+\end{figure}
+
+\begin{table}[htbp]
+  \caption{[One claim per table.]}
+  \label{tab:1}
+  \begin{tabular}{lcccc}
+    \toprule
+    phase & 1 & 2 & 3 & 4 \\
+    \midrule
+    gold   & $-$   & $-0.4$ & $-0.4$  & $-1.9$ \\
+    silver & $-$   & $-0.8$ & $1.9$   & $-1.1$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% ---------- 4 误差三件套：收敛性/极限情形/灵敏度 ----------
+\section{Uncertainty}
+Halving the step changes the result in the fifth digit; we claim 4--5
+significant figures, worst case 4. Unmodeled: [rotation, winds, shape].
+
+% ---------- 5 结论：区间 + 与基准对比 + 敢写负结论 ----------
+\section{Conclusion}
+The admissible window is $0.0253^\circ$ wide --- a 75\% fuel saving at the
+price of an impractically tight corridor. We advise against the maneuver;
+[targeting X] would relax the window considerably.
+
+\appendix
+\section{Derivation of the Rocket Equation}
+\section{Simulation Code}
+
+% ---------- 参考文献：金牌普遍 5–15 条，网络来源注明访问日期 ----------
+\bibliographystyle{elsarticle-num}
+\bibliography{ref}
+% 若不用 BibTeX，可改用 \begin{thebibliography}{9} 手排
+
+\end{document}

@@ -3,6 +3,8 @@
 !/.gitignore
 !/.nojekyll
 !/index.html
+!/404.html
+!/search-index.js
 !/README.md
 !/01_官网原始页面
 !/02_官方成绩单
@@ -14,6 +16,8 @@
 !/07_题目解读
 !/08_物理模型综述
 !/09_可视化总览
+!/10_论文精读
+!/11_论文模板与工具
 !/_工具脚本
 __pycache__/
 *.pyc

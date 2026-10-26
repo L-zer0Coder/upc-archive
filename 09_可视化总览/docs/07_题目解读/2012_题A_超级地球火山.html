@@ -5,13 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2012 题A：超级地球上的火山活动（Volcanism on Super-Earths） · UPC 全档案库</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<meta name="description" content="2012 题A：超级地球上的火山活动（Volcanism on Super-Earths） 赛题来源：UPC 2012 Problem A（当年 81 队中 24 队选题 A，金奖 1 队：上海交通大学 449 队） 1. 题目原文与关…">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="2012 题A：超级地球上的火山活动（Volcanism on Super-Earths） · UPC 全档案库">
+<meta property="og:description" content="2012 题A：超级地球上的火山活动（Volcanism on Super-Earths） 赛题来源：UPC 2012 Problem A（当年 81 队中 24 队选题 A，金奖 1 队：上海交通大学 449 队） 1. 题目原文与关…">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<script defer src="../../vendor/katex/katex.min.js"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../../vendor/mermaid/mermaid.min.js"></script>
 <style>
 :root{
- --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#9A9080;
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
  --line:#E7E0D1;--line2:#D9D0BD;
  --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
@@ -22,12 +28,12 @@ html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
 .topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
 .topbar a:hover{color:var(--acc)}
 .topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
 .topbar .tag:hover{border-color:var(--acc)}
-.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
 .topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
 .topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
 .topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
@@ -78,13 +84,46 @@ aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
 aside.toc::-webkit-scrollbar{width:5px}
 aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 @media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
 <div id="pbar"></div>
 <div class="topbar"><div class="in">
-  <a class="brand" href="../../index.html"><span class="seal">U</span>UPC 全档案库</a>
-  <a href="../../index.html#guide">使用指南</a>
+  <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../../index.html#guide">使用指南</a>
   <button id="ck" class="tag ck" type="button" hidden></button>
   
   <a class="tag" href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2012_%E9%A2%98A_%E8%B6%85%E7%BA%A7%E5%9C%B0%E7%90%83%E7%81%AB%E5%B1%B1.md">Markdown</a>
@@ -248,7 +287,9 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <li>[ ] 是否有一条明确的<strong>结论曲线族</strong>：不同质量的 $T(t)$ 与活动率曲线 + 一句话答案（越大越持久）。</li>
 <li>[ ] 是否讨论了未建模效应（对流、板块体制、潮汐、大气）及其方向性影响。</li>
 </ul>
-</div></div>
+</div>
+
+</div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌论文思路对比">8. 金牌论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>

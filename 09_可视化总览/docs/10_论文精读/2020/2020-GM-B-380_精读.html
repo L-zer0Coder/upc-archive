@@ -5,13 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>精读 06 · Stability Research of Quadcopter UAV Under Unstable Wind（2020 题B 金牌 · 队伍 380） · UPC 全档案库</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<meta name="description" content="精读 06 · Stability Research of Quadcopter UAV Under Unstable Wind（2020 题B 金牌 · 队伍 380） 这份精读怎么用 ：这篇 39 页长文走了一条与 335 队完全不…">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="精读 06 · Stability Research of Quadcopter UAV Under Unstable Wind（2020 题B 金牌 · 队伍 380） · UPC 全档案库">
+<meta property="og:description" content="精读 06 · Stability Research of Quadcopter UAV Under Unstable Wind（2020 题B 金牌 · 队伍 380） 这份精读怎么用 ：这篇 39 页长文走了一条与 335 队完全不…">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
+<script defer src="../../../vendor/katex/katex.min.js"></script>
+<script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../../../vendor/mermaid/mermaid.min.js"></script>
 <style>
 :root{
- --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#9A9080;
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
  --line:#E7E0D1;--line2:#D9D0BD;
  --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
@@ -22,12 +28,12 @@ html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
 .topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
 .topbar a:hover{color:var(--acc)}
 .topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
 .topbar .tag:hover{border-color:var(--acc)}
-.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
 .topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
 .topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
 .topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
@@ -78,13 +84,46 @@ aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
 aside.toc::-webkit-scrollbar{width:5px}
 aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 @media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
 <div id="pbar"></div>
 <div class="topbar"><div class="in">
-  <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
-  <a href="../../../index.html#guide">使用指南</a>
+  <a class="brand" href="../../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../../../index.html#guide">使用指南</a>
   <button id="ck" class="tag ck" type="button" hidden></button>
   <a class="tag" href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2020/Problem%20B/2020-GM-B-380.pdf">论文 PDF</a><a class="tag" href="../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2020/2020-GM-B-380.html">本篇赏析</a>
   <a class="tag" href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2020/2020-GM-B-380_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
@@ -410,7 +449,9 @@ $$V=V_b+V_g+V_r+V_n\;(5),\qquad V^{max}=V_b^{max}+V_g^{max}+V_r^{max}+V_n^{max}\
 <p><strong>数字卫生</strong>：⚠ 本文 5.5 节 5.2795 与摘要 5.3678 打架、式 (2) 文/码两种阵风形、坐标轴标签误写 "time (m/s)"——39 页长文尤其要<strong>统一"结论数字只出自一张表"的原则</strong>，并在交卷前用脚本 grep 每个数字的出现处。</p>
 <hr>
 <p><em>精读完本篇，建议对照 <code>05_论文赏析/2020/2020-GM-B-380.md</code> 与 <code>07_题目解读/2020_题B_四旋翼抗风.md</code>，并与 335 队精读对比：Dryden+PID 的"专业路线"对四分量+弹簧律的"参数化路线"，两篇合计正好构成该题的完整解空间。</em></p>
-</div></div>
+</div>
+<div class="realted-wrap"><div class="realted"><div class="tt">2020 题B · 同年同题金牌论文（2 篇）</div><ul><li><span class="t">#335</span><a class="n" href="2020-GM-B-335_%E7%B2%BE%E8%AF%BB.html" title="Wind Control Strategy for Quadcopter">Wind Control Strategy for Quadcopter</a><span class="t" style="text-align:right">19 页</span></li><li class="self"><span class="t">#380</span><span class="n">Stability Research of Quadcopter UAV Under Unstable Wind</span><span>本篇</span></li></ul></div></div>
+</div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract-与-12第-14-页">1.1 Abstract 与 §1–2（第 1–4 页）</a></li><li class="l3"><a href="#12-3-假设第-5-页">1.2 §3 假设（第 5 页）</a></li><li class="l3"><a href="#13-41-风场四分量模型第-810-页第一个亮点">1.3 §4.1 风场四分量模型（第 8–10 页）——第一个亮点</a></li><li class="l3"><a href="#14-42-悬停动力学第-1016-页">1.4 §4.2 悬停动力学（第 10–16 页）</a></li><li class="l3"><a href="#15-43-控制系统第-1618-页第二个亮点">1.5 §4.3 控制系统（第 16–18 页）——第二个亮点</a></li><li class="l3"><a href="#16-5-求解与-54-ε-分析第-1927-页第三个亮点">1.6 §5 求解与 §5.4 ε 分析（第 19–27 页）——第三个亮点</a></li><li class="l3"><a href="#17-6-评估与-7-结论第-2831-页">1.7 §6 评估与 §7 结论（第 28–31 页）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-四分量风场式-16">3.1 四分量风场（式 1–6）</a></li><li class="l3"><a href="#32-风阻力式-71822">3.2 风阻力（式 7/18/22）</a></li><li class="l3"><a href="#33-三次旋转与姿态矩阵式-814">3.3 三次旋转与姿态矩阵（式 8–14）</a></li><li class="l3"><a href="#34-悬停动力学式-1524">3.4 悬停动力学（式 15–24）</a></li><li class="l3"><a href="#35-最大修正力式-26-以代码为准">3.5 最大修正力（式 26，⚠ 以代码为准）</a></li><li class="l3"><a href="#36-仿弹簧反馈律式-2728-以代码为准">3.6 仿弹簧反馈律（式 27–28，⚠ 以代码为准）</a></li><li class="l3"><a href="#37-变化因子与闭式最大风速式-3335">3.7 变化因子与闭式最大风速（式 33–35）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>

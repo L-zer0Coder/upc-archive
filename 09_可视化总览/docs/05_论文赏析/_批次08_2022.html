@@ -5,13 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>批次08 · 2022 年金牌论文对比总表 · UPC 全档案库</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<meta name="description" content="批次08 · 2022 年金牌论文对比总表 2022 年 UPC 共 417 支队伍提交论文；题 A（Deflecting an Asteroid）公开金奖论文 4 篇，题 B（FIFA Penalty Kicks）3 篇。本批次完成 …">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="批次08 · 2022 年金牌论文对比总表 · UPC 全档案库">
+<meta property="og:description" content="批次08 · 2022 年金牌论文对比总表 2022 年 UPC 共 417 支队伍提交论文；题 A（Deflecting an Asteroid）公开金奖论文 4 篇，题 B（FIFA Penalty Kicks）3 篇。本批次完成 …">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<script defer src="../../vendor/katex/katex.min.js"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
+
 <style>
 :root{
- --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#9A9080;
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
  --line:#E7E0D1;--line2:#D9D0BD;
  --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
@@ -22,12 +28,12 @@ html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
 .topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
 .topbar a:hover{color:var(--acc)}
 .topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
 .topbar .tag:hover{border-color:var(--acc)}
-.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
 .topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
 .topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
 .topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
@@ -78,13 +84,46 @@ aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
 aside.toc::-webkit-scrollbar{width:5px}
 aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 @media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
 <div id="pbar"></div>
 <div class="topbar"><div class="in">
-  <a class="brand" href="../../index.html"><span class="seal">U</span>UPC 全档案库</a>
-  <a href="../../index.html#guide">使用指南</a>
+  <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../../index.html#guide">使用指南</a>
   <button id="ck" class="tag ck" type="button" hidden></button>
   
   <a class="tag" href="../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/_%E6%89%B9%E6%AC%A108_2022.md">Markdown</a>
@@ -170,7 +209,9 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <p><strong>题 B：Magnus 力建模的三级台阶。</strong> 三支题 B 队伍最终都收敛到同一表达式 $\vec F_m = \frac{8}{3}\pi\rho r^3\,\vec\omega\times\vec v$（358 式 (7)、471 式 (10)、480 式 (1)），但对自转的处理构成递进：358 先解出 $\omega = \omega_0e^{-kt}$ 再用数量级论证"飞行 1 秒内衰减不足 0.1%"，正当取常值；471 先假设光滑球取常值、第 7 节用 Stokes 黏性力矩 + 空心球转动惯量 $I=\frac{2}{3}ma^2$ 正式修正为 $\omega&#x27; = \omega_0e^{-9\pi\eta a t/m}$，形成"假设-回收"叙事；480 则一步到位把 $e^{-\mu t}$ 写进运动方程 (7)（但 $\mu=0.1$ 为硬编码，按其参数推算仅约 0.009，处理偏粗）。阻力系数的处理同样分层：358 取常数 $C_a=0.4$，471 用 Asai 实验曲线插值让 $C_d$ 从 0.5 降到 0.06（捕捉阻力危机，唯一一家），480 取常数 $c=0.5$。这组对照说明：同一物理效应的"常数近似 / 量级论证近似 / 显式建模 / 事后修正"四种深度都可以拿金牌，差别在于你是否把所选深度讲出自洽理由。</p>
 <p><strong>题 B：守门员建模的三种范式。</strong> 358 走"解剖学 + 几何可达域 + 概率"路线：肩高、臂长引艺用解剖学文献，直立与扑救两模式分别给可达域，再以重叠次数加权二维正态分布做蒙特卡洛风险热图，最后求绝对死角；471 走"时间公式"路线：把扑救写成两段式时间函数 (19)（低于重心先降重心再平移），以 $t_{simulation}\le t_s$ 直接作约束筛出 1108 组可行策略；480 走"极值面积"路线：蹬地模型 (8)–(10) → 斜抛位移 (14)(15) → 面积积分对起跳角求极值得 $\alpha = 57.52°$、$s_{max}=13.34$ m²，并取"守门员全知全能"的最坏情形。三者分别把"对手"建成了概率场、时间约束与几何包络——这为"含人的对抗系统"提供了三种可复用的建模范式。</p>
 <p><strong>题 B：最优化呈现与结论反差。</strong> 在"最优策略"的最终表达上，358 给出必进死角的角度区间（$\theta\in[76.95°,78.95°]$ 等），471 给出精度最高的单点解（距上角中心 0.0118 m）加 1108 组策略分布，480 则反转题目"射上角"的暗示、用 ±2 单位扰动重采样与世界杯 16 年统计主张射下角（$v_0=21.245$ m/s）。值得注意的共性是：三队都不满足于回答"哪些初条件能进球"，而是把第二问升级为决策建议（风险最小/时间最紧/鲁棒性最强），这正是 UPC 评委在"best chance"这一措辞里期待的东西。另外两处模板差异也值得留意：395 与 471 采用 MCM 式 Summary Sheet + 目录 + 分节评述的"美赛风"，346/425/460/358 采用 UPC 摘要页式的"期刊风"，480 为 Word 排版——模板不影响获奖，但 471/480 的案例研究与数据可视化说明，"把结果讲成决策故事"的能力是跨模板的通用加分项。</p>
-</div></div>
+</div>
+
+</div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#同题异构对比观察">同题异构对比观察</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>

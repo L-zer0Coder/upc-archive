@@ -24,6 +24,13 @@ DIR_LABEL = {
 }
 GM_RE = re.compile(r"(\d{4})-GM-([AB])-([0-9A-Za-z]+)", re.I)  # \w 会吞掉「_精读」后缀，故只取字母数字
 
+# 本地自托管的前端依赖（构建前由 _fetch_vendor.py 下载；不再依赖境外 CDN）
+VENDOR = os.path.join(SITE, "vendor")
+KATEX_CSS = os.path.join(VENDOR, "katex", "katex.min.css")
+KATEX_JS = os.path.join(VENDOR, "katex", "katex.min.js")
+KATEX_AUTORENDER = os.path.join(VENDOR, "katex", "contrib", "auto-render.min.js")
+MERMAID_JS = os.path.join(VENDOR, "mermaid", "mermaid.min.js")
+
 def posix(p):
     return p.replace("\\", "/")
 
@@ -31,8 +38,8 @@ def rel_root(path_abs):
     return posix(os.path.relpath(path_abs, ROOT))
 
 def site_rel(path_abs):
-    """URL for a target as seen from index.html (which lives in SITE dir)."""
-    return quote(posix(os.path.relpath(path_abs, SITE)))
+    """URL for a target as seen from the site entry page (repo-root index.html)."""
+    return quote(posix(os.path.relpath(path_abs, ROOT)))
 
 # ---------------- collect docs ----------------
 doc_mds = [P("README.md")]
@@ -70,13 +77,19 @@ DOC_TPL = r"""<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>__TITLE__ · UPC 全档案库</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<meta name="description" content="__DESC__">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="__TITLE__ · UPC 全档案库">
+<meta property="og:description" content="__DESC__">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="__CSS_KATEX__">
+<script defer src="__JS_KATEX__"></script>
+<script defer src="__JS_AUTORENDER__"></script>
+__MERMAID_TAG__
 <style>
 :root{
- --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#9A9080;
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
  --line:#E7E0D1;--line2:#D9D0BD;
  --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
@@ -87,12 +100,12 @@ html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
 .topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
 .topbar a:hover{color:var(--acc)}
 .topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
 .topbar .tag:hover{border-color:var(--acc)}
-.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
 .topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
 .topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
 .topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
@@ -143,6 +156,39 @@ aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
 aside.toc::-webkit-scrollbar{width:5px}
 aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 @media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -158,7 +204,9 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <div class="layout">
   <div class="content"><div class="sheet">
 __BODY__
-</div></div>
+</div>
+__RELATED__
+</div>
 __TOC__
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
@@ -299,8 +347,11 @@ def render_docs():
             body = body.replace(TOK.format(i), html.escape(s))
         title = doc_title(md_abs)
         crumb = DIR_LABEL.get(rel, rel.rsplit("/", 1)[0] if "/" in rel else rel)
-        home = link_from(page_dir, os.path.join(SITE, "index.html"))
+        home = link_from(page_dir, P("index.html"))
         raw = link_from(page_dir, md_abs)
+        # 摘要：给 meta description / OG 用（也写进搜索索引）
+        plain = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", body)).strip()
+        desc = html.escape(plain[:118] + ("…" if len(plain) > 118 else ""), quote=True)
         # per-paper pages (赏析/精读) get cross-links: PDF 原件 + 姊妹篇
         m = GM_RE.search(rel)
         papertag = ""
@@ -326,22 +377,65 @@ def render_docs():
             mi = re.match(r"(\d{4})_题([AB])_", os.path.basename(rel))
             if mi:
                 pkey, pkind = f"{mi.group(1)}-{mi.group(2).upper()}", "interp"
+
+        # 同年同题的其他金牌论文：UPC 学习里最核心的动作就是横向对比同题解法
+        related = ""
+        if m and pkind == "paper":
+            yr, prob = m.group(1), m.group(2).upper()
+            siblings = papers_by.get((int(yr), prob), [])
+            if len(siblings) > 1:
+                rows = []
+                for x in siblings:
+                    b2 = os.path.splitext(x["file"])[0]
+                    key2 = "2013-GM-B-611a" if b2 == "2013-GM-B-611" else b2
+                    ana2 = P("05_论文赏析", yr, key2 + ".md")
+                    jd2 = P("10_论文精读", yr, key2 + "_精读.md")
+                    if rel.startswith("10_论文精读"):
+                        tgt2 = jd2 if os.path.exists(jd2) else ana2
+                    else:
+                        tgt2 = ana2 if os.path.exists(ana2) else jd2
+                    t2 = doc_title(ana2) if os.path.exists(ana2) else key2
+                    t2 = re.sub(r"（.*?）$", "", t2).strip()
+                    is_self = key2 == re.sub(r"-611$", "-611a", m.group(0))
+                    if is_self:
+                        rows.append(f'<li class="self"><span class="t">#{x["team"]}</span>'
+                                    f'<span class="n">{html.escape(t2)}</span><span>本篇</span></li>')
+                    else:
+                        rows.append(f'<li><span class="t">#{x["team"]}</span>'
+                                    f'<a class="n" href="{link_from(page_dir, doc_html_abs(tgt2) if tgt2.endswith(".md") else tgt2)}"'
+                                    f' title="{html.escape(t2)}">{html.escape(t2)}</a>'
+                                    f'<span class="t" style="text-align:right">{x["pages"]} 页</span></li>')
+                related = ('<div class="realted-wrap"><div class="realted">'
+                           f'<div class="tt">{yr} 题{prob} · 同年同题金牌论文（{len(siblings)} 篇）</div>'
+                           '<ul>' + "".join(rows) + '</ul></div></div>')
+
+        # Mermaid 只在该页真的含流程图时才引入（省掉 115 个页面各 3MB 的无谓下载）
+        has_mermaid = 'class="language-mermaid"' in body
+        mermaid_tag = (f'<script src="{link_from(page_dir, MERMAID_JS)}"></script>'
+                       if has_mermaid and os.path.exists(MERMAID_JS) else "")
+
         page_html = (DOC_TPL.replace("__TITLE__", title).replace("__CRUMB__", crumb)
                      .replace("__HOME__", home).replace("__RAWMD__", raw)
                      .replace("__PAPERTAG__", papertag).replace("__BODY__", body)
                      .replace("__PKEY__", pkey).replace("__PKIND__", pkind)
+                     .replace("__DESC__", desc).replace("__RELATED__", related)
+                     .replace("__CSS_KATEX__", link_from(page_dir, KATEX_CSS))
+                     .replace("__JS_KATEX__", link_from(page_dir, KATEX_JS))
+                     .replace("__JS_AUTORENDER__", link_from(page_dir, KATEX_AUTORENDER))
+                     .replace("__MERMAID_TAG__", mermaid_tag)
                      .replace("__TOC__", toc_html(MD)))
         os.makedirs(page_dir, exist_ok=True)
         with open(html_abs, "w", encoding="utf-8") as f:
             f.write(page_html)
-        built.append((md_abs, html_abs, title))
+        built.append((md_abs, html_abs, title, plain[:600]))
     return built
-
-built_docs = render_docs()
 
 # ---------------- shared data for index ----------------
 with open(P("04_论文文本", "_meta.json"), encoding="utf-8") as f:
     papers = json.load(f)
+# 元数据里早期抓的是大写 .PDF，磁盘上已统一改小写；这里同步，避免生成大写的死链
+for _p in papers:
+    _p["file"] = re.sub(r"\.PDF$", ".pdf", _p["file"], flags=re.I)
 with open(P("02_题目汇总", "_parsed.json"), encoding="utf-8") as f:
     parsed = {int(k): v for k, v in json.load(f).items()}
 
@@ -410,6 +504,9 @@ for p in papers:
     papers_by.setdefault((int(p["year"]), p["problem"]), []).append(p)
 for k in papers_by:
     papers_by[k].sort(key=lambda x: x["file"])
+
+# 文档页渲染依赖 papers_by（用于「同年同题其他论文」对比块），故延后到这里执行
+built_docs = render_docs()
 
 def paper_entry(p):
     base = os.path.splitext(p["file"])[0]
@@ -494,15 +591,20 @@ lib.append({"name": "_工具脚本", "desc": "抓取 / 建库 / 建站全流程 
             "items": [{"n": os.path.basename(f), "u": site_rel(f)}
                       for f in sorted(glob.glob(P("_工具脚本", "*.py")))]})
 
-# search index over all doc pages
+# search index over all doc pages（含正文片段：标题搜不到关键词时靠它兜底）
 search_docs = []
-for md_abs, html_abs, title in built_docs:
+for md_abs, html_abs, title, snip in built_docs:
     rel = rel_root(md_abs)
-    search_docs.append({"t": title, "u": site_rel(html_abs), "d": DIR_LABEL.get(rel, rel.split("/")[0])})
+    search_docs.append({"t": title, "u": site_rel(html_abs),
+                        "d": DIR_LABEL.get(rel, rel.split("/")[0]), "c": snip})
 
 SEARCH_INDEX = json.dumps({"docs": search_docs}, ensure_ascii=False)
-DATA_JS = json.dumps({"years": years_data, "domains": {k: {"name": v[0], "color": v[1]} for k, v in DOMAINS.items()},
-                      "lib": lib, "search": search_docs}, ensure_ascii=False)
+# 全文索引单独成文件，首页不背这 ~300KB；首次输入搜索时按需加载
+with open(os.path.join(ROOT, "search-index.js"), "w", encoding="utf-8") as f:
+    f.write("window.UPC_SEARCH=" + json.dumps(search_docs, ensure_ascii=False) + ";")
+DATA_JS = json.dumps({"years": years_data,
+                      "domains": {k: {"name": v[0], "color": v[1]} for k, v in DOMAINS.items()},
+                      "lib": lib}, ensure_ascii=False)
 
 # 模板工坊数据：LaTeX模板/ 下全部 .tex（名称、链接、大小）+ 完整历程文档页链接
 TEX_JS = json.dumps([{"n": os.path.basename(f), "u": site_rel(f),
@@ -561,17 +663,21 @@ center = W3/2; hub = 92
 mm.append(f'<circle cx="{center}" cy="210" r="{hub}" fill="#FBF9F3" stroke="#D9D0BD" stroke-width="1.5"/>')
 mm.append(f'<text x="{center}" y="203" font-size="16" fill="#2A251E" text-anchor="middle" font-weight="700" letter-spacing=".5">UPC</text>')
 mm.append(f'<text x="{center}" y="224" font-size="12.5" fill="#9A9080" text-anchor="middle">物理模型库</text>')
-dom_files = sorted(glob.glob(P("08_物理模型综述","0*.md")))
-dom_links = [quote(posix(os.path.relpath(doc_html_abs(f), SITE))) for f in dom_files]
-for idx,(k,(name,col)) in enumerate(DOMAINS.items()):
-    ang = -math.pi/2 + idx*(2*math.pi/8)
-    cx = center + 330*math.cos(ang); cy = 210 + 150*math.sin(ang)
+dom_files = sorted(glob.glob(P("08_物理模型综述", "0*.md")))   # 00 总览 / 01–07 七个物理域 / 08 方法论
+# 八个节点 = 七个物理域 + 方法论；按域名顺序映射到 01–07，而不是直接按下标（旧版在此处整体错位一格）
+dom_nodes = [(DOMAINS[k][0], DOMAINS[k][1], dom_files[i + 1])
+             for i, k in enumerate(DOMAINS) if i + 1 < len(dom_files)]
+if len(dom_files) > 8:
+    dom_nodes.append(("方法论与数值算法", "#7A7161", dom_files[8]))
+for idx, (name, col, src_md) in enumerate(dom_nodes):
+    ang = -math.pi / 2 + idx * (2 * math.pi / len(dom_nodes))
+    cx = center + 330 * math.cos(ang); cy = 210 + 150 * math.sin(ang)
     mm.append(f'<line x1="{center+hub*math.cos(ang)}" y1="{210+hub*math.sin(ang)}" x2="{cx}" y2="{cy}" stroke="{col}" stroke-width="1.5" opacity="0.45"/>')
     mm.append(f'<circle cx="{cx}" cy="{cy}" r="46" fill="{col}" fill-opacity="0.12" stroke="{col}" stroke-width="1.5"/>')
     parts = name.split("与") if "与" in name else [name[:4], name[4:]]
     mm.append(f'<text x="{cx}" y="{cy-3}" font-size="12.5" fill="{col}" text-anchor="middle" font-weight="600">{parts[0]}</text>')
     mm.append(f'<text x="{cx}" y="{cy+13}" font-size="12.5" fill="{col}" text-anchor="middle" font-weight="600">{parts[1] if len(parts)>1 else ""}</text>')
-    mm.append(f'<a href="{dom_links[idx]}"><circle cx="{cx}" cy="{cy}" r="52" fill="transparent"><title>{name} → 综述</title></circle></a>')
+    mm.append(f'<a href="{site_rel(doc_html_abs(src_md))}"><circle cx="{cx}" cy="{cy}" r="52" fill="transparent"><title>{name} → 综述</title></circle></a>')
 mm.append('</svg>')
 MODEL_SVG = "".join(mm)
 
@@ -596,37 +702,30 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _build_site_tail import render_index, write_deploy_helpers, validate
 
 render_index({"timeline": TIMELINE_SVG, "bars": BARS_SVG, "model": MODEL_SVG,
-              "rules": RULES_HTML, "data": DATA_JS, "ndocs": len(search_docs), "site": SITE,
+              "rules": RULES_HTML, "data": DATA_JS, "ndocs": len(search_docs),
+              "site": SITE, "root": ROOT,
+              "model_url": site_rel(doc_html_abs(P("08_物理模型综述", "00_总览.md"))),
               "tex": TEX_JS, "journey": JOURNEY_URL})
 write_deploy_helpers(ROOT, SITE)
-validate(ROOT, SITE)
 
-# runtime-data validation: every URL the index JS injects must resolve from SITE dir
-# (static validate() can't see these because they live inside the DATA blob)
-from urllib.parse import unquote as _unq
-_rt_bad = []
-def _rt(u):
-    if u and not os.path.exists(os.path.normpath(os.path.join(SITE, _unq(u)))):
-        _rt_bad.append(u)
+# 运行时注入的 URL 也要校验（静态扫描看不到 DATA blob 里的字段）
+_extra = []
 for _y in years_data:
     for _p in _y["probs"]:
-        _rt(_p["interp"]); _rt(_p["summary"])
+        _extra.append((ROOT, _p["interp"], f"题目解读 {_y['year']}-{_p['prob']}"))
+        _extra.append((ROOT, _p["summary"], f"题目汇总 {_y['year']}-{_p['prob']}"))
         for _pp in _p["papers"]:
             for _k in ("pdf", "txt", "ana", "png1", "pngf", "jd"):
-                _rt(_pp[_k])
+                if _pp.get(_k):
+                    _extra.append((ROOT, _pp[_k], f"论文 {_pp['file']}.{_k}"))
 for _g in lib:
     for _it in _g["items"]:
-        _rt(_it["u"])
+        _extra.append((ROOT, _it["u"], f"全库 {_g['name']}/{_it['n']}"))
 for _t in json.loads(TEX_JS):
-    _rt(_t["u"])
+    _extra.append((ROOT, _t["u"], f"模板 {_t['n']}"))
 for _s in search_docs:
-    _rt(_s["u"])
-if _rt_bad:
-    print(f"RUNTIME-DATA VALIDATION FAILED: {len(_rt_bad)} broken urls")
-    for u in _rt_bad[:30]:
-        print("  ", u)
-    raise SystemExit(1)
-print(f"runtime-data validation ok: {sum(len(p['papers']) for y in years_data for p in y['probs'])} papers "
-      f"+ {len(lib)} lib groups + {len(search_docs)} search docs")
+    _extra.append((ROOT, _s["u"], f"搜索索引 {_s['t']}"))
+
+validate(ROOT, SITE, _extra)
 
 print(f"docs built: {len(built_docs)} | papers: {len(papers)} | all done")

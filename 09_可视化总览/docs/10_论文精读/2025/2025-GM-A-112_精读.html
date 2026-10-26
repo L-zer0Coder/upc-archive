@@ -5,13 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>精读 52 · Digital Preservation of Sasando Acoustics via Parametric IIR Filter Design（2025 题A 金牌 · 队伍 112） · UPC 全档案库</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<meta name="description" content="精读 52 · Digital Preservation of Sasando Acoustics via Parametric IIR Filter Design（2025 题A 金牌 · 队伍 112） 这份精读怎么用 ：左手论文 …">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="精读 52 · Digital Preservation of Sasando Acoustics via Parametric IIR Filter Design（2025 题A 金牌 · 队伍 112） · UPC 全档案库">
+<meta property="og:description" content="精读 52 · Digital Preservation of Sasando Acoustics via Parametric IIR Filter Design（2025 题A 金牌 · 队伍 112） 这份精读怎么用 ：左手论文 …">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
+<script defer src="../../../vendor/katex/katex.min.js"></script>
+<script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../../../vendor/mermaid/mermaid.min.js"></script>
 <style>
 :root{
- --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#9A9080;
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
  --line:#E7E0D1;--line2:#D9D0BD;
  --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
@@ -22,12 +28,12 @@ html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
 .topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
 .topbar a:hover{color:var(--acc)}
 .topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
 .topbar .tag:hover{border-color:var(--acc)}
-.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
 .topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
 .topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
 .topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
@@ -78,13 +84,46 @@ aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
 aside.toc::-webkit-scrollbar{width:5px}
 aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 @media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
 <div id="pbar"></div>
 <div class="topbar"><div class="in">
-  <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
-  <a href="../../../index.html#guide">使用指南</a>
+  <a class="brand" href="../../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../../../index.html#guide">使用指南</a>
   <button id="ck" class="tag ck" type="button" hidden></button>
   <a class="tag" href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2025/Problem%20A/2025-GM-A-112.pdf">论文 PDF</a><a class="tag" href="../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2025/2025-GM-A-112.html">本篇赏析</a>
   <a class="tag" href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2025/2025-GM-A-112_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
@@ -337,7 +376,9 @@ $$b_0=\frac{\alpha}{1+\alpha}=0.002177,\quad a_1=-\frac{2\cos\omega_0}{1+\alpha}
 <p><strong>图表配方</strong>：方法论四阶段流程图（每格列产物）；参数表带音乐音名列；频响图=对数轴+通带底色+峰参考线；验证矩阵"每域一图"；时频图展示动态处理；<strong>系数表后附一行自检公式</strong>（防誊写错误）。</p>
 <hr>
 <p><em>对照阅读：<code>05_论文赏析/2025/2025-GM-A-112.md</code>、<code>07_题目解读/2025_题A_电声沙桑托琴.md</code>（信号处理题全解）、队友精读 182/485（同题光学拾音与 DSP 路线）。</em></p>
-</div></div>
+</div>
+<div class="realted-wrap"><div class="realted"><div class="tt">2025 题A · 同年同题金牌论文（3 篇）</div><ul><li class="self"><span class="t">#112</span><span class="n">Digital Preservation of Sasando Acoustics via Parametric IIR Filter Design</span><span>本篇</span></li><li><span class="t">#182</span><a class="n" href="2025-GM-A-182_%E7%B2%BE%E8%AF%BB.html" title="Preserving the Acoustic Quality of Traditional Sasando with Optical Pickup and Biquad Filters">Preserving the Acoustic Quality of Traditional Sasando with Optical Pickup and Biquad Filters</a><span class="t" style="text-align:right">29 页</span></li><li><span class="t">#485</span><a class="n" href="2025-GM-A-485_%E7%B2%BE%E8%AF%BB.html" title="Digital Signal Processing Solution for Electric Sasando">Digital Signal Processing Solution for Electric Sasando</a><span class="t" style="text-align:right">31 页</span></li></ul></div></div>
+</div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract工程摘要的范本">1.1 Abstract（工程摘要的范本）</a></li><li class="l3"><a href="#12-1-introduction问题去模糊化的信号处理版">1.2 §1 Introduction（问题去模糊化的信号处理版）</a></li><li class="l3"><a href="#13-2-notation-贡献清单">1.3 §2 Notation + 贡献清单</a></li><li class="l3"><a href="#14-3-声学表征物理模型层">1.4 §3 声学表征（物理模型层）</a></li><li class="l3"><a href="#15-4-数字滤波器设计方法层主体">1.5 §4 数字滤波器设计（方法层主体）</a></li><li class="l3"><a href="#16-57-实现验证与音乐信号交付层">1.6 §5–§7 实现、验证与音乐信号（交付层）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-弦谐波与共振腔模型式-12">3.1 弦谐波与共振腔模型（式 1–2）</a></li><li class="l3"><a href="#32-品质因数式-3">3.2 品质因数（式 3）</a></li><li class="l3"><a href="#33-双线性变换与频率畸变式-46">3.3 双线性变换与频率畸变（式 4–6）</a></li><li class="l3"><a href="#34-sos-系数式-911与-审计-b系数表验证本篇精华">3.4 SOS 系数（式 9–11）与 ⚠ 审计 B（系数表验证——本篇精华）</a></li><li class="l3"><a href="#35-min-max-通带平坦度优化式-13">3.5 min-max 通带平坦度优化（式 13）</a></li><li class="l3"><a href="#36-算力与延迟账本式-16">3.6 算力与延迟账本（式 16）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>

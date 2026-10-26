@@ -5,13 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>批次 05：2019 题 B（过山车）× 2020 题 A（离子推进器去土星）金牌论文对比 · UPC 全档案库</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<meta name="description" content="批次 05：2019 题 B（过山车）× 2020 题 A（离子推进器去土星）金牌论文对比 本批次共 6 篇金牌论文：2019 年题 B 两篇（队伍 190、389），2020 年题 A 四篇（队伍 340、354、426、447）。 …">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="批次 05：2019 题 B（过山车）× 2020 题 A（离子推进器去土星）金牌论文对比 · UPC 全档案库">
+<meta property="og:description" content="批次 05：2019 题 B（过山车）× 2020 题 A（离子推进器去土星）金牌论文对比 本批次共 6 篇金牌论文：2019 年题 B 两篇（队伍 190、389），2020 年题 A 四篇（队伍 340、354、426、447）。 …">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<script defer src="../../vendor/katex/katex.min.js"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
+
 <style>
 :root{
- --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#9A9080;
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
  --line:#E7E0D1;--line2:#D9D0BD;
  --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
@@ -22,12 +28,12 @@ html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
 .topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
 .topbar a:hover{color:var(--acc)}
 .topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
 .topbar .tag:hover{border-color:var(--acc)}
-.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
 .topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
 .topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
 .topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
@@ -78,13 +84,46 @@ aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
 aside.toc::-webkit-scrollbar{width:5px}
 aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 @media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
 <div id="pbar"></div>
 <div class="topbar"><div class="in">
-  <a class="brand" href="../../index.html"><span class="seal">U</span>UPC 全档案库</a>
-  <a href="../../index.html#guide">使用指南</a>
+  <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../../index.html#guide">使用指南</a>
   <button id="ck" class="tag ck" type="button" hidden></button>
   
   <a class="tag" href="../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/_%E6%89%B9%E6%AC%A105_2019B-2020A.md">Markdown</a>
@@ -170,7 +209,9 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <p><strong>三、燃料答案从 1308 kg 到 2924 kg：分歧来自假设而非计算。</strong> 四队报告的最少燃料分别是 2402.77 kg（340）、1808.75 kg（354）、2924 kg（426）、1308 kg（447），相差两倍多。溯源可见：447 主动把流量率 $\alpha$ 取半值（"几何修正、温度效应"），使其数字天然偏低且与别队不可比；426 无弹弓且如实声明自己的解"not optimal"（其 partial-coast 方案转移段仅 32% 质量但捕获段成本高）；354 的 1808.75 kg 建立在双重地球借力之上；340 的 2402.77 kg 则几乎全部花在逃逸段。这提示参赛者：这类无唯一解的题目，<strong>答案的价值在于"假设→结论"链条的透明度</strong>，四篇论文无一例外都在摘要或结论中交代了自己方案的边界条件。评委显然接受"不同假设下的不同最优"，而不会拿数字互相对杀。</p>
 <p><strong>四、"推力如何控制"一问的三种回答深度。</strong> 题目第三问是开放题，四队给出了三种不同深度的回答：340/354 给的是<strong>日程表</strong>（何时开、开多久、指向何方，如 340 的"顺角速度方向 65452.66 h + 反方向 0.43 h"）；447 给的是<strong>方向控制律的对比实验</strong>（沿速度/径向/合成三方案 + 日心段 $\theta=0,\pi/4,\pi/2,\pi$ 四点扫描，并配失败轨迹图）；426 给的是<strong>推力幅值剖面的 trade study</strong>（恒推力、$1/r^2$ 衰减、partial-coast 三方案对比燃料与时间，并引文献证明沿速度推力的罚金仅 0.13–0.39%）。深度递增，但共同点是都在正文里保留了"落选方案"——这与 2019-B 两篇形成呼应：190 保留自旋转修正的讨论，389 保留 Weakness 自评。金牌论文的共性不是"全对"，而是<strong>探索空间被展示得很完整</strong>。</p>
 <p><strong>五、与 2019-B 两篇对照：设计题与轨道题共享同一套金牌语法。</strong> 2019 过山车两篇与 2020 轨道四篇题材迥异，但获奖结构惊人一致：(1) 都把模糊目标翻译成可计算指标（190 的 $S$ 指标 / 389 的 4.1 g+0.01 s 判据 ↔ 2020 各队的燃料-时间双指标）；(2) 都用"主模型 + 独立验证"（389 的 NoLimits 2 拟合度 94.26% ↔ 354 的三体积分复核、426 的 HORIZONS 星历窗口）；(3) 都公开代码或数据附录（190 的 MATLAB 递归代码、354/447 的 Python/MATLAB 全码、426 的 C++ 工具）；(4) 都有诚实的 Weaknesses 章节且写得很具体。对后续参赛者的启示是：UPC 金牌的"密码"不在模型多高级，而在于<strong>指标化—可复现—划边界</strong>这三件事是否做扎实；数值方法本身（欧拉法、中点法、ode45）在金牌论文里都是最朴素的选择。</p>
-</div></div>
+</div>
+
+</div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#总表">总表</a></li><li class="l2"><a href="#同题异构对比观察">同题异构对比观察</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>

@@ -5,13 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>热学与能量输运 · UPC 全档案库</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<meta name="description" content="热学与能量输运 1. 该专题在 UPC 中出现全景 热学题的核心结构高度一致： 产热源 + 输运通道 + 散热边界 的平衡/演化，常常再叠加一个能量分配链。主要出场记录： 年份-题号 具体场景 所用模型一句话 2012A 超级地球（0.…">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="热学与能量输运 · UPC 全档案库">
+<meta property="og:description" content="热学与能量输运 1. 该专题在 UPC 中出现全景 热学题的核心结构高度一致： 产热源 + 输运通道 + 散热边界 的平衡/演化，常常再叠加一个能量分配链。主要出场记录： 年份-题号 具体场景 所用模型一句话 2012A 超级地球（0.…">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<script defer src="../../vendor/katex/katex.min.js"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
+
 <style>
 :root{
- --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#9A9080;
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
  --line:#E7E0D1;--line2:#D9D0BD;
  --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
@@ -22,12 +28,12 @@ html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
 .topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
 .topbar a:hover{color:var(--acc)}
 .topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
 .topbar .tag:hover{border-color:var(--acc)}
-.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
 .topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
 .topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
 .topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
@@ -78,13 +84,46 @@ aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
 aside.toc::-webkit-scrollbar{width:5px}
 aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 @media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
 <div id="pbar"></div>
 <div class="topbar"><div class="in">
-  <a class="brand" href="../../index.html"><span class="seal">U</span>UPC 全档案库</a>
-  <a href="../../index.html#guide">使用指南</a>
+  <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../../index.html#guide">使用指南</a>
   <button id="ck" class="tag ck" type="button" hidden></button>
   
   <a class="tag" href="../../../08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/04_%E7%83%AD%E5%AD%A6%E4%B8%8E%E8%83%BD%E9%87%8F%E8%BE%93%E8%BF%90.md">Markdown</a>
@@ -165,7 +204,9 @@ $$\rho c_V\frac{dT}{dt}=Q_bF_bk(T)[B][O_2]-X_t\frac{S}{V}(T-T_a),$$
 <h2 id="4-备赛建议">4. 备赛建议</h2>
 <p><strong>最小知识清单</strong>：Fourier 定律与集总热容方程（$\rho cV\,dT/dt=q-h(S/V)\Delta T$）、冷却时标 $\tau=\rho cL/h$；Arrhenius 律与高温抑制的必要性；Semenov 点火/熄火图像；零维辐射平衡与单层温室修正；Clausius–Clapeyron（定露点/饱和判据）；Jeans 参数与逃逸判据；驻点温度公式与 85% 工程系数；趋肤深度与扩散渗透深度两个 $\sqrt{\ }$ 标度；常用热物性数量级（岩土 $k\sim2.5$ W/(m·K)、自然对流 $h\sim8$ W/(m²K)、多孔介质 $D_{eff}\sim10^{-6}$ m²/s）。会算"量级表"（每条效应一行：估算、依据、是否必须建模）是本专题的看家本领。</p>
 <p><strong>推荐练习题年份</strong>：2018B（集总 vs 分布两条路线正面对决）、2021A（通道筛选 + 标度律敏感性）、2012A（标度律 + 端点校验的解析派范本）、2023A（气动加热判据，与流体专题交叉）、2015A（能量因果链闭环的极简主义样板）。训练目标：任何热学题先用一页纸列出"源—输运—边界—验收判据"四行，再决定集总还是分布参数。</p>
-</div></div>
+</div>
+
+</div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#1-该专题在-upc-中出现全景">1. 该专题在 UPC 中出现全景</a></li><li class="l2"><a href="#2-核心模型库逐一解读">2. 核心模型库逐一解读</a></li><li class="l3"><a href="#21-集总热平衡与-arrhenius-动力学2018b-堆肥">2.1 集总热平衡与 Arrhenius 动力学（2018B 堆肥）</a></li><li class="l3"><a href="#22-行星热演化衰变热-fourier-导热2012a-火山">2.2 行星热演化：衰变热 + Fourier 导热（2012A 火山）</a></li><li class="l3"><a href="#23-辐射平衡与温室模型2015a2021a">2.3 辐射平衡与温室模型（2015A、2021A）</a></li><li class="l3"><a href="#24-再入气动加热2023a-部分">2.4 再入气动加热（2023A 部分）</a></li><li class="l3"><a href="#25-撞击能量学2015a2021b">2.5 撞击能量学（2015A、2021B）</a></li><li class="l2"><a href="#3-跨题目的建模套路总结">3. 跨题目的建模套路总结</a></li><li class="l2"><a href="#4-备赛建议">4. 备赛建议</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>

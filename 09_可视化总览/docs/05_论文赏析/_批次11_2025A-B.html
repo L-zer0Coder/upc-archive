@@ -5,13 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>批次 11 对比：2025 年 UPC 题A（电声沙桑托琴）与题B（火炮）金奖论文赏析总表 · UPC 全档案库</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<meta name="description" content="批次 11 对比：2025 年 UPC 题A（电声沙桑托琴）与题B（火炮）金奖论文赏析总表 本批次完成 5 篇赏析（题A 队伍 485；题B 队伍 127、155、188、204），并与另一批已完成的 9 篇题B赏析（队伍 207、26…">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="批次 11 对比：2025 年 UPC 题A（电声沙桑托琴）与题B（火炮）金奖论文赏析总表 · UPC 全档案库">
+<meta property="og:description" content="批次 11 对比：2025 年 UPC 题A（电声沙桑托琴）与题B（火炮）金奖论文赏析总表 本批次完成 5 篇赏析（题A 队伍 485；题B 队伍 127、155、188、204），并与另一批已完成的 9 篇题B赏析（队伍 207、26…">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<script defer src="../../vendor/katex/katex.min.js"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
+
 <style>
 :root{
- --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#9A9080;
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
  --line:#E7E0D1;--line2:#D9D0BD;
  --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
@@ -22,12 +28,12 @@ html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
 .topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
 .topbar a:hover{color:var(--acc)}
 .topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
 .topbar .tag:hover{border-color:var(--acc)}
-.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
 .topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
 .topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
 .topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
@@ -78,13 +84,46 @@ aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
 aside.toc::-webkit-scrollbar{width:5px}
 aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 @media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
 <div id="pbar"></div>
 <div class="topbar"><div class="in">
-  <a class="brand" href="../../index.html"><span class="seal">U</span>UPC 全档案库</a>
-  <a href="../../index.html#guide">使用指南</a>
+  <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../../index.html#guide">使用指南</a>
   <button id="ck" class="tag ck" type="button" hidden></button>
   
   <a class="tag" href="../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/_%E6%89%B9%E6%AC%A111_2025A-B.md">Markdown</a>
@@ -228,7 +267,9 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <p><strong>3. 阻力建模构成第二条分水岭：450 m/s ≈ Mach 1.3 这个陷阱，一半队伍踩了，一半绕开了。</strong> 球形弹在跨音速区 $C_D$ 从约 0.47 陡增至 1.0，用常数 $C_D$ 的 127/155/428（0.47/0.47/0.50）系统性低估减速；264 只做了密度修正；而 311/460/496 用马赫分段/插值，204 用分段线性 $C_D(M)$，188/207 直接采用 Loth 等 2021 年 AIAA Journal 的 Mach–Reynolds 复合公式（188 甚至画出 $C_D$–$M$ 曲线与文献比对）。后果是可观测的：496 专门做了"真空 vs 真实"对照表（450 m/s 弹射角 1.67°→3.36°，真空解射程偏 334–449 m），188 给出最小初速 108.44→142.06 m/s，204/155/392 的最小初速均在 137–142 m/s 区间相互印证——这些交叉数值本身就是很好的模型互检素材。</p>
 <p><strong>4. "选哪个解"的论证路径同题异构，是 13 篇论文最有意思的对照。</strong> 所有人最终都选了小角/低伸弹道，但理由各不相同：127 用末速 &gt;200 m/s 的侵彻判据；155 用最短飞行时间（3.7 s @ 3°）；204 用"飞行时间 + 风敏感曲线簇间距 + 初速误差鲁棒性"三重论证；188/460 引 19 世纪滑膛炮直瞄射击、俯仰限 0–8°/10° 的战史；796 用"飞行时间-落点动能-弹道高"三指标；392 则自创经济性-时间评分函数选了一个折中解（165 m/s @ 21.8°）。同题多解下"推荐解"的选择本质是价值判断，能把判断标准物理化（末速/风敏度）、历史化（直瞄战术）或工程化（装药控制误差）的队，都获得了远超"数学上存在这两组解"的论证深度。</p>
 <p><strong>5. 题A 与题B 在方法论上同构：金奖论文共享"高保真内核 + 面向用户约束的离散化交付 + 显式误差量化"三段式。</strong> 485（题A）把共鸣器建模为传递函数（正向物理），再离散化为 5.5 个 biquad 滤波器组（面向 0.25 MIPS 硬件的"射表"），并用判据表验证离散化损失（0.73 dB）；题B 各队把弹道建模为 ODE（正向物理），再离散化为射表/口诀/列线图（面向无计算器军官的"滤波器组"），并用盲测/线性度检验/落点再积分量化损失。两题共同的获奖密码可以总结为一条：<strong>评委要看到的不是"模型多复杂"，而是"复杂模型被压缩成可执行产品的过程中，每一步压缩都附带了误差支票"。</strong></p>
-</div></div>
+</div>
+
+</div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#总表">总表</a></li><li class="l2"><a href="#对比观察">对比观察</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>

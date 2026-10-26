@@ -20,10 +20,18 @@ def render_index(ctx):
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UPC 国际大学生物理竞赛 · 2010–2025 全档案库</title>
+<meta name="description" content="UPC 国际大学生物理竞赛 2010–2025 全档案库：16 届 32 道官方题目、74 篇金牌论文原件，配中文深度解读、逐篇赏析与手把手精读，外加 LaTeX 模板与 48 小时备赛手册。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="UPC 国际大学生物理竞赛 · 2010–2025 全档案库">
+<meta property="og:description" content="16 届 32 道官方题目 + 74 篇金牌论文 + 中文解读、赏析、精读教程与写作模板。">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#9C3F2E">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
 <style>
 :root{
- --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#9A9080;
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
  --line:#E7E0D1;--line2:#D9D0BD;
  --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
@@ -42,7 +50,7 @@ a:hover{color:var(--acc-d)}
 /* ---- 顶栏 ---- */
 #bar{position:sticky;top:0;z-index:30;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 #bar .in{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:6px;height:52px;padding:0 24px}
-.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:14px;white-space:nowrap}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:14px;white-space:nowrap;min-width:0;overflow:hidden}
 .brand:hover{color:var(--ink)}
 .brand .seal{width:26px;height:26px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:14px;font-weight:700}
 .brand small{color:var(--dim);font-weight:400;font-size:11px;margin-left:2px;letter-spacing:.08em}
@@ -64,13 +72,36 @@ a:hover{color:var(--acc-d)}
 #sres a:last-child{border:none}
 #sres a:hover{background:#F3EEE2}
 #sres .d{color:var(--dim);font-size:11px;white-space:nowrap}
-@media(max-width:920px){#bar nav{display:none}}
+#sres .sn{display:block;color:var(--dim);font-size:11.5px;margin-top:2px;line-height:1.5;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:340px}
+#sres mark{background:rgba(156,63,46,.14);color:var(--acc);padding:0 1px;border-radius:2px}
+#sres .hint{padding:10px 13px;color:var(--dim);font-size:12px}
+/* ---- 移动端导航：≤920px 收起顶部链接，改用抽屉 ---- */
+#mnb{display:none;flex-shrink:0;align-items:center;justify-content:center;width:34px;height:32px;
+ border:1px solid var(--line2);border-radius:3px;background:var(--sheet);color:var(--mut);cursor:pointer;padding:0}
+#mnb:hover{border-color:var(--acc);color:var(--acc)}
+#mnb svg{width:17px;height:17px}
+#mdrawer{display:none;position:fixed;top:52px;left:0;right:0;z-index:29;background:var(--sheet);
+ border-bottom:1px solid var(--line2);box-shadow:0 14px 34px rgba(70,58,38,.14);padding:6px 18px 12px}
+#mdrawer.on{display:block}
+#mdrawer a{display:block;padding:11px 4px;font-size:14.5px;color:var(--ink);border-bottom:1px solid var(--line)}
+#mdrawer a:last-of-type{border-bottom:none}
+#mdrawer .mk{font-family:var(--mono);font-size:11px;color:var(--dim);margin-right:9px}
+@media(max-width:920px){
+ #bar nav{display:none}
+ #mnb{display:inline-flex;margin-left:auto}
+ .swrap{margin-left:10px}
+ .brand small{display:none}
+ #q{width:108px}
+ #q:focus{width:128px}
+ .kbd{display:none}
+}
 
 /* ---- 首屏 ---- */
 #hero{padding:70px 0 6px}
 #hero .kicker{display:flex;align-items:center;gap:10px;color:var(--dim);font-size:12.5px;letter-spacing:.1em;margin-bottom:16px}
 #hero .kicker::before{content:"";width:26px;height:1px;background:var(--acc)}
-#hero h1{font-family:var(--serif);font-size:clamp(28px,4vw,40px);font-weight:700;line-height:1.4;margin:0 0 14px}
+#hero h1{font-family:var(--serif);font-size:clamp(28px,4vw,40px);font-weight:700;line-height:1.4;margin:0 0 14px;text-wrap:balance}
 #hero .lead{color:var(--mut);font-size:15.5px;max-width:660px;margin:0}
 .stats{display:flex;flex-wrap:wrap;margin:30px 0 0}
 .stat{padding:0 26px;margin-right:26px;border-right:1px solid var(--line2)}
@@ -165,9 +196,23 @@ th{color:var(--dim);font-weight:600;font-size:11.5px;letter-spacing:.05em;
 tbody tr:nth-child(2n) td{background:#F8F5EC}
 tbody tr:hover td{background:var(--acc-soft)}
 .num{font-variant-numeric:tabular-nums;text-align:right;font-family:var(--mono);font-size:12.5px}
-.tr-thumb{width:44px;border-radius:2px;border:1px solid var(--line);display:block;transition:transform .15s;
+.tr-thumb{width:56px;border-radius:2px;border:1px solid var(--line);display:block;transition:transform .15s;
  transform-origin:left center;background:var(--paper);padding:2px}
 .tr-thumb:hover{transform:scale(2);box-shadow:0 12px 32px rgba(70,58,38,.25);position:relative;z-index:5}
+.col-yq{white-space:nowrap}
+#ptable{table-layout:fixed;min-width:920px}
+#ptable .btns{gap:6px;flex-wrap:nowrap}
+#ptable .btn.sm{padding:0 10px}
+#ptable th:nth-child(1),#ptable td:nth-child(1){width:78px}
+#ptable th:nth-child(2),#ptable td:nth-child(2){width:126px}
+#ptable th:nth-child(3),#ptable td:nth-child(3){width:162px}
+#ptable th:nth-child(4),#ptable td:nth-child(4){width:68px}
+#ptable th:nth-child(6),#ptable td:nth-child(6){width:44px}
+#ptable th:nth-child(7),#ptable td:nth-child(7){width:210px}
+.col-cn .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.ttl{display:block;max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--mut)}
+.dup{display:inline-block;font-size:10.5px;color:var(--dim);border:1px solid var(--line2);border-radius:2px;
+ padding:0 4px;margin-left:4px;line-height:1.5;vertical-align:1px}
 
 /* ---- 模型地图 ---- */
 .mcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:12px;margin-top:14px}
@@ -201,13 +246,17 @@ tbody tr:hover td{background:var(--acc-soft)}
 .ck-grid{display:grid;gap:6px}
 .ck-row{display:flex;gap:10px;align-items:flex-start}
 .ck-row .y{font-family:var(--mono);font-size:12.5px;color:var(--dim);width:38px;padding-top:5px;flex-shrink:0;font-variant-numeric:tabular-nums}
-.ck-cells{display:flex;flex-wrap:wrap;gap:6px}
-.ckc{font-family:var(--mono);font-size:12px;min-width:52px;padding:4px 8px;border:1px solid var(--line2);border-radius:3px;background:var(--sheet);color:var(--mut);cursor:pointer;font-variant-numeric:tabular-nums;line-height:1.5;text-align:center}
+.ck-cells{display:flex;flex-wrap:wrap;gap:5px}
+.ckc{font-family:var(--mono);font-size:12px;min-width:46px;padding:4px 7px;border:1px solid var(--line2);border-radius:3px;background:var(--sheet);color:var(--mut);cursor:pointer;font-variant-numeric:tabular-nums;line-height:1.5;text-align:center}
 .ckc:hover{border-color:var(--acc);color:var(--acc)}
 .ckc.seen{border-color:rgba(156,63,46,.45);color:var(--acc);background:var(--acc-soft)}
 .ckc.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
 .ckc.done:hover{background:var(--acc-d);color:#FDFCF8}
 .ckc.dim{opacity:.22}
+.ck-sep{width:1px;align-self:stretch;background:var(--line2);margin:2px 5px}
+.ckc.ic{background:#FAF6EC;border-style:dashed;color:var(--dim);font-size:11px}
+.ckc.ic.seen{border-color:rgba(156,63,46,.45);color:var(--acc);background:var(--acc-soft)}
+.ckc.ic.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
 .ck-recent{margin-top:18px;border:1px dashed var(--line2);border-radius:4px;padding:12px 16px}
 .ck-recent .tt{font-size:11px;color:var(--dim);letter-spacing:.12em;margin-bottom:6px}
 .ck-recent ul{list-style:none;margin:0;padding:0;font-size:12.5px;color:var(--mut)}
@@ -253,8 +302,8 @@ tbody tr:hover td{background:var(--acc-soft)}
 footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:var(--dim);font-size:12px;padding:30px 20px;line-height:2}
 @media(max-width:640px){
  #hero{padding:52px 0 4px}
- #q{width:148px}
- #q:focus{width:170px}
+ #q{width:104px}
+ #q:focus{width:122px}
  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 0}
  .stat{border-right:none;margin-right:0;padding:0 0 12px;border-bottom:1px solid var(--line)}
  .paths,.rules-grid{grid-template-columns:1fr}
@@ -262,6 +311,15 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
  .ck-big b{font-size:26px}
  .wrap{padding:0 16px}
  #bar .in{padding:0 16px}
+}
+/* ---- 打印：适配 48h 现场打印自查表 ---- */
+@media print{
+ #bar,#mdrawer,#pbar,#top,.hero-act,.ptools,.ck-tools,#sres{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ section{margin:22px 0 0;page-break-inside:auto}
+ .yr,.libgroup{page-break-inside:avoid}
+ h2.st{page-break-after:avoid}
+ a{color:#000;text-decoration:none}
 }
 </style>
 </head>
@@ -280,12 +338,24 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
     <a href="#rules">密码</a>
     <a href="#library">全库</a>
   </nav>
+  <button id="mnb" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="mdrawer"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
   <div class="swrap">
     <input id="q" type="search" placeholder="搜索 __NDOCS__ 份文档…" autocomplete="off">
     <span class="kbd">/</span>
     <div id="sres"></div>
   </div>
 </div></div>
+<div id="mdrawer">
+  <a href="#guide"><span class="mk">01</span>使用指南</a>
+  <a href="#progress"><span class="mk">02</span>我的打卡</a>
+  <a href="#timeline"><span class="mk">03</span>赛题图谱</a>
+  <a href="#years"><span class="mk">04</span>历年赛题</a>
+  <a href="#models"><span class="mk">05</span>模型地图</a>
+  <a href="#papers"><span class="mk">06</span>论文库</a>
+  <a href="#templates"><span class="mk">07</span>模板工坊</a>
+  <a href="#rules"><span class="mk">08</span>获奖密码</a>
+  <a href="#library"><span class="mk">09</span>全库文件</a>
+</div>
 
 <header id="hero">
   <div class="wrap">
@@ -301,7 +371,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
     <div class="hero-act">
       <a class="btn solid" href="#guide">开始使用</a>
       <a class="btn" href="#papers">金牌论文库</a>
-      <a class="btn" href="docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/00_%E6%80%BB%E8%A7%88.html">物理模型综述</a>
+      <a class="btn" href="__MODEL_URL__">物理模型综述</a>
     </div>
   </div>
 </header>
@@ -357,7 +427,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
     <span class="lg"><b>○</b>未读</span>
     <span class="lg"><b>◐</b>浏览过（自动）</span>
     <span class="lg"><b>✓</b>已打卡（手动）</span>
-    <span class="lg">格子按队伍号标号，悬停看论文；「解读」行 = 每年 A / B 两篇深度解读</span>
+    <span class="lg">格子按队伍号标号，悬停看论文；每行末尾的虚线格（如 25A）= 该年 A / B 题深度解读</span>
   </div>
   <div class="ck-recent"><div class="tt">最近动态</div><ul id="ckrecent"></ul></div>
 </section>
@@ -593,14 +663,13 @@ DATA.years.forEach(y=>{
     if(!k)return;
     cells.push(`<button type="button" class="ckc" data-k="${k}" data-g="paper" title="${y.year} 题${p.prob} ${p.cn} · #${pp.team} — 点击打卡">${pp.team}</button>`);
   }));
+  // 该年 A/B 两道题的深度解读紧跟在论文格子后面，避免单独一行与年份错位
+  const icells=y.probs.map(p=>
+    `<button type="button" class="ckc ic" data-k="${y.year}-${p.prob}" data-g="interp" title="${y.year} 题${p.prob} ${p.cn} · 深度解读">${String(y.year).slice(2)+p.prob}</button>`).join('');
   const row=document.createElement('div');row.className='ck-row';
-  row.innerHTML=`<span class="y">${y.year}</span><div class="ck-cells">${cells.join('')||'<span class="note" style="padding-top:4px">官方未公开论文</span>'}</div>`;
+  row.innerHTML=`<span class="y">${y.year}</span><div class="ck-cells">${cells.join('')||'<span class="note" style="padding-top:4px">官方未公开论文</span>'}<span class="ck-sep" title="分隔线右侧为深度解读"></span>${icells}</div>`;
   ckgrid.appendChild(row);
 });
-const rowi=document.createElement('div');rowi.className='ck-row';
-rowi.innerHTML=`<span class="y">解读</span><div class="ck-cells">${DATA.years.map(y=>y.probs.map(p=>
-  `<button type="button" class="ckc" data-k="${y.year}-${p.prob}" data-g="interp" title="${y.year} 题${p.prob} ${p.cn} · 深度解读">${String(y.year).slice(2)+p.prob}</button>`).join('')).join('')}</div>`;
-ckgrid.appendChild(rowi);
 ckgrid.addEventListener('click',ev=>{
   const b=ev.target.closest('.ckc');if(!b)return;
   const k=b.dataset.k,g=b.dataset.g,s=ckLoad();
@@ -711,10 +780,10 @@ function renderPapers(){
     const e=k?ckEntry(k,'paper'):{};
     const mark=e.d?'<b style="color:var(--acc)">✓</b> ':(e.v?'<span style="color:var(--dim)">·</span> ':'');
     return `<tr>
-    <td><a href="${p.png1}" target="_blank"><img class="tr-thumb" loading="lazy" src="${p.png1}" alt="标题页"></a></td>
-    <td>${mark}${p.y} 题${p.prob}</td>
-    <td style="max-width:180px"><span style="display:inline-flex;align-items:center;gap:6px"><i style="width:7px;height:7px;border-radius:50%;background:${D[p.dom].color};flex-shrink:0"></i>${p.cn}</span></td>
-    <td>#${p.team}</td><td style="max-width:400px">${p.title}</td><td class="num">${p.pages}</td>
+    <td><a href="${p.png1}" target="_blank" rel="noopener"><img class="tr-thumb" loading="lazy" src="${p.png1}" alt="${p.y} 题${p.prob} 队伍 ${p.team} 论文标题页"></a></td>
+    <td class="col-yq">${mark}${p.y} 题${p.prob}${/-611\./.test(p.file)?'<span class="dup">同文异版</span>':''}</td>
+    <td class="col-cn"><span class="dot" style="background:${D[p.dom].color}"></span>${p.cn}</td>
+    <td>#${p.team}</td><td><span class="ttl" title="${p.title.replace(/"/g,'&quot;')}">${p.title}</span></td><td class="num">${p.pages}</td>
     <td><div class="btns"><a class="btn sm solid" href="${p.ana}">赏析</a>${p.jd?`<a class="tlink" href="${p.jd}">精读</a>`:`<span class="tlink off">精读</span>`}<a class="tlink" href="${p.pdf}">PDF</a><a class="tlink" href="${p.txt}">文本</a><a class="tlink" href="${p.pngf}">图页</a></div></td>
   </tr>`;}).join('');
   document.getElementById('cnt').textContent=`${list.length} / ${all.length} 篇`;
@@ -723,15 +792,62 @@ renderPapers();
 document.getElementById('q2').addEventListener('input',renderPapers);
 fy.addEventListener('change',renderPapers);
 
-/* ---------- 全站搜索 ---------- */
+/* ---------- 全站搜索（标题 + 正文全文，索引按需加载） ---------- */
 const q=document.getElementById('q'),res=document.getElementById('sres');
-q.addEventListener('input',()=>{
-  const s=q.value.trim().toLowerCase();
-  if(!s){res.style.display='none';return;}
-  const hits=DATA.search.filter(x=>(x.t+x.d).toLowerCase().includes(s)).slice(0,14);
-  res.innerHTML=hits.map(h=>`<a href="${h.u}"><span class="d">${h.d}</span><span>${h.t}</span></a>`).join('')||'<a><span class="d">∅</span><span>无结果</span></a>';
+let SIDX=null,SLOADING=false,SWAIT=[];
+function escHtml(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function hl(txt,kw){
+  const t=escHtml(txt),i=t.toLowerCase().indexOf(kw);
+  if(i<0)return t;
+  return t.slice(0,i)+'<mark>'+t.slice(i,i+kw.length)+'</mark>'+t.slice(i+kw.length);
+}
+function snip(txt,kw){
+  const i=txt.toLowerCase().indexOf(kw);
+  if(i<0)return '';
+  const a=Math.max(0,i-22),b=Math.min(txt.length,i+kw.length+46);
+  return (a>0?'…':'')+txt.slice(a,b)+(b<txt.length?'…':'');
+}
+function ensureIdx(){
+  return new Promise(ok=>{
+    if(SIDX){ok();return;}
+    SWAIT.push(ok);
+    if(SLOADING)return;
+    SLOADING=true;
+    res.style.display='block';
+    res.innerHTML='<div class="hint">正在载入全文索引…</div>';
+    const s=document.createElement('script');
+    s.src='search-index.js';
+    s.onload=()=>{SIDX=window.UPC_SEARCH||[];SLOADING=false;SWAIT.splice(0).forEach(f=>f());};
+    s.onerror=()=>{SIDX=[];SLOADING=false;res.innerHTML='<div class="hint">索引载入失败，刷新页面重试</div>';};
+    document.head.appendChild(s);
+  });
+}
+function runSearch(){
+  const kw=q.value.trim().toLowerCase();
+  if(!kw){res.style.display='none';return;}
+  if(SIDX===null)return;
+  const hits=[];
+  for(const x of SIDX){
+    const t=(x.t||'').toLowerCase(),c=(x.c||'').toLowerCase(),d=(x.d||'').toLowerCase();
+    let sc=0,cHit=false;
+    if(t.indexOf(kw)>=0)sc+=6;
+    if(d.indexOf(kw)>=0)sc+=2;
+    if(c.indexOf(kw)>=0){sc+=3;cHit=true;}
+    if(sc)hits.push({x:x,sc:sc,cHit:cHit});
+  }
+  hits.sort((a,b)=>b.sc-a.sc||a.x.t.length-b.x.t.length);
+  const shown=hits.slice(0,18);
+  res.innerHTML=shown.length
+    ? shown.map(h=>{
+        const s2=h.cHit?snip(h.x.c,kw):'';
+        return `<a href="${h.x.u}"><span class="d">${escHtml(h.x.d)}</span><span><span>${hl(h.x.t,kw)}</span>`+
+               (s2?`<span class="sn">${hl(s2,kw)}</span>`:'')+`</span></a>`;
+      }).join('')+(hits.length>shown.length?`<div class="hint">另有 ${hits.length-shown.length} 条，输入更具体的关键词可缩小范围</div>`:'')
+    : `<div class="hint">全库正文中都没有「${escHtml(q.value)}」</div>`;
   res.style.display='block';
-});
+}
+q.addEventListener('input',()=>{ensureIdx().then(runSearch);});
+q.addEventListener('focus',()=>{ensureIdx();});
 document.addEventListener('click',e=>{if(!e.target.closest('.swrap'))res.style.display='none'});
 
 /* ---------- 论文模板工坊 ---------- */
@@ -786,6 +902,21 @@ addEventListener('keydown',e=>{
   if(e.key==='/'&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){e.preventDefault();q.focus();}
   if(e.key==='Escape'){q.value='';res.style.display='none';q.blur();}
 });
+/* ---------- 移动端导航抽屉 ---------- */
+const mnb=document.getElementById('mnb'),mdl=document.getElementById('mdrawer');
+function setDrawer(on){mdl.classList.toggle('on',on);mnb.setAttribute('aria-expanded',on?'true':'false');}
+mnb.addEventListener('click',ev=>{ev.stopPropagation();setDrawer(!mdl.classList.contains('on'));});
+mdl.addEventListener('click',ev=>{if(ev.target.closest('a'))setDrawer(false);});
+document.addEventListener('click',ev=>{if(!ev.target.closest('#mdrawer')&&!ev.target.closest('#mnb'))setDrawer(false);});
+addEventListener('scroll',()=>{if(mdl.classList.contains('on'))setDrawer(false);},{passive:true});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&mdl.classList.contains('on'))setDrawer(false);});
+/* 窄屏搜索框放不下完整占位文案，自动缩短 */
+(function(){
+  const full=q.getAttribute('placeholder');
+  function fit(){const short=window.innerWidth<=920?'搜索全库…':full;
+    if(q.getAttribute('placeholder')!==short)q.setAttribute('placeholder',short);}
+  fit();addEventListener('resize',fit,{passive:true});
+})();
 ckRefresh();
 </script>
 </body>
@@ -795,28 +926,67 @@ ckRefresh();
             .replace("__BARS__", BARS_SVG).replace("__MODEL__", MODEL_SVG)
             .replace("__RULES__", RULES_HTML).replace("__DATA__", DATA_JS)
             .replace("__TEX__", TEX_JS).replace("__JOURNEY__", JOURNEY_URL)
+            .replace("__MODEL_URL__", ctx.get("model_url", ""))
             .replace("__NDOCS__", str(NDOCS)))
-    out = os.path.join(ctx["site"], "index.html")
+    out = os.path.join(ctx.get("root") or ctx["site"], "index.html")
     with open(out, "w", encoding="utf-8") as f:
         f.write(html)
     print("index written:", len(html) // 1024, "KB")
     return out
 
 
+def _repo_base(root):
+    """GitHub Pages 项目站点前缀，如 /upc-archive/；解析失败返回 /"""
+    try:
+        import subprocess
+        url = subprocess.run(["git", "-C", root, "config", "--get", "remote.origin.url"],
+                             capture_output=True, text=True).stdout.strip()
+        m = re.search(r"[/:]([^/:]+)/([^/]+?)(?:\.git)?$", url)
+        if m:
+            return f"/{m.group(2)}/"
+    except Exception:
+        pass
+    return "/"
+
+
 def write_deploy_helpers(root, site):
     # .nojekyll（关闭 Jekyll：_ 开头目录也能被服务、部署更快）
     open(os.path.join(root, ".nojekyll"), "w").close()
-    # 根 index.html → 跳转到 09_可视化总览/index.html（Pages 首页直达）
-    with open(os.path.join(root, "index.html"), "w", encoding="utf-8") as f:
+    # 旧地址兜底：早期分享出去的 /09_可视化总览/index.html 仍可进入（并保留 #锚点）
+    with open(os.path.join(site, "index.html"), "w", encoding="utf-8") as f:
         f.write('<!DOCTYPE html><meta charset="utf-8"><title>UPC 全档案库</title>'
-                '<meta http-equiv="refresh" content="0;url=09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/index.html">'
-                '<p>正在进入 <a href="09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/index.html">UPC 2010–2025 全档案库总览</a>…</p>')
+                '<meta name="robots" content="noindex">'
+                '<meta http-equiv="refresh" content="0;url=../index.html">'
+                '<link rel="canonical" href="../index.html">'
+                '<script>location.replace("../index.html"+(location.hash||""));</script>'
+                '<p>正在进入 <a href="../index.html">UPC 2010–2025 全档案库</a>…</p>')
+    # 自定义 404：GitHub Pages 会对任何缺失路径返回它
+    base = _repo_base(root)
+    with open(os.path.join(root, "404.html"), "w", encoding="utf-8") as f:
+        f.write('<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">'
+                '<meta name="viewport" content="width=device-width,initial-scale=1">'
+                '<title>页面不存在 · UPC 全档案库</title><style>'
+                'body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;'
+                'background:#F7F4ED;color:#2A251E;font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}'
+                '.b{max-width:520px;padding:0 28px;text-align:center}'
+                '.n{font-family:Georgia,serif;font-size:64px;font-weight:700;color:#9C3F2E;line-height:1;margin:0}'
+                'h1{font-family:Georgia,"Songti SC",serif;font-size:22px;margin:18px 0 10px}'
+                'p{color:#6E6557;font-size:14px;line-height:1.9;margin:0 0 22px}'
+                'a{display:inline-block;padding:0 18px;height:36px;line-height:34px;border:1px solid #D9D0BD;'
+                'border-radius:3px;color:#2A251E;text-decoration:none;font-size:13.5px;margin:0 4px;background:#FDFCF8}'
+                'a:hover{border-color:#9C3F2E;color:#9C3F2E}'
+                '</style></head><body><div class="b"><p class="n">404</p><h1>这一页不在档案库里</h1>'
+                '<p>可能是链接拼写有误，或该文档尚未收录。<br>档案库覆盖 2010–2025 共 16 届的全部题目、74 篇金牌论文与解读。</p>'
+                f'<a href="{base}">回到总览</a><a href="{base}#papers">金牌论文库</a>'
+                '<a href="javascript:history.back()">返回上一页</a></div></body></html>')
     # .gitignore 白名单：只提交档案库，不提交 6.6GB 的个人文件
     gi = """# UPC 档案库部署白名单：只上传档案内容，忽略其余个人文件（LaTeX 安装包/视频/课件等）
 /*
 !/.gitignore
 !/.nojekyll
 !/index.html
+!/404.html
+!/search-index.js
 !/README.md
 !/01_官网原始页面
 !/02_官方成绩单
@@ -828,19 +998,76 @@ def write_deploy_helpers(root, site):
 !/07_题目解读
 !/08_物理模型综述
 !/09_可视化总览
+!/10_论文精读
+!/11_论文模板与工具
 !/_工具脚本
 __pycache__/
 *.pyc
 """
     with open(os.path.join(root, ".gitignore"), "w", encoding="utf-8", newline="\n") as f:
         f.write(gi)
-    print("deploy helpers written: .nojekyll / index.html / .gitignore")
+    print("deploy helpers written: .nojekyll / 404.html / legacy index / .gitignore")
 
 
-def validate(root, site):
-    """validate every relative href/src in index.html + all generated doc pages"""
+# ---------------- 大小写敏感 + git 感知的链接校验 ----------------
+def _real_index(root):
+    """小写相对路径 -> 磁盘上的真实相对路径（用来发现 Linux 上的大小写 404）"""
+    idx = {}
+    for dirpath, dirnames, files in os.walk(root):
+        if ".git" in dirpath.replace("\\", "/").split("/"):
+            dirnames[:] = [d for d in dirnames if d != ".git"]
+            continue
+        rel_dir = os.path.relpath(dirpath, root).replace("\\", "/")
+        for fn in files:
+            real_rel = (fn if rel_dir == "." else rel_dir + "/" + fn)
+            idx.setdefault(real_rel.lower(), real_rel)
+    return idx
+
+
+def _tracked_files(root):
+    try:
+        import subprocess
+        out = subprocess.run(["git", "-C", root, "ls-files", "-z"], capture_output=True)
+        if out.returncode != 0:
+            return None
+        return set(x for x in out.stdout.decode("utf-8", "replace").split("\0") if x)
+    except Exception:
+        return None
+
+
+def _check(root, idx, tracked, base_abs, url):
+    """返回 (kind, detail)；kind ∈ {"MISSING","CASE","UNTRACKED",None}"""
+    dec = unquote(url.split("#")[0].split("?")[0])
+    if not dec or dec.startswith("/"):
+        return (None, None)   # 站内绝对路径指向仓库根，构建期无法判定，跳过
+    abspath = os.path.normpath(os.path.join(base_abs, dec))
+    rel = os.path.relpath(abspath, root).replace("\\", "/")
+    if rel.startswith("../"):
+        return ("MISSING", f"越界路径 {rel}")
+    real = idx.get(rel.lower())
+    if real is None:
+        return ("MISSING", rel)
+    if real != rel:
+        return ("CASE", f"{rel}  →  实际为 {real}")
+    if tracked is not None and real not in tracked:
+        return ("UNTRACKED", real)
+    return (None, real)
+
+
+def validate(root, site, extra=()):
+    """校验 index.html + 全部文档页的相对链接，外加 DATA 里运行时注入的 URL。
+
+    与旧版的区别：① 大小写敏感（GitHub Pages 跑在 Linux 上）；② 检查文件是否真的
+    进了 git（.gitignore 白名单漏掉目录时线上必 404）；③ 覆盖 DATA JSON 里的
+    u/pdf/jd/png 等字段，而不只是静态 href/src。
+    """
+    idx = _real_index(root)
+    tracked = _tracked_files(root)
+    if tracked is None:
+        print("WARN: 无法读取 git 索引，跳过「是否已提交」检查")
     bad = []
-    pages = [os.path.join(site, "index.html")] + [
+    pages = [os.path.join(root, "index.html"), os.path.join(root, "404.html"),
+             os.path.join(site, "index.html")] + [
         os.path.join(dirpath, fn)
         for dirpath, _, files in os.walk(os.path.join(site, "docs")) for fn in files
         if fn.endswith(".html")]
@@ -849,14 +1076,22 @@ def validate(root, site):
         base = os.path.dirname(pg)
         text = open(pg, encoding="utf-8").read()
         for u in href_re.findall(text):
-            if re.match(r"^(https?:|data:|#|mailto:)", u) or "${" in u:
+            if re.match(r"^(https?:|data:|#|mailto:|javascript:)", u) or "${" in u:
                 continue
-            target = os.path.normpath(os.path.join(base, unquote(u.split("#")[0])))
-            if not os.path.exists(target):
-                bad.append((os.path.relpath(pg, root), u))
+            kind, detail = _check(root, idx, tracked, base, u)
+            if kind:
+                bad.append((kind, os.path.relpath(pg, root), detail))
+    for base_abs, url, label in extra:
+        kind, detail = _check(root, idx, tracked, base_abs, url)
+        if kind:
+            bad.append((kind, label, detail))
     if bad:
-        print(f"VALIDATION FAILED: {len(bad)} broken links")
-        for f, u in bad[:40]:
-            print("  ", f, "->", u)
+        from collections import Counter
+        c = Counter(k for k, _, _ in bad)
+        print(f"VALIDATION FAILED: {len(bad)} broken links "
+              f"(MISSING={c['MISSING']} CASE={c['CASE']} UNTRACKED={c['UNTRACKED']})")
+        for k, f, u in bad[:40]:
+            print(f"   [{k}] {f} -> {u}")
         raise SystemExit(1)
-    print(f"link validation ok: {len(pages)} pages checked")
+    print(f"link validation ok: {len(pages)} pages + {len(extra)} runtime urls "
+          f"(case-sensitive, git-aware)")

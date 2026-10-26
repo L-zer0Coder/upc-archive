@@ -1,0 +1,169 @@
+% ============================================================
+%  UPC (University Physics Competition) 金牌风格论文模板
+%  提炼自 2010–2025 年 73 篇金牌论文的共性结构
+%  编译：pdflatex 或 xelatex（推荐 xelatex，中文注释可保留）
+%  使用说明见 11_论文模板与工具/README.md
+% ============================================================
+\documentclass[11pt,a4paper]{article}
+
+% ---------- 页面与字体 ----------
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}          % 断字与字距微调，金牌论文的"看不见的加分项"
+\usepackage{newtxtext,newtxmath} % Times 系字体：多数金牌论文的选择
+
+% ---------- 图表 ----------
+\usepackage{graphicx}
+\usepackage{booktabs}            % 三线表（gold 标配：\toprule\midrule\bottomrule）
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}   % 图表号加粗、说明文字小一号
+\usepackage{subcaption}
+\usepackage{float}               % [H] 定位
+
+% ---------- 数学 ----------
+\usepackage{amsmath,amssymb}
+\numberwithin{equation}{section} % 式号按 "章.序" —— 2010-2025 金牌的主流约定
+
+% ---------- 其他 ----------
+\usepackage{enumitem}
+\setlist{itemsep=2pt,topsep=4pt} % 紧凑列表
+\usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+\usepackage{xcolor}
+
+% ---------- 常用宏（金牌论文高频记号，减少笔误） ----------
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\unit}[1]{\,\mathrm{#1}}
+
+% ============================================================
+\begin{document}
+
+% ---------- 标题页（官方匿名要求：只写队号与题号） ----------
+\begin{titlepage}
+  \centering
+  \vspace*{2cm}
+  {\Large \textbf{Team \#1234}}\\[0.4cm]
+  {\large Problem A}\\[2.2cm]
+  {\LARGE \bfseries Your Descriptive Paper Title Here}\\[3cm]
+  \vfill
+  University Physics Competition\\
+  November 20XX
+\end{titlepage}
+
+% ============================================================
+%  摘要：一页。套路 = 符号定义 → 问题两难 → 方法路线 → 数值结论
+%  （结论必须带数字！评委只读摘要也能拿到你的结果）
+% ============================================================
+\begin{abstract}
+\noindent
+We define the key quantities of the problem ($R \approx 2.5\times10^{4}\unit{km}$,
+$v_0 = 30\unit{km/s}$) and identify the central trade-off: if [quantity A] is too
+large, [failure mode 1]; if too small, [failure mode 2].
+Section~1 establishes a fuel-only baseline costing 95\% of initial mass.
+Section~2 develops the model: [governing equation] with [data-anchored fits],
+integrated by [method] at [step size], verified by step-halving to
+[n] significant figures. The admissible window is
+\[
+  \boxed{\;8.8296^\circ < \theta < 8.8549^\circ\;}
+\]
+a margin of only $0.0253^\circ$. We therefore \emph{advise against} the maneuver
+and identify [parameter] as the most promising lever to widen the window.
+\end{abstract}
+\newpage
+
+% ============================================================
+\section{Baseline: The Cost of Doing Nothing}
+% 先立对照方案（哪怕注定被否决）：能量判据 / 火箭方程 / 解析极限
+% —— 给后文的"节省"提供量化参照。
+We first compute the cost of [baseline option]. The total energy
+\begin{equation}
+  E = \tfrac12 m v_0^2 - \frac{GMm}{R}
+\end{equation}
+is positive, hence the unmodified trajectory is hyperbolic. Circular orbit at
+$R$ requires $v_f = \sqrt{GM/R}$, i.e.\ $\Delta v = 13.62\unit{km/s}$.
+From the rocket equation (derived in App.~A)
+\begin{equation}
+  m_f = m_0\, e^{-\Delta v / v_{ex}} \approx 121\unit{kg},
+  \label{eq:rocket}
+\end{equation}
+a 95.15\% mass cost. This anchors the comparison for Section~2.
+
+% ============================================================
+\section{Model}
+\subsection{Governing Equations}
+% 物理定律 + 数据锚定拟合 + 组合参数 σ（"Define σ≡..." 句式）
+Quadratic drag and Newtonian gravity give
+\begin{equation}
+  m\ddot{\vect{r}} = -\frac{GMm}{r^3}\vect{r}
+  \;-\; \sigma\,\frac{P(h)}{T(h)}\,|\dot{\vect r}|\,\dot{\vect{r}},
+  \qquad \sigma \equiv \frac{c_d \mu A}{2k_B},
+  \label{eq:eom}
+\end{equation}
+where $P(h)=\alpha e^{-h/\beta}$ and $T(h)=ah+b$ are anchored at two literature
+points each~\cite{Lunine1993}. Compressing constants into $\sigma$ leaves a
+single functional dependence $P/T$.
+
+\subsection{Numerical Method}
+% 最小完备集：方法 + 步长 + 初值 + 边界处理（五行讲完）
+Equation~\eqref{eq:eom} is integrated by explicit Euler with
+$\Delta t = 10^{-3}\unit{s}$, initial condition $(x_0,y_0)=(0,R_{atm})$,
+entrance angle $\theta$ setting $(\dot x_0,\dot y_0)$. Inside the atmosphere
+both forces act; outside, gravity only; contact with the surface terminates
+the run. Full code in Appendix~B.
+
+\subsection{Operationalizing the Criterion}
+% 把题面模糊词翻译成阈值 + 自辩理由（金牌必做）
+A ``significant'' fuel saving is not quantitative enough; for a fair estimate
+we require $m_f \ge 0.8\, m_0$, which by inverting \eqref{eq:rocket} bounds the
+exit velocity to
+\begin{equation}
+  v_{min} = v_f - v_{ex}\ln(10/8), \qquad
+  v_{max} = v_f + v_{ex}\ln(10/8).
+\end{equation}
+
+% ============================================================
+\section{Results}
+% 单调性论证 + 反例夹逼 + 极端情形
+Exit speed increases monotonically with exit angle (argument in
+Section~3.1), so the admissible entrance angles form one interval. Bracketing
+by counterexample simulations:
+\begin{equation}
+  8.8295^\circ < \theta_{min} < 8.8296^\circ, \qquad
+  8.8549^\circ < \theta_{max} < 8.8550^\circ .
+\end{equation}
+
+% ============================================================
+\section{Uncertainty}
+% 三件套：步长减半 → 最坏情形封顶 → 未建模因素清单
+Halving the step to $5\times10^{-4}\unit{s}$ changes the exit speed in the
+fifth digit ($16876.86$ vs $16876.53\unit{m/s}$); we therefore claim 4--5
+significant figures, worst case (longest, near-critical trajectory) 4.
+Unmodeled: planetary rotation, winds up to $600\unit{m/s}$~\cite{Suomi1991},
+simple spacecraft shape.
+
+% ============================================================
+\section{Conclusion}
+% 区间 + 与基准对比 + 负结论 + 出路
+The admissible window is $0.0253^\circ$ wide --- a 75\% fuel saving
+(500 kg vs 2378 kg) at the price of an impractically tight corridor.
+We advise against the maneuver; targeting a larger orbit radius would
+relax the window considerably.
+
+% ============================================================
+\appendix
+\section{Derivation of the Rocket Equation}
+% 经典公式也要自己推：展示功底 + 符号主权
+\section{Simulation Code}
+% 全部可运行代码（伪代码亦可，但关键循环要完整）
+
+% ---------- 参考文献：金牌论文普遍 5-15 条，每条注明访问日期 ----------
+\begin{thebibliography}{9}
+\bibitem{Lunine} J.~Lunine, ``The atmospheres of Uranus and Neptune,''
+  \emph{Annu.\ Rev.\ Astron.\ Astrophys.} \textbf{31}, 217 (1993).
+\bibitem{Suomi1991} V.~E.~Suomi \emph{et al.}, ``High Winds of Neptune,''
+  \emph{Science} \textbf{251}, 929 (1991).
+\end{thebibliography}
+
+\end{document}

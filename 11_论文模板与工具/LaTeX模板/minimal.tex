@@ -1,0 +1,71 @@
+% ============================================================
+%  UPC 论文模板 · 极简快启款
+%  适用：48 小时现场，只依赖任何 LaTeX 发行版都自带的宏包，
+%        10 分钟起稿不折腾环境； 功能齐全后可再迁到金牌骨架款。
+%  编译：pdflatex 两遍
+% ============================================================
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}   % 旧发行版若报错可删（新版默认 utf8）
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\numberwithin{equation}{section}
+\newcommand{\unit}[1]{\,\mathrm{#1}}
+
+\title{\bfseries Your Descriptive Paper Title Here\\[4pt]
+       \large Team \#1234 \quad$\cdot$\quad Problem A}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+% 摘要一页太奢侈时，至少保证：两难 + 方法 + 带数字的结论
+\begin{abstract}
+\noindent
+We identify the trade-off between [A] and [B]. A baseline costs 95\% of mass;
+our model, verified by step-halving, narrows the admissible window to
+$8.83^\circ$--$8.85^\circ$. We advise against the maneuver.
+\end{abstract}
+
+\section{Baseline}
+Cost of doing nothing:
+\begin{equation}
+  m_f = m_0 e^{-\Delta v/v_{ex}} \approx 121\unit{kg}.
+\end{equation}
+
+\section{Model}
+\begin{equation}
+  m\ddot{x} = -\frac{GMm}{r^2} - \sigma v^2 .
+\end{equation}
+Integrated with $\Delta t = 10^{-3}$\,s; terminates at $h=0$.
+
+\section{Results}
+\begin{table}[h]
+  \centering
+  \caption{[One claim per table.]}
+  \begin{tabular}{lcc}
+    \toprule
+    case & result & error \\
+    \midrule
+    ideal     & 8.85 & $-$ \\
+    with drag & 8.83 & 0.02 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Uncertainty}
+Halving $\Delta t$ changes the fourth digit; unmodeled: [winds].
+
+\section{Conclusion}
+Window $= 0.025^\circ$; we advise against. See [limitation] for future work.
+
+\begin{thebibliography}{9}
+\bibitem{Key1993} J.~Author, ``Title,'' \emph{Journal} \textbf{31}, 217 (1993).
+\end{thebibliography}
+
+\end{document}

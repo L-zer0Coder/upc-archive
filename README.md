@@ -77,14 +77,27 @@
 
 ## 🌐 部署为网站（GitHub Pages）
 
-本档案库自带一个纯静态站点：`09_可视化总览/index.html`（总览导航 + 全文搜索）+ `09_可视化总览/docs/`（144 个 Markdown 文档渲染成的网页，公式用 KaTeX、流程图用 mermaid）。仓库根目录已备好三个部署辅助文件：
+本档案库自带一个纯静态站点：根目录 `index.html`（总览导航 + 全文搜索）+ `09_可视化总览/docs/`（223 个 Markdown 文档渲染成的网页，公式用 KaTeX、流程图用 mermaid）。仓库根目录已备好部署辅助文件：
 
 - `.nojekyll` —— 关闭 GitHub Pages 的 Jekyll 处理（否则 `_工具脚本` 等下划线目录会被忽略）
-- `index.html` —— 访问站点根路径时自动跳转到总览页
-- `.gitignore` —— **白名单模式**：只提交十个档案目录与 README，忽略本目录下的其他个人文件（LaTeX 安装包、视频、课件等约 6.5 GB）
+- `index.html` —— **站点首页本体**（访问 `/` 直接打开，不再做跳转，分享出去的 URL 干净）
+- `404.html` —— 自定义 404 页（GitHub Pages 会对任何缺失路径返回它）
+- `search-index.js` —— 223 份文档的全文索引（约 290 KB，首次输入搜索时才加载，不拖慢首屏）
+- `.gitignore` —— **白名单模式**：只提交十一个档案目录、站点资源与 README，忽略本目录下的其他个人文件（LaTeX 安装包、视频、课件等约 6.5 GB）
+
+外部依赖已全部本地化：KaTeX / Mermaid 存放在 `09_可视化总览/vendor/`，由 `_工具脚本/_fetch_vendor.py` 一次性拉取（默认 unpkg，可用 `VENDOR_MIRROR` 换源）。站点运行时**不再请求任何境外 CDN**，国内网络下公式与流程图都能正常渲染。
+
+> 注意：档案内容约 155 MB（论文 PDF 118 MB + 页面图 23 MB + 前端依赖 3.7 MB），远低于 GitHub 单文件 100 MB / 站点 1 GB 的限制，可直接托管；论文原为官网公开物，注明来源即可。
 
 部署三步（详见与档案库同期的对话教程）：① 在 GitHub 新建 Public 仓库 → ② 本目录 `git init && git add -A && git commit -m "UPC archive" && git branch -M main && git remote add origin <你的仓库地址> && git push -u origin main` → ③ 仓库 Settings → Pages → Source 选 `Deploy from a branch` + `main` + `/ (root)` → 保存，1–3 分钟后访问 `https://<用户名>.github.io/<仓库名>/`。
 
-> 注意：档案内容约 150 MB（论文 PDF 118 MB + 页面图 23 MB），远低于 GitHub 单文件 100 MB / 站点 1 GB 的限制，可直接托管；论文原为官网公开物，注明来源即可。
+### 重建站点
+
+```bash
+python _工具脚本/_fetch_vendor.py   # 仅首次，或升级 KaTeX/Mermaid 时
+python _工具脚本/_build_site.py      # 重新渲染 223 个文档页 + 首页 + 404 + 搜索索引
+```
+
+`_build_site.py` 结束时会做**大小写敏感 + git 跟踪感知**的链接校验（静态 href/src 与 DATA 里运行时注入的 URL 都查）。任何一处断链（包括「文件存在但没进 git」这种只在 Linux 上才炸的情况）都会让构建以非零码退出并列出行号级别的清单，不会再出现"本地一切正常、线上全 404"。
 
 *本档案库由自动化抓取 + 多智能体协作整理生成，论文版权归原队伍与 UPC 官方，仅作学习交流用途。*

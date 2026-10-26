@@ -5,13 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>批次07 对比表：2021 题B 与 2022 题A（5 篇金牌论文） · UPC 全档案库</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<meta name="description" content="批次07 对比表：2021 题B 与 2022 题A（5 篇金牌论文） 论文 年份 题号 论文标题 核心物理模型 关键数学方法 最值得学习的一点 2021-GM-B-385（国防科大） 2021 B Analysis of Astero…">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="批次07 对比表：2021 题B 与 2022 题A（5 篇金牌论文） · UPC 全档案库">
+<meta property="og:description" content="批次07 对比表：2021 题B 与 2022 题A（5 篇金牌论文） 论文 年份 题号 论文标题 核心物理模型 关键数学方法 最值得学习的一点 2021-GM-B-385（国防科大） 2021 B Analysis of Astero…">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<script defer src="../../vendor/katex/katex.min.js"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
+
 <style>
 :root{
- --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#9A9080;
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
  --line:#E7E0D1;--line2:#D9D0BD;
  --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
@@ -22,12 +28,12 @@ html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
 .topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
 .topbar a:hover{color:var(--acc)}
 .topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
 .topbar .tag:hover{border-color:var(--acc)}
-.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
 .topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
 .topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
 .topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
@@ -78,13 +84,46 @@ aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
 aside.toc::-webkit-scrollbar{width:5px}
 aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 @media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
 <div id="pbar"></div>
 <div class="topbar"><div class="in">
-  <a class="brand" href="../../index.html"><span class="seal">U</span>UPC 全档案库</a>
-  <a href="../../index.html#guide">使用指南</a>
+  <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../../index.html#guide">使用指南</a>
   <button id="ck" class="tag ck" type="button" hidden></button>
   
   <a class="tag" href="../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/_%E6%89%B9%E6%AC%A107_2021B-2022A.md">Markdown</a>
@@ -159,7 +198,9 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <p><strong>三、2022-A 两篇：答案相差约 30 倍（58 天 vs 4.8 年）的解剖。</strong> 这是本批次最刺眼的同题异构。346 队在地心系工作，取最坏情形 $D=0$ 正对撞，要求飞船动量独力供足擦地角动量（式(7) 含引力聚焦项 $2GM_a^2R_EM_E$），判据等价于"横向速度增量 × 剩余时间 = $R_E$ 量级"的线性外推，得 25 AU、4.8 年；395 队在日心系工作，飞船借地球公转速度把撞前速度抬到 46.6 km/s（式(15)），判据是"碰后距地心最近距离 &gt; $10^7$ m"，在双曲地球交会中小的瞄准距变化经引力聚焦放大（近距 $r_p\propto b^2$），数值搜索给出 58–139 天。两边可用的 $\Delta v$ 其实同量级（346 约 0.05 m/s，395 约 0.08 m/s），差距主要来自判据定义、参考系选择与聚焦效应的处理方向。346 队用 Ahrens &amp; Harris 1992 等文献把"提前数年"的结论做了交叉验证，395 队未做文献对照（其 58 天显著比行星防御界共识乐观，凭正文信息难以逐项复核，须代入其附录脚本才能裁决）。两篇同获金牌说明 UPC 容忍答案发散，但从竞赛策略上讲，346 的"文献锚定 + 双方案 + 风险概率"显然更抗质疑。</p>
 <p><strong>四、判据工程是两个年度共同的胜负手。</strong> 2021-B 的"实质性破坏"与 2022-A 的"错过地球"都是开放判据，五篇论文不约而同把定义环节做成了显式工程：Watanabe 等级表、ITIS-2012 建筑类别、擦地角动量不等式、1.5 $R_E$ 最近距、椭圆情形"碰后轨道仍与地球轨道相交则迟早再撞"的回归性论证。同样的结构还出现在方案/效应的枚举排除上——2021-B 排效应（热、冲击风、地震），2022-A 排方案（着陆、系绳），385 队的 Figure 1+Figure 6 与 346 队的"两个失败方案"一节是同一思想的两种排版。可提炼的通用套路是：<strong>开放题 = 判据定义 + 空间枚举 + 主模型精算 + 副效应/副方案的定量排除</strong>，四段缺一不可。</p>
 <p><strong>五、资源入模、自检循环与呈现的容忍度。</strong> 本批次反复出现的加分动作有三类：一是把题目给定资源真正算进模型（346 队火箭方程求 $u_{sat}=v_e$ 动量极值、395 队用第三宇宙速度约束反推燃料烧掉 89% 后只剩 2161 kg、385 队烧蚀使入大气前质量是落海时的 2.03 倍）；二是前提自检（395 队 $F_{sun}/F_e$ 比值推翻自己的地心假设、445 队数值复现理论标度、346 队结合能/动能 5 个量级审计）；三是诚实的 Weaknesses 与风险量化（346 队把碎裂方案的"误伤率"画成 30%/7% 概率曲线，是全部五篇中唯一把模型风险做成曲线的）。呈现层面则显示出较大的评审容忍度：395 队用 MCM/ICM 模板写 UPC、符号表错行、仅 2 篇引文，385 队引文编号重复、445 队残留"(ref)"占位符与欧式小数逗号，都没能挡住金牌——但 442、346 两篇的期刊级排版与文献规范证明了"干净"的上限收益，参赛者应以 442/346 为排版标杆、以 395 为"内容优先"的下限警戒线。</p>
-</div></div>
+</div>
+
+</div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#批次观察">批次观察</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>

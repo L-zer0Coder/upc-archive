@@ -5,13 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>精读 13 · Design and Dynamic Analysis of a Roller Coaster（2019 题B 金牌 · 队伍 389） · UPC 全档案库</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<meta name="description" content="精读 13 · Design and Dynamic Analysis of a Roller Coaster（2019 题B 金牌 · 队伍 389） 这份精读怎么用 ：左手边开论文 PDF（ 03_优秀论文PDF/2019/Prob…">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="精读 13 · Design and Dynamic Analysis of a Roller Coaster（2019 题B 金牌 · 队伍 389） · UPC 全档案库">
+<meta property="og:description" content="精读 13 · Design and Dynamic Analysis of a Roller Coaster（2019 题B 金牌 · 队伍 389） 这份精读怎么用 ：左手边开论文 PDF（ 03_优秀论文PDF/2019/Prob…">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
+<script defer src="../../../vendor/katex/katex.min.js"></script>
+<script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
+<script src="../../../vendor/mermaid/mermaid.min.js"></script>
 <style>
 :root{
- --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#9A9080;
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
  --line:#E7E0D1;--line2:#D9D0BD;
  --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
@@ -22,12 +28,12 @@ html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
 .topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
 .topbar a:hover{color:var(--acc)}
 .topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
 .topbar .tag:hover{border-color:var(--acc)}
-.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
 .topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
 .topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
 .topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
@@ -78,13 +84,46 @@ aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
 aside.toc::-webkit-scrollbar{width:5px}
 aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 @media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
 <div id="pbar"></div>
 <div class="topbar"><div class="in">
-  <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
-  <a href="../../../index.html#guide">使用指南</a>
+  <a class="brand" href="../../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../../../index.html#guide">使用指南</a>
   <button id="ck" class="tag ck" type="button" hidden></button>
   <a class="tag" href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2019/Problem%20B/2019-GM-B-389.pdf">论文 PDF</a><a class="tag" href="../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2019/2019-GM-B-389.html">本篇赏析</a>
   <a class="tag" href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2019/2019-GM-B-389_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
@@ -399,7 +438,9 @@ Appendix       对照数据表 + 66点加速度表 + 引用标准全文出处
 <p><strong>图表配方</strong>：双轨验证型 → "对照散点 + y=x 对角线 + ±10% 带，统计量写进图题"；轨道设计型 → "五向视图（正交完备投影）+ 每段一图对一式 + 关键选型（clothoid）单独配图"；结果收口 → "特征点速度表 + 时长/长度总账表 + 分步文字轨迹（题目第 3 问的最小完备答案）"。</p>
 <hr>
 <p><em>精读完这篇后，建议对照 <code>05_论文赏析/2019/2019-GM-B-389.md</code>（宏观赏析）与 <code>07_题目解读/2019_题B_过山车设计.md</code>（题目全解）形成三位一体。同题对照：精读 12（队伍 190）——把两篇的判据口径（NASA vs EN13814）、求解工具（ODE 数值 vs 能量递推）、验证方式（自查能量账 vs 独立仿真器）逐项列表比较，是 2019 题B 最有效的读法。下一篇精读 14：2020 题A 离子推进去土星（队伍 340）。</em></p>
-</div></div>
+</div>
+<div class="realted-wrap"><div class="realted"><div class="tt">2019 题B · 同年同题金牌论文（2 篇）</div><ul><li><span class="t">#190</span><a class="n" href="2019-GM-B-190_%E7%B2%BE%E8%AF%BB.html" title="Design a Roller Coaster">Design a Roller Coaster</a><span class="t" style="text-align:right">30 页</span></li><li class="self"><span class="t">#389</span><span class="n">Design and Dynamic Analysis of a Roller Coaster</span><span>本篇</span></li></ul></div></div>
+</div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-1-problem-analysis第-34-页">1.2 §1 Problem Analysis（第 3–4 页）</a></li><li class="l3"><a href="#13-21-五条假设第-56-页">1.3 §2.1 五条假设（第 5–6 页）</a></li><li class="l3"><a href="#14-22-参数双表第-68-页">1.4 §2.2 参数双表（第 6–8 页）</a></li><li class="l3"><a href="#15-23-nolimits-2-建模先建看得见的轨道第-810-页">1.5 §2.3 NoLimits 2 建模：先建"看得见"的轨道（第 8–10 页）</a></li><li class="l3"><a href="#16-24-动能定理框架式-17第-1112-页">1.6 §2.4 动能定理框架（式 1–7）（第 11–12 页）</a></li><li class="l3"><a href="#17-24-九段递推式-816第-1217-页">1.7 §2.4 九段递推（式 8–16）（第 12–17 页）</a></li><li class="l3"><a href="#18-3-results第-1722-页">1.8 §3 Results（第 17–22 页）</a></li><li class="l3"><a href="#19-4-model-verification第-2123-页">1.9 §4 Model Verification（第 21–23 页）</a></li><li class="l3"><a href="#110-57-改进评价结论第-2324-页">1.10 §5–7 改进、评价、结论（第 23–24 页）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-动能定理框架式-1">3.1 动能定理框架（式 1）</a></li><li class="l3"><a href="#32-风阻与平均速度封闭式-23">3.2 风阻与平均速度封闭（式 2–3）</a></li><li class="l3"><a href="#33-滚动摩擦式-46">3.3 滚动摩擦（式 4–6）</a></li><li class="l3"><a href="#34-段-1山顶圆弧式-8">3.4 段 1：山顶圆弧（式 8）</a></li><li class="l3"><a href="#35-段-5大半圆回转的风阻积分式-12">3.5 段 5：大半圆回转的风阻积分（式 12）</a></li><li class="l3"><a href="#36-段-7clothoid-回旋线环式-14">3.6 段 7：clothoid 回旋线环（式 14）</a></li><li class="l3"><a href="#37-段-8螺旋段参数化式-15">3.7 段 8：螺旋段参数化（式 15）</a></li><li class="l3"><a href="#38-段-9末段与刹车式-16">3.8 段 9：末段与刹车（式 16）</a></li><li class="l3"><a href="#39-安全判据31无编号">3.9 安全判据（§3.1，无编号）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>

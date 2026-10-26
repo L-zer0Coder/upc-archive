@@ -5,13 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>批次06 对比表：2020 题B 与 2021 题A/B（5 篇金牌论文） · UPC 全档案库</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<meta name="description" content="批次06 对比表：2020 题B 与 2021 题A/B（5 篇金牌论文） 论文 年份 题号 论文标题 核心物理模型 关键数学方法 最值得学习的一点 2020-GM-B-335（同济） 2020 B Wind Control Strat…">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="批次06 对比表：2020 题B 与 2021 题A/B（5 篇金牌论文） · UPC 全档案库">
+<meta property="og:description" content="批次06 对比表：2020 题B 与 2021 题A/B（5 篇金牌论文） 论文 年份 题号 论文标题 核心物理模型 关键数学方法 最值得学习的一点 2020-GM-B-335（同济） 2020 B Wind Control Strat…">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<script defer src="../../vendor/katex/katex.min.js"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
+
 <style>
 :root{
- --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#9A9080;
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
  --line:#E7E0D1;--line2:#D9D0BD;
  --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
@@ -22,12 +28,12 @@ html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
 .topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
 .topbar a:hover{color:var(--acc)}
 .topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
 .topbar .tag:hover{border-color:var(--acc)}
-.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
 .topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
 .topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
 .topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
@@ -78,13 +84,46 @@ aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
 aside.toc::-webkit-scrollbar{width:5px}
 aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 @media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
 <div id="pbar"></div>
 <div class="topbar"><div class="in">
-  <a class="brand" href="../../index.html"><span class="seal">U</span>UPC 全档案库</a>
-  <a href="../../index.html#guide">使用指南</a>
+  <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../../index.html#guide">使用指南</a>
   <button id="ck" class="tag ck" type="button" hidden></button>
   
   <a class="tag" href="../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/_%E6%89%B9%E6%AC%A106_2020B-2021.md">Markdown</a>
@@ -159,7 +198,9 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <p><strong>三、数据驱动型题目（2020-B）与解析推导型题目（2021-A）的写法差异。</strong> 2020-B 两篇的共同特征是：没有一个可以"推到底"的解析解，得分点在<strong>控制结构 + 数值实验设计</strong>——335 队的 PID 扫描六宫格（Fig.8–13）、380 队的 $\epsilon$ 因子扫描（Fig.19–20）本质上都是"用参数扫描代替解析讨论"，且都要做越界对照实验证明临界值卡得准。2021-A 两篇则相反：有清晰的解析骨架（Jeans 公式、玻尔兹曼分布、静力平衡微元），数值只是解 ODE 的手段，得分点在<strong>假设的前置论证与机制间的合成方式</strong>（200 队的压强降叠加、349 队的标度律）。而 2021-B（216 队）展示了两类的混合形态：前半段是解析+ODE 的经典推导，后半段完全依赖经验公式与灾害数据，它的独特贡献是把"查文献定阈值"做成了显式环节——对开放判据型题目，这一步的工作量与价值不亚于任何公式推导。</p>
 <p><strong>四、排版与呈现的代际差。</strong> 本批次 5 篇中，3 篇 LaTeX（335 的无衬线简洁风、200 与 216 的标准衬线风）明显比 2 篇 Word 系（380 的 Times 排版尚可、349 的公式乱码/兼容性问题）更耐看，尤其 216 队"每条公式右侧标注操作"的写法和 200 队"符号表带数值 + 目录 + 分层编号"的架构，都是可以直接抄走的版式资产。同时批次内普遍存在的小毛病值得警惕：335 的章节跳号与"PIL"笔误、380 的摘要与 5.5 节结论数值不一致（5.3678 vs 5.2795 m/s）、200 的空引文与图题缺失、349 的正文修正未同步进代码、216 的零星拼写错误——金牌论文尚且如此，说明评委对这类小瑕疵有容忍度，但它们全都可以在最后一小时检查中消除。</p>
 <p><strong>五、摘要与结论的"三数原则"。</strong> 5 篇论文无一例外在摘要或结论的显眼位置给出带单位的最终数值（10.63 m/s；5.3678/5.3487 m/s；8.6422×10⁷ 年/70–90 million years；约 700 million years；$10^9$ kg），且多数同时给出关键中间量（200 队的机制排序、216 队的 2 m 阈值定义）。此外，"诚实的弱点讨论"是本批次的共同底色：380 队承认只研究水平风、216 队承认数值解只是近似并点名 Green's law——在 UPC 的评审文化里，一个自我批评到位的模型远比一个假装完美的模型更加分。</p>
-</div></div>
+</div>
+
+</div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#批次观察">批次观察</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
