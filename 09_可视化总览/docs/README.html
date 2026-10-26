@@ -400,11 +400,19 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 python _工具脚本/_build_site.py      # 重新渲染 223 个文档页 + 首页 + 404 + 搜索索引
 </code></pre>
 <p><code>_build_site.py</code> 结束时会做<strong>大小写敏感 + git 跟踪感知</strong>的链接校验（静态 href/src 与 DATA 里运行时注入的 URL 都查）。任何一处断链（包括「文件存在但没进 git」这种只在 Linux 上才炸的情况）都会让构建以非零码退出并列出行号级别的清单，不会再出现"本地一切正常、线上全 404"。</p>
+<h3 id="赛事时钟">赛事时钟</h3>
+<p>首页 hero 下方与每个文档页顶栏都有赛事时钟，三态自动切换：<strong>赛前倒计时 → 赛中计时（已用/剩余/进度条/当前阶段）→ 赛后归档</strong>。赛中会把当前时间落到 <code>48小时作战手册.md</code> 的 T0–T9 阶段上，直接告诉你"现在该干什么、还剩几小时"。</p>
+<p>时间点只在 <code>_工具脚本/_build_site.py</code> 顶部改这两行即可，改完重建：</p>
+<pre><code class="language-python">EVENT_START_MS = 1794013200000   # 2026-11-07T09:00:00+08:00（UTC 毫秒）
+EVENT_END_MS   = EVENT_START_MS + 48 * 3600 * 1000
+PHASES = [...]                   # 小时区间 → 阶段名，与作战手册对齐
+</code></pre>
+<p>用绝对时间戳而非日期字符串，访问者无论在哪个时区看到的都是同一时刻；页面隐藏时计时器自动停跳，回到前台立刻校正。</p>
 <p><em>本档案库由自动化抓取 + 多智能体协作整理生成，论文版权归原队伍与 UPC 官方，仅作学习交流用途。</em></p>
 </div>
 
 </div>
-<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#目录结构">📁 目录结构</a></li><li class="l2"><a href="#历年赛题与论文速览">🗓 历年赛题与论文速览</a></li><li class="l2"><a href="#快速上手">🚀 快速上手</a></li><li class="l2"><a href="#upc-竞赛小档案">🏅 UPC 竞赛小档案</a></li><li class="l2"><a href="#部署为网站github-pages">🌐 部署为网站（GitHub Pages）</a></li><li class="l3"><a href="#重建站点">重建站点</a></li></ul></aside>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#目录结构">📁 目录结构</a></li><li class="l2"><a href="#历年赛题与论文速览">🗓 历年赛题与论文速览</a></li><li class="l2"><a href="#快速上手">🚀 快速上手</a></li><li class="l2"><a href="#upc-竞赛小档案">🏅 UPC 竞赛小档案</a></li><li class="l2"><a href="#部署为网站github-pages">🌐 部署为网站（GitHub Pages）</a></li><li class="l3"><a href="#重建站点">重建站点</a></li><li class="l3"><a href="#赛事时钟">赛事时钟</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
 <button id="top" aria-label="回到顶部">↑</button>
