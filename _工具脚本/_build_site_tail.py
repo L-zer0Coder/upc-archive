@@ -115,6 +115,47 @@ a:hover{color:var(--acc-d)}
 .btn.solid{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
 .btn.solid:hover{background:var(--acc-d);color:#FDFCF8}
 
+/* ---- 赛事时钟（第 17 届） ---- */
+.race{margin:26px 0 4px;border:1px solid var(--line);border-left:3px solid var(--acc);
+ border-radius:0 4px 4px 0;background:var(--sheet);padding:15px 20px 17px;scroll-margin-top:70px}
+.race[data-state="live"]{border-left-color:#B23A22;
+ background:linear-gradient(180deg,rgba(156,63,46,.055),rgba(253,252,248,0) 62%)}
+.race[data-state="post"]{border-left-color:var(--line2)}
+.race-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.rpill{font-size:10.5px;letter-spacing:.14em;padding:2px 9px;border-radius:2px;
+ background:var(--acc);color:#FDFCF8;white-space:nowrap;font-weight:600}
+.race[data-state="pre"] .rpill{background:rgba(156,63,46,.1);color:var(--acc)}
+.race[data-state="post"] .rpill{background:rgba(42,37,30,.07);color:var(--mut)}
+.rtitle{color:var(--mut);font-size:12.5px}
+.race-pre,.race-live,.race-post{display:none}
+.race[data-state="pre"] .race-pre,.race[data-state="live"] .race-live,.race[data-state="post"] .race-post{display:block}
+.cd{display:flex;align-items:baseline}
+.cd-u{display:flex;align-items:baseline;gap:5px;padding:0 15px;border-right:1px solid var(--line2)}
+.cd-u:first-child{padding-left:0}
+.cd-u:last-child{border-right:none}
+.cd b{font-family:var(--serif);font-size:clamp(25px,4vw,34px);font-weight:700;line-height:1.2;
+ font-variant-numeric:tabular-nums;letter-spacing:.01em;display:inline-block;min-width:2.2ch}
+.cd span{font-size:11.5px;color:var(--dim)}
+.race-note{margin:9px 0 0;font-size:12.5px;color:var(--dim)}
+.race-note a{color:var(--acc)}
+.rl-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--dim)}
+.rl-row b{font-family:var(--mono);font-size:19px;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.rl-row b.hot{color:var(--acc)}
+.rl-bar{height:4px;background:#EFEADC;border-radius:2px;overflow:hidden;margin:9px 0 13px}
+.rl-bar i{display:block;height:100%;width:0;background:var(--acc);border-radius:2px;transition:width .8s ease}
+.race[data-state="live"] .rl-bar i{background:linear-gradient(90deg,var(--acc),#C0503A)}
+.rl-phase{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font-size:12.5px;color:var(--dim)}
+.rl-phase b{font-family:var(--serif);font-size:15px;color:var(--ink);font-weight:700}
+.rl-next{margin-top:5px;font-size:12px;color:var(--dim)}
+.rl-link{margin:11px 0 0;font-size:12.5px;border-top:1px solid var(--line);padding-top:9px}
+.race-post p{margin:0;font-size:13px;color:var(--mut)}
+@media(max-width:640px){
+ .race{padding:13px 15px 15px}
+ .cd-u{padding:0 10px;gap:4px}
+ .cd b{font-size:24px}
+ .rl-row b{font-size:16px}
+}
+
 /* ---- 板块 ---- */
 main{padding-bottom:40px}
 section{margin:62px 0 0;scroll-margin-top:66px}
@@ -372,6 +413,36 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
       <a class="btn solid" href="#guide">开始使用</a>
       <a class="btn" href="#papers">金牌论文库</a>
       <a class="btn" href="__MODEL_URL__">物理模型综述</a>
+    </div>
+    <div class="race" id="race" data-state="pre">
+      <div class="race-h">
+        <span class="rpill" id="rpill">赛前</span>
+        <span class="rtitle" id="rtitle">第 17 届 UPC · 2026.11.07 09:00 开赛（北京时间 UTC+8）</span>
+      </div>
+      <div class="race-pre">
+        <div class="cd">
+          <div class="cd-u"><b id="rd">—</b><span>天</span></div>
+          <div class="cd-u"><b id="rh">--</b><span>时</span></div>
+          <div class="cd-u"><b id="rm">--</b><span>分</span></div>
+          <div class="cd-u"><b id="rs">--</b><span>秒</span></div>
+        </div>
+        <p class="race-note">距开赛。分工还没定？先过一遍 <a href="__MANUAL__">48 小时作战手册</a>。</p>
+      </div>
+      <div class="race-live">
+        <div class="rl-row">
+          <span>已用</span><b id="ru">--:--:--</b>
+          <span style="margin-left:18px">剩余</span><b id="rr" class="hot">--:--:--</b>
+        </div>
+        <div class="rl-bar"><i id="rbar"></i></div>
+        <div class="rl-phase"><span>当前阶段</span><b id="rpn">—</b><span id="rpd"></span></div>
+        <div class="rl-next" id="rnx"></div>
+        <p class="rl-link"><a href="__MANUAL__">对照 48 小时作战手册逐阶段执行 →</a></p>
+      </div>
+      <div class="race-post">
+        <p>第 17 届已于 2026 年 11 月 9 日 09:00（北京时间）截止；第 18 届信息待官网公布。</p>
+        <p class="race-note">赛后复盘最有效的动作：把本年 A/B 两题与 <a href="#years">历届同域金牌论文</a> 并排放，逐条对「判据—方程—数值—检验」。</p>
+      </div>
+      <noscript><p class="race-note">2026 年 11 月 7 日 09:00 开赛，11 月 9 日 09:00 截止（北京时间）。</p></noscript>
     </div>
   </div>
 </header>
@@ -917,6 +988,54 @@ addEventListener('keydown',e=>{if(e.key==='Escape'&&mdl.classList.contains('on')
     if(q.getAttribute('placeholder')!==short)q.setAttribute('placeholder',short);}
   fit();addEventListener('resize',fit,{passive:true});
 })();
+/* ---------- 第 17 届赛事时钟：赛前倒计时 / 赛中计时 + 阶段定位 ---------- */
+(function(){
+  var S=__EV_START__,E=__EV_END__,P=__PHASES__;
+  var root=document.getElementById('race');if(!root)return;
+  var pill=document.getElementById('rpill'),title=document.getElementById('rtitle');
+  var rd=document.getElementById('rd'),rh=document.getElementById('rh'),
+      rm=document.getElementById('rm'),rs=document.getElementById('rs');
+  var ru=document.getElementById('ru'),rr=document.getElementById('rr'),
+      rbar=document.getElementById('rbar'),rpn=document.getElementById('rpn'),
+      rpd=document.getElementById('rpd'),rnx=document.getElementById('rnx');
+  function p2(n){return n<10?'0'+n:''+n;}
+  function hms(ms){var s=Math.max(0,Math.floor(ms/1000));
+    return p2(Math.floor(s/3600))+':'+p2(Math.floor(s%3600/60))+':'+p2(s%60);}
+  var last='';
+  function tick(){
+    var t=Date.now(),st;
+    if(t<S)st='pre';else if(t<E)st='live';else st='post';
+    if(st!==last){
+      last=st;root.dataset.state=st;
+      pill.textContent=st==='pre'?'赛前':(st==='live'?'比赛进行中':'已结束');
+      title.textContent=st==='pre'?'第 17 届 UPC · 2026.11.07 09:00 开赛（北京时间 UTC+8）'
+        :st==='live'?'第 17 届 UPC · 2026.11.09 09:00 截止（北京时间 UTC+8）'
+        :'第 17 届 UPC · 2026.11.07 09:00 — 11.09 09:00';
+    }
+    if(st==='pre'){
+      var ms=S-t,d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),
+          m=Math.floor(ms%36e5/6e4),s=Math.floor(ms%6e4/1e3);
+      rd.textContent=d;rh.textContent=p2(h);rm.textContent=p2(m);rs.textContent=p2(s);
+    }else if(st==='live'){
+      var used=t-S,left=E-t;
+      ru.textContent=hms(used);rr.textContent=hms(left);
+      rbar.style.width=Math.min(100,used/(E-S)*100)+'%';
+      var hr=used/36e5,cur=P[0],nx=null;
+      for(var i=0;i<P.length;i++){if(hr>=P[i][0]&&hr<P[i][1]){cur=P[i];break;}}
+      for(var j=0;j<P.length;j++){if(P[j][0]>hr){nx=P[j];break;}}
+      rpn.textContent=cur[2]+' · '+cur[3];
+      rpd.textContent='第 '+cur[0]+'–'+cur[1]+' 小时 · 还剩 '+hms(cur[1]*36e5-used);
+      rnx.textContent=nx?('下一阶段 '+nx[2]+' · '+nx[3]+'（第 '+nx[0]+' 小时起）· '+nx[4])
+                       :'已是最后一个阶段：提前 2 小时交卷。';
+    }
+  }
+  tick();
+  var timer=setInterval(tick,1000);
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden){clearInterval(timer);timer=0;}
+    else{tick();if(!timer)timer=setInterval(tick,1000);}
+  });
+})();
 ckRefresh();
 </script>
 </body>
@@ -927,6 +1046,10 @@ ckRefresh();
             .replace("__RULES__", RULES_HTML).replace("__DATA__", DATA_JS)
             .replace("__TEX__", TEX_JS).replace("__JOURNEY__", JOURNEY_URL)
             .replace("__MODEL_URL__", ctx.get("model_url", ""))
+            .replace("__MANUAL__", ctx.get("manual_url", ""))
+            .replace("__EV_START__", str(ctx.get("ev_start", 0)))
+            .replace("__EV_END__", str(ctx.get("ev_end", 0)))
+            .replace("__PHASES__", ctx.get("phases", "[]"))
             .replace("__NDOCS__", str(NDOCS)))
     out = os.path.join(ctx.get("root") or ctx["site"], "index.html")
     with open(out, "w", encoding="utf-8") as f:

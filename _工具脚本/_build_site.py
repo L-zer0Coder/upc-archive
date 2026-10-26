@@ -31,6 +31,25 @@ KATEX_JS = os.path.join(VENDOR, "katex", "katex.min.js")
 KATEX_AUTORENDER = os.path.join(VENDOR, "katex", "contrib", "auto-render.min.js")
 MERMAID_JS = os.path.join(VENDOR, "mermaid", "mermaid.min.js")
 
+# ---------------- 第 17 届赛事时钟 ----------------
+# 北京时间 2026-11-07 09:00 开赛，48 小时；用绝对 UTC 偏移写死，不受访问者时区影响
+EVENT_START_MS = 1794013200000   # 2026-11-07T09:00:00+08:00
+EVENT_END_MS = EVENT_START_MS + 48 * 3600 * 1000
+# 阶段表取自 11_论文模板与工具/48小时作战手册.md 的 T0–T9（小时区间按主序列排，去掉并行重叠）
+PHASES = [
+    [0, 2, "T0", "读题与选题", "两题各 15 分钟独立读，按“离主场模型更近”选题"],
+    [2, 4, "T1", "去模糊化 + 敲定路线图", "把 significant / safely 翻译成可计算判据；里程碑①一页纸作战图"],
+    [4, 8, "T2", "基准方案（必须解析）", "先算闭式对照情形，给主模型一个锚数字"],
+    [8, 14, "T3", "主模型推导", "从守恒律写主方程，每个假设配一句量级自辩"],
+    [14, 20, "T3·T4", "主模型收口 + 数值起跑", "第 14 小时中点检查：主方程没落地就立刻降级模型"],
+    [20, 26, "T4", "数值实现", "先跑通一条轨迹，再谈参数扫描"],
+    [26, 30, "T5", "修正项与扩展", "按量级表裁决“必须建模 / 可忽略 / 有余力”"],
+    [30, 38, "T6", "验证三件套", "收敛性 + 极限情形 + 灵敏度 —— 金银牌的分水岭"],
+    [38, 41, "T7", "图表精修", "每张图过 checklist：编号 / 被正文点名 / 单位 / 结论进图题"],
+    [41, 46, "T8", "写作与整合", "摘要最后写，但必须带数值结论"],
+    [46, 48, "T9", "交叉互查 + 提前交卷", "提前 2 小时交，官网截止不等人"],
+]
+
 def posix(p):
     return p.replace("\\", "/")
 
@@ -113,6 +132,13 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .brand:hover{color:var(--ink)}
 .brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
 .crumb{color:var(--dim);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+/* 赛事时钟徽章：赛前显示 D-天数，赛中显示已用时长 */
+.topbar .clock{margin-left:12px;flex-shrink:0;font-family:var(--mono);font-size:11px;line-height:1.9;
+ letter-spacing:.02em;padding:1px 8px;border:1px solid rgba(156,63,46,.28);border-radius:3px;
+ color:var(--acc);background:var(--acc-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+.topbar .clock:hover{border-color:var(--acc);color:var(--acc-d);background:rgba(156,63,46,.12)}
+.topbar .clock[data-s="live"]{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
 .sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
@@ -200,6 +226,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   __PAPERTAG__
   <a class="tag" href="__RAWMD__">Markdown</a>
   <span class="crumb">__CRUMB__ · __TITLE__</span>
+  <a class="clock" id="clock" href="__HOME__#race" hidden aria-label="第 17 届 UPC 赛程"></a>
 </div></div>
 <div class="layout">
   <div class="content"><div class="sheet">
@@ -285,6 +312,24 @@ document.addEventListener("DOMContentLoaded", function(){
     },{passive:true});
   }
 });
+/* ---------- 赛事时钟徽章：赛前 D-天数，赛中已用时长，点回首页赛程 ---------- */
+(function(){
+  var S=__EV_START__,E=__EV_END__,el=document.getElementById('clock');
+  if(!el)return;
+  function p2(n){return n<10?'0'+n:''+n;}
+  function upd(){
+    var t=Date.now();
+    if(t<S){var ms=S-t,dd=Math.floor(ms/864e5);
+      if(dd>=1){el.textContent='赛前 D-'+dd;el.dataset.s='pre';}
+      else{var hh=Math.floor(ms/36e5),mm=Math.floor(ms%36e5/6e4);
+        el.textContent='赛前 '+p2(hh)+':'+p2(mm);el.dataset.s='pre';}}
+    else if(t<E){var u=Math.floor((t-S)/1000);
+      el.textContent='赛中 '+p2(Math.floor(u/3600))+':'+p2(Math.floor(u%3600/60));el.dataset.s='live';}
+    else{el.textContent='第 17 届已结束';el.dataset.s='post';}
+    el.hidden=false;
+  }
+  upd();setInterval(upd,30000);
+})();
 </script>
 </body>
 </html>"""
@@ -422,6 +467,8 @@ def render_docs():
                      .replace("__CSS_KATEX__", link_from(page_dir, KATEX_CSS))
                      .replace("__JS_KATEX__", link_from(page_dir, KATEX_JS))
                      .replace("__JS_AUTORENDER__", link_from(page_dir, KATEX_AUTORENDER))
+                     .replace("__EV_START__", str(EVENT_START_MS))
+                     .replace("__EV_END__", str(EVENT_END_MS))
                      .replace("__MERMAID_TAG__", mermaid_tag)
                      .replace("__TOC__", toc_html(MD)))
         os.makedirs(page_dir, exist_ok=True)
@@ -705,6 +752,9 @@ render_index({"timeline": TIMELINE_SVG, "bars": BARS_SVG, "model": MODEL_SVG,
               "rules": RULES_HTML, "data": DATA_JS, "ndocs": len(search_docs),
               "site": SITE, "root": ROOT,
               "model_url": site_rel(doc_html_abs(P("08_物理模型综述", "00_总览.md"))),
+              "manual_url": site_rel(doc_html_abs(P("11_论文模板与工具", "48小时作战手册.md"))),
+              "ev_start": EVENT_START_MS, "ev_end": EVENT_END_MS,
+              "phases": json.dumps(PHASES, ensure_ascii=False),
               "tex": TEX_JS, "journey": JOURNEY_URL})
 write_deploy_helpers(ROOT, SITE)
 
