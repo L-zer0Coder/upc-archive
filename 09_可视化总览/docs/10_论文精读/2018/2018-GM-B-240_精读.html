@@ -27,6 +27,10 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar a:hover{color:var(--acc)}
 .topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
 .topbar .tag:hover{border-color:var(--acc)}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px}
+.topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
+.topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
 .brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:13.5px;margin-right:4px}
 .brand:hover{color:var(--ink)}
 .brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
@@ -81,6 +85,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <div class="topbar"><div class="in">
   <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
   <a href="../../../index.html#guide">使用指南</a>
+  <button id="ck" class="tag ck" type="button" hidden></button>
   <a class="tag" href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2018/Problem%20B/2018-GM-B-240.pdf">论文 PDF</a><a class="tag" href="../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2018/2018-GM-B-240.html">本篇赏析</a>
   <a class="tag" href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2018/2018-GM-B-240_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
   <span class="crumb">10_论文精读/2018 · 精读 07 · Compost Pile Sizes（2018 题B 金牌 · 队伍 240）</span>
@@ -358,7 +363,33 @@ Appendix       参数四列表 + 全代码
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
+/* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
+var PKEY="2018-GM-B-240",PKIND="paper",CKS="upcProgress.v1";
+function ckLoad(){try{return JSON.parse(localStorage.getItem(CKS)||"{}")}catch(e){return{}}}
+function ckSave(s){try{localStorage.setItem(CKS,JSON.stringify(s))}catch(e){}}
+function ckPush(s,st){(s.log=s.log||[]).unshift({k:PKEY,t:PKIND,s:st,ts:Date.now()});if(s.log.length>80)s.log.length=80;}
+function ckSet(state){
+  var s=ckLoad();
+  var bag=PKIND==="paper"?(s.p=s.p||{}):(s.i=s.i||{});
+  var it=bag[PKEY]||{},now=Date.now();
+  if(state==="v"){if(!it.v){it.v=now;ckPush(s,"v");}}
+  else if(state==="t"){if(it.d){delete it.d;ckPush(s,"u");}else{it.d=now;ckPush(s,"d");}}
+  bag[PKEY]=it;ckSave(s);ckUI();
+}
+function ckUI(){
+  var b=document.getElementById('ck');if(!b||!PKEY)return;
+  var s=ckLoad(),it=(PKIND==="paper"?(s.p||{}):(s.i||{}))[PKEY]||{};
+  var done=!!it.d;
+  b.textContent=done?"已打卡 ✓":"打卡 · 标记已吃透";
+  b.classList.toggle('done',done);
+}
 document.addEventListener("DOMContentLoaded", function(){
+  if(PKEY){
+    var b=document.getElementById('ck');b.hidden=false;
+    b.addEventListener('click',function(){ckSet("t")});
+    ckUI();
+    setTimeout(function(){ckSet("v")},3000);  // 停留 3 秒 = 浏览过（自动标记）
+  }
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
     ignoredTags:["script","style","textarea","pre","code"]});

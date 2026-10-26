@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一篇金牌论文的完整历程 —— 从拿到题目到交卷 · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#9A9080;
+ --line:#E7E0D1;--line2:#D9D0BD;
+ --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
+ --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+ --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
+.topbar a:hover{color:var(--acc)}
+.topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
+.topbar .tag:hover{border-color:var(--acc)}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px}
+.topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
+.topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:13.5px;margin-right:4px}
+.brand:hover{color:var(--ink)}
+.brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
+.crumb{color:var(--dim);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
+.content{flex:0 1 780px;min-width:0}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
+.sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
+.sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
+.sheet h4{font-size:15.5px;margin:1.2em 0 .4em;font-weight:600}
+.sheet p{margin:.85em 0}
+.sheet a{color:var(--acc)}
+.sheet a:hover{color:var(--acc-d);text-decoration:underline;text-underline-offset:3px}
+.sheet ul,.sheet ol{padding-left:1.6em;margin:.7em 0}
+.sheet li{margin:.3em 0}
+.sheet li::marker{color:var(--dim)}
+code{background:#F2EDE2;border:1px solid var(--line);border-radius:3px;padding:.5px 6px;font-size:.86em;font-family:var(--mono)}
+pre{background:#F9F6EF;border:1px solid var(--line);border-radius:4px;padding:14px 17px;overflow:auto;line-height:1.75;font-size:13.5px}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.1em 0;padding:2px 0 2px 18px;border-left:2px solid var(--acc);color:var(--mut)}
+blockquote p{margin:.5em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.8px;display:block;overflow-x:auto;line-height:1.8}
+th,td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:12px;letter-spacing:.05em;border-bottom:1px solid var(--line2);background:var(--sheet);white-space:nowrap}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:#F8F5EE}
+hr{border:none;border-top:1px solid var(--line);margin:2.2em 0}
+.sheet img{max-width:100%;border:1px solid var(--line);border-radius:3px}
+.mermaid{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:12px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.03em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:28px 20px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--sheet);border:1px solid var(--line2);color:var(--mut);
+ border-radius:50%;width:40px;height:40px;font-size:16px;cursor:pointer;opacity:0;pointer-events:none;transition:.2s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{color:var(--acc);border-color:var(--acc)}
+aside.toc{position:sticky;top:74px;width:214px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;padding:4px 0}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.12em;padding:0 0 8px 14px}
+aside.toc ul{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:4px 12px;margin-left:-1px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;line-height:1.75;font-size:12.5px}
+aside.toc li.l3 a{padding-left:26px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
+aside.toc::-webkit-scrollbar{width:5px}
+aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../index.html#guide">使用指南</a>
+  <button id="ck" class="tag ck" type="button" hidden></button>
+  
+  <a class="tag" href="../../../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E4%B8%80%E7%AF%87%E9%87%91%E7%89%8C%E8%AE%BA%E6%96%87%E7%9A%84%E5%AE%8C%E6%95%B4%E5%8E%86%E7%A8%8B.md">Markdown</a>
+  <span class="crumb">11_论文模板与工具 · 一篇金牌论文的完整历程 —— 从拿到题目到交卷</span>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="sheet">
+<h1 id="一篇金牌论文的完整历程-从拿到题目到交卷">一篇金牌论文的完整历程 —— 从拿到题目到交卷</h1>
+<blockquote>
+<p>综合 2010–2025 年 73 篇金牌论文的共性做法，还原一篇论文从拿到题目到提交的全过程。
+每个阶段都给出：要做什么、金牌论文怎么做、常见翻车点、对应工具。
+配套：逐时段任务单见《48小时作战手册》，本篇讲"为什么按这个顺序做"。</p>
+</blockquote>
+<pre><code class="language-mermaid">flowchart LR
+    A[T+0 拿到题目] --&gt; B[第1小时 选一题弃一题]
+    B --&gt; C[第1–3h 拆题·操作化]
+    C --&gt; D[第2–6h 基线方案]
+    D --&gt; E[第3–20h 分层建模+数值]
+    E --&gt; F[第6–24h 图表]
+    F --&gt; G[第12–32h 写作]
+    G --&gt; H[第24–42h 排版精修]
+    H --&gt; I[第42–47h 终检]
+    I --&gt; J[第47–48h 交卷]
+</code></pre>
+<hr>
+<h2 id="t0-拿到题目两道题各读三遍">T+0 · 拿到题目：两道题各读三遍</h2>
+<p><strong>做什么。</strong> 开赛第一时间把 A、B 两题英文原文完整读三遍：第一遍读懂场景，第二遍圈出所有<strong>待求量</strong>与<strong>给定条件</strong>，第三遍列出每道题"需要哪些物理、哪些数据、哪些环节说不清"。不要拿题就选。</p>
+<p><strong>金牌怎么做。</strong> 金牌论文的 Introduction 从不抄题，而是<strong>翻译题</strong>：把场景压成一句物理陈述 + 两个待求量。例：2023 题 A（近太空跳伞）被压缩成"安全 = 下落末速 ≤ 人体耐受阈值，求最高开伞高度"——题面没有一个公式，判据已经出现了。</p>
+<ul>
+<li>原题与官方信息：<code>02_题目汇总/</code>，逐年入口见总览页「历年赛题」</li>
+<li>深度拆解（提前备赛时）：<code>07_题目解读/</code></li>
+</ul>
+<p><strong>翻车点。</strong> 三遍没读完就凭题面"看起来熟"选题，做到一半才发现关键数据拿不到，换题已损失 4 小时。</p>
+<h2 id="第-1-小时-选一题弃一题">第 1 小时 · 选一题，弃一题</h2>
+<p><strong>做什么。</strong> 用三个判据给两道题打分：① 物理熟悉度（有没有现成的定律/方程可用）；② 数据可得性（需要的常数、实测曲线能否查到或合理锚定）；③ 分层空间（能不能从理想模型一路加修正，做出层次）。选分高的，<strong>写三行弃题理由贴在屏幕上</strong>——中途动摇时看。</p>
+<p><strong>金牌怎么做。</strong> 金牌队几乎从不中途换题，但他们把选题材料用足了：弃题的理由常出现在论文结尾的"模型局限/推广"里（例如 2010 题队选择 A 题后，在结论里用 B 题思路讨论了推广）。</p>
+<ul>
+<li>决策流程图：《建模决策树》Q1–Q5（开赛第 2 小时内走完）</li>
+</ul>
+<p><strong>翻车点。</strong> 全队都想做"简单"的题，结果 30% 的队挤在同一道题的同一个理想模型上——简单题做出层次才难。</p>
+<h2 id="第-13-小时-拆题与操作化先把模糊词变成判据">第 1–3 小时 · 拆题与操作化：先把"模糊词"变成判据</h2>
+<p><strong>做什么。</strong> 把题面每一个模糊词翻译成可计算的判据：damage → 末速度阈值；successful → 命中窗口宽度；safe → 年风险概率上限；best → 目标函数。<strong>先立判据再动手</strong>，每个判据旁边写一句"为什么取这个值"（查标定/引文献/保守取值）。</p>
+<p><strong>金牌怎么做。</strong> 这是七条评审不变量里最值钱的一条（获奖密码 ③）。金牌论文里它长这样：2016 题 A 把"disposal 成功"操作化为"成本-风险联合目标的可比标量"；2022 题 B 把"best penalty"操作化为"给定射角的进球概率最大化"，并给了守门员反应时间的灵敏度。配套的另一招是<strong>端点锚定</strong>（获奖密码 ②）：任何外推参数先在已知情形（地球、MAVEN 实测、FIBA 数据）上校准。</p>
+<ul>
+<li>逐题的判据拆法示例：<code>07_题目解读/YYYY_题X_*.md</code> 的「常见陷阱」与「评分要点」两节</li>
+<li>方法总论：《物理模型综述 · 08_方法论与数值算法总论》</li>
+</ul>
+<p><strong>翻车点。</strong> 判据后置：算完一大堆数才回头定义"什么算好"，评委看到的是没有靶子的箭。</p>
+<h2 id="第-26-小时-基线方案先算什么都不做的成本">第 2–6 小时 · 基线方案：先算"什么都不做"的成本</h2>
+<p><strong>做什么。</strong> 在正式建模前，先解一个<strong>注定被否决的对照方案</strong>：火箭方程裸算、真空抛体、纯重力直线。它给后面所有"节省/优化"提供量化参照（获奖密码 ①：统一货币——Δv、能量、剂量、起飞质量）。</p>
+<p><strong>金牌怎么做。</strong> 2010 题 A 金牌论文先算"不减速直接飞掠"与"纯火箭制动"两条基线，才引出气动制动的收益区间；2011 题 A 先算火箭直送太空塔的成本，才有后面"太空塔不经济"的负结论底气。</p>
+<p><strong>翻车点。</strong> 直接跳到"高级模型"，全文没有一个可对比的量纲，结论"更好"但没有"比什么好"。</p>
+<h2 id="第-320-小时-分层建模-数值求解">第 3–20 小时 · 分层建模 + 数值求解</h2>
+<p><strong>做什么。</strong> 按"理想 → 关键修正 → 扩展"三层递进（获奖密码 ④）：第一层真空/点质量/解析解，第二层加阻力/大气/转动等<strong>最要害</strong>的一项修正，第三层按题意扩展（风、海拔、失效模式）。每层都给量级论证；数值部分五行讲完方法、步长、初值、边界。</p>
+<p><strong>金牌怎么做。</strong> 每层的衔接句式高度一致："The ideal model overestimates X by ≈40%; we therefore include quadratic drag."。数值上的最小完备集 = 方法 + 步长 + 初值 + 终止条件，附录给可运行代码（2023、2025 年多篇金牌直接贴出完整 Python/MATLAB 列表）。</p>
+<ul>
+<li>每篇金牌的建模链逐层拆解：<code>10_论文精读/</code> 对应年份「建模决策链」一节</li>
+<li>图表与代码复现：<code>10_论文精读/</code>「每张图怎么画」+ <code>11_论文模板与工具/图表配方库/</code></li>
+</ul>
+<p><strong>翻车点。</strong> 一次性上"大模型"（NS 方程 + 蒙特卡洛 + 优化），每一步都说不清；或三层模型数值对不上却不解释。</p>
+<h2 id="第-624-小时-图表每张图只讲一个论点">第 6–24 小时 · 图表：每张图只讲一个论点</h2>
+<p><strong>做什么。</strong> 图表不是结果截图，是<strong>论证单元</strong>：轨迹图证单调性、可行域图证窗口、龙卷风图证灵敏度、收敛曲线证数值可信。每张图先写一句"这张图要证明什么"，再动手画。</p>
+<p><strong>金牌怎么做。</strong> 金牌论文平均 10–16 张图，全部编号进入正文论证链；颜色克制、坐标轴带单位、关键曲线直接在图上标注数值。复现代码级精讲见精读教程「每张图深析」。</p>
+<ul>
+<li>8 类核心图的可运行 matplotlib 配方：<code>11_论文模板与工具/图表配方库/matplotlib_recipes.py</code>（轨迹/可行域/龙卷风/收敛/Pareto/多子图/射表热力图/建模路线图）</li>
+</ul>
+<p><strong>翻车点。</strong> 图多论点少：三张图说同一件事；或坐标轴无单位、图例自造符号与正文不一致。</p>
+<h2 id="第-1232-小时-写作imrad-骨架-数字结论">第 12–32 小时 · 写作：IMRaD 骨架 + 数字结论</h2>
+<p><strong>做什么。</strong> 按摘要（一页）→ Introduction（翻译题 + 全文路线图）→ Model → Results → Uncertainty/Limitations → Conclusion 写。摘要套"符号定义 → 问题两难 → 方法路线 → <strong>带数字的结论</strong>"四段式——评委只读摘要也要能拿到你的结果（获奖密码 ⑦：降维交付，把结论做成射表/列线图/修正公式这种"可用的东西"）。</p>
+<p><strong>金牌怎么做。</strong> 金牌论文敢写负结论："We advise against the maneuver"——论据扎实的反直觉结论恰是高分项（获奖密码 ⑥）。写作卡壳时查《写作句库》，每个部位都有金牌原句可套。</p>
+<ul>
+<li>英文句式库（按摘要/建模/数值/局限/结论分类，注明出处）：<code>11_论文模板与工具/写作句库.md</code></li>
+<li>负结论范例：2010-A（放弃气动制动）、2011-A（太空塔不经济）的 Conclusion 段</li>
+</ul>
+<p><strong>翻车点。</strong> 摘要没有数字；Introduction 复读题面；结论只说"我们的模型很好"不说结论本身。</p>
+<h2 id="第-2442-小时-排版精修">第 24–42 小时 · 排版精修</h2>
+<p><strong>做什么。</strong> 套定稿模板（四种可选，见总览页「论文模板工坊」）：式号按"章.序"、三线表、图表号加粗、参考文献 5–15 条且网络来源注明访问日期。统一记号表（nomenclature），正文、图、表三处符号必须一字不差。</p>
+<p><strong>金牌怎么做。</strong> 多数金牌论文用 Times 系字体 + 单栏；公式编号"章.序"是 2010–2025 的主流约定；图表 caption 自成语气（先结论后解释）。这些细节已全部内置在模板里，注释里标了出处。</p>
+<ul>
+<li>四套可选模板：总览页「论文模板工坊」（金牌骨架 / 官方 elsarticle / 双栏紧凑 / 极简快启）</li>
+</ul>
+<p><strong>翻车点。</strong> 交卷前 3 小时还在调格式；符号中途改版没同步；参考文献格式花式混排。</p>
+<h2 id="第-4247-小时-终检用评委三分钟视角过一遍">第 42–47 小时 · 终检：用"评委三分钟视角"过一遍</h2>
+<p><strong>做什么。</strong> 三人分头跑《提交前终检checklist》：① 摘要自含结论带数字；② 判据-方程-数值-检验四环闭合；③ 每图每表都被正文引用；④ 极限情形/收敛性/灵敏度三件套在文；⑤ 参考文献可溯源；⑥ 队号匿名合规；⑦ PDF 打印预览无溢出。最后一人只花三分钟"装评委"翻页：三分钟内能否看到——题目在求什么、模型是什么、结论是什么数。</p>
+<p><strong>翻车点。</strong> 只查公式不查"链"：每章都对，但章与章之间缺一句衔接，链断了评委就不认。</p>
+<h2 id="第-4748-小时-交卷">第 47–48 小时 · 交卷</h2>
+<p><strong>做什么。</strong> 按官网要求提交 PDF（命名与大小合规），留 30 分钟缓冲处理上传失败；最后确认 PDF 里没有草稿残留（TODO、调试图、showlabels 行号）。</p>
+<p><strong>翻车点。</strong> 用最后一小时继续加内容而不是冻结版本查错——历年"最后一刻改崩"的教训都在《48小时作战手册》危机预案里。</p>
+<h2 id="赛后-复盘闭环">赛后 · 复盘闭环</h2>
+<p><strong>做什么。</strong> 成绩公布后，把你的论文与同题金牌论文（<code>03_优秀论文PDF/</code>）逐节对照：判据谁立得早、层次谁递进得稳、图表谁论证得狠。把差距写进下一年的第一页笔记——这也是总览页「我的打卡」里"打卡一篇 = 吃透一篇"的本意。</p>
+<hr>
+<h2 id="全程工具速查">全程工具速查</h2>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>用什么</th>
+<th>在哪</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>选题</td>
+<td>建模决策树 Q1–Q5</td>
+<td><code>11_论文模板与工具/建模决策树.md</code></td>
+</tr>
+<tr>
+<td>拆题</td>
+<td>题目深度解读（判据/陷阱/评分要点）</td>
+<td><code>07_题目解读/</code></td>
+</tr>
+<tr>
+<td>基线</td>
+<td>获奖密码 ①②</td>
+<td>总览页「获奖密码」</td>
+</tr>
+<tr>
+<td>建模</td>
+<td>模型分层模板 + 方法论总论</td>
+<td><code>08_物理模型综述/</code></td>
+</tr>
+<tr>
+<td>图表</td>
+<td>matplotlib 配方库</td>
+<td><code>11_论文模板与工具/图表配方库/</code></td>
+</tr>
+<tr>
+<td>写作</td>
+<td>写作句库</td>
+<td><code>11_论文模板与工具/写作句库.md</code></td>
+</tr>
+<tr>
+<td>排版</td>
+<td>四套 LaTeX 模板</td>
+<td>总览页「论文模板工坊」</td>
+</tr>
+<tr>
+<td>终检</td>
+<td>40+ 项 checklist</td>
+<td><code>11_论文模板与工具/提交前终检checklist.md</code></td>
+</tr>
+<tr>
+<td>时间线</td>
+<td>逐时段任务单</td>
+<td><code>11_论文模板与工具/48小时作战手册.md</code></td>
+</tr>
+</tbody>
+</table>
+</div></div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#t0-拿到题目两道题各读三遍">T+0 · 拿到题目：两道题各读三遍</a></li><li class="l2"><a href="#第-1-小时-选一题弃一题">第 1 小时 · 选一题，弃一题</a></li><li class="l2"><a href="#第-13-小时-拆题与操作化先把模糊词变成判据">第 1–3 小时 · 拆题与操作化：先把"模糊词"变成判据</a></li><li class="l2"><a href="#第-26-小时-基线方案先算什么都不做的成本">第 2–6 小时 · 基线方案：先算"什么都不做"的成本</a></li><li class="l2"><a href="#第-320-小时-分层建模-数值求解">第 3–20 小时 · 分层建模 + 数值求解</a></li><li class="l2"><a href="#第-624-小时-图表每张图只讲一个论点">第 6–24 小时 · 图表：每张图只讲一个论点</a></li><li class="l2"><a href="#第-1232-小时-写作imrad-骨架-数字结论">第 12–32 小时 · 写作：IMRaD 骨架 + 数字结论</a></li><li class="l2"><a href="#第-2442-小时-排版精修">第 24–42 小时 · 排版精修</a></li><li class="l2"><a href="#第-4247-小时-终检用评委三分钟视角过一遍">第 42–47 小时 · 终检：用"评委三分钟视角"过一遍</a></li><li class="l2"><a href="#第-4748-小时-交卷">第 47–48 小时 · 交卷</a></li><li class="l2"><a href="#赛后-复盘闭环">赛后 · 复盘闭环</a></li><li class="l2"><a href="#全程工具速查">全程工具速查</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+/* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
+var PKEY="",PKIND="",CKS="upcProgress.v1";
+function ckLoad(){try{return JSON.parse(localStorage.getItem(CKS)||"{}")}catch(e){return{}}}
+function ckSave(s){try{localStorage.setItem(CKS,JSON.stringify(s))}catch(e){}}
+function ckPush(s,st){(s.log=s.log||[]).unshift({k:PKEY,t:PKIND,s:st,ts:Date.now()});if(s.log.length>80)s.log.length=80;}
+function ckSet(state){
+  var s=ckLoad();
+  var bag=PKIND==="paper"?(s.p=s.p||{}):(s.i=s.i||{});
+  var it=bag[PKEY]||{},now=Date.now();
+  if(state==="v"){if(!it.v){it.v=now;ckPush(s,"v");}}
+  else if(state==="t"){if(it.d){delete it.d;ckPush(s,"u");}else{it.d=now;ckPush(s,"d");}}
+  bag[PKEY]=it;ckSave(s);ckUI();
+}
+function ckUI(){
+  var b=document.getElementById('ck');if(!b||!PKEY)return;
+  var s=ckLoad(),it=(PKIND==="paper"?(s.p||{}):(s.i||{}))[PKEY]||{};
+  var done=!!it.d;
+  b.textContent=done?"已打卡 ✓":"打卡 · 标记已吃透";
+  b.classList.toggle('done',done);
+}
+document.addEventListener("DOMContentLoaded", function(){
+  if(PKEY){
+    var b=document.getElementById('ck');b.hidden=false;
+    b.addEventListener('click',function(){ckSet("t")});
+    ckUI();
+    setTimeout(function(){ckSet("v")},3000);  // 停留 3 秒 = 浏览过（自动标记）
+  }
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"neutral",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+</script>
+</body>
+</html>

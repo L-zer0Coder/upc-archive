@@ -92,6 +92,10 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar a:hover{color:var(--acc)}
 .topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
 .topbar .tag:hover{border-color:var(--acc)}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px}
+.topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
+.topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
 .brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:13.5px;margin-right:4px}
 .brand:hover{color:var(--ink)}
 .brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
@@ -146,6 +150,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <div class="topbar"><div class="in">
   <a class="brand" href="__HOME__"><span class="seal">U</span>UPC 全档案库</a>
   <a href="__HOME__#guide">使用指南</a>
+  <button id="ck" class="tag ck" type="button" hidden></button>
   __PAPERTAG__
   <a class="tag" href="__RAWMD__">Markdown</a>
   <span class="crumb">__CRUMB__ · __TITLE__</span>
@@ -159,7 +164,33 @@ __TOC__
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
+/* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
+var PKEY="__PKEY__",PKIND="__PKIND__",CKS="upcProgress.v1";
+function ckLoad(){try{return JSON.parse(localStorage.getItem(CKS)||"{}")}catch(e){return{}}}
+function ckSave(s){try{localStorage.setItem(CKS,JSON.stringify(s))}catch(e){}}
+function ckPush(s,st){(s.log=s.log||[]).unshift({k:PKEY,t:PKIND,s:st,ts:Date.now()});if(s.log.length>80)s.log.length=80;}
+function ckSet(state){
+  var s=ckLoad();
+  var bag=PKIND==="paper"?(s.p=s.p||{}):(s.i=s.i||{});
+  var it=bag[PKEY]||{},now=Date.now();
+  if(state==="v"){if(!it.v){it.v=now;ckPush(s,"v");}}
+  else if(state==="t"){if(it.d){delete it.d;ckPush(s,"u");}else{it.d=now;ckPush(s,"d");}}
+  bag[PKEY]=it;ckSave(s);ckUI();
+}
+function ckUI(){
+  var b=document.getElementById('ck');if(!b||!PKEY)return;
+  var s=ckLoad(),it=(PKIND==="paper"?(s.p||{}):(s.i||{}))[PKEY]||{};
+  var done=!!it.d;
+  b.textContent=done?"已打卡 ✓":"打卡 · 标记已吃透";
+  b.classList.toggle('done',done);
+}
 document.addEventListener("DOMContentLoaded", function(){
+  if(PKEY){
+    var b=document.getElementById('ck');b.hidden=false;
+    b.addEventListener('click',function(){ckSet("t")});
+    ckUI();
+    setTimeout(function(){ckSet("v")},3000);  // 停留 3 秒 = 浏览过（自动标记）
+  }
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
     ignoredTags:["script","style","textarea","pre","code"]});
@@ -287,9 +318,18 @@ def render_docs():
                 ana = P("05_论文赏析", yr, base + ".md")
                 if os.path.exists(ana):
                     papertag += f'<a class="tag" href="{link_from(page_dir, doc_html_abs(ana))}">本篇赏析</a>'
+        # 打卡键：论文页 = PDF 文件名（611 归并到 611a）；题目解读页 = 年-题
+        pkey, pkind = "", ""
+        if m:
+            pkey, pkind = re.sub(r"-611$", "-611a", m.group(0)), "paper"
+        elif rel.startswith("07_题目解读"):
+            mi = re.match(r"(\d{4})_题([AB])_", os.path.basename(rel))
+            if mi:
+                pkey, pkind = f"{mi.group(1)}-{mi.group(2).upper()}", "interp"
         page_html = (DOC_TPL.replace("__TITLE__", title).replace("__CRUMB__", crumb)
                      .replace("__HOME__", home).replace("__RAWMD__", raw)
                      .replace("__PAPERTAG__", papertag).replace("__BODY__", body)
+                     .replace("__PKEY__", pkey).replace("__PKIND__", pkind)
                      .replace("__TOC__", toc_html(MD)))
         os.makedirs(page_dir, exist_ok=True)
         with open(html_abs, "w", encoding="utf-8") as f:
@@ -444,11 +484,12 @@ lib.append({"name": "08_物理模型综述", "desc": "八大专题综述 + 总�
 lib.append({"name": "10_论文精读", "desc": "73 篇金牌论文逐篇手把手精读（逐节导读/图表深析/公式推导/建模决策链）",
             "items": [{"n": doc_title(f), "u": site_rel(doc_html_abs(f))}
                       for f in sorted(glob.glob(P("10_论文精读", "**", "*.md"), recursive=True))]})
-lib.append({"name": "11_论文模板与工具", "desc": "LaTeX 模板 / 图表配方库 / 写作句库 / 建模决策树 / 48h 手册 / 终检清单（文档页）",
+lib.append({"name": "11_论文模板与工具", "desc": "LaTeX 模板 / 图表配方库 / 写作句库 / 建模决策树 / 48h 手册 / 终检清单 / 完整历程（文档页）",
             "items": [{"n": doc_title(f), "u": site_rel(doc_html_abs(f))}
                       for f in sorted(glob.glob(P("11_论文模板与工具", "**", "*.md"), recursive=True))
-                      ] + [{"n": "matplotlib_recipes.py（图表配方库源码）", "u": site_rel(P("11_论文模板与工具", "图表配方库", "matplotlib_recipes.py"))},
-                           {"n": "main.tex（LaTeX 模板源码）", "u": site_rel(P("11_论文模板与工具", "LaTeX模板", "main.tex"))}]})
+                      ] + [{"n": "LaTeX模板/" + os.path.basename(f), "u": site_rel(f)}
+                           for f in sorted(glob.glob(P("11_论文模板与工具", "LaTeX模板", "*.tex")))]
+                      + [{"n": "图表配方库/matplotlib_recipes.py（图表配方库源码）", "u": site_rel(P("11_论文模板与工具", "图表配方库", "matplotlib_recipes.py"))}]})
 lib.append({"name": "_工具脚本", "desc": "抓取 / 建库 / 建站全流程 Python 脚本（构建时用，无需在线浏览）",
             "items": [{"n": os.path.basename(f), "u": site_rel(f)}
                       for f in sorted(glob.glob(P("_工具脚本", "*.py")))]})
@@ -462,6 +503,13 @@ for md_abs, html_abs, title in built_docs:
 SEARCH_INDEX = json.dumps({"docs": search_docs}, ensure_ascii=False)
 DATA_JS = json.dumps({"years": years_data, "domains": {k: {"name": v[0], "color": v[1]} for k, v in DOMAINS.items()},
                       "lib": lib, "search": search_docs}, ensure_ascii=False)
+
+# 模板工坊数据：LaTeX模板/ 下全部 .tex（名称、链接、大小）+ 完整历程文档页链接
+TEX_JS = json.dumps([{"n": os.path.basename(f), "u": site_rel(f),
+                      "kb": round(os.path.getsize(f) / 1024, 1)}
+                     for f in sorted(glob.glob(P("11_论文模板与工具", "LaTeX模板", "*.tex")))],
+                    ensure_ascii=False)
+JOURNEY_URL = site_rel(doc_html_abs(P("11_论文模板与工具", "一篇金牌论文的完整历程.md")))
 
 # ---------------- SVG diagrams ----------------
 import math
@@ -548,7 +596,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _build_site_tail import render_index, write_deploy_helpers, validate
 
 render_index({"timeline": TIMELINE_SVG, "bars": BARS_SVG, "model": MODEL_SVG,
-              "rules": RULES_HTML, "data": DATA_JS, "ndocs": len(search_docs), "site": SITE})
+              "rules": RULES_HTML, "data": DATA_JS, "ndocs": len(search_docs), "site": SITE,
+              "tex": TEX_JS, "journey": JOURNEY_URL})
 write_deploy_helpers(ROOT, SITE)
 validate(ROOT, SITE)
 
@@ -568,6 +617,8 @@ for _y in years_data:
 for _g in lib:
     for _it in _g["items"]:
         _rt(_it["u"])
+for _t in json.loads(TEX_JS):
+    _rt(_t["u"])
 for _s in search_docs:
     _rt(_s["u"])
 if _rt_bad:

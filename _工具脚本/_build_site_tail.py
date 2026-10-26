@@ -12,6 +12,7 @@ def render_index(ctx):
     TIMELINE_SVG, BARS_SVG, MODEL_SVG, RULES_HTML = (ctx[k] for k in
         ("timeline", "bars", "model", "rules"))
     DATA_JS, NDOCS = ctx["data"], ctx["ndocs"]
+    TEX_JS, JOURNEY_URL = ctx["tex"], ctx["journey"]
 
     INDEX_TPL = r"""<!DOCTYPE html>
 <html lang="zh-CN">
@@ -184,6 +185,45 @@ tbody tr:hover td{background:var(--acc-soft)}
 .segs a.on{background:var(--acc);color:#FDFCF8}
 .ptable-wrap{background:var(--sheet);border:1px solid var(--line);border-radius:4px;overflow:auto;max-height:72vh}
 
+/* ---- 我的打卡 ---- */
+.ck-summary{display:flex;gap:28px;align-items:center;background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:18px 22px;margin-bottom:14px;flex-wrap:wrap}
+.ck-big b{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--acc);display:block;line-height:1.25}
+.ck-big span{font-size:12px;color:var(--dim)}
+.ck-bars{flex:1;min-width:280px;display:grid;gap:9px}
+.ck-bar{display:grid;grid-template-columns:140px 1fr 66px;gap:10px;align-items:center;font-size:12.5px;color:var(--mut)}
+.ck-bar i{display:block;height:8px;background:#EFEADC;border-radius:4px;overflow:hidden}
+.ck-bar em{display:block;height:100%;background:var(--acc);border-radius:4px;width:0;transition:width .4s}
+.ck-bar b{font-family:var(--mono);font-size:12px;color:var(--mut);text-align:right;font-variant-numeric:tabular-nums;font-weight:400;white-space:nowrap}
+.ck-streak{display:flex;gap:10px;align-items:center}
+.ck-streak b{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--ink)}
+.ck-streak span{font-size:11.5px;color:var(--dim);line-height:1.5}
+.ck-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.ck-grid{display:grid;gap:6px}
+.ck-row{display:flex;gap:10px;align-items:flex-start}
+.ck-row .y{font-family:var(--mono);font-size:12.5px;color:var(--dim);width:38px;padding-top:5px;flex-shrink:0;font-variant-numeric:tabular-nums}
+.ck-cells{display:flex;flex-wrap:wrap;gap:6px}
+.ckc{font-family:var(--mono);font-size:12px;min-width:52px;padding:4px 8px;border:1px solid var(--line2);border-radius:3px;background:var(--sheet);color:var(--mut);cursor:pointer;font-variant-numeric:tabular-nums;line-height:1.5;text-align:center}
+.ckc:hover{border-color:var(--acc);color:var(--acc)}
+.ckc.seen{border-color:rgba(156,63,46,.45);color:var(--acc);background:var(--acc-soft)}
+.ckc.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.ckc.done:hover{background:var(--acc-d);color:#FDFCF8}
+.ckc.dim{opacity:.22}
+.ck-recent{margin-top:18px;border:1px dashed var(--line2);border-radius:4px;padding:12px 16px}
+.ck-recent .tt{font-size:11px;color:var(--dim);letter-spacing:.12em;margin-bottom:6px}
+.ck-recent ul{list-style:none;margin:0;padding:0;font-size:12.5px;color:var(--mut)}
+.ck-recent li{padding:2px 0;line-height:1.9}
+.ck-recent .d{font-family:var(--mono);color:var(--dim);margin-right:10px;font-size:11.5px}
+
+/* ---- 论文模板工坊 ---- */
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(242px,1fr));gap:12px}
+.tcard{border:1px solid var(--line);background:var(--sheet);border-radius:4px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;transition:border-color .15s}
+.tcard:hover{border-color:var(--acc)}
+.tcard .tt{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.tcard b{font-family:var(--serif);font-size:15.5px;font-weight:700}
+.tcard .kb{color:var(--dim);font-size:11px;font-family:var(--mono);white-space:nowrap}
+.tcard p{color:var(--mut);font-size:12.5px;margin:0;line-height:1.75;flex:1}
+.tcard .use{font-size:12px;color:var(--acc)}
+
 /* ---- 获奖密码 ---- */
 .rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
 .rule{display:flex;gap:14px;padding:14px 2px;border-bottom:1px solid var(--line);align-items:flex-start}
@@ -218,6 +258,8 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 0}
  .stat{border-right:none;margin-right:0;padding:0 0 12px;border-bottom:1px solid var(--line)}
  .paths,.rules-grid{grid-template-columns:1fr}
+ .ck-bar{grid-template-columns:104px 1fr 58px;font-size:11.5px}
+ .ck-big b{font-size:26px}
  .wrap{padding:0 16px}
  #bar .in{padding:0 16px}
 }
@@ -229,10 +271,12 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
   <a class="brand" href="#hero"><span class="seal">U</span>UPC 全档案库<small>2010–2025</small></a>
   <nav>
     <a href="#guide">指南</a>
+    <a href="#progress">打卡</a>
     <a href="#timeline">图谱</a>
     <a href="#years">年鉴</a>
     <a href="#models">模型</a>
     <a href="#papers">论文库</a>
+    <a href="#templates">模板</a>
     <a href="#rules">密码</a>
     <a href="#library">全库</a>
   </nav>
@@ -288,9 +332,39 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
   <div class="notebox">档案边界：2024 年官方未公开论文 PDF（已收录 15 支金牌队伍名单）；2026 届 11 月开赛、尚未发布；2013 年 611 / 611a 为同文异版，赏析与精读以 611a 为准。数据抓取于 2026-10-24；论文版权归原队伍与 UPC 官方（uphysicsc.com），仅供学习交流。</div>
 </section>
 
+<section id="progress">
+  <div class="sec-h">
+    <h2 class="st"><span class="no">02</span>我的打卡</h2>
+    <p class="lead">点格子 = 手动打卡「已吃透」；打开论文的赏析或精读页停留 3 秒，会自动记为「浏览过」。数据只存在本浏览器，换设备用导出 / 导入搬运。</p>
+  </div>
+  <div class="ck-summary">
+    <div class="ck-big"><b id="ckpct">0%</b><span>论文打卡进度</span></div>
+    <div class="ck-bars">
+      <div class="ck-bar"><span>金牌论文（73 篇）</span><i><em id="ckbarp"></em></i><b id="ckpnum">—</b></div>
+      <div class="ck-bar"><span>题目深度解读（32 篇）</span><i><em id="ckbari"></em></i><b id="ckinum">—</b></div>
+    </div>
+    <div class="ck-streak"><b id="ckstreak">0</b><span>连续天数<br>（浏览或打卡均计入）</span></div>
+  </div>
+  <div class="ck-tools">
+    <div class="segs" id="ckfilter"><a data-v="all" class="on">全部</a><a data-v="none">未读</a><a data-v="v">浏览过</a><a data-v="d">已打卡</a></div>
+    <button class="btn sm" id="ckexport" type="button">导出记录</button>
+    <button class="btn sm" id="ckimport" type="button">导入记录</button>
+    <input type="file" id="ckfile" accept=".json,application/json" hidden>
+    <button class="btn sm" id="ckreset" type="button">清空</button>
+  </div>
+  <div class="ck-grid" id="ckgrid"></div>
+  <div class="legend">
+    <span class="lg"><b>○</b>未读</span>
+    <span class="lg"><b>◐</b>浏览过（自动）</span>
+    <span class="lg"><b>✓</b>已打卡（手动）</span>
+    <span class="lg">格子按队伍号标号，悬停看论文；「解读」行 = 每年 A / B 两篇深度解读</span>
+  </div>
+  <div class="ck-recent"><div class="tt">最近动态</div><ul id="ckrecent"></ul></div>
+</section>
+
 <section id="timeline">
   <div class="sec-h">
-    <h2 class="st"><span class="no">02</span>十六年赛题物理域图谱</h2>
+    <h2 class="st"><span class="no">03</span>十六年赛题物理域图谱</h2>
     <p class="lead">每个圆点 = 一道题（上排 A 题 / 下排 B 题），颜色为主导物理域。UPC 题域经历了"航天·力学为主 → 生物·热学介入 → 电磁·声学·信号处理出圈"的演化。</p>
   </div>
   <div class="svgbox">__TIMELINE__</div>
@@ -299,7 +373,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
 
 <section id="years">
   <div class="sec-h">
-    <h2 class="st"><span class="no">03</span>历年赛题 · 金牌队伍 · 论文</h2>
+    <h2 class="st"><span class="no">04</span>历年赛题 · 金牌队伍 · 论文</h2>
     <p class="lead">点年份直达，或在下面展开任一年份；每道题附深度解读、官方信息与全部论文入口。</p>
   </div>
   <div class="yjump" id="yjump"><button id="yexp" type="button">全部展开</button></div>
@@ -308,7 +382,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
 
 <section id="models">
   <div class="sec-h">
-    <h2 class="st"><span class="no">04</span>物理模型地图</h2>
+    <h2 class="st"><span class="no">05</span>物理模型地图</h2>
     <p class="lead">八大专题覆盖 16 年全部模型，点击色块或下方卡片直达综述（含公式与建模套路）。</p>
   </div>
   <div class="svgbox">__MODEL__</div>
@@ -317,8 +391,8 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
 
 <section id="papers">
   <div class="sec-h">
-    <h2 class="st"><span class="no">05</span>金牌论文库（74 篇）</h2>
-    <p class="lead">按年份、题别或关键词筛选；「直达」一列可打开赏析、精读与各类原件。</p>
+    <h2 class="st"><span class="no">06</span>金牌论文库（74 篇）</h2>
+    <p class="lead">按年份、题别或关键词筛选；✓ 标记 = 已打卡，· 标记 = 浏览过。「直达」一列可打开赏析、精读与各类原件。</p>
   </div>
   <div class="ptools">
     <input id="q2" type="search" placeholder="筛论文：年份 / 题号 / 队伍号 / 标题关键词…">
@@ -335,9 +409,21 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
   </div>
 </section>
 
+<section id="templates">
+  <div class="sec-h">
+    <h2 class="st"><span class="no">07</span>论文模板工坊</h2>
+    <p class="lead">四套可直接编译的 LaTeX 模板，提炼自 73 篇金牌论文与官方 <code>template.tex</code>；不确定从哪套开始，先读<a href="__JOURNEY__">《一篇金牌论文的完整历程》</a>（拿题 → 交卷全流程）。</p>
+  </div>
+  <div class="tcards" id="tcards"></div>
+  <div class="legend">
+    <span class="lg"><b>选型</b>第一次参赛 → 金牌骨架款；要官方同源 → elsarticle 款；图表多 → 双栏款；现场求稳 → 极简款</span>
+    <span class="lg"><b>依赖</b>elsarticle 款需要 elsarticle.cls（TeX Live / MiKTeX 均内置）；其余三套零额外依赖</span>
+  </div>
+</section>
+
 <section id="rules">
   <div class="sec-h">
-    <h2 class="st"><span class="no">06</span>获奖密码 · 贯穿 16 年的评审不变量</h2>
+    <h2 class="st"><span class="no">08</span>获奖密码 · 贯穿 16 年的评审不变量</h2>
     <p class="lead">从 74 篇金牌论文中反复验证的七条共性，逐题详解见题目解读，逐篇实证见论文赏析。</p>
   </div>
   <div class="rules-grid">__RULES__</div>
@@ -346,7 +432,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
 
 <section id="library">
   <div class="sec-h">
-    <h2 class="st"><span class="no">07</span>全库文件导航</h2>
+    <h2 class="st"><span class="no">09</span>全库文件导航</h2>
     <p class="lead">档案库每个目录、每个文件的直达入口（官方页面原件 / 成绩单 / 题目汇总 / 论文文本 / 全部文档页 / 构建脚本）。</p>
   </div>
   <div id="lib-box"></div>
@@ -396,7 +482,7 @@ const GUIDE=[
  {k:"05_论文赏析",t:"论文赏析",d:"73 篇金牌论文逐篇中文拆解：建模体系、数学算法、排版图表、可借鉴清单，另有 12 份批次对比表。"},
  {k:"10_论文精读",t:"手把手精读",d:"逐节导读、每张图为什么这样画（附 matplotlib 复现代码）、每个关键公式完整推导、建模决策链。"},
  {k:"08_物理模型综述",t:"物理模型综述",d:"八大专题把 16 年所有题目与论文涉及的物理模型分类汇编，含方法论与数值算法总论。"},
- {k:"11_论文模板与工具",t:"模板与工具箱",d:"LaTeX 模板、8 类图表配方库、写作句库、建模决策树、48 小时作战手册、提交前终检清单。"},
+ {k:"11_论文模板与工具",t:"模板与工具箱",d:"四套 LaTeX 模板、8 类图表配方库、写作句库、建模决策树、48 小时作战手册、终检清单，以及《一篇金牌论文的完整历程》。"},
  {k:"02_题目汇总",t:"题目与官方信息",d:"每年英文原题全文、奖牌统计、金牌队伍名单与论文链接清单。"},
  {k:"02_官方成绩单",t:"官方成绩单",d:"各年成绩公告 PDF：金 / 银 / 铜 / Accomplished Competitor 全名单。"},
  {k:"01_官网原始页面",t:"原始档案",d:"官网 17 个年份页 HTML 原件与提取文本；论文 PDF、全文文本、页面渲染图均为一手资料。"},
@@ -481,6 +567,128 @@ DATA.lib.forEach(g=>{
   lb.appendChild(d);
 });
 
+/* ---------- 我的打卡：localStorage 进度 ---------- */
+const CKS='upcProgress.v1';
+const ckNorm=k=>k.replace(/-611$/,'-611a');
+const pkeyOf=f=>{const b=String(f).replace(/\.(pdf|PDF)$/,'');return /-611$/.test(b)?null:ckNorm(b);};  // null = 611 同文异版，归并到 611a
+function ckLoad(){try{return JSON.parse(localStorage.getItem(CKS)||'{}')}catch(e){return{}}}
+function ckSave(s){try{localStorage.setItem(CKS,JSON.stringify(s))}catch(e){}}
+function ckEntry(k,g){const s=ckLoad();return ((g==='paper'?(s.p||{}):(s.i||{}))[k])||{};}
+const pmeta={},ckMetaI={};let P_TOTAL=0;
+DATA.years.forEach(y=>y.probs.forEach(p=>{
+  ckMetaI[y.year+'-'+p.prob]=`${y.year} 题${p.prob} ${p.cn}`;
+  p.papers.forEach(pp=>{
+    const k=pkeyOf(pp.file);
+    if(!k)return;
+    if(!pmeta[k])P_TOTAL++;
+    pmeta[k]={y:y.year,prob:p.prob,cn:p.cn,team:pp.team};
+  });
+}));
+const I_TOTAL=DATA.years.length*2;
+const ckgrid=document.getElementById('ckgrid');
+DATA.years.forEach(y=>{
+  const cells=[];
+  y.probs.forEach(p=>p.papers.forEach(pp=>{
+    const k=pkeyOf(pp.file);
+    if(!k)return;
+    cells.push(`<button type="button" class="ckc" data-k="${k}" data-g="paper" title="${y.year} 题${p.prob} ${p.cn} · #${pp.team} — 点击打卡">${pp.team}</button>`);
+  }));
+  const row=document.createElement('div');row.className='ck-row';
+  row.innerHTML=`<span class="y">${y.year}</span><div class="ck-cells">${cells.join('')||'<span class="note" style="padding-top:4px">官方未公开论文</span>'}</div>`;
+  ckgrid.appendChild(row);
+});
+const rowi=document.createElement('div');rowi.className='ck-row';
+rowi.innerHTML=`<span class="y">解读</span><div class="ck-cells">${DATA.years.map(y=>y.probs.map(p=>
+  `<button type="button" class="ckc" data-k="${y.year}-${p.prob}" data-g="interp" title="${y.year} 题${p.prob} ${p.cn} · 深度解读">${String(y.year).slice(2)+p.prob}</button>`).join('')).join('')}</div>`;
+ckgrid.appendChild(rowi);
+ckgrid.addEventListener('click',ev=>{
+  const b=ev.target.closest('.ckc');if(!b)return;
+  const k=b.dataset.k,g=b.dataset.g,s=ckLoad();
+  const bag=g==='paper'?(s.p=s.p||{}):(s.i=s.i||{});
+  const it=bag[k]||{},now=Date.now();
+  if(it.d){delete it.d;(s.log=s.log||[]).unshift({k:k,t:g,s:'u',ts:now});}
+  else{it.d=now;if(!it.v)it.v=now;(s.log=s.log||[]).unshift({k:k,t:g,s:'d',ts:now});}
+  if(s.log.length>80)s.log.length=80;
+  bag[k]=it;ckSave(s);ckRefresh();
+});
+let ckF='all';
+document.querySelectorAll('#ckfilter a').forEach(a=>a.addEventListener('click',()=>{
+  document.querySelectorAll('#ckfilter a').forEach(x=>x.classList.remove('on'));
+  a.classList.add('on');ckF=a.dataset.v;ckRefresh();
+}));
+function ckMatch(e){if(ckF==='all')return true;if(ckF==='none')return !e.v&&!e.d;if(ckF==='v')return !!e.v&&!e.d;return !!e.d;}
+function ckStreak(s){
+  const days=new Set();
+  ['p','i'].forEach(g=>{const grp=s[g]||{};Object.values(grp).forEach(e=>{
+    if(e.v)days.add(new Date(e.v).toDateString());
+    if(e.d)days.add(new Date(e.d).toDateString());});});
+  let n=0;const d=new Date();
+  if(!days.has(d.toDateString()))d.setDate(d.getDate()-1);
+  while(days.has(d.toDateString())){n++;d.setDate(d.getDate()-1);}
+  return n;
+}
+function ckRefresh(){
+  const s=ckLoad();
+  let pd=0,pv=0,idd=0;
+  document.querySelectorAll('.ckc').forEach(b=>{
+    const e=ckEntry(b.dataset.k,b.dataset.g);
+    const done=!!e.d,seen=!!e.v;
+    b.classList.toggle('done',done);
+    b.classList.toggle('seen',seen&&!done);
+    b.classList.toggle('dim',!ckMatch(e));
+    if(b.dataset.g==='paper'){if(done)pd++;else if(seen)pv++;}
+    else if(done)idd++;
+  });
+  const pct=P_TOTAL?Math.round(pd/P_TOTAL*100):0;
+  document.getElementById('ckpct').textContent=pct+'%';
+  document.getElementById('ckbarp').style.width=pct+'%';
+  document.getElementById('ckpnum').textContent=pd+' / '+P_TOTAL+(pv?`（另有 ${pv} 篇浏览过）`:'');
+  const ipct=I_TOTAL?Math.round(idd/I_TOTAL*100):0;
+  document.getElementById('ckbari').style.width=ipct+'%';
+  document.getElementById('ckinum').textContent=idd+' / '+I_TOTAL;
+  document.getElementById('ckstreak').textContent=ckStreak(s);
+  const ul=document.getElementById('ckrecent');
+  ul.innerHTML=((s.log||[]).slice(0,8)).map(ev=>{
+    let label=ev.k;
+    if(ev.t==='paper'&&pmeta[ev.k]){const m=pmeta[ev.k];label=`${m.y} 题${m.prob}《${m.cn}》#${m.team}`;}
+    else if(ev.t==='interp'){label=ckMetaI[ev.k]||ev.k;}
+    const verb=ev.s==='d'?'<b class="em">打卡</b>':(ev.s==='u'?'取消打卡':'浏览过');
+    const d=new Date(ev.ts);
+    return `<li><span class="d">${d.getMonth()+1}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}</span>${verb} ${label}</li>`;
+  }).join('')||'<li class="note">还没有记录——去打开一篇论文的赏析或精读页，3 秒后自动记「浏览过」。</li>';
+  renderPapers();
+}
+document.getElementById('ckexport').addEventListener('click',()=>{
+  const blob=new Blob([JSON.stringify(ckLoad(),null,1)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='upc-打卡记录-'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+});
+document.getElementById('ckimport').addEventListener('click',()=>document.getElementById('ckfile').click());
+document.getElementById('ckfile').addEventListener('change',ev=>{
+  const f=ev.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{try{
+    const inc=JSON.parse(r.result),s=ckLoad();
+    ['p','i'].forEach(g=>{if(!inc[g])return;s[g]=s[g]||{};
+      Object.entries(inc[g]).forEach(([k,e])=>{
+        const cur=s[g][k]||{},nx={};
+        const mv=Math.max(cur.v||0,e.v||0);if(mv)nx.v=mv;
+        const md=Math.max(cur.d||0,e.d||0);if(md)nx.d=md;
+        s[g][k]=nx;
+      });});
+    if(Array.isArray(inc.log))s.log=inc.log.concat(s.log||[]).slice(0,80);
+    ckSave(s);ckRefresh();ev.target.value='';
+  }catch(err){alert('导入失败：不是有效的打卡记录 JSON');}};
+  r.readAsText(f);
+});
+document.getElementById('ckreset').addEventListener('click',()=>{
+  if(!confirm('确定清空全部打卡记录？此操作不可恢复，建议先导出备份。'))return;
+  try{localStorage.removeItem(CKS)}catch(e){}
+  ckRefresh();
+});
+
 /* ---------- 论文库：筛选 + 表格 ---------- */
 const tbody=document.querySelector('#ptable tbody');
 const all=[];
@@ -498,13 +706,17 @@ function renderPapers(){
   const yv=fy.value;
   const list=all.filter(p=>(!yv||String(p.y)===yv)&&(!probF||p.prob===probF)&&
     (!s||`${p.y} ${p.prob} ${p.team} ${p.cn} ${p.title} ${D[p.dom].name}`.toLowerCase().includes(s)));
-  tbody.innerHTML=list.map(p=>`<tr>
+  tbody.innerHTML=list.map(p=>{
+    const k=pkeyOf(p.file);
+    const e=k?ckEntry(k,'paper'):{};
+    const mark=e.d?'<b style="color:var(--acc)">✓</b> ':(e.v?'<span style="color:var(--dim)">·</span> ':'');
+    return `<tr>
     <td><a href="${p.png1}" target="_blank"><img class="tr-thumb" loading="lazy" src="${p.png1}" alt="标题页"></a></td>
-    <td>${p.y} 题${p.prob}</td>
+    <td>${mark}${p.y} 题${p.prob}</td>
     <td style="max-width:180px"><span style="display:inline-flex;align-items:center;gap:6px"><i style="width:7px;height:7px;border-radius:50%;background:${D[p.dom].color};flex-shrink:0"></i>${p.cn}</span></td>
     <td>#${p.team}</td><td style="max-width:400px">${p.title}</td><td class="num">${p.pages}</td>
     <td><div class="btns"><a class="btn sm solid" href="${p.ana}">赏析</a>${p.jd?`<a class="tlink" href="${p.jd}">精读</a>`:`<span class="tlink off">精读</span>`}<a class="tlink" href="${p.pdf}">PDF</a><a class="tlink" href="${p.txt}">文本</a><a class="tlink" href="${p.pngf}">图页</a></div></td>
-  </tr>`).join('');
+  </tr>`;}).join('');
   document.getElementById('cnt').textContent=`${list.length} / ${all.length} 篇`;
 }
 renderPapers();
@@ -521,6 +733,39 @@ q.addEventListener('input',()=>{
   res.style.display='block';
 });
 document.addEventListener('click',e=>{if(!e.target.closest('.swrap'))res.style.display='none'});
+
+/* ---------- 论文模板工坊 ---------- */
+const TEX=__TEX__;
+const TPLMETA={
+ "main.tex":{t:"金牌骨架款",d:"从 73 篇金牌论文提炼的 article 类骨架：一页带数字的摘要、章.序式号、三线表、附录代码，注释里写明每节该写什么、对应哪条获奖密码。",use:"第一次参赛，想直接照着写"},
+ "elsarticle.tex":{t:"官方同源款",d:"官方 template.tex（Elsevier elsarticle）的清理版：frontmatter 标题页、匿名规范、elsarticle-num 参考文献，结构与官方示例完全同源。",use:"要官方同源结构 / 习惯 elsarticle"},
+ "twocolumn.tex":{t:"双栏紧凑款",d:"10pt 双栏 + 摘要横贯页首，关键宽图用 figure* 跨两栏；信息密度高、评委翻页快。",use:"图表多 / 想压缩页数"},
+ "minimal.tex":{t:"极简快启款",d:"只用任何 LaTeX 发行版都自带的宏包，10 分钟起稿零踩坑；先把内容写完，赛前再迁到骨架款精修。",use:"现场求稳 / 环境不确定"}
+};
+const tc=document.getElementById('tcards');
+TEX.forEach(f=>{
+  const m=TPLMETA[f.n]||{t:f.n,d:"",use:""};
+  const card=document.createElement('div');card.className='tcard';
+  card.innerHTML=`<div class="tt"><b>${m.t}</b><span class="kb">${f.kb} KB</span></div>
+    <p>${m.d}</p><div class="use">适合：${m.use}</div>
+    <div class="btns"><a class="btn sm" href="${f.u}" target="_blank">预览</a>
+    <button class="btn sm" data-copy="${f.u}" type="button">复制全文</button>
+    <a class="btn sm solid" href="${f.u}" download>下载</a></div>`;
+  tc.appendChild(card);
+});
+tc.addEventListener('click',ev=>{
+  const b=ev.target.closest('button[data-copy]');if(!b)return;
+  copyTex(b.dataset.copy,b);
+});
+async function copyTex(u,btn){
+  try{
+    const r=await fetch(u);if(!r.ok)throw 0;
+    const t=await r.text();
+    if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(t);}
+    else{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();}
+    btn.textContent='已复制 ✓';setTimeout(()=>{btn.textContent='复制全文';},1600);
+  }catch(e){window.open(u,'_blank');}  // file:// 下 fetch 受限时退回打开源码
+}
 
 /* ---------- 回顶 / 阅读进度 / 顶栏高亮 ---------- */
 const tb=document.getElementById('top');
@@ -541,6 +786,7 @@ addEventListener('keydown',e=>{
   if(e.key==='/'&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){e.preventDefault();q.focus();}
   if(e.key==='Escape'){q.value='';res.style.display='none';q.blur();}
 });
+ckRefresh();
 </script>
 </body>
 </html>"""
@@ -548,6 +794,7 @@ addEventListener('keydown',e=>{
     html = (INDEX_TPL.replace("__TIMELINE__", TIMELINE_SVG)
             .replace("__BARS__", BARS_SVG).replace("__MODEL__", MODEL_SVG)
             .replace("__RULES__", RULES_HTML).replace("__DATA__", DATA_JS)
+            .replace("__TEX__", TEX_JS).replace("__JOURNEY__", JOURNEY_URL)
             .replace("__NDOCS__", str(NDOCS)))
     out = os.path.join(ctx["site"], "index.html")
     with open(out, "w", encoding="utf-8") as f:
