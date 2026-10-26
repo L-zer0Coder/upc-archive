@@ -4,80 +4,89 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2013 年 University Physics Competition（UPC）题目与官方信息 · UPC 全档案库</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
 <style>
-:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
- --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
- --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
- --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
-html{scrollbar-color:rgba(255,255,255,.16) transparent}
+:root{
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#9A9080;
+ --line:#E7E0D1;--line2:#D9D0BD;
+ --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
+ --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+ --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:74px}
-body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
- color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
- line-height:1.9;font-size:15.5px}
-#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
-.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
-.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
- padding:3px 12px;transition:.15s;white-space:nowrap}
-.topbar a:hover{border-color:var(--line2);color:var(--ink)}
-.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
-.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
-.content{flex:0 1 760px;min-width:0}
-.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
-h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
-h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
-h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
-h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
-a{color:var(--acc)} a:hover{text-decoration:underline}
-code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
- font-family:var(--mono)}
-pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
+.topbar a:hover{color:var(--acc)}
+.topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
+.topbar .tag:hover{border-color:var(--acc)}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:13.5px;margin-right:4px}
+.brand:hover{color:var(--ink)}
+.brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
+.crumb{color:var(--dim);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
+.content{flex:0 1 780px;min-width:0}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
+.sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
+.sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
+.sheet h4{font-size:15.5px;margin:1.2em 0 .4em;font-weight:600}
+.sheet p{margin:.85em 0}
+.sheet a{color:var(--acc)}
+.sheet a:hover{color:var(--acc-d);text-decoration:underline;text-underline-offset:3px}
+.sheet ul,.sheet ol{padding-left:1.6em;margin:.7em 0}
+.sheet li{margin:.3em 0}
+.sheet li::marker{color:var(--dim)}
+code{background:#F2EDE2;border:1px solid var(--line);border-radius:3px;padding:.5px 6px;font-size:.86em;font-family:var(--mono)}
+pre{background:#F9F6EF;border:1px solid var(--line);border-radius:4px;padding:14px 17px;overflow:auto;line-height:1.75;font-size:13.5px}
 pre code{border:none;background:none;padding:0}
-blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
-table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
-th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
-th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+blockquote{margin:1.1em 0;padding:2px 0 2px 18px;border-left:2px solid var(--acc);color:var(--mut)}
+blockquote p{margin:.5em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.8px;display:block;overflow-x:auto;line-height:1.8}
+th,td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:12px;letter-spacing:.05em;border-bottom:1px solid var(--line2);background:var(--sheet);white-space:nowrap}
 td:first-child,th:first-child{white-space:nowrap}
-tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
-hr{border:none;border-top:1px solid var(--line);margin:2em 0}
-img{max-width:100%}
-.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+tbody tr:nth-child(2n) td{background:#F8F5EE}
+hr{border:none;border-top:1px solid var(--line);margin:2.2em 0}
+.sheet img{max-width:100%;border:1px solid var(--line);border-radius:3px}
+.mermaid{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:12px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
-.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
-footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
-#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
- border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.03em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:28px 20px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--sheet);border:1px solid var(--line2);color:var(--mut);
+ border-radius:50%;width:40px;height:40px;font-size:16px;cursor:pointer;opacity:0;pointer-events:none;transition:.2s}
 #top.on{opacity:1;pointer-events:auto}
-#top:hover{background:var(--accS)}
-aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
- background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
-aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
-aside.toc ul{list-style:none;margin:0;padding:0}
-aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
- padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
-aside.toc li.l3 a{padding-left:28px;font-size:12px}
+#top:hover{color:var(--acc);border-color:var(--acc)}
+aside.toc{position:sticky;top:74px;width:214px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;padding:4px 0}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.12em;padding:0 0 8px 14px}
+aside.toc ul{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:4px 12px;margin-left:-1px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;line-height:1.75;font-size:12.5px}
+aside.toc li.l3 a{padding-left:26px;font-size:12px}
 aside.toc li a:hover{color:var(--ink)}
-aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
-aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
-@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
+aside.toc::-webkit-scrollbar{width:5px}
+aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
 </style>
 </head>
 <body>
 <div id="pbar"></div>
 <div class="topbar"><div class="in">
-  <a href="../../index.html" style="font-weight:500">← 总览首页</a>
+  <a class="brand" href="../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../index.html#guide">使用指南</a>
   
-  <a href="../../../02_%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB/2013_%E9%A2%98%E7%9B%AE%E4%B8%8E%E5%AE%98%E6%96%B9%E4%BF%A1%E6%81%AF.md">Markdown</a>
-  <span class="crumb" style="flex:1">02_题目汇总 · 2013 年 University Physics Competition（UPC）题目与官方信息</span>
+  <a class="tag" href="../../../02_%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB/2013_%E9%A2%98%E7%9B%AE%E4%B8%8E%E5%AE%98%E6%96%B9%E4%BF%A1%E6%81%AF.md">Markdown</a>
+  <span class="crumb">02_题目汇总 · 2013 年 University Physics Competition（UPC）题目与官方信息</span>
 </div></div>
 <div class="layout">
-  <div class="content"><div class="card">
+  <div class="content"><div class="sheet">
 <h1 id="2013-年-university-physics-competitionupc题目与官方信息">2013 年 University Physics Competition（UPC）题目与官方信息</h1>
 <h2 id="赛事概况">赛事概况</h2>
 <p>In this year’s competition 121 teams submitted papers for judging.</p>
@@ -165,11 +174,11 @@ Web Hosting powered by Network Solutions®</p>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
-  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
     ignoredTags:["script","style","textarea","pre","code"]});
   if (window.mermaid){
-    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    mermaid.initialize({startOnLoad:false,theme:"neutral",securityLevel:"loose"});
     document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});

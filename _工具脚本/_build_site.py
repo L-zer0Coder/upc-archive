@@ -22,7 +22,7 @@ DIR_LABEL = {
     "02_题目汇总": "题目与官方信息", "10_论文精读": "论文精读教程",
     "11_论文模板与工具": "论文模板与工具", "README.md": "档案库说明",
 }
-GM_RE = re.compile(r"(\d{4})-GM-([AB])-(\w+)", re.I)
+GM_RE = re.compile(r"(\d{4})-GM-([AB])-([0-9A-Za-z]+)", re.I)  # \w 会吞掉「_精读」后缀，故只取字母数字
 
 def posix(p):
     return p.replace("\\", "/")
@@ -63,86 +63,95 @@ MD = markdown.Markdown(extensions=["tables", "fenced_code", "toc", "sane_lists"]
                        output_format="html5",
                        extension_configs={"toc": {"slugify": slugify_unicode}})
 
-DOC_TPL = """<!DOCTYPE html>
+DOC_TPL = r"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>__TITLE__ · UPC 全档案库</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%236E7BF2'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='600' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
 <style>
-:root{--bg0:#0A0D12;--bg1:#0D1117;--bg2:#11151D;--bg3:#161B24;--ink:#F0F3F7;--mut:#A9B2C0;--dim:#6B7482;
- --line:rgba(255,255,255,.05);--line2:rgba(255,255,255,.16);--acc:#6E7BF2;--accS:#6E7BF2;--cyan:#6E7BF2;--r:10px;
- --pri:#6E7BF2;--pri-sub:rgba(110,123,242,.14);
- --mono:"JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace}
-html{scrollbar-color:rgba(255,255,255,.16) transparent}
+:root{
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#9A9080;
+ --line:#E7E0D1;--line2:#D9D0BD;
+ --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
+ --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+ --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:74px}
-body{margin:0;background:radial-gradient(1000px 460px at 80% -10%,rgba(99,102,241,.12),transparent 60%),var(--bg0);
- color:var(--ink);font-family:"Inter","Segoe UI","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
- line-height:1.9;font-size:15.5px}
-#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--pri);transition:width .1s}
-.topbar{position:sticky;top:0;z-index:9;backdrop-filter:blur(12px);background:rgba(7,10,18,.82);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 18px;flex-wrap:wrap}
-.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;border:1px solid var(--line);border-radius:8px;
- padding:3px 12px;transition:.15s;white-space:nowrap}
-.topbar a:hover{border-color:var(--line2);color:var(--ink)}
-.crumb{color:var(--dim);font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
-.layout{display:flex;justify-content:center;gap:40px;max-width:1160px;margin:0 auto;padding:32px 24px 96px;align-items:flex-start}
-.content{flex:0 1 760px;min-width:0}
-.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:40px 48px;box-shadow:0 24px 60px rgba(0,0,0,.22)}
-h1{font-size:26px;line-height:1.4;margin:.2em 0 .6em;font-weight:600;letter-spacing:0;color:#F0F3F7;text-wrap:balance}
-h2{font-size:20px;padding-left:12px;margin-top:1.9em;scroll-margin-top:60px;font-weight:600;letter-spacing:0;position:relative}
-h2::before{content:"";position:absolute;left:0;top:.3em;bottom:.3em;width:3px;border-radius:2px;background:var(--pri)}
-h3{font-size:16px;color:#cdd8ec;scroll-margin-top:60px;font-weight:500}
-a{color:var(--acc)} a:hover{text-decoration:underline}
-code{background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.88em;
- font-family:var(--mono)}
-pre{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow:auto}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
+.topbar a:hover{color:var(--acc)}
+.topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
+.topbar .tag:hover{border-color:var(--acc)}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:13.5px;margin-right:4px}
+.brand:hover{color:var(--ink)}
+.brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
+.crumb{color:var(--dim);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
+.content{flex:0 1 780px;min-width:0}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
+.sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
+.sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
+.sheet h4{font-size:15.5px;margin:1.2em 0 .4em;font-weight:600}
+.sheet p{margin:.85em 0}
+.sheet a{color:var(--acc)}
+.sheet a:hover{color:var(--acc-d);text-decoration:underline;text-underline-offset:3px}
+.sheet ul,.sheet ol{padding-left:1.6em;margin:.7em 0}
+.sheet li{margin:.3em 0}
+.sheet li::marker{color:var(--dim)}
+code{background:#F2EDE2;border:1px solid var(--line);border-radius:3px;padding:.5px 6px;font-size:.86em;font-family:var(--mono)}
+pre{background:#F9F6EF;border:1px solid var(--line);border-radius:4px;padding:14px 17px;overflow:auto;line-height:1.75;font-size:13.5px}
 pre code{border:none;background:none;padding:0}
-blockquote{margin:1.2em 0;padding:4px 0 4px 16px;border-left:2px solid var(--line2);background:none;color:var(--mut);border-radius:0}
-table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.5px;display:block;overflow-x:auto}
-th,td{border:1px solid transparent;border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
-th{background:none;color:var(--dim);white-space:nowrap;font-size:11px;letter-spacing:.04em;border-bottom:1px solid var(--line2)}
+blockquote{margin:1.1em 0;padding:2px 0 2px 18px;border-left:2px solid var(--acc);color:var(--mut)}
+blockquote p{margin:.5em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.8px;display:block;overflow-x:auto;line-height:1.8}
+th,td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:12px;letter-spacing:.05em;border-bottom:1px solid var(--line2);background:var(--sheet);white-space:nowrap}
 td:first-child,th:first-child{white-space:nowrap}
-tbody tr:nth-child(2n) td{background:rgba(255,255,255,.015)}
-hr{border:none;border-top:1px solid var(--line);margin:2em 0}
-img{max-width:100%}
-.mermaid{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:10px;margin:1em 0;display:flex;justify-content:center}
+tbody tr:nth-child(2n) td{background:#F8F5EE}
+hr{border:none;border-top:1px solid var(--line);margin:2.2em 0}
+.sheet img{max-width:100%;border:1px solid var(--line);border-radius:3px}
+.mermaid{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:12px;margin:1em 0;display:flex;justify-content:center}
 .mermaid svg{max-width:100%;height:auto}
-.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.02em}
-footer{text-align:center;color:var(--dim);font-size:12px;padding:26px}
-#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--bg3);border:1px solid var(--line2);color:var(--ink);
- border:none;border-radius:12px;width:42px;height:42px;font-size:17px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.03em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:28px 20px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--sheet);border:1px solid var(--line2);color:var(--mut);
+ border-radius:50%;width:40px;height:40px;font-size:16px;cursor:pointer;opacity:0;pointer-events:none;transition:.2s}
 #top.on{opacity:1;pointer-events:auto}
-#top:hover{background:var(--accS)}
-aside.toc{position:sticky;top:60px;width:220px;flex-shrink:0;max-height:calc(100vh - 84px);overflow-y:auto;
- background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 8px 16px 0;font-size:13px}
-aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.1em;padding:0 16px 10px}
-aside.toc ul{list-style:none;margin:0;padding:0}
-aside.toc li a{display:block;line-height:30px;color:var(--dim);text-decoration:none;border-left:2px solid transparent;
- padding:0 14px;white-space:normal;transition:.15s;font-size:12.5px}
-aside.toc li.l3 a{padding-left:28px;font-size:12px}
+#top:hover{color:var(--acc);border-color:var(--acc)}
+aside.toc{position:sticky;top:74px;width:214px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;padding:4px 0}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.12em;padding:0 0 8px 14px}
+aside.toc ul{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:4px 12px;margin-left:-1px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;line-height:1.75;font-size:12.5px}
+aside.toc li.l3 a{padding-left:26px;font-size:12px}
 aside.toc li a:hover{color:var(--ink)}
-aside.toc li a.on{color:var(--t1,var(--ink));border-left-color:var(--pri);background:none;font-weight:500}
-aside.toc::-webkit-scrollbar{width:5px}aside.toc::-webkit-scrollbar-thumb{background:#232d44;border-radius:4px}
-@media(max-width:1100px){aside.toc{display:none}.card{padding:22px 18px}}
+aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
+aside.toc::-webkit-scrollbar{width:5px}
+aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
 </style>
 </head>
 <body>
 <div id="pbar"></div>
 <div class="topbar"><div class="in">
-  <a href="__HOME__" style="font-weight:500">← 总览首页</a>
+  <a class="brand" href="__HOME__"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="__HOME__#guide">使用指南</a>
   __PAPERTAG__
-  <a href="__RAWMD__">Markdown</a>
-  <span class="crumb" style="flex:1">__CRUMB__ · __TITLE__</span>
+  <a class="tag" href="__RAWMD__">Markdown</a>
+  <span class="crumb">__CRUMB__ · __TITLE__</span>
 </div></div>
 <div class="layout">
-  <div class="content"><div class="card">
+  <div class="content"><div class="sheet">
 __BODY__
 </div></div>
 __TOC__
@@ -151,11 +160,11 @@ __TOC__
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
-  if (window.renderMathInElement) renderMathInElement(document.querySelector(".card"), {
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
     ignoredTags:["script","style","textarea","pre","code"]});
   if (window.mermaid){
-    mermaid.initialize({startOnLoad:false,theme:"dark",securityLevel:"loose"});
+    mermaid.initialize({startOnLoad:false,theme:"neutral",securityLevel:"loose"});
     document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
       var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
       el.parentElement.replaceWith(d);});
@@ -261,13 +270,23 @@ def render_docs():
         crumb = DIR_LABEL.get(rel, rel.rsplit("/", 1)[0] if "/" in rel else rel)
         home = link_from(page_dir, os.path.join(SITE, "index.html"))
         raw = link_from(page_dir, md_abs)
-        # paper pdf shortcut for analysis pages
+        # per-paper pages (赏析/精读) get cross-links: PDF 原件 + 姊妹篇
         m = GM_RE.search(rel)
         papertag = ""
-        if m and rel.startswith("05_论文赏析"):
-            pdf = P("03_优秀论文PDF", m.group(1), f"Problem {m.group(2).upper()}", m.group(0) + ".pdf")
+        if m:
+            base = m.group(0)
+            yr, prob = m.group(1), m.group(2).upper()
+            pdf = P("03_优秀论文PDF", yr, f"Problem {prob}", base + ".pdf")
             if os.path.exists(pdf):
-                papertag = f'<a href="{link_from(page_dir, pdf)}">论文 PDF</a>'
+                papertag += f'<a class="tag" href="{link_from(page_dir, pdf)}">论文 PDF</a>'
+            if rel.startswith("05_论文赏析"):
+                jd = P("10_论文精读", yr, base + "_精读.md")
+                if os.path.exists(jd):
+                    papertag += f'<a class="tag" href="{link_from(page_dir, doc_html_abs(jd))}">手把手精读</a>'
+            elif rel.startswith("10_论文精读"):
+                ana = P("05_论文赏析", yr, base + ".md")
+                if os.path.exists(ana):
+                    papertag += f'<a class="tag" href="{link_from(page_dir, doc_html_abs(ana))}">本篇赏析</a>'
         page_html = (DOC_TPL.replace("__TITLE__", title).replace("__CRUMB__", crumb)
                      .replace("__HOME__", home).replace("__RAWMD__", raw)
                      .replace("__PAPERTAG__", papertag).replace("__BODY__", body)
@@ -321,9 +340,9 @@ CN = {
  (2025,'B'):("19 世纪火炮弹道与无计算器射表","Artillery","fluid"),
 }
 DOMAINS = {
- "astro":("航天与轨道","#7E9BE0"), "fluid":("流体与空气动力","#5CB3A8"), "mech":("刚体与多体","#D29A55"),
- "heat":("热学与能量","#DB7A74"), "bio":("生物与标度律","#8CBA6E"), "em":("电磁与辐射","#A48BD9"),
- "acou":("声学与信号","#D77FAD"),
+ "astro":("航天与轨道","#3A5A8C"), "fluid":("流体与空气动力","#2F7D6B"), "mech":("刚体与多体","#9A6232"),
+ "heat":("热学与能量","#B0543B"), "bio":("生物与标度律","#647C35"), "em":("电磁与辐射","#6E5599"),
+ "acou":("声学与信号","#A84A76"),
 }
 YEARS = list(range(2010, 2026))
 
@@ -449,13 +468,13 @@ import math
 W,H = 960, 310
 tl = [f'<svg viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" role="img">']
 tl.append('<defs><filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>')
-tl.append(f'<line x1="40" y1="205" x2="{W-30}" y2="205" stroke="rgba(255,255,255,.12)" stroke-width="1"/>')
-tl.append('<text x="30" y="133" font-size="11" fill="#6B7482" text-anchor="end">A 题</text>')
-tl.append('<text x="30" y="175" font-size="11" fill="#6B7482" text-anchor="end">B 题</text>')
+tl.append(f'<line x1="40" y1="205" x2="{W-30}" y2="205" stroke="#D9D0BD" stroke-width="1"/>')
+tl.append('<text x="30" y="133" font-size="11" fill="#9A9080" text-anchor="end">A 题</text>')
+tl.append('<text x="30" y="175" font-size="11" fill="#9A9080" text-anchor="end">B 题</text>')
 for i,y in enumerate(YEARS):
     x = 60 + i*((W-100)/15)
     if i % 2 == 0:
-        tl.append(f'<text x="{x}" y="228" font-size="11" fill="#6B7482" text-anchor="middle">{y}</text>')
+        tl.append(f'<text x="{x}" y="228" font-size="11" fill="#9A9080" text-anchor="middle">{y}</text>')
     for prob in "AB":
         cn,en,dom = CN[(y,prob)]
         col = DOMAINS[dom][1]
@@ -464,43 +483,43 @@ for i,y in enumerate(YEARS):
 lx = 40
 for k,(name,col) in DOMAINS.items():
     tl.append(f'<circle cx="{lx}" cy="268" r="6" fill="{col}"/>')
-    tl.append(f'<text x="{lx+13}" y="272" font-size="12" fill="#A9B2C0">{name}</text>')
+    tl.append(f'<text x="{lx+13}" y="272" font-size="12" fill="#6E6557">{name}</text>')
     lx += 26 + len(name)*13
 tl.append('</svg>')
 TIMELINE_SVG = "".join(tl)
 
 W2,H2 = 960, 260
 bc = [f'<svg viewBox="0 0 {W2} {H2}" xmlns="http://www.w3.org/2000/svg">']
-bc.append(f'<text x="40" y="26" font-size="13" fill="#A9B2C0">每年官方公开金牌论文数（共 {len(papers)} 篇；2024 官方未公开）</text>')
+bc.append(f'<text x="40" y="26" font-size="13" fill="#6E6557">每年官方公开金牌论文数（共 {len(papers)} 篇；2024 官方未公开）</text>')
 maxn = max(len(v) for v in papers_by.values())
 for i,y in enumerate(YEARS):
     n = len(papers_by.get((y,'A'),[])) + len(papers_by.get((y,'B'),[]))
     x = 60 + i*((W2-100)/15)
     bh = n/maxn*150 if n else 0
     if n:
-        bc.append(f'<rect x="{x-15}" y="{206-bh}" width="30" height="{bh}" rx="3" fill="#6E7BF2"/>')
+        bc.append(f'<rect x="{x-15}" y="{206-bh}" width="30" height="{bh}" rx="2" fill="#9C3F2E" fill-opacity="0.85"/>')
         wt = ' font-weight="600"' if n == maxn else ''
-        bc.append(f'<text x="{x}" y="{206-bh-7}" font-size="11.5" fill="#F0F3F7" text-anchor="middle"{wt}>{n}</text>')
+        bc.append(f'<text x="{x}" y="{206-bh-7}" font-size="11.5" fill="#2A251E" text-anchor="middle"{wt}>{n}</text>')
     else:
-        bc.append(f'<line x1="{x-9}" y1="204" x2="{x+9}" y2="204" stroke="#6B7482" stroke-width="1.5"/>')
-        bc.append(f'<text x="{x}" y="193" font-size="10.5" fill="#6B7482" text-anchor="middle">无</text>')
-    bc.append(f'<text x="{x}" y="224" font-size="11" fill="#6B7482" text-anchor="middle">{y}</text>')
+        bc.append(f'<line x1="{x-9}" y1="204" x2="{x+9}" y2="204" stroke="#9A9080" stroke-width="1.5"/>')
+        bc.append(f'<text x="{x}" y="193" font-size="10.5" fill="#9A9080" text-anchor="middle">无</text>')
+    bc.append(f'<text x="{x}" y="224" font-size="11" fill="#9A9080" text-anchor="middle">{y}</text>')
 bc.append('</svg>')
 BARS_SVG = "".join(bc)
 
 W3,H3 = 960, 430
 mm = [f'<svg viewBox="0 0 {W3} {H3}" xmlns="http://www.w3.org/2000/svg">']
 center = W3/2; hub = 92
-mm.append(f'<circle cx="{center}" cy="210" r="{hub}" fill="#0d1526" stroke="rgba(151,167,197,.3)" stroke-width="1.5"/>')
-mm.append(f'<text x="{center}" y="203" font-size="16" fill="#e9eef7" text-anchor="middle" font-weight="700" letter-spacing=".5">UPC</text>')
-mm.append(f'<text x="{center}" y="224" font-size="12.5" fill="#68748e" text-anchor="middle">物理模型库</text>')
+mm.append(f'<circle cx="{center}" cy="210" r="{hub}" fill="#FBF9F3" stroke="#D9D0BD" stroke-width="1.5"/>')
+mm.append(f'<text x="{center}" y="203" font-size="16" fill="#2A251E" text-anchor="middle" font-weight="700" letter-spacing=".5">UPC</text>')
+mm.append(f'<text x="{center}" y="224" font-size="12.5" fill="#9A9080" text-anchor="middle">物理模型库</text>')
 dom_files = sorted(glob.glob(P("08_物理模型综述","0*.md")))
 dom_links = [quote(posix(os.path.relpath(doc_html_abs(f), SITE))) for f in dom_files]
 for idx,(k,(name,col)) in enumerate(DOMAINS.items()):
     ang = -math.pi/2 + idx*(2*math.pi/8)
     cx = center + 330*math.cos(ang); cy = 210 + 150*math.sin(ang)
-    mm.append(f'<line x1="{center+hub*math.cos(ang)}" y1="{210+hub*math.sin(ang)}" x2="{cx}" y2="{cy}" stroke="{col}" stroke-width="1.5" opacity="0.35"/>')
-    mm.append(f'<circle cx="{cx}" cy="{cy}" r="46" fill="{col}" fill-opacity="0.14" stroke="{col}" stroke-width="1.5"/>')
+    mm.append(f'<line x1="{center+hub*math.cos(ang)}" y1="{210+hub*math.sin(ang)}" x2="{cx}" y2="{cy}" stroke="{col}" stroke-width="1.5" opacity="0.45"/>')
+    mm.append(f'<circle cx="{cx}" cy="{cy}" r="46" fill="{col}" fill-opacity="0.12" stroke="{col}" stroke-width="1.5"/>')
     parts = name.split("与") if "与" in name else [name[:4], name[4:]]
     mm.append(f'<text x="{cx}" y="{cy-3}" font-size="12.5" fill="{col}" text-anchor="middle" font-weight="600">{parts[0]}</text>')
     mm.append(f'<text x="{cx}" y="{cy+13}" font-size="12.5" fill="{col}" text-anchor="middle" font-weight="600">{parts[1] if len(parts)>1 else ""}</text>')
