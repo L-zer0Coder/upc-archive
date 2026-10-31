@@ -783,6 +783,7 @@ render_index({"timeline": TIMELINE_SVG, "bars": BARS_SVG, "model": MODEL_SVG,
               "site": SITE, "root": ROOT,
               "model_url": site_rel(doc_html_abs(P("08_物理模型综述", "00_总览.md"))),
               "manual_url": site_rel(doc_html_abs(P("11_论文模板与工具", "48小时作战手册.md"))),
+              "rules_url": site_rel(doc_html_abs(P("02_题目汇总", "比赛规则_ContestRules.md"))),
               "ev_start": EVENT_START_MS, "ev_end": EVENT_END_MS,
               "phases": json.dumps(PHASES, ensure_ascii=False),
               "tex": TEX_JS, "journey": JOURNEY_URL})

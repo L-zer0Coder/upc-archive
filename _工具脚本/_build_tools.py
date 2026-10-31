@@ -248,11 +248,14 @@ def render_warroom(ctx):
     manual_html = md_fragment(manual_md)
     ck_secs, ck_note = parse_checklist(read(ctx, "11_论文模板与工具", "提交前终检checklist.md"))
     sent = parse_sentbank(read(ctx, "11_论文模板与工具", "写作句库.md"))
+    polish = parse_polish(read(ctx, "11_论文模板与工具", "中译英润色库.md"))
 
     links = {
         "decision_tree": doc_url(ctx, "11_论文模板与工具/建模决策树.md"),
         "manual": doc_url(ctx, "11_论文模板与工具/48小时作战手册.md"),
         "sentbank": doc_url(ctx, "11_论文模板与工具/写作句库.md"),
+        "polish": doc_url(ctx, "11_论文模板与工具/中译英润色库.md"),
+        "rules": doc_url(ctx, "02_题目汇总/比赛规则_ContestRules.md"),
         "recipes": quote("../11_论文模板与工具/图表配方库/matplotlib_recipes.py"),
         "method": doc_url(ctx, "08_物理模型综述/08_方法论与数值算法总论.md"),
         "home_years": "../index.html#years",
@@ -260,18 +263,19 @@ def render_warroom(ctx):
         "home_templates": "../index.html#templates",
         "home_papers": "../index.html#papers",
     }
-    # T0–T9 每阶段该看的库内入口（速查标签页）
+    # T0–T9 每阶段该看的库内入口（速查标签页；11 行与 PHASES 一一对应，含 T3·T4 收口行）
     phase_links = [
         ["home_years|年鉴对照历年两题风格", "decision_tree|建模决策树从 Q1 走"],
         ["decision_tree|去模糊化 Q5", "sentbank|句库·模糊词操作化"],
         ["decision_tree|Q2 基准情形", "sentbank|句库·基准与动机"],
         ["home_models|物理模型地图查套路", "sentbank|句库·建模与假设"],
+        ["decision_tree|主方程收口检查（第 14 小时）", "method|积分器与步长速查"],
         ["method|方法论与数值算法总论", "recipes|图表配方库源码"],
         ["decision_tree|Q3 量级表", "method|数值算法速查"],
         ["sentbank|句库·数值方法（收敛声明）", "manual|手册 T6 验证三件套"],
         ["recipes|8 类配方对照补图", "decision_tree|验证先于美化"],
-        ["sentbank|句库按部位检索", "home_templates|LaTeX 模板工坊"],
-        ["manual|危机预案", "decision_tree|五条主干原则再过一遍"],
+        ["sentbank|句库按部位检索", "polish|中译英五步法逐段过"],
+        ["manual|危机预案", "rules|提交合规细则（官方规则）"],
     ]
 
     body = r"""
@@ -280,6 +284,7 @@ def render_warroom(ctx):
   <a data-t="manual">作战手册</a>
   <a data-t="check">提交终检</a>
   <a data-t="sent">写作句库</a>
+  <a data-t="polish">中译英</a>
   <a data-t="map">思路导图</a>
   <a data-t="speed">阶段速查</a>
 </nav>
@@ -325,6 +330,16 @@ def render_warroom(ctx):
     <span class="note" id="scnt" style="color:var(--dim);font-size:12px"></span>
   </div>
   <div id="slist"></div>
+</section>
+
+<section class="pane" id="pane-polish">
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+    <input id="pq" type="search" placeholder="搜中文直译腔 / 英文表达 / 说明…（如 显著、忽略、prove）"
+      style="flex:1;min-width:240px;height:34px;border:1px solid var(--line2);border-radius:3px;background:var(--sheet);padding:0 12px;font-size:13px;outline:none">
+    <span class="note" id="pcnt" style="color:var(--dim);font-size:12px"></span>
+    <a class="btn" href="__LINKS_POLISH__" target="_blank" style="height:34px">文档版 →</a>
+  </div>
+  <div id="plist2"></div>
 </section>
 
 <section class="pane" id="pane-map">
@@ -541,6 +556,44 @@ document.getElementById('slist').addEventListener('click',function(ev){
 });
 renderSent();
 
+/* ---------- 中译英润色库 ---------- */
+var POLISH=__POLISH__;
+function renderPolish(){
+  var kw=document.getElementById('pq').value.trim().toLowerCase();
+  var n=0,html='';
+  POLISH.forEach(function(sec){
+    function hit(s){return !kw||String(s).toLowerCase().indexOf(kw)>=0;}
+    var blocks=sec.blocks.map(function(b){
+      if(b.kind==='table'){
+        var rows=b.rows.filter(function(r){return r.some(hit);});
+        if(kw&&!rows.length)return '';
+        n+=rows.length;
+        return '<table style="margin:8px 0 2px"><thead><tr>'+b.header.map(function(h){return '<th>'+escHtml(h)+'</th>';}).join('')+'</tr></thead><tbody>'+
+          rows.map(function(r){return '<tr>'+r.map(function(c,i){
+            var cls=i===1?'font-family:var(--mono);font-size:12px':'';
+            return '<td style="'+cls+'">'+escHtml(c)+'</td>';}).join('')+'</tr>';}).join('')+'</tbody></table>';
+      }
+      if(b.kind==='notes'){
+        var items=b.items.filter(hit);
+        if(kw&&!items.length)return '';
+        n+=items.length;
+        return '<ul style="margin:8px 0 2px;padding-left:1.4em;font-size:13px;line-height:1.9">'+
+          items.map(function(x){return '<li>'+escHtml(x)+'</li>';}).join('')+'</ul>';
+      }
+      if(!hit(b.text))return '';
+      n++;
+      return '<p style="margin:6px 0;font-size:13px;color:var(--mut)">'+escHtml(b.text)+'</p>';
+    }).join('');
+    if(kw&&!blocks)return;
+    html+='<div class="card" style="margin-bottom:12px"><b style="font-family:var(--serif);font-size:15.5px">'+escHtml(sec.t)+'</b>'+
+      (sec.usage?'<p style="margin:4px 0 2px;font-size:12.5px;color:var(--dim)">'+escHtml(sec.usage)+'</p>':'')+blocks+'</div>';
+  });
+  document.getElementById('plist2').innerHTML=html||'<div class="notebox">润色库里没有匹配「'+escHtml(kw)+'」的条目</div>';
+  document.getElementById('pcnt').textContent=n+' 条';
+}
+document.getElementById('pq').addEventListener('input',renderPolish);
+renderPolish();
+
 /* ---------- 思路导图（无依赖径向 SVG） ---------- */
 function tryMermaid(n){
   if(!document.querySelector('pre code.language-mermaid'))return;
@@ -733,14 +786,64 @@ renderLog();
     return page(ctx, "48 小时作战室", "第 17 届赛时工具",
                 "UPC 48 小时作战室：思路时间线、交互式作战手册、提交终检清单、写作句库检索、思路导图与阶段速查。",
                 "开赛后把这一页钉在屏幕上：随手记思路（自动盖阶段戳）、对照手册推进、句库即查即抄、交卷前过终检。所有数据只存在本浏览器，可导出备份。",
-                body.replace("__MANUAL__", manual_html).replace("__CKNOTE__", ck_note),
+                body.replace("__MANUAL__", manual_html).replace("__CKNOTE__", ck_note)
+                    .replace("__LINKS_POLISH__", links["polish"]),
                 script
                 .replace("__PHASES__", json.dumps(ctx["phases"], ensure_ascii=False))
                 .replace("__CHECKLIST__", json.dumps(ck_secs, ensure_ascii=False))
                 .replace("__SENTBANK__", json.dumps(sent, ensure_ascii=False))
+                .replace("__POLISH__", json.dumps(polish, ensure_ascii=False))
                 .replace("__LINKS__", json.dumps(links, ensure_ascii=False))
                 .replace("__PLINKS__", json.dumps(phase_links, ensure_ascii=False)),
                 extra_head='<script defer src="../09_可视化总览/vendor/mermaid/mermaid.min.js"></script>')
+
+
+# ---------------- 解析：中译英润色库（带表头的表格） ----------------
+def parse_polish(text):
+    """返回 [{t, usage, blocks:[{kind:'table',header,rows}|{kind:'notes',items}|{kind:'prose',text}]}]"""
+    clean = lambda s: s.replace("**", "")
+    secs = []
+    for chunk in re.split(r"^##\s+", text, flags=re.M)[1:]:
+        lines = chunk.splitlines()
+        title = clean(lines[0].strip())
+        usage = ""
+        m = re.search(r"^>\s*(.+)$", chunk, re.M)
+        if m:
+            usage = clean(m.group(1).strip())
+        blocks, cur_table, cur_notes = [], None, []
+        table_header = None
+        def flush():
+            nonlocal cur_table, cur_notes, table_header
+            if cur_table:
+                blocks.append({"kind": "table", "header": table_header, "rows": cur_table})
+                cur_table, table_header = None, None
+            if cur_notes:
+                blocks.append({"kind": "notes", "items": cur_notes})
+                cur_notes = []
+        for ln in lines[1:]:
+            s = ln.strip()
+            if s.startswith(">"):
+                continue
+            if s.startswith("|"):
+                cells = [clean(c.strip()) for c in s.strip("|").split("|")]
+                if set(cells[0]) <= set(":- ") or not any(cells):
+                    continue
+                if cur_table is None and not table_header:
+                    table_header = cells   # md 表头行
+                    cur_table = []
+                else:
+                    cur_table.append(cells)
+            else:
+                if cur_table is not None or table_header is not None:
+                    flush()
+                m2 = re.match(r"^(?:[-*]|\d+[.、])\s*(.+)$", s)
+                if m2:
+                    cur_notes.append(clean(re.sub(r"^[❌✅]\s*", "", m2.group(1)).strip()))
+                elif s:
+                    blocks.append({"kind": "prose", "text": clean(s)})
+        flush()
+        secs.append({"t": title, "usage": usage, "blocks": blocks})
+    return secs
 
 
 # ================================================================

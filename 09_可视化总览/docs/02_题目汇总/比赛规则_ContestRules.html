@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPC 比赛规则（Contest Rules · 官方整理） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<meta name="description" content="UPC 比赛规则（Contest Rules · 官方整理） 来源： uphysicsc.com/contestrules.html ，抓取整理于 2026-10-31。 本文件是官方规则的 中文导读 + 关键原文摘录 ，细则以官网英文…">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="UPC 比赛规则（Contest Rules · 官方整理） · UPC 全档案库">
+<meta property="og:description" content="UPC 比赛规则（Contest Rules · 官方整理） 来源： uphysicsc.com/contestrules.html ，抓取整理于 2026-10-31。 本文件是官方规则的 中文导读 + 关键原文摘录 ，细则以官网英文…">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<script defer src="../../vendor/katex/katex.min.js"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
+
+<style>
+:root{
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
+ --line:#E7E0D1;--line2:#D9D0BD;
+ --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
+ --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+ --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
+.topbar a:hover{color:var(--acc)}
+.topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
+.topbar .tag:hover{border-color:var(--acc)}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
+.topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
+.topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:13.5px;margin-right:4px}
+.brand:hover{color:var(--ink)}
+.brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
+.crumb{color:var(--dim);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+/* 赛事时钟徽章：赛前显示 D-天数，赛中显示已用时长 */
+.topbar .clock{margin-left:12px;flex-shrink:0;font-family:var(--mono);font-size:11px;line-height:1.9;
+ letter-spacing:.02em;padding:1px 8px;border:1px solid rgba(156,63,46,.28);border-radius:3px;
+ color:var(--acc);background:var(--acc-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+.topbar .clock:hover{border-color:var(--acc);color:var(--acc-d);background:rgba(156,63,46,.12)}
+.topbar .clock[data-s="live"]{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
+.layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
+.content{flex:0 1 780px;min-width:0}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
+.sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
+.sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
+.sheet h4{font-size:15.5px;margin:1.2em 0 .4em;font-weight:600}
+.sheet p{margin:.85em 0}
+.sheet a{color:var(--acc)}
+.sheet a:hover{color:var(--acc-d);text-decoration:underline;text-underline-offset:3px}
+.sheet ul,.sheet ol{padding-left:1.6em;margin:.7em 0}
+.sheet li{margin:.3em 0}
+.sheet li::marker{color:var(--dim)}
+code{background:#F2EDE2;border:1px solid var(--line);border-radius:3px;padding:.5px 6px;font-size:.86em;font-family:var(--mono)}
+pre{background:#F9F6EF;border:1px solid var(--line);border-radius:4px;padding:14px 17px;overflow:auto;line-height:1.75;font-size:13.5px}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.1em 0;padding:2px 0 2px 18px;border-left:2px solid var(--acc);color:var(--mut)}
+blockquote p{margin:.5em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.8px;display:block;overflow-x:auto;line-height:1.8}
+th,td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:12px;letter-spacing:.05em;border-bottom:1px solid var(--line2);background:var(--sheet);white-space:nowrap}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:#F8F5EE}
+hr{border:none;border-top:1px solid var(--line);margin:2.2em 0}
+.sheet img{max-width:100%;border:1px solid var(--line);border-radius:3px}
+.mermaid{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:12px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.03em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:28px 20px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--sheet);border:1px solid var(--line2);color:var(--mut);
+ border-radius:50%;width:40px;height:40px;font-size:16px;cursor:pointer;opacity:0;pointer-events:none;transition:.2s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{color:var(--acc);border-color:var(--acc)}
+aside.toc{position:sticky;top:74px;width:214px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;padding:4px 0}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.12em;padding:0 0 8px 14px}
+aside.toc ul{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:4px 12px;margin-left:-1px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;line-height:1.75;font-size:12.5px}
+aside.toc li.l3 a{padding-left:26px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
+aside.toc::-webkit-scrollbar{width:5px}
+aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../../index.html#guide">使用指南</a>
+  <button id="ck" class="tag ck" type="button" hidden></button>
+  
+  <a class="tag" href="../../../02_%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB/%E6%AF%94%E8%B5%9B%E8%A7%84%E5%88%99_ContestRules.md">Markdown</a>
+  <span class="crumb">02_题目汇总 · UPC 比赛规则（Contest Rules · 官方整理）</span>
+  <a class="clock" id="clock" href="../../../index.html#race" hidden aria-label="第 17 届 UPC 赛程"></a>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="sheet">
+<h1 id="upc-比赛规则contest-rules-官方整理">UPC 比赛规则（Contest Rules · 官方整理）</h1>
+<blockquote>
+<p>来源：<a href="https://www.uphysicsc.com/contestrules.html">uphysicsc.com/contestrules.html</a>，抓取整理于 2026-10-31。
+本文件是官方规则的<strong>中文导读 + 关键原文摘录</strong>，细则以官网英文原文为准；第 17 届比赛 2026-11-06 18:00 MST（北京时间 11-07 09:00）开赛，48 小时后截止。</p>
+</blockquote>
+<h2 id="0-一分钟合规卡中国队伍最容易踩的-8-条">0. 一分钟合规卡（中国队伍最容易踩的 8 条）</h2>
+<ol>
+<li><strong>匿名</strong>：每页页首只有队号；全文不得出现姓名、学校或任何可识别信息。</li>
+<li><strong>首页四要素</strong>：队号 / 选题（A 或 B）/ 论文标题 / <strong>≤300 词摘要</strong>（含模型假设、所问问题的答案、最终数字、结果与结论）。</li>
+<li><strong>只交一题</strong>：两题都交的话只评 A 题。</li>
+<li><strong>截止即 48 小时</strong>：以<strong>邮件送达</strong>时间为准；迟交最多按 Accomplished Competitor 处理，不参与奖牌排名。</li>
+<li><strong>提交格式</strong>：pdf/doc/docx 发到 solutions@uphysicsc.com；<strong>文件名 = 队号+题号</strong>（如 <code>778A.pdf</code>）；邮件主题与正文写明队号；附件上传全文，<strong>不要给云盘链接</strong>。</li>
+<li><strong>AI 使用必须披露</strong>：论文末尾须有 "Report on the Use of AI" 一节，写明工具、<strong>逐条原始提问</strong>与<strong>完整输出</strong>；含抄袭或虚假内容的论文将被严重扣分。</li>
+<li><strong>图与数字</strong>：数值必须给有效数字与单位；图要有轴标签；变量全文定义一致；代码只能放附录，但算法与方法必须在正文解释清楚（否则不参与评审考量）。</li>
+<li><strong>四要素内容清单</strong>：论文至少包含 ①按队伍理解重述并澄清问题 ②全部假设与近似 ③所有工作的论证依据 ④方法优缺点讨论。</li>
+</ol>
+<h2 id="1-指导教师faculty-sponsor">1. 指导教师（Faculty Sponsor）</h2>
+<ul>
+<li>每队须有一名本校教师担任 sponsor：负责确认学籍与参赛资格、保证遵守规则。</li>
+<li>开赛前可以指导（讨论解题策略、推荐资料）；<strong>开赛、题目发布后不得做任何贡献</strong>，队员也不得向 sponsor 或队外任何人请教。</li>
+<li>一名教师可指导多支队伍，数量不限。</li>
+</ul>
+<blockquote>
+<p>原文要点："Before the contest begins, the sponsor may prepare the team … After the contest begins, the students may not consult with their sponsor or any other person outside their team."</p>
+</blockquote>
+<h2 id="2-报名registration">2. 报名（Registration）</h2>
+<ul>
+<li>所有队伍必须在官网注册并缴费，<strong>开赛前至少 6 小时</strong>完成；早鸟优惠价需<strong>开赛前 7 天</strong>完成（第 17 届即 2026-10-30 前）。</li>
+<li>注册后 2 个工作日内（且不晚于开赛前 3 小时）邮件下发<strong>队号</strong>。</li>
+<li>报名时须列出队员姓名；开赛后<strong>队员不可更换</strong>；改名邮件联系 director@uphysicsc.com。</li>
+<li>一所学校出队数不限；开赛前可全额退费，开赛后不退。</li>
+</ul>
+<h2 id="3-队伍the-team">3. 队伍（The Team）</h2>
+<ul>
+<li>每队<strong>最多 3 人</strong>（2 人、1 人组队也可以）；每人只能参加一支队伍。</li>
+<li>队员须在同一学校注册（不要求全日制），同 sponsor 同校。</li>
+<li><strong>任何 STEM 学科持有学士学位者不得参赛</strong>（science / technology / engineering / mathematics）。</li>
+</ul>
+<h2 id="4-赛题the-problems">4. 赛题（The Problems）</h2>
+<ul>
+<li>开赛时官网发布 <strong>A / B 两题</strong>，每队<strong>只能选一题</strong>提交解答。</li>
+<li>第 17 届发布时间：2026-11-06 18:00 MST（北京时间 11-07 09:00），与本站首页赛事时钟一致。</li>
+</ul>
+<h2 id="5-解答论文solution-papers">5. 解答论文（Solution Papers）</h2>
+<ul>
+<li>必须用<strong>英文</strong>撰写正式论文；每页页首标注队号；正文长度不限。</li>
+<li><strong>首页只放四项</strong>：队号 / 选题 / 标题 / <strong>不超过 300 词的摘要</strong>——摘要要给出工作要点、模型假设、所问问题的答案、最终数字、结果与结论。</li>
+<li>允许使用书籍、期刊、计算机、互联网、自写程序等一切"非生命"资源；<strong>唯一禁区是人</strong>（队外任何人，包括 sponsor）。</li>
+<li>允许做实验并把数据写进论文（题目虽偏理论）。</li>
+<li>必须有参考文献列表与<strong>文中引用</strong>；允许使用现成算法与计算工具（含 Matlab/Mathematica 等），前提是正确引用并在论文里解释清楚方法。</li>
+<li>数字要给<strong>有效数字</strong>与明确<strong>单位</strong>；图要有轴标签；变量全文一致。</li>
+<li>自写程序可放附录，但<strong>算法、方法与结果必须在正文解释</strong>，否则评审不予考虑。</li>
+<li>论文至少包含：①按队伍理解重述并澄清问题 ②全部假设与近似 ③所有工作的论证 ④方法强弱点讨论。</li>
+<li>每队只交一题；两题都交只评 A 题。</li>
+</ul>
+<h3 id="51-生成式-ai-的特别规定">5.1 生成式 AI 的特别规定</h3>
+<ul>
+<li>官方<strong>鼓励不用</strong>生成式 AI 写论文：AI 会幻觉（生成虚假内容）、会隐性抄袭（不注明出处地复制）——含抄袭或虚假内容的论文将被<strong>严重扣分</strong>。</li>
+<li>若确要使用：必须<strong>透明披露</strong>，论文末尾加 "Report on the Use of AI" 一节，包含 ①所用系统 ②<strong>逐条原始提问</strong>（输入 AI 的确切措辞） ③<strong>完整输出</strong>（全文复制）。</li>
+<li>库内立场见《AI提示词包》：AI 适合当教练（审查、提问、教学），代写有真实风险；用了就必须按官方格式披露。</li>
+</ul>
+<h2 id="6-提交submit-solutions">6. 提交（Submit Solutions）</h2>
+<ul>
+<li>格式 pdf / doc / docx，发到 <strong>solutions@uphysicsc.com</strong>，以<strong>邮件送达时间</strong>为准。</li>
+<li>比赛在开始后<strong>整整 48 小时</strong>结束；未在截止前送达 → 不参与奖牌排名（稍迟提交或可按 Accomplished Competitor 处理）。</li>
+<li><strong>文件名 = 队号 + 题号</strong>（例：<code>778A.pdf</code>、<code>832B.doc</code>）；邮件主题与正文都要写队号；全文以附件提交，<strong>不要提交云盘链接</strong>。</li>
+</ul>
+<h2 id="7-评审与奖项results">7. 评审与奖项（Results）</h2>
+<table>
+<thead>
+<tr>
+<th>档位</th>
+<th>官方比例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gold Medal 金牌</td>
+<td>约 2%</td>
+</tr>
+<tr>
+<td>Silver Medal 银牌</td>
+<td>15–20%</td>
+</tr>
+<tr>
+<td>Bronze Medal 铜牌</td>
+<td>25–30%</td>
+</tr>
+<tr>
+<td>Accomplished Competitor</td>
+<td>50–60%</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>结果公布后，成功参赛的每支队伍可下载 PDF 证书。</li>
+</ul>
+<h2 id="8-争议裁决the-director">8. 争议裁决（The Director）</h2>
+<ul>
+<li>赛事总监（Contest Director）是所有规则与政策的最终裁决人，可自行裁量取消违规队伍资格。</li>
+</ul>
+<hr>
+<h2 id="附与本库工具的对应关系">附：与本库工具的对应关系</h2>
+<ul>
+<li>合规自查已内置于 <code>12_赛时工具/warroom.html</code> 的「提交终检」标签（A–G 30 项，G 节即本页第 5/6 节的检查）。</li>
+<li>摘要 300 词上限与"必须带数字"的写法见 <code>11_论文模板与工具/写作句库.md</code> 第 1 节；英文润色见 <code>11_论文模板与工具/中译英润色库.md</code>。</li>
+<li>逐题怎么选题读题见 <code>07_题目解读/</code>；48 小时怎么排程见 <code>11_论文模板与工具/48小时作战手册.md</code>。</li>
+</ul>
+</div>
+
+</div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟合规卡中国队伍最容易踩的-8-条">0. 一分钟合规卡（中国队伍最容易踩的 8 条）</a></li><li class="l2"><a href="#1-指导教师faculty-sponsor">1. 指导教师（Faculty Sponsor）</a></li><li class="l2"><a href="#2-报名registration">2. 报名（Registration）</a></li><li class="l2"><a href="#3-队伍the-team">3. 队伍（The Team）</a></li><li class="l2"><a href="#4-赛题the-problems">4. 赛题（The Problems）</a></li><li class="l2"><a href="#5-解答论文solution-papers">5. 解答论文（Solution Papers）</a></li><li class="l3"><a href="#51-生成式-ai-的特别规定">5.1 生成式 AI 的特别规定</a></li><li class="l2"><a href="#6-提交submit-solutions">6. 提交（Submit Solutions）</a></li><li class="l2"><a href="#7-评审与奖项results">7. 评审与奖项（Results）</a></li><li class="l2"><a href="#8-争议裁决the-director">8. 争议裁决（The Director）</a></li><li class="l2"><a href="#附与本库工具的对应关系">附：与本库工具的对应关系</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+/* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
+var PKEY="",PKIND="",CKS="upcProgress.v1";
+function ckLoad(){try{return JSON.parse(localStorage.getItem(CKS)||"{}")}catch(e){return{}}}
+function ckSave(s){try{localStorage.setItem(CKS,JSON.stringify(s))}catch(e){}}
+function ckPush(s,st){(s.log=s.log||[]).unshift({k:PKEY,t:PKIND,s:st,ts:Date.now()});if(s.log.length>80)s.log.length=80;}
+function ckSet(state){
+  var s=ckLoad();
+  var bag=PKIND==="paper"?(s.p=s.p||{}):(s.i=s.i||{});
+  var it=bag[PKEY]||{},now=Date.now();
+  if(state==="v"){if(!it.v){it.v=now;ckPush(s,"v");}}
+  else if(state==="t"){if(it.d){delete it.d;ckPush(s,"u");}else{it.d=now;ckPush(s,"d");}}
+  bag[PKEY]=it;ckSave(s);ckUI();
+}
+function ckUI(){
+  var b=document.getElementById('ck');if(!b||!PKEY)return;
+  var s=ckLoad(),it=(PKIND==="paper"?(s.p||{}):(s.i||{}))[PKEY]||{};
+  var done=!!it.d;
+  b.textContent=done?"已打卡 ✓":"打卡 · 标记已吃透";
+  b.classList.toggle('done',done);
+}
+document.addEventListener("DOMContentLoaded", function(){
+  if(PKEY){
+    var b=document.getElementById('ck');b.hidden=false;
+    b.addEventListener('click',function(){ckSet("t")});
+    ckUI();
+    setTimeout(function(){ckSet("v")},3000);  // 停留 3 秒 = 浏览过（自动标记）
+  }
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"neutral",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+/* ---------- 赛事时钟徽章：赛前 D-天数，赛中已用时长，点回首页赛程 ---------- */
+(function(){
+  var S=1794013200000,E=1794186000000,el=document.getElementById('clock');
+  if(!el)return;
+  function p2(n){return n<10?'0'+n:''+n;}
+  function upd(){
+    var t=Date.now();
+    if(t<S){var ms=S-t,dd=Math.floor(ms/864e5);
+      if(dd>=1){el.textContent='赛前 D-'+dd;el.dataset.s='pre';}
+      else{var hh=Math.floor(ms/36e5),mm=Math.floor(ms%36e5/6e4);
+        el.textContent='赛前 '+p2(hh)+':'+p2(mm);el.dataset.s='pre';}}
+    else if(t<E){var u=Math.floor((t-S)/1000);
+      el.textContent='赛中 '+p2(Math.floor(u/3600))+':'+p2(Math.floor(u%3600/60));el.dataset.s='live';}
+    else{el.textContent='第 17 届已结束';el.dataset.s='post';}
+    el.hidden=false;
+  }
+  upd();setInterval(upd,30000);
+})();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
+</script>
+</body>
+</html>

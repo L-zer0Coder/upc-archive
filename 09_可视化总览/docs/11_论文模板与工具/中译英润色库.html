@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中译英润色库 —— 从中文草稿到金牌论文英语 · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<meta name="description" content="中译英润色库 —— 从中文草稿到金牌论文英语 用法：写完中文草稿（或直接用英文写卡壳时），按本库 五步润色法 逐段处理；句式卡壳查 §2 对照表与《写作句库》，词穷查 §3 升级表，拿不准频率与地道程度看 §7 语料实证（全部统计自 7…">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="中译英润色库 —— 从中文草稿到金牌论文英语 · UPC 全档案库">
+<meta property="og:description" content="中译英润色库 —— 从中文草稿到金牌论文英语 用法：写完中文草稿（或直接用英文写卡壳时），按本库 五步润色法 逐段处理；句式卡壳查 §2 对照表与《写作句库》，词穷查 §3 升级表，拿不准频率与地道程度看 §7 语料实证（全部统计自 7…">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<script defer src="../../vendor/katex/katex.min.js"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
+
+<style>
+:root{
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
+ --line:#E7E0D1;--line2:#D9D0BD;
+ --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
+ --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+ --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
+.topbar a:hover{color:var(--acc)}
+.topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
+.topbar .tag:hover{border-color:var(--acc)}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
+.topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
+.topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:13.5px;margin-right:4px}
+.brand:hover{color:var(--ink)}
+.brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
+.crumb{color:var(--dim);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+/* 赛事时钟徽章：赛前显示 D-天数，赛中显示已用时长 */
+.topbar .clock{margin-left:12px;flex-shrink:0;font-family:var(--mono);font-size:11px;line-height:1.9;
+ letter-spacing:.02em;padding:1px 8px;border:1px solid rgba(156,63,46,.28);border-radius:3px;
+ color:var(--acc);background:var(--acc-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+.topbar .clock:hover{border-color:var(--acc);color:var(--acc-d);background:rgba(156,63,46,.12)}
+.topbar .clock[data-s="live"]{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
+.layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
+.content{flex:0 1 780px;min-width:0}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
+.sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
+.sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
+.sheet h4{font-size:15.5px;margin:1.2em 0 .4em;font-weight:600}
+.sheet p{margin:.85em 0}
+.sheet a{color:var(--acc)}
+.sheet a:hover{color:var(--acc-d);text-decoration:underline;text-underline-offset:3px}
+.sheet ul,.sheet ol{padding-left:1.6em;margin:.7em 0}
+.sheet li{margin:.3em 0}
+.sheet li::marker{color:var(--dim)}
+code{background:#F2EDE2;border:1px solid var(--line);border-radius:3px;padding:.5px 6px;font-size:.86em;font-family:var(--mono)}
+pre{background:#F9F6EF;border:1px solid var(--line);border-radius:4px;padding:14px 17px;overflow:auto;line-height:1.75;font-size:13.5px}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.1em 0;padding:2px 0 2px 18px;border-left:2px solid var(--acc);color:var(--mut)}
+blockquote p{margin:.5em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.8px;display:block;overflow-x:auto;line-height:1.8}
+th,td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:12px;letter-spacing:.05em;border-bottom:1px solid var(--line2);background:var(--sheet);white-space:nowrap}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:#F8F5EE}
+hr{border:none;border-top:1px solid var(--line);margin:2.2em 0}
+.sheet img{max-width:100%;border:1px solid var(--line);border-radius:3px}
+.mermaid{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:12px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.03em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:28px 20px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--sheet);border:1px solid var(--line2);color:var(--mut);
+ border-radius:50%;width:40px;height:40px;font-size:16px;cursor:pointer;opacity:0;pointer-events:none;transition:.2s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{color:var(--acc);border-color:var(--acc)}
+aside.toc{position:sticky;top:74px;width:214px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;padding:4px 0}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.12em;padding:0 0 8px 14px}
+aside.toc ul{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:4px 12px;margin-left:-1px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;line-height:1.75;font-size:12.5px}
+aside.toc li.l3 a{padding-left:26px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
+aside.toc::-webkit-scrollbar{width:5px}
+aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../../index.html#guide">使用指南</a>
+  <button id="ck" class="tag ck" type="button" hidden></button>
+  
+  <a class="tag" href="../../../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E4%B8%AD%E8%AF%91%E8%8B%B1%E6%B6%A6%E8%89%B2%E5%BA%93.md">Markdown</a>
+  <span class="crumb">11_论文模板与工具 · 中译英润色库 —— 从中文草稿到金牌论文英语</span>
+  <a class="clock" id="clock" href="../../../index.html#race" hidden aria-label="第 17 届 UPC 赛程"></a>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="sheet">
+<h1 id="中译英润色库-从中文草稿到金牌论文英语">中译英润色库 —— 从中文草稿到金牌论文英语</h1>
+<blockquote>
+<p>用法：写完中文草稿（或直接用英文写卡壳时），按本库<strong>五步润色法</strong>逐段处理；句式卡壳查 §2 对照表与《写作句库》，词穷查 §3 升级表，拿不准频率与地道程度看 §7 语料实证（全部统计自 74 篇金牌论文原文）。最后必读 §6 诚实表述——包括官方对 AI 使用披露的硬性要求。</p>
+</blockquote>
+<h2 id="0-五步润色法每段过一遍">0. 五步润色法（每段过一遍）</h2>
+<ol>
+<li><strong>拆</strong>：中文一句话常塞三层逻辑；英文按"一句一个动作"拆开，用连接词（Consequently / On the other hand / provided that）把逻辑摆在句面上。金牌句子的共同点是"自带路标"（见《写作句库》§8）。</li>
+<li><strong>立</strong>：第一句先立判据或定义（"We define … as …"，金牌语料 13 篇；"We set …"，26 篇）。中文习惯铺垫后再定义，英文论文反过来。</li>
+<li><strong>升</strong>：动词升级（§3 表）：把"进行分析/进行计算/考虑了"换成 quantify / compute / account for；把"很大/很小"换成具体量级（three orders of magnitude / within 2%）。</li>
+<li><strong>装</strong>：数字装进句子里——每个结论句必须带 数值 + 单位 + 有效位数 或 区间（"8.8296° &lt; θ &lt; 8.8549°"）。没有数字的段落八成还没算完。</li>
+<li><strong>诚</strong>：对照 §6 检查有没有自夸词、跳步词、无出处断言；假设给量级自辩，忽略项写一行数字封存；用了 AI 按官方格式披露。</li>
+</ol>
+<h2 id="1-时态与语态规范upc-论文惯例">1. 时态与语态规范（UPC 论文惯例）</h2>
+<table>
+<thead>
+<tr>
+<th>部位</th>
+<th>时态</th>
+<th>例句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>摘要（做什么/发现什么）</td>
+<td>一般现在时为主</td>
+<td>"We investigate the aerobraking maneuver … We conclude that …"</td>
+</tr>
+<tr>
+<td>方法与计算过程</td>
+<td>一般过去时</td>
+<td>"The equations of motion were numerically integrated using Euler's method."</td>
+</tr>
+<tr>
+<td>图表指向</td>
+<td>一般现在时</td>
+<td>"Figure 1 shows a trajectory with θ = 8.83°."</td>
+</tr>
+<tr>
+<td>模型假设（普适事实）</td>
+<td>一般现在时</td>
+<td>"The atmospheric density decreases exponentially with altitude."</td>
+</tr>
+<tr>
+<td>结论与建议</td>
+<td>现在时 + 情态动词</td>
+<td>"We would advise against relying on this maneuver."</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>语态：方法段惯用被动（"were integrated / was approximated"），论证段用主动第一人称（"We conclude / We find"）——金牌论文<strong>不回避 we</strong>，语料中 "we assume" 出现 166 次（44/74 篇）、"we obtain" 82 次、"we conclude" 30 次。</li>
+<li>中文里"本文/笔者/作者"不要译成 "this paper thinks / the author"，一律用 we（单职工队也用 we）。</li>
+</ul>
+<h2 id="2-中式表达对照表30-条高频改写">2. 中式表达对照表（30 条高频改写）</h2>
+<table>
+<thead>
+<tr>
+<th>中文原文（直译腔）</th>
+<th>金牌表达</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>本文研究了……</td>
+<td>In this solution, we investigate …</td>
+<td>官方摘要首句模板（2015-B-108）</td>
+</tr>
+<tr>
+<td>为了简化计算，我们忽略了……</td>
+<td>To simplify our calculations, we assume … / We neglect …, since its effect is negligible (≈…)</td>
+<td>忽略必须带量级理由</td>
+</tr>
+<tr>
+<td>影响不大，可以忽略</td>
+<td>Its contribution is negligible: … &lt; 0.5% of …</td>
+<td>"不大"必须量化（语料 is negligible 24 次/19 篇）</td>
+</tr>
+<tr>
+<td>显著地/明显地</td>
+<td>a 20% reduction（直接给数字）</td>
+<td>significant 必须操作化成判据</td>
+</tr>
+<tr>
+<td>约为……左右</td>
+<td>≈ 24764 km 或 on the order of 10³ km</td>
+<td>"约"给有效位数，不要两个"约"</td>
+</tr>
+<tr>
+<td>进行了仿真</td>
+<td>We simulated …（2 篇）/ … was numerically integrated</td>
+<td>不要 "made a simulation"</td>
+</tr>
+<tr>
+<td>由公式 (3) 可得</td>
+<td>Substituting (3) into (5) gives … / which gives</td>
+<td>动词短语替代"可得"</td>
+</tr>
+<tr>
+<td>可以证明</td>
+<td>It can be shown that …（5 篇）/ We show below that …</td>
+<td>谨慎使用：仍要给一步推导</td>
+</tr>
+<tr>
+<td>很明显/显而易见</td>
+<td>（直接删掉，改为一步推导或引用式号）</td>
+<td>落选论文高频反面词</td>
+</tr>
+<tr>
+<td>精确地/准确地</td>
+<td>to 4–5 significant figures / within 2%</td>
+<td>自夸词换精度声明</td>
+</tr>
+<tr>
+<td>考虑了空气阻力</td>
+<td>accounting for air drag / the drag force is included via …</td>
+<td>account for 是标准搭配</td>
+</tr>
+<tr>
+<td>在……情况下</td>
+<td>in the regime where … / provided that …</td>
+<td>regime 是金牌高频词</td>
+</tr>
+<tr>
+<td>当……时会产生误差</td>
+<td>Errors arise when … / This introduces an uncertainty of …</td>
+<td></td>
+</tr>
+<tr>
+<td>我们发现 A 比 B 更好</td>
+<td>We conclude that A outperforms B by a factor of …</td>
+<td>比较必须给倍数/差值</td>
+</tr>
+<tr>
+<td>这证明了我们的模型是正确的</td>
+<td>This is consistent with the benchmark from Section 1.</td>
+<td>语料 consistent with 26 次；不说"证明正确"说"与基准一致"</td>
+</tr>
+<tr>
+<td>与实际相符</td>
+<td>agrees with the measured … / anchored to the … record</td>
+<td>给出数据源</td>
+</tr>
+<tr>
+<td>存在一定的误差</td>
+<td>an inevitable uncertainty of order … remains</td>
+<td>"一定的"必须定级</td>
+</tr>
+<tr>
+<td>综上</td>
+<td>In conclusion, …（10 篇）/ We conclude that …（20 篇）</td>
+<td></td>
+</tr>
+<tr>
+<td>如果……那么……；反之……</td>
+<td>If …, then …; on the other hand, if …, then …</td>
+<td>两难句式，摘要核心（语料 30 次/14 篇）</td>
+</tr>
+<tr>
+<td>越……越……</td>
+<td>… increases monotonically with … / … is directly proportional to …</td>
+<td>单调性表述是夹逼论证的前提</td>
+</tr>
+<tr>
+<td>分别为……</td>
+<td>… and …, respectively</td>
+<td></td>
+</tr>
+<tr>
+<td>值得注意的是</td>
+<td>We note that … / It is worth noting that …</td>
+<td>少用；信息密度优先</td>
+</tr>
+<tr>
+<td>首先/其次/最后</td>
+<td>First, …; Second, …; Finally, … 或 直接用节号</td>
+<td>论文靠编号不靠排比</td>
+</tr>
+<tr>
+<td>如下图所示</td>
+<td>As shown in Figure 3, …（语料 88 次/35 篇）</td>
+<td>禁止 as shown below：每图必须有编号</td>
+</tr>
+<tr>
+<td>表中列出了</td>
+<td>Table 2 lists … / shown in table（12 次）</td>
+<td></td>
+</tr>
+<tr>
+<td>由图像可知</td>
+<td>The slope of the curve indicates …</td>
+<td>具体说图里什么特征支撑结论</td>
+</tr>
+<tr>
+<td>由于篇幅限制</td>
+<td>A full treatment is out of the scope of this paper; we outline …</td>
+<td>"out of scope" 要给一句方法轮廓</td>
+</tr>
+<tr>
+<td>有待进一步研究</td>
+<td>This will be pursued in future work.（9 篇）</td>
+<td>放局限节，别放结论开头</td>
+</tr>
+<tr>
+<td>我们的方法有一定局限性</td>
+<td>The main limitations of our model are twofold: …（语料 limitation 56 次/25 篇）</td>
+<td>局限要具体列举</td>
+</tr>
+<tr>
+<td>综上所述，我们建议</td>
+<td>We therefore recommend …（2 篇）/ We would advise against …（负结论）</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-动词与表达升级表写作词汇的量级表">3. 动词与表达升级表（写作词汇的"量级表"）</h2>
+<table>
+<thead>
+<tr>
+<th>弱表达（中式直译）</th>
+<th>升级表达</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>study / research</td>
+<td>investigate / examine / analyze</td>
+<td>摘要首句</td>
+</tr>
+<tr>
+<td>calculate / compute</td>
+<td>compute / evaluate / estimate（粗算）/ quantify</td>
+<td>数值工作分层</td>
+</tr>
+<tr>
+<td>think / believe</td>
+<td>we conclude / the data indicates / this suggests</td>
+<td>不允许主观语</td>
+</tr>
+<tr>
+<td>get / obtain</td>
+<td>obtain / yield / give</td>
+<td>which gives 搭配推导</td>
+</tr>
+<tr>
+<td>use</td>
+<td>employ / adopt / apply（方法）/ utilize（少用，笨重）</td>
+<td></td>
+</tr>
+<tr>
+<td>consider</td>
+<td>account for / take into account / incorporate（进模型）</td>
+<td></td>
+</tr>
+<tr>
+<td>ignore</td>
+<td>neglect / omit（有意忽略）/ is negligible（被忽略）</td>
+<td>neglect + 理由</td>
+</tr>
+<tr>
+<td>very large / very small</td>
+<td>dominates / is negligible / three orders of magnitude smaller</td>
+<td>量级语言</td>
+</tr>
+<tr>
+<td>more and more</td>
+<td>monotonically increasing / grows without bound</td>
+<td></td>
+</tr>
+<tr>
+<td>almost</td>
+<td>approximately / ≈ / on the order of</td>
+<td></td>
+</tr>
+<tr>
+<td>prove</td>
+<td>verify（数值）/ validate（对照实验）/ is consistent with</td>
+<td>物理论文慎用 prove</td>
+</tr>
+<tr>
+<td>check</td>
+<td>sanity check（粗核）/ cross-check（互验）/ convergence test（收敛）</td>
+<td>验证三件套词汇</td>
+</tr>
+<tr>
+<td>part</td>
+<td>component / contribution（误差贡献）/ term（方程项）</td>
+<td></td>
+</tr>
+<tr>
+<td>change</td>
+<td>vary with / evolve / decay / diverge</td>
+<td>按物理行为选词</td>
+</tr>
+<tr>
+<td>because</td>
+<td>since / as / due to + 名词 / owing to</td>
+<td>句首用 Since，句中用 due to</td>
+</tr>
+<tr>
+<td>but</td>
+<td>However, / whereas / while / In contrast,（转折强度不同）</td>
+<td>whereas 表对比，However 表转折</td>
+</tr>
+<tr>
+<td>so</td>
+<td>therefore / consequently / hence / thus</td>
+<td>hence 最紧凑</td>
+</tr>
+<tr>
+<td>about</td>
+<td>approximately / on the order of / ≈</td>
+<td>≈ 只用于数字前</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-分部位词汇补充配合写作句库的句式使用">4. 分部位词汇补充（配合《写作句库》的句式使用）</h2>
+<ul>
+<li><strong>定义与判据</strong>：define … as / we call this … / take … to be / refer to … as；判据词：criterion (pl. criteria)、threshold、margin、tolerance、cut-off。</li>
+<li><strong>假设</strong>：idealize / idealized model / point mass / rigid body / steady-state / quasi-static / uniform / isotropic / inviscid / adiabatic。</li>
+<li><strong>数值</strong>：discretize / time step Δt / step size / integrator / RK4(Runge-Kutta) / stiff / tolerance / convergence / mesh / grid resolution。</li>
+<li><strong>验证</strong>：convergence test / limiting case / degenerate to / recover（数值退化到解析解用 recover）/ benchmark / anchor / cross-validate / sensitivity sweep。</li>
+<li><strong>误差</strong>：error propagation / uncertainty of order … / worst-case / effective digits / significant figures / rounding。</li>
+<li><strong>图表</strong>：plot / profile（沿轨迹的分布图）/ phase portrait / heat map / inset（图内小图）/ caption / legend / equal aspect / dashed line（虚线表对照/基准）。</li>
+<li><strong>结论</strong>：takeaway（少用口语）/ takeaway 只在备忘；论文用 the main result is … / the practical implication is …。</li>
+</ul>
+<h2 id="5-数字单位与精度表述">5. 数字、单位与精度表述</h2>
+<ul>
+<li>数字与单位之间加空格（30 km/s），单位用正体；数值范围用 en-dash（8.8296°–8.8549°）或不等式。</li>
+<li>精度声明模板（语料实证见 §7 significant figures / margin of error）："Halving the step changes the exit speed in the fifth digit; we therefore claim 4–5 significant figures, worst case 4."</li>
+<li>量级表达：on the order of 10³ km / O(10⁻⁴)；"相差三个数量级" = differs by three orders of magnitude。</li>
+<li>百分比：a 20% reduction / reduced by 20%（别写 reduce 20%）。</li>
+<li>中文"万/亿"换算成科学计数法（10⁴ / 10⁸），不要写 10000 km。</li>
+</ul>
+<h2 id="6-诚实表述评审最看重也含官方硬规定">6. 诚实表述（评审最看重，也含官方硬规定）</h2>
+<ol>
+<li><strong>不自夸</strong>：accurate / great / perfect → 换成精度声明或对照数据。</li>
+<li><strong>不跳步</strong>：obviously / clearly / it is easy to show → 补一步推导或引用式号。</li>
+<li><strong>承认不确定</strong>：每个关键数字后面跟 uncertainties 或 ±区间；最坏情形定全程精度。</li>
+<li><strong>局限具体化</strong>：limitation 不是道歉，是给评审看你知道边界（"模型在 h &lt; 70 km 内有效"）。</li>
+<li><strong>负结论也是结论</strong>："As Δθ is so small, we would advise against relying on this maneuver."——论证扎实的"不建议"是高分项。</li>
+<li><strong>AI 披露（官方规定，2026 规则原文要求）</strong>：若使用生成式 AI，论文末尾必须有 "Report on the Use of AI" 一节：①所用系统 ②逐条原始提问 ③<strong>完整输出</strong>。含抄袭或虚假内容将严重扣分。建议把 AI 限定为教练用途（审查、提问、教学），写作保持本人执笔。</li>
+</ol>
+<h2 id="7-语料实证金牌论文短语频次top-30">7. 语料实证：金牌论文短语频次（Top 30）</h2>
+<blockquote>
+<p>统计自 74 篇金牌论文全文（<code>04_论文文本/</code>），由 <code>_工具脚本/_mine_phrases.py</code> 生成，可重跑更新。"出现论文数"越大越接近 UPC 写作共识；总频次低但学科特有的（如 sanity check）同样值得学。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>短语</th>
+<th>总频次</th>
+<th>出现论文数（/74）</th>
+<th>首见论文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>we assume</td>
+<td>166</td>
+<td>44</td>
+<td>2010-GM-A-160</td>
+</tr>
+<tr>
+<td>initial condition</td>
+<td>101</td>
+<td>37</td>
+<td>2010-GM-A-160</td>
+</tr>
+<tr>
+<td>as shown in</td>
+<td>88</td>
+<td>35</td>
+<td>2010-GM-A-160</td>
+</tr>
+<tr>
+<td>we obtain</td>
+<td>82</td>
+<td>35</td>
+<td>2010-GM-B-210</td>
+</tr>
+<tr>
+<td>limitation</td>
+<td>56</td>
+<td>25</td>
+<td>2014-GM-A-726</td>
+</tr>
+<tr>
+<td>to simplify</td>
+<td>46</td>
+<td>29</td>
+<td>2010-GM-A-160</td>
+</tr>
+<tr>
+<td>we find</td>
+<td>46</td>
+<td>22</td>
+<td>2010-GM-B-210</td>
+</tr>
+<tr>
+<td>we set</td>
+<td>41</td>
+<td>26</td>
+<td>2012-GM-A-449</td>
+</tr>
+<tr>
+<td>boundary condition</td>
+<td>31</td>
+<td>14</td>
+<td>2013-GM-B-611</td>
+</tr>
+<tr>
+<td>we conclude</td>
+<td>30</td>
+<td>20</td>
+<td>2010-GM-A-160</td>
+</tr>
+<tr>
+<td>on the other hand</td>
+<td>30</td>
+<td>14</td>
+<td>2010-GM-A-160</td>
+</tr>
+<tr>
+<td>compared with</td>
+<td>27</td>
+<td>21</td>
+<td>2010-GM-A-160</td>
+</tr>
+<tr>
+<td>consistent with</td>
+<td>26</td>
+<td>18</td>
+<td>2010-GM-B-210</td>
+</tr>
+<tr>
+<td>is negligible</td>
+<td>24</td>
+<td>19</td>
+<td>2015-GM-B-108</td>
+</tr>
+<tr>
+<td>leading to</td>
+<td>22</td>
+<td>12</td>
+<td>2013-GM-B-611</td>
+</tr>
+<tr>
+<td>we define</td>
+<td>18</td>
+<td>13</td>
+<td>2013-GM-B-611</td>
+</tr>
+<tr>
+<td>future work</td>
+<td>17</td>
+<td>9</td>
+<td>2016-GM-A-412</td>
+</tr>
+<tr>
+<td>uncertainty</td>
+<td>16</td>
+<td>9</td>
+<td>2010-GM-A-160</td>
+</tr>
+<tr>
+<td>we approximate</td>
+<td>13</td>
+<td>8</td>
+<td>2010-GM-A-160</td>
+</tr>
+<tr>
+<td>margin of error</td>
+<td>13</td>
+<td>3</td>
+<td>2010-GM-A-160</td>
+</tr>
+<tr>
+<td>in conclusion</td>
+<td>12</td>
+<td>10</td>
+<td>2015-GM-A-190</td>
+</tr>
+<tr>
+<td>shown in table</td>
+<td>12</td>
+<td>9</td>
+<td>2017-GM-A-744</td>
+</tr>
+<tr>
+<td>we neglect</td>
+<td>11</td>
+<td>8</td>
+<td>2016-A-412</td>
+</tr>
+<tr>
+<td>convergence</td>
+<td>11</td>
+<td>9</td>
+<td>2017-GM-A-699</td>
+</tr>
+<tr>
+<td>this indicates</td>
+<td>11</td>
+<td>7</td>
+<td>2013-GM-B-611</td>
+</tr>
+<tr>
+<td>for simplicity</td>
+<td>8</td>
+<td>7</td>
+<td>2010-GM-B-210</td>
+</tr>
+<tr>
+<td>without loss of generality</td>
+<td>7</td>
+<td>7</td>
+<td>2010-GM-A-160</td>
+</tr>
+<tr>
+<td>which gives</td>
+<td>7</td>
+<td>7</td>
+<td>2011-GM-A-352</td>
+</tr>
+<tr>
+<td>it can be shown</td>
+<td>5</td>
+<td>5</td>
+<td>2017-GM-A-744</td>
+</tr>
+<tr>
+<td>as expected</td>
+<td>4</td>
+<td>4</td>
+<td>2012-GM-B-414</td>
+</tr>
+</tbody>
+</table>
+<p>完整 55 条频次表见 <code>_知识提炼/汇总/语料实证_短语频次.md</code>（含数值方法、误差、结论各组）。</p>
+<h2 id="8-反面清单与写作句库9-互补">8. 反面清单（与《写作句库》§9 互补）</h2>
+<ol>
+<li>❌ "We use a very accurate model" —— 自夸无证据。</li>
+<li>❌ "Obviously, the answer is …" —— 评委不觉得 obvious。</li>
+<li>❌ 摘要无数字 —— 在 UPC 等于没写摘要。</li>
+<li>❌ "as shown below" —— 每张图必须编号并被正文点名。</li>
+<li>❌ 中式排比与四字格直译（"综上所述、总而言之、众所周知"→ It is well known 其实也是禁语，除非带引用）。</li>
+<li>❌ "It is well known that …" 无引用 —— 要么给文献，要么改成 "As a standard result [n], …"。</li>
+<li>❌ 单位缺失或用中文单位制习惯（万 km、亿 kg）。</li>
+<li>❌ 隐瞒 AI 使用 —— 官方规定必须披露，详见 §6.6。</li>
+</ol>
+</div>
+
+</div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-五步润色法每段过一遍">0. 五步润色法（每段过一遍）</a></li><li class="l2"><a href="#1-时态与语态规范upc-论文惯例">1. 时态与语态规范（UPC 论文惯例）</a></li><li class="l2"><a href="#2-中式表达对照表30-条高频改写">2. 中式表达对照表（30 条高频改写）</a></li><li class="l2"><a href="#3-动词与表达升级表写作词汇的量级表">3. 动词与表达升级表（写作词汇的"量级表"）</a></li><li class="l2"><a href="#4-分部位词汇补充配合写作句库的句式使用">4. 分部位词汇补充（配合《写作句库》的句式使用）</a></li><li class="l2"><a href="#5-数字单位与精度表述">5. 数字、单位与精度表述</a></li><li class="l2"><a href="#6-诚实表述评审最看重也含官方硬规定">6. 诚实表述（评审最看重，也含官方硬规定）</a></li><li class="l2"><a href="#7-语料实证金牌论文短语频次top-30">7. 语料实证：金牌论文短语频次（Top 30）</a></li><li class="l2"><a href="#8-反面清单与写作句库9-互补">8. 反面清单（与《写作句库》§9 互补）</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+/* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
+var PKEY="",PKIND="",CKS="upcProgress.v1";
+function ckLoad(){try{return JSON.parse(localStorage.getItem(CKS)||"{}")}catch(e){return{}}}
+function ckSave(s){try{localStorage.setItem(CKS,JSON.stringify(s))}catch(e){}}
+function ckPush(s,st){(s.log=s.log||[]).unshift({k:PKEY,t:PKIND,s:st,ts:Date.now()});if(s.log.length>80)s.log.length=80;}
+function ckSet(state){
+  var s=ckLoad();
+  var bag=PKIND==="paper"?(s.p=s.p||{}):(s.i=s.i||{});
+  var it=bag[PKEY]||{},now=Date.now();
+  if(state==="v"){if(!it.v){it.v=now;ckPush(s,"v");}}
+  else if(state==="t"){if(it.d){delete it.d;ckPush(s,"u");}else{it.d=now;ckPush(s,"d");}}
+  bag[PKEY]=it;ckSave(s);ckUI();
+}
+function ckUI(){
+  var b=document.getElementById('ck');if(!b||!PKEY)return;
+  var s=ckLoad(),it=(PKIND==="paper"?(s.p||{}):(s.i||{}))[PKEY]||{};
+  var done=!!it.d;
+  b.textContent=done?"已打卡 ✓":"打卡 · 标记已吃透";
+  b.classList.toggle('done',done);
+}
+document.addEventListener("DOMContentLoaded", function(){
+  if(PKEY){
+    var b=document.getElementById('ck');b.hidden=false;
+    b.addEventListener('click',function(){ckSet("t")});
+    ckUI();
+    setTimeout(function(){ckSet("v")},3000);  // 停留 3 秒 = 浏览过（自动标记）
+  }
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"neutral",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+/* ---------- 赛事时钟徽章：赛前 D-天数，赛中已用时长，点回首页赛程 ---------- */
+(function(){
+  var S=1794013200000,E=1794186000000,el=document.getElementById('clock');
+  if(!el)return;
+  function p2(n){return n<10?'0'+n:''+n;}
+  function upd(){
+    var t=Date.now();
+    if(t<S){var ms=S-t,dd=Math.floor(ms/864e5);
+      if(dd>=1){el.textContent='赛前 D-'+dd;el.dataset.s='pre';}
+      else{var hh=Math.floor(ms/36e5),mm=Math.floor(ms%36e5/6e4);
+        el.textContent='赛前 '+p2(hh)+':'+p2(mm);el.dataset.s='pre';}}
+    else if(t<E){var u=Math.floor((t-S)/1000);
+      el.textContent='赛中 '+p2(Math.floor(u/3600))+':'+p2(Math.floor(u%3600/60));el.dataset.s='live';}
+    else{el.textContent='第 17 届已结束';el.dataset.s='post';}
+    el.hidden=false;
+  }
+  upd();setInterval(upd,30000);
+})();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
+</script>
+</body>
+</html>

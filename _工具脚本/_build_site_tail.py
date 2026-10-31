@@ -461,11 +461,11 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
   </div>
   <div class="paths">
     <div class="path"><span class="pn">一</span><div><b>备赛，想写出一篇金牌论文</b>
-      <p>先读「物理模型综述」打底，再挑 2–3 道对口题看「题目深度解读」，然后对照「论文赏析 + 手把手精读」吃透原文，最后用「模板与工具箱」动笔；「获奖密码」七条可当模拟赛自查表。</p></div></div>
+      <p>先读「物理模型综述」打底，再挑 2–3 道对口题看「题目深度解读」，然后对照「论文赏析 + 手把手精读」吃透原文；动笔用「模板与工具箱」，中文草稿用「中译英润色库」五步改写，合规对照<a href="__RULES_URL__">官方比赛规则</a>；「获奖密码」七条可当模拟赛自查表。</p></div></div>
     <div class="path"><span class="pn">二</span><div><b>想研究某一年的某道题</b>
       <p>到「历年赛题」展开该年份：英文原题要点、官方奖牌统计、金牌队伍名单、全部论文的 PDF / 文本 / 赏析 / 精读都在同一张卡片里。</p></div></div>
-    <div class="path"><span class="pn">三</span><div><b>只想快速查一份资料</b>
-      <p>右上角搜索可直达全部 __NDOCS__ 份文档（快捷键 /）；或在「论文库」按年份、A/B 题、队伍号筛选，一跳直达原件。</p></div></div>
+    <div class="path"><span class="pn">三</span><div><b>比赛进行中 / 只想快速查资料</b>
+      <p>赛时打开顶栏「⚡ 作战室」：记思路、查句库、过中译英、过终检、看阶段，数据存本浏览器可导出；平时右上角搜索直达全部 __NDOCS__ 份文档（快捷键 /），「论文库」按年份、题别、队伍号筛选。</p></div></div>
   </div>
   <div class="types" id="types"></div>
   <div class="legend">
@@ -475,7 +475,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
     <span class="lg"><b>赏析</b>中文逐篇拆解</span>
     <span class="lg"><b>精读</b>手把手复现教程</span>
   </div>
-  <div class="notebox">档案边界：2024 年官方未公开论文 PDF（已收录 15 支金牌队伍名单）；2026 届 11 月开赛、尚未发布；2013 年 611 / 611a 为同文异版，赏析与精读以 611a 为准。数据抓取于 2026-10-24；论文版权归原队伍与 UPC 官方（uphysicsc.com），仅供学习交流。</div>
+  <div class="notebox">档案边界：2024 年官方未公开论文 PDF（已收录 15 支金牌队伍名单）；2026 届 11 月 7 日开赛（规则与合规卡见<a href="__RULES_URL__">比赛规则</a>）；2013 年 611 / 611a 为同文异版，赏析与精读以 611a 为准。数据抓取于 2026-10-24；论文版权归原队伍与 UPC 官方（uphysicsc.com），仅供学习交流。</div>
 </section>
 
 <section id="progress">
@@ -628,8 +628,9 @@ const GUIDE=[
  {k:"05_论文赏析",t:"论文赏析",d:"73 篇金牌论文逐篇中文拆解：建模体系、数学算法、排版图表、可借鉴清单，另有 12 份批次对比表。"},
  {k:"10_论文精读",t:"手把手精读",d:"逐节导读、每张图为什么这样画（附 matplotlib 复现代码）、每个关键公式完整推导、建模决策链。"},
  {k:"08_物理模型综述",t:"物理模型综述",d:"八大专题把 16 年所有题目与论文涉及的物理模型分类汇编，含方法论与数值算法总论。"},
- {k:"11_论文模板与工具",t:"模板与工具箱",d:"四套 LaTeX 模板、8 类图表配方库、写作句库、建模决策树、48 小时作战手册、终检清单，以及《一篇金牌论文的完整历程》。"},
- {k:"02_题目汇总",t:"题目与官方信息",d:"每年英文原题全文、奖牌统计、金牌队伍名单与论文链接清单。"},
+ {k:"11_论文模板与工具",t:"模板与工具箱",d:"四套 LaTeX 模板、8 类图表配方库、写作句库、中译英润色库、AI 提示词包、建模决策树、48 小时作战手册、终检清单，以及《一篇金牌论文的完整历程》。"},
+ {k:"12_赛时工具",t:"赛时交互工具",d:"作战室（思路时间线/手册/终检/句库/中译英/导图/速查）、提示词工坊、模型闪卡、选题助手、Pyodide 数值实验台——五个纯前端页面，数据存本浏览器可导出。"},
+ {k:"02_题目汇总",t:"题目与官方信息",d:"每年英文原题全文、奖牌统计、金牌队伍名单与论文链接清单；官方《比赛规则》中文导读与一分钟合规卡也在这里。"},
  {k:"02_官方成绩单",t:"官方成绩单",d:"各年成绩公告 PDF：金 / 银 / 铜 / Accomplished Competitor 全名单。"},
  {k:"01_官网原始页面",t:"原始档案",d:"官网 17 个年份页 HTML 原件与提取文本；论文 PDF、全文文本、页面渲染图均为一手资料。"},
 ];
@@ -1052,6 +1053,7 @@ ckRefresh();
             .replace("__TEX__", TEX_JS).replace("__JOURNEY__", JOURNEY_URL)
             .replace("__MODEL_URL__", ctx.get("model_url", ""))
             .replace("__MANUAL__", ctx.get("manual_url", ""))
+            .replace("__RULES_URL__", ctx.get("rules_url", ""))
             .replace("__EV_START__", str(ctx.get("ev_start", 0)))
             .replace("__EV_END__", str(ctx.get("ev_end", 0)))
             .replace("__PHASES__", ctx.get("phases", "[]"))
