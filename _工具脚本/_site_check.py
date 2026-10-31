@@ -84,10 +84,14 @@ def main():
                 if external and u.startswith("http"):
                     pass  # 外链抽查交给构建/人工，这里不阻塞
                 continue
-            if "${" in u or "+" in u or "'" in u or u.startswith("#"):
-                if u.startswith("#") and len(u) > 1:
-                    if not check_anchor(pg, u[1:], idx):
-                        problems.append(("ANCHOR", os.path.relpath(pg, ROOT), u))
+            if "${" in u or "+" in u or "'" in u:
+                continue
+            if u.startswith("#") and len(u) > 1:
+                # 运行时 JS 生成的锚点（如提示词工坊 psec0）静态扫描不可见，豁免
+                if re.match(r"^psec\d+$", u[1:]):
+                    continue
+                if not check_anchor(pg, u[1:], idx):
+                    problems.append(("ANCHOR", os.path.relpath(pg, ROOT), u))
                 continue
             dec = unquote(u.split("#")[0].split("?")[0])
             if not dec or dec.startswith("/"):
@@ -107,7 +111,7 @@ def main():
                 continue
             if trk is not None and real not in trk:
                 problems.append(("UNTRACKED", os.path.relpath(pg, ROOT), real))
-            if frag and not check_anchor(abspath, frag, idx):
+            if frag and not re.match(r"^psec\d+$", frag) and not check_anchor(abspath, frag, idx):
                 problems.append(("ANCHOR", os.path.relpath(pg, ROOT), f"{rel}#{frag}"))
 
     # search-index 同步

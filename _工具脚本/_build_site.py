@@ -711,7 +711,8 @@ lib.append({"name": "12_赛时工具", "desc": "实战工具页（平时开放�
                       {"n": "AI 提示词工坊", "u": "12_赛时工具/prompts.html"},
                       {"n": "物理模型闪卡", "u": "12_赛时工具/flashcards.html"},
                       {"n": "选题助手", "u": "12_赛时工具/selector.html"},
-                      {"n": "数值实验台", "u": "12_赛时工具/lab.html"}]})
+                      {"n": "数值实验台", "u": "12_赛时工具/lab.html"},
+                      {"n": "论文组装机（总提示词配套）", "u": "12_赛时工具/forge.html"}]})
 
 # search index over all doc pages（含正文片段：标题搜不到关键词时靠它兜底）
 search_docs = []

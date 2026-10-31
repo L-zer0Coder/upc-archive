@@ -221,12 +221,11 @@ renderAbs();
 
 
 # ================================================================
-# 彩蛋 · 论文组装机（隐藏页：不进导航/搜索/全库，仅 URL 直达）
+# 论文组装机（与总指挥提示词配套：六阶段产出各节 → 本页组装整稿）
 # ================================================================
 def render_forge(ctx):
     body = r"""
-<div class="notebox" style="margin-bottom:14px"><b>彩蛋 · 论文组装机</b>：把你<b>自己的</b>判据、方程、结果数字组装成一份结构完整的 LaTeX 初稿——它自动化的是排版苦役，<b>物理必须你自己填</b>（空白处会留下 [TODO]）。
-若之后再让 AI 润色/扩写，按官方规则须附 <b>Report on the Use of AI</b>（见<a href="../09_可视化总览/docs/02_%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB/%E6%AF%94%E8%B5%9B%E8%A7%84%E5%88%99_ContestRules.html" target="_blank">比赛规则 §5.1 与文末模板</a>）。</div>
+<div class="notebox" style="margin-bottom:14px"><b>与总指挥提示词的关系</b>：完整流水线是——<a href="prompts.html#psec0" target="_blank">① 主控提示词六阶段</a>（配 K1–K10 知识包，AI 起草各节）→ <b>② 本页组装成整稿 LaTeX</b>（你核验各节、填齐 [TODO]）→ ③ 编译出 PDF 后过作战室终检。它自动化的是排版苦役，<b>物理必须你自己填</b>（空白处会留下 [TODO]）；若让 AI 润色/扩写，按官方规则须附 <b>Report on the Use of AI</b>（见<a href="../09_可视化总览/docs/02_%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB/%E6%AF%94%E8%B5%9B%E8%A7%84%E5%88%99_ContestRules.html" target="_blank">比赛规则 §5.1 与文末模板</a>）。</div>
 
 <div class="card">
   <div style="display:flex;gap:12px;flex-wrap:wrap">
@@ -304,11 +303,10 @@ document.getElementById('f-copy').addEventListener('click',function(){
   copyText(document.getElementById('f-out').value,this);
 });
 """
-    return page(ctx, "论文组装机 · 彩蛋", "隐藏工具",
-                "UPC 论文组装机（隐藏彩蛋）：把自己的判据、方程、结果数字组装成结构完整的 LaTeX 初稿，TODO 处留给你自己填物理。",
-                "自动化的只是排版结构；物理与思考必须你自己完成。若再用 AI 润色，按官方规则附 AI 使用披露。",
-                body, script,
-                extra_head='<meta name="robots" content="noindex">')
+    return page(ctx, "论文组装机", "实战工具 · 平时开放",
+                "UPC 论文组装机：把自己的判据、方程、结果数字组装成结构完整的 LaTeX 初稿，TODO 处留给你自己填物理。与「总指挥」主提示词配套使用。",
+                "六阶段流水线（AI 提示词工坊第 0 号）产出各节内容后，本页把成果组装成整稿 LaTeX。自动化的只是排版；物理与思考必须你自己完成——若再用 AI 润色，按官方规则附 AI 使用披露。",
+                body, script, extra_head="")
 
 
 # ================================================================

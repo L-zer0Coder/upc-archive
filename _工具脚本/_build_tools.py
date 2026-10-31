@@ -924,8 +924,8 @@ def render_prompts(ctx):
 var SECS=__SECS__;
 function esc(s){return escHtml(s);}
 var html='';
-SECS.forEach(function(sec){
-  html+='<div class="card" style="margin-bottom:16px"><b style="font-family:var(--serif);font-size:17px">'+esc(sec.t)+'</b>'+
+SECS.forEach(function(sec,si){
+  html+='<div class="card" style="margin-bottom:16px" id="psec'+si+'"><b style="font-family:var(--serif);font-size:17px">'+esc(sec.t)+'</b>'+
     (sec.usage?'<p style="margin:6px 0 4px;font-size:12.5px;color:var(--dim)">'+esc(sec.usage)+'</p>':'');
   sec.prompts.forEach(function(p,i){
     var id='p'+Math.random().toString(36).slice(2,9);
