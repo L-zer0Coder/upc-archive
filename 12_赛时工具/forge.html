@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>论文组装机 · 彩蛋 · UPC 全档案库</title>
+<meta name="description" content="UPC 论文组装机（隐藏彩蛋）：把自己的判据、方程、结果数字组装成结构完整的 LaTeX 初稿，TODO 处留给你自己填物理。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="论文组装机 · 彩蛋 · UPC 全档案库">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<meta name="robots" content="noindex">
+<style>
+:root{
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
+ --line:#E7E0D1;--line2:#D9D0BD;
+ --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
+ --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+ --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.85}
+a{color:var(--acc);text-decoration:none}
+a:hover{color:var(--acc-d)}
+::selection{background:rgba(156,63,46,.16)}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1060px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
+.topbar a:hover{color:var(--acc)}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:13.5px;margin-right:4px}
+.brand:hover{color:var(--ink)}
+.brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
+.crumb{color:var(--dim);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.clock{font-family:var(--mono);font-size:11px;line-height:1.9;letter-spacing:.02em;padding:1px 8px;
+ border:1px solid rgba(156,63,46,.28);border-radius:3px;color:var(--acc);background:var(--acc-soft);
+ white-space:nowrap;font-variant-numeric:tabular-nums}
+.clock[data-s="live"]{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
+.wrap{max-width:1060px;margin:0 auto;padding:22px 22px 80px}
+h1.pt{font-family:var(--serif);font-size:25px;margin:.2em 0 .3em;font-weight:700}
+p.pt-lead{color:var(--mut);font-size:13.5px;margin:0 0 18px;max-width:760px}
+.tabs{position:sticky;top:51px;z-index:20;display:flex;gap:2px;overflow-x:auto;background:rgba(247,244,237,.96);
+ padding:6px 0;border-bottom:1px solid var(--line);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{padding:7px 15px;font-size:13.5px;color:var(--mut);border-radius:3px;white-space:nowrap;cursor:pointer}
+.tabs a:hover{color:var(--ink)}
+.tabs a.on{background:var(--acc);color:#FDFCF8}
+.pane{display:none;padding-top:18px}
+.pane.on{display:block}
+.btn{display:inline-flex;align-items:center;height:32px;padding:0 14px;border:1px solid var(--line2);border-radius:3px;
+ font-size:12.5px;color:var(--ink);background:var(--sheet);cursor:pointer;font-family:inherit;transition:.15s}
+.btn:hover{border-color:var(--acc);color:var(--acc)}
+.btn.solid{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.btn.solid:hover{background:var(--acc-d);color:#FDFCF8}
+.btn.danger:hover{border-color:#B23A22;color:#B23A22}
+.card{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.notebox{border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:0 3px 3px 0;background:var(--sheet);
+ padding:12px 16px;color:var(--mut);font-size:13px;line-height:1.9}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:11.5px;letter-spacing:.05em;border-bottom:1px solid var(--line2);background:var(--sheet)}
+tbody tr:nth-child(2n) td{background:#F8F5EC}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px 20px}
+.mermaid{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:12px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink)}
+@media print{
+ .topbar,.tabs,.btn,#pbar{display:none!important}
+ body{background:#fff;font-size:11pt}
+ .wrap{max-width:none;padding:0}
+ .card{border:none;padding:0}
+ .pane{display:block!important;page-break-inside:auto}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <span class="crumb">隐藏工具</span>
+  <span class="clock" id="clock" aria-label="第 17 届 UPC 赛程"></span>
+</div></div>
+<div class="wrap">
+<h1 class="pt">论文组装机 · 彩蛋</h1>
+<p class="pt-lead">自动化的只是排版结构；物理与思考必须你自己完成。若再用 AI 润色，按官方规则附 AI 使用披露。</p>
+
+<div class="notebox" style="margin-bottom:14px"><b>彩蛋 · 论文组装机</b>：把你<b>自己的</b>判据、方程、结果数字组装成一份结构完整的 LaTeX 初稿——它自动化的是排版苦役，<b>物理必须你自己填</b>（空白处会留下 [TODO]）。
+若之后再让 AI 润色/扩写，按官方规则须附 <b>Report on the Use of AI</b>（见<a href="../09_可视化总览/docs/02_%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB/%E6%AF%94%E8%B5%9B%E8%A7%84%E5%88%99_ContestRules.html" target="_blank">比赛规则 §5.1 与文末模板</a>）。</div>
+
+<div class="card">
+  <div style="display:flex;gap:12px;flex-wrap:wrap">
+    <label style="font-size:12.5px;color:var(--mut)">队号 <input id="f-team" type="text" placeholder="160" style="width:90px;height:30px;border:1px solid var(--line2);border-radius:3px;padding:0 8px;font-family:var(--mono)"></label>
+    <label style="font-size:12.5px;color:var(--mut)">题号
+      <select id="f-prob" style="height:30px;border:1px solid var(--line2);border-radius:3px;font-family:inherit"><option>A</option><option>B</option></select></label>
+    <label style="font-size:12.5px;color:var(--mut);flex:1;min-width:220px">论文标题（英文）<input id="f-title" type="text" placeholder="Aerobraking at Neptune: …" style="width:100%;height:30px;border:1px solid var(--line2);border-radius:3px;padding:0 8px"></label>
+  </div>
+  <p style="margin:12px 0 4px;font-size:13px"><b>① 判据</b>（一行一条，模糊词→数字）</p>
+  <textarea id="f-crit" rows="3" style="width:100%;box-sizing:border-box;border:1px solid var(--line2);border-radius:3px;padding:8px;font-family:var(--mono);font-size:12px" placeholder="significant → 燃耗节省 ≥ 20%&#10;safely → 全程过载 ≤ 8g"></textarea>
+  <p style="margin:12px 0 4px;font-size:13px"><b>② 基准（解析锚数字）</b></p>
+  <textarea id="f-base" rows="2" style="width:100%;box-sizing:border-box;border:1px solid var(--line2);border-radius:3px;padding:8px;font-family:var(--mono);font-size:12px" placeholder="无阻力情形闭式解：v_t = 67 m/s（§1 锚数字）"></textarea>
+  <p style="margin:12px 0 4px;font-size:13px"><b>③ 假设（一行一条，配量级自辩）</b></p>
+  <textarea id="f-assum" rows="3" style="width:100%;box-sizing:border-box;border:1px solid var(--line2);border-radius:3px;padding:8px;font-family:var(--mono);font-size:12px" placeholder="大气 = 指数模型（每 8.5 km 降一个 e，实测标度）&#10;c_d = 0.4（半球，0.3–0.5 间影响小于入射角敏感性）"></textarea>
+  <p style="margin:12px 0 4px;font-size:13px"><b>④ 主方程（LaTeX，不含定界符）</b></p>
+  <textarea id="f-eq" rows="2" style="width:100%;box-sizing:border-box;border:1px solid var(--line2);border-radius:3px;padding:8px;font-family:var(--mono);font-size:12px" placeholder="m\,\frac{dv}{dt} = mg - \tfrac{1}{2}\rho(h) C_dA v^2"></textarea>
+  <p style="margin:12px 0 4px;font-size:13px"><b>⑤ 数值方法</b></p>
+  <textarea id="f-num" rows="2" style="width:100%;box-sizing:border-box;border:1px solid var(--line2);border-radius:3px;padding:8px;font-family:var(--mono);font-size:12px" placeholder="Euler method, dt=0.001 s, 初始 v=0/h=h0, 边界 h≥0，步长减半收敛检验"></textarea>
+  <p style="margin:12px 0 4px;font-size:13px"><b>⑥ 结果（一行一条，必须带数字）</b></p>
+  <textarea id="f-res" rows="3" style="width:100%;box-sizing:border-box;border:1px solid var(--line2);border-radius:3px;padding:8px;font-family:var(--mono);font-size:12px" placeholder="临界入射角窗口 8.8296°–8.8549°（允许误差 0.0253°）&#10;建议：不采用该机动（负结论也是结论）"></textarea>
+  <p style="margin:12px 0 4px;font-size:13px"><b>⑦ 图（一行一张：文件名 | 图题结论）</b></p>
+  <textarea id="f-fig" rows="2" style="width:100%;box-sizing:border-box;border:1px solid var(--line2);border-radius:3px;padding:8px;font-family:var(--mono);font-size:12px" placeholder="fig1_traj.png | 图 1：三类入射角轨迹对比，窗口仅 0.0253°"></textarea>
+  <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+    <button class="btn solid" id="f-gen" type="button">组装 LaTeX 初稿</button>
+    <button class="btn" id="f-copy" type="button" disabled>复制</button>
+    <a class="btn" id="f-dl" type="button" download="upc_draft.tex" style="display:none">下载 .tex</a>
+  </div>
+</div>
+<div class="card" style="margin-top:14px"><textarea id="f-out" rows="18" readonly placeholder="点「组装」后这里出现完整 LaTeX……" style="width:100%;box-sizing:border-box;border:none;background:transparent;font-family:var(--mono);font-size:12px;line-height:1.8;outline:none;resize:vertical"></textarea></div>
+
+</div>
+<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份</footer>
+<script>
+var EV_START=1794013200000,EV_END=1794186000000;
+function p2(n){return n<10?'0'+n:''+n;}
+(function(){
+  var el=document.getElementById('clock');
+  function upd(){var t=Date.now();
+    if(t<EV_START){var ms=EV_START-t,dd=Math.floor(ms/864e5);
+      if(dd>=1){el.textContent='赛前 D-'+dd;el.dataset.s='pre';}
+      else{el.textContent='赛前 '+p2(Math.floor(ms/36e5))+':'+p2(Math.floor(ms%36e5/6e4));el.dataset.s='pre';}}
+    else if(t<EV_END){var u=Math.floor((t-EV_START)/1000);
+      el.textContent='赛中 '+p2(Math.floor(u/3600))+':'+p2(Math.floor(u%3600/60));el.dataset.s='live';}
+    else{el.textContent='第 17 届已结束';el.dataset.s='post';}}
+  upd();setInterval(upd,30000);
+})();
+function escHtml(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function copyText(t,btn){
+  function ok(){if(btn){var o=btn.textContent;btn.textContent='已复制 ✓';setTimeout(function(){btn.textContent=o;},1600);}}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){fallback();});}
+  else fallback();
+  function fallback(){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');ok();}catch(e){}ta.remove();}
+}
+function download(name,text,mime){
+  var blob=new Blob([text],{type:mime||'text/plain;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(a.href);},4000);
+}
+function phaseAt(ts){
+  if(ts<EV_START)return null;
+  var hr=(ts-EV_START)/36e5,cur=PHASES[0];
+  for(var i=0;i<PHASES.length;i++){if(hr>=PHASES[i][0]&&hr<PHASES[i][1]){cur=PHASES[i];break;}}
+  return cur;
+}
+function tLabel(ts){
+  if(ts<EV_START)return '备赛';
+  var s=Math.floor((ts-EV_START)/1000);
+  return 'T+'+p2(Math.floor(s/3600))+':'+p2(Math.floor(s%3600/60));
+}
+
+function L(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function lines(id){return document.getElementById(id).value.split('\n').map(function(x){return x.trim();}).filter(Boolean);}
+document.getElementById('f-gen').addEventListener('click',function(){
+  var team=document.getElementById('f-team').value.trim()||'XXX';
+  var prob=document.getElementById('f-prob').value;
+  var title=document.getElementById('f-title').value.trim()||'[TODO: 论文标题——包含方法与结论关键词]';
+  var crit=lines('f-crit'), base=document.getElementById('f-base').value.trim(),
+      assum=lines('f-assum'), eq=document.getElementById('f-eq').value.trim(),
+      num=document.getElementById('f-num').value.trim(), res=lines('f-res'), fig=lines('f-fig');
+  function items(arr, todo){return arr.length?arr.map(function(x){return '\\item '+x;}).join('\n'):'\\item [TODO: ' + todo + ']';}
+  var eqs=eq?('\\['+eq+'\\]'):'\\[TODO: 主方程——从守恒律/牛顿第二定律写出，参考建模决策树]';
+  var figs=fig.length?fig.map(function(x){
+      var seg=x.split('|');
+      return '\\begin{figure}[h]\\centering\\includegraphics[width=0.8\\textwidth]{'+(seg[0]||'fig.png').trim()+'}'+
+        '\\caption{'+(seg[1]||'[TODO: 结论进图题]').trim()+'}\\label{fig:'+(seg[0]||'fig').trim().replace(/\\.[a-z]+$/,'')+'}\\end{figure}';
+    }).join('\n'):'% [TODO: 至少 4 张图，结论进图题——见图表配方库]';
+  var tex='% UPC 论文初稿 —— 由档案库「论文组装机」生成\n'+
+    '% 组装的是排版结构；所有物理内容来自你上方的输入，[TODO] 处必须自己补齐。\n'+
+    '% 若再用 AI 润色/扩写，按官方规则 §5.1 须附 Report on the Use of AI（见比赛规则页）。\n'+
+    '\\documentclass[11pt]{article}\n\\usepackage[margin=2.5cm]{geometry}\n'+
+    '\\usepackage{amsmath,graphicx,booktabs}\n'+
+    '\\begin{document}\n'+
+    '\\begin{center}{\\large\\bf Team '+team+' --- Problem '+prob+'}\\\\[4pt]{\\Large\\bf '+title+'}\\end{center}\n'+
+    '\\section*{Abstract}\n[TODO: 一页摘要——符号定义 → 两难 → 方法一句话 → 数字结论 → 建议与适用域；'+
+    '逐句配方见「摘要解剖室」，必须含至少一个数字]\n\n'+
+    '\\section{Introduction and Criteria}\n[TODO: 用自己的话复述题目与建模路线]\n\n'+
+    'Criteria (operationalized):\n\\begin{itemize}\n'+items(crit,'把题面模糊词翻译成可计算判据')+'\\end{itemize}\n\n'+
+    '\\section{Baseline}\n'+(base||'[TODO: 解析基准与锚数字——评审的对照起点]')+'\n\n'+
+    '\\section{Model}\n\\begin{itemize}\n'+items(assum,'每条假设配一句量级自辩')+'\\end{itemize}\n'+eqs+'\n\n'+
+    '\\section{Numerical Method}\n'+(num||'[TODO: 方法名+步长+初值+边界+终止条件，五要素]')+'\n\n'+
+    '\\section{Results}\n\\begin{itemize}\n'+items(res,'结论必须带数字——没有数字先回数值环节')+'\\end{itemize}\n\n'+figs+'\n\n'+
+    '\\section{Discussion}\n[TODO: 局限、误差来源、最坏情形——诚实是加分项]\n\n'+
+    '\\section{Conclusion}\n[TODO: 答案 + 建议 + 适用域；负结论也是结论]\n\n'+
+    '\\begin{thebibliography}{9}\n\\item [TODO: 5–15 条文献，标注访问日期，每条都被正文引用]\n\\end{thebibliography}\n'+
+    '\\end{document}\n';
+  document.getElementById('f-out').value=tex;
+  document.getElementById('f-copy').disabled=false;
+  var dl=document.getElementById('f-dl');
+  dl.style.display='inline-flex';
+  dl.href='data:text/plain;charset=utf-8,'+encodeURIComponent(tex);
+});
+document.getElementById('f-copy').addEventListener('click',function(){
+  copyText(document.getElementById('f-out').value,this);
+});
+
+</script>
+</body>
+</html>

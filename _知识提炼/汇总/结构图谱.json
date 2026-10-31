@@ -1,0 +1,1172 @@
+{
+ "papers": [
+  {
+   "id": "2010-GM-A-160",
+   "year": 2010,
+   "problem": "A",
+   "team": "160",
+   "pages": 21,
+   "n_sections": 18,
+   "alloc": {
+    "abstract": 10.5,
+    "other": 31.7,
+    "model": 14.0,
+    "numerics": 5.7,
+    "results": 7.0,
+    "conclusion": 4.5,
+    "appendix": 22.0,
+    "references": 4.7
+   }
+  },
+  {
+   "id": "2010-GM-B-210",
+   "year": 2010,
+   "problem": "B",
+   "team": "210",
+   "pages": 26,
+   "n_sections": 1,
+   "alloc": {
+    "references": 100.0
+   }
+  },
+  {
+   "id": "2011-GM-A-352",
+   "year": 2011,
+   "problem": "A",
+   "team": "352",
+   "pages": 14,
+   "n_sections": 6,
+   "alloc": {
+    "other": 8.6,
+    "model": 53.0,
+    "numerics": 27.1,
+    "results": 6.7,
+    "references": 4.7
+   }
+  },
+  {
+   "id": "2011-GM-B-379",
+   "year": 2011,
+   "problem": "B",
+   "team": "379",
+   "pages": 9,
+   "n_sections": 3,
+   "alloc": {
+    "abstract": 8.3,
+    "numerics": 70.5,
+    "model": 21.2
+   }
+  },
+  {
+   "id": "2012-GM-A-449",
+   "year": 2012,
+   "problem": "A",
+   "team": "449",
+   "pages": 17,
+   "n_sections": 11,
+   "alloc": {
+    "results": 7.4,
+    "intro": 6.3,
+    "model": 60.0,
+    "numerics": 15.1,
+    "references": 11.2
+   }
+  },
+  {
+   "id": "2012-GM-B-414",
+   "year": 2012,
+   "problem": "B",
+   "team": "414",
+   "pages": 11,
+   "n_sections": 11,
+   "alloc": {
+    "references": 0.3,
+    "other": 51.0,
+    "appendix": 48.7
+   }
+  },
+  {
+   "id": "2013-GM-A-538",
+   "year": 2013,
+   "problem": "A",
+   "team": "538",
+   "pages": 13,
+   "n_sections": 2,
+   "alloc": {
+    "intro": 93.1,
+    "references": 6.9
+   }
+  },
+  {
+   "id": "2013-GM-B-611a",
+   "year": 2013,
+   "problem": "B",
+   "team": "611",
+   "pages": 23,
+   "n_sections": 20,
+   "alloc": {
+    "other": 57.7,
+    "intro": 3.1,
+    "model": 7.6,
+    "results": 11.1,
+    "references": 3.8,
+    "appendix": 16.6
+   }
+  },
+  {
+   "id": "2013-GM-B-611a",
+   "year": 2013,
+   "problem": "B",
+   "team": "611a",
+   "pages": 23,
+   "n_sections": 20,
+   "alloc": {
+    "other": 57.7,
+    "intro": 3.1,
+    "model": 7.6,
+    "results": 11.1,
+    "references": 3.8,
+    "appendix": 16.6
+   }
+  },
+  {
+   "id": "2014-GM-A-726",
+   "year": 2014,
+   "problem": "A",
+   "team": "726",
+   "pages": 25,
+   "n_sections": 6,
+   "alloc": {
+    "abstract": 2.2,
+    "intro": 8.9,
+    "model": 45.6,
+    "other": 33.1,
+    "appendix": 6.6,
+    "references": 3.6
+   }
+  },
+  {
+   "id": "2014-GM-B-807",
+   "year": 2014,
+   "problem": "B",
+   "team": "807",
+   "pages": 17,
+   "n_sections": 9,
+   "alloc": {
+    "intro": 0.1,
+    "model": 0.1,
+    "other": 1.6,
+    "results": 73.1,
+    "references": 2.1,
+    "appendix": 23.0
+   }
+  },
+  {
+   "id": "2015-GM-A-190",
+   "year": 2015,
+   "problem": "A",
+   "team": "190",
+   "pages": 10,
+   "n_sections": 22,
+   "alloc": {
+    "intro": 3.9,
+    "other": 78.0,
+    "results": 0.1,
+    "conclusion": 2.7,
+    "references": 10.9,
+    "appendix": 4.5
+   }
+  },
+  {
+   "id": "2015-GM-B-108",
+   "year": 2015,
+   "problem": "B",
+   "team": "108",
+   "pages": 25,
+   "n_sections": 18,
+   "alloc": {
+    "intro": 4.1,
+    "other": 41.6,
+    "model": 21.9,
+    "results": 0.0,
+    "conclusion": 2.4,
+    "references": 9.8,
+    "appendix": 20.2
+   }
+  },
+  {
+   "id": "2016-GM-A-331",
+   "year": 2016,
+   "problem": "A",
+   "team": "331",
+   "pages": 16,
+   "n_sections": 2,
+   "alloc": {
+    "results": 100.0
+   }
+  },
+  {
+   "id": "2016-GM-A-412",
+   "year": 2016,
+   "problem": "A",
+   "team": "412",
+   "pages": 24,
+   "n_sections": 10,
+   "alloc": {
+    "abstract": 3.0,
+    "intro": 0.0,
+    "other": 3.6,
+    "conclusion": 0.0,
+    "appendix": 73.6,
+    "references": 19.7
+   }
+  },
+  {
+   "id": "2016-GM-B-441",
+   "year": 2016,
+   "problem": "B",
+   "team": "441",
+   "pages": 16,
+   "n_sections": 10,
+   "alloc": {
+    "intro": 11.1,
+    "model": 81.8,
+    "results": 2.0,
+    "conclusion": 0.1,
+    "other": 0.4,
+    "references": 4.8
+   }
+  },
+  {
+   "id": "2017-GM-A-670",
+   "year": 2017,
+   "problem": "A",
+   "team": "670",
+   "pages": 5,
+   "n_sections": 10,
+   "alloc": {
+    "intro": 14.3,
+    "model": 32.5,
+    "other": 13.3,
+    "results": 28.0,
+    "conclusion": 6.0,
+    "references": 5.9
+   }
+  },
+  {
+   "id": "2017-GM-A-699",
+   "year": 2017,
+   "problem": "A",
+   "team": "699",
+   "pages": 28,
+   "n_sections": 13,
+   "alloc": {
+    "abstract": 12.0,
+    "intro": 4.1,
+    "model": 8.2,
+    "other": 39.4,
+    "results": 16.4,
+    "conclusion": 19.9
+   }
+  },
+  {
+   "id": "2017-GM-A-744",
+   "year": 2017,
+   "problem": "A",
+   "team": "744",
+   "pages": 35,
+   "n_sections": 20,
+   "alloc": {
+    "intro": 10.9,
+    "other": 17.5,
+    "results": 34.6,
+    "conclusion": 8.8,
+    "numerics": 12.2,
+    "references": 16.1
+   }
+  },
+  {
+   "id": "2017-GM-B-609",
+   "year": 2017,
+   "problem": "B",
+   "team": "609",
+   "pages": 18,
+   "n_sections": 4,
+   "alloc": {
+    "appendix": 11.7,
+    "intro": 84.8,
+    "references": 3.5
+   }
+  },
+  {
+   "id": "2018-GM-A-158",
+   "year": 2018,
+   "problem": "A",
+   "team": "158",
+   "pages": 19,
+   "n_sections": 12,
+   "alloc": {
+    "intro": 0.1,
+    "other": 2.2,
+    "conclusion": 9.7,
+    "results": 80.0,
+    "references": 5.6,
+    "appendix": 2.4
+   }
+  },
+  {
+   "id": "2018-GM-A-258",
+   "year": 2018,
+   "problem": "A",
+   "team": "258",
+   "pages": 13,
+   "n_sections": 16,
+   "alloc": {
+    "intro": 31.2,
+    "other": 14.4,
+    "model": 24.2,
+    "conclusion": 1.3,
+    "numerics": 12.1,
+    "results": 9.2,
+    "references": 7.6
+   }
+  },
+  {
+   "id": "2018-GM-A-295",
+   "year": 2018,
+   "problem": "A",
+   "team": "295",
+   "pages": 25,
+   "n_sections": 27,
+   "alloc": {
+    "other": 48.3,
+    "results": 29.4,
+    "intro": 2.8,
+    "model": 5.2,
+    "conclusion": 6.8,
+    "appendix": 7.5
+   }
+  },
+  {
+   "id": "2018-GM-B-240",
+   "year": 2018,
+   "problem": "B",
+   "team": "240",
+   "pages": 17,
+   "n_sections": 8,
+   "alloc": {
+    "abstract": 2.6,
+    "results": 12.5,
+    "intro": 44.2,
+    "numerics": 3.5,
+    "model": 24.8,
+    "references": 1.8,
+    "appendix": 10.5
+   }
+  },
+  {
+   "id": "2018-GM-B-285",
+   "year": 2018,
+   "problem": "B",
+   "team": "285",
+   "pages": 11,
+   "n_sections": 8,
+   "alloc": {
+    "abstract": 9.8,
+    "other": 77.3,
+    "results": 10.3,
+    "model": 0.9,
+    "references": 1.7
+   }
+  },
+  {
+   "id": "2019-GM-A-105",
+   "year": 2019,
+   "problem": "A",
+   "team": "105",
+   "pages": 17,
+   "n_sections": 10,
+   "alloc": {
+    "intro": 0.1,
+    "other": 2.9,
+    "conclusion": 0.1,
+    "references": 96.9
+   }
+  },
+  {
+   "id": "2019-GM-A-289",
+   "year": 2019,
+   "problem": "A",
+   "team": "289",
+   "pages": 28,
+   "n_sections": 18,
+   "alloc": {
+    "intro": 6.5,
+    "other": 83.2,
+    "numerics": 7.9,
+    "results": 2.4
+   }
+  },
+  {
+   "id": "2019-GM-A-343",
+   "year": 2019,
+   "problem": "A",
+   "team": "343",
+   "pages": 25,
+   "n_sections": 17,
+   "alloc": {
+    "intro": 7.0,
+    "model": 82.9,
+    "conclusion": 3.4,
+    "references": 6.8
+   }
+  },
+  {
+   "id": "2019-GM-B-190",
+   "year": 2019,
+   "problem": "B",
+   "team": "190",
+   "pages": 30,
+   "n_sections": 18,
+   "alloc": {
+    "abstract": 1.8,
+    "intro": 3.1,
+    "model": 28.0,
+    "other": 16.8,
+    "results": 35.7,
+    "conclusion": 1.5,
+    "numerics": 0.1,
+    "references": 13.0
+   }
+  },
+  {
+   "id": "2019-GM-B-389",
+   "year": 2019,
+   "problem": "B",
+   "team": "389",
+   "pages": 29,
+   "n_sections": 16,
+   "alloc": {
+    "abstract": 16.8,
+    "other": 41.8,
+    "intro": 13.5,
+    "model": 14.8,
+    "results": 0.1,
+    "conclusion": 7.8,
+    "appendix": 0.2,
+    "numerics": 5.0
+   }
+  },
+  {
+   "id": "2020-GM-A-340",
+   "year": 2020,
+   "problem": "A",
+   "team": "340",
+   "pages": 12,
+   "n_sections": 14,
+   "alloc": {
+    "abstract": 20.9,
+    "intro": 9.2,
+    "model": 18.6,
+    "other": 45.2,
+    "results": 6.1
+   }
+  },
+  {
+   "id": "2020-GM-A-354",
+   "year": 2020,
+   "problem": "A",
+   "team": "354",
+   "pages": 23,
+   "n_sections": 15,
+   "alloc": {
+    "other": 15.9,
+    "intro": 32.8,
+    "results": 18.3,
+    "appendix": 29.7,
+    "references": 3.2
+   }
+  },
+  {
+   "id": "2020-GM-A-426",
+   "year": 2020,
+   "problem": "A",
+   "team": "426",
+   "pages": 16,
+   "n_sections": 12,
+   "alloc": {
+    "intro": 0.2,
+    "other": 0.1,
+    "conclusion": 0.1,
+    "appendix": 93.8,
+    "numerics": 0.0,
+    "references": 5.7
+   }
+  },
+  {
+   "id": "2020-GM-A-447",
+   "year": 2020,
+   "problem": "A",
+   "team": "447",
+   "pages": 16,
+   "n_sections": 13,
+   "alloc": {
+    "intro": 10.2,
+    "model": 5.1,
+    "other": 41.5,
+    "results": 4.1,
+    "conclusion": 6.6,
+    "references": 4.8,
+    "appendix": 27.8
+   }
+  },
+  {
+   "id": "2020-GM-B-335",
+   "year": 2020,
+   "problem": "B",
+   "team": "335",
+   "pages": 19,
+   "n_sections": 8,
+   "alloc": {
+    "abstract": 4.4,
+    "model": 3.0,
+    "other": 49.9,
+    "numerics": 39.4,
+    "conclusion": 3.4
+   }
+  },
+  {
+   "id": "2020-GM-B-380",
+   "year": 2020,
+   "problem": "B",
+   "team": "380",
+   "pages": 39,
+   "n_sections": 16,
+   "alloc": {
+    "intro": 1.2,
+    "other": 19.6,
+    "model": 57.5,
+    "numerics": 4.8,
+    "conclusion": 6.9,
+    "appendix": 9.9
+   }
+  },
+  {
+   "id": "2021-GM-A-200",
+   "year": 2021,
+   "problem": "A",
+   "team": "200",
+   "pages": 30,
+   "n_sections": 24,
+   "alloc": {
+    "appendix": 0.3,
+    "intro": 0.7,
+    "model": 1.1,
+    "numerics": 46.8,
+    "results": 0.1,
+    "conclusion": 5.1,
+    "other": 0.1,
+    "references": 45.8
+   }
+  },
+  {
+   "id": "2021-GM-A-349",
+   "year": 2021,
+   "problem": "A",
+   "team": "349",
+   "pages": 17,
+   "n_sections": 14,
+   "alloc": {
+    "other": 6.8,
+    "abstract": 4.1,
+    "model": 58.9,
+    "intro": 11.3,
+    "results": 6.0,
+    "conclusion": 4.0,
+    "appendix": 9.0
+   }
+  },
+  {
+   "id": "2021-GM-B-216",
+   "year": 2021,
+   "problem": "B",
+   "team": "216",
+   "pages": 20,
+   "n_sections": 12,
+   "alloc": {
+    "intro": 0.2,
+    "model": 66.8,
+    "results": 4.5,
+    "references": 8.9,
+    "appendix": 13.4,
+    "other": 4.5,
+    "numerics": 1.7
+   }
+  },
+  {
+   "id": "2021-GM-B-385",
+   "year": 2021,
+   "problem": "B",
+   "team": "385",
+   "pages": 17,
+   "n_sections": 9,
+   "alloc": {
+    "abstract": 1.5,
+    "model": 54.3,
+    "intro": 6.6,
+    "other": 20.0,
+    "conclusion": 6.2,
+    "appendix": 11.5
+   }
+  },
+  {
+   "id": "2021-GM-B-442",
+   "year": 2021,
+   "problem": "B",
+   "team": "442",
+   "pages": 16,
+   "n_sections": 11,
+   "alloc": {
+    "other": 0.9,
+    "model": 1.9,
+    "conclusion": 83.6,
+    "references": 13.6
+   }
+  },
+  {
+   "id": "2021-GM-B-445",
+   "year": 2021,
+   "problem": "B",
+   "team": "445",
+   "pages": 16,
+   "n_sections": 17,
+   "alloc": {
+    "abstract": 3.6,
+    "intro": 0.1,
+    "other": 18.7,
+    "model": 46.9,
+    "numerics": 25.0,
+    "results": 0.1,
+    "references": 5.6
+   }
+  },
+  {
+   "id": "2022-GM-A-346",
+   "year": 2022,
+   "problem": "A",
+   "team": "346",
+   "pages": 19,
+   "n_sections": 7,
+   "alloc": {
+    "other": 8.8,
+    "results": 9.1,
+    "conclusion": 5.7,
+    "model": 65.5,
+    "references": 10.8
+   }
+  },
+  {
+   "id": "2022-GM-A-395",
+   "year": 2022,
+   "problem": "A",
+   "team": "395",
+   "pages": 36,
+   "n_sections": 14,
+   "alloc": {
+    "intro": 3.8,
+    "model": 89.2,
+    "other": 3.4,
+    "conclusion": 0.1,
+    "references": 3.4,
+    "appendix": 0.2
+   }
+  },
+  {
+   "id": "2022-GM-A-425",
+   "year": 2022,
+   "problem": "A",
+   "team": "425",
+   "pages": 21,
+   "n_sections": 11,
+   "alloc": {
+    "abstract": 4.7,
+    "intro": 4.8,
+    "numerics": 3.2,
+    "other": 59.3,
+    "model": 17.2,
+    "results": 6.9,
+    "references": 3.8
+   }
+  },
+  {
+   "id": "2022-GM-A-460",
+   "year": 2022,
+   "problem": "A",
+   "team": "460",
+   "pages": 13,
+   "n_sections": 5,
+   "alloc": {
+    "intro": 95.6,
+    "conclusion": 0.2,
+    "references": 4.2
+   }
+  },
+  {
+   "id": "2022-GM-B-358",
+   "year": 2022,
+   "problem": "B",
+   "team": "358",
+   "pages": 24,
+   "n_sections": 16,
+   "alloc": {
+    "abstract": 4.1,
+    "intro": 8.3,
+    "model": 54.4,
+    "results": 9.9,
+    "conclusion": 0.1,
+    "appendix": 0.1,
+    "references": 23.2
+   }
+  },
+  {
+   "id": "2022-GM-B-471",
+   "year": 2022,
+   "problem": "B",
+   "team": "471",
+   "pages": 44,
+   "n_sections": 14,
+   "alloc": {
+    "intro": 14.1,
+    "model": 57.0,
+    "results": 0.1,
+    "references": 2.1,
+    "appendix": 19.7,
+    "conclusion": 7.0
+   }
+  },
+  {
+   "id": "2022-GM-B-480",
+   "year": 2022,
+   "problem": "B",
+   "team": "480",
+   "pages": 19,
+   "n_sections": 4,
+   "alloc": {
+    "intro": 8.9,
+    "model": 61.6,
+    "appendix": 0.0,
+    "numerics": 29.4
+   }
+  },
+  {
+   "id": "2023-GM-A-131",
+   "year": 2023,
+   "problem": "A",
+   "team": "131",
+   "pages": 33,
+   "n_sections": 12,
+   "alloc": {
+    "other": 21.1,
+    "abstract": 2.7,
+    "intro": 32.4,
+    "model": 14.9,
+    "results": 26.1,
+    "conclusion": 0.0,
+    "references": 2.8
+   }
+  },
+  {
+   "id": "2023-GM-A-227",
+   "year": 2023,
+   "problem": "A",
+   "team": "227",
+   "pages": 22,
+   "n_sections": 14,
+   "alloc": {
+    "intro": 6.9,
+    "model": 65.7,
+    "other": 2.5,
+    "conclusion": 0.1,
+    "references": 24.8
+   }
+  },
+  {
+   "id": "2023-GM-A-244",
+   "year": 2023,
+   "problem": "A",
+   "team": "244",
+   "pages": 28,
+   "n_sections": 12,
+   "alloc": {
+    "other": 3.7,
+    "intro": 10.0,
+    "model": 39.2,
+    "results": 11.1,
+    "conclusion": 0.0,
+    "references": 36.0
+   }
+  },
+  {
+   "id": "2023-GM-A-355",
+   "year": 2023,
+   "problem": "A",
+   "team": "355",
+   "pages": 27,
+   "n_sections": 10,
+   "alloc": {
+    "intro": 12.5,
+    "model": 52.8,
+    "results": 5.4,
+    "appendix": 26.6,
+    "references": 2.8
+   }
+  },
+  {
+   "id": "2023-GM-A-447",
+   "year": 2023,
+   "problem": "A",
+   "team": "447",
+   "pages": 19,
+   "n_sections": 11,
+   "alloc": {
+    "intro": 12.9,
+    "other": 34.8,
+    "model": 43.9,
+    "references": 8.4,
+    "appendix": 0.0
+   }
+  },
+  {
+   "id": "2023-GM-A-464",
+   "year": 2023,
+   "problem": "A",
+   "team": "464",
+   "pages": 38,
+   "n_sections": 5,
+   "alloc": {
+    "intro": 7.5,
+    "model": 88.7,
+    "appendix": 0.7,
+    "numerics": 3.2
+   }
+  },
+  {
+   "id": "2023-GM-B-102",
+   "year": 2023,
+   "problem": "B",
+   "team": "102",
+   "pages": 16,
+   "n_sections": 10,
+   "alloc": {
+    "abstract": 15.2,
+    "intro": 0.1,
+    "other": 3.8,
+    "model": 64.1,
+    "results": 13.9,
+    "references": 2.9
+   }
+  },
+  {
+   "id": "2023-GM-B-138",
+   "year": 2023,
+   "problem": "B",
+   "team": "138",
+   "pages": 25,
+   "n_sections": 12,
+   "alloc": {
+    "other": 3.8,
+    "model": 45.4,
+    "results": 9.9,
+    "conclusion": 0.0,
+    "references": 32.6,
+    "numerics": 8.2
+   }
+  },
+  {
+   "id": "2023-GM-B-471",
+   "year": 2023,
+   "problem": "B",
+   "team": "471",
+   "pages": 22,
+   "n_sections": 17,
+   "alloc": {
+    "intro": 1.1,
+    "other": 26.3,
+    "numerics": 25.2,
+    "model": 8.5,
+    "results": 6.2,
+    "appendix": 31.3,
+    "references": 1.4
+   }
+  },
+  {
+   "id": "2025-GM-A-112",
+   "year": 2025,
+   "problem": "A",
+   "team": "112",
+   "pages": 26,
+   "n_sections": 24,
+   "alloc": {
+    "intro": 0.6,
+    "other": 90.1,
+    "numerics": 0.6,
+    "results": 2.4,
+    "conclusion": 0.7,
+    "references": 5.6
+   }
+  },
+  {
+   "id": "2025-GM-A-182",
+   "year": 2025,
+   "problem": "A",
+   "team": "182",
+   "pages": 29,
+   "n_sections": 11,
+   "alloc": {
+    "intro": 13.1,
+    "model": 56.1,
+    "other": 2.2,
+    "results": 26.7,
+    "references": 1.9
+   }
+  },
+  {
+   "id": "2025-GM-A-485",
+   "year": 2025,
+   "problem": "A",
+   "team": "485",
+   "pages": 31,
+   "n_sections": 24,
+   "alloc": {
+    "intro": 12.5,
+    "model": 24.9,
+    "other": 16.9,
+    "results": 22.7,
+    "numerics": 12.4,
+    "conclusion": 0.1,
+    "references": 10.5
+   }
+  },
+  {
+   "id": "2025-GM-B-127",
+   "year": 2025,
+   "problem": "B",
+   "team": "127",
+   "pages": 24,
+   "n_sections": 27,
+   "alloc": {
+    "other": 54.3,
+    "abstract": 4.0,
+    "intro": 0.1,
+    "model": 5.2,
+    "results": 15.8,
+    "conclusion": 8.7,
+    "appendix": 8.8,
+    "numerics": 3.0
+   }
+  },
+  {
+   "id": "2025-GM-B-155",
+   "year": 2025,
+   "problem": "B",
+   "team": "155",
+   "pages": 20,
+   "n_sections": 13,
+   "alloc": {
+    "abstract": 6.2,
+    "intro": 12.0,
+    "model": 61.6,
+    "other": 1.9,
+    "results": 1.0,
+    "conclusion": 0.2,
+    "references": 16.9
+   }
+  },
+  {
+   "id": "2025-GM-B-188",
+   "year": 2025,
+   "problem": "B",
+   "team": "188",
+   "pages": 69,
+   "n_sections": 4,
+   "alloc": {
+    "intro": 14.4,
+    "numerics": 12.4,
+    "results": 73.2
+   }
+  },
+  {
+   "id": "2025-GM-B-204",
+   "year": 2025,
+   "problem": "B",
+   "team": "204",
+   "pages": 37,
+   "n_sections": 32,
+   "alloc": {
+    "intro": 3.0,
+    "model": 14.7,
+    "results": 18.1,
+    "other": 31.1,
+    "conclusion": 1.5,
+    "numerics": 2.3,
+    "references": 29.2
+   }
+  },
+  {
+   "id": "2025-GM-B-207",
+   "year": 2025,
+   "problem": "B",
+   "team": "207",
+   "pages": 38,
+   "n_sections": 8,
+   "alloc": {
+    "intro": 6.5,
+    "model": 21.2,
+    "other": 15.7,
+    "results": 23.2,
+    "references": 33.4
+   }
+  },
+  {
+   "id": "2025-GM-B-264",
+   "year": 2025,
+   "problem": "B",
+   "team": "264",
+   "pages": 27,
+   "n_sections": 16,
+   "alloc": {
+    "numerics": 31.3,
+    "other": 1.7,
+    "model": 33.5,
+    "conclusion": 14.3,
+    "references": 19.2
+   }
+  },
+  {
+   "id": "2025-GM-B-311",
+   "year": 2025,
+   "problem": "B",
+   "team": "311",
+   "pages": 17,
+   "n_sections": 21,
+   "alloc": {
+    "other": 2.6,
+    "model": 56.2,
+    "results": 26.4,
+    "conclusion": 0.1,
+    "references": 14.7
+   }
+  },
+  {
+   "id": "2025-GM-B-392",
+   "year": 2025,
+   "problem": "B",
+   "team": "392",
+   "pages": 33,
+   "n_sections": 17,
+   "alloc": {
+    "intro": 3.9,
+    "model": 46.3,
+    "conclusion": 6.3,
+    "appendix": 6.4,
+    "references": 0.8,
+    "results": 36.3
+   }
+  },
+  {
+   "id": "2025-GM-B-428",
+   "year": 2025,
+   "problem": "B",
+   "team": "428",
+   "pages": 32,
+   "n_sections": 49,
+   "alloc": {
+    "model": 24.7,
+    "other": 29.1,
+    "results": 8.0,
+    "conclusion": 2.9,
+    "references": 1.9,
+    "appendix": 16.8,
+    "intro": 6.1,
+    "numerics": 10.5
+   }
+  },
+  {
+   "id": "2025-GM-B-460",
+   "year": 2025,
+   "problem": "B",
+   "team": "460",
+   "pages": 26,
+   "n_sections": 11,
+   "alloc": {
+    "intro": 29.9,
+    "model": 1.4,
+    "results": 35.7,
+    "conclusion": 0.0,
+    "appendix": 29.9,
+    "references": 3.0
+   }
+  },
+  {
+   "id": "2025-GM-B-496",
+   "year": 2025,
+   "problem": "B",
+   "team": "496",
+   "pages": 27,
+   "n_sections": 18,
+   "alloc": {
+    "intro": 16.3,
+    "model": 41.4,
+    "other": 3.7,
+    "results": 34.1,
+    "conclusion": 4.6
+   }
+  },
+  {
+   "id": "2025-GM-B-765",
+   "year": 2025,
+   "problem": "B",
+   "team": "765",
+   "pages": 52,
+   "n_sections": 24,
+   "alloc": {
+    "model": 44.8,
+    "intro": 1.9,
+    "other": 16.5,
+    "numerics": 15.2,
+    "conclusion": 2.1,
+    "references": 0.9,
+    "appendix": 15.8,
+    "results": 2.9
+   }
+  },
+  {
+   "id": "2025-GM-B-796",
+   "year": 2025,
+   "problem": "B",
+   "team": "796",
+   "pages": 111,
+   "n_sections": 21,
+   "alloc": {
+    "other": 20.1,
+    "intro": 23.7,
+    "model": 0.9,
+    "results": 44.9,
+    "conclusion": 0.5,
+    "references": 9.8
+   }
+  }
+ ],
+ "names": {
+  "front": "标题页",
+  "abstract": "摘要",
+  "intro": "引言",
+  "model": "建模",
+  "numerics": "数值",
+  "results": "结果与验证",
+  "conclusion": "结论",
+  "references": "参考文献",
+  "appendix": "附录",
+  "other": "其他"
+ }
+}

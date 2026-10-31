@@ -1804,3 +1804,6 @@ def render_tools(ctx):
     write_out(ctx, "selector.html", render_selector(ctx))
     write_out(ctx, "lab.html", render_lab(ctx))
     write_out(ctx, "tutorial.html", render_tutorial(ctx))
+    import _build_xray
+    write_out(ctx, "xray.html", _build_xray.render_xray(ctx))
+    write_out(ctx, "forge.html", _build_xray.render_forge(ctx))
