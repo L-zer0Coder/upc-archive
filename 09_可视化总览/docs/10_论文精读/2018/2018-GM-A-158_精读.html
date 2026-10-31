@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="精读 04 · Lasercraft Dynamics and Design for Proxima Centauri b Flyby（2018 题A 金牌 · 队伍 158） · UPC 全档案库">
 <meta property="og:description" content="精读 04 · Lasercraft Dynamics and Design for Proxima Centauri b Flyby（2018 题A 金牌 · 队伍 158） 这份精读怎么用 ：左手边开论文 PDF（ 03_优秀论文P…">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script defer src="../../../vendor/katex/katex.min.js"></script>
 <script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -416,6 +417,7 @@ Appendix       对比表（数值底座）
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-1-introduction-2-notations第-3-页">1.2 §1 Introduction + §2 Notations（第 3 页）</a></li><li class="l3"><a href="#13-3-laser-array-specifications第-4-页">1.3 §3 Laser Array Specifications（第 4 页）</a></li><li class="l3"><a href="#14-4-sail-fabrication第-47-页组合淘汰赛">1.4 §4 Sail Fabrication（第 4–7 页）——组合淘汰赛</a></li><li class="l3"><a href="#15-5-physics-of-laser-propulsion第-812-页全文数学主体">1.5 §5 Physics of Laser Propulsion（第 8–12 页）——全文数学主体</a></li><li class="l3"><a href="#16-6-acceleration-dynamics第-1314-页">1.6 §6 Acceleration Dynamics（第 13–14 页）</a></li><li class="l3"><a href="#17-7-laser-precision第-15-页两级判据">1.7 §7 Laser Precision（第 15 页）——两级判据</a></li><li class="l3"><a href="#18-8-conclusions-附录第-1618-页">1.8 §8 Conclusions + 附录（第 16–18 页）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-发散角式-1">3.1 发散角（式 1）</a></li><li class="l3"><a href="#32-光压合力与力矩式-23">3.2 光压合力与力矩（式 2、3）</a></li><li class="l3"><a href="#33-刚体姿态方程式-4">3.3 刚体姿态方程（式 4）</a></li><li class="l3"><a href="#34-推力与加速度式-56">3.4 推力与加速度（式 5、6）</a></li><li class="l3"><a href="#35-帆质量与尺寸式-79">3.5 帆质量与尺寸（式 7–9）</a></li><li class="l3"><a href="#36-三个特征量-v₀l₀t₀式-1012">3.6 三个特征量 v₀、L₀、t₀（式 10–12）</a></li><li class="l3"><a href="#37-极限速度与最优质量比式-13">3.7 极限速度与最优质量比（式 13）</a></li><li class="l3"><a href="#38-相对论三连式-1416">3.8 相对论三连（式 14–16）</a></li><li class="l3"><a href="#39-精度三角式-1719">3.9 精度三角（式 17–19）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -509,6 +511,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="精读 51 · Analysis of Multiple Factors Restricting The Maximum Height of Skydiving（2023 题A 金牌 · 队伍 244） · UPC 全档案库">
 <meta property="og:description" content="精读 51 · Analysis of Multiple Factors Restricting The Maximum Height of Skydiving（2023 题A 金牌 · 队伍 244） 这份精读怎么用 ：左手论文 PD…">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script defer src="../../../vendor/katex/katex.min.js"></script>
 <script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -401,6 +402,7 @@ $$\Delta T=\frac{0.2\times2.34\times10^9}{157}\approx3\times10^{6}\ °C$$
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract">1.1 Abstract</a></li><li class="l3"><a href="#12-1-introduction">1.2 §1 Introduction</a></li><li class="l3"><a href="#13-2-assumptions-3-notations">1.3 §2 Assumptions + §3 Notations</a></li><li class="l3"><a href="#14-41-运动模型开伞前后">1.4 §4.1 运动模型（开伞前/后）</a></li><li class="l3"><a href="#15-42-热模型全文的核心增量">1.5 §4.2 热模型（全文的核心增量）</a></li><li class="l3"><a href="#16-5-results-discussion排除法的收官">1.6 §5 Results Discussion（排除法的收官）</a></li><li class="l3"><a href="#17-6-model-evaluation验证是最大亮点">1.7 §6 Model Evaluation（验证是最大亮点）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-运动方程与阻力参数式-13">3.1 运动方程与阻力参数（式 1–3）</a></li><li class="l3"><a href="#32-八层大气与位势高度式-56-表">3.2 八层大气与位势高度（式 5–6 + 表）</a></li><li class="l3"><a href="#33-气动加热与辐射换热42-两式">3.3 气动加热与辐射换热（§4.2 两式）</a></li><li class="l3"><a href="#34-服内温升42-总账式与-审计二数量级断裂">3.4 服内温升（§4.2 总账式）与 ⚠ 审计二（数量级断裂）</a></li><li class="l3"><a href="#35-温度-速度平方律42-结尾论断">3.5 温度-速度平方律（§4.2 结尾论断）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -494,6 +496,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

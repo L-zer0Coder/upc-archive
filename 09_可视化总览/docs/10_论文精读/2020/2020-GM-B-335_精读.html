@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="精读 05 · Wind Control Strategy for Quadcopter（2020 题B 金牌 · 队伍 335） · UPC 全档案库">
 <meta property="og:description" content="精读 05 · Wind Control Strategy for Quadcopter（2020 题B 金牌 · 队伍 335） 这份精读怎么用 ：这篇是&quot;动力学建模 + 随机风场 + 闭环控制&quot;的完整工程样板。⚠ 原文 PDF 公式…">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script defer src="../../../vendor/katex/katex.min.js"></script>
 <script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -407,6 +408,7 @@ plt.tight_layout(); plt.show()
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-11-坐标系与欧拉角第-12-页">1.2 §1.1 坐标系与欧拉角（第 1–2 页）</a></li><li class="l3"><a href="#13-12-假设与气动分析第-24-页">1.3 §1.2 假设与气动分析（第 2–4 页）</a></li><li class="l3"><a href="#14-122-整机六自由度方程与-uw-向量第-45-页">1.4 §1.2.2 整机六自由度方程与 U/W 向量（第 4–5 页）</a></li><li class="l3"><a href="#15-13-dryden-湍流风模型第-57-页">1.5 §1.3 Dryden 湍流风模型（第 5–7 页）</a></li><li class="l3"><a href="#16-2122-参数确定与-pid-整定第-915-页全文最出彩的图">1.6 §2.1–2.2 参数确定与 PID 整定（第 9–15 页）——全文最出彩的图</a></li><li class="l3"><a href="#17-23-临界风速搜索与-4-结论第-1518-页">1.7 §2.3 临界风速搜索与 §4 结论（第 15–18 页）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲原文未编号按位置引用">3. 公式逐条精讲（原文未编号，按位置引用）</a></li><li class="l3"><a href="#31-旋转矩阵-rφθψ第-2-页">3.1 旋转矩阵 R(φ,θ,ψ)（第 2 页）</a></li><li class="l3"><a href="#32-诱导速度与推力自洽第-3-页">3.2 诱导速度与推力自洽（第 3 页）</a></li><li class="l3"><a href="#33-newton-euler-六自由度方程组第-45-页">3.3 Newton-Euler 六自由度方程组（第 4–5 页）</a></li><li class="l3"><a href="#34-dryden-谱与成形滤波器第-67-页">3.4 Dryden 谱与成形滤波器（第 6–7 页）</a></li><li class="l3"><a href="#35-pd-律与临界风速合成第-1317-页">3.5 PD 律与临界风速合成（第 13、17 页）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -500,6 +502,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

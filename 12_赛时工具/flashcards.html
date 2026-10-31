@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>物理模型闪卡 · UPC 全档案库</title>
+<meta name="description" content="UPC 物理模型闪卡：从八份模型综述提炼的全部核心模型，适用场景/方程/要点/常见错误四面翻卡，赛前刷模型库。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="物理模型闪卡 · UPC 全档案库">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../09_可视化总览/vendor/katex/katex.min.css"><script defer src="../09_可视化总览/vendor/katex/katex.min.js"></script><script defer src="../09_可视化总览/vendor/katex/contrib/auto-render.min.js"></script>
+<style>
+:root{
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
+ --line:#E7E0D1;--line2:#D9D0BD;
+ --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
+ --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+ --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.85}
+a{color:var(--acc);text-decoration:none}
+a:hover{color:var(--acc-d)}
+::selection{background:rgba(156,63,46,.16)}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1060px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
+.topbar a:hover{color:var(--acc)}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:13.5px;margin-right:4px}
+.brand:hover{color:var(--ink)}
+.brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
+.crumb{color:var(--dim);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.clock{font-family:var(--mono);font-size:11px;line-height:1.9;letter-spacing:.02em;padding:1px 8px;
+ border:1px solid rgba(156,63,46,.28);border-radius:3px;color:var(--acc);background:var(--acc-soft);
+ white-space:nowrap;font-variant-numeric:tabular-nums}
+.clock[data-s="live"]{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
+.wrap{max-width:1060px;margin:0 auto;padding:22px 22px 80px}
+h1.pt{font-family:var(--serif);font-size:25px;margin:.2em 0 .3em;font-weight:700}
+p.pt-lead{color:var(--mut);font-size:13.5px;margin:0 0 18px;max-width:760px}
+.tabs{position:sticky;top:51px;z-index:20;display:flex;gap:2px;overflow-x:auto;background:rgba(247,244,237,.96);
+ padding:6px 0;border-bottom:1px solid var(--line);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{padding:7px 15px;font-size:13.5px;color:var(--mut);border-radius:3px;white-space:nowrap;cursor:pointer}
+.tabs a:hover{color:var(--ink)}
+.tabs a.on{background:var(--acc);color:#FDFCF8}
+.pane{display:none;padding-top:18px}
+.pane.on{display:block}
+.btn{display:inline-flex;align-items:center;height:32px;padding:0 14px;border:1px solid var(--line2);border-radius:3px;
+ font-size:12.5px;color:var(--ink);background:var(--sheet);cursor:pointer;font-family:inherit;transition:.15s}
+.btn:hover{border-color:var(--acc);color:var(--acc)}
+.btn.solid{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.btn.solid:hover{background:var(--acc-d);color:#FDFCF8}
+.btn.danger:hover{border-color:#B23A22;color:#B23A22}
+.card{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.notebox{border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:0 3px 3px 0;background:var(--sheet);
+ padding:12px 16px;color:var(--mut);font-size:13px;line-height:1.9}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:11.5px;letter-spacing:.05em;border-bottom:1px solid var(--line2);background:var(--sheet)}
+tbody tr:nth-child(2n) td{background:#F8F5EC}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px 20px}
+.mermaid{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:12px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink)}
+@media print{
+ .topbar,.tabs,.btn,#pbar{display:none!important}
+ body{background:#fff;font-size:11pt}
+ .wrap{max-width:none;padding:0}
+ .card{border:none;padding:0}
+ .pane{display:block!important;page-break-inside:auto}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <span class="crumb">第 17 届赛时工具</span>
+  <span class="clock" id="clock" aria-label="第 17 届 UPC 赛程"></span>
+</div></div>
+<div class="wrap">
+<h1 class="pt">物理模型闪卡</h1>
+<p class="pt-lead">考前把模型库过一遍：翻卡自测「这个场景该上什么模型、方程长什么样、金牌怎么用、常见错误是什么」。标记存在本浏览器。</p>
+
+<section class="pane on" id="pane-fc" style="display:block">
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+    <select id="fdom" style="height:32px;border:1px solid var(--line2);border-radius:3px;background:var(--sheet);font-family:inherit;font-size:12.5px;padding:0 8px;color:var(--mut)"></select>
+    <button class="btn" id="fshuffle" type="button">随机打乱</button>
+    <div class="segs" id="ffilter" style="display:flex;border:1px solid var(--line2);border-radius:3px;overflow:hidden">
+      <a data-v="all" class="on" style="padding:6px 12px;font-size:12.5px;color:var(--mut);cursor:pointer;background:var(--sheet)">全部</a>
+      <a data-v="todo" style="padding:6px 12px;font-size:12.5px;color:var(--mut);cursor:pointer;background:var(--sheet)">未掌握</a>
+      <a data-v="done" style="padding:6px 12px;font-size:12.5px;color:var(--mut);cursor:pointer;background:var(--sheet)">已掌握</a>
+    </div>
+    <span class="note" id="fcnt" style="color:var(--dim);font-size:12px"></span>
+  </div>
+  <div id="fbox"></div>
+  <div class="notebox" style="margin-top:14px">点击卡片翻面；「掌握 / 再练」标记存在本浏览器。复习顺序：先未掌握、后已掌握；公式由 KaTeX 渲染。</div>
+</section>
+
+</div>
+<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份</footer>
+<script>
+var EV_START=1794013200000,EV_END=1794186000000;
+function p2(n){return n<10?'0'+n:''+n;}
+(function(){
+  var el=document.getElementById('clock');
+  function upd(){var t=Date.now();
+    if(t<EV_START){var ms=EV_START-t,dd=Math.floor(ms/864e5);
+      if(dd>=1){el.textContent='赛前 D-'+dd;el.dataset.s='pre';}
+      else{el.textContent='赛前 '+p2(Math.floor(ms/36e5))+':'+p2(Math.floor(ms%36e5/6e4));el.dataset.s='pre';}}
+    else if(t<EV_END){var u=Math.floor((t-EV_START)/1000);
+      el.textContent='赛中 '+p2(Math.floor(u/3600))+':'+p2(Math.floor(u%3600/60));el.dataset.s='live';}
+    else{el.textContent='第 17 届已结束';el.dataset.s='post';}}
+  upd();setInterval(upd,30000);
+})();
+function escHtml(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function copyText(t,btn){
+  function ok(){if(btn){var o=btn.textContent;btn.textContent='已复制 ✓';setTimeout(function(){btn.textContent=o;},1600);}}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){fallback();});}
+  else fallback();
+  function fallback(){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');ok();}catch(e){}ta.remove();}
+}
+function download(name,text,mime){
+  var blob=new Blob([text],{type:mime||'text/plain;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(a.href);},4000);
+}
+function phaseAt(ts){
+  if(ts<EV_START)return null;
+  var hr=(ts-EV_START)/36e5,cur=PHASES[0];
+  for(var i=0;i<PHASES.length;i++){if(hr>=PHASES[i][0]&&hr<PHASES[i][1]){cur=PHASES[i];break;}}
+  return cur;
+}
+function tLabel(ts){
+  if(ts<EV_START)return '备赛';
+  var s=Math.floor((ts-EV_START)/1000);
+  return 'T+'+p2(Math.floor(s/3600))+':'+p2(Math.floor(s%3600/60));
+}
+
+var CARDS=[{"d": "航天与轨道动力学", "n": "二体轨道与\"$\\Delta v$ 统一货币\"", "y": "2011A、2013A、2016A、2019A", "scene": "一切\"去哪里、省多少燃料、哪个方案容易\"的比较题。", "eq": "Vis-Viva $v=\\sqrt{GM(2/r-1/a)}$；Hohmann 两脉冲；Tsiolkovsky $m_f/m_0=e^{-\\Delta v/u}$。", "pt": "UPC 金牌的标准动作是把开放比较翻译成五级链条——$\\Delta v\\to$ 火箭方程 $\\to$ 单枚载荷 $\\to$ 发射次数 $\\to$ 成本/时间，全程用同一把尺子。2016A-331 队（多伦多）是范本：坠日 $\\Delta v=26.9$ km/s（关键是先抵消地球公转 29.78 km/s）vs 存带 11.0 km/s，再从 $\\Delta v$–距离曲线的渐近线（= 太阳系逃逸速度 12.3 km/s）挖出\"逃出太阳系比坠日便宜\"的第三方案；412 队（巴塞罗那）则用 RKF45 在太阳-木星-地球时变场中真实打靶积分出存档轨道。", "err": "坠日忘减公转速度（结论直接反转）；\"入轨\"不定义目标轨道（2013A 中圆轨道需 21 km/s、大椭圆捕获仅需 5 km/s，差 4 倍）；火箭方程指数敏感性不换算成载荷语言（省 1 km/s = 载荷 $\\times e^{1/u}$）。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/01_%E8%88%AA%E5%A4%A9%E4%B8%8E%E8%BD%A8%E9%81%93%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "航天与轨道动力学", "n": "气动制动 / 气动捕获", "y": "2010A", "scene": "借行星大气耗散动能入轨。", "eq": "$m\\ddot{\\vec r}=-\\frac{GMm}{r^3}\\vec r-\\frac12 C_d\\rho(h)A\\,v\\,\\vec v$，密度由理想气体定律合成：$\\rho=\\frac{M_{H_2}P}{k_BT}$，压强双锚点拟合 $P=\\alpha e^{-h/\\beta}$（金牌队得海王星标高 $H\\approx37$ km）。", "pt": "", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/01_%E8%88%AA%E5%A4%A9%E4%B8%8E%E8%BD%A8%E9%81%93%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "航天与轨道动力学", "n": "引力辅助（飞掠）三件套", "y": "2013A、2020A", "scene": "借天体公转动量加/减速。", "eq": "", "pt": "飞掠在卫星系中速率不变、方向偏转 $\\delta$，回主天体系后矢量合成；减速 = 从天体前方通过（\"棒球-火车\"类比，2013A-538 队用它讲透机制）。金牌链是：最优制动点用能量证明（$\\Delta\\varepsilon=\\vec v\\cdot\\Delta\\vec v$，速度最大处即近木点）$\\to$ 飞掠三件套 $\\to$ 撞击参数匹配 $b_1=b_2$ 闭合几何 $\\to$ 把全部自由度压缩为发射相位角 $\\alpha$ 做一维扫描。2020A 各队则把借力进一步分级：340（同济）把金星借力", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/01_%E8%88%AA%E5%A4%A9%E4%B8%8E%E8%BD%A8%E9%81%93%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "航天与轨道动力学", "n": "低推力螺旋转移", "y": "2020A", "scene": "小推力（$F/m$ 与局部重力可比）连续机动。", "eq": "", "pt": "", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/01_%E8%88%AA%E5%A4%A9%E4%B8%8E%E8%BD%A8%E9%81%93%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "航天与轨道动力学", "n": "太阳帆 / 光帆", "y": "2017A、2018A", "scene": "无工质推进。", "eq": "", "pt": "连续控制的离散化是隐形标配——三队都把帆角 $\\Theta(t)$ 切成分段常值（670 用 3 段；744 扫描 $n=1$–30 证明 1–2 段已近最优；699 用庞特里亚金极小值原理把控制函数解析化为协态变量的函数，无穷维压缩成 5 个标量）。2018A 重心转向稳定与精度预算：两队的指向精度结论独立收敛（$9.4\\times10^{-9}$ rad 与 $1\\times10^{-8}$ rad），258 队给出热平衡材料判据 $\\epsilon\\eta/\\alpha\\ge6.6\\times10^3$。", "err": "物理深度与全文脱节（三级光压模型都能拿金牌，关键是把所选层级\"用满\"）；对相对论要么假装不存在、要么过度处理。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/01_%E8%88%AA%E5%A4%A9%E4%B8%8E%E8%BD%A8%E9%81%93%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "航天与轨道动力学", "n": "多体与参数扫描：环双星稳定域", "y": "2014A", "scene": "\"哪里可行\"类问题。", "eq": "行星在双星时变引力场中的牛顿方程，双星轨道用 Kepler 定标参数化（含偏心率 $e_b$）。", "pt": "", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/01_%E8%88%AA%E5%A4%A9%E4%B8%8E%E8%BD%A8%E9%81%93%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "航天与轨道动力学", "n": "连续扰动偏转：小行星防御", "y": "2022A", "scene": "给小行星一个微小 $\\Delta v$ 使其错过地球。", "eq": "擦地判据等价于\"横向速度增量 × 剩余时间 = $R_E$ 量级\"；346 队给出火箭方程动量极值 $u_{sat}=v_e$（喷气速度等于排气速度时动量传递最大），并把落时用 $\\sinh^2$ 代换积成闭式。", "pt": "", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/01_%E8%88%AA%E5%A4%A9%E4%B8%8E%E8%BD%A8%E9%81%93%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "流体与空气动力学", "n": "雷诺数选型与阻力律", "y": "2014B，一切阻力题的入口", "scene": "任何\"要不要算阻力、算哪种阻力\"的判断。", "eq": "$Re=\\rho_a vd/\\eta$；Stokes 线性阻力 $F=6\\pi\\eta a v$（$Re\\ll1$）vs 二次阻力 $F_d=\\tfrac12C_D\\rho_aAv^2$（$Re\\gg1$）。", "pt": "", "err": "无 Re 论证直接选阻力律；反过来只上阻力却不给真空解析基线，评委看不到修正的贡献。2025B 再现同一教训：428 队用常数 $C_D=0.50$ 但自报 ~8% 系统偏差（\"粗糙但透明\"），而 450 m/s ≈ Ma 1.3 落在跨声速 $C_d$ 从 0.47 陡增至 1.0 的区间——13 支金牌队一半用分段 $C_d(\\mathrm{Ma})$、一半踩坑，496 队的\"真空 vs 真实\"对照表（射程偏 334–449 m）是绕坑后的标准展示。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/02_%E6%B5%81%E4%BD%93%E4%B8%8E%E7%A9%BA%E6%B0%94%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "流体与空气动力学", "n": "马格努斯力与旋转球弹道", "y": "2011B、2012B、2015B、2022B", "scene": "一切旋转球（篮球、乒乓球、高尔夫、足球、自旋炮弹）。", "eq": "2022B 三队收敛到同一表达式 $\\vec F_m=\\frac{8}{3}\\pi\\rho r^3\\,\\vec\\omega\\times\\vec v$；配二次阻力组成四力 ODE。", "pt": "", "err": "$\\vec\\omega\\times\\vec v$ 轴向/符号错；把侧向加速度当常数外推全程（力 $\\propto v^2$ 随速度衰减）；$C_D/C_L$ 拍脑袋、不区分光滑/凹坑球与 Re 区间（低速反向 Magnus，$Re<7\\times10^4$）。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/02_%E6%B5%81%E4%BD%93%E4%B8%8E%E7%A9%BA%E6%B0%94%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "流体与空气动力学", "n": "大气密度模型谱系", "y": "2010A、2023A、2025B", "scene": "", "eq": "", "pt": "从粗到细四档，全部有金牌先例： - 双锚点指数：$P=\\alpha e^{-h/\\beta}$ 两点拟合（2010A 海王星 $H\\approx37$ km；2025B 多队取 $H\\approx8.4$–8.5 km）。 - 多层经验公式：2023A-355 的三层 T(h)、P(h)；227 的四层幂律气压。 - US 标准大气分层表：2023A-244/447（八层，含位势高度换算 $H_{…", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/02_%E6%B5%81%E4%BD%93%E4%B8%8E%E7%A9%BA%E6%B0%94%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "流体与空气动力学", "n": "伞降与跳伞动力学", "y": "2023A", "scene": "", "eq": "$m\\frac{dv}{dt}=mg(h)-\\frac12\\rho(h)C_dA\\,v^2$。两个解析洞见：峰值动压 $q^*\\approx mg/C_dA\\approx3.7$ kPa 与起跳高度无关（峰值速度处 $dv/dt=0$，末段收敛）；指数大气下过载上限 $a_{max}=v_e^2/(2eH)$ 给出 $h_0\\approx eH\\cdot n$——每允许 1g 过载约换 19 km 起跳高度（5G→95 km，一行解析式复现金奖队 131/447 的数值）。", "pt": "", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/02_%E6%B5%81%E4%BD%93%E4%B8%8E%E7%A9%BA%E6%B0%94%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "流体与空气动力学", "n": "海洋波与涌浪", "y": "2021B", "scene": "撞击海啸、波浪传播。", "eq": "深水色散 $\\omega^2=gk\\tanh(kH)$；Green 浅化定律 $A\\propto h^{-1/4}$（4 km→100 m 放大 ×2.5）；空腔波幅律（CMM05）$A(r)=\\min(D_{tc}/14,H)\\cdot\\frac{3D_{tc}}{4r}$（$\\propto1/r$）vs Ward 线性远场 $\\propto1/\\sqrt r$；实验室律 $A=9700\\sqrt{E_{kt}}/r$。", "pt": "", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/02_%E6%B5%81%E4%BD%93%E4%B8%8E%E7%A9%BA%E6%B0%94%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "流体与空气动力学", "n": "四旋翼气动与风场", "y": "2020B", "scene": "", "eq": "Newton-Euler 六自由度刚体 + 转子诱导速度气动模型；风场两派——335（同济）用 Dryden 随机湍流谱 + 四路 PD 闭环，逐步加风找临界 10.63 m/s；380（国防科大）用四分量确定性风（基本/阵风/渐变/随机）+ 仿弹簧比例反馈，自创\"风速变化因子\" $\\epsilon$（$V_{max}=(1+2\\epsilon)V_b$），理论公式与仿真峰值双重互验（5.3678 vs 5.3487 m/s）。", "pt": "", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/02_%E6%B5%81%E4%BD%93%E4%B8%8E%E7%A9%BA%E6%B0%94%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "流体与空气动力学", "n": "通量守恒的概率映射", "y": "2014B 喷泉", "scene": "", "eq": "立体角元液滴数 = 落点面元液滴数，$E(\\theta,\\varphi)d\\theta d\\varphi=\\rho(r,\\varphi)r\\,dr\\,d\\varphi$，抛体角-径映射 $r=\\frac{v_0^2\\sin2\\theta}{g}$ 双支叠加，雅可比 $\\left|\\frac{dr}{d\\theta}\\right|=\\frac{2}{g}\\sqrt{v_0^4-r^2g^2}$，得对", "pt": "", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/02_%E6%B5%81%E4%BD%93%E4%B8%8E%E7%A9%BA%E6%B0%94%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "刚体与多体动力学", "n": "Lagrange 多体动力学", "y": "2010B 投石机", "scene": "约束连杆系统（摆、吊索、多连杆），坐标受几何约束、只有保守力做功时最自然。", "eq": "二自由度（梁角 $\\varphi_1$、吊索角 $\\varphi_2$），动能含耦合项 $\\cos(\\varphi_1-\\varphi_2)$，得两个耦合非线性二阶 ODE，无解析解转数值。", "pt": "", "err": "把\"配重举高 2 m\"当\"下落 2 m\"（实际下降量由 $r_1,h_0$ 决定，金牌构型仅 ~1 m，能量预算差一倍）；优化不设物理可行域（搜出穿地解）；把单一构型的\"吊索:长臂≈2:3\"法则外推成普适定律；能量守恒自检缺失（一行代码即可抓积分器 bug）。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/03_%E5%88%9A%E4%BD%93%E4%B8%8E%E5%A4%9A%E4%BD%93%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "刚体与多体动力学", "n": "恢复系数碰撞与事件驱动分段仿真", "y": "2011B、2012B、2015B", "scene": "球类与边界（地板/篮板/篮筐/树）的反复碰撞。", "eq": "法向恢复系数 $e$（2015B 用 Penner 的 $e(v_\\perp)$，随撞速变化），切向摩擦反弹 $v'_\\parallel=\\tfrac57v_\\parallel-\\tfrac27R\\omega_r$（Daish），弹跳总长为公比 $e$ 的几何级数，滚动 $L_r=v'^2_\\parallel/2\\mu g$。", "pt": "", "err": "恢复系数取常数（实际随撞速变化）；backspin 过大时 $v'_\\parallel<0$ 球会回滚的情形漏掉；\"落地即停\"忽略弹跳与滚动，落点判据失真。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/03_%E5%88%9A%E4%BD%93%E4%B8%8E%E5%A4%9A%E4%BD%93%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "刚体与多体动力学", "n": "约束轨道与过载设计", "y": "2019B 过山车", "scene": "", "eq": "190 队（Nuova-Prime）写五段轨道（斜坡/三连半圆/上爬坡/双螺旋/下坡+圆弧）的牛顿运动 ODE + 平方空气阻力 + 分段摩擦系数，递归欧拉法（$\\Delta t=10^{-4}$ s）+ 能量总账 $Mgh$ 校验；389 队用 9 分段动能定理递推（半解析），clothoid 环 + 大半径回转做轨道选型，风阻 $F_w=\\tfrac12\\rho A_DC_Dv^2$。", "pt": "", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/03_%E5%88%9A%E4%BD%93%E4%B8%8E%E5%A4%9A%E4%BD%93%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "刚体与多体动力学", "n": "非线性弹性与人-结构耦合", "y": "2023B 蹦床", "scene": "", "eq": "", "pt": "共同起点：弹簧几何伸长 → 竖直投影 $F_v(x)$。三条技术路线：102 队走\"线性化 + 修正\"——先画 $F_v(x)$ 曲线标定线性区（$x<0.5$ m、$k=8000$ N/m），修正阶段回到二次律 $F_v\\approx\\frac{NsK_s}{2R}x^2$，用对比图证明简化误差可忽略（最稳健）；138 队工程化最深——单簧刚度 $k=Gd^4/(8nD^3)\\approx712…", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/03_%E5%88%9A%E4%BD%93%E4%B8%8E%E5%A4%9A%E4%BD%93%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "刚体与多体动力学", "n": "姿态与旋转稳定性", "y": "2023A 部分，可迁移到 2020B 四旋翼", "scene": "自由下落体的姿态失稳。", "eq": "", "pt": "", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/03_%E5%88%9A%E4%BD%93%E4%B8%8E%E5%A4%9A%E4%BD%93%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"d": "热学与能量输运", "n": "集总热平衡与 Arrhenius 动力学", "y": "2018B 堆肥", "scene": "\"整体作为一个热源 + 热容 + 散热口\"的系统（堆肥、仓贮、生物反应器）。", "eq": "", "pt": "", "err": "效率指标不可积分或全文不一致；只算热不算氧；文献动力学参数静默照搬（240 发现文献 $k(T)$ 峰位在 80–100 °C 与题给 40–60 °C 矛盾后明说并重标定，是\"用文献\"与\"被文献用\"的分水岭）；为 5–20 °C 日变写复杂边界却不给趋肤深度论证（$\\sqrt{\\alpha\\tau_{day}/\\pi}\\approx0.12$ m，核心只\"看见\"均值 12.5 °C）。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/04_%E7%83%AD%E5%AD%A6%E4%B8%8E%E8%83%BD%E9%87%8F%E8%BE%93%E8%BF%90.html"}, {"d": "热学与能量输运", "n": "行星热演化：衰变热 + Fourier 导热", "y": "2012A 火山", "scene": "行星/天体内部热历史。", "eq": "$CM\\frac{dT}{dt}=P_0e^{-t/\\tau}-B(T-T_0)$，$B=\\frac{4\\pi R^2k}{d}$；标度律 $R\\propto\\xi^{1/3}$、$d\\propto R$、$P_0\\propto\\xi$、$CM\\propto\\xi$（相消），得冷却速率 $B/(CM)\\propto\\xi^{-2/3}$，", "pt": "", "err": "漏掉 $M$ 同时出现在供热与热容两端（会得出\"寿命与质量无关\"）；用地表实测热流直接乘面积（隐含壳厚不随质量变）；不做端点校验就外推；把表面喷发温度与幔固相线混用（差出的寿命达十亿年量级，必须声明取哪个阈值）。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/04_%E7%83%AD%E5%AD%A6%E4%B8%8E%E8%83%BD%E9%87%8F%E8%BE%93%E8%BF%90.html"}, {"d": "热学与能量输运", "n": "辐射平衡与温室模型", "y": "2015A、2021A", "scene": "", "eq": "零维 $T_s=\\left[\\frac{S(1-\\alpha)}{4\\sigma}\\right]^{1/4}$；单层温室/半灰模型（光学深度 $\\tau$–温度）用 $T_g=T_s(1+\\frac34\\tau)^{1/4}$ 一类修正。", "pt": "", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/04_%E7%83%AD%E5%AD%A6%E4%B8%8E%E8%83%BD%E9%87%8F%E8%BE%93%E8%BF%90.html"}, {"d": "热学与能量输运", "n": "再入气动加热", "y": "2023A 部分", "scene": "", "eq": "驻点温度 $T_0=T_\\infty\\left(1+\\frac{\\gamma-1}{2}Ma^2\\right)$。从 ~60 km 起跳峰值速度 ~1 km/s 出现在 35–40 km（$Ma\\approx3$），$T_0\\sim650$–750 K ≫ 服材耐温 394–423 K——", "pt": "", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/04_%E7%83%AD%E5%AD%A6%E4%B8%8E%E8%83%BD%E9%87%8F%E8%BE%93%E8%BF%90.html"}, {"d": "热学与能量输运", "n": "撞击能量学", "y": "2015A、2021B", "scene": "撞击、爆炸、成坑、成波——一切\"能量从哪来到哪去\"的记账题。", "eq": "$E=\\tfrac12mv^2$（2021B：$10^{10}$ kg @ 20 km/s = $2\\times10^{18}$ J ≈ 480 Mt TNT）→ 分配比例（成腔/成波/成坑/热）→ 效应端经验律。", "pt": "", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/04_%E7%83%AD%E5%AD%A6%E4%B8%8E%E8%83%BD%E9%87%8F%E8%BE%93%E8%BF%90.html"}, {"d": "生物物理与标度律", "n": "异速生长律（allometric scaling）家族 $Y\\propto M^a$", "y": "", "scene": "任何\"身体某个量随体重怎么变\"的问题——代谢率、血容量、骨骼占比、步频、寿命。它是把生物学变成物理学的第一把钥匙，因为幂律两端取对数后就是一条直线，可回归、可检验、可外推。", "eq": "$$Y = a M^b \\quad\\Longleftrightarrow\\quad \\log Y = \\log a + b\\log M,$$ 能耗上限形式（McNab 框架）：日能耗 $\\mathrm{FEE}=aM^b$（$b<1$），环境对单个个体每日能供给上限记 $K$，联立得 $$M_{max}=\\Big(\\frac{K}{a}\\Big)^{1/b}.$$", "pt": "① 指数 $b$ 群间相近（哺乳 ~0.73、爬行 ~0.89、巨蜥 ~0.71，文献区间 0.67–0.85），群间差异几乎全部由质量无关系数 $a$ 承载——$a$ 越小，同等环境养得起的体重越大；② 必须亲自回归并报告 $n$、$r^2$、$p$ 三件套；③ 回归口径要统一（BMR 与 FMR 相差 2–3 倍，不可混用；单位进对数前要一致）。", "err": "只讲\"恐龙代谢低所以能更大\"的故事而不产出与 10 倍对标的具体数字；把 $Fr$ 式幂律当万能公式不做外推合法性论证（441 队预测的 100 t 超出数据集两个量级，必须单独论证幂律外推的合理性并做独立热学检查）。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/05_%E7%94%9F%E7%89%A9%E7%89%A9%E7%90%86%E4%B8%8E%E6%A0%87%E5%BA%A6%E5%BE%8B.html"}, {"d": "生物物理与标度律", "n": "平方-立方律与结构强度标度", "y": "骨骼/肌肉/树木", "scene": "体型放大或环境重力改变时，\"重量按 $l^3$ 长而支撑截面按 $l^2$ 长\"的矛盾如何被演化化解。", "eq": "几何相似下骨应力 $\\sigma \\sim mg/A \\propto M^{1/3}$；等应力设计（地球动物跨物种骨强度近似恒定）要求 $$\\frac{mg}{A}=\\sigma_{\\rm bone}=\\text{const}\\quad\\Rightarrow\\quad A\\propto g\\,M^{2/3},$$ 而加粗骨骼的代价是骨骼自重占比 $f_{\\rm bone}\\propto g\\,l$——体型上限由\"骨骼占重比不失控\"决定。", "pt": "① 工况要用动载荷（奔跑时地面反力为体重 2–3 倍、四足分担），站立工况会低估；② 平方-立方律只是\"下界约束\"，演化可以加粗骨骼（正异速生长）对抗它，真正上限来自自重占比；③ 安全因子是现成的锚点——大象下肢骨安全因子已仅 2–3。", "err": "把平方-立方律当全部答案，直接说\"2g 下生物缩小一半\"——既忽略骨骼可加粗，也没指出真正上限在自重占比；引用骨强度等生物常数零出处（超重力题最容易被批\"编故事\"）。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/05_%E7%94%9F%E7%89%A9%E7%89%A9%E7%90%86%E4%B8%8E%E6%A0%87%E5%BA%A6%E5%BE%8B.html"}, {"d": "生物物理与标度律", "n": "心血管与流体标度", "y": "", "scene": "重力改变时循环系统的代价（2013-B 的第二主线）。", "eq": "把血液泵到高度 $h$ 需压差 $\\Delta P=\\rho_b g h$；心脏壁厚由 Laplace 定律 $\\Delta P=2\\sigma t/r$ 联系；血容量按 Dawson 异速律 $V\\propto g$（注意该律在高 $g$ 发散，仅限小幅变化，须标注失效域）。", "pt": "真实生理常数自检是本模型的灵魂——长颈鹿头部高于心脏 ~2 m，$\\rho_bgh\\approx2.1\\times10^4$ Pa ≈ 155 mmHg，与长颈鹿实测血压量级吻合，这个对照一步建立\"模型没有瞎编\"的信任。2g 下同身高血压翻倍，出路只有三条：身高/附肢减半、心脏壁增厚、血容量调整。", "err": "忘了血压梯度与身高耦合，把\"心脏变大\"当成无代价方案；$V\\propto g$ 外推到极端重力不标注失效域。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/05_%E7%94%9F%E7%89%A9%E7%89%A9%E7%90%86%E4%B8%8E%E6%A0%87%E5%BA%A6%E5%BE%8B.html"}, {"d": "生物物理与标度律", "n": "步态与运动标度", "y": "Froude 数 + 代谢功率", "scene": "\"它跑多快\"这类运动能力问题。", "eq": "肢体是倒摆，Froude 数 $$Fr=\\frac{v^2}{gl}\\quad(\\text{特征长度取腿长 } l)$$ 控制步态转换：走-跑阈值 $Fr\\approx0.3$–0.8，跑-飞奔 $Fr\\approx2$–3（Alexander 实测）。同一速度下 $g$ 加倍使 $Fr$ 减半——\"地球上在飞奔、系外行星上只是小跑\"。极速的更硬约束是代谢功率：移动每米克服重力做功 $\\sim c\\,mg$（地球 cost of transport ~10–20 J/(kg·m)），比功率恒定给出 $v_{\\max}\\propto l/g$。", "pt": "$Fr$ 只是步态转换判据，不能当极速公式；极速应诉诸功率论证。跳跃高度 $h=v^2/(2g)$ 减半（肌肉能量密度不变）是同一思想的另一面。", "err": "Froude 数特征长度取身高而非腿长；把 $Fr$ 阈值当极速判据。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/05_%E7%94%9F%E7%89%A9%E7%89%A9%E7%90%86%E4%B8%8E%E6%A0%87%E5%BA%A6%E5%BE%8B.html"}, {"d": "生物物理与标度律", "n": "撞击生物毁伤判据", "y": "阈值工程", "scene": "题目给出\"substantial damage\"式模糊判据，要求反解物理参数（2021-B）。这本质上是把\"人/建筑能承受什么\"作为生物-工程界面的经验标度问题。", "eq": "无普适方程，核心是把判据翻译成带文献的数值阈值，再嵌入波幅-质量关系 $$A(r)=\\frac{9700\\sqrt{E_{\\rm kt}}}{r}\\ (\\text{Gault \\& Sonett 实验律})\\quad\\text{或}\\quad A(r)\\propto \\min(D_{tc}/14,H)\\cdot\\frac{3D_{tc}}{4r}\\ (\\text{CMM05}),$$ 最后反解 $m_{\\min}$。", "pt": "阈值翻倍在振幅-质量关系里放大成质量翻一个数量级，所以阈值工程直接决定答案数量级——2021-B 四支金奖队答案横跨两个多数量级（$10^9$–$1.7\\times10^{11}$ kg），第一分歧来源正是阈值：216 队引三份海啸灾害文献定 2 m 波高（毁木屋/砖房）、442 队按 ITIS-2012 量表对 D 类建筑定 7 m、385 队取 Watanabe 海啸等级 3（10–20 m）、445 队自定 10 m。", "err": "阈值随手拍一个数不给文献；不报告对阈值/波幅定律选择的敏感性（两条文献波幅律在 1000 km 处可差一个量级）。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/05_%E7%94%9F%E7%89%A9%E7%89%A9%E7%90%86%E4%B8%8E%E6%A0%87%E5%BA%A6%E5%BE%8B.html"}, {"d": "生物物理与标度律", "n": "人体辐射剂量学", "y": "人作为被照射对象", "scene": "辐射防护题中\"人\"这一端的判据（2019-A）。", "eq": "吸收剂量 $D=E/m$（Gy）→ 品质因子加权 → 剂量当量 $H$（Sv）；基准线 $D_0=\\dot D\\,T_{\\rm cruise}$，取 MSL/RAD 实测巡航 ~1.8 mSv/天 × Hohmann 259 天 ≈ 480 mSv，对照 NASA 职业限值（~600 mSv/职业生涯）。", "pt": "① Gy 与 Sv 混用是最典型的判据口径漂移（品质因子随粒子类型在 2–20 间变化）；② \"没有基准线就没有防护\"——先算无屏蔽剂量，再算屏蔽后剂量，给\"559.48 Sv → 1.86 Sv\"式对照（105 队），评委才有可判定结论。", "err": "用\"年剂量限值\"套\"单程剂量\"；忽略品质因子随粒子类型变化；只报屏蔽厚度不给有/无屏蔽的 Sv 闭环数字。 ## 3. 跨题目的建模套路总结 1.", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/05_%E7%94%9F%E7%89%A9%E7%89%A9%E7%90%86%E4%B8%8E%E6%A0%87%E5%BA%A6%E5%BE%8B.html"}, {"d": "电磁辐射与辐射防护", "n": "洛伦兹偏转与磁屏蔽几何", "y": "", "scene": "一切\"用磁场挡/转带电粒子\"的方案评估（2017-B 导向、2019-A 主动屏蔽）。", "eq": "$$\\vec F=q\\vec v\\times\\vec B,\\qquad r_L=\\frac{mv}{qB}.$$ 关键约束：洛伦兹力不做功——磁场只能折转方向、重新分配动量分量（径向动量转轴向），不能加速；1 GeV 质子 $pc\\approx1.7$ GeV/c，$r_L\\approx5.7/B[\\mathrm{T}]$ m。", "pt": "① 偏转判据必须落到\"回旋半径 vs 作用区尺度\"的比较（2019-A 的 343 队写成 $L\\ge2r_L$；2017-B 的 609 队折转角 $\\varphi=L/r_g$，即 $r_g=mv/qB=0.068\\,\\mathrm{m}/B[\\mathrm{T}]$ 对氙离子）；② 场几何要显式构造最优解——609 队构造", "err": "把磁场当\"能加速离子\"的工具（违背不做功定理）；只画场图不验算 $r_L$ 与储能；把中和后的中性原子当作用对象；收益与代价不成对（算出 2–6% 收益却不与磁体功耗放上天平）。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/06_%E7%94%B5%E7%A3%81%E8%BE%90%E5%B0%84%E4%B8%8E%E8%BE%90%E5%B0%84%E9%98%B2%E6%8A%A4.html"}, {"d": "电磁辐射与辐射防护", "n": "光子屏蔽：指数衰减律", "y": "", "scene": "γ/X 射线、β 粒子的被动屏蔽层设计（2019-A）。", "eq": "$$I=I_0e^{-\\mu_m\\rho x},$$ 配 NIST 质量衰减系数表反解厚度；多层屏蔽按\"低穿透先挡\"排序（105 队：Plexiglass 40 cm 挡 β 与低能带电粒子以抑制韧致辐射 → 铅 3.5 cm 挡 γ → Kevlar 6 cm）。", "pt": "γ 屏蔽公式", "err": "质量只算屏蔽膜不算支撑/密封/余量；几何随手估（$V=1000\\ \\mathrm{m^3}$ 应先算出球形 $R=6.2$ m、$A=483\\ \\mathrm{m^2}$，等容积圆柱多 15% 屏蔽质量）。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/06_%E7%94%B5%E7%A3%81%E8%BE%90%E5%B0%84%E4%B8%8E%E8%BE%90%E5%B0%84%E9%98%B2%E6%8A%A4.html"}, {"d": "电磁辐射与辐射防护", "n": "带电重粒子屏蔽：射程、剂量-深度极小与低 Z 材料", "y": "", "scene": "GCR（GeV 级）与 SPE（百 MeV 质子）的防护（2019-A 的物理核心）。", "eq": "射程表（PSTAR/NIST）——1 GeV 质子在水中射程 ~300 g/cm²（3 m 水），\"挡住\"在质量上不可能（每 100 g/cm² 即 ~48 t），只能减剂量；200 MeV SPE 质子射程 ~27 g/cm²，30–50 g/cm² 掩体可挡。剂量-面密度曲线在 ~15–25 g/cm² 处有", "pt": "① 材料选低 Z 高 H（水、PE、食物/废料墙），氢利于弹性散射慢化中子且次级产额低；铝是结构材料不是好屏蔽；② 任务剖面分层——巡航 GCR 靠减剂量 + 全舱薄屏蔽，SPE 短暴靠小型风暴掩体（20 m³ 球、50 g/cm² 水仅 17.7 t），\"全舱轻屏蔽 + 小掩体\"的混合战术是\"附加质量\"问题的高级答案；③ 时间与路径是零质量防护：Hohmann 缩时、Van Allen 带快速穿越（105 队数值积分找 43.6°/55.3° 发射窗口）、太阳周期窗口（GCR 极小/极大差 ~2 倍）。", "err": "Gy/Sv 混用；把光子衰减系数用于带电粒子；漏掉 Van Allen 穿越与 SPE 掩体两个任务相位；方案在真实任务剖面下穿洞。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/06_%E7%94%B5%E7%A3%81%E8%BE%90%E5%B0%84%E4%B8%8E%E8%BE%90%E5%B0%84%E9%98%B2%E6%8A%A4.html"}, {"d": "电磁辐射与辐射防护", "n": "电源系统标度：RTG / 太阳能 / 裂变堆对比", "y": "2024-B", "scene": "\"以质量最小为目标给深空/行星表面供电\"的系统设计题。", "eq": "能量账本 $E=P_et$（150 kW × 2 年 = $9.47\\times10^{12}$ J，铀裂变 $8.2\\times10^{13}$ J/kg → 燃耗仅 ~460 g，装料 10–15 kg，燃料与寿命完全不是约束）；比功率标度 $M=P/(\\mathrm{W/kg})$；辐射器面积 $A_{rad}=P_{rej}/(\\varepsilon\\sigma T_r^4)$，废热 $P_{rej}=P_e(1/\\eta-1)=450$ kW；风电功率密度 $\\frac12\\rho v^3$（火星 20 m/s 仅 80 W/m²，Betz 前——一票否决）。", "pt": "① \"continuously\"口径定义是全题题眼：夜间与全球沙尘暴期是否保证 150 kW？沙尘暴直射可跌到晴空 15–25%，保证连续需 ×4–6 过构建——681 队仅 3 队金奖（0.44%）的主因正是口径不定义；② 质量边界声明（发电/储能/热控/屏蔽/配电是否计入）；③ 裂变堆内部必须拆解优化：辐射器温度 450→600 K 使质量 1.1 t→0.34 t，是最大杠杆；屏蔽-电缆权衡（机上影子盾 1–2 t vs 远置堆 + 1 km 5 kV 铝缆 ~35 kg + 2 m 火壤屏蔽 3200 kg/m²）；④ 用足题面最后一句\"乘组可劳动\"——清尘、火壤屏蔽、装配，价值 3–10 t。", "err": "电功率与热功率混淆（150 kW 电 ↔ 450–600 kW 热）；辐射器按电功率而非废热算面积；RTG 只除以比功率不做 Pu-238 供给核查；把 590 W/m² 晴空均值当峰值×24 h 直除。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/06_%E7%94%B5%E7%A3%81%E8%BE%90%E5%B0%84%E4%B8%8E%E8%BE%90%E5%B0%84%E9%98%B2%E6%8A%A4.html"}, {"d": "电磁辐射与辐射防护", "n": "电磁拾音与传感物理", "y": "2025-A", "scene": "把振动转化为电信号的\"换能器\"环节，以及任何\"传感器物理是否透明\"的判断。", "eq": "磁拾音基于法拉第感应，输出正比于弦速度（对时间导数）——理想拨弦位移谱 $\\propto1/n^2$ 经微分改写为 $1/n$，高次谐波被人为抬高（电吉他\"偏亮偏尖\"的根源），后级 EQ 补不回相位与瞬态；位移敏感的光学/压电拾音无此预失真。拾音位置的波动方程权重 $\\propto\\sin(n\\pi x/L)$——贴琴码（$x\\to L$）可避开波节、保留最多谐波与动态余量。", "pt": "", "err": "默认磁拾音\"透明\"不讨论频谱权重；忽略拾音位置波节效应导致某些谐波丢失。 ## 3. 跨题目的建模套路总结 1.", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/06_%E7%94%B5%E7%A3%81%E8%BE%90%E5%B0%84%E4%B8%8E%E8%BE%90%E5%B0%84%E9%98%B2%E6%8A%A4.html"}, {"d": "声学与信号处理", "n": "弦振动与谐波结构", "y": "", "scene": "一切弦系乐器/张紧绳的频谱预测（2025-A 声源端）。", "eq": "$$f_n=\\frac{n}{2L}\\sqrt{\\frac{T}{\\mu}},\\qquad\\text{拨弦（位移激励）第 } n \\text{ 次谐波幅度}\\ \\propto \\frac{1}{n^2}.$$", "pt": "① 拨弦的 $1/n^2$ 位移谱是激励端谐波结构的基础，拾音方式（位移 vs 速度敏感）会改写它（见 2.5）；② 弦的张力与线密度通常需自设并声明（题面未给）；③ 拾音位置权重 $\\sin(n\\pi x/L)$ 决定哪些谐波可见——$x=L/N$ 处第 $N$ 次谐波恰为零。", "err": "只算基频不管谐波结构；忽略拾音位置波节导致某些谐波在模型里凭空消失。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/07_%E5%A3%B0%E5%AD%A6%E4%B8%8E%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86.html"}, {"d": "声学与信号处理", "n": "开管驻波与端修正", "y": "题面尺寸的物尽其用", "scene": "管状谐振腔的谐振序列预测（2025-A 的 70 cm 竹管）。", "eq": "$$f_n=\\frac{nc}{2L}=245n\\ \\mathrm{Hz}\\ (L=0.7\\ \\mathrm{m},\\ c=343\\ \\mathrm{m/s}),$$ 精修计入两端开口修正 $\\Delta L\\approx0.6r$（$r=4$ cm）→ $L_{eff}=0.748$ m → $f_1\\approx229$ Hz（偏移 ~6%）。", "pt": "出题人给的每个数字都是物理钩子——245/490/735/980 Hz 四阶恰落在题给 98–1047 Hz 通带内，识别并利用这个干净的谐波结构是三支金奖队的共同获奖基础（批次 10 观察：题面数字本身指向干净谐波结构）。98 Hz 下限对应叶腔 Helmholtz 模式，1047 Hz 上限对应\"波长与腔体尺寸可比、集总假设失效\"。", "err": "把 98–1047 Hz 只做成一条理想带通，丢掉 245n Hz 四个窄谐振峰——恰是题面尺寸白送的音色骨架，也是\"authentic\"与\"能出声\"的分界。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/07_%E5%A3%B0%E5%AD%A6%E4%B8%8E%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86.html"}, {"d": "声学与信号处理", "n": "Helmholtz 共振与共鸣器包络", "y": "", "scene": "腔体类共鸣器的低频下限与宽带包络（叶共鸣器、扬声器箱体）。", "eq": "$$f_H=\\frac{c}{2\\pi}\\sqrt{\\frac{A}{V L_{eff}}};\\qquad \\text{宽带包络中心}\\ f_0=\\sqrt{f_L f_H}\\approx320\\ \\mathrm{Hz},\\ Q\\approx0.34\\ (\\text{低}Q=\\text{宽带共鸣}).$$", "pt": "① 手工编织叶腔无法解析精算——必须声明建模立场：物理先验参数化或测量（485 队用吉他/曼陀林类比 + Helmholtz 先验；182 队引竹材 DMTA 数据）；② 同一公式反向使用：扬声器倒相箱调谐到 ~98 Hz，等于\"电声箱体重新做一个 Helmholtz 共振接回叶腔下限\"——末级最易被漏掉的一环。", "err": "滤波器频响达标 ≠ 系统声学达标，扬声器末级必须单独验证；目标频响凭空设定、无物理先验无测量方案。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/07_%E5%A3%B0%E5%AD%A6%E4%B8%8E%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86.html"}, {"d": "声学与信号处理", "n": "阻尼、Q 值与谐振二阶节", "y": "", "scene": "谐振峰的宽度、衰减拖尾与滤波器设计（2025-A 的核心参数链）。", "eq": "二阶带通谐振器 $$H(s)=\\frac{\\omega_0 s}{s^2+(\\omega_0/Q)s+\\omega_0^2};\\qquad \\tan\\delta\\approx\\frac{1}{Q},\\qquad \\tau=\\frac{Q}{\\pi f}\\ (\\text{衰减时间}).$$ 竹材内摩擦 $\\tan\\delta\\approx0.05\\Rightarrow Q\\approx19$，对应 245 Hz 处衰减时间 ~25 ms（音符串音）；112 队统一取 $Q=8$（拖尾 ~10 ms）。", "pt": "① $Q$ 不是自由拟合参数，必须从材料损耗（$\\tan\\delta$）或实测峰宽推出；② 峰宽与衰减时间是同一参数的频域/时域两面，验证时两头都查。", "err": "$Q$ 值拍脑袋；忽略窄 Q 节的群时延在峰附近可达毫秒级，谐波去同步改变起音\"软硬\"。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/07_%E5%A3%B0%E5%AD%A6%E4%B8%8E%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86.html"}, {"d": "声学与信号处理", "n": "拾音器物理与传感链", "y": "详见《06_电磁辐射与辐射防护》2.5", "scene": "", "eq": "", "pt": "磁拾音速度敏感（法拉第感应）把 $1/n^2$ 位移谱改写为 $1/n$、造成预失真；位移敏感的光学/压电拾音是物理正解；拾音位置由 $\\sin(n\\pi x/L)$ 定，贴琴码避波节。2025-A 仅 182 队完整建模此环节——传感—滤波—放大的全链路系统观是其两大差异化优势之一。", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/07_%E5%A3%B0%E5%AD%A6%E4%B8%8E%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86.html"}, {"d": "声学与信号处理", "n": "滤波器设计：物理模型的数字替身", "y": "", "scene": "把共鸣器传递函数在数字域实现（2025-A 的交付物本体）。", "eq": "模拟原型（RBJ Audio EQ Cookbook 带通/峰化 biquad 闭式系数）→ 双线性变换离散化（$f_s=44.1/48$ kHz 时 980 Hz 频率翘曲 <0.02%，可证可忽略）→ 二阶节（SOS）级联或并联 → 节增益极小极大优化压通带平坦度 → 极点稳定性验证（$|a_2|<1$ 裕度）。", "pt": "", "err": "biquad 系数量化后极点贴近单位圆导致失稳或音染；$f_s=8$ kHz 省算力但须防拾音信号带外混叠（Nyquist 4 kHz）；只做频域不做时域（起音、衰减、THD）；把\"能出声\"当\"保真\"而不设可测指标。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/07_%E5%A3%B0%E5%AD%A6%E4%B8%8E%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86.html"}, {"d": "声学与信号处理", "n": "验证体系：无实物琴的闭环", "y": "", "scene": "没有传统琴实物时如何自证\"像不像\"。", "eq": "", "pt": "", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/07_%E5%A3%B0%E5%AD%A6%E4%B8%8E%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86.html"}, {"d": "方法论与数值算法总论", "n": "量纲分析与费米估算：第一小时就该干完的事", "y": "", "scene": "任何题目的开局——定尺度、定 regime、排除效应。", "eq": "", "pt": "", "err": "直接上 ODE 不定 regime（低推力还是冲量式、深水撞击还是成坑、线性还是湍流）；砍掉效应不给数字（\"忽略空气阻力\"五个字 vs \"阻力做功占比 <0.5%\"一句话，后者才是建模）。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/08_%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%8E%E6%95%B0%E5%80%BC%E7%AE%97%E6%B3%95%E6%80%BB%E8%AE%BA.html"}, {"d": "方法论与数值算法总论", "n": "\"模糊词操作化\"：UPC 第一招", "y": "", "scene": "题面永远含主观词——\"更好\"\"安全\"\"实质性破坏\"\"保真\"\"最佳机会\"。批次 01 的总结是：\"四年八题的共同套路是把题面的主观词翻译成可计算的代理量，再做优化或判定\"，且此招\"在今天仍是 UPC 备赛的核心课程\"。", "eq": "", "pt": "", "err": "判据拍了数不给出处；口径漂移（Gy/Sv、BMR/FMR、装机容量/可用容量）；同一量在摘要与正文两套数（2020-B-380 摘要 5.3678 vs 正文 5.2795 m/s 的前车之鉴）。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/08_%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%8E%E6%95%B0%E5%80%BC%E7%AE%97%E6%B3%95%E6%80%BB%E8%AE%BA.html"}, {"d": "方法论与数值算法总论", "n": "模型分层：理想→修正→扩展", "y": "", "scene": "一切多效应耦合题。批次 02 称之为\"本批次最稳定的三段式结构\"，实际上贯穿全部 74 篇。", "eq": "", "pt": "", "err": "修正堆到第四层却不回头对比基准（读者已不知道哪层贡献了几个百分点）；把所有物理一次塞进同一个巨型方程组（无法定位哪个假设错了）。", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/08_%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%8E%E6%95%B0%E5%80%BC%E7%AE%97%E6%B3%95%E6%80%BB%E8%AE%BA.html"}, {"d": "方法论与数值算法总论", "n": "数值方法谱系：朴素是常态，检验是分野", "y": "", "scene": "", "eq": "", "pt": "积分器家族（按 74 篇实际使用频次）：", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/08_%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%8E%E6%95%B0%E5%80%BC%E7%AE%97%E6%B3%95%E6%80%BB%E8%AE%BA.html"}, {"d": "方法论与数值算法总论", "n": "验证文化：从\"会算\"到\"会检验\"", "y": "", "scene": "", "eq": "", "pt": "收敛性检验：2010-A 的步长减半对比是赛事元年唯一先例；2017-A-744 把帆角离散 1–30 段扫描制成收敛表并反推\"无需频繁调姿\"的工程结论；2018-A-295 做三组离散规模实验证明 N>45/35/40 后结果不变；2022-B-471 四轮变步长搜索收敛到 0.0363 m；2025-B-765 的步长收敛验证给出截断 ≤0.7 m。", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/08_%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%8E%E6%95%B0%E5%80%BC%E7%AE%97%E6%B3%95%E6%80%BB%E8%AE%BA.html"}, {"d": "方法论与数值算法总论", "n": "排版与呈现策略", "y": "", "scene": "", "eq": "", "pt": "篇幅：25–40 页是效率最优区间（批次 12）；17 页（2025-B-311）与 111 页（2025-B-796）同为金牌，证明篇幅与奖项无单调关系——早期四年正文仅 8–17 页而附录奇重（2010-B 用 11 页装全套代码），2017 年后收敛为\"精选代码+参数表\"，篇幅让位给收敛检验与方案对比。", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/08_%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%8E%E6%95%B0%E5%80%BC%E7%AE%97%E6%B3%95%E6%80%BB%E8%AE%BA.html"}, {"d": "方法论与数值算法总论", "n": "无计算器约束下的\"降维交付\"", "y": "", "scene": "", "eq": "", "pt": "2025-B 是方法论的分水岭之题：题面要求为\"受过数学训练、无计算机/计算器的炮兵军官\"设计快速估算方法。13 支队伍无一例外仍用计算机做 RK4/RK45/ode45 积分——真正的分野在交付形态：把连续数值解压缩成什么人工产物。批次 11 按手算负担排出的完整光谱：127 的四步心算口诀（纯加法+二次方程）→ 155/264 的线性/半经验公式 → 796 的多项式蒸馏（式 30/33/35…", "err": "", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/08_%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%8E%E6%95%B0%E5%80%BC%E7%AE%97%E6%B3%95%E6%80%BB%E8%AE%BA.html"}];
+var FKEY='upcFlashcards.v1';
+function fLoad(){try{return JSON.parse(localStorage.getItem(FKEY)||'{}')}catch(e){return{}}}
+function fSave(s){try{localStorage.setItem(FKEY,JSON.stringify(s))}catch(e){}}
+var fdom='__ALL__',ffil='all';
+var dsel=document.getElementById('fdom');
+var doms=[];CARDS.forEach(function(c){if(doms.indexOf(c.d)<0)doms.push(c.d)});
+doms.forEach(function(d){var o=document.createElement('option');o.value=d;o.textContent=d;dsel.appendChild(o);});
+dsel.addEventListener('change',function(){fdom=dsel.value;render();});
+document.getElementById('fshuffle').addEventListener('click',function(){order.sort(function(){return Math.random()-0.5});render();});
+document.getElementById('ffilter').addEventListener('click',function(ev){
+  var a=ev.target.closest('a');if(!a)return;
+  document.querySelectorAll('#ffilter a').forEach(function(x){x.classList.remove('on')});
+  a.classList.add('on');ffil=a.dataset.v;render();
+});
+var order=CARDS.map(function(_,i){return i});
+function render(){
+  var st=fLoad(),n=0,html='';
+  var shown=order.filter(function(i){
+    var c=CARDS[i];
+    if(fdom!=='__ALL__'&&c.d!==fdom)return false;
+    var done=!!st[c.n];
+    if(ffil==='todo'&&done)return false;
+    if(ffil==='done'&&!done)return false;
+    return true;
+  });
+  shown.forEach(function(i){
+    var c=CARDS[i],done=!!st[c.n];n++;
+    html+='<div class="card" style="margin-bottom:10px">'+
+      '<div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;cursor:pointer" data-flip="'+i+'">'+
+      '<b style="font-family:var(--serif);font-size:15px;color:'+(done?'var(--acc)':'var(--ink)')+'">'+escHtml(c.n)+'</b>'+
+      (c.y?'<span style="font-family:var(--mono);font-size:11px;color:var(--dim)">'+escHtml(c.y)+'</span>':'')+
+      '<span style="margin-left:auto;font-size:11px;color:var(--dim)">'+escHtml(c.d)+' · 点击翻面</span></div>'+
+      '<div data-back="'+i+'" hidden style="border-top:1px dashed var(--line);margin-top:8px;padding-top:8px;font-size:13px;line-height:2">'+
+      (c.scene?'<p style="margin:2px 0"><b>适用</b>　'+escHtml(c.scene)+'</p>':'')+
+      (c.eq?'<p style="margin:2px 0"><b>方程</b>　'+escHtml(c.eq)+'</p>':'')+
+      (c.pt?'<p style="margin:2px 0"><b>要点</b>　'+escHtml(c.pt)+'</p>':'')+
+      (c.err?'<p style="margin:2px 0;color:#8A3A2A"><b>易错</b>　'+escHtml(c.err)+'</p>':'')+
+      '<div style="display:flex;gap:8px;margin-top:8px;align-items:center">'+
+      '<button class="btn'+(done?'':' solid')+'" data-mark="'+i+'" type="button">'+(done?'再练':'掌握')+'</button>'+
+      '<a class="btn" href="'+c.u+'" target="_blank" style="height:32px">综述原文 →</a></div></div></div>';
+  });
+  document.getElementById('fbox').innerHTML=html||'<div class="notebox">该筛选下没有卡片。</div>';
+  document.getElementById('fcnt').textContent=n+' 张 · 已掌握 '+Object.keys(st).length+' / '+CARDS.length;
+  katexRender(document.getElementById('fbox'));
+}
+function katexRender(el){
+  if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});
+}
+document.getElementById('fbox').addEventListener('click',function(ev){
+  var f=ev.target.closest('[data-flip]');
+  if(f){var b=document.querySelector('[data-back="'+f.dataset.flip+'"]');
+    if(b){b.hidden=!b.hidden;
+      if(!b.hidden)katexRender(b);   // 首屏渲染时 KaTeX 可能尚未加载完，展开时补渲染
+    }
+    return;}
+  var m=ev.target.closest('button[data-mark]');
+  if(m){var st=fLoad(),c=CARDS[+m.dataset.mark];
+    if(st[c.n])delete st[c.n];else st[c.n]=Date.now();
+    fSave(st);render();}
+});
+render();
+window.addEventListener('load',function(){render();});   // KaTeX defer 加载完毕后整体补渲染一次
+
+</script>
+</body>
+</html>

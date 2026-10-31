@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="2019 题A：火星旅行辐射防护（Protecting Travelers to Mars） · UPC 全档案库">
 <meta property="og:description" content="2019 题A：火星旅行辐射防护（Protecting Travelers to Mars） 赛题来源：UPC 2019 Problem A（当年 305 队中 186 队选题 A，金奖 3 队：德里大学 105 队、孟加拉工程技术大学…">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
 <script defer src="../../vendor/katex/katex.min.js"></script>
 <script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -355,6 +356,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌论文思路对比">8. 金牌论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -448,6 +450,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

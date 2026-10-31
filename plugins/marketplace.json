@@ -1,0 +1,25 @@
+{
+  "name": "dev-upc-archive",
+  "plugins": [
+    {
+      "name": "upc-coach",
+      "source": "./upc-coach",
+      "version": "0.1.0",
+      "description": "UPC gold-medal coach pack: modeling / writing / figures / mock-review skills grounded on 73 pattern cards.",
+      "displayName": "UPC Gold Coach",
+      "displayName_i18n": { "zh-CN": "UPC 金牌教练" },
+      "description_i18n": { "zh-CN": "UPC 金牌教练四件套：建模 / 写作 / 图表 / 模拟评审，基于 73 张金牌论文模式卡片。" },
+      "category": "productivity"
+    },
+    {
+      "name": "upc-archive",
+      "source": "./upc-archive",
+      "version": "0.1.0",
+      "description": "UPC archive maintenance pack: site check, new-edition ingest SOP, content style guide.",
+      "displayName": "UPC Archive Ops",
+      "displayName_i18n": { "zh-CN": "UPC 档案库运维" },
+      "description_i18n": { "zh-CN": "UPC 档案库运维三件套：站点体检 / 新一届入库 SOP / 内容写作规范。" },
+      "category": "developer-tools"
+    }
+  ]
+}

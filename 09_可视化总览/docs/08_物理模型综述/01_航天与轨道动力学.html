@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="航天与轨道动力学 · UPC 全档案库">
 <meta property="og:description" content="航天与轨道动力学 1. 该专题在 UPC 中出现全景 轨道问题是 UPC 题A 的第一大主题，2010–2025 年间至少 9 次成为题A 主线（含 2019A 的转移背景）： 年份-题号 具体场景 所用模型一句话 2010A 2500…">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
 <script defer src="../../vendor/katex/katex.min.js"></script>
 <script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -242,6 +243,7 @@ $$b=\sqrt{r_p^2+\frac{2\mu r_p}{v_\infty^2}},\qquad e=\sqrt{1+\Big(\frac{b v_\in
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#1-该专题在-upc-中出现全景">1. 该专题在 UPC 中出现全景</a></li><li class="l2"><a href="#2-核心模型库逐一解读">2. 核心模型库逐一解读</a></li><li class="l3"><a href="#21-二体轨道与mathph000005endph-统一货币2011a2013a2016a2019a">2.1 二体轨道与"MATHPH000005ENDPH 统一货币"（2011A、2013A、2016A、2019A）</a></li><li class="l3"><a href="#22-气动制动-气动捕获2010a">2.2 气动制动 / 气动捕获（2010A）</a></li><li class="l3"><a href="#23-引力辅助飞掠三件套2013a2020a">2.3 引力辅助（飞掠）三件套（2013A、2020A）</a></li><li class="l3"><a href="#24-低推力螺旋转移2020a">2.4 低推力螺旋转移（2020A）</a></li><li class="l3"><a href="#25-太阳帆-光帆2017a2018a">2.5 太阳帆 / 光帆（2017A、2018A）</a></li><li class="l3"><a href="#26-多体与参数扫描环双星稳定域2014a">2.6 多体与参数扫描：环双星稳定域（2014A）</a></li><li class="l3"><a href="#27-连续扰动偏转小行星防御2022a">2.7 连续扰动偏转：小行星防御（2022A）</a></li><li class="l2"><a href="#3-跨题目的建模套路总结">3. 跨题目的建模套路总结</a></li><li class="l2"><a href="#4-备赛建议">4. 备赛建议</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -335,6 +337,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

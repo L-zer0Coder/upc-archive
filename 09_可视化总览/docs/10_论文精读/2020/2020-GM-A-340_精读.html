@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="精读 14 · Ion Thrusters to Saturn（2020 题A 金牌 · 队伍 340） · UPC 全档案库">
 <meta property="og:description" content="精读 14 · Ion Thrusters to Saturn（2020 题A 金牌 · 队伍 340） 这份精读怎么用 ：左手边开论文 PDF（ 03_优秀论文PDF/2020/Problem A/2020-GM-A-340.pdf …">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script defer src="../../../vendor/katex/katex.min.js"></script>
 <script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -416,6 +417,7 @@ Appendix       完整 MATLAB 代码（RelTol 标明）
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-1-introduction以-cassini-立靶第-3-页">1.2 §1 Introduction：以 Cassini 立靶（第 3 页）</a></li><li class="l3"><a href="#13-2-假设与符号第-45-页">1.3 §2 假设与符号（第 4–5 页）</a></li><li class="l3"><a href="#14-31-地日转移段低推力螺旋的正面硬解第-68-页">1.4 §3.1 地日转移段：低推力螺旋的正面硬解（第 6–8 页）</a></li><li class="l3"><a href="#15-3234-三段解析缝合第-89-页">1.5 §3.2–3.4 三段解析缝合（第 8–9 页）</a></li><li class="l3"><a href="#16-35-4-结果与总账第-910-页">1.6 §3.5 + §4 结果与总账（第 9–10 页）</a></li><li class="l3"><a href="#17-5-strengths-and-weaknesses第-1011-页">1.7 §5 Strengths and Weaknesses（第 10–11 页）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-推力引力与质量流式-1113">3.1 推力、引力与质量流（式 1.1–1.3）</a></li><li class="l3"><a href="#32-极坐标运动方程式-1415与关机判据">3.2 极坐标运动方程（式 1.4–1.5）与关机判据</a></li><li class="l3"><a href="#33-金星交会椭圆式-2123">3.3 金星交会椭圆（式 2.1–2.3）</a></li><li class="l3"><a href="#34-借力速度跳变式-3132全文最大的隐患">3.4 借力速度跳变（式 3.1–3.2）——全文最大的隐患</a></li><li class="l3"><a href="#35-第二椭圆与到站速度式-41">3.5 第二椭圆与到站速度（式 4.1）</a></li><li class="l3"><a href="#36-滑行时间4-的两个解析式">3.6 滑行时间（§4 的两个解析式）</a></li><li class="l3"><a href="#37-捕获段与总账354">3.7 捕获段与总账（§3.5、§4）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -509,6 +511,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

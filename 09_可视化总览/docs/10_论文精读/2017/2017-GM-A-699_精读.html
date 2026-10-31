@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="精读 05 · Optimization of the solar sail's voyage from Earth to Mars（2017 题A 金牌 · 队伍 699） · UPC 全档案库">
 <meta property="og:description" content="精读 05 · Optimization of the solar sail&#x27;s voyage from Earth to Mars（2017 题A 金牌 · 队伍 699） 这份精读怎么用 ：左手边开论文 PDF，右手边开本篇。这是同…">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script defer src="../../../vendor/katex/katex.min.js"></script>
 <script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -427,6 +428,7 @@ Appendix       代码(必须与正文方法一致!)
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-1-introduction第-3-页">1.2 §1 Introduction（第 3 页）</a></li><li class="l3"><a href="#13-2-assumptions-and-notations第-35-页">1.3 §2 Assumptions and Notations（第 3–5 页）</a></li><li class="l3"><a href="#14-31-solar-sail-thrust-model第-69-页">1.4 §3.1 Solar Sail Thrust Model（第 6–9 页）</a></li><li class="l3"><a href="#15-32-ideal-solar-sail-time-optimal-transfer-orbit第-912-页">1.5 §3.2 Ideal Solar Sail Time Optimal Transfer Orbit（第 9–12 页）</a></li><li class="l3"><a href="#16-33-pso-模型第-1215-页">1.6 §3.3 PSO 模型（第 12–15 页）</a></li><li class="l3"><a href="#17-4-results第-1523-页">1.7 §4 Results（第 15–23 页）</a></li><li class="l3"><a href="#18-56-strengths-weaknesses-conclusion第-2324-页">1.8 §5–6 Strengths / Weaknesses / Conclusion（第 23–24 页）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-日面有限张角光压式-1">3.1 日面有限张角光压（式 1）</a></li><li class="l3"><a href="#32-入射反射光子力与法向合成式-25">3.2 入射/反射光子力与法向合成（式 2–5）</a></li><li class="l3"><a href="#33-帆参数四件套式-69">3.3 帆参数四件套（式 6–9）</a></li><li class="l3"><a href="#34-srp-力与运动方程式-1112">3.4 SRP 力与运动方程（式 11–12）</a></li><li class="l3"><a href="#35-时间最优指标与-hamilton-函数式-1314">3.5 时间最优指标与 Hamilton 函数（式 13–14）</a></li><li class="l3"><a href="#36-协态方程与横截条件式-1518">3.6 协态方程与横截条件（式 15–18）</a></li><li class="l3"><a href="#37-最优帆角解析式式-1920全文的皇冠">3.7 最优帆角解析式（式 19–20）——全文的皇冠</a></li><li class="l3"><a href="#38-pso-更新与罚函数式-222328">3.8 PSO 更新与罚函数（式 22–23、28）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -520,6 +522,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

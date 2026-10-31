@@ -1,0 +1,7 @@
+{
+  "name": "upc-archive",
+  "version": "0.1.0",
+  "description": "UPC 档案库运维三件套：站点体检（断链/大小写/未入库/索引同步）、新一届赛事入库 SOP、库内内容写作规范。配合 UPC 档案库仓库使用。",
+  "author": { "name": "UPC archive builders" },
+  "skills": "./skills"
+}

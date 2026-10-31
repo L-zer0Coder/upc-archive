@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="精读 57 · Using Physics Engine to Iterate the Maximum Height of Multiple Kids on Trampoline（2023 题B 金牌 · 队伍 138） · UPC 全档案库">
 <meta property="og:description" content="精读 57 · Using Physics Engine to Iterate the Maximum Height of Multiple Kids on Trampoline（2023 题B 金牌 · 队伍 138） 这份精读怎么用…">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script defer src="../../../vendor/katex/katex.min.js"></script>
 <script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -422,6 +423,7 @@ Appendix         4 个代码（⚠ 必须是实际运行版本）
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract">1.1 Abstract</a></li><li class="l3"><a href="#12-2-assumptions假设的实证化范本">1.2 §2 Assumptions（假设的实证化范本）</a></li><li class="l3"><a href="#13-4142-参数溯源链本文的第一张脸">1.3 §4.1–4.2 参数溯源链（本文的第一张脸）</a></li><li class="l3"><a href="#14-43-单跳两阶段分析全文物理核心">1.4 §4.3 单跳两阶段分析（全文物理核心）</a></li><li class="l3"><a href="#15-4445-粗扫与精扫算法的主戏">1.5 §4.4–4.5 粗扫与精扫（算法的主戏）</a></li><li class="l3"><a href="#16-46-secret-of-bouncing-high机制叙事">1.6 §4.6 Secret of Bouncing High（机制叙事）</a></li><li class="l3"><a href="#17-56-讨论评估与产品对照">1.7 §5–§6 讨论、评估与产品对照</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-弹簧常数42k-gd⁴8nd³">3.1 弹簧常数（§4.2）k = Gd⁴/(8nD³)</a></li><li class="l3"><a href="#32-网面等效质量41mk-2-kg动量等效">3.2 网面等效质量（§4.1）mk ≈ 2 kg——动量等效</a></li><li class="l3"><a href="#33-完全非弹性碰撞431v₀-m₀m₀mk2gh">3.3 完全非弹性碰撞（§4.3.1）v₀ = −m₀/(m₀+mk)·√(2gh)</a></li><li class="l3"><a href="#34-网面气阻432f_a-πc_ar³6r²x²xx">3.4 网面气阻（§4.3.2）f_a = −πc_aR³/(6√(R²+x²))·|x′|x′</a></li><li class="l3"><a href="#35-非线性弹簧力与-ex⁴4246">3.5 非线性弹簧力与 E∝x⁴（§4.2/§4.6）</a></li><li class="l3"><a href="#36-两个定标432433">3.6 两个定标（§4.3.2–4.3.3）</a></li><li class="l3"><a href="#37-v-形网面的理论辩护51">3.7 V 形网面的理论辩护（§5.1）</a></li><li class="l2"><a href="#4-建模决策链-独立复现审计">4. 建模决策链 + 独立复现审计</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -515,6 +517,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

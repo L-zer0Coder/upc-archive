@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 提示词包 —— 把 74 篇金牌的方法论装进任何 AI 对话框 · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<meta name="description" content="AI 提示词包 —— 把 74 篇金牌的方法论装进任何 AI 对话框 用法：赛时把对应提示词整段复制给任意 AI（GLM / GPT / Kimi / DeepSeek 都行）， 再把题目原文或你的草稿贴在后面。每条提示词都内置了本库从…">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="AI 提示词包 —— 把 74 篇金牌的方法论装进任何 AI 对话框 · UPC 全档案库">
+<meta property="og:description" content="AI 提示词包 —— 把 74 篇金牌的方法论装进任何 AI 对话框 用法：赛时把对应提示词整段复制给任意 AI（GLM / GPT / Kimi / DeepSeek 都行）， 再把题目原文或你的草稿贴在后面。每条提示词都内置了本库从…">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<script defer src="../../vendor/katex/katex.min.js"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
+
+<style>
+:root{
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
+ --line:#E7E0D1;--line2:#D9D0BD;
+ --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
+ --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+ --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
+.topbar a:hover{color:var(--acc)}
+.topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
+.topbar .tag:hover{border-color:var(--acc)}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
+.topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
+.topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:13.5px;margin-right:4px}
+.brand:hover{color:var(--ink)}
+.brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
+.crumb{color:var(--dim);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+/* 赛事时钟徽章：赛前显示 D-天数，赛中显示已用时长 */
+.topbar .clock{margin-left:12px;flex-shrink:0;font-family:var(--mono);font-size:11px;line-height:1.9;
+ letter-spacing:.02em;padding:1px 8px;border:1px solid rgba(156,63,46,.28);border-radius:3px;
+ color:var(--acc);background:var(--acc-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+.topbar .clock:hover{border-color:var(--acc);color:var(--acc-d);background:rgba(156,63,46,.12)}
+.topbar .clock[data-s="live"]{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
+.layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
+.content{flex:0 1 780px;min-width:0}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
+.sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
+.sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
+.sheet h4{font-size:15.5px;margin:1.2em 0 .4em;font-weight:600}
+.sheet p{margin:.85em 0}
+.sheet a{color:var(--acc)}
+.sheet a:hover{color:var(--acc-d);text-decoration:underline;text-underline-offset:3px}
+.sheet ul,.sheet ol{padding-left:1.6em;margin:.7em 0}
+.sheet li{margin:.3em 0}
+.sheet li::marker{color:var(--dim)}
+code{background:#F2EDE2;border:1px solid var(--line);border-radius:3px;padding:.5px 6px;font-size:.86em;font-family:var(--mono)}
+pre{background:#F9F6EF;border:1px solid var(--line);border-radius:4px;padding:14px 17px;overflow:auto;line-height:1.75;font-size:13.5px}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.1em 0;padding:2px 0 2px 18px;border-left:2px solid var(--acc);color:var(--mut)}
+blockquote p{margin:.5em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.8px;display:block;overflow-x:auto;line-height:1.8}
+th,td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:12px;letter-spacing:.05em;border-bottom:1px solid var(--line2);background:var(--sheet);white-space:nowrap}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:#F8F5EE}
+hr{border:none;border-top:1px solid var(--line);margin:2.2em 0}
+.sheet img{max-width:100%;border:1px solid var(--line);border-radius:3px}
+.mermaid{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:12px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.03em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:28px 20px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--sheet);border:1px solid var(--line2);color:var(--mut);
+ border-radius:50%;width:40px;height:40px;font-size:16px;cursor:pointer;opacity:0;pointer-events:none;transition:.2s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{color:var(--acc);border-color:var(--acc)}
+aside.toc{position:sticky;top:74px;width:214px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;padding:4px 0}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.12em;padding:0 0 8px 14px}
+aside.toc ul{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:4px 12px;margin-left:-1px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;line-height:1.75;font-size:12.5px}
+aside.toc li.l3 a{padding-left:26px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
+aside.toc::-webkit-scrollbar{width:5px}
+aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../../index.html#guide">使用指南</a>
+  <button id="ck" class="tag ck" type="button" hidden></button>
+  
+  <a class="tag" href="../../../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/AI%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%8C%85.md">Markdown</a>
+  <span class="crumb">11_论文模板与工具 · AI 提示词包 —— 把 74 篇金牌的方法论装进任何 AI 对话框</span>
+  <a class="clock" id="clock" href="../../../index.html#race" hidden aria-label="第 17 届 UPC 赛程"></a>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="sheet">
+<h1 id="ai-提示词包-把-74-篇金牌的方法论装进任何-ai-对话框">AI 提示词包 —— 把 74 篇金牌的方法论装进任何 AI 对话框</h1>
+<blockquote>
+<p>用法：赛时把对应提示词整段复制给任意 AI（GLM / GPT / Kimi / DeepSeek 都行），
+再把题目原文或你的草稿贴在后面。每条提示词都内置了本库从 74 篇金牌论文提炼的
+评审标准（判据—方程—数值—检验），所以 AI 会直接按金牌标准干活，而不是泛泛而谈。
+「上下文包」一栏告诉你值得一并粘贴的库内材料（全贴效果最好，只贴第一条也能用）。</p>
+</blockquote>
+<h2 id="1-选题与读题t0t1">1. 选题与读题（T0–T1）</h2>
+<blockquote>
+<p>开赛 0–4 小时用。目标：15 分钟内判断两道题哪道离你们的主场模型更近，并把模糊词全部翻译成可计算判据。</p>
+</blockquote>
+<h3 id="提示词15-分钟读题评估">提示词：15 分钟读题评估</h3>
+<pre><code class="language-text">你是一名 UPC（国际大学生物理竞赛）金牌教练。UPC 评审规则：不奖励难题，奖励&quot;判据—方程—数值—检验&quot;链条完整自洽的论文；金牌率约 2%，论文 48 小时内完成。
+
+我会给你两道题的原文。请分别输出：
+1. 考什么物理：3 行以内，点出核心守恒律/定律与主要物理效应；
+2. 要交付什么：题面要求的最终产出（阈值/区间/方案对比/设计准则），把每个模糊词（significant / safely / quickly / damage…）列出来并给出一种可计算判据的翻译建议；
+3. 最大风险：这条路线最容易卡住或算错的地方；
+4. 建模深度预估：主模型是 ODE/解析/蒙特卡洛/信号处理中的哪类，48 小时内普通队伍能否闭环；
+5. 一句话结论：这道题适合什么背景的队伍（力学/流体/热学/电磁/数值功底）。
+
+不要开始解题，只做评估。
+</code></pre>
+<p>上下文包：两道题原文；可选《建模决策树》（<code>11_论文模板与工具/建模决策树.md</code>）。</p>
+<h3 id="提示词模糊词操作化判据立军令状">提示词：模糊词操作化（判据立军令状）</h3>
+<pre><code class="language-text">你是 UPC 金牌教练。以下是题目原文与我们队伍写下的判据草案。请逐条审查：
+1. 题面中还有没有没被翻译的模糊词（significant / safely / quickly / damage / optimal…）？每处给出 2 种可选判据（一种从严、一种从宽），并说明各自对结论方向的影响；
+2. 我们已定的判据是否有&quot;为什么是这个数&quot;的自辩理由？没有的话，建议一种自辩方式（文献锚点 / 现实类比 / 定义本身，参考 2010-A 金牌队把 significant 定为 20% 燃耗并明说理由的做法）；
+3. 检查判据是否全文口径一致、集中定义在一处。
+输出一张表：模糊词 | 我们的判据 | 自辩方式 | 是否需修订。
+</code></pre>
+<p>上下文包：题目原文 + 你的判据草案；可选对应年份的《题目深度解读》里的"常见陷阱"节。</p>
+<h2 id="2-建模设计t2t3">2. 建模设计（T2–T3）</h2>
+<blockquote>
+<p>第 4–20 小时用。目标：先立解析基准，再推主方程，每个假设都有量级自辩。</p>
+</blockquote>
+<h3 id="提示词基准方案与量级表">提示词：基准方案与量级表</h3>
+<pre><code class="language-text">你是 UPC 金牌教练，辅导风格：先基准、后修正、量级说话。
+
+针对我贴的题目和已定判据：
+1. 设计一个解析可得的基准情形（真空抛体 / 无阻力轨道 / 理想气体等），给出闭式解或可直接计算的公式，并说明它在论文 §1 中作为&quot;锚数字&quot;和 sanity check 的两种用法；
+2. 列一张量级表：把题设场景中所有可能起作用的物理效应列全，逐项估算量级（用 characteristic scale 推导，不要拍脑袋），标注&quot;必须建模 / 可忽略（写一行数字封存）/ 有余力再上&quot;；
+3. 指出最容易被忽略但量级不小的效应（参考历年教训：坠日题忘减地球公转 29.78 km/s 导致结论反转、科氏力对长射程是米级偏移）。
+</code></pre>
+<p>上下文包：题目原文 + 判据清单；强烈建议附上《建模决策树》全文。</p>
+<h3 id="提示词主模型推导陪练">提示词：主模型推导陪练</h3>
+<pre><code class="language-text">你是 UPC 金牌教练。我正在推主模型，请按以下方式陪练（不要直接给完整答案，先审查再提示）：
+1. 审查我的出发点：是否从守恒律/牛顿第二定律出发？每个假设旁边有没有一句话 + 一个量级数字的自辩？
+2. 审查方程整洁度：常数是否打包成组合参数（Define σ ≡ … 的金牌做法）？
+3. 我贴出推导后：逐步检查量纲、符号、极限行为（v→0、ρ→0、M→∞ 时是否退化到基准解析解）；
+4. 若我 2 小时内推不动：提示我&quot;第 14 小时检查点&quot;规则——立即降级模型复杂度，评审宁可要完整闭环的简单模型，不要半成品复杂模型。
+</code></pre>
+<p>上下文包：题目原文 + 量级表 + 你的推导草稿。</p>
+<h2 id="3-数值与验证t4t6">3. 数值与验证（T4–T6）</h2>
+<blockquote>
+<p>第 14–38 小时用。验证三件套（收敛/极限/灵敏度）是金银牌分水岭，这里最值得花 AI 预算。</p>
+</blockquote>
+<h3 id="提示词积分器与代码审查">提示词：积分器与代码审查</h3>
+<pre><code class="language-text">你是数值计算教练。审查我贴出的数值代码/方案，按 UPC 金牌论文的五要素清单：
+1. 方法名 + 步长 + 初值 + 边界条件 + 终止条件，五要素是否齐全、是否都写进了论文的计划；
+2. 先跑通一条轨迹再参数扫描——检查我是否本末倒置；
+3. 代码分支是否讲得成物理事件（&quot;当 h&lt;H 时阻力与重力同时作用，否则只受重力&quot;）；
+4. 常见 bug 排查顺序：单位（90% 的量级错误是单位）→ 初值符号 → 坐标系手性 → 步长过大导致的伪收敛。
+只审查不重写；每条问题给出最小修改建议。
+</code></pre>
+<p>上下文包：你的代码（关键循环）+ 《物理模型综述 08：方法论与数值算法总论》（可选）。</p>
+<h3 id="提示词验证三件套设计与精度声明">提示词：验证三件套设计与精度声明</h3>
+<pre><code class="language-text">你是 UPC 金牌教练。我的主模型和数值方案如下。请设计验证三件套：
+1. 收敛性：给出步长减半实验的具体做法，以及如何写成金牌论文那种精度声明（&quot;Halving the step changes the exit speed in the fifth digit; we therefore claim 4–5 significant figures, worst case 4.&quot;的句式）；
+2. 极限情形：选 1–2 个能让数值退化到解析基准的开关（关阻力、质量→∞、密度均匀化），说明退化对照怎么做；
+3. 灵敏度：挑 2–3 个核心参数做 ±20% 扫描，建议输出形式（龙卷风图 / 区间表），并提醒：不确定度最大的参数要贯穿全文一致。
+最后给我一段可直接放进论文的&quot;误差与适用域声明&quot;英文段落模板（含最坏情形点名）。
+</code></pre>
+<p>上下文包：主模型方程 + 数值方案；可选《写作句库》数值方法节。</p>
+<h2 id="4-写作t7t8">4. 写作（T7–T8）</h2>
+<blockquote>
+<p>第 36–46 小时用。摘要最后写但必须带数值结论；逐节成文当天完成。</p>
+</blockquote>
+<h3 id="提示词摘要打磨数字ocracy">提示词：摘要打磨（数字ocracy）</h3>
+<pre><code class="language-text">你是 UPC 金牌论文的英文编辑。这是我队的摘要草稿。按金牌标准逐句审查并改写：
+1. 结构是否是：符号与关键定义 → 问题的两难（trade-off）→ 方法一句话 → 带区间/阈值/百分比的数值结论 → 建议与适用域；
+2. 有没有至少一个硬数字（2010-A 金牌摘要直接给 8.8296° &lt; θ &lt; 8.8549°，允许误差 0.0253°）？没有数字的摘要在 UPC 等于没写；
+3. 是否存在自夸词（accurate / great / obviously）——全部改成精度声明或引用式号；
+4. 每句信息密度：删掉所有不承载信息的词。
+输出：逐句批注表 + 改写后的完整摘要。
+</code></pre>
+<p>上下文包：摘要草稿 + 主要结果数字清单；强烈建议附《写作句库》摘要节。</p>
+<h3 id="提示词逐节中译英与句式升级">提示词：逐节中译英与句式升级</h3>
+<pre><code class="language-text">你是 UPC 金牌论文的英文编辑。把我贴的中文草稿译成论文英语，要求：
+1. 使用本句库风格：信息密度高、自带逻辑连接词（Consequently / On the other hand / provided that / We conclude that）；
+2. 每个数值陈述带单位与有效位数；每处近似给出理由；
+3. 图表引用规范：每张图 &quot;Figure N shows …&quot; 且被正文点名；
+4. 不用缩写不定义、不用 we believe 这类主观语，改为证据陈述。
+输出：译文 + 你做了哪些风格决策的 3 条说明。
+</code></pre>
+<p>上下文包：中文草稿 + 《写作句库》对应章节。</p>
+<h2 id="5-模拟评审t9">5. 模拟评审（T9）</h2>
+<blockquote>
+<p>交卷前 2 小时用。评委只精读摘要与图题，三分钟定档。</p>
+</blockquote>
+<h3 id="提示词评委三分钟模拟">提示词：评委三分钟模拟</h3>
+<pre><code class="language-text">你是 UPC 评审，每年评审约百篇论文，平均给每篇摘要+图题 3 分钟。请严格按评审视角审查我贴的：标题、摘要、全部图题（论文其他部分不给）。
+评分口径（UPC 评审不变量，按重要性排序）：
+A 判据：模糊词是否全部操作化，阈值是否有自辩；
+B 基准：是否有解析对照与回扣对比；
+C 模型：主方程从基本定律出发、假设有量级论证、适用域明说；
+D 验证：收敛/极限/灵敏度三件套是否可见（哪怕在图题里）；
+E 呈现：图是否结论进图题、轴带单位、配色语义一致。
+输出：① 5 分钟内你能否复述出 问题/判据/方法/主结果数字/结论——哪条复述不出；② 金/银/铜三档预判与理由；③ 交卷前最后 2 小时优先修的 3 件事。
+</code></pre>
+<p>上下文包：标题 + 摘要 + 全部图题（按顺序）；可选《提交前终检 checklist》。</p>
+<h2 id="6-赛后复盘">6. 赛后复盘</h2>
+<blockquote>
+<p>比赛结束后 1–3 天内做，趁记忆还热。</p>
+</blockquote>
+<h3 id="提示词结构化复盘访谈">提示词：结构化复盘访谈</h3>
+<pre><code class="language-text">你是赛后复盘教练。UPC 比赛 48 小时已结束。请对我做结构化复盘访谈，一次只问一个问题，覆盖：
+1. 时间线还原：各阶段（读题/基准/主模型/数值/验证/写作）实际用时 vs 计划（T0–T9），哪个阶段失衡；
+2. 决策点回看：选题、降级模型、砍扩展项这三个决策现在评价对不对；
+3. 失败模式归类：算不出来 / 算完了写不完 / 写完了没有验证，属于哪种（40 小时建模 8 小时写作是最常见死法）；
+4. 下届可执行的 3 条改进，按&quot;赛前能准备&quot;与&quot;赛中才遇到&quot;分类。
+收集完所有回答后，输出一页复盘纪要。
+</code></pre>
+<p>上下文包：无（访谈式，逐轮对话）。</p>
+<h3 id="提示词与历届金牌对比找差距">提示词：与历届金牌对比找差距</h3>
+<pre><code class="language-text">你是 UPC 金牌教练。附上我们第 17 届的论文全文（或关键章节），并附上我选的 1–2 篇历届同域金牌论文的赏析。请输出差距表：
+1. 判据与去模糊化：他们做了我们没做的哪一步；
+2. 建模分层：我们的 Level 0–3 分层是否完整，缺哪层；
+3. 验证三件套：逐项对比谁做得更完整；
+4. 图表：图数量、类型、信息密度对比；
+5. 写作：句式与结构上最值得偷师的 3 处。
+每条差距标注优先级（下届必须改 / 值得改 / 锦上添花）。
+</code></pre>
+<p>上下文包：你们的论文 + 对应年份《论文赏析》或《题目深度解读》。</p>
+</div>
+
+</div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#1-选题与读题t0t1">1. 选题与读题（T0–T1）</a></li><li class="l3"><a href="#提示词15-分钟读题评估">提示词：15 分钟读题评估</a></li><li class="l3"><a href="#提示词模糊词操作化判据立军令状">提示词：模糊词操作化（判据立军令状）</a></li><li class="l2"><a href="#2-建模设计t2t3">2. 建模设计（T2–T3）</a></li><li class="l3"><a href="#提示词基准方案与量级表">提示词：基准方案与量级表</a></li><li class="l3"><a href="#提示词主模型推导陪练">提示词：主模型推导陪练</a></li><li class="l2"><a href="#3-数值与验证t4t6">3. 数值与验证（T4–T6）</a></li><li class="l3"><a href="#提示词积分器与代码审查">提示词：积分器与代码审查</a></li><li class="l3"><a href="#提示词验证三件套设计与精度声明">提示词：验证三件套设计与精度声明</a></li><li class="l2"><a href="#4-写作t7t8">4. 写作（T7–T8）</a></li><li class="l3"><a href="#提示词摘要打磨数字ocracy">提示词：摘要打磨（数字ocracy）</a></li><li class="l3"><a href="#提示词逐节中译英与句式升级">提示词：逐节中译英与句式升级</a></li><li class="l2"><a href="#5-模拟评审t9">5. 模拟评审（T9）</a></li><li class="l3"><a href="#提示词评委三分钟模拟">提示词：评委三分钟模拟</a></li><li class="l2"><a href="#6-赛后复盘">6. 赛后复盘</a></li><li class="l3"><a href="#提示词结构化复盘访谈">提示词：结构化复盘访谈</a></li><li class="l3"><a href="#提示词与历届金牌对比找差距">提示词：与历届金牌对比找差距</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+/* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
+var PKEY="",PKIND="",CKS="upcProgress.v1";
+function ckLoad(){try{return JSON.parse(localStorage.getItem(CKS)||"{}")}catch(e){return{}}}
+function ckSave(s){try{localStorage.setItem(CKS,JSON.stringify(s))}catch(e){}}
+function ckPush(s,st){(s.log=s.log||[]).unshift({k:PKEY,t:PKIND,s:st,ts:Date.now()});if(s.log.length>80)s.log.length=80;}
+function ckSet(state){
+  var s=ckLoad();
+  var bag=PKIND==="paper"?(s.p=s.p||{}):(s.i=s.i||{});
+  var it=bag[PKEY]||{},now=Date.now();
+  if(state==="v"){if(!it.v){it.v=now;ckPush(s,"v");}}
+  else if(state==="t"){if(it.d){delete it.d;ckPush(s,"u");}else{it.d=now;ckPush(s,"d");}}
+  bag[PKEY]=it;ckSave(s);ckUI();
+}
+function ckUI(){
+  var b=document.getElementById('ck');if(!b||!PKEY)return;
+  var s=ckLoad(),it=(PKIND==="paper"?(s.p||{}):(s.i||{}))[PKEY]||{};
+  var done=!!it.d;
+  b.textContent=done?"已打卡 ✓":"打卡 · 标记已吃透";
+  b.classList.toggle('done',done);
+}
+document.addEventListener("DOMContentLoaded", function(){
+  if(PKEY){
+    var b=document.getElementById('ck');b.hidden=false;
+    b.addEventListener('click',function(){ckSet("t")});
+    ckUI();
+    setTimeout(function(){ckSet("v")},3000);  // 停留 3 秒 = 浏览过（自动标记）
+  }
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"neutral",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+/* ---------- 赛事时钟徽章：赛前 D-天数，赛中已用时长，点回首页赛程 ---------- */
+(function(){
+  var S=1794013200000,E=1794186000000,el=document.getElementById('clock');
+  if(!el)return;
+  function p2(n){return n<10?'0'+n:''+n;}
+  function upd(){
+    var t=Date.now();
+    if(t<S){var ms=S-t,dd=Math.floor(ms/864e5);
+      if(dd>=1){el.textContent='赛前 D-'+dd;el.dataset.s='pre';}
+      else{var hh=Math.floor(ms/36e5),mm=Math.floor(ms%36e5/6e4);
+        el.textContent='赛前 '+p2(hh)+':'+p2(mm);el.dataset.s='pre';}}
+    else if(t<E){var u=Math.floor((t-S)/1000);
+      el.textContent='赛中 '+p2(Math.floor(u/3600))+':'+p2(Math.floor(u%3600/60));el.dataset.s='live';}
+    else{el.textContent='第 17 届已结束';el.dataset.s='post';}
+    el.hidden=false;
+  }
+  upd();setInterval(upd,30000);
+})();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
+</script>
+</body>
+</html>

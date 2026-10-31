@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="精读 59 · Research on the Optimal Firing Angle and Initial Velocity of Vintage Artillery Based on Numerical Calculation（2025 题B 金牌 · 队伍 796 · 111 页最长） · UPC 全档案库">
 <meta property="og:description" content="精读 59 · Research on the Optimal Firing Angle and Initial Velocity of Vintage Artillery Based on Numerical Calculation（…">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script defer src="../../../vendor/katex/katex.min.js"></script>
 <script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -392,6 +393,7 @@ print(f&quot;A 系数六档: max/min = {max(A)/min(A):.1f}×（被平均处理�
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract六公式摘要的极致">1.1 Abstract（六公式摘要的极致）</a></li><li class="l3"><a href="#12-12-background-research文献综述的四支柱">1.2 §1.2 Background Research（文献综述的四支柱）</a></li><li class="l3"><a href="#13-31-layer-1式-19-三判据选优">1.3 §3.1 Layer 1（式 1–9 + 三判据选优）</a></li><li class="l3"><a href="#14-3233-layer-23风与自旋式-1128">1.4 §3.2–3.3 Layer 2/3（风与自旋，式 11–28）</a></li><li class="l3"><a href="#15-34-4-公式蒸馏链全文招牌">1.5 §3.4 + §4 公式蒸馏链（全文招牌）</a></li><li class="l3"><a href="#16-56-结论与强弱">1.6 §5–6 结论与强弱</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-阻尼系数与运动方程式-59">3.1 阻尼系数与运动方程（式 5、9）</a></li><li class="l3"><a href="#32-自旋衰减与-magnus式-1927">3.2 自旋衰减与 Magnus（式 19–27）</a></li><li class="l3"><a href="#33-距离拟合与线性主导式-2930">3.3 距离拟合与"线性主导"（式 29–30）</a></li><li class="l3"><a href="#34-高差拟合的常数项主导式-3133">3.4 高差拟合的"常数项主导"（式 31–33）</a></li><li class="l3"><a href="#35-高差-角度反解式-3435-审计-c">3.5 高差-角度反解（式 34–35）⚠ 审计 C</a></li><li class="l3"><a href="#36-线性综合式式-38与双模型对比">3.6 线性综合式（式 38）与双模型对比</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -485,6 +487,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

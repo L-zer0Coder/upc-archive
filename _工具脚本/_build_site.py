@@ -101,7 +101,8 @@ DOC_TPL = r"""<!DOCTYPE html>
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="__TITLE__ · UPC 全档案库">
 <meta property="og:description" content="__DESC__">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="__CSS_KATEX__">
 <script defer src="__JS_KATEX__"></script>
 <script defer src="__JS_AUTORENDER__"></script>
@@ -237,6 +238,7 @@ __RELATED__
 __TOC__
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -330,6 +332,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>"""
@@ -637,6 +656,12 @@ lib.append({"name": "11_论文模板与工具", "desc": "LaTeX 模板 / 图表�
 lib.append({"name": "_工具脚本", "desc": "抓取 / 建库 / 建站全流程 Python 脚本（构建时用，无需在线浏览）",
             "items": [{"n": os.path.basename(f), "u": site_rel(f)}
                       for f in sorted(glob.glob(P("_工具脚本", "*.py")))]})
+lib.append({"name": "12_赛时工具", "desc": "赛时交互工具：48 小时作战室 / 提示词工坊 / 模型闪卡 / 选题助手 / 数值实验台",
+            "items": [{"n": "48小时作战室", "u": "12_赛时工具/warroom.html"},
+                      {"n": "AI 提示词工坊", "u": "12_赛时工具/prompts.html"},
+                      {"n": "物理模型闪卡", "u": "12_赛时工具/flashcards.html"},
+                      {"n": "选题助手", "u": "12_赛时工具/selector.html"},
+                      {"n": "数值实验台", "u": "12_赛时工具/lab.html"}]})
 
 # search index over all doc pages（含正文片段：标题搜不到关键词时靠它兜底）
 search_docs = []
@@ -747,6 +772,11 @@ RULES_HTML = "".join(
 import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _build_site_tail import render_index, write_deploy_helpers, validate
+import _build_tools
+
+# 赛时工具页（作战室等），赛事时间与阶段表与全站同源
+_build_tools.render_tools({"root": ROOT, "ev_start": EVENT_START_MS,
+                           "ev_end": EVENT_END_MS, "phases": PHASES})
 
 render_index({"timeline": TIMELINE_SVG, "bars": BARS_SVG, "model": MODEL_SVG,
               "rules": RULES_HTML, "data": DATA_JS, "ndocs": len(search_docs),
@@ -773,6 +803,17 @@ for _g in lib:
         _extra.append((ROOT, _it["u"], f"全库 {_g['name']}/{_it['n']}"))
 for _t in json.loads(TEX_JS):
     _extra.append((ROOT, _t["u"], f"模板 {_t['n']}"))
+# 赛时工具页自身的相对链接也纳入校验（跳过 JS 运行时拼接的 URL：含引号/加号的都是模板串）
+_href_re = re.compile(r'(?:href|src)="([^"]+)"')
+for _tp in sorted(glob.glob(P("12_赛时工具", "*.html"))):
+    _tbase = os.path.dirname(_tp)
+    _ttext = open(_tp, encoding="utf-8").read()
+    for _u in _href_re.findall(_ttext):
+        if re.match(r"^(https?:|data:|#|mailto:|javascript:)", _u) or "${" in _u:
+            continue
+        if "'" in _u or '"' in _u or "+" in _u:
+            continue
+        _extra.append((_tbase, _u, f"工具页 {os.path.basename(_tp)}"))
 for _s in search_docs:
     _extra.append((ROOT, _s["u"], f"搜索索引 {_s['t']}"))
 

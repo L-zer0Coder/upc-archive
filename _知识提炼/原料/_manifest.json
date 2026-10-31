@@ -1,0 +1,742 @@
+[
+ {
+  "base": "2010-GM-A-160",
+  "year": "2010",
+  "problem": "A",
+  "team": "160",
+  "pages": 21,
+  "digest_kb": 5.8,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2010-GM-B-210",
+  "year": "2010",
+  "problem": "B",
+  "team": "210",
+  "pages": 26,
+  "digest_kb": 8.6,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2011-GM-A-352",
+  "year": "2011",
+  "problem": "A",
+  "team": "352",
+  "pages": 14,
+  "digest_kb": 8.2,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2011-GM-B-379",
+  "year": "2011",
+  "problem": "B",
+  "team": "379",
+  "pages": 9,
+  "digest_kb": 7.8,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2012-GM-A-449",
+  "year": "2012",
+  "problem": "A",
+  "team": "449",
+  "pages": 17,
+  "digest_kb": 7.9,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2012-GM-B-414",
+  "year": "2012",
+  "problem": "B",
+  "team": "414",
+  "pages": 11,
+  "digest_kb": 8.1,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2013-GM-A-538",
+  "year": "2013",
+  "problem": "A",
+  "team": "538",
+  "pages": 13,
+  "digest_kb": 8.0,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2013-GM-B-611a",
+  "year": "2013",
+  "problem": "B",
+  "team": "611",
+  "pages": 23,
+  "digest_kb": 8.2,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2013-GM-B-611a",
+  "year": "2013",
+  "problem": "B",
+  "team": "611a",
+  "pages": 23,
+  "digest_kb": 8.2,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2014-GM-A-726",
+  "year": "2014",
+  "problem": "A",
+  "team": "726",
+  "pages": 25,
+  "digest_kb": 6.9,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2014-GM-B-807",
+  "year": "2014",
+  "problem": "B",
+  "team": "807",
+  "pages": 17,
+  "digest_kb": 7.6,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2015-GM-A-190",
+  "year": "2015",
+  "problem": "A",
+  "team": "190",
+  "pages": 10,
+  "digest_kb": 7.1,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2015-GM-B-108",
+  "year": "2015",
+  "problem": "B",
+  "team": "108",
+  "pages": 25,
+  "digest_kb": 7.1,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2016-GM-A-331",
+  "year": "2016",
+  "problem": "A",
+  "team": "331",
+  "pages": 16,
+  "digest_kb": 7.9,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2016-GM-A-412",
+  "year": "2016",
+  "problem": "A",
+  "team": "412",
+  "pages": 24,
+  "digest_kb": 8.2,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2016-GM-B-441",
+  "year": "2016",
+  "problem": "B",
+  "team": "441",
+  "pages": 16,
+  "digest_kb": 8.0,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2017-GM-A-670",
+  "year": "2017",
+  "problem": "A",
+  "team": "670",
+  "pages": 5,
+  "digest_kb": 7.2,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2017-GM-A-699",
+  "year": "2017",
+  "problem": "A",
+  "team": "699",
+  "pages": 28,
+  "digest_kb": 7.5,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2017-GM-A-744",
+  "year": "2017",
+  "problem": "A",
+  "team": "744",
+  "pages": 35,
+  "digest_kb": 8.0,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2017-GM-B-609",
+  "year": "2017",
+  "problem": "B",
+  "team": "609",
+  "pages": 18,
+  "digest_kb": 7.5,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2018-GM-A-158",
+  "year": "2018",
+  "problem": "A",
+  "team": "158",
+  "pages": 19,
+  "digest_kb": 6.9,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2018-GM-A-258",
+  "year": "2018",
+  "problem": "A",
+  "team": "258",
+  "pages": 13,
+  "digest_kb": 7.1,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2018-GM-A-295",
+  "year": "2018",
+  "problem": "A",
+  "team": "295",
+  "pages": 25,
+  "digest_kb": 7.8,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2018-GM-B-240",
+  "year": "2018",
+  "problem": "B",
+  "team": "240",
+  "pages": 17,
+  "digest_kb": 7.3,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2018-GM-B-285",
+  "year": "2018",
+  "problem": "B",
+  "team": "285",
+  "pages": 11,
+  "digest_kb": 7.6,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2019-GM-A-105",
+  "year": "2019",
+  "problem": "A",
+  "team": "105",
+  "pages": 17,
+  "digest_kb": 7.4,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2019-GM-A-289",
+  "year": "2019",
+  "problem": "A",
+  "team": "289",
+  "pages": 28,
+  "digest_kb": 9.6,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2019-GM-A-343",
+  "year": "2019",
+  "problem": "A",
+  "team": "343",
+  "pages": 25,
+  "digest_kb": 9.3,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2019-GM-B-190",
+  "year": "2019",
+  "problem": "B",
+  "team": "190",
+  "pages": 30,
+  "digest_kb": 8.1,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2019-GM-B-389",
+  "year": "2019",
+  "problem": "B",
+  "team": "389",
+  "pages": 29,
+  "digest_kb": 8.4,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2020-GM-A-340",
+  "year": "2020",
+  "problem": "A",
+  "team": "340",
+  "pages": 12,
+  "digest_kb": 7.8,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2020-GM-A-354",
+  "year": "2020",
+  "problem": "A",
+  "team": "354",
+  "pages": 23,
+  "digest_kb": 7.0,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2020-GM-A-426",
+  "year": "2020",
+  "problem": "A",
+  "team": "426",
+  "pages": 16,
+  "digest_kb": 7.3,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2020-GM-A-447",
+  "year": "2020",
+  "problem": "A",
+  "team": "447",
+  "pages": 16,
+  "digest_kb": 7.1,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2020-GM-B-335",
+  "year": "2020",
+  "problem": "B",
+  "team": "335",
+  "pages": 19,
+  "digest_kb": 6.8,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2020-GM-B-380",
+  "year": "2020",
+  "problem": "B",
+  "team": "380",
+  "pages": 39,
+  "digest_kb": 7.5,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2021-GM-A-200",
+  "year": "2021",
+  "problem": "A",
+  "team": "200",
+  "pages": 30,
+  "digest_kb": 7.4,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2021-GM-A-349",
+  "year": "2021",
+  "problem": "A",
+  "team": "349",
+  "pages": 17,
+  "digest_kb": 7.7,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2021-GM-B-216",
+  "year": "2021",
+  "problem": "B",
+  "team": "216",
+  "pages": 20,
+  "digest_kb": 6.7,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2021-GM-B-385",
+  "year": "2021",
+  "problem": "B",
+  "team": "385",
+  "pages": 17,
+  "digest_kb": 6.8,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2021-GM-B-442",
+  "year": "2021",
+  "problem": "B",
+  "team": "442",
+  "pages": 16,
+  "digest_kb": 7.0,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2021-GM-B-445",
+  "year": "2021",
+  "problem": "B",
+  "team": "445",
+  "pages": 16,
+  "digest_kb": 7.0,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2022-GM-A-346",
+  "year": "2022",
+  "problem": "A",
+  "team": "346",
+  "pages": 19,
+  "digest_kb": 7.6,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2022-GM-A-395",
+  "year": "2022",
+  "problem": "A",
+  "team": "395",
+  "pages": 36,
+  "digest_kb": 8.2,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2022-GM-A-425",
+  "year": "2022",
+  "problem": "A",
+  "team": "425",
+  "pages": 21,
+  "digest_kb": 6.6,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2022-GM-A-460",
+  "year": "2022",
+  "problem": "A",
+  "team": "460",
+  "pages": 13,
+  "digest_kb": 6.2,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2022-GM-B-358",
+  "year": "2022",
+  "problem": "B",
+  "team": "358",
+  "pages": 24,
+  "digest_kb": 6.6,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2022-GM-B-471",
+  "year": "2022",
+  "problem": "B",
+  "team": "471",
+  "pages": 44,
+  "digest_kb": 7.1,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2022-GM-B-480",
+  "year": "2022",
+  "problem": "B",
+  "team": "480",
+  "pages": 19,
+  "digest_kb": 7.1,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2023-GM-A-131",
+  "year": "2023",
+  "problem": "A",
+  "team": "131",
+  "pages": 33,
+  "digest_kb": 6.2,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2023-GM-A-227",
+  "year": "2023",
+  "problem": "A",
+  "team": "227",
+  "pages": 22,
+  "digest_kb": 6.3,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2023-GM-A-244",
+  "year": "2023",
+  "problem": "A",
+  "team": "244",
+  "pages": 28,
+  "digest_kb": 6.1,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2023-GM-A-355",
+  "year": "2023",
+  "problem": "A",
+  "team": "355",
+  "pages": 27,
+  "digest_kb": 6.5,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2023-GM-A-447",
+  "year": "2023",
+  "problem": "A",
+  "team": "447",
+  "pages": 19,
+  "digest_kb": 7.3,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2023-GM-A-464",
+  "year": "2023",
+  "problem": "A",
+  "team": "464",
+  "pages": 38,
+  "digest_kb": 8.2,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2023-GM-B-102",
+  "year": "2023",
+  "problem": "B",
+  "team": "102",
+  "pages": 16,
+  "digest_kb": 6.3,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2023-GM-B-138",
+  "year": "2023",
+  "problem": "B",
+  "team": "138",
+  "pages": 25,
+  "digest_kb": 9.1,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2023-GM-B-471",
+  "year": "2023",
+  "problem": "B",
+  "team": "471",
+  "pages": 22,
+  "digest_kb": 7.0,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2025-GM-A-112",
+  "year": "2025",
+  "problem": "A",
+  "team": "112",
+  "pages": 26,
+  "digest_kb": 6.4,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2025-GM-A-182",
+  "year": "2025",
+  "problem": "A",
+  "team": "182",
+  "pages": 29,
+  "digest_kb": 7.0,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2025-GM-A-485",
+  "year": "2025",
+  "problem": "A",
+  "team": "485",
+  "pages": 31,
+  "digest_kb": 7.7,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2025-GM-B-127",
+  "year": "2025",
+  "problem": "B",
+  "team": "127",
+  "pages": 24,
+  "digest_kb": 6.7,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2025-GM-B-155",
+  "year": "2025",
+  "problem": "B",
+  "team": "155",
+  "pages": 20,
+  "digest_kb": 7.2,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2025-GM-B-188",
+  "year": "2025",
+  "problem": "B",
+  "team": "188",
+  "pages": 69,
+  "digest_kb": 8.5,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2025-GM-B-204",
+  "year": "2025",
+  "problem": "B",
+  "team": "204",
+  "pages": 37,
+  "digest_kb": 8.6,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2025-GM-B-207",
+  "year": "2025",
+  "problem": "B",
+  "team": "207",
+  "pages": 38,
+  "digest_kb": 7.5,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2025-GM-B-264",
+  "year": "2025",
+  "problem": "B",
+  "team": "264",
+  "pages": 27,
+  "digest_kb": 7.8,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2025-GM-B-311",
+  "year": "2025",
+  "problem": "B",
+  "team": "311",
+  "pages": 17,
+  "digest_kb": 8.0,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2025-GM-B-392",
+  "year": "2025",
+  "problem": "B",
+  "team": "392",
+  "pages": 33,
+  "digest_kb": 7.6,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2025-GM-B-428",
+  "year": "2025",
+  "problem": "B",
+  "team": "428",
+  "pages": 32,
+  "digest_kb": 8.3,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2025-GM-B-460",
+  "year": "2025",
+  "problem": "B",
+  "team": "460",
+  "pages": 26,
+  "digest_kb": 8.3,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2025-GM-B-496",
+  "year": "2025",
+  "problem": "B",
+  "team": "496",
+  "pages": 27,
+  "digest_kb": 6.6,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2025-GM-B-765",
+  "year": "2025",
+  "problem": "B",
+  "team": "765",
+  "pages": 52,
+  "digest_kb": 7.2,
+  "has_ana": true,
+  "has_jd": true
+ },
+ {
+  "base": "2025-GM-B-796",
+  "year": "2025",
+  "problem": "B",
+  "team": "796",
+  "pages": 111,
+  "digest_kb": 7.4,
+  "has_ana": true,
+  "has_jd": true
+ }
+]

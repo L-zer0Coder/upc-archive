@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="精读 44 · Deflecting an Asteroid（2022 题A 金牌 · 队伍 425） · UPC 全档案库">
 <meta property="og:description" content="精读 44 · Deflecting an Asteroid（2022 题A 金牌 · 队伍 425） 这份精读怎么用 ：左手论文 PDF（ 03_优秀论文PDF/2022/Problem A/2022-GM-A-425.pdf ），右…">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script defer src="../../../vendor/katex/katex.min.js"></script>
 <script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -390,6 +391,7 @@ plt.legend(fontsize=9); plt.grid(alpha=.3); plt.tight_layout(); plt.show()
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract">1.1 Abstract</a></li><li class="l3"><a href="#12-1-introduction范围裁剪">1.2 §1 Introduction（范围裁剪）</a></li><li class="l3"><a href="#13-2-numerical-simulations工具节">1.3 §2 Numerical simulations（工具节）</a></li><li class="l3"><a href="#14-31-asteroids-trajectory反问题参数化全文最优雅的一步">1.4 §3.1 Asteroid's trajectory（反问题参数化——全文最优雅的一步）</a></li><li class="l3"><a href="#15-32-spacecraft-modeldart-锚定">1.5 §3.2 Spacecraft model（DART 锚定）</a></li><li class="l3"><a href="#16-33-动量传递与-β-因子">1.6 §3.3 动量传递与 β 因子</a></li><li class="l3"><a href="#17-34-最优撞击两轮一维扫描">1.7 §3.4 最优撞击（两轮一维扫描）</a></li><li class="l3"><a href="#18-3536-4-判据与结果">1.8 §3.5–3.6 + §4 判据与结果</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-反问题能量判据式-1">3.1 反问题能量判据（式 1）</a></li><li class="l3"><a href="#32-齐奥尔科夫斯基方程式-2">3.2 齐奥尔科夫斯基方程（式 2）</a></li><li class="l3"><a href="#33-β-与小行星逃逸速度">3.3 β 与小行星逃逸速度</a></li><li class="l3"><a href="#34-周期扰动开普勒第三定律泰勒展开">3.4 周期扰动（开普勒第三定律泰勒展开）</a></li><li class="l3"><a href="#35-相位累积判据36">3.5 相位累积判据（§3.6）</a></li><li class="l3"><a href="#36-为什么垂直方向撞击无效fig-10-的物理">3.6 为什么垂直方向撞击无效（Fig 10 的物理）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -483,6 +485,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

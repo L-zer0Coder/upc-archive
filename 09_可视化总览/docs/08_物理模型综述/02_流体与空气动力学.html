@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="流体与空气动力学 · UPC 全档案库">
 <meta property="og:description" content="流体与空气动力学 1. 该专题在 UPC 中出现全景 流体/气动效应（阻力、马格努斯、大气密度、波）是 UPC 出现频率最高的物理要素，横跨题A 与题B： 年份-题号 具体场景 所用模型一句话 2010A 海王星大气弹道 双锚点指数大气…">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
 <script defer src="../../vendor/katex/katex.min.js"></script>
 <script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -239,6 +240,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#1-该专题在-upc-中出现全景">1. 该专题在 UPC 中出现全景</a></li><li class="l2"><a href="#2-核心模型库逐一解读">2. 核心模型库逐一解读</a></li><li class="l3"><a href="#21-雷诺数选型与阻力律2014b一切阻力题的入口">2.1 雷诺数选型与阻力律（2014B，一切阻力题的入口）</a></li><li class="l3"><a href="#22-马格努斯力与旋转球弹道2011b2012b2015b2022b">2.2 马格努斯力与旋转球弹道（2011B、2012B、2015B、2022B）</a></li><li class="l3"><a href="#23-大气密度模型谱系2010a2023a2025b">2.3 大气密度模型谱系（2010A、2023A、2025B）</a></li><li class="l3"><a href="#24-伞降与跳伞动力学2023a">2.4 伞降与跳伞动力学（2023A）</a></li><li class="l3"><a href="#25-海洋波与涌浪2021b">2.5 海洋波与涌浪（2021B）</a></li><li class="l3"><a href="#26-四旋翼气动与风场2020b">2.6 四旋翼气动与风场（2020B）</a></li><li class="l3"><a href="#27-通量守恒的概率映射2014b-喷泉">2.7 通量守恒的概率映射（2014B 喷泉）</a></li><li class="l2"><a href="#3-跨题目的建模套路总结">3. 跨题目的建模套路总结</a></li><li class="l2"><a href="#4-备赛建议">4. 备赛建议</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -332,6 +334,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

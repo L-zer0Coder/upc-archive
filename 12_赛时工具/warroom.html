@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>48 小时作战室 · UPC 全档案库</title>
+<meta name="description" content="UPC 48 小时作战室：思路时间线、交互式作战手册、提交终检清单、写作句库检索、思路导图与阶段速查。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="48 小时作战室 · UPC 全档案库">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<script defer src="../09_可视化总览/vendor/mermaid/mermaid.min.js"></script>
+<style>
+:root{
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
+ --line:#E7E0D1;--line2:#D9D0BD;
+ --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
+ --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+ --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.85}
+a{color:var(--acc);text-decoration:none}
+a:hover{color:var(--acc-d)}
+::selection{background:rgba(156,63,46,.16)}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1060px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
+.topbar a:hover{color:var(--acc)}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:13.5px;margin-right:4px}
+.brand:hover{color:var(--ink)}
+.brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
+.crumb{color:var(--dim);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.clock{font-family:var(--mono);font-size:11px;line-height:1.9;letter-spacing:.02em;padding:1px 8px;
+ border:1px solid rgba(156,63,46,.28);border-radius:3px;color:var(--acc);background:var(--acc-soft);
+ white-space:nowrap;font-variant-numeric:tabular-nums}
+.clock[data-s="live"]{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
+.wrap{max-width:1060px;margin:0 auto;padding:22px 22px 80px}
+h1.pt{font-family:var(--serif);font-size:25px;margin:.2em 0 .3em;font-weight:700}
+p.pt-lead{color:var(--mut);font-size:13.5px;margin:0 0 18px;max-width:760px}
+.tabs{position:sticky;top:51px;z-index:20;display:flex;gap:2px;overflow-x:auto;background:rgba(247,244,237,.96);
+ padding:6px 0;border-bottom:1px solid var(--line);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{padding:7px 15px;font-size:13.5px;color:var(--mut);border-radius:3px;white-space:nowrap;cursor:pointer}
+.tabs a:hover{color:var(--ink)}
+.tabs a.on{background:var(--acc);color:#FDFCF8}
+.pane{display:none;padding-top:18px}
+.pane.on{display:block}
+.btn{display:inline-flex;align-items:center;height:32px;padding:0 14px;border:1px solid var(--line2);border-radius:3px;
+ font-size:12.5px;color:var(--ink);background:var(--sheet);cursor:pointer;font-family:inherit;transition:.15s}
+.btn:hover{border-color:var(--acc);color:var(--acc)}
+.btn.solid{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.btn.solid:hover{background:var(--acc-d);color:#FDFCF8}
+.btn.danger:hover{border-color:#B23A22;color:#B23A22}
+.card{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.notebox{border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:0 3px 3px 0;background:var(--sheet);
+ padding:12px 16px;color:var(--mut);font-size:13px;line-height:1.9}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:11.5px;letter-spacing:.05em;border-bottom:1px solid var(--line2);background:var(--sheet)}
+tbody tr:nth-child(2n) td{background:#F8F5EC}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px 20px}
+.mermaid{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:12px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink)}
+@media print{
+ .topbar,.tabs,.btn,#pbar{display:none!important}
+ body{background:#fff;font-size:11pt}
+ .wrap{max-width:none;padding:0}
+ .card{border:none;padding:0}
+ .pane{display:block!important;page-break-inside:auto}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <span class="crumb">第 17 届赛时工具</span>
+  <span class="clock" id="clock" aria-label="第 17 届 UPC 赛程"></span>
+</div></div>
+<div class="wrap">
+<h1 class="pt">48 小时作战室</h1>
+<p class="pt-lead">开赛后把这一页钉在屏幕上：随手记思路（自动盖阶段戳）、对照手册推进、句库即查即抄、交卷前过终检。所有数据只存在本浏览器，可导出备份。</p>
+
+<nav class="tabs" id="tabs">
+  <a data-t="log" class="on">思路时间线</a>
+  <a data-t="manual">作战手册</a>
+  <a data-t="check">提交终检</a>
+  <a data-t="sent">写作句库</a>
+  <a data-t="map">思路导图</a>
+  <a data-t="speed">阶段速查</a>
+</nav>
+
+<section class="pane on" id="pane-log">
+  <div class="card" id="logclock" style="margin-bottom:14px"></div>
+  <div class="card">
+    <textarea id="note" rows="3" style="width:100%;border:1px solid var(--line2);border-radius:3px;background:var(--paper);
+      padding:10px 12px;font-size:14px;outline:none;resize:vertical" placeholder="随手记：判据、假设、算出的数、分工变化、踩的坑…（Ctrl+Enter 快速记一条）"></textarea>
+    <div style="display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap">
+      <button class="btn solid" id="add" type="button">记一条（自动盖时间戳与阶段）</button>
+      <button class="btn" id="logexp" type="button">导出决策日志 .md</button>
+      <button class="btn" id="logjson" type="button">导出 JSON</button>
+      <button class="btn" id="logimp" type="button">导入 JSON</button>
+      <input type="file" id="logfile" accept=".json,application/json" hidden>
+      <button class="btn danger" id="logclr" type="button">清空</button>
+      <span class="note" id="logcnt" style="color:var(--dim);font-size:12px"></span>
+    </div>
+  </div>
+  <div id="loglist" style="margin-top:14px"></div>
+</section>
+
+<section class="pane" id="pane-manual"><h1>48 小时作战手册 —— UPC 比赛时间线与分工</h1>
+<blockquote>
+<p>依据 73 篇金牌论文的结构共性逆推出的执行方案。比赛从周五 20:00（美东）开始，周日晚截止。<strong>最大的失败模式不是算不出来，而是 40 小时在建模、8 小时在写作。</strong></p>
+</blockquote>
+<h2>0. 赛前准备（比赛前一周）</h2>
+<ul>
+<li>装好工具链：LaTeX（Overleaf 或本地 + 本库 <code>LaTeX模板/main.tex</code>）、Python（numpy/matplotlib/scipy）或 MATLAB、文献检索入口（NASA ADS / Google Scholar）。</li>
+<li>打印/熟读 <code>08_物理模型综述/08_方法论与数值算法总论.md</code> 与本手册，队伍三人各背一块：A=力学/轨道，B=流体/热学，C=数值+写作。</li>
+<li>约定协作规则：共享代码仓库、图统一由一人出（风格一致）、公式编号规范当场定（章.序号）。</li>
+</ul>
+<h2>1. 时间线总览</h2>
+<pre><code class="language-mermaid">gantt
+    title 48 小时分配（按 12 个时段）
+    dateFormat X
+    axisFormat %H
+    section 开局
+    读题+选题         :0, 2
+    去模糊化+路线图    :2, 4
+    section 建模
+    基准方案(解析)     :4, 8
+    主模型推导         :8, 20
+    数值实现           :14, 26
+    section 深化
+    修正项+扩展        :26, 34
+    验证三件套         :30, 38
+    section 收官
+    图表精修           :36, 41
+    写作+摘要          :20, 46
+    交叉互查+提交      :46, 48
+</code></pre>
+<h2>2. 逐阶段任务单</h2>
+<h3>T0（第 0–2 小时）：读题与选题</h3>
+<ul>
+<li>两道题各自 15 分钟独立读 → 队内各写 3 行：考什么物理、要交付什么、最大风险。</li>
+<li>选题判据：<strong>离你们的"主场模型"更近</strong>（UPC 评审不奖励难题，奖励自洽）；A 题偏航天/建模深度，B 题常偏工程/数据处理，参考 <code>07_题目解读/</code> 历年两题风格。</li>
+<li>❌ 不要选"看起来好写"但你们都不熟的领域——48 小时学不完新物理。</li>
+</ul>
+<h3>T1（第 2–4 小时）：去模糊化 + 作战路线图</h3>
+<ul>
+<li>把题面每个模糊词（significant / quickly / safely / damage…）翻译成<strong>可计算判据</strong>，写成一页"判定标准清单"（学 2010-A 的 20% 燃耗、2021-B 的"2 m 涌浪高度"）。</li>
+<li>画出建模路线图（真空→主修正→扩展，参考 <code>图表配方库</code> 配方 8 的 roadmap 图——它也可以直接进论文）。</li>
+<li>列数据需求清单：哪些参数要查文献（提前查！越晚查越慌）。</li>
+<li>✅ 里程碑 1：一页纸作战图（判据+层级+分工+数据清单）。</li>
+</ul>
+<h3>T2（第 4–8 小时）：基准方案（必须解析）</h3>
+<ul>
+<li>先算一个<strong>闭式可得的对照情形</strong>：真空抛体 / 纯燃料减速 / 无阻力轨道……</li>
+<li>它的作用：①给主模型提供量化参照；②当数值出 bug 时当 sanity check；③论文第 1 节现成素材。</li>
+<li>✅ 里程碑 2：基准的数值+公式（如 95.15% 燃耗这类"锚数字"）。</li>
+</ul>
+<h3>T3（第 8–20 小时）：主模型推导（白天主力时段）</h3>
+<ul>
+<li>从守恒律/牛顿第二定律出发写主方程；每个假设旁边用一句话+一个量级数字自辩。</li>
+<li><strong>组合参数打包</strong>（Define σ≡…）让方程干净。</li>
+<li>每推完一块立刻编号，写作时直接引用。</li>
+<li>⚠️ 中点检查（第 14 小时）：如果主方程还没落地，立即降级模型复杂度——评审宁可要完整闭环的简单模型，不要半成品复杂模型。</li>
+</ul>
+<h3>T4（第 14–26 小时，与 T3 并行）：数值实现</h3>
+<ul>
+<li>写主积分器（RK45 或步长受控欧拉），初值/边界/终止条件一次写全。</li>
+<li><strong>先跑通一条轨迹再谈参数扫描</strong>。</li>
+<li>出第一版"结论进图题"的图（配方 1）。</li>
+</ul>
+<h3>T5（第 26–34 小时）：修正项与扩展</h3>
+<ul>
+<li>按量级表逐项决定：必须建模 / 可忽略（写一行数字证明）/ 有余力再上。</li>
+<li>常见扩展方向（按性价比排序）：灵敏度龙卷风图（配方 3，半天）&gt; 一个失败模式分析 &gt; 更精细的物理修正。</li>
+</ul>
+<h3>T6（第 30–38 小时）：验证三件套（金牌与银牌的分水岭）</h3>
+<ol>
+<li><strong>收敛性</strong>：步长减半，报有效位数（配方 4）。</li>
+<li><strong>极限情形</strong>：关掉阻力/令质量→∞，数值必须退回基准解析解。</li>
+<li><strong>灵敏度</strong>：核心参数 ±20% 扫描（配方 3）。
+- ✅ 里程碑 3：三张验证图 + 误差声明段落。</li>
+</ol>
+<h3>T7（第 36–41 小时）：图表精修</h3>
+<ul>
+<li>每张图过 checklist：有编号？被正文点名？轴标签带单位？结论进图题？配色语义全文一致？</li>
+<li>用 <code>图表配方库</code> 的 8 个配方对照自查，缺哪类补哪类。</li>
+</ul>
+<h3>T8（第 20–46 小时，贯穿）：写作</h3>
+<ul>
+<li><strong>写作与建模并行</strong>：每完成一节推导当天就写成英文初稿，最后 6 小时只做整合润色。</li>
+<li>按模板结构逐节填：Abstract 最后写，但<strong>必须带数值结论</strong>。</li>
+<li>摘要句式、模糊词自辩句式直接查 <code>写作句库.md</code>。</li>
+</ul>
+<h3>T9（第 46–48 小时）：交叉互查与提交</h3>
+<ul>
+<li>三人互换只读摘要+图：能否 5 分钟复述结论？不能→改摘要。</li>
+<li>查重式自查三件事：①每张图被引用；②每个符号有定义；③每 5 个公式至少有 1 处与文字/图的交叉引用。</li>
+<li>提交前导出 PDF 检查字体嵌入与页码，<strong>提前 2 小时交</strong>（官网截止不等人）。</li>
+</ul>
+<h2>3. 三人分工模板</h2>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>主责</th>
+<th>兼职</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>物理推导手</td>
+<td>主模型方程、量级论证</td>
+<td>摘要与结论初稿</td>
+</tr>
+<tr>
+<td>数值实现手</td>
+<td>积分器、参数扫描、验证三件套</td>
+<td>全部图表输出（风格统一）</td>
+</tr>
+<tr>
+<td>写作整合手</td>
+<td>逐节成文、句库运用、参考文献</td>
+<td>数据查找与锚点核对</td>
+</tr>
+</tbody>
+</table>
+<p>三人每晚（第 24 小时）对一次表：路线图有没有偏、判据有没有变。</p>
+<h2>4. 危机预案</h2>
+<table>
+<thead>
+<tr>
+<th>症状</th>
+<th>处方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第 20 小时主模型仍不收敛</td>
+<td>立刻切到"简化模型+完整验证"路线，把已做的复杂尝试写进 discussion</td>
+</tr>
+<tr>
+<td>数值结果与基准差 3 个量级</td>
+<td>先查单位（90% 是单位），再查初值符号，再查坐标系手性</td>
+</tr>
+<tr>
+<td>摘要写不出数字</td>
+<td>说明没算完 → 回 T6 砍扩展项保闭环</td>
+</tr>
+<tr>
+<td>队友方向分歧</td>
+<td>用"哪条路线能让验证三件套更完整"做裁决标准</td>
+</tr>
+</tbody>
+</table></section>
+
+<section class="pane" id="pane-check">
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <div><b style="font-family:var(--serif);font-size:26px;color:var(--acc)" id="ckpct">0%</b>
+      <span style="font-size:12px;color:var(--dim)">总完成度</span></div>
+      <div style="flex:1;min-width:220px;height:8px;background:#EFEADC;border-radius:4px;overflow:hidden">
+        <i id="ckbar" style="display:block;height:100%;width:0;background:var(--acc);transition:width .3s"></i></div>
+      <button class="btn" id="ckreset" type="button">重置勾选</button>
+    </div>
+  </div>
+  <div id="cklist"></div>
+  <div class="notebox" style="margin-top:16px"><h2>评委三分钟视角模拟</h2>
+<p>最后做一次：只读 标题+摘要+全部图题，5 分钟内能否复述——
+①问题 ②判据 ③方法 ④主结果数字 ⑤结论与适用域？
+复述不出哪条，就回去补哪条。</p></div>
+</section>
+
+<section class="pane" id="pane-sent">
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px">
+    <input id="sq" type="search" placeholder="搜句式 / 场景 / 出处…（如 trade-off、收敛、20%）"
+      style="flex:1;min-width:240px;height:34px;border:1px solid var(--line2);border-radius:3px;background:var(--sheet);padding:0 12px;font-size:13px;outline:none">
+    <span class="note" id="scnt" style="color:var(--dim);font-size:12px"></span>
+  </div>
+  <div id="slist"></div>
+</section>
+
+<section class="pane" id="pane-map">
+  <div class="card">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+      <button class="btn solid" id="mapdraw" type="button">重新渲染</button>
+      <button class="btn" id="mapsvg" type="button">导出 SVG</button>
+      <button class="btn" id="mappng" type="button">导出 PNG（进论文/笔记）</button>
+      <span class="note" style="color:var(--dim);font-size:12px;align-self:center">缩进即层级（每 2 空格一层）</span>
+    </div>
+    <textarea id="mapsrc" rows="9" style="width:100%;border:1px solid var(--line2);border-radius:3px;background:var(--paper);
+      padding:10px 12px;font-size:13.5px;font-family:var(--mono);outline:none;resize:vertical"></textarea>
+  </div>
+  <div class="card" style="margin-top:14px;overflow:auto"><div id="mapbox"></div></div>
+</section>
+
+<section class="pane" id="pane-speed">
+  <div id="speedlist"></div>
+</section>
+
+</div>
+<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份</footer>
+<script>
+var EV_START=1794013200000,EV_END=1794186000000;
+function p2(n){return n<10?'0'+n:''+n;}
+(function(){
+  var el=document.getElementById('clock');
+  function upd(){var t=Date.now();
+    if(t<EV_START){var ms=EV_START-t,dd=Math.floor(ms/864e5);
+      if(dd>=1){el.textContent='赛前 D-'+dd;el.dataset.s='pre';}
+      else{el.textContent='赛前 '+p2(Math.floor(ms/36e5))+':'+p2(Math.floor(ms%36e5/6e4));el.dataset.s='pre';}}
+    else if(t<EV_END){var u=Math.floor((t-EV_START)/1000);
+      el.textContent='赛中 '+p2(Math.floor(u/3600))+':'+p2(Math.floor(u%3600/60));el.dataset.s='live';}
+    else{el.textContent='第 17 届已结束';el.dataset.s='post';}}
+  upd();setInterval(upd,30000);
+})();
+function escHtml(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function copyText(t,btn){
+  function ok(){if(btn){var o=btn.textContent;btn.textContent='已复制 ✓';setTimeout(function(){btn.textContent=o;},1600);}}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){fallback();});}
+  else fallback();
+  function fallback(){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');ok();}catch(e){}ta.remove();}
+}
+function download(name,text,mime){
+  var blob=new Blob([text],{type:mime||'text/plain;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(a.href);},4000);
+}
+function phaseAt(ts){
+  if(ts<EV_START)return null;
+  var hr=(ts-EV_START)/36e5,cur=PHASES[0];
+  for(var i=0;i<PHASES.length;i++){if(hr>=PHASES[i][0]&&hr<PHASES[i][1]){cur=PHASES[i];break;}}
+  return cur;
+}
+function tLabel(ts){
+  if(ts<EV_START)return '备赛';
+  var s=Math.floor((ts-EV_START)/1000);
+  return 'T+'+p2(Math.floor(s/3600))+':'+p2(Math.floor(s%3600/60));
+}
+
+var PHASES=[[0, 2, "T0", "读题与选题", "两题各 15 分钟独立读，按“离主场模型更近”选题"], [2, 4, "T1", "去模糊化 + 敲定路线图", "把 significant / safely 翻译成可计算判据；里程碑①一页纸作战图"], [4, 8, "T2", "基准方案（必须解析）", "先算闭式对照情形，给主模型一个锚数字"], [8, 14, "T3", "主模型推导", "从守恒律写主方程，每个假设配一句量级自辩"], [14, 20, "T3·T4", "主模型收口 + 数值起跑", "第 14 小时中点检查：主方程没落地就立刻降级模型"], [20, 26, "T4", "数值实现", "先跑通一条轨迹，再谈参数扫描"], [26, 30, "T5", "修正项与扩展", "按量级表裁决“必须建模 / 可忽略 / 有余力”"], [30, 38, "T6", "验证三件套", "收敛性 + 极限情形 + 灵敏度 —— 金银牌的分水岭"], [38, 41, "T7", "图表精修", "每张图过 checklist：编号 / 被正文点名 / 单位 / 结论进图题"], [41, 46, "T8", "写作与整合", "摘要最后写，但必须带数值结论"], [46, 48, "T9", "交叉互查 + 提前交卷", "提前 2 小时交，官网截止不等人"]];
+var CK=[{"t": "A. 判据与去模糊化", "items": ["题面中每个模糊词（significant/quickly/safely/damage…）都被翻译成了可计算的判据", "每个阈值都有\"为什么是这个数\"的一句自辩（学 2010-A 的 20% 燃耗）", "判据在同一处集中定义，全文不再改变口径"]}, {"t": "B. 基准与锚点", "items": ["有一个解析可得的对照方案（§1 或等价位置）", "所有关键参数有出处：文献引用 / 现实类比 / 定义本身（如 1 bar 半径）", "结论区回扣了基准的对比数字（\"500 kg vs 2378 kg\"式）"]}, {"t": "C. 模型与推导", "items": ["主方程从基本定律出发，无\"obviously/easily shown\"跳步", "每个简化假设旁有一行量级论证或文献理由", "组合参数（Define σ≡…）让方程保持整洁", "模型适用域被明说（\"valid between R_N and R_atm\"式声明）"]}, {"t": "D. 数值与验证（三件套缺一不可）", "items": ["方法名+步长+初值+边界条件五要素齐全", "步长减半（或等价收敛检验）给出有效位数声明", "至少一个极限情形退化为解析解/基准", "核心参数灵敏度扫描有图（龙卷风图或 ±% 表）", "误差/适用域有专门段落，且点名最坏情形"]}, {"t": "E. 图表（用 11_论文模板与工具/图表配方库 对照）", "items": ["每张图有编号、被正文点名（\"Figure N shows…\"）", "轴标签带单位；坐标比例合理（轨迹图 equal aspect）", "核心图遵循\"结论进图题\"（数值写进 title）", "全文配色语义一致（同一对象永远同色）", "图不少于 4 张、不多于 10 张；每图只讲一个结论"]}, {"t": "F. 写作与结构", "items": ["摘要一页内完成：符号定义→两难→方法→**数值结论**", "摘要含至少一个区间/阈值/百分比硬数字", "章节顺序与\"模板结构\"一致或有意偏离并有理由", "无自夸词（accurate/great），改用精度声明", "引用 5–15 条，注明访问日期；每条都被正文引用过", "附录含可复现代码（关键循环完整）"]}, {"t": "G. 提交合规", "items": ["标题页只有队号+题号+标题（无校名人名——匿名评审）", "页数 ≤ 上限（通常 25 页正文 + 附录，按当年规则）", "PDF 字体嵌入、公式无乱码、无 \"Figure ??\" 断链", "提前 2 小时上传，官网确认收到"]}];
+var SENT=[{"t": "1. 摘要（Abstract）", "rows": [{"t": "句式", "src": "出处", "scene": "场景"}, {"t": "\"We define the radius of Neptune, R_N, as the distance from the center of mass at which pressure is equal to 1 bar; that is, R_N ≈ 24764 km.\"", "src": "2010-A-160", "scene": "摘要第二句就钉死符号与数值，全文无歧义"}, {"t": "\"If the drag force is too strong, ... On the other hand, if the drag force is too weak, ...\"", "src": "2010-A-160", "scene": "两句话立起问题的核心 trade-off"}, {"t": "\"We conclude that 8.8296° < θ < 8.8549°, yielding an allowed margin of error of 0.0253°.\"", "src": "2010-A-160", "scene": "摘要直接给数值结论（带区间与精度）"}, {"t": "\"In this solution, we investigate ... We conclude that the Magnus force is the main reason that drives ...\"", "src": "2015-B-108", "scene": "摘要首句点题、次句给主因结论"}], "notes": []}, {"t": "2. 基准与动机（Baseline / Motivation）", "rows": [{"t": "句式", "src": "", "scene": "场景"}, {"t": "\"How much fuel would be required to ... without X?\"", "src": "", "scene": "用设问开启对照组章节"}, {"t": "\"This anchors the comparison for Section 2.\"", "src": "", "scene": "明说基准的用途"}, {"t": "\"If X does not fire its boosters, it will continue traveling in a hyperbolic orbit.\"", "src": "", "scene": "推演\"不作为\"的后果，制造建模必要性"}, {"t": "\"The purpose of the trajectory we designed is to ...; we can therefore require ...\"", "src": "", "scene": "由设计目的自然引出判据"}], "notes": []}, {"t": "3. 建模与假设（Model / Assumptions）", "rows": [{"t": "句式", "src": "出处", "scene": "场景"}, {"t": "\"Define σ ≡ c_d M_H2 A / 2k_B.\"", "src": "2010-A-160", "scene": "组合参数：把常数打包，方程从此干净"}, {"t": "\"Fixing these points, we approximate the dependence as P(h) = αe^(−h/β).\"", "src": "2010-A-160", "scene": "两点锚定拟合的标准表述"}, {"t": "\"To simplify our calculations, we assume the atmosphere is composed entirely of H₂.\"", "src": "", "scene": "承认简化但理由充分"}, {"t": "\"We choose this value as it is comparable to the size of Voyager 2 [7].\"", "src": "", "scene": "给参数找现实锚点（同类比飞船/仪器）"}, {"t": "\"Since the purpose is to ..., a 'significant' saving is not quantitative enough. For a fair estimation we decided to set 20%.\"", "src": "2010-A-160", "scene": "**操作化模糊词并自辩**（全文最值得抄的一句）"}, {"t": "\"Without loss of generality, we assume the velocity has a non-negative component in the positive x direction.\"", "src": "", "scene": "对称性消冗余"}], "notes": []}, {"t": "4. 数值方法（Numerics）", "rows": [{"t": "句式", "src": "", "scene": "场景"}, {"t": "\"The equations of motion were numerically integrated using Euler's method. Specifically, time was discretely incremented in steps of Δt = 0.001 s.\"", "src": "", "scene": "方法名+步长，一句话"}, {"t": "\"The code is composed so that, when ..., both drag and gravity act; whereas when ..., only gravity has an effect.\"", "src": "", "scene": "把代码分支讲成物理事件"}, {"t": "\"Note that the spacecraft may leave the outer atmosphere into space or into Neptune.\"", "src": "", "scene": "预告边界情形"}, {"t": "\"Halving the step ... changes the exit speed in the fifth digit; we therefore claim 4–5 significant figures, worst case 4.\"", "src": "", "scene": "步长减半收敛声明的完整版"}, {"t": "\"Because the uncertainty is greatest in this critical case, we conclude a precision of ... throughout the simulation.\"", "src": "", "scene": "用最坏情形给全程精度封顶"}], "notes": []}, {"t": "5. 结果与论证（Results / Reasoning）", "rows": [{"t": "句式", "src": "", "scene": "场景"}, {"t": "\"We show below that exit velocity is directly proportional to exit angle.\"", "src": "", "scene": "单调性先行，夹逼合法"}, {"t": "\"Figure 1 shows a trajectory with θ = 8.8295° and v_e > v_max. On the other hand, Figure 2 shows ... We conclude then that 8.8295° < θ_min < 8.8296°.\"", "src": "", "scene": "反例夹逼的叙事模板"}, {"t": "\"As we will see, v_c > v_min; consequently, θ_max does not correspond to v_min but instead to v_c.\"", "src": "", "scene": "诚实处理推理中的意外转折"}, {"t": "\"This can be compared with our estimate from Section 1 of ...\"", "src": "", "scene": "强制回扣基准"}, {"t": "\"The decrease in velocity is less than 0.5%.\"", "src": "", "scene": "极端情形的量化描述"}], "notes": []}, {"t": "6. 不确定性与局限（Uncertainty / Limitations）", "rows": [{"t": "句式", "src": "", "scene": "场景"}, {"t": "\"There is an inevitable uncertainty involved due to limited precision of the computer numerical simulations.\"", "src": "", "scene": "开门见山承认数值误差"}, {"t": "\"We also need to note that there are many other factors ... we haven't taken into account. For example, ...\"", "src": "", "scene": "未建模因素清单（限速/自转/风）"}, {"t": "\"These approximations can be improved in a more detailed analysis.\"", "src": "", "scene": "一句话给局限兜底，不展开"}], "notes": []}, {"t": "7. 结论（Conclusion）", "rows": [{"t": "句式", "src": "出处", "scene": "场景"}, {"t": "\"As Δθ is so small, we would advise against relying on ...\"", "src": "2010-A-160", "scene": "**负结论**：敢说\"不建议\""}, {"t": "\"Our analysis can be extended to consider ... This will produce a much larger allowed margin of error.\"", "src": "", "scene": "指出放宽条件的出路"}, {"t": "\"We should mention that we have assumed ...\"", "src": "", "scene": "结论区补显式假设声明"}, {"t": "\"We extend our sincerest congratulations...\"（官网语）——不要学这句，它属于主办方", "src": "", "scene": "反例"}], "notes": []}, {"t": "8. 高频逻辑连接词（让段落\"自己会走路\"）", "rows": [], "notes": ["递进补充：Specifically / In particular / That is（即）/", "因果链：Consequently / Therefore / As a result / This implies", "对让步：However / On the other hand / Although / Whereas / Despite", "限定边界：provided that / in the range between X and Y / to leading order", "引导结论：We conclude that / We find that / This yields / which gives"]}, {"t": "9. 反面清单（这些写法在落选论文里高发）", "rows": [], "notes": ["\"We use a very accurate model...\" —— 自夸无证据；改为给出精度声明。", "\"Obviously, ...\" —— 评委不觉得 obvious；改为一步推导或引用式号。", "摘要只有\"We analyzed the problem and got good results.\"——没有数字的摘要在 UPC 等于没写。", "\"It can easily be shown that...\" 跳过关键推导——金牌论文连火箭方程都全文重推。", "图无编号引用（\"as shown below\"）——每张图必须 \"Figure N\" 且被正文点名。"]}];
+var LINKS={"decision_tree": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E5%BB%BA%E6%A8%A1%E5%86%B3%E7%AD%96%E6%A0%91.html", "manual": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/48%E5%B0%8F%E6%97%B6%E4%BD%9C%E6%88%98%E6%89%8B%E5%86%8C.html", "sentbank": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E5%86%99%E4%BD%9C%E5%8F%A5%E5%BA%93.html", "recipes": "../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E5%9B%BE%E8%A1%A8%E9%85%8D%E6%96%B9%E5%BA%93/matplotlib_recipes.py", "method": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/08_%E7%89%A9%E7%90%86%E6%A8%A1%E5%9E%8B%E7%BB%BC%E8%BF%B0/08_%E6%96%B9%E6%B3%95%E8%AE%BA%E4%B8%8E%E6%95%B0%E5%80%BC%E7%AE%97%E6%B3%95%E6%80%BB%E8%AE%BA.html", "home_years": "../index.html#years", "home_models": "../index.html#models", "home_templates": "../index.html#templates", "home_papers": "../index.html#papers"};
+var PLINKS=[["home_years|年鉴对照历年两题风格", "decision_tree|建模决策树从 Q1 走"], ["decision_tree|去模糊化 Q5", "sentbank|句库·模糊词操作化"], ["decision_tree|Q2 基准情形", "sentbank|句库·基准与动机"], ["home_models|物理模型地图查套路", "sentbank|句库·建模与假设"], ["method|方法论与数值算法总论", "recipes|图表配方库源码"], ["decision_tree|Q3 量级表", "method|数值算法速查"], ["sentbank|句库·数值方法（收敛声明）", "manual|手册 T6 验证三件套"], ["recipes|8 类配方对照补图", "decision_tree|验证先于美化"], ["sentbank|句库按部位检索", "home_templates|LaTeX 模板工坊"], ["manual|危机预案", "decision_tree|五条主干原则再过一遍"]];
+var WKEY='upcWarroom.v1', CKKEY='upcWarroom.check.v1';
+function wLoad(){try{return JSON.parse(localStorage.getItem(WKEY)||'{}')}catch(e){return{}}}
+function wSave(s){try{localStorage.setItem(WKEY,JSON.stringify(s))}catch(e){}}
+function cLoad(){try{return JSON.parse(localStorage.getItem(CKKEY)||'{}')}catch(e){return{}}}
+function cSave(s){try{localStorage.setItem(CKKEY,JSON.stringify(s))}catch(e){}}
+
+/* ---------- 标签页 ---------- */
+var tabs=document.getElementById('tabs');
+tabs.addEventListener('click',function(ev){
+  var a=ev.target.closest('a');if(!a)return;
+  document.querySelectorAll('#tabs a').forEach(function(x){x.classList.remove('on')});
+  a.classList.add('on');
+  document.querySelectorAll('.pane').forEach(function(p){p.classList.remove('on')});
+  document.getElementById('pane-'+a.dataset.t).classList.add('on');
+  if(a.dataset.t==='map')drawMap();
+});
+
+/* ---------- 思路时间线 ---------- */
+var note=document.getElementById('note');
+note.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();addNote();}});
+document.getElementById('add').addEventListener('click',addNote);
+function addNote(){
+  var t=note.value.trim();if(!t)return;
+  var s=wLoad();(s.notes=s.notes||[]).push({ts:Date.now(),text:t});
+  wSave(s);note.value='';renderLog();
+}
+function fmtNote(t){
+  return escHtml(t).replace(/\n/g,'<br>');
+}
+function renderLog(){
+  var s=wLoad(),notes=(s.notes||[]).slice().sort(function(a,b){return a.ts-b.ts});
+  document.getElementById('logcnt').textContent=notes.length+' 条记录';
+  var box=document.getElementById('loglist');
+  if(!notes.length){box.innerHTML='<div class="notebox">开赛后随手记：每条自动盖上官方时钟的时间戳与阶段号（T0–T9），导出后就是现成的「决策日志」素材。</div>';return;}
+  var html='';
+  notes.forEach(function(n,i){
+    var ph=phaseAt(n.ts);
+    var tag=ph?ph[2]+' · '+ph[3]:'赛前准备';
+    html+='<div class="card" style="margin-bottom:8px;padding:11px 16px">'+
+      '<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap">'+
+      '<b style="font-family:var(--mono);font-size:12px;color:var(--acc)">'+tLabel(n.ts)+'</b>'+
+      '<span style="font-size:11.5px;color:var(--dim)">'+escHtml(tag)+'</span>'+
+      '<span style="margin-left:auto;font-size:11px;color:var(--dim);font-family:var(--mono)">'+new Date(n.ts).toLocaleString()+'</span>'+
+      '<button class="btn" data-del="'+n.ts+'" type="button" style="height:22px;padding:0 8px;font-size:11px">删</button></div>'+
+      '<div style="margin-top:5px;font-size:13.5px">'+fmtNote(n.text)+'</div></div>';
+  });
+  box.innerHTML=html;
+}
+document.getElementById('loglist').addEventListener('click',function(ev){
+  var b=ev.target.closest('button[data-del]');if(!b)return;
+  var ts=+b.dataset.del,s=wLoad();
+  s.notes=(s.notes||[]).filter(function(n){return n.ts!==ts});
+  wSave(s);renderLog();
+});
+document.getElementById('logexp').addEventListener('click',function(){
+  var s=wLoad(),notes=(s.notes||[]).slice().sort(function(a,b){return a.ts-b.ts});
+  if(!notes.length)return;
+  var md='# 第 17 届 UPC 决策日志\n\n> 由 UPC 全档案库「48 小时作战室」导出于 '+new Date().toLocaleString()+'\n';
+  var cur=null;
+  notes.forEach(function(n){
+    var ph=phaseAt(n.ts);
+    var tag=ph?('T+'+p2(Math.floor((n.ts-EV_START)/36e5))+'h · '+ph[2]+' '+ph[3]):'赛前';
+    if(ph&&(!cur||cur[2]!==ph[2])){md+='\n## '+ph[2]+' '+ph[3]+'（第 '+ph[0]+'–'+ph[1]+' 小时）\n';cur=ph;}
+    else if(!ph&&cur!==null){md+='\n## 赛前准备\n';cur=null;}
+    md+='\n- **'+tLabel(n.ts)+'** '+n.text.replace(/\n/g,'\n  ');
+  });
+  md+='\n';
+  download('upc-决策日志-'+new Date().toISOString().slice(0,10)+'.md',md);
+});
+document.getElementById('logjson').addEventListener('click',function(){
+  download('upc-作战室-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(wLoad(),null,1),'application/json');
+});
+document.getElementById('logimp').addEventListener('click',function(){document.getElementById('logfile').click()});
+document.getElementById('logfile').addEventListener('change',function(ev){
+  var f=ev.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(){
+    try{
+      var inc=JSON.parse(r.result),s=wLoad();
+      s.notes=(s.notes||[]).concat(inc.notes||[]);
+      var seen={},out=[];
+      s.notes.sort(function(a,b){return a.ts-b.ts}).forEach(function(n){
+        var k=n.ts+'|'+n.text;if(!seen[k]){seen[k]=1;out.push(n);}});
+      s.notes=out;wSave(s);renderLog();ev.target.value='';
+    }catch(e){alert('导入失败：不是有效的作战室 JSON');}
+  };
+  r.readAsText(f);
+});
+document.getElementById('logclr').addEventListener('click',function(){
+  if(!confirm('确定清空全部思路记录？建议先导出备份。'))return;
+  var s=wLoad();s.notes=[];wSave(s);renderLog();
+});
+
+/* 赛时顶栏大钟 */
+function tickLog(){
+  var t=Date.now(),el=document.getElementById('logclock');
+  if(t<EV_START){
+    var ms=EV_START-t;
+    el.innerHTML='<b style="font-family:var(--serif);font-size:20px">开赛倒计时 '+Math.floor(ms/864e5)+' 天 '+
+      p2(Math.floor(ms%864e5/36e5))+':'+p2(Math.floor(ms%36e5/6e4))+':'+p2(Math.floor(ms%6e4/1e3))+'</b>'+
+      '<span style="color:var(--dim);font-size:12.5px">　—　现在记的每一条都会标记为「备赛」，开赛后自动切换为官方阶段标记。</span>';
+  }else if(t<EV_END){
+    var used=t-EV_START,left=EV_END-t;
+    var hr=used/36e5,cur=PHASES[0],nx=null;
+    for(var i=0;i<PHASES.length;i++){if(hr>=PHASES[i][0]&&hr<PHASES[i][1]){cur=PHASES[i];break;}}
+    for(var j=0;j<PHASES.length;j++){if(PHASES[j][0]>hr){nx=PHASES[j];break;}}
+    function hms(ms){var s=Math.max(0,Math.floor(ms/1000));return p2(Math.floor(s/3600))+':'+p2(Math.floor(s%3600/60))+':'+p2(s%60);}
+    el.innerHTML='<b style="font-family:var(--mono);font-size:20px">已用 '+hms(used)+'</b>'+
+      '　<b style="font-family:var(--mono);font-size:20px;color:var(--acc)">剩余 '+hms(left)+'</b>'+
+      '　<span style="font-size:13px">当前 <b style="font-family:var(--serif);font-size:15px">'+cur[2]+' '+cur[3]+'</b>'+
+      '（第 '+cur[0]+'–'+cur[1]+' 小时）</span>'+
+      (nx?'<span style="color:var(--dim);font-size:12px">　下一阶段：'+nx[2]+' '+nx[3]+'</span>':'');
+  }else{
+    el.innerHTML='<b style="font-family:var(--serif);font-size:18px">第 17 届已结束</b>'+
+      '<span style="color:var(--dim);font-size:12.5px">　导出决策日志，对照历届同域金牌论文复盘。</span>';
+  }
+}
+tickLog();setInterval(tickLog,1000);
+
+/* ---------- 提交终检 ---------- */
+function ckKey(si,ii){return 'c'+si+'_'+ii;}
+function renderCk(){
+  var st=cLoad(),total=0,done=0,html='';
+  CK.forEach(function(sec,si){
+    var boxes=sec.items.map(function(it,ii){
+      total++;
+      var k=ckKey(si,ii),on=!!st[k];
+      if(on)done++;
+      return '<label style="display:flex;gap:9px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--line);cursor:pointer;font-size:13.5px;line-height:1.8">'+
+        '<input type="checkbox" data-ck="'+k+'" '+(on?'checked':'')+' style="margin-top:7px;accent-color:#9C3F2E;flex-shrink:0">'+
+        '<span'+(on?' style="color:var(--dim)"':'')+'>'+escHtml(it)+'</span></label>';
+    }).join('');
+    var dcnt=sec.items.filter(function(_,ii){return st[ckKey(si,ii)]}).length;
+    html+='<div class="card" style="margin-bottom:12px"><div style="display:flex;align-items:baseline;gap:10px">'+
+      '<b style="font-family:var(--serif);font-size:15.5px">'+escHtml(sec.t)+'</b>'+
+      '<span style="font-size:12px;color:'+(dcnt===sec.items.length?'var(--acc)':'var(--dim)')+';margin-left:auto;font-variant-numeric:tabular-nums">'+dcnt+' / '+sec.items.length+'</span></div>'+boxes+'</div>';
+  });
+  document.getElementById('cklist').innerHTML=html;
+  var pct=total?Math.round(done/total*100):0;
+  document.getElementById('ckpct').textContent=pct+'%';
+  document.getElementById('ckbar').style.width=pct+'%';
+}
+document.getElementById('cklist').addEventListener('change',function(ev){
+  var c=ev.target.closest('input[data-ck]');if(!c)return;
+  var st=cLoad();st[c.dataset.ck]=c.checked;cSave(st);renderCk();
+});
+document.getElementById('ckreset').addEventListener('click',function(){
+  if(!confirm('重置全部勾选？'))return;
+  try{localStorage.removeItem(CKKEY)}catch(e){}
+  renderCk();
+});
+renderCk();
+
+/* ---------- 写作句库 ---------- */
+function renderSent(){
+  var kw=document.getElementById('sq').value.trim().toLowerCase();
+  var n=0,html='';
+  SENT.forEach(function(sec){
+    var rows=sec.rows.filter(function(r){
+      if(!kw)return true;
+      return (r.t+' '+r.src+' '+r.scene).toLowerCase().indexOf(kw)>=0;});
+    var notes=sec.notes.filter(function(x){return !kw||x.toLowerCase().indexOf(kw)>=0;});
+    if(kw&&!rows.length&&!notes.length)return;
+    n+=rows.length+notes.length;
+    html+='<div class="card" style="margin-bottom:12px"><b style="font-family:var(--serif);font-size:15.5px">'+escHtml(sec.t)+'</b>';
+    if(rows.length){
+      html+='<table style="margin-top:8px"><thead><tr><th style="width:52%">句式</th>'+(sec.rows[0].src?'<th style="width:14%">出处</th>':'')+'<th>场景</th></tr></thead><tbody>'+
+        rows.map(function(r){
+          return '<tr><td><span style="font-family:var(--mono);font-size:12.5px">'+escHtml(r.t)+'</span> '+
+            '<button class="btn" data-cp="'+escHtml(r.t).replace(/"/g,'&quot;')+'" type="button" style="height:20px;padding:0 7px;font-size:10.5px;margin-left:6px">复制</button></td>'+
+            (r.src?'<td style="font-family:var(--mono);font-size:11.5px;color:var(--dim)">'+escHtml(r.src)+'</td>':'')+
+            '<td style="font-size:12.5px;color:var(--mut)">'+escHtml(r.scene)+'</td></tr>';}).join('')+'</tbody></table>';
+    }
+    if(notes.length){
+      html+='<ul style="margin:8px 0 2px;padding-left:1.4em;font-size:13px;line-height:1.9">'+
+        notes.map(function(x){return '<li>'+escHtml(x)+'</li>';}).join('')+'</ul>';
+    }
+    html+='</div>';
+  });
+  document.getElementById('slist').innerHTML=html||'<div class="notebox">句库里没有匹配「'+escHtml(kw)+'」的句式</div>';
+  document.getElementById('scnt').textContent=n+' 条';
+}
+document.getElementById('sq').addEventListener('input',renderSent);
+document.getElementById('slist').addEventListener('click',function(ev){
+  var b=ev.target.closest('button[data-cp]');if(!b)return;
+  var tmp=document.createElement('textarea');tmp.innerHTML=b.dataset.cp;copyText(tmp.value,b);
+});
+renderSent();
+
+/* ---------- 思路导图（无依赖径向 SVG） ---------- */
+function tryMermaid(n){
+  if(!document.querySelector('pre code.language-mermaid'))return;
+  if(window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"neutral",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }else if(n>0){setTimeout(function(){tryMermaid(n-1);},300);}
+}
+tryMermaid(60);
+var MAP_DEFAULT=[
+ '# 第 17 届建模作战图（示例骨架）',
+ '题目：____（题号）',
+ ' 判据：significant → 20%？safely → 概率 < x？',
+ ' 基准（Level 0）：真空/无阻力的解析解',
+ ' 主模型（Level 1）',
+ '  守恒律 → 主方程',
+ '  关键假设 × 量级自辩',
+ ' 数值（Level 2）',
+ '  RK45 + 步长控制',
+ '  先跑通一条轨迹',
+ ' 验证三件套',
+ '  收敛：步长减半',
+ '  极限：退化到基准',
+ '  灵敏度：±20% 扫描',
+ ' 交付：结论进摘要与图题',
+].join('\n');
+var mapsrc=document.getElementById('mapsrc');
+mapsrc.value=localStorage.getItem('upcWarroom.map')||MAP_DEFAULT;
+mapsrc.addEventListener('input',function(){
+  localStorage.setItem('upcWarroom.map',mapsrc.value);
+  clearTimeout(window.__mapT);window.__mapT=setTimeout(drawMap,600);
+});
+document.getElementById('mapdraw').addEventListener('click',drawMap);
+
+function parseOutline(text){
+  var root={t:'',ch:[]},stack=[{lv:-1,node:root}];
+  text.split('\n').forEach(function(ln){
+    if(!ln.trim()||/^#{1,6}\s*$/.test(ln.trim()))return;
+    var t=ln.replace(/^#+\s*/,'').trim();
+    if(!t)return;
+    var ind=ln.match(/^\s*/)[0].replace(/\t/g,'  ').length;
+    var lv=Math.floor(ind/2);
+    var node={t:t,ch:[]};
+    while(stack.length>1&&stack[stack.length-1].lv>=lv)stack.pop();
+    stack[stack.length-1].node.ch.push(node);
+    stack.push({lv:lv,node:node});
+  });
+  return root;
+}
+function leaves(n){return n.ch.length?n.ch.reduce(function(s,c){return s+leaves(c)},0):1;}
+var MAP_COLORS=['#9C3F2E','#3A5A8C','#2F7D6B','#9A6232','#647C35','#6E5599','#A84A76','#7A7161'];
+function drawMap(){
+  var box=document.getElementById('mapbox');
+  var root=parseOutline(mapsrc.value);
+  if(!root.ch.length){box.innerHTML='<p style="color:var(--dim);font-size:13px">输入大纲后点「重新渲染」</p>';return;}
+  var W=980,H=620,cx=W/2,cy=H/2+8;
+  var l1=root.ch,L1=l1.length;
+  var totalLeaves=leaves(root);
+  var R1=Math.min(225,155+L1*6);
+  var svg=['<svg id="mapsvg-el" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;min-width:640px">'];
+  function tw(t){var w=0;for(var i=0;i<t.length;i++)w+=t.charCodeAt(i)>255?1:0.55;return w;}
+  function nodeW(t,fs){return tw(t)*fs+20;}
+  function nodeBox(x,y,t,col,fs,bold){
+    var w=nodeW(t,fs),h=fs+13;
+    return '<rect x="'+(x-w/2)+'" y="'+(y-h/2)+'" width="'+w+'" height="'+h+'" rx="4" fill="'+col+'" fill-opacity="'+(bold?0.92:0.1)+'" stroke="'+col+'" stroke-width="1.2"/>'+
+      '<text x="'+x+'" y="'+(y+fs*0.36)+'" font-size="'+fs+'" font-weight="'+(bold?'600':'400')+'" text-anchor="middle" fill="'+(bold?'#FDFCF8':col)+'" font-family="Segoe UI,PingFang SC,sans-serif">'+escHtml(t)+'</text>';
+  }
+  // 一级角位：按叶数比例分配，再做最小角间距松弛（防同级框重叠）
+  var per=2*Math.PI/totalLeaves,acc=-Math.PI/2;
+  var spans=l1.map(function(c){return per*leaves(c);});
+  var angs=spans.map(function(s){acc+=s;return acc-s/2;});
+  for(var it=0;it<80;it++){
+    for(var i=0;i<L1;i++){
+      var j=(i+1)%L1;if(L1<2)break;
+      var need=(nodeW(l1[i].t,13.5)+nodeW(l1[j].t,13.5))/2/R1+0.10;
+      var d=angs[j]-angs[i];if(j===0)d+=2*Math.PI;
+      if(d<need){var push=(need-d)/2;angs[i]-=push;angs[j]+=push;}
+    }
+  }
+  // 先算坐标（root + 各级节点），再做笛卡尔成对推开（root 固定），最后统一画线
+  var nodes=[];   // {t,fs,bold,col,x,y,ring,ringR,parent}
+  var rootW=nodeW(root.t,17);
+  nodes.push({t:root.t,fs:17,bold:true,col:'#9C3F2E',x:cx,y:cy,w:rootW,ring:0,parent:-1});
+  var per=2*Math.PI/totalLeaves,acc=-Math.PI/2;
+  var spans=l1.map(function(c){return per*leaves(c);});
+  var angs=spans.map(function(s){acc+=s;return acc-s/2;});
+  l1.forEach(function(c,i){
+    var col=MAP_COLORS[i%MAP_COLORS.length];
+    nodes.push({t:c.t,fs:13.5,bold:true,col:col,x:cx+R1*Math.cos(angs[i]),y:cy+R1*Math.sin(angs[i])*0.8,ring:1,ringR:R1,parent:0});
+  });
+  l1.forEach(function(c,i){
+    var col=MAP_COLORS[i%MAP_COLORS.length];
+    var pi=i+1, half=spans[i]/2, cc=angs[i]-half, lf=leaves(c);
+    c.ch.forEach(function(g,gi){
+      var spg=2*half*leaves(g)/lf;
+      var ang=cc+spg/2, r=R1+95+(gi%2)*48;
+      nodes.push({t:g.t,fs:12,bold:false,col:col,x:cx+r*Math.cos(ang),y:cy+r*Math.sin(ang)*0.8,ring:2,ringR:r,parent:pi});
+      cc+=spg;
+      g.ch&&g.ch.forEach(function(h2,hi){});   // 3 层以上暂按同级并排
+    });
+  });
+  nodes.forEach(function(n){n.h=n.fs+13;if(n.w===undefined)n.w=nodeW(n.t,n.fs);});
+  for(var it=0;it<50;it++){
+    for(var i=0;i<nodes.length;i++)for(var j=i+1;j<nodes.length;j++){
+      var a=nodes[i],b=nodes[j];
+      if(a.ring===0||b.ring===0)continue;
+      var ox=Math.min(a.x+a.w/2,b.x+b.w/2)-Math.max(a.x-a.w/2,b.x-b.w/2);
+      var oy=Math.min(a.y+a.h/2,b.y+b.h/2)-Math.max(a.y-a.h/2,b.y-b.h/2);
+      if(ox>4&&oy>4){
+        var dx=(b.x-a.x)||0.01,dy=(b.y-a.y)||0.01,len=Math.sqrt(dx*dx+dy*dy);
+        var push=Math.min(ox,oy)/2+1;
+        a.x-=dx/len*push;a.y-=dy/len*push;
+        b.x+=dx/len*push;b.y+=dy/len*push;
+      }
+    }
+    nodes.forEach(function(n){
+      if(!n.ring)return;
+      // 轻微拉回轨道，保持环形观感
+      var dx=n.x-cx,dy=(n.y-cy)/0.8,len=Math.sqrt(dx*dx+dy*dy)||1;
+      var r2=n.ringR+(len-n.ringR)*0.85;
+      n.x=cx+dx/len*r2;n.y=cy+dy/len*r2*0.8;
+    });
+  }
+  nodes.forEach(function(n,i){
+    if(n.ring===0)return;
+    var p=nodes[n.parent];
+    svg.push('<line x1="'+p.x+'" y1="'+p.y+'" x2="'+n.x+'" y2="'+n.y+'" stroke="'+n.col+'" stroke-width="'+(n.ring===1?1.6:1.1)+'" opacity="'+(n.ring===1?0.5:0.35)+'"/>');
+  });
+  nodes.forEach(function(n){
+    svg.push('<rect x="'+(n.x-n.w/2)+'" y="'+(n.y-n.h/2)+'" width="'+n.w+'" height="'+n.h+'" rx="4" fill="'+n.col+'" fill-opacity="'+(n.bold?0.92:0.1)+'" stroke="'+n.col+'" stroke-width="1.2"/>'+
+      '<text x="'+n.x+'" y="'+(n.y+n.fs*0.36)+'" font-size="'+n.fs+'" font-weight="'+(n.bold?'600':'400')+'" text-anchor="middle" fill="'+(n.bold?'#FDFCF8':n.col)+'" font-family="Segoe UI,PingFang SC,sans-serif">'+escHtml(n.t)+'</text>');
+  });
+  svg.push('</svg>');
+  box.innerHTML=svg.join('');
+}
+drawMap();
+document.getElementById('mapsvg').addEventListener('click',function(){
+  var el=document.getElementById('mapsvg-el');if(!el)return;
+  download('upc-思路导图.svg','<?xml version="1.0"?>\n'+new XMLSerializer().serializeToString(el),'image/svg+xml');
+});
+document.getElementById('mappng').addEventListener('click',function(){
+  var el=document.getElementById('mapsvg-el');if(!el)return;
+  var svgStr=new XMLSerializer().serializeToString(el);
+  var img=new Image();
+  img.onload=function(){
+    var sc=2,cv=document.createElement('canvas');
+    cv.width=980*sc;cv.height=620*sc;
+    var c=cv.getContext('2d');c.fillStyle='#FDFCF8';c.fillRect(0,0,cv.width,cv.height);
+    c.drawImage(img,0,0,cv.width,cv.height);
+    cv.toBlob(function(b){
+      var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='upc-思路导图.png';
+      document.body.appendChild(a);a.click();a.remove();
+    });
+  };
+  img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svgStr);
+});
+
+/* ---------- 阶段速查 ---------- */
+function renderSpeed(){
+  var t=Date.now(),hr=(t-EV_START)/36e5,curIdx=-1;
+  if(t>=EV_START&&t<EV_END){
+    for(var i=0;i<PHASES.length;i++){if(hr>=PHASES[i][0]&&hr<PHASES[i][1]){curIdx=i;break;}}
+  }
+  var html='<div class="notebox" style="margin-bottom:14px">每个阶段：先看「本阶段任务」，再顺手打开「库内入口」。'+
+    '完整任务单在 <a href="'+LINKS.manual+'" target="_blank">48 小时作战手册</a>；选题走 <a href="'+LINKS.decision_tree+'" target="_blank">建模决策树</a>。</div>';
+  PHASES.forEach(function(ph,i){
+    var now=i===curIdx;
+    var links=PLINKS[i].map(function(x){
+      var kv=x.split('|');return '<a class="btn" style="height:26px;padding:0 10px;font-size:12px" href="'+LINKS[kv[0]]+'" target="_blank">'+kv[1]+' →</a>';
+    }).join(' ');
+    html+='<div class="card" style="margin-bottom:10px;'+(now?'border-color:var(--acc);border-width:1.5px':'')+'">'+
+      '<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap">'+
+      (now?'<span style="font-size:10.5px;letter-spacing:.14em;background:var(--acc);color:#FDFCF8;padding:2px 9px;border-radius:2px;font-weight:600">当前阶段</span>':'')+
+      '<b style="font-family:var(--mono);font-size:13px;color:var(--acc)">'+ph[2]+'</b>'+
+      '<b style="font-family:var(--serif);font-size:15.5px">'+escHtml(ph[3])+'</b>'+
+      '<span style="font-size:12px;color:var(--dim)">第 '+ph[0]+'–'+ph[1]+' 小时</span></div>'+
+      '<p style="margin:6px 0 10px;font-size:13px;color:var(--mut)">'+escHtml(ph[4])+'</p>'+
+      '<div style="display:flex;gap:8px;flex-wrap:wrap">'+links+'</div></div>';
+  });
+  document.getElementById('speedlist').innerHTML=html;
+}
+renderSpeed();
+
+renderLog();
+
+</script>
+</body>
+</html>

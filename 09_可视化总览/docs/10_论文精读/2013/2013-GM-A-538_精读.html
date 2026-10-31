@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="精读 · Using Gravity Assist Maneuver to Increase Fuel Consumption Efficiency for a Space Probe Entering Jupiter's Orbit（2013 题A 金牌 · 队伍 538） · UPC 全档案库">
 <meta property="og:description" content="精读 · Using Gravity Assist Maneuver to Increase Fuel Consumption Efficiency for a Space Probe Entering Jupiter&#x27;s Orbit（…">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script defer src="../../../vendor/katex/katex.min.js"></script>
 <script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -427,6 +428,7 @@ Concluding        意义 + 可直接开做的改进方向
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-1-background-2-introduction第-12-页">1.2 §1 Background + §2 Introduction（第 1–2 页）</a></li><li class="l3"><a href="#13-3-the-tsiolkovsky-rocket-equation第-23-页">1.3 §3 The Tsiolkovsky Rocket Equation（第 2–3 页）</a></li><li class="l3"><a href="#14-4-fuel-needed-without-gravity-assist第-35-页">1.4 §4 Fuel Needed without Gravity Assist（第 3–5 页）</a></li><li class="l3"><a href="#15-5-space-probe-passing-io第-56-页">1.5 §5 Space Probe Passing Io（第 5–6 页）</a></li><li class="l3"><a href="#16-6-gravity-assist-maneuver-around-io第-611-页主战场">1.6 §6 Gravity Assist Maneuver around Io（第 6–11 页）：主战场</a></li><li class="l3"><a href="#17-7-concluding-remarks第-12-页">1.7 §7 Concluding Remarks（第 12 页）</a></li><li class="l2"><a href="#2-图表深析每张图为什么放为什么这样画怎么画">2. 图表深析（每张图：为什么放、为什么这样画、怎么画）</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-tsiolkovsky-火箭方程式-1">3.1 Tsiolkovsky 火箭方程（式 1）</a></li><li class="l3"><a href="#32-相对木星的到达速度式-2">3.2 相对木星的到达速度（式 2）</a></li><li class="l3"><a href="#33-近心点速度与圆轨道速度式-34">3.3 近心点速度与圆轨道速度（式 3、4）</a></li><li class="l3"><a href="#34-飞掠三件套式-57">3.4 飞掠三件套（式 5–7）</a></li><li class="l3"><a href="#35-余弦定理链62-无编号式组">3.5 余弦定理链（§6.2 无编号式组）</a></li><li class="l3"><a href="#36-匹配条件与-α-扫描62-末-63">3.6 匹配条件与 α 扫描（§6.2 末 + §6.3）</a></li><li class="l2"><a href="#4-建模决策链为什么这么建放弃了什么">4. 建模决策链（为什么这么建、放弃了什么）</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -520,6 +522,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

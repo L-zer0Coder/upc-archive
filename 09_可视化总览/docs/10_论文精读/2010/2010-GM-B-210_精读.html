@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="精读 · Trebuchet: The Dynamics of a Medieval Siege Engine（2010 题B 金牌 · 队伍 210） · UPC 全档案库">
 <meta property="og:description" content="精读 · Trebuchet: The Dynamics of a Medieval Siege Engine（2010 题B 金牌 · 队伍 210） 这份精读怎么用 ：左手边开论文 PDF（ 03_优秀论文PDF/2010/Prob…">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script defer src="../../../vendor/katex/katex.min.js"></script>
 <script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -434,6 +435,7 @@ Appendix A–D      求解程序 / 出数据程序 / 原始数据 / 绘图脚本
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-12-页">1.1 Abstract（第 1–2 页）</a></li><li class="l3"><a href="#12-problem-definition第-34-页">1.2 Problem Definition（第 3–4 页）</a></li><li class="l3"><a href="#13-analysis第-49-页lagrange-推导主战场">1.3 Analysis（第 4–9 页）：Lagrange 推导主战场</a></li><li class="l3"><a href="#14-numerical-analysis第-912-页">1.4 Numerical Analysis（第 9–12 页）</a></li><li class="l3"><a href="#15-results-conclusion第-1315-页">1.5 Results + Conclusion（第 13–15 页）</a></li><li class="l2"><a href="#2-图表深析每张图为什么放为什么这样画怎么画">2. 图表深析（每张图：为什么放、为什么这样画、怎么画）</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-弹丸坐标与速度式-1013">3.1 弹丸坐标与速度（式 10–13）</a></li><li class="l3"><a href="#32-弹丸动能与交叉项式-1921">3.2 弹丸动能与交叉项（式 19–21）</a></li><li class="l3"><a href="#33-梁的转动惯量式-1618">3.3 梁的转动惯量（式 16–18）</a></li><li class="l3"><a href="#34-lagrange-方程与两个耦合-ode式-2936">3.4 Lagrange 方程与两个耦合 ODE（式 29–36）</a></li><li class="l3"><a href="#35-显式加速度式-4041消元的技巧">3.5 显式加速度（式 40–41）——消元的技巧</a></li><li class="l3"><a href="#36-初始角式-39与可行域式-4749">3.6 初始角（式 39）与可行域（式 47–49）</a></li><li class="l3"><a href="#37-释放速度式-46与结果式-5053">3.7 释放速度（式 46）与结果（式 50–53）</a></li><li class="l3"><a href="#38-一阶-taylor-步进式-4245">3.8 一阶 Taylor 步进（式 42–45）</a></li><li class="l2"><a href="#4-建模决策链为什么这么建放弃了什么">4. 建模决策链（为什么这么建、放弃了什么）</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -527,6 +529,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

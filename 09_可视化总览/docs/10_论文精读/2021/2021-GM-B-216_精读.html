@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="精读 38 · Asteroid Impact Damage to a Coastal City（2021 题B 金牌 · 队伍 216） · UPC 全档案库">
 <meta property="og:description" content="精读 38 · Asteroid Impact Damage to a Coastal City（2021 题B 金牌 · 队伍 216） 这份精读怎么用 ：左手论文 PDF（ 03_优秀论文PDF/2021/Problem B/202…">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script defer src="../../../vendor/katex/katex.min.js"></script>
 <script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -383,6 +384,7 @@ plt.tight_layout(); plt.show()
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract">1.1 Abstract</a></li><li class="l3"><a href="#12-1-problem-statement含排除论证">1.2 §1 Problem Statement（含排除论证）</a></li><li class="l3"><a href="#13-2-assumptions五条">1.3 §2 Assumptions（五条）</a></li><li class="l3"><a href="#14-31-asteroid-density数据锚定第一步">1.4 §3.1 Asteroid Density（数据锚定第一步）</a></li><li class="l3"><a href="#15-32-impact-velocity全文核心推导">1.5 §3.2 Impact Velocity（全文核心推导）</a></li><li class="l3"><a href="#16-33-energy-lost-on-descent">1.6 §3.3 Energy Lost on Descent</a></li><li class="l3"><a href="#17-4-oceanic-wave-propagation">1.7 §4 Oceanic Wave Propagation</a></li><li class="l3"><a href="#18-5-discussion">1.8 §5 Discussion</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-截面消元式-38">3.1 截面消元（式 3–8）</a></li><li class="l3"><a href="#32-再入-ode-与弹道系数式-13">3.2 再入 ODE 与弹道系数（式 13）</a></li><li class="l3"><a href="#33-无阻力上限式-1419">3.3 无阻力上限（式 14–19）</a></li><li class="l3"><a href="#34-dwi-判据与空穴体积式-2128">3.4 DWI 判据与空穴体积（式 21–28）</a></li><li class="l3"><a href="#35-浪高经验律与答案式-29">3.5 浪高经验律与答案（式 29）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -476,6 +478,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

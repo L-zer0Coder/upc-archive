@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="精读 04 · Solar Sailing to Mars（2017 题A 金牌 · 队伍 670） · UPC 全档案库">
 <meta property="og:description" content="精读 04 · Solar Sailing to Mars（2017 题A 金牌 · 队伍 670） 这份精读怎么用 ：左手边开论文 PDF，右手边开本篇。这是一篇只有 5 页正文 的金牌论文——它证明 UPC 评分的核心是物理与结论，…">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script defer src="../../../vendor/katex/katex.min.js"></script>
 <script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -405,6 +406,7 @@ ax.legend(); plt.tight_layout(); plt.show()
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-1-introduction第-1-页">1.2 §1 Introduction（第 1 页）</a></li><li class="l3"><a href="#13-2-mathematical-model第-12-页">1.3 §2 Mathematical model（第 1–2 页）</a></li><li class="l3"><a href="#14-21-equations-of-motion-续控制参数化第-2-页">1.4 §2.1 Equations of motion 续：控制参数化（第 2 页）</a></li><li class="l3"><a href="#15-2223-flight-optimization-optimization-algorithm第-23-页">1.5 §2.2–2.3 Flight optimization / Optimization Algorithm（第 2–3 页）</a></li><li class="l3"><a href="#16-3-results第-34-页">1.6 §3 Results（第 3–4 页）</a></li><li class="l3"><a href="#17-4-conclusions第-5-页">1.7 §4 Conclusions（第 5 页）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-光压力式-1-前的未编号式">3.1 光压力（式 1 前的未编号式）</a></li><li class="l3"><a href="#32-球坐标分量式-1">3.2 球坐标分量（式 1）</a></li><li class="l3"><a href="#33-运动方程式-2">3.3 运动方程（式 2）</a></li><li class="l3"><a href="#34-帆角约束式-3">3.4 帆角约束（式 3）</a></li><li class="l3"><a href="#35-目标函数-ηmt-与容量曲线13无编号">3.5 目标函数 η=m/T 与容量曲线（§1、§3，无编号）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -498,6 +500,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

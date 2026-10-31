@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>选题助手 · UPC 全档案库</title>
+<meta name="description" content="UPC 选题助手：按队伍强项与题型偏好，从 16 年 32 道官方题目中匹配最合适的历年同域题与建模路线图。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="选题助手 · UPC 全档案库">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+
+<style>
+:root{
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
+ --line:#E7E0D1;--line2:#D9D0BD;
+ --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
+ --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+ --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.85}
+a{color:var(--acc);text-decoration:none}
+a:hover{color:var(--acc-d)}
+::selection{background:rgba(156,63,46,.16)}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1060px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
+.topbar a:hover{color:var(--acc)}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:13.5px;margin-right:4px}
+.brand:hover{color:var(--ink)}
+.brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
+.crumb{color:var(--dim);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.clock{font-family:var(--mono);font-size:11px;line-height:1.9;letter-spacing:.02em;padding:1px 8px;
+ border:1px solid rgba(156,63,46,.28);border-radius:3px;color:var(--acc);background:var(--acc-soft);
+ white-space:nowrap;font-variant-numeric:tabular-nums}
+.clock[data-s="live"]{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
+.wrap{max-width:1060px;margin:0 auto;padding:22px 22px 80px}
+h1.pt{font-family:var(--serif);font-size:25px;margin:.2em 0 .3em;font-weight:700}
+p.pt-lead{color:var(--mut);font-size:13.5px;margin:0 0 18px;max-width:760px}
+.tabs{position:sticky;top:51px;z-index:20;display:flex;gap:2px;overflow-x:auto;background:rgba(247,244,237,.96);
+ padding:6px 0;border-bottom:1px solid var(--line);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{padding:7px 15px;font-size:13.5px;color:var(--mut);border-radius:3px;white-space:nowrap;cursor:pointer}
+.tabs a:hover{color:var(--ink)}
+.tabs a.on{background:var(--acc);color:#FDFCF8}
+.pane{display:none;padding-top:18px}
+.pane.on{display:block}
+.btn{display:inline-flex;align-items:center;height:32px;padding:0 14px;border:1px solid var(--line2);border-radius:3px;
+ font-size:12.5px;color:var(--ink);background:var(--sheet);cursor:pointer;font-family:inherit;transition:.15s}
+.btn:hover{border-color:var(--acc);color:var(--acc)}
+.btn.solid{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.btn.solid:hover{background:var(--acc-d);color:#FDFCF8}
+.btn.danger:hover{border-color:#B23A22;color:#B23A22}
+.card{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.notebox{border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:0 3px 3px 0;background:var(--sheet);
+ padding:12px 16px;color:var(--mut);font-size:13px;line-height:1.9}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:11.5px;letter-spacing:.05em;border-bottom:1px solid var(--line2);background:var(--sheet)}
+tbody tr:nth-child(2n) td{background:#F8F5EC}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px 20px}
+.mermaid{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:12px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink)}
+@media print{
+ .topbar,.tabs,.btn,#pbar{display:none!important}
+ body{background:#fff;font-size:11pt}
+ .wrap{max-width:none;padding:0}
+ .card{border:none;padding:0}
+ .pane{display:block!important;page-break-inside:auto}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <span class="crumb">第 17 届赛时工具</span>
+  <span class="clock" id="clock" aria-label="第 17 届 UPC 赛程"></span>
+</div></div>
+<div class="wrap">
+<h1 class="pt">选题助手</h1>
+<p class="pt-lead">开赛读题的 30 分钟里用它：勾选队伍强项 → 得到同域历年题清单 → 并读对应《题目深度解读》与金牌赏析，判断 2026 两题哪道离主场更近。</p>
+
+<section class="pane on" id="pane-sel" style="display:block">
+  <div class="card" style="margin-bottom:14px">
+    <b style="font-size:14px">① 勾选队伍强项（可多选）</b>
+    <div id="tags" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"></div>
+    <b style="font-size:14px;display:block;margin-top:14px">② 偏好题型</b>
+    <div class="segs" id="styles" style="display:inline-flex;margin-top:8px">
+      <a data-v="" class="on" style="padding:6px 13px;font-size:12.5px;color:var(--mut);cursor:pointer;background:var(--sheet)">不限</a>
+      <a data-v="建模深度" style="padding:6px 13px;font-size:12.5px;color:var(--mut);cursor:pointer;background:var(--sheet)">建模深度</a>
+      <a data-v="机制解释" style="padding:6px 13px;font-size:12.5px;color:var(--mut);cursor:pointer;background:var(--sheet)">机制解释</a>
+      <a data-v="工程优化" style="padding:6px 13px;font-size:12.5px;color:var(--mut);cursor:pointer;background:var(--sheet)">工程优化</a>
+      <a data-v="数据处理" style="padding:6px 13px;font-size:12.5px;color:var(--mut);cursor:pointer;background:var(--sheet)">数据处理</a>
+    </div>
+  </div>
+  <div id="rank"></div>
+  <div class="notebox" style="margin-top:14px">选题铁律：<b>离主场模型更近</b>——UPC 评审不奖励难题，奖励自洽。匹配分只是参考，最终请对照对应年份的《题目深度解读》看两题的建模路线图再拍板。2026 新题拿到手后：先读题 → 在这里找同域历年题 → 并读其金牌赏析。</div>
+</section>
+
+</div>
+<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份</footer>
+<script>
+var EV_START=1794013200000,EV_END=1794186000000;
+function p2(n){return n<10?'0'+n:''+n;}
+(function(){
+  var el=document.getElementById('clock');
+  function upd(){var t=Date.now();
+    if(t<EV_START){var ms=EV_START-t,dd=Math.floor(ms/864e5);
+      if(dd>=1){el.textContent='赛前 D-'+dd;el.dataset.s='pre';}
+      else{el.textContent='赛前 '+p2(Math.floor(ms/36e5))+':'+p2(Math.floor(ms%36e5/6e4));el.dataset.s='pre';}}
+    else if(t<EV_END){var u=Math.floor((t-EV_START)/1000);
+      el.textContent='赛中 '+p2(Math.floor(u/3600))+':'+p2(Math.floor(u%3600/60));el.dataset.s='live';}
+    else{el.textContent='第 17 届已结束';el.dataset.s='post';}}
+  upd();setInterval(upd,30000);
+})();
+function escHtml(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function copyText(t,btn){
+  function ok(){if(btn){var o=btn.textContent;btn.textContent='已复制 ✓';setTimeout(function(){btn.textContent=o;},1600);}}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){fallback();});}
+  else fallback();
+  function fallback(){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');ok();}catch(e){}ta.remove();}
+}
+function download(name,text,mime){
+  var blob=new Blob([text],{type:mime||'text/plain;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(a.href);},4000);
+}
+function phaseAt(ts){
+  if(ts<EV_START)return null;
+  var hr=(ts-EV_START)/36e5,cur=PHASES[0];
+  for(var i=0;i<PHASES.length;i++){if(hr>=PHASES[i][0]&&hr<PHASES[i][1]){cur=PHASES[i];break;}}
+  return cur;
+}
+function tLabel(ts){
+  if(ts<EV_START)return '备赛';
+  var s=Math.floor((ts-EV_START)/1000);
+  return 'T+'+p2(Math.floor(s/3600))+':'+p2(Math.floor(s%3600/60));
+}
+
+var PROBS=[{"y": 2010, "p": "A", "cn": "海王星飞船气动制动", "tags": ["航天与轨道", "流体与空气动力", "数值仿真功底"], "style": "建模深度", "line": "火箭方程基准＋指数大气＋平方阻力，临界入射角二分夹逼", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2010_%E9%A2%98A_%E6%B5%B7%E7%8E%8B%E6%98%9F%E6%B0%94%E5%8A%A8%E5%88%B6%E5%8A%A8.html"}, {"y": 2010, "p": "B", "cn": "中世纪投石机动力学", "tags": ["刚体与多体", "航天与轨道"], "style": "机制解释", "line": "配重-臂-释放角的能量与角动量账本", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2010_%E9%A2%98B_%E6%8A%95%E7%9F%B3%E6%9C%BA%E5%8A%A8%E5%8A%9B%E5%AD%A6.html"}, {"y": 2011, "p": "A", "cn": "太空塔发射成本", "tags": ["航天与轨道", "工程与设计", "数值仿真功底"], "style": "建模深度", "line": "全轨迹仿真：共转大气阻力＋重力转向，Δv 折算美元", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2011_%E9%A2%98A_%E5%A4%AA%E7%A9%BA%E5%A1%94%E5%8F%91%E5%B0%84%E6%88%90%E6%9C%AC.html"}, {"y": 2011, "p": "B", "cn": "三分球投篮物理", "tags": ["流体与空气动力", "数据处理与统计"], "style": "机制解释", "line": "抛体＋马格努斯＋命中率数据的置信区间", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2011_%E9%A2%98B_%E4%B8%89%E5%88%86%E7%90%83%E6%8A%95%E7%AF%AE.html"}, {"y": 2012, "p": "A", "cn": "超级地球上的火山活动", "tags": ["热学与能量", "生物与标度律"], "style": "建模深度", "line": "黏度-产热-散热平衡决定火山节奏", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2012_%E9%A2%98A_%E8%B6%85%E7%BA%A7%E5%9C%B0%E7%90%83%E7%81%AB%E5%B1%B1.html"}, {"y": 2012, "p": "B", "cn": "乒乓球尺寸", "tags": ["流体与空气动力", "生物与标度律"], "style": "数据处理", "line": "球尺寸对游戏影响的空气阻力标度分析", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2012_%E9%A2%98B_%E4%B9%92%E4%B9%93%E7%90%83%E5%B0%BA%E5%AF%B8.html"}, {"y": 2013, "p": "A", "cn": "木星卫星引力辅助减速入轨", "tags": ["航天与轨道", "数值仿真功底"], "style": "建模深度", "line": "双曲线飞掠三件套：b、近心距、偏转角", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2013_%E9%A2%98A_%E6%9C%A8%E6%98%9F%E5%BC%95%E5%8A%9B%E8%BE%85%E5%8A%A9%E5%85%A5%E8%BD%A8.html"}, {"y": 2013, "p": "B", "cn": "超重力环境下的生物结构", "tags": ["生物与标度律", "刚体与多体"], "style": "机制解释", "line": "超重力下骨骼-肌肉结构的标度律", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2013_%E9%A2%98B_%E8%B6%85%E9%87%8D%E5%8A%9B%E7%94%9F%E7%89%A9%E7%BB%93%E6%9E%84.html"}, {"y": 2014, "p": "A", "cn": "环双星行星", "tags": ["航天与轨道", "数值仿真功底"], "style": "建模深度", "line": "受限三体＋r0-v0 相空间稳定图", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2014_%E9%A2%98A_%E7%8E%AF%E5%8F%8C%E6%98%9F%E8%A1%8C%E6%98%9F.html"}, {"y": 2014, "p": "B", "cn": "喷泉高度优化", "tags": ["流体与空气动力", "工程与设计"], "style": "工程优化", "line": "水泵-管路-喷嘴匹配的最大高度设计", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2014_%E9%A2%98B_%E5%96%B7%E6%B3%89%E4%BC%98%E5%8C%96.html"}, {"y": 2015, "p": "A", "cn": "改造火星：定向撞击", "tags": ["热学与能量", "航天与轨道"], "style": "建模深度", "line": "彗/陨撞击的能量账与火星气候后果", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2015_%E9%A2%98A_%E6%94%B9%E9%80%A0%E7%81%AB%E6%98%9F%E5%AE%9A%E5%90%91%E6%92%9E%E5%87%BB.html"}, {"y": 2015, "p": "B", "cn": "绕树高尔夫球", "tags": ["流体与空气动力"], "style": "机制解释", "line": "马格努斯曲线球绕障弹道", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2015_%E9%A2%98B_%E7%BB%95%E6%A0%91%E9%AB%98%E5%B0%94%E5%A4%AB.html"}, {"y": 2016, "p": "A", "cn": "核废料太空处置", "tags": ["航天与轨道", "数据处理与统计"], "style": "建模深度", "line": "坠日 vs 存带：Δv 统一货币＋小行星撞击概率", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2016_%E9%A2%98A_%E6%A0%B8%E5%BA%9F%E6%96%99%E5%A4%AA%E7%A9%BA%E5%A4%84%E7%BD%AE.html"}, {"y": 2016, "p": "B", "cn": "恐龙 vs 哺乳动物体型上限", "tags": ["生物与标度律", "流体与空气动力"], "style": "机制解释", "line": "呼吸/骨骼/散热约束下的体型上限标度", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2016_%E9%A2%98B_%E6%81%90%E9%BE%99%E5%93%BA%E4%B9%B3%E5%8A%A8%E7%89%A9%E4%BD%93%E5%9E%8B%E4%B8%8A%E9%99%90.html"}, {"y": 2017, "p": "A", "cn": "太阳帆飞往火星", "tags": ["航天与轨道", "电磁与辐射", "数值仿真功底"], "style": "建模深度", "line": "光压三级模型＋帆角分段常值优化", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2017_%E9%A2%98A_%E5%A4%AA%E9%98%B3%E5%B8%86%E5%8E%BB%E7%81%AB%E6%98%9F.html"}, {"y": 2017, "p": "B", "cn": "离子推进器排气磁场导向", "tags": ["电磁与辐射"], "style": "机制解释", "line": "量纲判决的负结果艺术：完美准直上界 6%", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2017_%E9%A2%98B_%E7%A6%BB%E5%AD%90%E6%8E%A8%E8%BF%9B%E5%99%A8%E7%A3%81%E5%AF%BC%E5%90%91.html"}, {"y": 2018, "p": "A", "cn": "激光光帆纳米飞行器", "tags": ["航天与轨道", "电磁与辐射", "数值仿真功底"], "style": "建模深度", "line": "相对论光压＋帆微扰＋nrad 精度预算", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2018_%E9%A2%98A_%E5%85%89%E5%B8%86%E7%BA%B3%E7%B1%B3%E9%A3%9E%E8%A1%8C%E5%99%A8.html"}, {"y": 2018, "p": "B", "cn": "堆肥堆尺寸", "tags": ["热学与能量", "生物与标度律"], "style": "机制解释", "line": "Semenov 热平衡：自热与散热的尺寸博弈", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2018_%E9%A2%98B_%E5%A0%86%E8%82%A5%E5%A0%86%E5%B0%BA%E5%AF%B8.html"}, {"y": 2019, "p": "A", "cn": "火星旅行辐射防护", "tags": ["电磁与辐射", "航天与轨道"], "style": "建模深度", "line": "剂量三因子：时间×路径×屏蔽，559→1.86 Sv", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2019_%E9%A2%98A_%E7%81%AB%E6%98%9F%E8%BE%90%E5%B0%84%E9%98%B2%E6%8A%A4.html"}, {"y": 2019, "p": "B", "cn": "过山车设计", "tags": ["刚体与多体", "工程与设计"], "style": "工程优化", "line": "g 值包络内的安全与刺激设计", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2019_%E9%A2%98B_%E8%BF%87%E5%B1%B1%E8%BD%A6%E8%AE%BE%E8%AE%A1.html"}, {"y": 2020, "p": "A", "cn": "离子推进器去土星", "tags": ["航天与轨道", "数值仿真功底"], "style": "建模深度", "line": "低推力螺旋逃逸＋借力链＋圆锥曲线拼接", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2020_%E9%A2%98A_%E7%A6%BB%E5%AD%90%E6%8E%A8%E8%BF%9B%E5%99%A8%E5%8E%BB%E5%9C%9F%E6%98%9F.html"}, {"y": 2020, "p": "B", "cn": "四旋翼无人机抗风", "tags": ["流体与空气动力", "刚体与多体", "数值仿真功底"], "style": "建模深度", "line": "ε 单因子参数化＋理论/仿真双轨互验", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2020_%E9%A2%98B_%E5%9B%9B%E6%97%8B%E7%BF%BC%E6%8A%97%E9%A3%8E.html"}, {"y": 2021, "p": "A", "cn": "火星大气演化", "tags": ["热学与能量", "航天与轨道"], "style": "建模深度", "line": "0.2 bar 初始大气的逸散速率方程百年演化", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2021_%E9%A2%98A_%E7%81%AB%E6%98%9F%E5%A4%A7%E6%B0%94%E6%BC%94%E5%8C%96.html"}, {"y": 2021, "p": "B", "cn": "小行星撞击沿海城市", "tags": ["流体与空气动力", "热学与能量"], "style": "建模深度", "line": "撞击-海啸-涌浪传播链与城市后果", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2021_%E9%A2%98B_%E5%B0%8F%E8%A1%8C%E6%98%9F%E6%92%9E%E5%87%BB%E6%B2%BF%E6%B5%B7%E5%9F%8E%E5%B8%82.html"}, {"y": 2022, "p": "A", "cn": "偏转小行星", "tags": ["航天与轨道", "刚体与多体"], "style": "建模深度", "line": "动能撞击动量极值＋最短预警时间", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2022_%E9%A2%98A_%E5%81%8F%E8%BD%AC%E5%B0%8F%E8%A1%8C%E6%98%9F.html"}, {"y": 2022, "p": "B", "cn": "点球最优策略", "tags": ["流体与空气动力", "数据处理与统计"], "style": "数据处理", "line": "射门运动学＋门将博弈的数据决策", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2022_%E9%A2%98B_%E7%82%B9%E7%90%83%E6%9C%80%E4%BC%98%E7%AD%96%E7%95%A5.html"}, {"y": 2023, "p": "A", "cn": "近太空跳伞安全高度", "tags": ["流体与空气动力", "工程与设计"], "style": "建模深度", "line": "指数大气＋终末速度＋15g 反冲双档判据", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2023_%E9%A2%98A_%E5%A4%AA%E7%A9%BA%E8%B7%B3%E4%BC%9E%E5%AE%89%E5%85%A8%E9%AB%98%E5%BA%A6.html"}, {"y": 2023, "p": "B", "cn": "三人蹦床", "tags": ["刚体与多体", "流体与空气动力"], "style": "机制解释", "line": "人-床耦合的能量同步与相位", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2023_%E9%A2%98B_%E4%B8%89%E4%BA%BA%E8%B9%A6%E5%BA%8A.html"}, {"y": 2024, "p": "A", "cn": "空间站空气逃逸时间", "tags": ["流体与空气动力", "数据处理与统计"], "style": "数据处理", "line": "漏气速率方程与撤离时间窗", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2024_%E9%A2%98A_%E7%A9%BA%E9%97%B4%E7%AB%99%E7%A9%BA%E6%B0%94%E9%80%83%E9%80%B8.html"}, {"y": 2024, "p": "B", "cn": "火星 150 kW 电源", "tags": ["电磁与辐射", "工程与设计"], "style": "工程优化", "line": "核/光电源最小质量设计权衡", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2024_%E9%A2%98B_%E7%81%AB%E6%98%9F%E7%94%B5%E6%BA%90%E6%9C%80%E5%B0%8F%E8%B4%A8%E9%87%8F.html"}, {"y": 2025, "p": "A", "cn": "电声沙桑托琴声学保真", "tags": ["声学与信号", "数值仿真功底"], "style": "建模深度", "line": "弦-腔物理模型＋IIR 滤波设计＋七域验证", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2025_%E9%A2%98A_%E7%94%B5%E5%A3%B0%E6%B2%99%E6%A1%91%E6%89%98%E7%90%B4.html"}, {"y": 2025, "p": "B", "cn": "火炮弹道与射表", "tags": ["流体与空气动力", "数值仿真功底", "数据处理与统计"], "style": "数据处理", "line": "量级约化＋线性风修＋三表交付", "u": "../09_%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E8%A7%88/docs/07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2025_%E9%A2%98B_%E7%81%AB%E7%82%AE%E5%BC%B9%E9%81%93%E5%B0%84%E8%A1%A8.html"}];
+var sel={};
+var TAGS=[];PROBS.forEach(function(p){p.tags.forEach(function(t){if(TAGS.indexOf(t)<0)TAGS.push(t)})});
+var tagbox=document.getElementById('tags');
+TAGS.forEach(function(t){
+  var b=document.createElement('button');b.type='button';b.className='btn';b.textContent=t;
+  b.addEventListener('click',function(){
+    sel[t]=!sel[t];b.classList.toggle('solid',!!sel[t]);rank();});
+  tagbox.appendChild(b);
+});
+var styleF='';
+document.getElementById('styles').addEventListener('click',function(ev){
+  var a=ev.target.closest('a');if(!a)return;
+  document.querySelectorAll('#styles a').forEach(function(x){x.classList.remove('on')});
+  a.classList.add('on');styleF=a.dataset.v;rank();
+});
+function rank(){
+  var rows=PROBS.map(function(p){
+    var s=0,why=[];
+    p.tags.forEach(function(t){
+      if(sel[t]){s+=2;why.push(t);}});
+    if(styleF&&p.style===styleF){s+=3;why.push('题型·'+p.style);}
+    return {p:p,s:s,why:why};
+  }).sort(function(a,b){return b.s-a.s});
+  var html=rows.slice(0,10).map(function(r){
+    var hot=r.s>=4;
+    return '<div class="card" style="margin-bottom:10px;'+(hot?'border-color:var(--acc);border-width:1.5px':'')+'">'+
+      '<div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap">'+
+      '<b style="font-family:var(--mono);color:var(--acc);font-size:13px">'+r.p.y+' 题'+r.p.p+'</b>'+
+      '<b style="font-family:var(--serif);font-size:15px">'+escHtml(r.p.cn)+'</b>'+
+      '<span style="font-size:11px;color:var(--dim)">'+escHtml(r.p.style)+'</span>'+
+      (r.s?'<span style="margin-left:auto;font-size:11px;color:var(--acc);font-family:var(--mono)">匹配 '+r.s+'</span>':'')+'</div>'+
+      '<p style="margin:5px 0 8px;font-size:13px;color:var(--mut)">'+escHtml(r.p.line)+'</p>'+
+      '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
+      '<a class="btn sm solid" href="'+r.p.u+'" target="_blank">题目深度解读 →</a>'+
+      '<a class="btn sm" href="../index.html#papers" target="_blank">该题金牌论文库</a></div></div>';
+  }).join('');
+  document.getElementById('rank').innerHTML='<div class="note" style="margin:0 0 10px;font-size:12px;color:var(--dim)">按匹配度排序（勾选越多越准）：</div>'+html;
+}
+rank();
+
+</script>
+</body>
+</html>

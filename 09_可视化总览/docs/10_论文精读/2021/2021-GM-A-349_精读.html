@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="精读 37 · Model of Decreasing Atmospheric Pressure over Time after Evaporation of Polar Caps and Subsurface Ice（2021 题A 金牌 · 队伍 349） · UPC 全档案库">
 <meta property="og:description" content="精读 37 · Model of Decreasing Atmospheric Pressure over Time after Evaporation of Polar Caps and Subsurface Ice（2021 题A …">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script defer src="../../../vendor/katex/katex.min.js"></script>
 <script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -398,6 +399,7 @@ plt.tight_layout(); plt.show()
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-1-introduction-五小节第-34-页">1.2 §1 Introduction 五小节（第 3–4 页）</a></li><li class="l3"><a href="#13-2-assumptions第-45-页">1.3 §2 Assumptions（第 4–5 页）</a></li><li class="l3"><a href="#14-31-微观宏观桥梁第-6-页">1.4 §3.1 微观—宏观桥梁（第 6 页）</a></li><li class="l3"><a href="#15-321-elimination-of-distractions第-6-页本篇最值得背的一节">1.5 §3.2.1 Elimination of distractions（第 6 页）——本篇最值得背的一节</a></li><li class="l3"><a href="#16-322-33-建模与-4-求解第-711-页">1.6 §3.2.2 + §3.3 建模与 §4 求解（第 7–11 页）</a></li><li class="l3"><a href="#17-5-两级修正第-1213-页">1.7 §5 两级修正（第 12–13 页）</a></li><li class="l3"><a href="#18-67-discussion-conclusion第-1314-页">1.8 §6–7 Discussion + Conclusion（第 13–14 页）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-玻尔兹曼分布-ρ-ρ₀emghkt31-无编号">3.1 玻尔兹曼分布 ρ = ρ₀e^{−mgh/kT}（§3.1 无编号）</a></li><li class="l3"><a href="#32-微元静力平衡-pdpds-dzdsn-pds33fig-3-配图">3.2 微元静力平衡 (P+dp)dS + dz·dS·n = P·dS（§3.3，Fig 3 配图）</a></li><li class="l3"><a href="#33-气柱积分与核心隐式方程式1">3.3 气柱积分与核心隐式方程——式(1)</a></li><li class="l3"><a href="#34-标高-h-的反解式33-无编号">3.4 标高 H 的反解式（§3.3 无编号）</a></li><li class="l3"><a href="#35-平均分子质量-mt式2">3.5 平均分子质量 m(t)——式(2)</a></li><li class="l3"><a href="#36-逃逸系数-λ₁λ₂33-与-4-两次给出">3.6 逃逸系数 λ₁、λ₂（§3.3 与 §4 两次给出）</a></li><li class="l3"><a href="#37-maven-标度律-v-p10⁵64-无编号">3.7 MAVEN 标度律 v = p·10⁵/6（§4 无编号）</a></li><li class="l3"><a href="#38-分层温度修正51文本乱码结构以-pdf-为准">3.8 分层温度修正（§5.1，文本乱码，结构以 PDF 为准）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -491,6 +493,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

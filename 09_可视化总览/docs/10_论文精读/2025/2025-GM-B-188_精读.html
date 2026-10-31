@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="精读 62 · Efficient Artillery Trajectory Approximation Method（2025 题B 金牌 · 队伍 188 · 69 页） · UPC 全档案库">
 <meta property="og:description" content="精读 62 · Efficient Artillery Trajectory Approximation Method（2025 题B 金牌 · 队伍 188 · 69 页） 这份精读怎么用 ：左手论文（ 03_优秀论文PDF/2025…">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script defer src="../../../vendor/katex/katex.min.js"></script>
 <script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -403,6 +404,7 @@ Appendix           系数表 + 89行射表 + θ查找表 + 23页代码(含AI声�
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract">1.1 Abstract</a></li><li class="l3"><a href="#12-31-artillery-type历史定型节全文最有味道的假设节">1.2 §3.1 Artillery type（历史定型节，全文最有味道的假设节）</a></li><li class="l3"><a href="#13-42-大气模型式-4-44-7">1.3 §4.2 大气模型（式 4-4~4-7）</a></li><li class="l3"><a href="#14-43-loth-动态阻力系数式-4-84-14">1.4 §4.3 Loth 动态阻力系数（式 4-8~4-14）</a></li><li class="l3"><a href="#15-4445-ode-与数值实现式-4-154-28">1.5 §4.4–4.5 ODE 与数值实现（式 4-15~4-28）</a></li><li class="l3"><a href="#16-52-线性度检验全文方法论之魂">1.6 §5.2 线性度检验（全文方法论之魂）</a></li><li class="l3"><a href="#17-73-军官方法式-7-37-8">1.7 §7.3 军官方法（式 7-3~7-8）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-真空基线式-4-24-3">3.1 真空基线（式 4-2、4-3）</a></li><li class="l3"><a href="#32-isa-大气链式-4-44-7">3.2 ISA 大气链（式 4-4~4-7）</a></li><li class="l3"><a href="#33-loth-复合阻力公式式-4-114-14">3.3 Loth 复合阻力公式（式 4-11~4-14）</a></li><li class="l3"><a href="#34-阻力加速度因子-φ式-4-214-22">3.4 阻力加速度因子 Φ（式 4-21、4-22）</a></li><li class="l3"><a href="#35-线性修正族式-7-37-8">3.5 线性修正族（式 7-3~7-8）</a></li><li class="l2"><a href="#4-建模决策链-独立复现审计">4. 建模决策链 + 独立复现审计</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -496,6 +498,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 提示词工坊 · UPC 全档案库</title>
+<meta name="description" content="UPC 备赛与赛时 AI 提示词包：选题读题、建模设计、数值验证、论文写作、模拟评审与赛后复盘，内置 74 篇金牌论文的评审标准。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="AI 提示词工坊 · UPC 全档案库">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+
+<style>
+:root{
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
+ --line:#E7E0D1;--line2:#D9D0BD;
+ --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
+ --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+ --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.85}
+a{color:var(--acc);text-decoration:none}
+a:hover{color:var(--acc-d)}
+::selection{background:rgba(156,63,46,.16)}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1060px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
+.topbar a:hover{color:var(--acc)}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:13.5px;margin-right:4px}
+.brand:hover{color:var(--ink)}
+.brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
+.crumb{color:var(--dim);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.clock{font-family:var(--mono);font-size:11px;line-height:1.9;letter-spacing:.02em;padding:1px 8px;
+ border:1px solid rgba(156,63,46,.28);border-radius:3px;color:var(--acc);background:var(--acc-soft);
+ white-space:nowrap;font-variant-numeric:tabular-nums}
+.clock[data-s="live"]{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
+.wrap{max-width:1060px;margin:0 auto;padding:22px 22px 80px}
+h1.pt{font-family:var(--serif);font-size:25px;margin:.2em 0 .3em;font-weight:700}
+p.pt-lead{color:var(--mut);font-size:13.5px;margin:0 0 18px;max-width:760px}
+.tabs{position:sticky;top:51px;z-index:20;display:flex;gap:2px;overflow-x:auto;background:rgba(247,244,237,.96);
+ padding:6px 0;border-bottom:1px solid var(--line);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{padding:7px 15px;font-size:13.5px;color:var(--mut);border-radius:3px;white-space:nowrap;cursor:pointer}
+.tabs a:hover{color:var(--ink)}
+.tabs a.on{background:var(--acc);color:#FDFCF8}
+.pane{display:none;padding-top:18px}
+.pane.on{display:block}
+.btn{display:inline-flex;align-items:center;height:32px;padding:0 14px;border:1px solid var(--line2);border-radius:3px;
+ font-size:12.5px;color:var(--ink);background:var(--sheet);cursor:pointer;font-family:inherit;transition:.15s}
+.btn:hover{border-color:var(--acc);color:var(--acc)}
+.btn.solid{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.btn.solid:hover{background:var(--acc-d);color:#FDFCF8}
+.btn.danger:hover{border-color:#B23A22;color:#B23A22}
+.card{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.notebox{border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:0 3px 3px 0;background:var(--sheet);
+ padding:12px 16px;color:var(--mut);font-size:13px;line-height:1.9}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:11.5px;letter-spacing:.05em;border-bottom:1px solid var(--line2);background:var(--sheet)}
+tbody tr:nth-child(2n) td{background:#F8F5EC}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:26px 20px}
+.mermaid{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:12px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink)}
+@media print{
+ .topbar,.tabs,.btn,#pbar{display:none!important}
+ body{background:#fff;font-size:11pt}
+ .wrap{max-width:none;padding:0}
+ .card{border:none;padding:0}
+ .pane{display:block!important;page-break-inside:auto}
+}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <span class="crumb">第 17 届赛时工具</span>
+  <span class="clock" id="clock" aria-label="第 17 届 UPC 赛程"></span>
+</div></div>
+<div class="wrap">
+<h1 class="pt">AI 提示词工坊</h1>
+<p class="pt-lead">把金牌方法论装进任意 AI 对话框：每条提示词都内置「判据—方程—数值—检验」评审标准与库内上下文包说明。配套文档版见《AI 提示词包》（可直接阅读）。</p>
+
+<section class="pane on" id="pane-p" style="display:block">
+  <div id="plist"></div>
+</section>
+
+</div>
+<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份</footer>
+<script>
+var EV_START=1794013200000,EV_END=1794186000000;
+function p2(n){return n<10?'0'+n:''+n;}
+(function(){
+  var el=document.getElementById('clock');
+  function upd(){var t=Date.now();
+    if(t<EV_START){var ms=EV_START-t,dd=Math.floor(ms/864e5);
+      if(dd>=1){el.textContent='赛前 D-'+dd;el.dataset.s='pre';}
+      else{el.textContent='赛前 '+p2(Math.floor(ms/36e5))+':'+p2(Math.floor(ms%36e5/6e4));el.dataset.s='pre';}}
+    else if(t<EV_END){var u=Math.floor((t-EV_START)/1000);
+      el.textContent='赛中 '+p2(Math.floor(u/3600))+':'+p2(Math.floor(u%3600/60));el.dataset.s='live';}
+    else{el.textContent='第 17 届已结束';el.dataset.s='post';}}
+  upd();setInterval(upd,30000);
+})();
+function escHtml(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function copyText(t,btn){
+  function ok(){if(btn){var o=btn.textContent;btn.textContent='已复制 ✓';setTimeout(function(){btn.textContent=o;},1600);}}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){fallback();});}
+  else fallback();
+  function fallback(){var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');ok();}catch(e){}ta.remove();}
+}
+function download(name,text,mime){
+  var blob=new Blob([text],{type:mime||'text/plain;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(a.href);},4000);
+}
+function phaseAt(ts){
+  if(ts<EV_START)return null;
+  var hr=(ts-EV_START)/36e5,cur=PHASES[0];
+  for(var i=0;i<PHASES.length;i++){if(hr>=PHASES[i][0]&&hr<PHASES[i][1]){cur=PHASES[i];break;}}
+  return cur;
+}
+function tLabel(ts){
+  if(ts<EV_START)return '备赛';
+  var s=Math.floor((ts-EV_START)/1000);
+  return 'T+'+p2(Math.floor(s/3600))+':'+p2(Math.floor(s%3600/60));
+}
+
+var SECS=[{"t": "1. 选题与读题（T0–T1）", "usage": "开赛 0–4 小时用。目标：15 分钟内判断两道题哪道离你们的主场模型更近，并把模糊词全部翻译成可计算判据。", "prompts": [{"t": "15 分钟读题评估", "text": "你是一名 UPC（国际大学生物理竞赛）金牌教练。UPC 评审规则：不奖励难题，奖励\"判据—方程—数值—检验\"链条完整自洽的论文；金牌率约 2%，论文 48 小时内完成。\n\n我会给你两道题的原文。请分别输出：\n1. 考什么物理：3 行以内，点出核心守恒律/定律与主要物理效应；\n2. 要交付什么：题面要求的最终产出（阈值/区间/方案对比/设计准则），把每个模糊词（significant / safely / quickly / damage…）列出来并给出一种可计算判据的翻译建议；\n3. 最大风险：这条路线最容易卡住或算错的地方；\n4. 建模深度预估：主模型是 ODE/解析/蒙特卡洛/信号处理中的哪类，48 小时内普通队伍能否闭环；\n5. 一句话结论：这道题适合什么背景的队伍（力学/流体/热学/电磁/数值功底）。\n\n不要开始解题，只做评估。", "ctx": "两道题原文；可选《建模决策树》（`11_论文模板与工具/建模决策树.md`）。"}, {"t": "模糊词操作化（判据立军令状）", "text": "你是 UPC 金牌教练。以下是题目原文与我们队伍写下的判据草案。请逐条审查：\n1. 题面中还有没有没被翻译的模糊词（significant / safely / quickly / damage / optimal…）？每处给出 2 种可选判据（一种从严、一种从宽），并说明各自对结论方向的影响；\n2. 我们已定的判据是否有\"为什么是这个数\"的自辩理由？没有的话，建议一种自辩方式（文献锚点 / 现实类比 / 定义本身，参考 2010-A 金牌队把 significant 定为 20% 燃耗并明说理由的做法）；\n3. 检查判据是否全文口径一致、集中定义在一处。\n输出一张表：模糊词 | 我们的判据 | 自辩方式 | 是否需修订。", "ctx": "题目原文 + 你的判据草案；可选对应年份的《题目深度解读》里的\"常见陷阱\"节。"}]}, {"t": "2. 建模设计（T2–T3）", "usage": "第 4–20 小时用。目标：先立解析基准，再推主方程，每个假设都有量级自辩。", "prompts": [{"t": "基准方案与量级表", "text": "你是 UPC 金牌教练，辅导风格：先基准、后修正、量级说话。\n\n针对我贴的题目和已定判据：\n1. 设计一个解析可得的基准情形（真空抛体 / 无阻力轨道 / 理想气体等），给出闭式解或可直接计算的公式，并说明它在论文 §1 中作为\"锚数字\"和 sanity check 的两种用法；\n2. 列一张量级表：把题设场景中所有可能起作用的物理效应列全，逐项估算量级（用 characteristic scale 推导，不要拍脑袋），标注\"必须建模 / 可忽略（写一行数字封存）/ 有余力再上\"；\n3. 指出最容易被忽略但量级不小的效应（参考历年教训：坠日题忘减地球公转 29.78 km/s 导致结论反转、科氏力对长射程是米级偏移）。", "ctx": "题目原文 + 判据清单；强烈建议附上《建模决策树》全文。"}, {"t": "主模型推导陪练", "text": "你是 UPC 金牌教练。我正在推主模型，请按以下方式陪练（不要直接给完整答案，先审查再提示）：\n1. 审查我的出发点：是否从守恒律/牛顿第二定律出发？每个假设旁边有没有一句话 + 一个量级数字的自辩？\n2. 审查方程整洁度：常数是否打包成组合参数（Define σ ≡ … 的金牌做法）？\n3. 我贴出推导后：逐步检查量纲、符号、极限行为（v→0、ρ→0、M→∞ 时是否退化到基准解析解）；\n4. 若我 2 小时内推不动：提示我\"第 14 小时检查点\"规则——立即降级模型复杂度，评审宁可要完整闭环的简单模型，不要半成品复杂模型。", "ctx": "题目原文 + 量级表 + 你的推导草稿。"}]}, {"t": "3. 数值与验证（T4–T6）", "usage": "第 14–38 小时用。验证三件套（收敛/极限/灵敏度）是金银牌分水岭，这里最值得花 AI 预算。", "prompts": [{"t": "积分器与代码审查", "text": "你是数值计算教练。审查我贴出的数值代码/方案，按 UPC 金牌论文的五要素清单：\n1. 方法名 + 步长 + 初值 + 边界条件 + 终止条件，五要素是否齐全、是否都写进了论文的计划；\n2. 先跑通一条轨迹再参数扫描——检查我是否本末倒置；\n3. 代码分支是否讲得成物理事件（\"当 h<H 时阻力与重力同时作用，否则只受重力\"）；\n4. 常见 bug 排查顺序：单位（90% 的量级错误是单位）→ 初值符号 → 坐标系手性 → 步长过大导致的伪收敛。\n只审查不重写；每条问题给出最小修改建议。", "ctx": "你的代码（关键循环）+ 《物理模型综述 08：方法论与数值算法总论》（可选）。"}, {"t": "验证三件套设计与精度声明", "text": "你是 UPC 金牌教练。我的主模型和数值方案如下。请设计验证三件套：\n1. 收敛性：给出步长减半实验的具体做法，以及如何写成金牌论文那种精度声明（\"Halving the step changes the exit speed in the fifth digit; we therefore claim 4–5 significant figures, worst case 4.\"的句式）；\n2. 极限情形：选 1–2 个能让数值退化到解析基准的开关（关阻力、质量→∞、密度均匀化），说明退化对照怎么做；\n3. 灵敏度：挑 2–3 个核心参数做 ±20% 扫描，建议输出形式（龙卷风图 / 区间表），并提醒：不确定度最大的参数要贯穿全文一致。\n最后给我一段可直接放进论文的\"误差与适用域声明\"英文段落模板（含最坏情形点名）。", "ctx": "主模型方程 + 数值方案；可选《写作句库》数值方法节。"}]}, {"t": "4. 写作（T7–T8）", "usage": "第 36–46 小时用。摘要最后写但必须带数值结论；逐节成文当天完成。", "prompts": [{"t": "摘要打磨（数字ocracy）", "text": "你是 UPC 金牌论文的英文编辑。这是我队的摘要草稿。按金牌标准逐句审查并改写：\n1. 结构是否是：符号与关键定义 → 问题的两难（trade-off）→ 方法一句话 → 带区间/阈值/百分比的数值结论 → 建议与适用域；\n2. 有没有至少一个硬数字（2010-A 金牌摘要直接给 8.8296° < θ < 8.8549°，允许误差 0.0253°）？没有数字的摘要在 UPC 等于没写；\n3. 是否存在自夸词（accurate / great / obviously）——全部改成精度声明或引用式号；\n4. 每句信息密度：删掉所有不承载信息的词。\n输出：逐句批注表 + 改写后的完整摘要。", "ctx": "摘要草稿 + 主要结果数字清单；强烈建议附《写作句库》摘要节。"}, {"t": "逐节中译英与句式升级", "text": "你是 UPC 金牌论文的英文编辑。把我贴的中文草稿译成论文英语，要求：\n1. 使用本句库风格：信息密度高、自带逻辑连接词（Consequently / On the other hand / provided that / We conclude that）；\n2. 每个数值陈述带单位与有效位数；每处近似给出理由；\n3. 图表引用规范：每张图 \"Figure N shows …\" 且被正文点名；\n4. 不用缩写不定义、不用 we believe 这类主观语，改为证据陈述。\n输出：译文 + 你做了哪些风格决策的 3 条说明。", "ctx": "中文草稿 + 《写作句库》对应章节。"}]}, {"t": "5. 模拟评审（T9）", "usage": "交卷前 2 小时用。评委只精读摘要与图题，三分钟定档。", "prompts": [{"t": "评委三分钟模拟", "text": "你是 UPC 评审，每年评审约百篇论文，平均给每篇摘要+图题 3 分钟。请严格按评审视角审查我贴的：标题、摘要、全部图题（论文其他部分不给）。\n评分口径（UPC 评审不变量，按重要性排序）：\nA 判据：模糊词是否全部操作化，阈值是否有自辩；\nB 基准：是否有解析对照与回扣对比；\nC 模型：主方程从基本定律出发、假设有量级论证、适用域明说；\nD 验证：收敛/极限/灵敏度三件套是否可见（哪怕在图题里）；\nE 呈现：图是否结论进图题、轴带单位、配色语义一致。\n输出：① 5 分钟内你能否复述出 问题/判据/方法/主结果数字/结论——哪条复述不出；② 金/银/铜三档预判与理由；③ 交卷前最后 2 小时优先修的 3 件事。", "ctx": "标题 + 摘要 + 全部图题（按顺序）；可选《提交前终检 checklist》。"}]}, {"t": "6. 赛后复盘", "usage": "比赛结束后 1–3 天内做，趁记忆还热。", "prompts": [{"t": "结构化复盘访谈", "text": "你是赛后复盘教练。UPC 比赛 48 小时已结束。请对我做结构化复盘访谈，一次只问一个问题，覆盖：\n1. 时间线还原：各阶段（读题/基准/主模型/数值/验证/写作）实际用时 vs 计划（T0–T9），哪个阶段失衡；\n2. 决策点回看：选题、降级模型、砍扩展项这三个决策现在评价对不对；\n3. 失败模式归类：算不出来 / 算完了写不完 / 写完了没有验证，属于哪种（40 小时建模 8 小时写作是最常见死法）；\n4. 下届可执行的 3 条改进，按\"赛前能准备\"与\"赛中才遇到\"分类。\n收集完所有回答后，输出一页复盘纪要。", "ctx": "无（访谈式，逐轮对话）。"}, {"t": "与历届金牌对比找差距", "text": "你是 UPC 金牌教练。附上我们第 17 届的论文全文（或关键章节），并附上我选的 1–2 篇历届同域金牌论文的赏析。请输出差距表：\n1. 判据与去模糊化：他们做了我们没做的哪一步；\n2. 建模分层：我们的 Level 0–3 分层是否完整，缺哪层；\n3. 验证三件套：逐项对比谁做得更完整；\n4. 图表：图数量、类型、信息密度对比；\n5. 写作：句式与结构上最值得偷师的 3 处。\n每条差距标注优先级（下届必须改 / 值得改 / 锦上添花）。", "ctx": "你们的论文 + 对应年份《论文赏析》或《题目深度解读》。"}]}];
+function esc(s){return escHtml(s);}
+var html='';
+SECS.forEach(function(sec){
+  html+='<div class="card" style="margin-bottom:16px"><b style="font-family:var(--serif);font-size:17px">'+esc(sec.t)+'</b>'+
+    (sec.usage?'<p style="margin:6px 0 4px;font-size:12.5px;color:var(--dim)">'+esc(sec.usage)+'</p>':'');
+  sec.prompts.forEach(function(p,i){
+    var id='p'+Math.random().toString(36).slice(2,9);
+    html+='<div style="border:1px solid var(--line);border-radius:4px;margin-top:10px;overflow:hidden">'+
+      '<div style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:#F8F5EC">'+
+      '<b style="font-size:13.5px">'+esc(p.t)+'</b>'+
+      '<button class="btn solid" data-show="'+id+'" type="button" style="height:24px;padding:0 10px;font-size:11.5px;margin-left:auto">展开</button>'+
+      '<button class="btn" data-copy="'+id+'" type="button" style="height:24px;padding:0 10px;font-size:11.5px">复制</button></div>'+
+      '<div id="'+id+'" hidden><pre style="margin:0;border:none;border-radius:0;background:var(--sheet);white-space:pre-wrap;font-size:12.8px;line-height:1.9">'+esc(p.text)+'</pre>'+
+      (p.ctx?'<div style="padding:8px 14px;border-top:1px dashed var(--line);font-size:12px;color:var(--dim)">📎 上下文包：'+esc(p.ctx)+'</div>':'')+
+      '</div></div>';
+  });
+  html+='</div>';
+});
+document.getElementById('plist').innerHTML=html;
+document.getElementById('plist').addEventListener('click',function(ev){
+  var b=ev.target.closest('button');if(!b)return;
+  var id=b.dataset.show||b.dataset.copy;
+  var box=document.getElementById(id);if(!box)return;
+  if(b.dataset.show){
+    var open=!box.hidden;
+    box.hidden=open;
+    b.textContent=open?'展开':'收起';
+  }else{
+    box.hidden=false;
+    b.closest('div').querySelector('[data-show]').textContent='收起';
+    copyText(box.querySelector('pre').textContent,b);
+  }
+});
+
+</script>
+</body>
+</html>

@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="精读 12 · Design a Roller Coaster（2019 题B 金牌 · 队伍 190） · UPC 全档案库">
 <meta property="og:description" content="精读 12 · Design a Roller Coaster（2019 题B 金牌 · 队伍 190） 这份精读怎么用 ：左手边开论文 PDF（ 03_优秀论文PDF/2019/Problem B/2019-GM-B-190.pdf …">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script defer src="../../../vendor/katex/katex.min.js"></script>
 <script defer src="../../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -487,6 +488,7 @@ Appendix       全部代码 + 分段放大图
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-221-参数定义g-axes第-24-页">1.2 §2.2.1 参数定义：G-axes（第 2–4 页）</a></li><li class="l3"><a href="#13-222-安全判据第-35-页">1.3 §2.2.2 安全判据（第 3–5 页）</a></li><li class="l3"><a href="#14-223-刺激度-s-的逐级构造第-4-页">1.4 §2.2.3 刺激度 S 的逐级构造（第 4 页）</a></li><li class="l3"><a href="#15-23-定律工具箱第-47-页">1.5 §2.3 定律工具箱（第 4–7 页）</a></li><li class="l3"><a href="#16-24-五段式轨道第-711-页">1.6 §2.4 五段式轨道（第 7–11 页）</a></li><li class="l3"><a href="#17-3-结果与四联图第-1214-页">1.7 §3 结果与四联图（第 12–14 页）</a></li><li class="l3"><a href="#18-32-分段详析第-1421-页">1.8 §3.2 分段详析（第 14–21 页）</a></li><li class="l3"><a href="#19-4-discussion结论局限优点第-2023-页">1.9 §4 Discussion：结论、局限、优点（第 20–23 页）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-过载定义式-1">3.1 过载定义（式 1）</a></li><li class="l3"><a href="#32-安全限值式-24">3.2 安全限值（式 2–4）</a></li><li class="l3"><a href="#33-刺激度-s式-58">3.3 刺激度 S（式 5–8）</a></li><li class="l3"><a href="#34-两类阻力式-1315">3.4 两类阻力（式 13–15）</a></li><li class="l3"><a href="#35-能量总账式-1017">3.5 能量总账（式 10、17）</a></li><li class="l3"><a href="#36-首段俯冲-ode式-1820">3.6 首段俯冲 ODE（式 18–20）</a></li><li class="l3"><a href="#37-圆弧段θ-作状态变量-法向力进摩擦式-2226">3.7 圆弧段：θ 作状态变量 + 法向力进摩擦（式 22–26）</a></li><li class="l3"><a href="#38-双螺旋的坡度折算式-3941">3.8 双螺旋的坡度折算（式 39–41）</a></li><li class="l3"><a href="#39-刹车段式-4344">3.9 刹车段（式 43–44）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -580,6 +582,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

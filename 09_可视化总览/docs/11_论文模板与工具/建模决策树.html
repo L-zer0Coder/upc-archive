@@ -10,7 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="建模决策树 —— 拿到任何 UPC 题目后的第一张图 · UPC 全档案库">
 <meta property="og:description" content="建模决策树 —— 拿到任何 UPC 题目后的第一张图 综合 73 篇金牌的建模路径归纳。打印贴墙，从 Q1 开始走。 flowchart TD Q1[&amp;quot;Q1 题目考什么守恒律/定律?&amp;lt;br/&amp;gt;能量·动量·角动量·牛…">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
 <script defer src="../../vendor/katex/katex.min.js"></script>
 <script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
@@ -241,6 +242,7 @@ Level 3  扩展/工程化     ——方案对比、交付物(射表/准则/列�
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#五条主干原则73-篇金牌的最大公约数">五条主干原则（73 篇金牌的最大公约数）</a></li><li class="l2"><a href="#常见物理效应量级速查mathph000000endph-msmathph000001endph-m-场景">常见物理效应量级速查（MATHPH000000ENDPH m/s、MATHPH000001ENDPH m 场景）</a></li><li class="l2"><a href="#模型分层模板直接抄进论文目录">模型分层模板（直接抄进论文目录）</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
 /* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
@@ -334,6 +336,23 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
+var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
 </script>
 </body>
 </html>

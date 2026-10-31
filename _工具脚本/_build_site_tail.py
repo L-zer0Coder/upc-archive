@@ -25,7 +25,9 @@ def render_index(ctx):
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="UPC 国际大学生物理竞赛 · 2010–2025 全档案库">
 <meta property="og:description" content="16 届 32 道官方题目 + 74 篇金牌论文 + 中文解读、赏析、精读教程与写作模板。">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
 <meta name="theme-color" content="#9C3F2E">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
@@ -369,6 +371,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
 <div id="bar"><div class="in">
   <a class="brand" href="#hero"><span class="seal">U</span>UPC 全档案库<small>2010–2025</small></a>
   <nav>
+    <a href="12_赛时工具/warroom.html" style="color:var(--acc);font-weight:600">⚡ 作战室</a>
     <a href="#guide">指南</a>
     <a href="#progress">打卡</a>
     <a href="#timeline">图谱</a>
@@ -387,6 +390,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
   </div>
 </div></div>
 <div id="mdrawer">
+  <a href="12_赛时工具/warroom.html"><span class="mk">00</span>⚡ 48 小时作战室</a>
   <a href="#guide"><span class="mk">01</span>使用指南</a>
   <a href="#progress"><span class="mk">02</span>我的打卡</a>
   <a href="#timeline"><span class="mk">03</span>赛题图谱</a>
@@ -410,7 +414,8 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
       <div class="stat"><b>__NDOCS__</b><span>份库内文档</span></div>
     </div>
     <div class="hero-act">
-      <a class="btn solid" href="#guide">开始使用</a>
+      <a class="btn solid" href="12_赛时工具/warroom.html">⚡ 48 小时作战室</a>
+      <a class="btn" href="#guide">开始使用</a>
       <a class="btn" href="#papers">金牌论文库</a>
       <a class="btn" href="__MODEL_URL__">物理模型综述</a>
     </div>
@@ -426,7 +431,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
           <div class="cd-u"><b id="rm">--</b><span>分</span></div>
           <div class="cd-u"><b id="rs">--</b><span>秒</span></div>
         </div>
-        <p class="race-note">距开赛。分工还没定？先过一遍 <a href="__MANUAL__">48 小时作战手册</a>。</p>
+        <p class="race-note">距开赛。分工还没定？先过一遍 <a href="__MANUAL__">48 小时作战手册</a>，或直接打开<a href="12_赛时工具/warroom.html">48 小时作战室</a>备好操作台。</p>
       </div>
       <div class="race-live">
         <div class="rl-row">
@@ -436,7 +441,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
         <div class="rl-bar"><i id="rbar"></i></div>
         <div class="rl-phase"><span>当前阶段</span><b id="rpn">—</b><span id="rpd"></span></div>
         <div class="rl-next" id="rnx"></div>
-        <p class="rl-link"><a href="__MANUAL__">对照 48 小时作战手册逐阶段执行 →</a></p>
+        <p class="rl-link"><a href="12_赛时工具/warroom.html">⚡ 打开 48 小时作战室（记思路 / 查句库 / 过终检）</a>　·　<a href="__MANUAL__">对照手册逐阶段执行 →</a></p>
       </div>
       <div class="race-post">
         <p>第 17 届已于 2026 年 11 月 9 日 09:00（北京时间）截止；第 18 届信息待官网公布。</p>
@@ -1110,6 +1115,9 @@ def write_deploy_helpers(root, site):
 !/index.html
 !/404.html
 !/search-index.js
+!/og-image.png
+!/.agents
+!/plugins
 !/README.md
 !/01_官网原始页面
 !/02_官方成绩单
@@ -1123,6 +1131,8 @@ def write_deploy_helpers(root, site):
 !/09_可视化总览
 !/10_论文精读
 !/11_论文模板与工具
+!/12_赛时工具
+!/_知识提炼
 !/_工具脚本
 __pycache__/
 *.pyc

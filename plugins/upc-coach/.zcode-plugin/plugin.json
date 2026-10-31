@@ -1,0 +1,7 @@
+{
+  "name": "upc-coach",
+  "version": "0.1.0",
+  "description": "UPC 金牌教练四件套：建模教练、写作教练、图表教练、模拟评审。知识底座是本仓库 73 张金牌论文模式卡片聚合出的分域知识库，配合 UPC 档案库仓库使用（技能会引用仓库内的 _知识提炼/ 与 11_论文模板与工具/ 文件）。",
+  "author": { "name": "UPC archive builders" },
+  "skills": "./skills"
+}
