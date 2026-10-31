@@ -91,6 +91,13 @@ SKIP_EXT = {".pyc", ".log", ".json"}  # json：_meta/parsed 为内部数据；�
 SKIP_EXT |= {".json"}
 
 
+
+def _count_links(n):
+    c = 1 if n.get("u") else 0
+    for ch in n.get("ch", []):
+        c += _count_links(ch)
+    return c
+
 def build_tree(ctx):
     root_children = []
     for d in ["01_官网原始页面", "02_官方成绩单", "02_题目汇总", "03_优秀论文PDF",
@@ -107,13 +114,25 @@ def build_tree(ctx):
         n = tree_node(ctx, P(ctx, rf), rf, 0, 0)
         if n:
             root_children.append(n)
+    for n in root_children:
+        n["cnt"] = _count_links(n)
     # 补充：工具页（12_ 下已在扫描中）+ 根 README
     rm = tree_node(ctx, P(ctx, "README.md"), "README.md", 0, 0)
     if rm:
         rm["d"] = "仓库总导航（本页说明书的压缩版）"
         root_children.insert(0, rm)
-    return {"n": "UPC 档案库", "ch": root_children}
+    for n in root_children:
+        n["cnt"] = _count_links(n)
+    return {"n": "UPC 档案库", "ch": root_children, "cnt": sum(n["cnt"] for n in root_children)}
 
+
+css_tree = (".tn{line-height:2;font-size:13px}" + chr(10)
+    + ".tn a{color:var(--acc)}" + chr(10)
+    + ".tn a:hover{text-decoration:underline;text-underline-offset:3px}" + chr(10)
+    + ".tn .caret{width:18px;height:18px;border:none;background:none;color:var(--mut);cursor:pointer;font-family:var(--mono);padding:0;margin-right:4px}" + chr(10)
+    + ".tn .caret:hover{color:var(--acc)}" + chr(10)
+    + ".tn .leafdot{color:var(--line2);margin:0 6px 0 10px}" + chr(10)
+    + ".kids{border-left:1px dashed var(--line2);margin-left:9px}")
 
 def render_manual(ctx):
     TREE = build_tree(ctx)
@@ -126,8 +145,11 @@ def render_manual(ctx):
 </nav>
 
 <section class="pane on" id="pane-tree">
-  <div style="margin-bottom:10px"><input id="tq" type="search" placeholder="过滤节点（输入即筛，自动展开）…"
-    style="width:min(460px,100%);height:32px;border:1px solid var(--line2);border-radius:3px;background:var(--sheet);padding:0 10px;font-size:13px;outline:none"></div>
+  <div style="margin-bottom:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <input id="tq" type="search" placeholder="过滤节点（输入即筛，自动展开祖先）…"
+      style="flex:1;min-width:240px;max-width:460px;height:32px;border:1px solid var(--line2);border-radius:3px;background:var(--sheet);padding:0 10px;font-size:13px;outline:none">
+    <button class="btn" id="tall" type="button">全部展开</button>
+  </div>
   <div class="card" style="max-height:70vh;overflow:auto"><div id="tree"></div></div>
   <div class="notebox" style="margin-top:12px">树由构建期扫描档案目录自动生成（不是手工维护）。<b>下划线目录</b>（_知识提炼/_工具脚本）是生产管线不对外服务；01–12 目录与根文件均可点击跳转。页数统计：共 <span id="tcount"></span> 个可点击节点。</div>
 </section>
@@ -214,26 +236,80 @@ __MANUAL__
     script = r"""
 var TREE=__TREE__;
 function esc(s){return escHtml(s);}
-function renderTree(){
-  var html=['<div class="tn" style="font-weight:600">'+esc(TREE.n)+'</div>'];
-  (function walk(nodes,depth){
-    nodes.forEach(function(n){
-      html.push('<div class="tn" style="padding-left:'+(depth*16+6)+'px">'+
-        (n.u?'<a href="'+n.u+'"'+(n.u.indexOf('../')===0?' target="_blank"':'')+'>'+esc(n.n)+'</a>':esc(n.n))+
-        (n.d?' <span style="color:var(--dim);font-size:11px">— '+esc(n.d)+'</span>':'')+'</div>');
-      if(n.ch)walk(n.ch,depth+1);
-    });
-  })(TREE.ch,1);
-  document.getElementById('tree').innerHTML=html.join('');
+/* 可展开/合拢的真文件夹树：文件夹节点带箭头，子容器可折叠 */
+function nodeHtml(n,depth){
+  var isDir=!!n.ch;
+  var row='<div class="tn" style="padding-left:'+(depth*14+4)+'px">'+
+    (isDir?'<button class="caret" type="button" aria-label="展开/合拢">▸</button>'
+          :'<span class="leafdot">·</span>')+
+    (n.u?'<a href="'+n.u+'"'+(n.u.indexOf('../')===0?' target="_blank"':'')+'>'+esc(n.n)+'</a>':esc(n.n))+
+    (n.d?' <span style="color:var(--dim);font-size:11px">— '+esc(n.d)+'</span>':'')+
+    (isDir&&n.cnt?' <span style="color:var(--dim);font-size:10.5px;font-family:var(--mono)">('+n.cnt+')</span>':'')+
+    '</div>';
+  if(isDir){
+    row+='<div class="kids" style="display:none">'+n.ch.map(function(c){return nodeHtml(c,depth+1);}).join('')+'</div>';
+  }
+  return row;
 }
-renderTree();
-var tcnt=document.querySelectorAll('#tree a').length;
-var c=document.getElementById('tcount');if(c)c.textContent=tcnt;
+function countLinks(n){
+  var c=n.u?1:0;
+  (n.ch||[]).forEach(function(x){c+=countLinks(x);});
+  return c;
+}
+function countAll(n){return 1+(n.ch||[]).reduce(function(s,x){return s+countAll(x);},0);}
+(function buildTree(){
+  TREE.cnt=countLinks(TREE);
+  document.getElementById('tree').innerHTML=nodeHtml(TREE,0);
+  var rootKids=document.querySelector('#tree > div.kids');
+  if(rootKids)rootKids.style.display='block';   // 默认展开一层：顶层目录可见
+  document.getElementById('tcount').textContent=countLinks(TREE);
+  // 默认：根的子文件夹（顶层目录）展开一层，更深层收拢
+  document.querySelectorAll('#tree > div > div.kids > div > div.kids').forEach(function(k){k.style.display='none';});
+  document.querySelectorAll('#tree .caret').forEach(function(b){
+    b.addEventListener('click',function(ev){
+      ev.stopPropagation();
+      var kids=b.parentElement.nextElementSibling;
+      var open=kids.style.display!=='none';
+      kids.style.display=open?'none':'block';
+      b.textContent=open?'▸':'▾';
+    });
+  });
+  // 点文件夹名也可展开/合拢
+  document.querySelectorAll('#tree .tn').forEach(function(d){
+    var b=d.querySelector('.caret');
+    if(b)d.querySelector('a,span')?.addEventListener('click',function(e){});
+  });
+})();
+document.getElementById('tall').addEventListener('click',function(){
+  var anyClosed=[...document.querySelectorAll('#tree .kids')].some(function(k){return k.style.display==='none';});
+  document.querySelectorAll('#tree .kids').forEach(function(k){k.style.display=anyClosed?'block':'none';});
+  document.querySelectorAll('#tree .caret').forEach(function(b){b.textContent=anyClosed?'▾':'▸';});
+  this.textContent=anyClosed?'全部合拢':'全部展开';
+});
 document.getElementById('tq').addEventListener('input',function(){
   var kw=this.value.trim().toLowerCase();
-  document.querySelectorAll('#tree .tn').forEach(function(d){
-    d.style.display=(!kw||d.textContent.toLowerCase().indexOf(kw)>=0)?'':'none';
+  var items=[...document.querySelectorAll('#tree .tn')];
+  items.forEach(function(d){d.style.display='none';});
+  document.querySelectorAll('#tree .kids').forEach(function(k){
+    if(kw)k.style.display='block';
   });
+  items.forEach(function(d){
+    if(kw&&d.textContent.toLowerCase().indexOf(kw)>=0){
+      d.style.display='';
+      var p=d.parentElement;
+      while(p&&p.id!=='tree'){ if(p.classList&&p.classList.contains('kids'))p.style.display='block'; p=p.parentElement; }
+      var b=d.querySelector('.caret');if(b)b.textContent='▾';
+    }
+  });
+  if(!kw){ // 还原默认：仅根层展开
+    document.querySelectorAll('#tree .kids').forEach(function(k){k.style.display='none';});
+    var rk=document.querySelector('#tree > div.kids');
+    if(rk)rk.style.display='block';
+    document.querySelectorAll('#tree .caret').forEach(function(b){
+      var kids=b.parentElement.nextElementSibling;
+      b.textContent=(kids&&kids.style.display!=='none')?'▾':'▸';
+    });
+  }
 });
 """
 
@@ -242,7 +318,8 @@ document.getElementById('tq').addEventListener('input',function(){
                 "UPC 档案库全站说明书与树状导航：左侧文件夹树可点击跳转全站每个文件，右侧详解首页板块、八个工具页、内容目录与全局功能。",
                 "整站的地图与说明书：树状导航覆盖全部可跳转节点（" + str(n_clickable) + " 个链接），说明书详解每个板块的功能与用法。",
                 body.replace("__MANUAL__", manual_html),
-                script.replace("__TREE__", json.dumps(TREE, ensure_ascii=False)))
+                script.replace("__TREE__", json.dumps(TREE, ensure_ascii=False)),
+                extra_head='<style>' + css_tree + '</style>')
 
 
 import markdown as _markdown
