@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>零基础起步卡 · 2011-题B 三分球投篮（从"一句话"到"方程"） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<meta name="description" content="零基础起步卡 · 2011-题B 三分球投篮（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《](题目深度解读)(2011_%E9%A2%98B_%E4%B8%89%E5%88%86%E7%90%83%E6%8A%95%E7%AF%AE.ht…">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="零基础起步卡 · 2011-题B 三分球投篮（从"一句话"到"方程"） · UPC 全档案库">
+<meta property="og:description" content="零基础起步卡 · 2011-题B 三分球投篮（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《](题目深度解读)(2011_%E9%A2%98B_%E4%B8%89%E5%88%86%E7%90%83%E6%8A%95%E7%AF%AE.ht…">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<script defer src="../../vendor/katex/katex.min.js"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
+
+<style>
+:root{
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
+ --line:#E7E0D1;--line2:#D9D0BD;
+ --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
+ --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+ --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
+.topbar a:hover{color:var(--acc)}
+.topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
+.topbar .tag:hover{border-color:var(--acc)}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
+.topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
+.topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:13.5px;margin-right:4px}
+.brand:hover{color:var(--ink)}
+.brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
+.crumb{color:var(--dim);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+/* 赛事时钟徽章：赛前显示 D-天数，赛中显示已用时长 */
+.topbar .clock{margin-left:12px;flex-shrink:0;font-family:var(--mono);font-size:11px;line-height:1.9;
+ letter-spacing:.02em;padding:1px 8px;border:1px solid rgba(156,63,46,.28);border-radius:3px;
+ color:var(--acc);background:var(--acc-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+.topbar .clock:hover{border-color:var(--acc);color:var(--acc-d);background:rgba(156,63,46,.12)}
+.topbar .clock[data-s="live"]{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
+.layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
+.content{flex:0 1 780px;min-width:0}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
+.sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
+.sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
+.sheet h4{font-size:15.5px;margin:1.2em 0 .4em;font-weight:600}
+.sheet p{margin:.85em 0}
+.sheet a{color:var(--acc)}
+.sheet a:hover{color:var(--acc-d);text-decoration:underline;text-underline-offset:3px}
+.sheet ul,.sheet ol{padding-left:1.6em;margin:.7em 0}
+.sheet li{margin:.3em 0}
+.sheet li::marker{color:var(--dim)}
+code{background:#F2EDE2;border:1px solid var(--line);border-radius:3px;padding:.5px 6px;font-size:.86em;font-family:var(--mono)}
+pre{background:#F9F6EF;border:1px solid var(--line);border-radius:4px;padding:14px 17px;overflow:auto;line-height:1.75;font-size:13.5px}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.1em 0;padding:2px 0 2px 18px;border-left:2px solid var(--acc);color:var(--mut)}
+blockquote p{margin:.5em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.8px;display:block;overflow-x:auto;line-height:1.8}
+th,td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:12px;letter-spacing:.05em;border-bottom:1px solid var(--line2);background:var(--sheet);white-space:nowrap}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:#F8F5EE}
+hr{border:none;border-top:1px solid var(--line);margin:2.2em 0}
+.sheet img{max-width:100%;border:1px solid var(--line);border-radius:3px}
+.mermaid{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:12px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.03em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:28px 20px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--sheet);border:1px solid var(--line2);color:var(--mut);
+ border-radius:50%;width:40px;height:40px;font-size:16px;cursor:pointer;opacity:0;pointer-events:none;transition:.2s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{color:var(--acc);border-color:var(--acc)}
+aside.toc{position:sticky;top:74px;width:214px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;padding:4px 0}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.12em;padding:0 0 8px 14px}
+aside.toc ul{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:4px 12px;margin-left:-1px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;line-height:1.75;font-size:12.5px}
+aside.toc li.l3 a{padding-left:26px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
+aside.toc::-webkit-scrollbar{width:5px}
+aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../../index.html#guide">使用指南</a>
+  <button id="ck" class="tag ck" type="button" hidden></button>
+  
+  <a class="tag" href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2011_%E9%A2%98B_%E4%B8%89%E5%88%86%E7%90%83%E6%8A%95%E7%AF%AE_%E9%9B%B6%E5%9F%BA%E7%A1%80%E8%B5%B7%E6%AD%A5%E5%8D%A1.md">Markdown</a>
+  <span class="crumb">07_题目解读 · 零基础起步卡 · 2011-题B 三分球投篮（从"一句话"到"方程"）</span>
+  <a class="clock" id="clock" href="../../../index.html#race" hidden aria-label="第 17 届 UPC 赛程"></a>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="sheet">
+<h1 id="零基础起步卡-2011-题b-三分球投篮从一句话到方程">零基础起步卡 · 2011-题B 三分球投篮（从"一句话"到"方程"）</h1>
+<blockquote>
+<p>配套阅读：本题《](题目深度解读)(2011_%E9%A2%98B_%E4%B8%89%E5%88%86%E7%90%83%E6%8A%95%E7%AF%AE.html)》（命中区域图/金牌复现指南）、《](新手课堂)(../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/tutorial.html)》。一句话题面：球员站在距篮筐 6.2 m 的三分线上（站位与场地主轴成 45°），问哪些初速度与自旋组合能命中。本卡示范怎么把它翻译成方程。</p>
+</blockquote>
+<h2 id="第-0-层-你会冒出的朴素想法全部没错">第 0 层 · 你会冒出的朴素想法（全部没错）</h2>
+<ul>
+<li>球离手后走的是一条抛物线——这是全题的地基</li>
+<li>力气大不等于准：太用力的球砸在筐上弹飞</li>
+<li>弧线高一些更容易进：下落角度陡，筐的"有效开口"更大</li>
+<li>球带着后旋飞，会在空中稍微"多浮一会儿"</li>
+<li>碰筐弹一下再进、打板进，都算进球</li>
+</ul>
+<p><strong>先确认：这五条直觉全部正确。</strong> 最后两条尤其值钱——"都算进球"意味着答案不止一条轨迹；"后旋"意味着题面要你处理旋转。下面每一步都从它们出发。</p>
+<h2 id="第-1-层-直觉-变量表">第 1 层 · 直觉 → 变量表</h2>
+<table>
+<thead>
+<tr>
+<th>来源直觉</th>
+<th>变量</th>
+<th>符号</th>
+<th>单位</th>
+<th>合理范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>球划抛物线</td>
+<td>出手速度</td>
+<td>$v_0$</td>
+<td>m/s</td>
+<td>6 – 12</td>
+</tr>
+<tr>
+<td>弧线陡缓</td>
+<td>出手仰角</td>
+<td>$\varphi$</td>
+<td>rad</td>
+<td>0.7 – 1.1</td>
+</tr>
+<tr>
+<td>瞄左瞄右</td>
+<td>出手方位角</td>
+<td>$\theta$</td>
+<td>rad</td>
+<td>0 – 1.6</td>
+</tr>
+<tr>
+<td>球在转</td>
+<td>后旋速率</td>
+<td>$\omega$</td>
+<td>rad/s</td>
+<td>0 – 13（0–2 转/s）</td>
+</tr>
+<tr>
+<td>空气挡球</td>
+<td>阻力系数</td>
+<td>$C_d$</td>
+<td>无量纲</td>
+<td>≈ 0.54（文献）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>新手要点</strong>：几何参数先抄官方——筐高 3.05 m、筐内径 0.45 m、球半径 0.119 m（FIBA 规则），参数注出处，模型才零自由常数。另记一个数：筐半径减球半径 = <strong>0.106 m</strong>，这是全题一切"容差"的源头。</p>
+</blockquote>
+<h2 id="第-2-层-选骨架">第 2 层 · 选骨架</h2>
+<p>问一个筛选问题：出手之后，<strong>什么在支配球的命运？</strong> 球同时携带水平与竖直速度，两个方向服从不同规律（水平被空气拖慢、竖直被重力拉弯）→ 骨架 = <strong>抛体运动，即牛顿第二定律的分量形式</strong>：</p>
+<p>$$m\,\frac{d^2x}{dt^2}=F_x\,,\qquad m\,\frac{d^2y}{dt^2}=F_y-mg$$</p>
+<p>为什么不用能量守恒一步算：空气阻力沿途耗散，能量不守恒；但每个瞬间的受力清清楚楚——逐时刻列分量方程最朴素。策略是<strong>先真空、后修正</strong>：先只留重力项拿解析基准，再把空气的两个效应（阻力、马格努斯）逐个插回分量里。骨架选型完整逻辑见《](建模决策树)(../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E5%BB%BA%E6%A8%A1%E5%86%B3%E7%AD%96%E6%A0%91.html)》。</p>
+<h2 id="第-3-层-插零件">第 3 层 · 插零件</h2>
+<table>
+<thead>
+<tr>
+<th>施力者</th>
+<th>零件</th>
+<th>表达式</th>
+<th>方向与适用条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>地球</td>
+<td>重力</td>
+<td>$mg$</td>
+<td>恒向下</td>
+</tr>
+<tr>
+<td>空气（迎面）</td>
+<td>平方阻力</td>
+<td>$\tfrac12 C_d\rho A v^2$</td>
+<td>反速度方向；$C_d=0.54$，9 m/s 时约为重力的 1/5</td>
+</tr>
+<tr>
+<td>空气（旋转）</td>
+<td>马格努斯升力</td>
+<td>$F_L=\tfrac12C_L\rho A v^2$，$C_L\approx\dfrac{1}{2+v/\omega r}$</td>
+<td>沿 $\vec\omega\times\vec v$；后旋 2 转/s、9 m/s 时约 5% 重力</td>
+</tr>
+<tr>
+<td>篮筐/篮板</td>
+<td>恢复系数反弹</td>
+<td>法向速度反转乘 $\epsilon$（0.5–0.65）</td>
+<td>FIBA 强制区间；擦筐、打板全靠它进解集</td>
+</tr>
+</tbody>
+</table>
+<p>组装主方程：</p>
+<p>$$m\,\frac{d^2\vec r}{dt^2}=m\vec g-\tfrac12 C_d\rho A\,v\,\vec v+\tfrac12 C_L\rho A v^2\,\hat{(\vec\omega\times\vec v)}$$</p>
+<p><strong>零件来源与适用条件</strong>：平方阻力是实验规律，适用于连续气流中的球速（本题 &lt;12 m/s 全程满足）；马格努斯项用经验关联式定标，代入前先做量级检验（~5% 重力，量级对了再用）；恢复系数反弹后重置速度继续积分，直到球心落进目标圆或出局。</p>
+<h2 id="第-4-层-怎么解-怎么验证">第 4 层 · 怎么解 + 怎么验证</h2>
+<ul>
+<li><strong>解析基准（锚数字，真空无旋）</strong>：出手高 2.0 m、水平距 6.2 m、筐高 3.05 m → 最小速度抛体 $v_{min}\approx8.5$ m/s、仰角约 50°，入筐下落角约 40°。金牌最优工作点（9 m/s @ 48.7°）紧贴着它——阻力把它轻轻抬高了一点。</li>
+<li><strong>数值</strong>：分量 ODE + 事件检测（过筐平面/触筐/触板/落地），碰撞即重置速度续算；扫 $(v_0,\varphi)$ 画命中区域灰度图——本题要的是<strong>解集合</strong>（哪些组合能进），不是一条最优轨迹。在](数值实验台)(../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/lab.html)跑。</li>
+<li><strong>验证三件套</strong>：① 令 $C_d,C_L\to0$，结果应回到真空抛体解析解；② 无旋结果与已发表罚球仿真对照；③ 单位自检——rad 与度全文统一（0.85 rad = 48.7°）。</li>
+<li><strong>判据</strong>：命中 = 球心最终落进距筐心 0.106 m 的目标圆（含反弹后），覆盖空心/擦筐/打板三类；45° 是<strong>站位角</strong>（决定篮板相对出手的取向、打板是否可行），不是出手仰角。打板区为何反而更大，见《](题目深度解读)(2011_%E9%A2%98B_%E4%B8%89%E5%88%86%E7%90%83%E6%8A%95%E7%AF%AE.html)》。</li>
+</ul>
+<h2 id="常见第一次的错起步卡专属提醒">常见第一次的错（起步卡专属提醒）</h2>
+<ol>
+<li>把 45° 站位角当出手仰角——几何 setup 从第一页就错</li>
+<li>只算空心入筐——漏掉打板那半边解集，等于交了半张卷子</li>
+<li>自旋当装饰——题面点名 spins，马格努斯至少要摆上台面并给量级（~5% 重力）</li>
+<li>判据写成"球心过筐心"——过严，擦筐入网被全数误杀</li>
+</ol>
+<h2 id="下一步">下一步</h2>
+<ul>
+<li>兄弟卡练手：](2023-B 蹦床)(2023_%E9%A2%98B_%E4%B8%89%E4%BA%BA%E8%B9%A6%E5%BA%8A_%E9%9B%B6%E5%9F%BA%E7%A1%80%E8%B5%B7%E6%AD%A5%E5%8D%A1.html)（同为"逐时刻列力"的路线）、](2018-B 堆肥堆)(2018_%E9%A2%98B_%E5%A0%86%E8%82%A5%E5%A0%86%E5%B0%BA%E5%AF%B8_%E9%9B%B6%E5%9F%BA%E7%A1%80%E8%B5%B7%E6%AD%A5%E5%8D%A1.html)（换骨架样本：温度在变）</li>
+<li>《](新手课堂)(../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/tutorial.html)》把这道题从分量方程走到代码再走到论文</li>
+<li>赛时记住：<strong>问"哪些组合"就交解集合，问"最优"才给单点。</strong></li>
+</ul>
+</div>
+
+</div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#第-0-层-你会冒出的朴素想法全部没错">第 0 层 · 你会冒出的朴素想法（全部没错）</a></li><li class="l2"><a href="#第-1-层-直觉-变量表">第 1 层 · 直觉 → 变量表</a></li><li class="l2"><a href="#第-2-层-选骨架">第 2 层 · 选骨架</a></li><li class="l2"><a href="#第-3-层-插零件">第 3 层 · 插零件</a></li><li class="l2"><a href="#第-4-层-怎么解-怎么验证">第 4 层 · 怎么解 + 怎么验证</a></li><li class="l2"><a href="#常见第一次的错起步卡专属提醒">常见第一次的错（起步卡专属提醒）</a></li><li class="l2"><a href="#下一步">下一步</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+/* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
+var PKEY="2011-B",PKIND="interp",CKS="upcProgress.v1";
+function ckLoad(){try{return JSON.parse(localStorage.getItem(CKS)||"{}")}catch(e){return{}}}
+function ckSave(s){try{localStorage.setItem(CKS,JSON.stringify(s))}catch(e){}}
+function ckPush(s,st){(s.log=s.log||[]).unshift({k:PKEY,t:PKIND,s:st,ts:Date.now()});if(s.log.length>80)s.log.length=80;}
+function ckSet(state){
+  var s=ckLoad();
+  var bag=PKIND==="paper"?(s.p=s.p||{}):(s.i=s.i||{});
+  var it=bag[PKEY]||{},now=Date.now();
+  if(state==="v"){if(!it.v){it.v=now;ckPush(s,"v");}}
+  else if(state==="t"){if(it.d){delete it.d;ckPush(s,"u");}else{it.d=now;ckPush(s,"d");}}
+  bag[PKEY]=it;ckSave(s);ckUI();
+}
+function ckUI(){
+  var b=document.getElementById('ck');if(!b||!PKEY)return;
+  var s=ckLoad(),it=(PKIND==="paper"?(s.p||{}):(s.i||{}))[PKEY]||{};
+  var done=!!it.d;
+  b.textContent=done?"已打卡 ✓":"打卡 · 标记已吃透";
+  b.classList.toggle('done',done);
+}
+document.addEventListener("DOMContentLoaded", function(){
+  if(PKEY){
+    var b=document.getElementById('ck');b.hidden=false;
+    b.addEventListener('click',function(){ckSet("t")});
+    ckUI();
+    setTimeout(function(){ckSet("v")},3000);  // 停留 3 秒 = 浏览过（自动标记）
+  }
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"neutral",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+/* ---------- 赛事时钟徽章：赛前 D-天数，赛中已用时长，点回首页赛程 ---------- */
+(function(){
+  var S=1794013200000,E=1794186000000,el=document.getElementById('clock');
+  if(!el)return;
+  function p2(n){return n<10?'0'+n:''+n;}
+  function upd(){
+    var t=Date.now();
+    if(t<S){var ms=S-t,dd=Math.floor(ms/864e5);
+      if(dd>=1){el.textContent='赛前 D-'+dd;el.dataset.s='pre';}
+      else{var hh=Math.floor(ms/36e5),mm=Math.floor(ms%36e5/6e4);
+        el.textContent='赛前 '+p2(hh)+':'+p2(mm);el.dataset.s='pre';}}
+    else if(t<E){var u=Math.floor((t-S)/1000);
+      el.textContent='赛中 '+p2(Math.floor(u/3600))+':'+p2(Math.floor(u%3600/60));el.dataset.s='live';}
+    else{el.textContent='第 17 届已结束';el.dataset.s='post';}
+    el.hidden=false;
+  }
+  upd();setInterval(upd,30000);
+})();
+/* ---------- giscus 讨论区（可选，零默认请求）：四个字段都填好后重建即启用 ---------- */
+/* 获取方式见 README「讨论区」：giscus.app 选本仓库 → 依次开启 Discussions、安装 giscus App → 复制四个值 */
+var GISCUS={repo:"L-zer0Coder/upc-archive",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo&&GISCUS.repoId&&GISCUS.categoryId){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
+</script>
+</body>
+</html>

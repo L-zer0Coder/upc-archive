@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>零基础起步卡 · 2010-题B 投石机动力学（从"一句话"到"方程"） · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<meta name="description" content="零基础起步卡 · 2010-题B 投石机动力学（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《](题目深度解读)(2010_%E9%A2%98B_%E6%8A%95%E7%9F%B3%E6%9C%BA%E5%8A%A8%E5%8A%9B%E…">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="零基础起步卡 · 2010-题B 投石机动力学（从"一句话"到"方程"） · UPC 全档案库">
+<meta property="og:description" content="零基础起步卡 · 2010-题B 投石机动力学（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《](题目深度解读)(2010_%E9%A2%98B_%E6%8A%95%E7%9F%B3%E6%9C%BA%E5%8A%A8%E5%8A%9B%E…">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<script defer src="../../vendor/katex/katex.min.js"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
+
+<style>
+:root{
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
+ --line:#E7E0D1;--line2:#D9D0BD;
+ --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
+ --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+ --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
+.topbar a:hover{color:var(--acc)}
+.topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
+.topbar .tag:hover{border-color:var(--acc)}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
+.topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
+.topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:13.5px;margin-right:4px}
+.brand:hover{color:var(--ink)}
+.brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
+.crumb{color:var(--dim);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+/* 赛事时钟徽章：赛前显示 D-天数，赛中显示已用时长 */
+.topbar .clock{margin-left:12px;flex-shrink:0;font-family:var(--mono);font-size:11px;line-height:1.9;
+ letter-spacing:.02em;padding:1px 8px;border:1px solid rgba(156,63,46,.28);border-radius:3px;
+ color:var(--acc);background:var(--acc-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+.topbar .clock:hover{border-color:var(--acc);color:var(--acc-d);background:rgba(156,63,46,.12)}
+.topbar .clock[data-s="live"]{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
+.layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
+.content{flex:0 1 780px;min-width:0}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
+.sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
+.sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
+.sheet h4{font-size:15.5px;margin:1.2em 0 .4em;font-weight:600}
+.sheet p{margin:.85em 0}
+.sheet a{color:var(--acc)}
+.sheet a:hover{color:var(--acc-d);text-decoration:underline;text-underline-offset:3px}
+.sheet ul,.sheet ol{padding-left:1.6em;margin:.7em 0}
+.sheet li{margin:.3em 0}
+.sheet li::marker{color:var(--dim)}
+code{background:#F2EDE2;border:1px solid var(--line);border-radius:3px;padding:.5px 6px;font-size:.86em;font-family:var(--mono)}
+pre{background:#F9F6EF;border:1px solid var(--line);border-radius:4px;padding:14px 17px;overflow:auto;line-height:1.75;font-size:13.5px}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.1em 0;padding:2px 0 2px 18px;border-left:2px solid var(--acc);color:var(--mut)}
+blockquote p{margin:.5em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.8px;display:block;overflow-x:auto;line-height:1.8}
+th,td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:12px;letter-spacing:.05em;border-bottom:1px solid var(--line2);background:var(--sheet);white-space:nowrap}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:#F8F5EE}
+hr{border:none;border-top:1px solid var(--line);margin:2.2em 0}
+.sheet img{max-width:100%;border:1px solid var(--line);border-radius:3px}
+.mermaid{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:12px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.03em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:28px 20px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--sheet);border:1px solid var(--line2);color:var(--mut);
+ border-radius:50%;width:40px;height:40px;font-size:16px;cursor:pointer;opacity:0;pointer-events:none;transition:.2s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{color:var(--acc);border-color:var(--acc)}
+aside.toc{position:sticky;top:74px;width:214px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;padding:4px 0}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.12em;padding:0 0 8px 14px}
+aside.toc ul{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:4px 12px;margin-left:-1px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;line-height:1.75;font-size:12.5px}
+aside.toc li.l3 a{padding-left:26px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
+aside.toc::-webkit-scrollbar{width:5px}
+aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../../index.html#guide">使用指南</a>
+  <button id="ck" class="tag ck" type="button" hidden></button>
+  
+  <a class="tag" href="../../../07_%E9%A2%98%E7%9B%AE%E8%A7%A3%E8%AF%BB/2010_%E9%A2%98B_%E6%8A%95%E7%9F%B3%E6%9C%BA%E5%8A%A8%E5%8A%9B%E5%AD%A6_%E9%9B%B6%E5%9F%BA%E7%A1%80%E8%B5%B7%E6%AD%A5%E5%8D%A1.md">Markdown</a>
+  <span class="crumb">07_题目解读 · 零基础起步卡 · 2010-题B 投石机动力学（从"一句话"到"方程"）</span>
+  <a class="clock" id="clock" href="../../../index.html#race" hidden aria-label="第 17 届 UPC 赛程"></a>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="sheet">
+<h1 id="零基础起步卡-2010-题b-投石机动力学从一句话到方程">零基础起步卡 · 2010-题B 投石机动力学（从"一句话"到"方程"）</h1>
+<blockquote>
+<p>配套阅读：本题《](题目深度解读)(2010_%E9%A2%98B_%E6%8A%95%E7%9F%B3%E6%9C%BA%E5%8A%A8%E5%8A%9B%E5%AD%A6.html)》（可行域/量级表/金牌对比）。一句话题面：<strong>5000 kg 配重举高 2 m 的投石机，臂长与吊索取多少才能把弹丸扔得最狠？</strong> 本卡示范：一道"机器"题怎么从几何描述走到能积分的方程。</p>
+</blockquote>
+<h2 id="第-0-层-你会冒出的朴素想法全部没错">第 0 层 · 你会冒出的朴素想法（全部没错）</h2>
+<ul>
+<li>配重一沉，长臂就把另一头的石弹甩出去</li>
+<li>配重越重、举得越高，能用的能量越多</li>
+<li>长臂像鞭子，末端甩得越快弹丸越猛</li>
+<li>吊索长度有讲究：太短弹丸没被加速到位，太长要拖地</li>
+<li>别忘了臂自己也有重量——能量不全是弹丸的</li>
+</ul>
+<p><strong>这些直觉正好圈定了模型要件</strong>：能量账本、转动、几何约束（不触地），以及"能量都去哪了"的追问。</p>
+<h2 id="第-1-层-直觉-变量表">第 1 层 · 直觉 → 变量表</h2>
+<table>
+<thead>
+<tr>
+<th>来源直觉</th>
+<th>变量</th>
+<th>符号</th>
+<th>单位</th>
+<th>合理范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>配重下落供能</td>
+<td>配重质量 / 落差</td>
+<td>$m_1$ / $\Delta h$</td>
+<td>kg / m</td>
+<td>5000 / ~1</td>
+</tr>
+<tr>
+<td>石弹被打出去</td>
+<td>弹丸质量与速度</td>
+<td>$m_3$、$v_3$</td>
+<td>kg, m/s</td>
+<td>100（自设）/ 0–31.5</td>
+</tr>
+<tr>
+<td>臂绕支点转</td>
+<td>角速度</td>
+<td>$\omega$</td>
+<td>rad/s</td>
+<td>0 – 10</td>
+</tr>
+<tr>
+<td>转动有惯性</td>
+<td>总转动惯量</td>
+<td>$I$</td>
+<td>kg·m²</td>
+<td>~1600</td>
+</tr>
+<tr>
+<td>三个尺寸待优化</td>
+<td>$r_1,r_2,r_3$</td>
+<td>m</td>
+<td>0.3 – 1.5</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>新手要点</strong>：弹丸质量是<strong>题面故意不给的</strong>——自己设（金牌队取 100 kg 石球）、写明理由，否则"最优臂长"无从谈起。</p>
+</blockquote>
+<h2 id="第-2-层-选骨架">第 2 层 · 选骨架</h2>
+<p>筛选问题：<strong>机构怎么运动？</strong> 整根臂绕支点定轴转动。平动的三件套（$m$、$v$、$F$）在转动里各有对应（$I$、$\omega$、$\tau$），牛顿第二定律换装成</p>
+<p>$$I\,\frac{d\omega}{dt}=\Sigma\tau$$</p>
+<p><strong>为什么转动的题要把 $m\,dv/dt$ 换成 $I\,d\omega/dt$</strong>：梁上每一点速度都不一样（正比于到支点的距离），逐点写牛顿定律等于自找一堆未知内力（轴上支撑力、索中张力）；换成"绕定轴"视角，一个 $I$（各部件 $\Sigma mr^2$）打包全部惯性，一个 $\omega$ 描述全部运动。速度的标尺另由<strong>能量守恒</strong>给出：只有重力做功，配重落多少势能，系统就得多少动能。这就是<strong>刚体转动骨架</strong>：能量守恒定上限，$I\,d\omega/dt$ 定过程（《](建模决策树)(../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E5%BB%BA%E6%A8%A1%E5%86%B3%E7%AD%96%E6%A0%91.html)》"刚体与多体"一支）。</p>
+<h2 id="第-3-层-插零件">第 3 层 · 插零件</h2>
+<p>逐项问：<strong>能量从哪来、惯性藏在哪、约束在哪？</strong></p>
+<table>
+<thead>
+<tr>
+<th>零件</th>
+<th>表达式</th>
+<th>来源与适用条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>能量预算</td>
+<td>$\Delta U=m_1g\,\Delta h$</td>
+<td>重力势能；$\Delta h$ 由几何决定，≠ 举高 2 m</td>
+</tr>
+<tr>
+<td>转动惯量</td>
+<td>$I=\Sigma mr^2$（配重 + 弹丸 + 梁 $\tfrac13m_2L^2$）</td>
+<td>定轴转动定义式；梁按均质细杆处理</td>
+</tr>
+<tr>
+<td>速度上限</td>
+<td>$\tfrac12m_3v^2\le\Delta U$</td>
+<td>能量守恒（100% 转移的理想化极限）</td>
+</tr>
+<tr>
+<td>可行域</td>
+<td>$r_2+r_3\le h_0$、配重不触地、$r_1\ge h-h_0$</td>
+<td>几何约束：搜出的解必须"造得出来"</td>
+</tr>
+</tbody>
+</table>
+<p>吊索再引入第二个角度 $\varphi_2$，与臂角 $\varphi_1$ 通过三角耦合项相连——两个自由度已经没有解析解，<strong>合法过渡到数值积分</strong>。</p>
+<h2 id="第-4-层-怎么解-怎么验证">第 4 层 · 怎么解 + 怎么验证</h2>
+<ul>
+<li><strong>解析基准（锚数字）</strong>：能量守恒给硬上限——金牌构型落差 $\Delta h\approx1.0$ m，$\Delta U\approx50$ kJ，若全部进弹丸则 $v_{max}=\sqrt{2\Delta U/m_3}\approx31.5$ m/s；实际 $v_3=17.5$ m/s ↔ 效率 ~31%（固定配重的合理水平）</li>
+<li><strong>数值</strong>：两个耦合角方程交给 RK4（[实验台](../../12_赛时工具/lab.html)可跑）；优化 = $r_1,r_2,r_3$ 三维网格穷举，先粗（0.05 m）后细（0.01 m）</li>
+<li><strong>验证三件套</strong>：能量守恒自检（总能量漂移 &lt; 0.1%，一行代码抓住积分器 bug）；步长减半看 $v_3$ 稳不稳；检查最优解贴不贴约束边</li>
+<li><strong>判据</strong>："破坏力最大"已翻译成"释放瞬间弹丸动能最大"——这是定义选择，文中必须声明（也可选射程，含义不同）</li>
+<li><strong>贴边发现</strong>：最优解 $r_2+r_3=1.49$ m ≈ 支点高 1.5 m——"臂+索尽量长"其实是"抛掷端恰好擦地"这条约束的影子</li>
+</ul>
+<h2 id="常见第一次的错起步卡专属提醒">常见第一次的错（起步卡专属提醒）</h2>
+<ol>
+<li>把"举高 2 m"当"下落 2 m"用 $mgh=98$ kJ——实际落差由 $r_1$ 与支点高决定，只有 ~1 m</li>
+<li>忘了臂自身惯量（~4%），更忘了配重项 $m_1r_1^2$ 主导——配重臂短一点，省的是"白转的惯量"</li>
+<li>优化不设物理约束，搜出长臂穿地、配重砸地的"最优解"</li>
+<li>积分步长太大漏掉释放瞬间的速度峰值，或不做收敛检验就报最优值</li>
+</ol>
+<h2 id="下一步">下一步</h2>
+<ul>
+<li>本题《](题目深度解读)(2010_%E9%A2%98B_%E6%8A%95%E7%9F%B3%E6%9C%BA%E5%8A%A8%E5%8A%9B%E5%AD%A6.html)》第 5 节：寻优策略、释放机构与"2:3 法则"的适用边界</li>
+<li>《新手课堂》课程三：耦合 ODE 怎么积分、怎么自检</li>
+<li>赛时记住：<strong>先立能量账本算出上限，再让数值去找能兑现多少</strong></li>
+</ul>
+</div>
+
+</div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#第-0-层-你会冒出的朴素想法全部没错">第 0 层 · 你会冒出的朴素想法（全部没错）</a></li><li class="l2"><a href="#第-1-层-直觉-变量表">第 1 层 · 直觉 → 变量表</a></li><li class="l2"><a href="#第-2-层-选骨架">第 2 层 · 选骨架</a></li><li class="l2"><a href="#第-3-层-插零件">第 3 层 · 插零件</a></li><li class="l2"><a href="#第-4-层-怎么解-怎么验证">第 4 层 · 怎么解 + 怎么验证</a></li><li class="l2"><a href="#常见第一次的错起步卡专属提醒">常见第一次的错（起步卡专属提醒）</a></li><li class="l2"><a href="#下一步">下一步</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+/* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
+var PKEY="2010-B",PKIND="interp",CKS="upcProgress.v1";
+function ckLoad(){try{return JSON.parse(localStorage.getItem(CKS)||"{}")}catch(e){return{}}}
+function ckSave(s){try{localStorage.setItem(CKS,JSON.stringify(s))}catch(e){}}
+function ckPush(s,st){(s.log=s.log||[]).unshift({k:PKEY,t:PKIND,s:st,ts:Date.now()});if(s.log.length>80)s.log.length=80;}
+function ckSet(state){
+  var s=ckLoad();
+  var bag=PKIND==="paper"?(s.p=s.p||{}):(s.i=s.i||{});
+  var it=bag[PKEY]||{},now=Date.now();
+  if(state==="v"){if(!it.v){it.v=now;ckPush(s,"v");}}
+  else if(state==="t"){if(it.d){delete it.d;ckPush(s,"u");}else{it.d=now;ckPush(s,"d");}}
+  bag[PKEY]=it;ckSave(s);ckUI();
+}
+function ckUI(){
+  var b=document.getElementById('ck');if(!b||!PKEY)return;
+  var s=ckLoad(),it=(PKIND==="paper"?(s.p||{}):(s.i||{}))[PKEY]||{};
+  var done=!!it.d;
+  b.textContent=done?"已打卡 ✓":"打卡 · 标记已吃透";
+  b.classList.toggle('done',done);
+}
+document.addEventListener("DOMContentLoaded", function(){
+  if(PKEY){
+    var b=document.getElementById('ck');b.hidden=false;
+    b.addEventListener('click',function(){ckSet("t")});
+    ckUI();
+    setTimeout(function(){ckSet("v")},3000);  // 停留 3 秒 = 浏览过（自动标记）
+  }
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"neutral",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+/* ---------- 赛事时钟徽章：赛前 D-天数，赛中已用时长，点回首页赛程 ---------- */
+(function(){
+  var S=1794013200000,E=1794186000000,el=document.getElementById('clock');
+  if(!el)return;
+  function p2(n){return n<10?'0'+n:''+n;}
+  function upd(){
+    var t=Date.now();
+    if(t<S){var ms=S-t,dd=Math.floor(ms/864e5);
+      if(dd>=1){el.textContent='赛前 D-'+dd;el.dataset.s='pre';}
+      else{var hh=Math.floor(ms/36e5),mm=Math.floor(ms%36e5/6e4);
+        el.textContent='赛前 '+p2(hh)+':'+p2(mm);el.dataset.s='pre';}}
+    else if(t<E){var u=Math.floor((t-S)/1000);
+      el.textContent='赛中 '+p2(Math.floor(u/3600))+':'+p2(Math.floor(u%3600/60));el.dataset.s='live';}
+    else{el.textContent='第 17 届已结束';el.dataset.s='post';}
+    el.hidden=false;
+  }
+  upd();setInterval(upd,30000);
+})();
+/* ---------- giscus 讨论区（可选，零默认请求）：四个字段都填好后重建即启用 ---------- */
+/* 获取方式见 README「讨论区」：giscus.app 选本仓库 → 依次开启 Discussions、安装 giscus App → 复制四个值 */
+var GISCUS={repo:"L-zer0Coder/upc-archive",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo&&GISCUS.repoId&&GISCUS.categoryId){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
+</script>
+</body>
+</html>
