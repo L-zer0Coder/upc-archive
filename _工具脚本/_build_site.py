@@ -104,6 +104,7 @@ DOC_TPL = r"""<!DOCTYPE html>
 <meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="__CSS_KATEX__">
+<script>window.UPC_UI_ROOT="__RELROOT__";</script><script src="__RELROOT__global-ui.js" defer></script>
 <script defer src="__JS_KATEX__"></script>
 <script defer src="__JS_AUTORENDER__"></script>
 __MERMAID_TAG__

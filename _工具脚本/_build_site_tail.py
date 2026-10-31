@@ -28,6 +28,7 @@ def render_index(ctx):
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
 <meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<script>window.UPC_UI_ROOT="";</script><script src="global-ui.js" defer></script>
 <meta name="theme-color" content="#9C3F2E">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
@@ -1129,6 +1130,8 @@ def write_deploy_helpers(root, site):
 !/404.html
 !/search-index.js
 !/og-image.png
+!/global-ui.js
+!/global-ui-data.js
 !/.agents
 !/plugins
 !/README.md

@@ -94,6 +94,7 @@ PAGE_HEAD = r"""<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>__TITLE__ · UPC 全档案库</title>
+<script>window.UPC_UI_ROOT="../";</script><script src="../global-ui.js" defer></script>
 <meta name="description" content="__DESC__">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="UPC 全档案库">
@@ -1809,3 +1810,7 @@ def render_tools(ctx):
     write_out(ctx, "forge.html", _build_xray.render_forge(ctx))
     import _build_manual
     write_out(ctx, "manual.html", _build_manual.render_manual(ctx))
+    import _build_globalui
+    _build_globalui.write_global_ui(ctx)
+    import _build_globalui
+    _build_globalui.write_global_ui(ctx)
