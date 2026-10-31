@@ -388,6 +388,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
     <a href="#templates">模板</a>
     <a href="#rules">密码</a>
     <a href="#library">全库</a>
+    <a href="12_赛时工具/manual.html">说明书</a>
   </nav>
   <button id="mnb" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="mdrawer"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
   <div class="swrap">
@@ -408,6 +409,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
   <a href="#templates"><span class="mk">07</span>模板工坊</a>
   <a href="#rules"><span class="mk">08</span>获奖密码</a>
   <a href="#library"><span class="mk">09</span>全库文件</a>
+  <a href="12_赛时工具/manual.html"><span class="mk">10</span>📖 说明书与导航</a>
 </div>
 
 <header id="hero">
@@ -638,7 +640,7 @@ const GUIDE=[
  {k:"10_论文精读",t:"手把手精读",d:"逐节导读、每张图为什么这样画（附 matplotlib 复现代码）、每个关键公式完整推导、建模决策链。"},
  {k:"08_物理模型综述",t:"物理模型综述",d:"八大专题把 16 年所有题目与论文涉及的物理模型分类汇编，含方法论与数值算法总论。"},
  {k:"11_论文模板与工具",t:"模板与工具箱",d:"四套 LaTeX 模板、8 类图表配方库、写作句库、中译英润色库、AI 提示词包、建模决策树、48 小时作战手册、终检清单，以及《一篇金牌论文的完整历程》。"},
- {k:"12_赛时工具",t:"实战工具页",d:"新手课堂（零基础三门课）+ 作战室七标签 + 提示词工坊、模型闪卡、选题助手（可粘贴题面匹配）、数值实验台、论文组装机（配总指挥提示词）、论文透视（同题对比矩阵/结构图谱/摘要解剖室）——平时全部开放，数据存本浏览器。"},
+ {k:"12_赛时工具",t:"实战工具页",d:"新手课堂（零基础三门课）+ 作战室七标签 + 提示词工坊、模型闪卡、选题助手（可粘贴题面匹配）、数值实验台、论文组装机（配总指挥提示词）、论文透视（同题对比矩阵/结构图谱/摘要解剖室）、说明书与树状导航——平时全部开放，数据存本浏览器。"},
  {k:"02_题目汇总",t:"题目与官方信息",d:"每年英文原题全文、奖牌统计、金牌队伍名单与论文链接清单；官方《比赛规则》中文导读与一分钟合规卡也在这里。"},
  {k:"02_官方成绩单",t:"官方成绩单",d:"各年成绩公告 PDF：金 / 银 / 铜 / Accomplished Competitor 全名单。"},
  {k:"01_官网原始页面",t:"原始档案",d:"官网 17 个年份页 HTML 原件与提取文本；论文 PDF、全文文本、页面渲染图均为一手资料。"},

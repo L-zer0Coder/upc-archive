@@ -1807,3 +1807,5 @@ def render_tools(ctx):
     import _build_xray
     write_out(ctx, "xray.html", _build_xray.render_xray(ctx))
     write_out(ctx, "forge.html", _build_xray.render_forge(ctx))
+    import _build_manual
+    write_out(ctx, "manual.html", _build_manual.render_manual(ctx))
