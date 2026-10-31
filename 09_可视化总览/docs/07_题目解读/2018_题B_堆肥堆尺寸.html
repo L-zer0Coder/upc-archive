@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -320,8 +321,8 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
-<li><strong>240 队（巴塞罗那自治）</strong>：五 ODE 集总模型（Semenov + 生物质消耗 + 水汽），以"已反应氧质量"为效率指标，对半球与四棱截锥各扫一遍 $C(V)$：半球 $V_{max}=9.20\ {\rm m^3}$、截锥 $6.33\ {\rm m^3}$；最优体积随环境温度升高而增大、随进料浓度升高而减小，并给出"氧通量优先于保温"的机理解释；三层自检（$k(T)$ 峰位、区间验收、文献曲线形态）。详见 <code>05_论文赏析\2018\2018-GM-B-240.md</code>。</li>
-<li><strong>285 队（国防科大）</strong>：场分布路线——圆柱堆对称切片，微元守恒推带内热源的傅里叶温场 PDE，用"产热=耗氧、方向相反"的同构论证镜像出氧方程；独创自重压实弹簧模型解出闭式 $\rho(h)$ 并作两方程的耦合系数；在 $40\le u\le60$ °C 约束下取 $R=H=0.8$ m，并以温场剖面图论证取舍。详见 <code>05_论文赏析\2018\2018-GM-B-285.md</code>。</li>
+<li><strong>240 队（巴塞罗那自治）</strong>：五 ODE 集总模型（Semenov + 生物质消耗 + 水汽），以"已反应氧质量"为效率指标，对半球与四棱截锥各扫一遍 $C(V)$：半球 $V_{max}=9.20\ {\rm m^3}$、截锥 $6.33\ {\rm m^3}$；最优体积随环境温度升高而增大、随进料浓度升高而减小，并给出"氧通量优先于保温"的机理解释；三层自检（$k(T)$ 峰位、区间验收、文献曲线形态）。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2018/2018-GM-B-240.html">05_论文赏析/2018/2018-GM-B-240.md</a>。</li>
+<li><strong>285 队（国防科大）</strong>：场分布路线——圆柱堆对称切片，微元守恒推带内热源的傅里叶温场 PDE，用"产热=耗氧、方向相反"的同构论证镜像出氧方程；独创自重压实弹簧模型解出闭式 $\rho(h)$ 并作两方程的耦合系数；在 $40\le u\le60$ °C 约束下取 $R=H=0.8$ m，并以温场剖面图论证取舍。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2018/2018-GM-B-285.html">05_论文赏析/2018/2018-GM-B-285.md</a>。</li>
 <li><strong>对照启示</strong>：240 的"整堆 ODE + 优化"与 285 的"场方程 + 闭式子模型"是同题异构的两极；前者胜在指标与敏感性体系，后者胜在把题面最难的"压实-供氧"做成了硬核子模型。</li>
 </ul>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>

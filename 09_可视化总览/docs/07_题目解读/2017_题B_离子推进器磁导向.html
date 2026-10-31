@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -325,7 +326,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <li><strong>Mundy《Factors Affecting the Beam Divergence of a T5 Ion Engine》</strong>（<a href="https://electricrocket.org/IEPC/7095.pdf">electricrocket.org</a>）——实测各运行参数对束流发散角的影响，支持把题面"wide range of angles"操作化为 15–20° 量级。</li>
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
-<p><strong>609 队（科罗拉多学院，18 页，本题唯一金奖）</strong>：一条干净的"负结果"论证链——先由题给 $I_{sp}$、推力反推工作点（$V_b\approx2400$ V、$I_b\approx4.3$ A，含双电荷与利用率修正）；再抓 $\cos\theta$ 上界（完美准直仅提升约 6% 推力）框定收益；然后分两路评估：出口处磁准直方案用高斯束流模型反解出所需磁场剖面 $\propto r\,e^{-r^2/2R^2}$ 并指出匹配/遮挡/腐蚀难题；下游"磁透镜"方案则显式构造最优的角向场，导出 $\Delta v_{ax}/v$ 对 $B$ 的闭式，用无量纲组合 $weB/mv$ 证明需要特斯拉量级磁场——物理上无懈可击地否定了提案，且对"物理不可行"与"工程不划算"两个层次都给了证据。详见 <code>05_论文赏析\2017\2017-GM-B-609.md</code>。</p>
+<p><strong>609 队（科罗拉多学院，18 页，本题唯一金奖）</strong>：一条干净的"负结果"论证链——先由题给 $I_{sp}$、推力反推工作点（$V_b\approx2400$ V、$I_b\approx4.3$ A，含双电荷与利用率修正）；再抓 $\cos\theta$ 上界（完美准直仅提升约 6% 推力）框定收益；然后分两路评估：出口处磁准直方案用高斯束流模型反解出所需磁场剖面 $\propto r\,e^{-r^2/2R^2}$ 并指出匹配/遮挡/腐蚀难题；下游"磁透镜"方案则显式构造最优的角向场，导出 $\Delta v_{ax}/v$ 对 $B$ 的闭式，用无量纲组合 $weB/mv$ 证明需要特斯拉量级磁场——物理上无懈可击地否定了提案，且对"物理不可行"与"工程不划算"两个层次都给了证据。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2017/2017-GM-B-609.html">05_论文赏析/2017/2017-GM-B-609.md</a>。</p>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 由题给参数<strong>反推出具体工作点</strong>（$v_e$、$\dot m$、$I_b$、$V_b$、功率），评估建立在数字上而非形容词上。</li>

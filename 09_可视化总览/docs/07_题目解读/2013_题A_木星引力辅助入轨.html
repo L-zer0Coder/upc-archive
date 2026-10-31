@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -297,7 +298,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <li><strong>Lynam 2011《Multiple-satellite-aided capture trajectories at Jupiter》</strong>（<a href="https://ui.adsabs.harvard.edu/abs/2011CeMDA.109...59L/abstract">ADS 摘要</a>）——严谨的任务设计研究表明：单/双伽利略卫星借力捕获确实能可观测地削减入轨 $\Delta v$（数百 m/s 到 km/s 量级），但依赖<strong>链式多次飞掠</strong>——与本解读的"单次飞掠上界"自洽，可作结论显著性的真实参照。</li>
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
-<p>本题金奖唯一一队（滑铁卢大学 538 队，13 页，LaTeX）：从动量守恒重推火箭方程 → 能量论证"近木点制动最优" → 直接入轨算得燃料 98.5% → 用飞掠三件套与 $b_1=b_2$ 匹配把发射时机 $\alpha$ 压成一维扫描 → 报告最优 $\alpha=0.8366$ rad、剩余速度 11.15 km/s、燃料 96.8%，并表述为"同任务非燃料载荷翻倍"。其框架（火箭方程 + 最优制动点 + 飞掠三件套 + 同框架对照）是完全值得继承的赛前模板；但其单次飞掠数值结果超出本解读第 3 节给出的量级上界，且附录代码未公开，复现时请以自检上界把关。详细拆解见 <code>05_论文赏析\2013\2013-GM-A-538.md</code>。</p>
+<p>本题金奖唯一一队（滑铁卢大学 538 队，13 页，LaTeX）：从动量守恒重推火箭方程 → 能量论证"近木点制动最优" → 直接入轨算得燃料 98.5% → 用飞掠三件套与 $b_1=b_2$ 匹配把发射时机 $\alpha$ 压成一维扫描 → 报告最优 $\alpha=0.8366$ rad、剩余速度 11.15 km/s、燃料 96.8%，并表述为"同任务非燃料载荷翻倍"。其框架（火箭方程 + 最优制动点 + 飞掠三件套 + 同框架对照）是完全值得继承的赛前模板；但其单次飞掠数值结果超出本解读第 3 节给出的量级上界，且附录代码未公开，复现时请以自检上界把关。详细拆解见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2013/2013-GM-A-538.html">05_论文赏析/2013/2013-GM-A-538.md</a>。</p>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] <strong>三个操作化声明</strong>：20 km/s 的参考系、目标轨道、喷气速度 $u$，一个都不能含糊。</li>

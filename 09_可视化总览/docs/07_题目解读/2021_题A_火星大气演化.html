@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -326,7 +327,7 @@ $$M_{atm}=\frac{4\pi R^2p}{g}:\quad 0.2\ {\rm bar}\to7.8\times10^{17}\ {\rm kg},
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
-<li><strong>200（同济）</strong>：分层模型（Knudsen 数定 exobase）+ 三通道并行（<strong>光化学 &gt; 溅射 ≈ 1/10 &gt; Jeans ≈ 0</strong> 的权重结论）+ ODE 与蒙特卡洛配合（MC 统计溅射参数 $K=16$ 后喂 ODE）+ 逸散层随解移动的变系数处理；先算 $T=257.6$ K、再论证纯 CO₂；$8.6422\times10^7$ 年（摘要表述 70–90 Myr）。机制权重结论最完整。详见 <code>05_论文赏析\2021\2021-GM-A-200.md</code>。</li>
+<li><strong>200（同济）</strong>：分层模型（Knudsen 数定 exobase）+ 三通道并行（<strong>光化学 &gt; 溅射 ≈ 1/10 &gt; Jeans ≈ 0</strong> 的权重结论）+ ODE 与蒙特卡洛配合（MC 统计溅射参数 $K=16$ 后喂 ODE）+ 逸散层随解移动的变系数处理；先算 $T=257.6$ K、再论证纯 CO₂；$8.6422\times10^7$ 年（摘要表述 70–90 Myr）。机制权重结论最完整。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2021/2021-GM-A-200.html">05_论文赏析/2021/2021-GM-A-200.md</a>。</li>
 <li><strong>349（青岛大学）</strong>："少而精"标度律路线——排除法砍掉次要因素，只保留 MAVEN 100 g/s 线性标度（0.2 bar → 3333 g/s）+ 双组分 H₂O/CO₂ 变分子量隐式方程 + 基础模型→分层温度→变重力两级修正；约 $7\times10^8$ 年。数据锚定与递进叙事的代表。详见 <code>2021-GM-A-349.md</code>。</li>
 <li>两队 8 倍的差异恰好演示了标度假设的主导性——自己写论文时应把这条敏感性轴显式画出来，而不是让评委替你发现。</li>
 </ul>

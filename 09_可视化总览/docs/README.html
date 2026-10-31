@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -403,12 +404,12 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </ul>
 <hr>
 <h2 id="部署为网站github-pages">🌐 部署为网站（GitHub Pages）</h2>
-<p>本档案库自带一个纯静态站点：根目录 <code>index.html</code>（总览导航 + 全文搜索）+ <code>09_可视化总览/docs/</code>（223 个 Markdown 文档渲染成的网页，公式用 KaTeX、流程图用 mermaid）。仓库根目录已备好部署辅助文件：</p>
+<p>本档案库自带一个纯静态站点：根目录 <code>index.html</code>（总览导航 + 全文搜索）+ <code>09_可视化总览/docs/</code>（235 个 Markdown 文档渲染成的网页，公式用 KaTeX、流程图用 mermaid）。仓库根目录已备好部署辅助文件：</p>
 <ul>
 <li><code>.nojekyll</code> —— 关闭 GitHub Pages 的 Jekyll 处理（否则 <code>_工具脚本</code> 等下划线目录会被忽略）</li>
 <li><code>index.html</code> —— <strong>站点首页本体</strong>（访问 <code>/</code> 直接打开，不再做跳转，分享出去的 URL 干净）</li>
 <li><code>404.html</code> —— 自定义 404 页（GitHub Pages 会对任何缺失路径返回它）</li>
-<li><code>search-index.js</code> —— 223 份文档的全文索引（约 290 KB，首次输入搜索时才加载，不拖慢首屏）</li>
+<li><code>search-index.js</code> —— 235 份文档的全文索引（约 312 KB，首次输入搜索时才加载，不拖慢首屏）</li>
 <li><code>.gitignore</code> —— <strong>白名单模式</strong>：只提交十二个档案目录、赛时工具、知识提炼、AI 技能、站点资源与 README，忽略本目录下的其他个人文件（LaTeX 安装包、视频、课件等约 6.5 GB）</li>
 </ul>
 <p>外部依赖已全部本地化：KaTeX / Mermaid 存放在 <code>09_可视化总览/vendor/</code>，由 <code>_工具脚本/_fetch_vendor.py</code> 一次性拉取（默认 unpkg，可用 <code>VENDOR_MIRROR</code> 换源）。站点运行时<strong>不再请求任何境外 CDN</strong>，国内网络下公式与流程图都能正常渲染。</p>
@@ -418,12 +419,12 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <p>部署三步（详见与档案库同期的对话教程）：① 在 GitHub 新建 Public 仓库 → ② 本目录 <code>git init &amp;&amp; git add -A &amp;&amp; git commit -m "UPC archive" &amp;&amp; git branch -M main &amp;&amp; git remote add origin &lt;你的仓库地址&gt; &amp;&amp; git push -u origin main</code> → ③ 仓库 Settings → Pages → Source 选 <code>Deploy from a branch</code> + <code>main</code> + <code>/ (root)</code> → 保存，1–3 分钟后访问 <code>https://&lt;用户名&gt;.github.io/&lt;仓库名&gt;/</code>。</p>
 <h3 id="重建站点">重建站点</h3>
 <pre><code class="language-bash">python _工具脚本/_fetch_vendor.py   # 仅首次，或升级 KaTeX/Mermaid 时
-python _工具脚本/_build_site.py      # 重新渲染 224 个文档页 + 5 个赛时工具页 + 首页 + 404 + 搜索索引
+python _工具脚本/_build_site.py      # 重新渲染 235 个文档页 + 6 个赛时工具页 + 首页 + 404 + 搜索索引
 python _工具脚本/_site_check.py      # 独立体检（断链/大小写/未入库/索引同步；--external 附加外链抽查）
 </code></pre>
 <p><code>_build_site.py</code> 结束时会做<strong>大小写敏感 + git 跟踪感知</strong>的链接校验（静态 href/src、DATA 里运行时注入的 URL、赛时工具页的链接都查）。任何一处断链（包括「文件存在但没进 git」这种只在 Linux 上才炸的情况）都会让构建以非零码退出并列出行号级别的清单，不会再出现"本地一切正常、线上全 404"。提交时 <code>.git/hooks/pre-commit</code> 还会再跑一次快速体检拦截。</p>
 <h3 id="赛时工具12_赛时工具">赛时工具（12_赛时工具/）</h3>
-<p>五个纯前端工具页，为第 17 届比赛（2026-11-07）而建，数据只存浏览器 localStorage、可导出：</p>
+<p>六个纯前端工具页，为第 17 届比赛（2026-11-07）而建，数据只存浏览器 localStorage、可导出：</p>
 <table>
 <thead>
 <tr>

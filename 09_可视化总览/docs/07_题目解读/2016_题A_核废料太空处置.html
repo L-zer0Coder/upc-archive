@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -310,8 +311,8 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
-<li><strong>331 队（多伦多，16 页）</strong>：以 $\Delta v$ 为统一货币做全链路对比，从 $\Delta v(d)$ 渐近线挖出"逃逸更省"的第三方案；用 JPL 数据库 5 万+ 真实小行星建 Poisson 撞击模型（千年撞击概率 $10^{-6}$、十亿年累积 $\Delta v=2115$ m/s &lt; 4000 m/s 阈值）回答存放时长；最后用 Saturn V + 铅容器算出 4.5×10⁵ 次发射、超 500 万亿美元。详见 <code>05_论文赏析\2016\2016-GM-A-331.md</code>。</li>
-<li><strong>412 队（巴塞罗那，23 页）</strong>：先横向筛选六种目的地再收敛到"日心轨道最优"；确定性部分用自适应 RKF45 在太阳+木星+地球多体场中真实打靶（含 L4/L5 拉格朗日点方案与相位旋转矩阵）；随机性部分建四套风险模型并以"有效污染面积 $S_{eff}$"统一量纲，结论存带可安全存放 Pu-239 衰减所需 25 万年。详见 <code>05_论文赏析\2016\2016-GM-A-412.md</code>。</li>
+<li><strong>331 队（多伦多，16 页）</strong>：以 $\Delta v$ 为统一货币做全链路对比，从 $\Delta v(d)$ 渐近线挖出"逃逸更省"的第三方案；用 JPL 数据库 5 万+ 真实小行星建 Poisson 撞击模型（千年撞击概率 $10^{-6}$、十亿年累积 $\Delta v=2115$ m/s &lt; 4000 m/s 阈值）回答存放时长；最后用 Saturn V + 铅容器算出 4.5×10⁵ 次发射、超 500 万亿美元。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2016/2016-GM-A-331.html">05_论文赏析/2016/2016-GM-A-331.md</a>。</li>
+<li><strong>412 队（巴塞罗那，23 页）</strong>：先横向筛选六种目的地再收敛到"日心轨道最优"；确定性部分用自适应 RKF45 在太阳+木星+地球多体场中真实打靶（含 L4/L5 拉格朗日点方案与相位旋转矩阵）；随机性部分建四套风险模型并以"有效污染面积 $S_{eff}$"统一量纲，结论存带可安全存放 Pu-239 衰减所需 25 万年。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2016/2016-GM-A-412.html">05_论文赏析/2016/2016-GM-A-412.md</a>。</li>
 </ul>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>

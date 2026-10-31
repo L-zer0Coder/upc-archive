@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -313,7 +314,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <li><strong>Werner &amp; Griebeler 2014 关于繁殖率与巨型化的检验</strong>（<a href="https://phys.org/news/2014-01-sauropod-gigantism.html">Phys.org 报道</a>）——用比较数据检验"高产蛋率驱动巨型化"，可作产蛋假说的数据补充。</li>
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
-<p><strong>441 队（巴塞罗那，16 页，本题唯一金奖）</strong>：采用 McNab 框架 $M_{max}=(K/a)^{1/b}$；先定性排除环境论（氧会被演化绕过、两群长期共存），再亲自对 Nagy 数据 134 种重新回归（$r^2\approx0.95$）；以 Paraceratherium 锚定 $K_m$ 后做<strong>可否证的双假说检验</strong>——普通爬行参数预测 31.5 t（与 100 t 化石矛盾，否证），巨蜥参数预测 158 t、比值 10.54（通过）；再用两对"生态等价种"做区间级复核；最后用 Newton 冷却+球体标度证明低代谢在热学上自洽，收束于"恐龙为中温型"。详见 <code>05_论文赏析\2016\2016-GM-B-441.md</code>。</p>
+<p><strong>441 队（巴塞罗那，16 页，本题唯一金奖）</strong>：采用 McNab 框架 $M_{max}=(K/a)^{1/b}$；先定性排除环境论（氧会被演化绕过、两群长期共存），再亲自对 Nagy 数据 134 种重新回归（$r^2\approx0.95$）；以 Paraceratherium 锚定 $K_m$ 后做<strong>可否证的双假说检验</strong>——普通爬行参数预测 31.5 t（与 100 t 化石矛盾，否证），巨蜥参数预测 158 t、比值 10.54（通过）；再用两对"生态等价种"做区间级复核；最后用 Newton 冷却+球体标度证明低代谢在热学上自洽，收束于"恐龙为中温型"。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2016/2016-GM-B-441.html">05_论文赏析/2016/2016-GM-B-441.md</a>。</p>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 模型给出<strong>数值化的比值预测</strong>并明确对标 $\approx10$ 这个靶子，而不是定性说"更大"。</li>

@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -183,6 +184,21 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <td><code>提交前终检checklist.md</code></td>
 <td>按 7 条评审不变量组织的 40+ 项打勾清单 + "评委三分钟视角"模拟</td>
 <td>交卷前三人各过一遍</td>
+</tr>
+<tr>
+<td><code>中译英润色库.md</code></td>
+<td>五步润色法、30 条中式表达对照、动词升级表、时态规范、74 篇论文短语频次实证</td>
+<td>中文草稿改英文时逐段过</td>
+</tr>
+<tr>
+<td><code>AI提示词包.md</code></td>
+<td>11 条分任务提示词（选题/建模/数值/写作/评审/复盘），内置评审标准与上下文包说明</td>
+<td>整段复制给任意 AI 使用</td>
+</tr>
+<tr>
+<td><code>一篇金牌论文的完整历程.md</code></td>
+<td>从拿到题目到交卷的全流程叙事（每步做了什么、为什么）</td>
+<td>第一次参赛前通读一遍</td>
 </tr>
 </tbody>
 </table>

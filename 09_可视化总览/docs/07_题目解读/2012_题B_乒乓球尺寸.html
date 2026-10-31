@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -328,7 +329,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <li><strong>金奖论文原文</strong>（<a href="http://www.uphysicsc.com/2012-GM-B-414.PDF">uphysicsc.com/2012-GM-B-414.PDF</a>）——其中的转播取景实测（Fig. 2）与三种击球初值来源值得精读。</li>
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
-<p>本题金奖唯一一队（新加坡国立大学 414 队，10 页，Word 双栏）：把"fun"操作化为视觉追踪速度 → 转播几何缩放 → 11.88 m/s 基准；对扣杀/弧圈/削球三种击球建立含阻力与 Magnus 的 RK4 轨道模型，扫描 38–44 mm，削球因数据上"全直径皆慢"被明确淘汰；扣杀与弧圈均为 44 mm 最贴近基准（弧圈最优解在 43–44 mm 之间），结论<strong>最佳直径 44 mm</strong>。其中"大球按角动量守恒降转速"让阻力与 Magnus 双重衰减自洽。详细拆解见 <code>05_论文赏析\2012\2012-GM-B-414.md</code>。</p>
+<p>本题金奖唯一一队（新加坡国立大学 414 队，10 页，Word 双栏）：把"fun"操作化为视觉追踪速度 → 转播几何缩放 → 11.88 m/s 基准；对扣杀/弧圈/削球三种击球建立含阻力与 Magnus 的 RK4 轨道模型，扫描 38–44 mm，削球因数据上"全直径皆慢"被明确淘汰；扣杀与弧圈均为 44 mm 最贴近基准（弧圈最优解在 43–44 mm 之间），结论<strong>最佳直径 44 mm</strong>。其中"大球按角动量守恒降转速"让阻力与 Magnus 双重衰减自洽。详细拆解见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2012/2012-GM-B-414.html">05_论文赏析/2012/2012-GM-B-414.md</a>。</p>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] <strong>"好看"的可计算定义</strong>：判据链（生理学角速度 → 屏幕速度 → 转播几何 → 赛场基准）每环有出处。</li>

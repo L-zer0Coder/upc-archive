@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -331,9 +332,9 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
-<li><strong>670 队（华沙，5 页）</strong>：黑体辐射推光压，所有力 $\propto1/r^2$ 的"修正引力场"洞察；$\Theta(t)$ 三段常值 + 网格搜索；最优帆质量占比 $q=0.46$（$A\approx1.31\times10^5\ {\rm m^2}$）→ 载荷 1080 kg、532 天、ARV 8.6 km/s。最短金奖论文，靠摘要自带完整可复算结论链取胜。详见 <code>05_论文赏析\2017\2017-GM-A-670.md</code>。</li>
-<li><strong>699 队（国防科大，28 页）</strong>："物理模型 + Pontryagin 最优控制（$\alpha^*(\lambda)$ 解析式）+ PSO 求解协态初值"三段式；动态罚函数处理终端约束；对 $A=10^4$–$2\times10^5\ {\rm m^2}$ 四点扫描后选定 $10^5\ {\rm m^2}$：载荷 1300 kg、504 天、末速 8.3 km/s。方法学层次感最强。详见 <code>05_论文赏析\2017\2017-GM-A-699.md</code>。</li>
-<li><strong>744 队（巴塞罗那，34 页）</strong>：物理保真度最高——完整非理想帆三系数 SRP 模型 + RK4/SLSQP 双目标 NLP；分段数 1–30 收敛扫描 + 初值重复 + 权重灵敏度三重验证；主线 500 天、$A=183158\ {\rm m^2}$、载荷 718 kg、ARV 8.31 km/s，并扩展出最优发射相位 1.14 rad（载荷增至 978 kg）与火星→地球反向转移。详见 <code>05_论文赏析\2017\2017-GM-A-744.md</code>。</li>
+<li><strong>670 队（华沙，5 页）</strong>：黑体辐射推光压，所有力 $\propto1/r^2$ 的"修正引力场"洞察；$\Theta(t)$ 三段常值 + 网格搜索；最优帆质量占比 $q=0.46$（$A\approx1.31\times10^5\ {\rm m^2}$）→ 载荷 1080 kg、532 天、ARV 8.6 km/s。最短金奖论文，靠摘要自带完整可复算结论链取胜。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2017/2017-GM-A-670.html">05_论文赏析/2017/2017-GM-A-670.md</a>。</li>
+<li><strong>699 队（国防科大，28 页）</strong>："物理模型 + Pontryagin 最优控制（$\alpha^*(\lambda)$ 解析式）+ PSO 求解协态初值"三段式；动态罚函数处理终端约束；对 $A=10^4$–$2\times10^5\ {\rm m^2}$ 四点扫描后选定 $10^5\ {\rm m^2}$：载荷 1300 kg、504 天、末速 8.3 km/s。方法学层次感最强。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2017/2017-GM-A-699.html">05_论文赏析/2017/2017-GM-A-699.md</a>。</li>
+<li><strong>744 队（巴塞罗那，34 页）</strong>：物理保真度最高——完整非理想帆三系数 SRP 模型 + RK4/SLSQP 双目标 NLP；分段数 1–30 收敛扫描 + 初值重复 + 权重灵敏度三重验证；主线 500 天、$A=183158\ {\rm m^2}$、载荷 718 kg、ARV 8.31 km/s，并扩展出最优发射相位 1.14 rad（载荷增至 978 kg）与火星→地球反向转移。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2017/2017-GM-A-744.html">05_论文赏析/2017/2017-GM-A-744.md</a>。</li>
 </ul>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>

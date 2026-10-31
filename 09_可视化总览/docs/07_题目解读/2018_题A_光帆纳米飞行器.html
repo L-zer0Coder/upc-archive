@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -346,9 +347,9 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
-<li><strong>158 队（IIT Delhi）</strong>：形状×光束×材料的组合矩阵筛选（球形最稳、方帆动力学最优但需匹配方阵）+ 标度律动力学，$v_\infty$、$L_0$、$\beta_0=0.166$ 全解析；精度给两级判据（$9.4$ nrad 任务级 / $0.106$ nrad 系统级），忽略项全部定量辩护。详见 <code>05_论文赏析\2018\2018-GM-A-158.md</code>。</li>
-<li><strong>258 队（UCSB）</strong>：一个球面帆微扰模型贯穿全部子问题——热平衡判据 $\epsilon\eta/\alpha\ge6.6\times10^3$ 直答 fabrication margin，平顶束下平移-转动耦合方程闭式可积，数值积分给出 $10\ \mu{\rm m}$/$10^{-6}$ rad 级容差与 $\theta_{max}\approx10^{-8}$ rad 指向；两处极限自检（$R\to\infty$、$\beta\to0$）。详见 <code>05_论文赏析\2018\2018-GM-A-258.md</code>。</li>
-<li><strong>295 队（国防科大）</strong>：帆离散为 $100\times100$ 单元 + 相对论刚体姿态动力学，三类扰动（$\delta P/P$、$\delta m$、$\delta d$）作高斯过程注入，先轨道几何反解 $\alpha_{max}=1.98\times10^{-7}$ rad，再梯度下降/PSO 反解容差（$\delta P/P\sim10^{-8.3}$ 等），附 $N$ 从 10 到 100 的三组收敛实验。详见 <code>05_论文赏析\2018\2018-GM-A-295.md</code>。</li>
+<li><strong>158 队（IIT Delhi）</strong>：形状×光束×材料的组合矩阵筛选（球形最稳、方帆动力学最优但需匹配方阵）+ 标度律动力学，$v_\infty$、$L_0$、$\beta_0=0.166$ 全解析；精度给两级判据（$9.4$ nrad 任务级 / $0.106$ nrad 系统级），忽略项全部定量辩护。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2018/2018-GM-A-158.html">05_论文赏析/2018/2018-GM-A-158.md</a>。</li>
+<li><strong>258 队（UCSB）</strong>：一个球面帆微扰模型贯穿全部子问题——热平衡判据 $\epsilon\eta/\alpha\ge6.6\times10^3$ 直答 fabrication margin，平顶束下平移-转动耦合方程闭式可积，数值积分给出 $10\ \mu{\rm m}$/$10^{-6}$ rad 级容差与 $\theta_{max}\approx10^{-8}$ rad 指向；两处极限自检（$R\to\infty$、$\beta\to0$）。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2018/2018-GM-A-258.html">05_论文赏析/2018/2018-GM-A-258.md</a>。</li>
+<li><strong>295 队（国防科大）</strong>：帆离散为 $100\times100$ 单元 + 相对论刚体姿态动力学，三类扰动（$\delta P/P$、$\delta m$、$\delta d$）作高斯过程注入，先轨道几何反解 $\alpha_{max}=1.98\times10^{-7}$ rad，再梯度下降/PSO 反解容差（$\delta P/P\sim10^{-8.3}$ 等），附 $N$ 从 10 到 100 的三组收敛实验。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2018/2018-GM-A-295.html">05_论文赏析/2018/2018-GM-A-295.md</a>。</li>
 </ul>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>

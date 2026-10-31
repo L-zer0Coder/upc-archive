@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -326,7 +327,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <li><strong>NASA NTRS 2017：慢性 2G 离心对生长大鼠的合成代谢效应</strong>（<a href="https://ntrs.nasa.gov/citations/20170011058">ntrs.nasa.gov</a>）——官方实验报告，适合作为"真实超重力生物学"的权威出处写进参考列表。</li>
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
-<p>本题金奖唯一一队（华盛顿大学圣路易斯 611 队，23 页；官方公开 611 与 611a 两个版本，赏析针对 611a）：入口先排除自转效应 → 心血管（N-S 方程简化 + Poiseuille 论证血压梯度 ∝ g，结合 Dawson 异速律得血量 ∝ g）与肌肉骨骼（应力分解 + 力矩平衡的 l–θ 等应力曲线，"演化最小化肌应力"取角点得腿长 -30%、截面 ×2）<strong>双模型交叉收敛</strong>于矮壮体型 → Froude 数论步态（同速 Fr 减半）→ 环境层补 250 K 温度分布与 3.7 km 标高，最终拼出"更矮、更壮、更慢、心脏与器官更大、血量翻倍"的完整画像。详细拆解见 <code>05_论文赏析\2013\2013-GM-B-611a.md</code>（另一版本文本在 <code>04_论文文本\2013\2013-GM-B-611.txt</code>）。</p>
+<p>本题金奖唯一一队（华盛顿大学圣路易斯 611 队，23 页；官方公开 611 与 611a 两个版本，赏析针对 611a）：入口先排除自转效应 → 心血管（N-S 方程简化 + Poiseuille 论证血压梯度 ∝ g，结合 Dawson 异速律得血量 ∝ g）与肌肉骨骼（应力分解 + 力矩平衡的 l–θ 等应力曲线，"演化最小化肌应力"取角点得腿长 -30%、截面 ×2）<strong>双模型交叉收敛</strong>于矮壮体型 → Froude 数论步态（同速 Fr 减半）→ 环境层补 250 K 温度分布与 3.7 km 标高，最终拼出"更矮、更壮、更慢、心脏与器官更大、血量翻倍"的完整画像。详细拆解见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2013/2013-GM-B-611a.html">05_论文赏析/2013/2013-GM-B-611a.md</a>（另一版本文本在 <code>04_论文文本\2013\2013-GM-B-611.txt</code>）。</p>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] <strong>g 与密度的自洽检查</strong>开局（$2g_\oplus$、$1\rho_\oplus$），并排除自转等干扰变量。</li>

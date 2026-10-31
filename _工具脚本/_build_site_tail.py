@@ -157,6 +157,12 @@ a:hover{color:var(--acc-d)}
  .cd b{font-size:24px}
  .rl-row b{font-size:16px}
 }
+/* 窄屏倒计时四格仍放不下时进一步收缩（390px 实测溢出 69px 的修复） */
+@media(max-width:430px){
+ .cd{flex-wrap:wrap;row-gap:4px}
+ .cd-u{padding:0 6px}
+ .cd b{font-size:20px;min-width:1.6ch}
+}
 
 /* ---- 板块 ---- */
 main{padding-bottom:40px}

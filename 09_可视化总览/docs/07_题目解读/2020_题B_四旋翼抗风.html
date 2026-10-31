@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -339,7 +340,7 @@ $$v_{st}=\sqrt{\frac{2F_{h,\max}}{\rho C_dA}}\approx7\text{–}15\ {\rm m/s}.$$
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
-<li><strong>335（同济）</strong>："标准工程路线"满分示范——Dryden 湍流 + Newton-Euler 六自由度 + 四路 PD 闭环 + $K_p/K_d$ 六组扫描图定参（$K_p$ 过大饱和、$K_d$ 过大高频振动），湍流只注入 [4,10] s 时间窗便于读图；临界 $u_{20}=23$ m/s → 合成风速 10.63 m/s，摘要-正文-结论三点一线。详见 <code>05_论文赏析\2020\2020-GM-B-335.md</code>。</li>
+<li><strong>335（同济）</strong>："标准工程路线"满分示范——Dryden 湍流 + Newton-Euler 六自由度 + 四路 PD 闭环 + $K_p/K_d$ 六组扫描图定参（$K_p$ 过大饱和、$K_d$ 过大高频振动），湍流只注入 [4,10] s 时间窗便于读图；临界 $u_{20}=23$ m/s → 合成风速 10.63 m/s，摘要-正文-结论三点一线。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2020/2020-GM-B-335.html">05_论文赏析/2020/2020-GM-B-335.md</a>。</li>
 <li><strong>380（国防科大）</strong>："方法论原创"路线——先论证 Dryden/Von Karman 属高空模型而拒用，自建四分量自然风（基本/阵风/渐变/随机），用变化因子 $\varepsilon$ 把开放不确定性压成单参数并得闭式 $V_{\max}=(1+2\varepsilon)V_b$；仿弹簧比例反馈 + 0.2 s 采样延迟；理论 5.3678 vs 仿真 5.3487 m/s 双轨互验（偏差 0.4%）。详见 <code>2020-GM-B-380.md</code>。</li>
 </ul>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>

@@ -142,7 +142,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -639,7 +640,7 @@ lib.append({"name": "05_论文赏析", "desc": "73 篇论文逐篇赏析 + 12 �
                       for f in sorted(glob.glob(P("05_论文赏析", "**", "*.md"), recursive=True))
                       if not os.path.basename(f).startswith("_parsed")]})
 lib.append({"name": "06_论文页面图", "desc": "148 张论文标题页/图表页渲染图（见论文库“图页”按钮）", "items": []})
-lib.append({"name": "07_题目解读", "desc": "32 道题目深度解读（文档页）",
+lib.append({"name": "07_题目解读", "desc": "32 道题目深度解读 + 9 张零基础起步卡（文档页）",
             "items": [{"n": doc_title(f), "u": site_rel(doc_html_abs(f))}
                       for f in sorted(glob.glob(P("07_题目解读", "*.md")))]})
 lib.append({"name": "08_物理模型综述", "desc": "八大专题综述 + 总览（文档页）",

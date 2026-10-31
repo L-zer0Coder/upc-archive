@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -328,7 +329,7 @@ $$\Delta v_{esc}=v_c=7.74\ {\rm km/s},$$
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
-<li><strong>340（同济）</strong>：圆锥曲线拼接五段（逃逸螺旋→绕日→金星借力→绕日→土星捕获），"少开机多滑行"，捕获仅开机 0.43 h；2403 kg / 13.49 年。注意：按其流量×开机 65453 h 反推逃逸段等效 Δv ≈ 25.7 km/s，为准圆螺旋定理值的 3.3 倍——其推力指向偏离切向最优，这正是各队燃料差 2 倍的微观根源，也是"用 Δv 账本审计别人论文"的绝佳练习。详见 <code>05_论文赏析\2020\2020-GM-A-340.md</code>。</li>
+<li><strong>340（同济）</strong>：圆锥曲线拼接五段（逃逸螺旋→绕日→金星借力→绕日→土星捕获），"少开机多滑行"，捕获仅开机 0.43 h；2403 kg / 13.49 年。注意：按其流量×开机 65453 h 反推逃逸段等效 Δv ≈ 25.7 km/s，为准圆螺旋定理值的 3.3 倍——其推力指向偏离切向最优，这正是各队燃料差 2 倍的微观根源，也是"用 Δv 账本审计别人论文"的绝佳练习。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2020/2020-GM-A-340.html">05_论文赏析/2020/2020-GM-A-340.md</a>。</li>
 <li><strong>354（雅各布）</strong>：月球+双地球弹弓链（0.934→10.65 km/s），全程 Euler-Richardson 三体积分，声明最简转向律给出燃料<strong>上界</strong>；1809 kg / 9.2 年。详见 <code>2020-GM-A-354.md</code>。</li>
 <li><strong>426（佐治亚理工）</strong>：三段微推进二体 + 推力剖面 trade study（恒推 / $1/r^2$ / partial-coast）+ 时间反演捕获 + HORIZONS 发射窗（2038-06）；2924 kg / 20.92 年，"如何控制"答得最完整。详见 <code>2020-GM-A-426.md</code>。</li>
 <li><strong>447（博阿齐奇）</strong>：显式状态-控制表述 + 控制参数扫描（逃逸 3 指向 × 日心 4 偏角），解析证明月球弹弓不可行后改木星弹弓；1308 kg / 8.29 年，保留失败轨迹图是亮点。详见 <code>2020-GM-A-447.md</code>。</li>

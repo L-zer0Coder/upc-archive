@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -336,9 +337,9 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
-<li><strong>105 队（德里大学，单人队）</strong>：时空物三因子全走一遍——数值积分发射角避开 Van Allen 带（$43.6°/55.3°$ 窗口）+ Hohmann 258.7 天 + 太阳周期窗口；屏蔽用三层材料（Plexiglass 40 cm + 铅 3.5 cm + Kevlar 6 cm）+ 铝线 Faraday 笼（拉普拉斯边值问题判线网屏蔽有效性），总附加质量 $\sim6.4\times10^5$ kg，剂量 559.48 → 1.86 Sv（降 99.667%）。详见 <code>05_论文赏析\2019\2019-GM-A-105.md</code>。</li>
-<li><strong>289 队（BUET）</strong>：全主动路线——Størmer 定理否决展开式线圈、散裂论证否决纯被动，选 MgB₂ 连续跑道线圈（0.5 T）+ JWST 级遮阳罩热设计，粒子轨道 Euler 仿真扫描 0.01–4 GeV 与 $Z$，附加质量 48.346 t，并用火箭方程与被动方案（$\sim130$ t）定量对比。详见 <code>05_论文赏析\2019\2019-GM-A-289.md</code>。</li>
-<li><strong>343 队（国防科大）</strong>：混合路线设计空间搜索——筒区线形场 + 端盖环形场组合出 8 种构型全仿真排名（$B=10$ T、$L=2$ m 时屏蔽 81–87%），磁场盲区加 10 mm 铝板、全舱 3.75 mm 铝挡 γ（$e^{-\mu x}\le0.05$），Biot–Savart 反推电流、$J_c$ 定线径，总质量 16.53 t；发现低场强 $\eta&lt;0$ 的"聚拢反效应区"是亮点。详见 <code>05_论文赏析\2019\2019-GM-A-343.md</code>。</li>
+<li><strong>105 队（德里大学，单人队）</strong>：时空物三因子全走一遍——数值积分发射角避开 Van Allen 带（$43.6°/55.3°$ 窗口）+ Hohmann 258.7 天 + 太阳周期窗口；屏蔽用三层材料（Plexiglass 40 cm + 铅 3.5 cm + Kevlar 6 cm）+ 铝线 Faraday 笼（拉普拉斯边值问题判线网屏蔽有效性），总附加质量 $\sim6.4\times10^5$ kg，剂量 559.48 → 1.86 Sv（降 99.667%）。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2019/2019-GM-A-105.html">05_论文赏析/2019/2019-GM-A-105.md</a>。</li>
+<li><strong>289 队（BUET）</strong>：全主动路线——Størmer 定理否决展开式线圈、散裂论证否决纯被动，选 MgB₂ 连续跑道线圈（0.5 T）+ JWST 级遮阳罩热设计，粒子轨道 Euler 仿真扫描 0.01–4 GeV 与 $Z$，附加质量 48.346 t，并用火箭方程与被动方案（$\sim130$ t）定量对比。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2019/2019-GM-A-289.html">05_论文赏析/2019/2019-GM-A-289.md</a>。</li>
+<li><strong>343 队（国防科大）</strong>：混合路线设计空间搜索——筒区线形场 + 端盖环形场组合出 8 种构型全仿真排名（$B=10$ T、$L=2$ m 时屏蔽 81–87%），磁场盲区加 10 mm 铝板、全舱 3.75 mm 铝挡 γ（$e^{-\mu x}\le0.05$），Biot–Savart 反推电流、$J_c$ 定线径，总质量 16.53 t；发现低场强 $\eta&lt;0$ 的"聚拢反效应区"是亮点。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2019/2019-GM-A-343.html">05_论文赏析/2019/2019-GM-A-343.md</a>。</li>
 <li><strong>对照启示</strong>：三队附加质量相差近 40 倍（636 t / 48 t / 16.5 t），差异来自方案立场（全被动/全主动/混合）与防护口径（挡 γ vs 减 GCR 剂量）——题目开放度之大正体现在这里；但三队共同点是<strong>都有基准剂量线与判据闭环</strong>。</li>
 </ul>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>

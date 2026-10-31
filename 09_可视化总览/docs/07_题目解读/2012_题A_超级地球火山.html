@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -286,7 +287,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <li><strong>Nature Astronomy：L 98-59 d 的富挥发分熔融超地球</strong>（<a href="https://www.nature.com/articles/s41550-026-02815-8">nature.com</a>）——"永久岩浆海"的极端案例，可用作层次 3 扩展的素材。</li>
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
-<p>本题金奖唯一一队（上海交通大学 449 队，17 页）：五层行星结构 + 能量守恒主线，把火山活动<strong>定义为岩浆层释能功率</strong> $P_{vol}=B(T-700)$，单同位素基本模型解析求解、四同位素扩展模型复现地球热史转折，用水星（余寿 15 亿年）与地球（50.7 亿年）双锚点校验，并罕见地专设参数灵敏度小节扰动 $B$ 的两个估计参数。详细拆解见 <code>05_论文赏析\2012\2012-GM-A-449.md</code>。</p>
+<p>本题金奖唯一一队（上海交通大学 449 队，17 页）：五层行星结构 + 能量守恒主线，把火山活动<strong>定义为岩浆层释能功率</strong> $P_{vol}=B(T-700)$，单同位素基本模型解析求解、四同位素扩展模型复现地球热史转折，用水星（余寿 15 亿年）与地球（50.7 亿年）双锚点校验，并罕见地专设参数灵敏度小节扰动 $B$ 的两个估计参数。详细拆解见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2012/2012-GM-A-449.html">05_论文赏析/2012/2012-GM-A-449.md</a>。</p>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 是否在建模前<strong>显式定义"火山活动水平"的可计算代理量</strong>（功率/频率/寿命）。</li>

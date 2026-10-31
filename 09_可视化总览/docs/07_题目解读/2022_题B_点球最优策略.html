@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -321,7 +322,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
-<li><strong>358（同济）</strong>：受力四件套逐一现场推导（Bernoulli 压差导阻力、Kutta–Joukowski 导 Magnus）+ 自转衰减"先纳入再舍弃"；守门员用蹬地—抛体—臂长三层建模 + 2 万点蒙特卡洛热图，求出<strong>绝对死角</strong>两块矩形并反算最优角度区间。模型完整性与图表叙事最佳。详见 <code>05_论文赏析\2022\2022-GM-B-358.md</code>。</li>
+<li><strong>358（同济）</strong>：受力四件套逐一现场推导（Bernoulli 压差导阻力、Kutta–Joukowski 导 Magnus）+ 自转衰减"先纳入再舍弃"；守门员用蹬地—抛体—臂长三层建模 + 2 万点蒙特卡洛热图，求出<strong>绝对死角</strong>两块矩形并反算最优角度区间。模型完整性与图表叙事最佳。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2022/2022-GM-B-358.html">05_论文赏析/2022/2022-GM-B-358.md</a>。</li>
 <li><strong>471（国防科大）</strong>：把射门写成显式单目标规划，唯一引入 $C_d$–$Re$ 插值捕捉阻力危机；四轮变步长搜索收敛到距角心 3.6 cm，再用 Stokes 黏性力矩修正自转、精度提升到 1.2 cm；末尾用梅西真实数据校验。优化方法论与"先简后修"叙事最完整。详见 <code>2022-GM-B-471.md</code>。</li>
 <li><strong>480（国防科大）</strong>：$\vec\omega$ 任意轴 + 指数衰减一步到位，六维参数（速度大小/方向 + 转速/转轴）压进一张三维图；守门员取"判断完美、只剩面积"的最坏假设求最大防守域（13.34 m²）；再用鲁棒性扰动 + 世界杯 2002–2018 统计<strong>反转为射下角更优</strong>。决策反转与数据可视化最出彩。详见 <code>2022-GM-B-480.md</code>。</li>
 </ul>

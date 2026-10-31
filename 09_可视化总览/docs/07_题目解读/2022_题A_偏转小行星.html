@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -344,7 +345,7 @@ $$T_{min}\approx\frac{r_{min}}{v_\infty}=\frac{L_c}{p_{del}\,v_\infty}\approx2.2
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
-<li><strong>346（多伦多）</strong>：两个"失败方案"（着陆烧掉 99% 质量、系绳 5000 倍缆绳）一行公式证伪 → 角动量判据 + $p^*=v_em_0e^{u_0/v_e-1}$ → <strong>4.8 年</strong>（$3.8\times10^9$ km）；再以结合能审计转入碎裂方案得 14.6 小时，并用 200 碎块蒙特卡洛给出误伤概率曲线。方案空间全覆盖的范本。详见 <code>05_论文赏析\2022\2022-GM-A-346.md</code>。</li>
+<li><strong>346（多伦多）</strong>：两个"失败方案"（着陆烧掉 99% 质量、系绳 5000 倍缆绳）一行公式证伪 → 角动量判据 + $p^*=v_em_0e^{u_0/v_e-1}$ → <strong>4.8 年</strong>（$3.8\times10^9$ km）；再以结合能审计转入碎裂方案得 14.6 小时，并用 200 碎块蒙特卡洛给出误伤概率曲线。方案空间全覆盖的范本。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2022/2022-GM-A-346.html">05_论文赏析/2022/2022-GM-A-346.md</a>。</li>
 <li><strong>395（同济）</strong>：以撞点速度方向角 $\theta$ 单参数化轨道族，用轨道能量符号切成椭圆（周期回归、动能撞击无解）/双曲（数值搜索可解）两支；中途发现太阳引力主导、自我纠错换日心框架；MATLAB 二分法 + 逐度扫描得 <strong>58–139 天</strong>（结论依赖撞点速度与相位累积的乐观组合）。前提自检的范本。详见 <code>2022-GM-A-395.md</code>。</li>
 <li><strong>425（华沙）</strong>：反问题思维——从地球反向发射 25 km/s 虚拟天体，单参数 $\phi$ 穷举所有撞地轨道；DART 实测定标动量、$\beta\sim8.4$；开普勒第三定律一阶展开得周期提前量，判据 $n\Delta T&gt;R_E/v$ 给 <strong>0.1–0.7 年</strong>。判据最透明。详见 <code>2022-GM-A-425.md</code>。</li>
 <li><strong>460（上海交大）</strong>：全程解析零模拟，标度分析贯穿（$p/P\sim10^{-6}$ 定侧推、大气标高 $H$ 等效半径）；逃逸先扣燃料再取 $p^*=v_rm_1/e$，得化学推进 <strong>14 年</strong>、霍尔推进 <strong>0.67 年</strong>，并坦承前者"不令人满意"。误差控制最干净。详见 <code>2022-GM-A-460.md</code>。</li>

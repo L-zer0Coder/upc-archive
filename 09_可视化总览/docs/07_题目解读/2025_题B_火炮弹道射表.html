@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -343,7 +344,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </ol>
 <h2 id="8-金牌论文思路对比13-队">8. 金牌论文思路对比（13 队）</h2>
 <p><strong>南航 NUAA 5 队</strong>：
-- <strong>127</strong>：低伸弹道拟合式 $\theta_L=0.0001v_0^2-0.1145v_0+29.312$ + 口诀化修正（每 50 m 距离 0.2°、每 25 m 高差 1.1–1.2°、每 m/s 风 0.01°）；以末速 200 m/s 侵彻阈值淘汰高角解。详见 <code>05_论文赏析\2025\2025-GM-B-127.md</code>。
+- <strong>127</strong>：低伸弹道拟合式 $\theta_L=0.0001v_0^2-0.1145v_0+29.312$ + 口诀化修正（每 50 m 距离 0.2°、每 25 m 高差 1.1–1.2°、每 m/s 风 0.01°）；以末速 200 m/s 侵彻阈值淘汰高角解。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2025/2025-GM-B-127.html">05_论文赏析/2025/2025-GM-B-127.md</a>。
 - <strong>155</strong>：$(\theta,v)$ 全参数空间遍历（366 组可行解，3°–77°/143–450 m/s）+ 参考点相对坐标最小二乘线性修正；诚实报告风修 ±4° 短板。详见 <code>2025-GM-B-155.md</code>。
 - <strong>188</strong>：保真度最高——ISA + Loth 2021 $C_d(M,Re)$ + <code>ode113</code>，把复杂物理折叠成 $C_X/C_H/C_W/C_Z$ 四个修正系数 + 射表；示例 1300 m/800 m/逆风 5/侧风 10 → 4.02° + 横移 13.1 m。详见 <code>2025-GM-B-188.md</code>。
 - <strong>204</strong>：量纲分析清点各力（浮力占重 0.017%、科氏、Magnus）后砍成质点 + 分段 $C_d(M)$；fsolve 多起点求全解谱，推荐 4°/450；证明 $v_0(U)\approx v_0^{(0)}+kU$ 近似线性 → 三张射表"一查一乘一加"。详见 <code>2025-GM-B-204.md</code>。

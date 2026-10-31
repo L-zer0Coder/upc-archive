@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -318,7 +319,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
-<li><strong>112（重庆邮电大学）——参数化 IIR 路线</strong>：从弦谐波与竹管半波长共振出发辨识四个谐振模 245/490/735/980 Hz（$Q=8$、增益递减），六节 biquad 级联 + 极小极大优化；交付全指标体系（平坦度 &lt;0.1 dB、THD 0.40%、2778 倍实时、0.58 KB 内存、极点裕度），并以谱质心统计证明音色增强跨音域一致。详见 <code>05_论文赏析\2025\2025-GM-A-112.md</code>。</li>
+<li><strong>112（重庆邮电大学）——参数化 IIR 路线</strong>：从弦谐波与竹管半波长共振出发辨识四个谐振模 245/490/735/980 Hz（$Q=8$、增益递减），六节 biquad 级联 + 极小极大优化；交付全指标体系（平坦度 &lt;0.1 dB、THD 0.40%、2778 倍实时、0.58 KB 内存、极点裕度），并以谱质心统计证明音色增强跨音域一致。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2025/2025-GM-A-112.html">05_论文赏析/2025/2025-GM-A-112.md</a>。</li>
 <li><strong>182（滑铁卢大学）——系统工程路线</strong>：先按物理机理对比磁/压电/光学拾音并选光学（位移敏感、非接触），再用波动方程证明拾音点应贴琴码（避开 $\sin(n\pi x/L)$ 波节、保留高次谐波与 headroom）；滤波端宽带 biquad（$Q\approx0.34$）+ 竹管四峰窄带节（$Q=19\pm2$ 由竹材 $\tan\delta$ 推出并<strong>误差传递到每个滤波器系数</strong>）；Class AB 功放 + 动圈扬声器全链路框图。详见 <code>2025-GM-A-182.md</code>。</li>
 <li><strong>485（南京理工大学）——物理先验路线</strong>：Helmholtz 定 98 Hz 下限（配小 $ka$ 辐射失配论证）、开管驻波定四峰、"双腔耦合阻抗"解释峰与包络重合、上限三机制（集总失效/内摩擦/散射）；RBJ 峰化 EQ + Butterworth 高低通级联，8 kHz 低算力实现（0.25 MIPS、&lt;$25 Cortex-M4），Karplus-Strong 仿真闭环验证（频响 RMS 0.73 dB、七类判据全过）。详见 <code>2025-GM-A-485.md</code>。</li>
 <li><strong>共同点与分歧</strong>：三队都把"像不像"翻译成指标体系，且 245n Hz 竹管序列都是核心参数；分歧在目标频响来源（纯物理先验 vs 类比/测量）、拾音器是否纳入建模（仅 182 完整建模）、以及验证深度（112/485 有合成激励闭环，182 偏系数级误差传递）。</li>

@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -339,7 +340,7 @@ $$a_{max}=\frac{v_e^2}{2eH},\qquad v_e^2\approx2gh_0\ \Rightarrow\ \boxed{h_0^{m
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
-<li><strong>131（上海交大）</strong>：NRLMSIS 温度 + 自推含 $g(h)$ 的密度公式；马赫数状态机切换三段 $C_d/A$；用 Baumgartner 进出超声速高度做 0.56%/1.5% 误差的定量验证；三判据 94/120/78 km → 综合 <strong>80 km</strong>。验证闭环最硬。详见 <code>05_论文赏析\2023\2023-GM-A-131.md</code>。</li>
+<li><strong>131（上海交大）</strong>：NRLMSIS 温度 + 自推含 $g(h)$ 的密度公式；马赫数状态机切换三段 $C_d/A$；用 Baumgartner 进出超声速高度做 0.56%/1.5% 误差的定量验证；三判据 94/120/78 km → 综合 <strong>80 km</strong>。验证闭环最硬。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2023/2023-GM-A-131.html">05_论文赏析/2023/2023-GM-A-131.md</a>。</li>
 <li><strong>227（上海交大）</strong>：策略反转——假设出舱立即开伞（HAHO 缓降），消解音障与开伞冲击；麦克斯韦分布推阻力、科氏力全程在模并被二次用作"死亡螺旋"力矩来源；四约束 255/510/153 km → <strong>153 km</strong>。改写问题边界的代表。详见 <code>2023-GM-A-227.md</code>。</li>
 <li><strong>244（上海交大）</strong>：排除法主线——先定量证明速度（150 m/s）与过载（3g）不构成约束，锁定<strong>摩擦热积累</strong>（MLI 换热 + NASA 热容参数），得 <strong>61,270 m</strong>。因果链最清晰。详见 <code>2023-GM-A-244.md</code>。</li>
 <li><strong>355（同济）</strong>：把旋转失控判据归并为单位质量阻力 $k=f/m$，用 FB 失控/恢复两点标定并原创耐受积分 $S=\int k\,dt$（极限取 1.5×FB 实况），得 <strong>57 km</strong>；临地速度收敛性质 + 连续 $C_d(Ma)$ 拟合。单事件标定范式。详见 <code>2023-GM-A-355.md</code>。</li>

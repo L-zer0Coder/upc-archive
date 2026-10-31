@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -328,7 +329,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <li><strong>NASA Mars Fact Sheet</strong>（<a href="https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html">nssdc.gsfc.nasa.gov</a>）——半径、重力、气压、轨道半长轴等全部基础常数的一站式出处。</li>
 </ol>
 <h2 id="8-金奖论文思路对比">8. 金奖论文思路对比</h2>
-<p>本题金奖唯一一队（多伦多大学 190 队，仅 10 页）：目标态（相图判据，先核查气压已过线）→ Ramanathan 半灰模型 + 地球工业革命前 CO₂ 标定反解 273 K 需 $\tau=12.7$ → 火星现状清单（大气/极冠/热容，每个数带文献）→ 极冠升温 27 K（$4.96\times10^{20}$ J）+ 升华潜热（$1.64\times10^{21}$ J）→ 总能量 $2.14\times10^{21}$ J、撞击体总质量 $1.225\times10^{13}$ kg（$\eta=60\%$ 引 Maindl SPH、$v=24$ km/s）→ 单颗冲量 $10^{16}$ N·s 量级 → Table 1 从 JPL 库选 10 颗真实小行星逐一算 $\Delta E$ 与 $J$ → 8.2 节 Jeans 逃逸时标（$3\times10^{94}$ 年）自证方案鲁棒，8.3 节坦承角动量法未完成。亮点是"每个系数有出处 + 真实目标清单 + 诚实边界"三件套，10 页说完全部逻辑。详细拆解见 <code>05_论文赏析\2015\2015-GM-A-190.md</code>。</p>
+<p>本题金奖唯一一队（多伦多大学 190 队，仅 10 页）：目标态（相图判据，先核查气压已过线）→ Ramanathan 半灰模型 + 地球工业革命前 CO₂ 标定反解 273 K 需 $\tau=12.7$ → 火星现状清单（大气/极冠/热容，每个数带文献）→ 极冠升温 27 K（$4.96\times10^{20}$ J）+ 升华潜热（$1.64\times10^{21}$ J）→ 总能量 $2.14\times10^{21}$ J、撞击体总质量 $1.225\times10^{13}$ kg（$\eta=60\%$ 引 Maindl SPH、$v=24$ km/s）→ 单颗冲量 $10^{16}$ N·s 量级 → Table 1 从 JPL 库选 10 颗真实小行星逐一算 $\Delta E$ 与 $J$ → 8.2 节 Jeans 逃逸时标（$3\times10^{94}$ 年）自证方案鲁棒，8.3 节坦承角动量法未完成。亮点是"每个系数有出处 + 真实目标清单 + 诚实边界"三件套，10 页说完全部逻辑。详细拆解见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2015/2015-GM-A-190.html">05_论文赏析/2015/2015-GM-A-190.md</a>。</p>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 成功判据操作化：三相点 + 温度；最好再加沸点窗口讨论。</li>

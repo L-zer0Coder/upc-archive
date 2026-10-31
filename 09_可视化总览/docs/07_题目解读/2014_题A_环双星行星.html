@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -309,7 +310,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <li><strong>Lam &amp; Kipping 2018</strong>（<a href="https://academic.oup.com/mnras/article/476/4/5692/4795319">MNRAS</a>）——用深度神经网络拟合环双星稳定边界，可作"经验判据 vs 自主数值实验"的方法论对照。</li>
 </ol>
 <h2 id="8-金奖论文思路对比">8. 金奖论文思路对比</h2>
-<p>本题金奖唯一一队（Jacobs University Bremen 726 队，25 页）：开普勒 III 定 $a_{bin}$ → $(r_0,v_0)$ 相空间 50×150 扫参、Mathematica NDSolve 积分 10 年 → 缩域积分 1000 年 → 判据"能量束缚 + 不入恒星半径"（附录用 sigmoid 排斥场把撞星连续化）→ 给出 $\varepsilon=0/0.4/0.6$ 三组稳定带，最小稳定半径约 0.6 AU → 附加宜居带分析（$L\propto M^4$、通量判据 1.05–1.36 AU，落在稳定带内闭环）。最大亮点是"短全扫 + 长缩域"的两级实验设计，以及图 15 主动展示"10 年判稳、326 年坠星"的反例——把判据的时长敏感性自己捅破，评委最吃这一套。详细拆解见 <code>05_论文赏析\2014\2014-GM-A-726.md</code>。</p>
+<p>本题金奖唯一一队（Jacobs University Bremen 726 队，25 页）：开普勒 III 定 $a_{bin}$ → $(r_0,v_0)$ 相空间 50×150 扫参、Mathematica NDSolve 积分 10 年 → 缩域积分 1000 年 → 判据"能量束缚 + 不入恒星半径"（附录用 sigmoid 排斥场把撞星连续化）→ 给出 $\varepsilon=0/0.4/0.6$ 三组稳定带，最小稳定半径约 0.6 AU → 附加宜居带分析（$L\propto M^4$、通量判据 1.05–1.36 AU，落在稳定带内闭环）。最大亮点是"短全扫 + 长缩域"的两级实验设计，以及图 15 主动展示"10 年判稳、326 年坠星"的反例——把判据的时长敏感性自己捅破，评委最吃这一套。详细拆解见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2014/2014-GM-A-726.html">05_论文赏析/2014/2014-GM-A-726.md</a>。</p>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 用 30 天周期定标 $a_{bin}$，并画出双星几何（$a_1,a_2$、分离系统判定）。</li>

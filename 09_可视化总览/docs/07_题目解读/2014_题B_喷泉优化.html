@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -299,7 +300,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <li><strong>TeeJet《A User's Guide to Droplet Size》</strong>（<a href="https://www.teejet.com/-/media/dam/agricultural/usa/technical-documentation/product-market-bulletin/droplet-size-user-guide.pdf">PDF</a>）——压力–流量–液滴尺寸谱的工程数据，支撑"离散为液滴"假设中滴径取值的量级。</li>
 </ol>
 <h2 id="8-金奖论文思路对比">8. 金奖论文思路对比</h2>
-<p>本题金奖唯一一队（南方科技大学 807 队，17 页）：把分子转译为半径 1–5 mm 的近球形液滴 → 真空情形用"通量守恒 + 雅可比"推得对任意角/速度分布成立的落点密度闭式（式 3.17–3.18）→ $\delta$ 分布给最概然落点（$r=0$ 与 $r=r_{max}$ 双答案）与中位圆三分情形通解（半球情形 $r_{half}\approx7.215$ m）→ 碰撞以高斯速度再分布作卷积修正 → 由 Reynolds 数论证二次阻力，MATLAB RKF45 + 事件函数数值积分得中位圆 3.30 m（半径 1 mm）/ 5.68 m（半径 5 mm），并明确量化"阻力不可忽略"。最大亮点是"先一般后特例"的通用密度公式与"真空解析 → 相互作用 → 阻力"三段递进叙事。详细拆解见 <code>05_论文赏析\2014\2014-GM-B-807.md</code>。</p>
+<p>本题金奖唯一一队（南方科技大学 807 队，17 页）：把分子转译为半径 1–5 mm 的近球形液滴 → 真空情形用"通量守恒 + 雅可比"推得对任意角/速度分布成立的落点密度闭式（式 3.17–3.18）→ $\delta$ 分布给最概然落点（$r=0$ 与 $r=r_{max}$ 双答案）与中位圆三分情形通解（半球情形 $r_{half}\approx7.215$ m）→ 碰撞以高斯速度再分布作卷积修正 → 由 Reynolds 数论证二次阻力，MATLAB RKF45 + 事件函数数值积分得中位圆 3.30 m（半径 1 mm）/ 5.68 m（半径 5 mm），并明确量化"阻力不可忽略"。最大亮点是"先一般后特例"的通用密度公式与"真空解析 → 相互作用 → 阻力"三段递进叙事。详细拆解见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2014/2014-GM-B-807.html">05_论文赏析/2014/2014-GM-B-807.md</a>。</p>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] "分子 → 液滴"的转译 + 全部自设参数（$v_0$、$\theta_0$、分布、滴径）显式声明。</li>

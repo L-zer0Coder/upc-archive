@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -310,7 +311,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <li><strong>Lyu et al. 2018《Aerodynamics of Golf Balls in Still Air》</strong>（<a href="https://www.mdpi.com/2504-3900/2/6/238">MDPI</a>）——实测 $C_D$ 从低速 ~0.5 降至高速 ~0.2、$C_L$ 与转速正相关，是"系数不拍脑袋"的直接出处。</li>
 </ol>
 <h2 id="8-金奖论文思路对比">8. 金奖论文思路对比</h2>
-<p>本题金奖唯一一队（南京大学 108 队，24 页）：两阶段拆分（Free-flight / Bouncing）→ 杆–球斜碰撞写成 10 元线性方程组矩阵 $\mathbf b=P\mathbf v$（附录逐行标注物理含义）→ 飞行段为带二次阻力与 Magnus 力的三维 ODE，用事件定位器在碰树/落地时中断衔接 → 弹跳用 Penner 恢复系数 + Daish 反弹公式解析处理、几何级数求弹跳总长 → 在 $(\psi,\gamma)$ 平面扫可行域，并原创定义"系统裕度 $M$"反推最优打法，最终建议 loft 22.5°、drift ~17°、偏树 ~44° 方向、速度 ~60 m/s → 附录扩展 5 m/s 侧风。亮点是"可行域 + 裕度"把解题升级为设计建议，三种相互作用（杆–球、球–空气、球–地）各有专属模型与文献系数。详细拆解见 <code>05_论文赏析\2015\2015-GM-B-108.md</code>。</p>
+<p>本题金奖唯一一队（南京大学 108 队，24 页）：两阶段拆分（Free-flight / Bouncing）→ 杆–球斜碰撞写成 10 元线性方程组矩阵 $\mathbf b=P\mathbf v$（附录逐行标注物理含义）→ 飞行段为带二次阻力与 Magnus 力的三维 ODE，用事件定位器在碰树/落地时中断衔接 → 弹跳用 Penner 恢复系数 + Daish 反弹公式解析处理、几何级数求弹跳总长 → 在 $(\psi,\gamma)$ 平面扫可行域，并原创定义"系统裕度 $M$"反推最优打法，最终建议 loft 22.5°、drift ~17°、偏树 ~44° 方向、速度 ~60 m/s → 附录扩展 5 m/s 侧风。亮点是"可行域 + 裕度"把解题升级为设计建议，三种相互作用（杆–球、球–空气、球–地）各有专属模型与文献系数。详细拆解见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2015/2015-GM-B-108.html">05_论文赏析/2015/2015-GM-B-108.md</a>。</p>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 几何必然性论证：直线全被封死、必须侧向持续力（30° vs 2.4° 的张角对比）。</li>

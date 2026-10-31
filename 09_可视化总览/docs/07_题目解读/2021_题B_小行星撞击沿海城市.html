@@ -51,7 +51,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
-.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
 .sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
 .sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
 .sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
@@ -332,7 +333,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
 <ul>
-<li><strong>216（Harvey Mudd，2 人队）</strong>：变速入大气 ODE（16 颗实测小行星密度加权拟合 2481 kg/m³、标准大气 $R^2=0.9975$）+ 实验室波幅律 + 三文献交叉定义 2 m 阈值 + DWI 封顶扫描域 → $10^9$ kg。数据驱动与守恒上限校验是范本。详见 <code>05_论文赏析\2021\2021-GM-B-216.md</code>。</li>
+<li><strong>216（Harvey Mudd，2 人队）</strong>：变速入大气 ODE（16 颗实测小行星密度加权拟合 2481 kg/m³、标准大气 $R^2=0.9975$）+ 实验室波幅律 + 三文献交叉定义 2 m 阈值 + DWI 封顶扫描域 → $10^9$ kg。数据驱动与守恒上限校验是范本。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2021/2021-GM-B-216.html">05_论文赏析/2021/2021-GM-B-216.md</a>。</li>
 <li><strong>385（国防科大）</strong>：逆推链可视化（Watanabe 3 级 10 m → 1000 km 处 1.3 cm → 波能积分 → 动能 → 质量），铁质垂直入射、烧蚀解析律（入大气前质量为落海时 2.03 倍）、Stokes 二阶波浅化 → $4.05\times10^{10}$ kg。解题路线图呈现的典范。详见 <code>2021-GM-B-385.md</code>。</li>
 <li><strong>442（华沙）</strong>：四效应逐一排除（热辐射需 d&gt;4.61 km、超压 ~1 kPa、PGV&lt;3 cm/s）→ 锁定海啸；CMM05 公式体系 + 7 m（ITIS D 类）阈值 + 密度×角度参数网格 → 最有利条件 $1.7\times10^{11}$ kg。论证架构最严密，"为什么只算海啸"从假设升级为定理。详见 <code>2021-GM-B-442.md</code>。</li>
 <li><strong>445（华沙）</strong>：变质量烧蚀自推并对接 Chyba 1993 + Ward 抛物面腔 + FFT 谱方法演化波场并数值复现 $1/\sqrt r$ + Green 爬岸 → $10^{10}$ kg（r≈97 m），附淹没纵深 715 m。数值含量最高、标度律排除法最省笔墨。详见 <code>2021-GM-B-445.md</code>。</li>
