@@ -64,7 +64,7 @@ function bindTree(wrap){
   });
 }
 function btn(side,cls,label){
-  var b=document.createElement("button");b.id=cls;b.type="button";b.textContent=label;
+  var b=document.createElement("button");b.id=cls;b.className=cls;b.type="button";b.textContent=label;
   b.addEventListener("click",function(){
     var p=document.getElementById("uig-"+side);
     if(p&&p.classList.contains("on")){p.classList.remove("on");return;}

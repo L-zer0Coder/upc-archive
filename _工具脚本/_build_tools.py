@@ -1812,5 +1812,3 @@ def render_tools(ctx):
     write_out(ctx, "manual.html", _build_manual.render_manual(ctx))
     import _build_globalui
     _build_globalui.write_global_ui(ctx)
-    import _build_globalui
-    _build_globalui.write_global_ui(ctx)

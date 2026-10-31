@@ -100,7 +100,7 @@ function bindTree(wrap){
   });
 }
 function btn(side,cls,label){
-  var b=document.createElement("button");b.id=cls;b.type="button";b.textContent=label;
+  var b=document.createElement("button");b.id=cls;b.className=cls;b.type="button";b.textContent=label;
   b.addEventListener("click",function(){
     var p=document.getElementById("uig-"+side);
     if(p&&p.classList.contains("on")){p.classList.remove("on");return;}
@@ -116,9 +116,23 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 DATA_HEAD = "window.UPC_UI_DATA="
 
 
+def _root_tree(n):
+    # 树 URL 来自 manual.html 视角（../ 前缀）；全局挂件用根相对，逐节点剥掉前缀。
+    # 用 startswith 循环而非正则：本机 Python 3.12 行尾运算符续行解析异常，正则里
+    # 的反斜杠在 heredoc/内联拼接中曾被折叠损坏。
+    u = n.get("u")
+    if u:
+        while u.startswith("../"):
+            u = u[len("../"):]
+        n["u"] = u
+    for c in n.get("ch", []):
+        _root_tree(c)
+    return n
+
+
 def write_global_ui(ctx):
     import _build_manual as bm
-    tree = bm.build_tree(ctx)
+    tree = _root_tree(bm.build_tree(ctx))
     manual_html = bm.rootify(bm.md_fragment(bm.MANUAL_MD))
 
     data = DATA_HEAD + json.dumps({"tree": tree, "manual": manual_html}, ensure_ascii=False) + ";"

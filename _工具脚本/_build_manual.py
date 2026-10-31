@@ -117,10 +117,14 @@ def rel_url(ctx, rel):
     if rel.startswith("_知识提炼") or rel.startswith("_工具脚本") or rel.startswith("."):
         return None
     if rel.endswith(".md"):
-        target = P(ctx, rel)
-        if os.path.exists(target[:-3] + ".html"):
+        # 渲染产物统一在 09_可视化总览/docs/<rel>.html（_build_site.doc_html_abs 同规则），
+        # 源 md 旁边不会有 .html——此前误查源目录导致全树 0 个文档页链接
+        target = P(ctx, "09_可视化总览", "docs", *(rel[:-3] + ".html").split("/"))
+        if os.path.exists(target):
             return quote("../09_可视化总览/docs/" + rel[:-3] + ".html")
         return None
+    if rel.startswith("12_赛时工具") and rel.endswith(".html"):
+        return quote("../" + rel)
     if os.path.splitext(rel)[1].lower() in RAW_KEEP:
         return quote("../" + rel)
     if rel in ("index.html", "404.html", "og-image.png"):
