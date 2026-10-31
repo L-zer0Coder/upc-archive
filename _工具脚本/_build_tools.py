@@ -783,9 +783,9 @@ renderSpeed();
 renderLog();
 """
 
-    return page(ctx, "48 小时作战室", "第 17 届赛时工具",
-                "UPC 48 小时作战室：思路时间线、交互式作战手册、提交终检清单、写作句库检索、思路导图与阶段速查。",
-                "开赛后把这一页钉在屏幕上：随手记思路（自动盖阶段戳）、对照手册推进、句库即查即抄、交卷前过终检。所有数据只存在本浏览器，可导出备份。",
+    return page(ctx, "48 小时作战室", "实战工具 · 平时开放",
+                "UPC 48 小时作战室：思路时间线、交互式作战手册、提交终检清单、写作句库检索、中译英润色、思路导图与阶段速查。",
+                "备赛、赛时都可用：句库/中译英/导图/终检现在就能练；开赛后把这一页钉在屏幕上，随手记思路（自动盖阶段戳）、对照手册推进。所有数据只存在本浏览器，可导出备份。",
                 body.replace("__MANUAL__", manual_html).replace("__CKNOTE__", ck_note)
                     .replace("__LINKS_POLISH__", links["polish"]),
                 script
@@ -913,7 +913,7 @@ document.getElementById('plist').addEventListener('click',function(ev){
   }
 });
 """
-    return page(ctx, "AI 提示词工坊", "第 17 届赛时工具",
+    return page(ctx, "AI 提示词工坊", "实战工具 · 平时开放",
                 "UPC 备赛与赛时 AI 提示词包：选题读题、建模设计、数值验证、论文写作、模拟评审与赛后复盘，内置 74 篇金牌论文的评审标准。",
                 "把金牌方法论装进任意 AI 对话框：每条提示词都内置「判据—方程—数值—检验」评审标准与库内上下文包说明。配套文档版见《AI 提示词包》（可直接阅读）。",
                 body,
@@ -1045,7 +1045,7 @@ window.addEventListener('load',function(){render();});   // KaTeX defer 加载�
     katex = ('<link rel="stylesheet" href="../09_可视化总览/vendor/katex/katex.min.css">'
              '<script defer src="../09_可视化总览/vendor/katex/katex.min.js"></script>'
              '<script defer src="../09_可视化总览/vendor/katex/contrib/auto-render.min.js"></script>')
-    return page(ctx, "物理模型闪卡", "第 17 届赛时工具",
+    return page(ctx, "物理模型闪卡", "实战工具 · 平时开放",
                 "UPC 物理模型闪卡：从八份模型综述提炼的全部核心模型，适用场景/方程/要点/常见错误四面翻卡，赛前刷模型库。",
                 "考前把模型库过一遍：翻卡自测「这个场景该上什么模型、方程长什么样、金牌怎么用、常见错误是什么」。标记存在本浏览器。",
                 body, script.replace("__CARDS__", json.dumps(cards, ensure_ascii=False)),
@@ -1161,7 +1161,7 @@ function rank(){
 }
 rank();
 """
-    return page(ctx, "选题助手", "第 17 届赛时工具",
+    return page(ctx, "选题助手", "实战工具 · 平时开放",
                 "UPC 选题助手：按队伍强项与题型偏好，从 16 年 32 道官方题目中匹配最合适的历年同域题与建模路线图。",
                 "开赛读题的 30 分钟里用它：勾选队伍强项 → 得到同域历年题清单 → 并读对应《题目深度解读》与金牌赏析，判断 2026 两题哪道离主场更近。",
                 body, script.replace("__PROBS__", json.dumps(data, ensure_ascii=False)))
@@ -1305,7 +1305,7 @@ function draw(r){
 }
 """
     pyodide_head = '<script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>'
-    return page(ctx, "数值实验台", "第 17 届赛时工具",
+    return page(ctx, "数值实验台", "实战工具 · 平时开放",
                 "UPC 数值实验台：浏览器里直接运行 Python 物理模型（Pyodide），v1 内置 2023-A 太空跳伞简化模型，参数可调、代码可改。",
                 "不用装 Python 也能跑物理：滑杆调参数、代码框改模型，点运行立刻出曲线。示范模型来自 2023-A《近太空跳伞》精读。",
                 body, script.replace("__PYSRC__", json.dumps(SKYDIVING_PY)),

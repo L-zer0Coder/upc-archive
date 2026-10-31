@@ -657,7 +657,7 @@ lib.append({"name": "11_论文模板与工具", "desc": "LaTeX 模板 / 图表�
 lib.append({"name": "_工具脚本", "desc": "抓取 / 建库 / 建站全流程 Python 脚本（构建时用，无需在线浏览）",
             "items": [{"n": os.path.basename(f), "u": site_rel(f)}
                       for f in sorted(glob.glob(P("_工具脚本", "*.py")))]})
-lib.append({"name": "12_赛时工具", "desc": "赛时交互工具：48 小时作战室 / 提示词工坊 / 模型闪卡 / 选题助手 / 数值实验台",
+lib.append({"name": "12_赛时工具", "desc": "实战工具页（平时开放）：作战室 / 提示词工坊 / 模型闪卡 / 选题助手 / 数值实验台",
             "items": [{"n": "48小时作战室", "u": "12_赛时工具/warroom.html"},
                       {"n": "AI 提示词工坊", "u": "12_赛时工具/prompts.html"},
                       {"n": "物理模型闪卡", "u": "12_赛时工具/flashcards.html"},
