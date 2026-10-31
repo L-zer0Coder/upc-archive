@@ -246,6 +246,13 @@ def write_out(ctx, name, html):
 def render_warroom(ctx):
     manual_md = read(ctx, "11_论文模板与工具", "48小时作战手册.md")
     manual_html = md_fragment(manual_md)
+    # 手册里的 mermaid 甘特替换为构建期原生 SVG：mermaid 在 display:none 面板里测量出 0 宽度，运行时渲染不可靠
+    gantt_tasks = parse_gantt(manual_md)
+    if gantt_tasks:
+        manual_html = re.sub(
+            r'<pre><code class="language-mermaid">.*?</code></pre>',
+            lambda _m: '<div class="mermaid">' + gantt_svg(gantt_tasks) + "</div>",
+            manual_html, count=1, flags=re.S)
     ck_secs, ck_note = parse_checklist(read(ctx, "11_论文模板与工具", "提交前终检checklist.md"))
     sent = parse_sentbank(read(ctx, "11_论文模板与工具", "写作句库.md"))
     polish = parse_polish(read(ctx, "11_论文模板与工具", "中译英润色库.md"))
@@ -595,17 +602,6 @@ document.getElementById('pq').addEventListener('input',renderPolish);
 renderPolish();
 
 /* ---------- 思路导图（无依赖径向 SVG） ---------- */
-function tryMermaid(n){
-  if(!document.querySelector('pre code.language-mermaid'))return;
-  if(window.mermaid){
-    mermaid.initialize({startOnLoad:false,theme:"neutral",securityLevel:"loose"});
-    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
-      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
-      el.parentElement.replaceWith(d);});
-    mermaid.run({querySelector:'.mermaid'});
-  }else if(n>0){setTimeout(function(){tryMermaid(n-1);},300);}
-}
-tryMermaid(60);
 var MAP_DEFAULT=[
  '# 第 17 届建模作战图（示例骨架）',
  '题目：____（题号）',
@@ -795,7 +791,54 @@ renderLog();
                 .replace("__POLISH__", json.dumps(polish, ensure_ascii=False))
                 .replace("__LINKS__", json.dumps(links, ensure_ascii=False))
                 .replace("__PLINKS__", json.dumps(phase_links, ensure_ascii=False)),
-                extra_head='<script defer src="../09_可视化总览/vendor/mermaid/mermaid.min.js"></script>')
+                extra_head="")
+
+
+# ---------------- 解析：48h 手册甘特 → 构建期原生 SVG ----------------
+GANTT_BLOCK_RE = re.compile(r"```mermaid\s*\n(.*?)```", re.S)
+GANTT_TASK_RE = re.compile(r"^(.+?)\s*:\s*([0-9.]+)\s*,\s*([0-9.]+)\s*$")
+
+
+def parse_gantt(md_text):
+    m = GANTT_BLOCK_RE.search(md_text)
+    if not m or "gantt" not in m.group(1):
+        return None
+    tasks, section = [], "分组"
+    for ln in m.group(1).splitlines():
+        s = ln.strip()
+        if s.startswith("section "):
+            section = s[8:].strip()
+            continue
+        mt = GANTT_TASK_RE.match(s)
+        if mt:
+            tasks.append((section, mt.group(1).strip(), float(mt.group(2)), float(mt.group(3))))
+    return tasks or None
+
+
+def gantt_svg(tasks):
+    """48h 甘特的原生 SVG：左侧任务名 + 0–48h 时间轴，四段配色，悬停显示区间"""
+    W, LX, barH, gap = 960, 178, 24, 11
+    CW = W - LX - 34
+    H = 46 + len(tasks) * (barH + gap) + 8
+    colors = {"开局": "#3A5A8C", "建模": "#9C3F2E", "深化": "#2F7D6B", "收官": "#9A6232"}
+    out = [f'<svg viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">']
+    for hh in range(0, 49, 6):
+        x = LX + hh / 48 * CW
+        out.append(f'<line x1="{x:.1f}" y1="30" x2="{x:.1f}" y2="{H-16}" stroke="#E7E0D1" stroke-width="1"/>')
+        out.append(f'<text x="{x:.1f}" y="20" font-size="11" fill="#786E60" text-anchor="middle">{hh}h</text>')
+    y = 40
+    for sec, name, a, b in tasks:
+        col = colors.get(sec, "#7A7161")
+        x = LX + a / 48 * CW
+        w = max((b - a) / 48 * CW, 4)
+        out.append(f'<text x="{LX-10}" y="{y + barH * 0.72:.1f}" font-size="12.5" fill="#2A251E" text-anchor="end">{name}</text>')
+        out.append(f'<rect x="{x:.1f}" y="{y}" width="{w:.1f}" height="{barH}" rx="3" fill="{col}" fill-opacity="0.85">'
+                   f'<title>{sec} · 第 {a:g}–{b:g} 小时：{name}</title></rect>')
+        if w > 48:
+            out.append(f'<text x="{x + w / 2:.1f}" y="{y + barH * 0.68:.1f}" font-size="10.5" fill="#FDFCF8" text-anchor="middle">{a:g}–{b:g}h</text>')
+        y += barH + gap
+    out.append("</svg>")
+    return "".join(out)
 
 
 # ---------------- 解析：中译英润色库（带表头的表格） ----------------
@@ -1313,6 +1356,334 @@ function draw(r){
 
 
 # ================================================================
+# 新手课堂（HTML 幻灯：三课程贯穿 2023-A 跳伞一道题）
+# ================================================================
+def render_tutorial(ctx):
+    COURSES = {
+        "model": {"name": "课程一 · 建模", "tag": "从一句话到方程", "slides": [
+            {"t": "你只需要会一句话", "sub": "本课任务：把「人会越掉越快」变成一个方程",
+             "body": [
+                 {"k": "p", "text": "我们全程用 <b>2023 年 A 题「近太空跳伞」</b>做示范——一个从 39 km 高空跳下来的人。这道题好就好在：谁都知道人会往下掉，也就是说，<b>你已经有直觉了</b>。"},
+                 {"k": "callout", "text": "UPC 评的不是方程高级不高级，而是「判据—方程—数值—检验」这条链完不完整。全库 74 篇金牌论文里，有一篇零数值模拟夺金（2013-B），最多的也只用最朴素的欧拉法。简单 + 完整 = 能赢。"},
+                 {"k": "try", "text": "先看一眼题目的完整起步卡（之后随时回来对照）", "href": "../../09_可视化总览/docs/07_题目解读/2023_题A_太空跳伞_零基础起步卡.html", "label": "零基础起步卡"},
+             ]},
+            {"t": "第一步 · 圈三样：对象 / 动作 / 数字", "sub": "拿到题不要想公式，先像划重点一样圈三样东西",
+             "body": [
+                 {"k": "list", "items": [
+                     "<b>圈对象</b>：谁在动？—— 一个 90 kg 的人（带着伞）",
+                     "<b>圈动作</b>：怎么动？—— 从 39 km 高空往下掉，越掉越快，中途开伞",
+                     "<b>圈数字</b>：给了什么数？—— 39 km、「安全」这个词、最终要一个高度答案",
+                 ]},
+                 {"k": "p", "text": "输出一张「任务卡」：<b>预测人从多高起跳能安全落地</b>。注意「安全」是个模糊词——它之后会被你翻译成一个具体判据（例如「过载不超过 8g」），这是 UPC 的第一门功课：模糊词操作化。"},
+             ]},
+            {"t": "第二步 · 变量表：给每个直觉发身份证", "sub": "每个直觉背后都有一个会变的量——把它们列成表",
+             "body": [
+                 {"k": "table", "header": ["直觉", "变量", "符号", "单位", "合理范围"],
+                  "rows": [
+                      ["人会越掉越快", "速度", "v", "m/s", "0 – 400"],
+                      ["掉的过程发生在空中", "高度", "h", "m", "0 – 39000"],
+                      ["高空空气稀薄", "空气密度", "ρ", "kg/m³", "0 – 1.22"],
+                      ["人的轻重有影响", "质量", "m", "kg", "60 – 120"],
+                      ["伞越大减速越猛", "阻力面积", "C_dA", "m²", "0.5 – 150"],
+                  ]},
+                 {"k": "callout", "text": "新手最容易漏的是「单位」一列。写变量表时就填好单位，后面 90% 的量级错误都能避免。表格不用一次列全，边做边补。"},
+             ]},
+            {"t": "第三步 · 选骨架：74 篇金牌就用这几种", "sub": "骨架 = 你写的那条主方程的「类型」",
+             "body": [
+                 {"k": "list", "items": [
+                     "<b>什么东西在动 / 速度在变？</b> → 牛顿第二定律：<b>m·dv/dt = ΣF</b>（力求和）",
+                     "<b>热量在流动 / 温度在变？</b> → 能量平衡：收入 = 支出 + 累积",
+                     "<b>数量在衰减 / 增长？</b> → 指数过程：dN/dt = ±λN",
+                     "<b>多个物体互相绕？</b> → 还是牛顿第二定律，只是力里多了引力项",
+                 ]},
+                 {"k": "p", "text": "跳伞题：速度 v 在变 ⇒ 选<b>牛顿第二定律</b>。写出来就是 <b>m·dv/dt = ΣF</b>——左边是「质量 × 速度变化率」，右边是「所有力加起来」。骨架到此已经完成，剩下的问题只有一个：ΣF 里到底有哪些力？"},
+             ]},
+            {"t": "第四步 · 插零件：把「空气有阻力」翻译成一项", "sub": "零件 = 前人写好的现成公式，你只需要知道什么时候抓哪个",
+             "body": [
+                 {"k": "p", "text": "逐项问：<b>谁在对这个人施力？</b>"},
+                 {"k": "list", "items": [
+                     "<b>地球</b>拉他 → 重力 <b>mg</b>，方向向下（正号，因为我们取向下为正）",
+                     "<b>空气</b>阻碍他 → 阻力 <b>½·ρ·v²·C_dA</b>，方向与运动方向相反（负号）",
+                 ]},
+                 {"k": "formula", "tex": "m\\,\\frac{dv}{dt} = \\underbrace{mg}_{\\text{重力零件}} - \\underbrace{\\tfrac{1}{2}\\,\\rho(h)\\,C_d A\\,v^2}_{\\text{阻力零件}}"},
+                 {"k": "list", "items": [
+                     "为什么是 v²？—— 高速运动（上百 m/s）的空气阻力与速度平方成正比，这是实验规律；低速（散步）才近似正比于 v",
+                     "为什么有 ½？—— 纯粹是工程师约定：把 ½ 归进 C_d 的定义里，所有教科书都这么写",
+                     "为什么 ρ 写成 ρ(h)？—— 密度随高度变，用零件「指数大气」：ρ = 1.225·e^(−h/8500)",
+                 ]},
+             ]},
+            {"t": "第五步 · 量级自辩：学会说「这个项比那个小 100 倍」", "sub": "每个「忽略」都要配一句数字，这是评委最看重的动作之一",
+             "body": [
+                 {"k": "p", "text": "把数代进去粗算一遍（心算即可）："},
+                 {"k": "table", "header": ["阶段", "代入", "阻力大小", "对比重力 mg≈0.9 kN", "结论"],
+                  "rows": [
+                      ["开伞前", "½×0.3×200²×1", "≈ 6 kN", "同量级以上", "必须建模"],
+                      ["伞全开后", "½×0.3×8²×50", "≈ 0.5 kN", "同量级", "必须建模，且主导减速"],
+                      ["刚出舱 v≈0", "½×0.03×0²×1", "≈ 0", "远小于", "瞬间可忽略（写一行数字封存）"],
+                  ]},
+                 {"k": "callout", "text": "看到没有：同一个阻力零件，在不同阶段「重要性」完全不同。论文里每个「忽略」都写上这样一行估算——2010 年金牌队的原话句式是 \"a 'significant' saving is not quantitative enough. For a fair estimation we decided to set 20%.\""},
+             ]},
+            {"t": "结课检验 + 下一步", "sub": "你已经把一句话变成了方程",
+             "body": [
+                 {"k": "p", "text": "回顾这五步：<b>圈三样 → 变量表 → 选骨架 → 插零件 → 量级自辩</b>。全程没有用到超过高中的数学。"},
+                 {"k": "list", "items": [
+                     "检验题（蹦床，2023-B）：人被蹦床弹起，骨架选什么？（答：还是 m·dv/dt=ΣF，力换成弹力+重力+阻力）",
+                     "检验题（堆肥堆，2018-B）：堆内温度在变？（答：换成能量平衡骨架）",
+                     "觉得不够深？→ 读本篇的《零基础起步卡》与完整《题目深度解读》",
+                 ]},
+                 {"k": "try", "text": "下一步：这个方程怎么变成代码和图？", "href": "javascript:void(0)", "label": "去课程三（页面顶部切换）"},
+             ]},
+        ]},
+        "paper": {"name": "课程二 · 论文", "tag": "从提纲到 PDF", "slides": [
+            {"t": "论文不是作文，是填空", "sub": "每一节都有固定的一句话模板——你负责填内容，不负责发明结构",
+             "body": [
+                 {"k": "p", "text": "UPC 论文的结构几乎是固定的：<b>评委平均只花 3 分钟，看标题、摘要、全部图题</b>就定档。所以我们的策略是：把力气花在摘要和图上，其余各节按模板逐节填。"},
+                 {"k": "callout", "text": "官方硬规定：标题页只放四样——队号、题号、标题、≤300 词摘要。全文不得出现姓名或学校（匿名评审）。完整规则见《比赛规则》。"},
+             ]},
+            {"t": "解剖一篇金牌论文", "sub": "2010-A-160《海王星气动制动》的标题页长这样",
+             "body": [
+                 {"k": "img", "src": "../06_论文页面图/2010/2010-GM-A-160_p1.png", "caption": "金牌论文标题页：只有队号 160、Problem A、标题、一页带数字的摘要"},
+                 {"k": "p", "text": "注意它的摘要：<b>第二句就钉死符号与数值（R_N ≈ 24764 km），最后一句给区间结论（8.8296° < θ < 8.8549°）</b>。没有一句废话，也没有一句没有数字。"},
+             ]},
+            {"t": "逐节一句话模板（照抄即可）", "sub": "把下表的「模板」抄进你的提纲，每节展开 1–3 段",
+             "body": [
+                 {"k": "table", "header": ["节", "一句话模板"],
+                  "rows": [
+                      ["Abstract", "定义关键符号 → 摆出两难 → 方法一句话 → <b>数值结论</b> → 建议与适用域"],
+                      ["Introduction", "用自己的话复述题目 → 列出判据（模糊词→数字）→ 简述路线"],
+                      ["Baseline（基准）", "先算一个不用主模型的简单情形，给出「锚数字」"],
+                      ["Model", "骨架方程 + 每个零件一段（含假设的一句量级自辩）"],
+                      ["Numerical Method", "方法名+步长+初值+边界+终止条件，五要素缺一不可"],
+                      ["Results", "图为主，每个图被正文点名，与基准对比"],
+                      ["Discussion", "局限、误差来源、最坏情形——诚实是加分项"],
+                      ["Conclusion", "答案 + 建议（负结论也是结论）"],
+                  ]},
+             ]},
+            {"t": "英文怎么办：不用学英语", "sub": "38 句金牌句式 + 五步润色法，填空式写作",
+             "body": [
+                 {"k": "p", "text": "库里有现成的两件武器：<b>《写作句库》38 条按论文部位组织的句式</b>（直接抄），和<b>《中译英润色库》五步法</b>（中文草稿 → 英文）。先背这三个开头："},
+                 {"k": "list", "items": [
+                     "定义：<span style=\"font-family:var(--mono)\">We define the radius of Neptune, R_N, as …</span>",
+                     "假设：<span style=\"font-family:var(--mono)\">To simplify our calculations, we assume …</span>",
+                     "结论：<span style=\"font-family:var(--mono)\">We conclude that 8.83° < θ < 8.85°.</span>",
+                 ]},
+                 {"k": "try", "text": "赛时写作句库与中译英检索都在作战室里", "href": "warroom.html", "label": "打开作战室"},
+             ]},
+            {"t": "公式怎么插：LaTeX 15 个命令就够", "sub": "写一篇 UPC 论文需要的排版知识比一页 PPT 还少",
+             "body": [
+                 {"k": "table", "header": ["想要的效果", "写法", "渲染结果"],
+                  "rows": [
+                      ["行内公式", "$v^2$", "v² 嵌在句子里"],
+                      ["分式", "$\\\\frac{mg}{C_dA}$", "上下结构的分数"],
+                      ["下标 / 上标", "$C_d$、$v^2$", "C 的下标 d"],
+                      ["希腊字母", "$\\\\rho$、$\\\\theta$、$\\\\Delta$", "ρ、θ、Δ"],
+                      ["重要方程（带编号）", "$$m\\\\frac{dv}{dt}=mg-\\\\frac{1}{2}\\\\rho v^2 C_dA$$", "居中展示的方程"],
+                      ["组合参数", "$\\\\sigma \\\\equiv C_d M A / 2k_B$", "把常数打包，方程干净"],
+                  ]},
+                 {"k": "callout", "text": "以上公式在本页由 KaTeX 实时渲染——你在 Overleaf 里写出来就是同样的效果。15 个命令用熟，足够写完全文；遇到没见过的去 ctan.org 搜，或直接问 AI「这句 LaTeX 怎么写」。"},
+             ]},
+            {"t": "图表怎么插：两个模板 + 三条规矩", "sub": "图是评委唯一会逐张看的东西",
+             "body": [
+                 {"k": "code", "title": "插图模板（main.tex 里直接改）", "text": "\\begin{figure}[h]\n  \\centering\n  \\includegraphics[width=0.8\\textwidth]{fig3_landing_speed.png}\n  \\caption{Landing speed converges to 40 m/s (4--5 significant figures).}\n  \\label{fig:speed}\n\\end{figure}\n\n\\begin{table}[h]\n  \\centering\n  \\begin{tabular}{lcc}\n    \\hline\n    Parameter & Value & Source \\\\\n    \\hline\n    Mass      & 90 kg & typical adult \\\\\n    \\hline\n  \\end{tabular}\n\\end{table}"},
+                 {"k": "list", "items": [
+                     "规矩一：每张图有编号，正文必须点名（\"Figure 3 shows …\"）",
+                     "规矩二：轴标签带单位，轨迹图用等比例坐标",
+                     "规矩三：<b>结论写进图题</b>（caption 里带数字）——评委看图题就能拿到结论",
+                 ]},
+                 {"k": "try", "text": "8 类图的现成 matplotlib 代码在图表配方库", "href": "../11_论文模板与工具/图表配方库/matplotlib_recipes.py", "label": "看配方源码"},
+             ]},
+            {"t": "编译出 PDF：Overleaf 三步", "sub": "不用装任何软件",
+             "body": [
+                 {"k": "list", "items": [
+                     "<b>第一步</b>：overleaf.com 注册 → New Project → Blank Project",
+                     "<b>第二步</b>：把本库「金牌骨架款」main.tex 的内容整个粘贴进去（或上传）",
+                     "<b>第三步</b>：按本课的逐节模板替换内容，点 Recompile，右侧实时出 PDF",
+                 ]},
+                 {"k": "try", "text": "四套可选模板（金牌骨架款 / 官方同源款 / 双栏款 / 极简款）", "href": "../index.html#templates", "label": "去模板工坊"},
+                 {"k": "callout", "text": "交卷前最后一步：打开作战室「提交终检」标签，A–G 30 项逐条勾——包括页首队号、摘要带数字、提前 2 小时交。"},
+             ]},
+        ]},
+        "code": {"name": "课程三 · 编程", "tag": "从零到第一条轨迹", "slides": [
+            {"t": "仿真是什么：一句话", "sub": "把连续时间切成小步，每步用「现在的状态」算「下一刻」",
+             "body": [
+                 {"k": "p", "text": "课程一得到的方程 <b>m·dv/dt = mg − ½ρv²C_dA</b> 描述的是「每一瞬间」的变化率。计算机不会算连续——但会算重复。所以我们把 48 小时里连续的 172800 秒，切成一小步一小步（比如每步 0.1 秒）："},
+                 {"k": "list", "items": [
+                     "知道现在的 v 和 h → 用方程算出现在的加速度 a",
+                     "假设这 0.1 秒里 a 不变 → 算出 0.1 秒后的新 v、新 h",
+                     "重复几万次 → 就得到整条下落轨迹",
+                 ]},
+                 {"k": "callout", "text": "这就是全部秘密。<b>你不需要会编程</b>——只需要看懂并修改接下来的 10 行代码。"},
+             ]},
+            {"t": "环境：什么都不用装", "sub": "两条路，推荐第一条",
+             "body": [
+                 {"k": "list", "items": [
+                     "<b>路线 A（零安装）</b>：本站的数值实验台——浏览器里跑 Python（Pyodide），点一下就运行；手机也能开",
+                     "<b>路线 B（本地）</b>：python.org 装 Python（勾选 Add to PATH），再 <span style=\"font-family:var(--mono)\">pip install numpy matplotlib</span>",
+                 ]},
+                 {"k": "try", "text": "先开着实验台，边看这页课边动手", "href": "lab.html", "label": "打开数值实验台"},
+             ]},
+            {"t": "第一个仿真：真的只有 10 行", "sub": "每一行都有注释——看不懂哪行就把哪行抄进 AI 问",
+             "body": [
+                 {"k": "code", "title": "skydive.py（可复制）", "text": "import math\nh, v, dt = 39000.0, 0.0, 0.1   # 高度(m)、速度(m/s)、步长(s)\nm, cda = 90.0, 1.0             # 质量(kg)、阻力面积(m^2)\nts, hs, vs = [0.0], [h], [v]   # 记录轨迹用的列表\nt = 0.0\nwhile h > 0:\n    rho = 1.225 * math.exp(-h / 8500)        # 零件：指数大气\n    a = 9.81 - 0.5 * rho * v * abs(v) * cda / m  # 骨架：m dv/dt = mg - 阻力\n    v += a * dt                              # 更新速度\n    h -= v * dt                              # 更新高度\n    t += dt\n    ts.append(t); hs.append(h); vs.append(v)\nprint(\"落地速度 %.1f m/s, 用时 %.0f s\" % (v, t))"},
+                 {"k": "callout", "text": "看到第 9 行了吗？<b>它就是课程一那个方程</b>。仿真不难——难的那步（建模）你已经完成了。"},
+             ]},
+            {"t": "方程 ↔ 代码对照（本课最重要的一页）", "sub": "左边每个符号都能在右边找到位置",
+             "body": [
+                 {"k": "compare", "left": {"t": "方程（课程一）", "body": "m·<b style='color:#3A5A8C'>dv/dt</b> = <b style='color:#9C3F2E'>mg</b> − <b style='color:#2F7D6B'>½ρ(h)·C_dA·v²</b><br><br><span style='font-size:12.5px;color:#6E6557'>左端：速度的变化率<br>右端：重力项 − 阻力项</span>"},
+                  "right": {"t": "代码（第 8–10 行）", "body": "<span style='font-family:var(--mono);font-size:12.5px;line-height:2.1'>a = 9.81<br>&nbsp;&nbsp;&nbsp;&nbsp;- 0.5 * rho * v * abs(v) * cda / m<br>v += a * dt</span><br><br><span style='font-size:12.5px;color:#6E6557'>9.81 就是 g；rho 来自上一行零件；<br>v*abs(v) 是「带方向的 v²」；<br>最后一句把 dv/dt 变成实际更新</span>"}},
+                 {"k": "list", "items": [
+                     "为什么写 v*abs(v) 而不是 v*v？—— 阻力永远与运动方向相反，这样写上升/下降都不会出符号错误",
+                     "为什么除以 m？—— 方程两边除以 m，解出 a，这就是 dv/dt",
+                     "为什么 v += a*dt？—— 「下一刻速度 = 现在 + 变化率 × 步长」，这就是欧拉法",
+                 ]},
+             ]},
+            {"t": "画图：5 行", "sub": "没图的仿真等于没做——评委要的是图",
+             "body": [
+                 {"k": "code", "title": "在 skydive.py 末尾追加", "text": "import matplotlib.pyplot as plt\nplt.plot(ts, vs, label=\"speed v(t)\")\nplt.plot(ts, [x for x in hs], \"--\", label=\"altitude h(t)\")\nplt.xlabel(\"t / s\"); plt.ylabel(\"v / (m/s), h / m\")\nplt.legend(); plt.savefig(\"fig1_skydive.png\", dpi=200)\n# 图题要求：结论写进 caption，例如\n# \"Speed peaks at 183 m/s near 26 km, converging to 40 m/s at ground.\""},
+                 {"k": "callout", "text": "三条图规矩回课程二：编号、轴带单位、结论进图题。配色语义全文一致（速度永远蓝色、高度永远红色）。"},
+             ]},
+            {"t": "验证：步长减半（3 行）", "sub": "金银牌的分水岭——数值结果必须自证可信",
+             "body": [
+                 {"k": "code", "title": "收敛检验", "text": "def land_speed(dt):\n    # 把主循环包成函数，传入不同步长各跑一遍\n    ...\ns1 = land_speed(0.1)\ns2 = land_speed(0.05)\nprint(s1, s2)   # 若前 4 位相同 → 声称 4 位有效数字"},
+                 {"k": "p", "text": "论文里的标准写法（句库原句）：<i>\"Halving the step changes the exit speed in the fifth digit; we therefore claim 4–5 significant figures, worst case 4.\"</i>——再加两个检验：极限情形（令 cda→0 应回到真空抛体）与灵敏度（cda ±20% 扫描）。三件套齐了。"},
+             ]},
+            {"t": "结课：你已经走完一场迷你比赛", "sub": "建模课给了方程，这门课让它跑起来，论文课教你交出去",
+             "body": [
+                 {"k": "list", "items": [
+                     "练手作业 1：在实验台把 Cd·A 拉到 50（模拟开伞），观察速度骤降——这就是「开伞冲击」的直观感受",
+                     "练手作业 2：给代码加「过载 a/9.81」记录，找出最大过载出现的时刻（这正是 2023-A 判据的一部分）",
+                     "练手作业 3：把落地速度写进一句英文摘要结论，对照句库检查有没有数字",
+                 ]},
+                 {"k": "try", "text": "现在去实验台把这三道作业做掉（改滑杆即可开始）", "href": "lab.html", "label": "打开实验台"},
+             ]},
+        ]},
+    }
+
+    body = r"""
+<nav class="tabs" id="ctabs"></nav>
+<div class="card" style="padding:26px 30px 22px;min-height:420px">
+  <div id="slide"></div>
+</div>
+<div style="display:flex;align-items:center;gap:14px;margin-top:14px">
+  <button class="btn" id="prev" type="button">← 上一页</button>
+  <div style="flex:1;height:6px;background:#EFEADC;border-radius:3px;overflow:hidden">
+    <i id="sprog" style="display:block;height:100%;width:0;background:var(--acc);transition:width .25s"></i></div>
+  <span class="note" id="snum" style="font-family:var(--mono);font-size:12px;color:var(--dim)"></span>
+  <button class="btn solid" id="next" type="button">下一页 →</button>
+</div>
+<div class="notebox" style="margin-top:14px">三门课贯穿同一道题（2023-A 太空跳伞）：课程一把它变成方程，课程三让它跑起来，课程二教你交出去。键盘 ← → 也能翻页。</div>
+"""
+
+    script = r"""
+var COURSES=__COURSES__;
+var CPCACHE=[];
+var cur=null, idx=0;
+var tabsEl=document.getElementById('ctabs');
+Object.keys(COURSES).forEach(function(k){
+  var a=document.createElement('a');a.dataset.c=k;a.textContent=COURSES[k].name+' · '+COURSES[k].tag;
+  a.addEventListener('click',function(){pick(k,0);});
+  tabsEl.appendChild(a);
+});
+function esc(s){return escHtml(s);}
+function blockHtml(b){
+  if(b.k==='p')return '<p class="s-p">'+b.text+'</p>';
+  if(b.k==='list')return '<ul class="s-list">'+b.items.map(function(i){return '<li>'+i+'</li>';}).join('')+'</ul>';
+  if(b.k==='table'){
+    return '<table style="margin:10px 0"><thead><tr>'+b.header.map(function(h){return '<th>'+esc(h)+'</th>';}).join('')+'</tr></thead><tbody>'+
+      b.rows.map(function(r){return '<tr>'+r.map(function(c){return '<td>'+c+'</td>';}).join('')+'</tr>';}).join('')+'</tbody></table>';
+  }
+  if(b.k==='code'){
+    CPCACHE.push(b.text);
+    return '<div class="s-code"><div class="s-code-h"><span>'+esc(b.title||'')+'</span>'+
+      '<button class="btn" data-cpi="'+(CPCACHE.length-1)+'" type="button">复制</button></div>'+
+      '<pre><code>'+esc(b.text)+'</code></pre></div>';
+  }
+  if(b.k==='formula')return '<div class="s-formula">$$'+b.tex+'$$</div>';
+  if(b.k==='compare'){
+    return '<div class="s-compare"><div class="s-col"><div class="s-col-t">'+b.left.t+'</div>'+b.left.body+'</div>'+
+      '<div class="s-col"><div class="s-col-t">'+b.right.t+'</div>'+b.right.body+'</div></div>';
+  }
+  if(b.k==='callout')return '<div class="notebox" style="margin:12px 0 2px">'+b.text+'</div>';
+  if(b.k==='img')return '<figure class="s-fig"><img src="'+b.src+'" loading="lazy" alt="'+esc(b.caption||'')+'">'+(b.caption?'<figcaption>'+esc(b.caption)+'</figcaption>':'')+'</figure>';
+  if(b.k==='try')return '<div class="s-try"><a class="btn solid" href="'+b.href+'" target="_blank">'+b.label+' →</a><span style="font-size:12.5px;color:var(--dim)">'+b.text+'</span></div>';
+  return '';
+}
+function katexRender(el){
+  if(window.renderMathInElement)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});
+}
+function renderSlide(){
+  var C=COURSES[cur], s=C.slides[idx];
+  var el=document.getElementById('slide');
+  el.innerHTML='<div class="s-kicker">'+esc(C.name)+' · '+esc(C.tag)+'</div>'+
+    '<h2 class="s-title">'+esc(s.t)+'</h2>'+(s.sub?'<p class="s-sub">'+esc(s.sub)+'</p>':'')+
+    s.body.map(blockHtml).join('');
+  document.getElementById('sprog').style.width=((idx+1)/C.slides.length*100)+'%';
+  document.getElementById('snum').textContent='第 '+(idx+1)+' / '+C.slides.length+' 页';
+  document.getElementById('prev').disabled=(idx===0);
+  document.getElementById('next').disabled=(idx===C.slides.length-1);
+  katexRender(el);
+  el.scrollIntoView({block:'nearest'});
+}
+function pick(k,i){
+  cur=k;idx=i;
+  document.querySelectorAll('#ctabs a').forEach(function(a){a.classList.toggle('on',a.dataset.c===k);});
+  renderSlide();
+}
+document.getElementById('prev').addEventListener('click',function(){if(idx>0){idx--;renderSlide();}});
+document.getElementById('next').addEventListener('click',function(){var C=COURSES[cur];if(idx<C.slides.length-1){idx++;renderSlide();}});
+document.addEventListener('keydown',function(e){
+  if(/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))return;
+  if(e.key==='ArrowRight'){document.getElementById('next').click();}
+  if(e.key==='ArrowLeft'){document.getElementById('prev').click();}
+});
+document.getElementById('slide').addEventListener('click',function(ev){
+  var b=ev.target.closest('button[data-cpi]');if(!b)return;
+  copyText(CPCACHE[+b.dataset.cpi],b);
+});
+pick('model',0);
+window.addEventListener('load',function(){renderSlide();});
+"""
+
+    css_extra = r"""
+.s-kicker{font-size:11px;letter-spacing:.14em;color:var(--acc);margin-bottom:6px}
+.s-title{font-family:var(--serif);font-size:23px;margin:0 0 4px;font-weight:700}
+.s-sub{color:var(--mut);font-size:13.5px;margin:0 0 14px}
+.s-p{font-size:14.5px;line-height:2}
+.s-list{padding-left:1.5em;margin:8px 0;font-size:14px;line-height:2}
+.s-list li{margin:3px 0}
+.s-code{border:1px solid var(--line);border-radius:4px;overflow:hidden;margin:12px 0}
+.s-code-h{display:flex;align-items:center;gap:8px;padding:7px 12px;background:#F8F5EC;font-size:12px;color:var(--dim)}
+.s-code-h span{flex:1}
+.s-code pre{margin:0;border:none;border-radius:0;background:var(--sheet);font-size:12.8px;line-height:1.8}
+.s-formula{background:var(--paper);border:1px dashed var(--line2);border-radius:4px;padding:14px;margin:12px 0;text-align:center;font-size:15px}
+.s-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.s-col{border:1px solid var(--line);border-radius:4px;padding:12px 14px;background:var(--paper)}
+.s-col-t{font-weight:600;font-size:13px;color:var(--acc);margin-bottom:6px;font-family:var(--serif)}
+.s-fig{margin:12px 0;text-align:center}
+.s-fig img{max-width:420px;width:100%;border:1px solid var(--line);border-radius:4px}
+.s-fig figcaption{font-size:12px;color:var(--dim);margin-top:6px}
+.s-try{display:flex;gap:12px;align-items:center;margin-top:14px;flex-wrap:wrap}
+@media(max-width:760px){.s-compare{grid-template-columns:1fr}}
+"""
+
+    tpl = PAGE_HEAD.replace("__EXTRA_HEAD__",
+        '<link rel="stylesheet" href="../09_可视化总览/vendor/katex/katex.min.css">'
+        '<script defer src="../09_可视化总览/vendor/katex/katex.min.js"></script>'
+        '<script defer src="../09_可视化总览/vendor/katex/contrib/auto-render.min.js"></script>')
+    tpl = tpl.replace("*{box-sizing:border-box}", "*{box-sizing:border-box}\n" + css_extra)
+    html = (tpl.replace("__TITLE__", "新手课堂 · 从一句话到一篇论文")
+              .replace("__CRUMB__", "实战工具 · 平时开放")
+              .replace("__DESC__", "UPC 新手课堂：建模、编程、论文三门宝宝级幻灯课，用 2023-A 太空跳伞一道题贯穿，从一句话直觉走到方程、代码与论文。")
+              .replace("__LEAD__", "给零经验队伍的入门课：不需要任何基础，跟着三课程走一遍，就等于完整做了一场迷你比赛。键盘 ←→ 翻页；所有代码可复制、公式实时渲染。")
+              .replace("__BODY__", body).replace("__SCRIPT__", script)
+              .replace("__COURSES__", json.dumps(COURSES, ensure_ascii=False))
+              .replace("__HOME__", "../index.html")
+              .replace("__EV_START__", str(ctx["ev_start"]))
+              .replace("__EV_END__", str(ctx["ev_end"])))
+    return html
+
+
+# ================================================================
 # 入口
 # ================================================================
 def render_tools(ctx):
@@ -1322,3 +1693,4 @@ def render_tools(ctx):
     write_out(ctx, "flashcards.html", render_flashcards(ctx))
     write_out(ctx, "selector.html", render_selector(ctx))
     write_out(ctx, "lab.html", render_lab(ctx))
+    write_out(ctx, "tutorial.html", render_tutorial(ctx))

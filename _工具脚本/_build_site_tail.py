@@ -371,6 +371,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
 <div id="bar"><div class="in">
   <a class="brand" href="#hero"><span class="seal">U</span>UPC 全档案库<small>2010–2025</small></a>
   <nav>
+    <a href="12_赛时工具/tutorial.html" style="color:var(--acc);font-weight:600">🎓 新手课堂</a>
     <a href="12_赛时工具/warroom.html" style="color:var(--acc);font-weight:600">⚡ 作战室</a>
     <a href="#guide">指南</a>
     <a href="#progress">打卡</a>
@@ -414,7 +415,8 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
       <div class="stat"><b>__NDOCS__</b><span>份库内文档</span></div>
     </div>
     <div class="hero-act">
-      <a class="btn solid" href="12_赛时工具/warroom.html">⚡ 48 小时作战室</a>
+      <a class="btn solid" href="12_赛时工具/tutorial.html">🎓 新手课堂（零基础入门）</a>
+      <a class="btn" href="12_赛时工具/warroom.html">⚡ 48 小时作战室</a>
       <a class="btn" href="#guide">开始使用</a>
       <a class="btn" href="#papers">金牌论文库</a>
       <a class="btn" href="__MODEL_URL__">物理模型综述</a>
@@ -464,8 +466,8 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
       <p>先读「物理模型综述」打底，再挑 2–3 道对口题看「题目深度解读」，然后对照「论文赏析 + 手把手精读」吃透原文；动笔用「模板与工具箱」，中文草稿用「中译英润色库」五步改写，合规对照<a href="__RULES_URL__">官方比赛规则</a>；「获奖密码」七条可当模拟赛自查表。</p></div></div>
     <div class="path"><span class="pn">二</span><div><b>想研究某一年的某道题</b>
       <p>到「历年赛题」展开该年份：英文原题要点、官方奖牌统计、金牌队伍名单、全部论文的 PDF / 文本 / 赏析 / 精读都在同一张卡片里。</p></div></div>
-    <div class="path"><span class="pn">三</span><div><b>想动手练，或比赛进行中</b>
-      <p>五个工具页<b>平时就全部开放</b>：<a href="12_赛时工具/flashcards.html">模型闪卡</a>刷模型库、<a href="12_赛时工具/selector.html">选题助手</a>练选题、<a href="12_赛时工具/lab.html">数值实验台</a>改参数跑物理、<a href="12_赛时工具/prompts.html">提示词工坊</a>配合任意 AI；开赛时把<a href="12_赛时工具/warroom.html">48 小时作战室</a>钉在屏幕上（记思路/查句库/过中译英/过终检/看阶段）。数据都存本浏览器，可导出。</p></div></div>
+    <div class="path"><span class="pn">三</span><div><b>零基础入门，或比赛进行中</b>
+      <p>没经验从 <a href="12_赛时工具/tutorial.html">新手课堂</a> 开始：建模/编程/论文三门宝宝级幻灯课，用跳伞一道题贯穿走完迷你比赛；五个工具页平时全部开放——<a href="12_赛时工具/flashcards.html">模型闪卡</a>、<a href="12_赛时工具/selector.html">选题助手</a>、<a href="12_赛时工具/lab.html">数值实验台</a>、<a href="12_赛时工具/prompts.html">提示词工坊</a>；开赛时把<a href="12_赛时工具/warroom.html">48 小时作战室</a>钉在屏幕上。数据都存本浏览器，可导出。</p></div></div>
   </div>
   <div class="types" id="types"></div>
   <div class="legend">
@@ -629,7 +631,7 @@ const GUIDE=[
  {k:"10_论文精读",t:"手把手精读",d:"逐节导读、每张图为什么这样画（附 matplotlib 复现代码）、每个关键公式完整推导、建模决策链。"},
  {k:"08_物理模型综述",t:"物理模型综述",d:"八大专题把 16 年所有题目与论文涉及的物理模型分类汇编，含方法论与数值算法总论。"},
  {k:"11_论文模板与工具",t:"模板与工具箱",d:"四套 LaTeX 模板、8 类图表配方库、写作句库、中译英润色库、AI 提示词包、建模决策树、48 小时作战手册、终检清单，以及《一篇金牌论文的完整历程》。"},
- {k:"12_赛时工具",t:"实战工具页",d:"平时就全部开放：模型闪卡刷模型库、选题助手练选题、数值实验台跑物理、提示词工坊配 AI；赛时以 48 小时作战室为主（思路时间线/手册/终检/句库/中译英/导图/速查）。数据存本浏览器可导出。"},
+ {k:"12_赛时工具",t:"实战工具页",d:"新手课堂（建模/编程/论文三门零基础幻灯课）+ 作战室（思路时间线/手册/终检/句库/中译英/导图/速查）+ 提示词工坊、模型闪卡、选题助手、数值实验台——平时全部开放，数据存本浏览器。"},
  {k:"02_题目汇总",t:"题目与官方信息",d:"每年英文原题全文、奖牌统计、金牌队伍名单与论文链接清单；官方《比赛规则》中文导读与一分钟合规卡也在这里。"},
  {k:"02_官方成绩单",t:"官方成绩单",d:"各年成绩公告 PDF：金 / 银 / 铜 / Accomplished Competitor 全名单。"},
  {k:"01_官网原始页面",t:"原始档案",d:"官网 17 个年份页 HTML 原件与提取文本；论文 PDF、全文文本、页面渲染图均为一手资料。"},

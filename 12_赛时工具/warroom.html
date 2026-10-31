@@ -9,7 +9,7 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="48 小时作战室 · UPC 全档案库">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
-<script defer src="../09_可视化总览/vendor/mermaid/mermaid.min.js"></script>
+
 <style>
 :root{
  --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
@@ -123,25 +123,7 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
 <li>约定协作规则：共享代码仓库、图统一由一人出（风格一致）、公式编号规范当场定（章.序号）。</li>
 </ul>
 <h2>1. 时间线总览</h2>
-<pre><code class="language-mermaid">gantt
-    title 48 小时分配（按 12 个时段）
-    dateFormat X
-    axisFormat %H
-    section 开局
-    读题+选题         :0, 2
-    去模糊化+路线图    :2, 4
-    section 建模
-    基准方案(解析)     :4, 8
-    主模型推导         :8, 20
-    数值实现           :14, 26
-    section 深化
-    修正项+扩展        :26, 34
-    验证三件套         :30, 38
-    section 收官
-    图表精修           :36, 41
-    写作+摘要          :20, 46
-    交叉互查+提交      :46, 48
-</code></pre>
+<div class="mermaid"><svg viewBox="0 0 960 404" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto"><line x1="178.0" y1="30" x2="178.0" y2="388" stroke="#E7E0D1" stroke-width="1"/><text x="178.0" y="20" font-size="11" fill="#786E60" text-anchor="middle">0h</text><line x1="271.5" y1="30" x2="271.5" y2="388" stroke="#E7E0D1" stroke-width="1"/><text x="271.5" y="20" font-size="11" fill="#786E60" text-anchor="middle">6h</text><line x1="365.0" y1="30" x2="365.0" y2="388" stroke="#E7E0D1" stroke-width="1"/><text x="365.0" y="20" font-size="11" fill="#786E60" text-anchor="middle">12h</text><line x1="458.5" y1="30" x2="458.5" y2="388" stroke="#E7E0D1" stroke-width="1"/><text x="458.5" y="20" font-size="11" fill="#786E60" text-anchor="middle">18h</text><line x1="552.0" y1="30" x2="552.0" y2="388" stroke="#E7E0D1" stroke-width="1"/><text x="552.0" y="20" font-size="11" fill="#786E60" text-anchor="middle">24h</text><line x1="645.5" y1="30" x2="645.5" y2="388" stroke="#E7E0D1" stroke-width="1"/><text x="645.5" y="20" font-size="11" fill="#786E60" text-anchor="middle">30h</text><line x1="739.0" y1="30" x2="739.0" y2="388" stroke="#E7E0D1" stroke-width="1"/><text x="739.0" y="20" font-size="11" fill="#786E60" text-anchor="middle">36h</text><line x1="832.5" y1="30" x2="832.5" y2="388" stroke="#E7E0D1" stroke-width="1"/><text x="832.5" y="20" font-size="11" fill="#786E60" text-anchor="middle">42h</text><line x1="926.0" y1="30" x2="926.0" y2="388" stroke="#E7E0D1" stroke-width="1"/><text x="926.0" y="20" font-size="11" fill="#786E60" text-anchor="middle">48h</text><text x="168" y="57.3" font-size="12.5" fill="#2A251E" text-anchor="end">读题+选题</text><rect x="178.0" y="40" width="31.2" height="24" rx="3" fill="#3A5A8C" fill-opacity="0.85"><title>开局 · 第 0–2 小时：读题+选题</title></rect><text x="168" y="92.3" font-size="12.5" fill="#2A251E" text-anchor="end">去模糊化+路线图</text><rect x="209.2" y="75" width="31.2" height="24" rx="3" fill="#3A5A8C" fill-opacity="0.85"><title>开局 · 第 2–4 小时：去模糊化+路线图</title></rect><text x="168" y="127.3" font-size="12.5" fill="#2A251E" text-anchor="end">基准方案(解析)</text><rect x="240.3" y="110" width="62.3" height="24" rx="3" fill="#9C3F2E" fill-opacity="0.85"><title>建模 · 第 4–8 小时：基准方案(解析)</title></rect><text x="271.5" y="126.3" font-size="10.5" fill="#FDFCF8" text-anchor="middle">4–8h</text><text x="168" y="162.3" font-size="12.5" fill="#2A251E" text-anchor="end">主模型推导</text><rect x="302.7" y="145" width="187.0" height="24" rx="3" fill="#9C3F2E" fill-opacity="0.85"><title>建模 · 第 8–20 小时：主模型推导</title></rect><text x="396.2" y="161.3" font-size="10.5" fill="#FDFCF8" text-anchor="middle">8–20h</text><text x="168" y="197.3" font-size="12.5" fill="#2A251E" text-anchor="end">数值实现</text><rect x="396.2" y="180" width="187.0" height="24" rx="3" fill="#9C3F2E" fill-opacity="0.85"><title>建模 · 第 14–26 小时：数值实现</title></rect><text x="489.7" y="196.3" font-size="10.5" fill="#FDFCF8" text-anchor="middle">14–26h</text><text x="168" y="232.3" font-size="12.5" fill="#2A251E" text-anchor="end">修正项+扩展</text><rect x="583.2" y="215" width="124.7" height="24" rx="3" fill="#2F7D6B" fill-opacity="0.85"><title>深化 · 第 26–34 小时：修正项+扩展</title></rect><text x="645.5" y="231.3" font-size="10.5" fill="#FDFCF8" text-anchor="middle">26–34h</text><text x="168" y="267.3" font-size="12.5" fill="#2A251E" text-anchor="end">验证三件套</text><rect x="645.5" y="250" width="124.7" height="24" rx="3" fill="#2F7D6B" fill-opacity="0.85"><title>深化 · 第 30–38 小时：验证三件套</title></rect><text x="707.8" y="266.3" font-size="10.5" fill="#FDFCF8" text-anchor="middle">30–38h</text><text x="168" y="302.3" font-size="12.5" fill="#2A251E" text-anchor="end">图表精修</text><rect x="739.0" y="285" width="77.9" height="24" rx="3" fill="#9A6232" fill-opacity="0.85"><title>收官 · 第 36–41 小时：图表精修</title></rect><text x="778.0" y="301.3" font-size="10.5" fill="#FDFCF8" text-anchor="middle">36–41h</text><text x="168" y="337.3" font-size="12.5" fill="#2A251E" text-anchor="end">写作+摘要</text><rect x="489.7" y="320" width="405.2" height="24" rx="3" fill="#9A6232" fill-opacity="0.85"><title>收官 · 第 20–46 小时：写作+摘要</title></rect><text x="692.2" y="336.3" font-size="10.5" fill="#FDFCF8" text-anchor="middle">20–46h</text><text x="168" y="372.3" font-size="12.5" fill="#2A251E" text-anchor="end">交叉互查+提交</text><rect x="894.8" y="355" width="31.2" height="24" rx="3" fill="#9A6232" fill-opacity="0.85"><title>收官 · 第 46–48 小时：交叉互查+提交</title></rect></svg></div>
 <h2>2. 逐阶段任务单</h2>
 <h3>T0（第 0–2 小时）：读题与选题</h3>
 <ul>
@@ -589,17 +571,6 @@ document.getElementById('pq').addEventListener('input',renderPolish);
 renderPolish();
 
 /* ---------- 思路导图（无依赖径向 SVG） ---------- */
-function tryMermaid(n){
-  if(!document.querySelector('pre code.language-mermaid'))return;
-  if(window.mermaid){
-    mermaid.initialize({startOnLoad:false,theme:"neutral",securityLevel:"loose"});
-    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
-      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
-      el.parentElement.replaceWith(d);});
-    mermaid.run({querySelector:'.mermaid'});
-  }else if(n>0){setTimeout(function(){tryMermaid(n-1);},300);}
-}
-tryMermaid(60);
 var MAP_DEFAULT=[
  '# 第 17 届建模作战图（示例骨架）',
  '题目：____（题号）',
