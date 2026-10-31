@@ -1222,6 +1222,8 @@ def validate(root, site, extra=()):
         for u in href_re.findall(text):
             if re.match(r"^(https?:|data:|#|mailto:|javascript:)", u) or "${" in u:
                 continue
+            if "'" in u or "+" in u:   # JS 运行时拼接的模板串，非法静态 URL
+                continue
             kind, detail = _check(root, idx, tracked, base, u)
             if kind:
                 bad.append((kind, os.path.relpath(pg, root), detail))

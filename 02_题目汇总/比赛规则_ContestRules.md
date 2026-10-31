@@ -86,3 +86,27 @@
 - 合规自查已内置于 `12_赛时工具/warroom.html` 的「提交终检」标签（A–G 30 项，G 节即本页第 5/6 节的检查）。
 - 摘要 300 词上限与"必须带数字"的写法见 `11_论文模板与工具/写作句库.md` 第 1 节；英文润色见 `11_论文模板与工具/中译英润色库.md`。
 - 逐题怎么选题读题见 `07_题目解读/`；48 小时怎么排程见 `11_论文模板与工具/48小时作战手册.md`。
+
+## 附：AI 使用披露英文模板（可直接粘贴进论文）
+
+> 对应规则第 5.1 节。占位符 < > 替换为实际内容；Query/Full output 按次数重复。
+
+```text
+Report on the Use of AI
+
+System used: <name and version, e.g. GLM / ChatGPT (GPT-4o), accessed via web>
+Scope of use: <e.g., language polishing of Sections 3 and 5; brainstorming
+verification approaches; debugging a plotting script. All physics modeling,
+derivations, numerical results and conclusions are our own work.>
+
+Query 1 (verbatim): "<exact wording input into the AI tool>"
+Full output: "<copy the complete output of the AI tool>"
+
+Query 2 (verbatim): "<exact wording>"
+Full output: "<complete output>"
+
+We checked all AI-assisted content for hallucinations and plagiarism, and
+verified each statement against our own derivations and the cited sources.
+```
+
+> 句式级模板（开头声明 / 逐条引用 / 核验收尾）见《[写作句库](../11_论文模板与工具/写作句库.md)》第 10 节；中译英润色流程见《[中译英润色库](../11_论文模板与工具/中译英润色库.md)》。

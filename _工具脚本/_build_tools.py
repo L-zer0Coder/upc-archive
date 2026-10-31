@@ -1141,9 +1141,44 @@ def render_selector(ctx):
         (2025,'A',"电声沙桑托琴声学保真",["声学与信号","数值仿真功底"],"建模深度","弦-腔物理模型＋IIR 滤波设计＋七域验证"),
         (2025,'B',"火炮弹道与射表",["流体与空气动力","数值仿真功底","数据处理与统计"],"数据处理","量级约化＋线性风修＋三表交付"),
     ]
+    KW = {
+        (2010,'A'):["aerobraking","neptune","drag","atmosphere","entry","rocket","fuel","trajectory"],
+        (2010,'B'):["trebuchet","projectile","counterweight","torque","rotation","energy"],
+        (2011,'A'):["space tower","launch","cost","elevator","altitude","delta-v"],
+        (2011,'B'):["basketball","three point","shot","magnus","backspin","trajectory","fiba"],
+        (2012,'A'):["super-earth","volcano","volcanism","mantle","heat","tidal","radiogenic"],
+        (2012,'B'):["table tennis","ping pong","ball","diameter","drag","air resistance"],
+        (2013,'A'):["jupiter","gravity assist","slingshot","flyby","orbital insertion","moon"],
+        (2013,'B'):["hypergravity","centrifuge","bone","cardiovascular","skeleton","g-force"],
+        (2014,'A'):["circumbinary","binary star","planet","stability","three-body","habitable"],
+        (2014,'B'):["fountain","height","pump","nozzle","water","jet"],
+        (2015,'A'):["mars","terraforming","asteroid","comet","atmosphere","impact energy"],
+        (2015,'B'):["golf","magnus","curve","obstacle","tree","spin"],
+        (2016,'A'):["nuclear waste","sun","disposal","delta-v","asteroid belt","probability"],
+        (2016,'B'):["dinosaur","mammal","size","scaling","metabolism","breathing","upper limit"],
+        (2017,'A'):["solar sail","radiation pressure","photon","mars","attitude","sail angle"],
+        (2017,'B'):["ion thruster","exhaust","magnetic field","plasma","deflection","beam"],
+        (2018,'A'):["light sail","nanocraft","proxima","laser","relativistic","pointing","accuracy"],
+        (2018,'B'):["compost","pile","heat","semenov","thermal runaway","self-heating","size"],
+        (2019,'A'):["radiation","dose","shielding","magnetic","cosmic rays","mars","transit"],
+        (2019,'B'):["roller coaster","g-force","loop","safety","track","energy"],
+        (2020,'A'):["ion thruster","saturn","spiral","gravity assist","low thrust","transfer"],
+        (2020,'B'):["quadcopter","drone","wind","stability","control","gust","pid"],
+        (2021,'A'):["atmosphere escape","jeans","sputtering","photochemistry","pressure","mars"],
+        (2021,'B'):["asteroid","impact","tsunami","coastal","wave","inundation","city"],
+        (2022,'A'):["deflection","kinetic impactor","momentum","warning time","orbit","nuclear"],
+        (2022,'B'):["penalty kick","soccer","goalkeeper","game theory","magnus","statistics"],
+        (2023,'A'):["skydive","stratosphere","terminal velocity","parachute","g-force","reentry"],
+        (2023,'B'):["trampoline","bounce","sync","energy","phase","coupling"],
+        (2024,'A'):["space station","air leak","evacuation","pressure decay","oxygen"],
+        (2024,'B'):["mars","power","nuclear","solar","rtg","mass","kilowatt"],
+        (2025,'A'):["sasando","acoustic","iir","filter","resonance","pickup","audio"],
+        (2025,'B'):["artillery","ballistics","range table","drag","correction","firing"],
+    }
     for y, p, cn, tags, style, oneline in PROBS:
         data.append({"y": y, "p": p, "cn": cn, "tags": tags, "style": style,
-                     "line": oneline, "u": interp.get((str(y), p), "../index.html#years")})
+                     "line": oneline, "u": interp.get((str(y), p), "../index.html#years"),
+                     "kw": KW.get((y, p), [])})
     body = r"""
 <section class="pane on" id="pane-sel" style="display:block">
   <div class="card" style="margin-bottom:14px">
@@ -1157,6 +1192,13 @@ def render_selector(ctx):
       <a data-v="工程优化" style="padding:6px 13px;font-size:12.5px;color:var(--mut);cursor:pointer;background:var(--sheet)">工程优化</a>
       <a data-v="数据处理" style="padding:6px 13px;font-size:12.5px;color:var(--mut);cursor:pointer;background:var(--sheet)">数据处理</a>
     </div>
+  </div>
+  <div class="card" style="margin-bottom:14px">
+    <b style="font-size:14px">③ 高级：把 2026 新题原文粘贴进来（中英文都行）</b>
+    <textarea id="qtext" rows="4" placeholder="把题面整段贴进来——例：A skydiver jumps from a stratospheric balloon at 38 km… 或 中文题面"
+      style="width:100%;margin:8px 0 8px;border:1px solid var(--line2);border-radius:3px;background:var(--paper);padding:9px 12px;font-size:13px;outline:none;resize:vertical"></textarea>
+    <button class="btn solid" id="qmatch" type="button">匹配历年同域题</button>
+    <span class="note" id="qnote" style="font-size:12px;color:var(--dim);margin-left:10px">命中问题关键词与物理域标签后排序；清空文本恢复勾选模式</span>
   </div>
   <div id="rank"></div>
   <div class="notebox" style="margin-top:14px">选题铁律：<b>离主场模型更近</b>——UPC 评审不奖励难题，奖励自洽。匹配分只是参考，最终请对照对应年份的《题目深度解读》看两题的建模路线图再拍板。2026 新题拿到手后：先读题 → 在这里找同域历年题 → 并读其金牌赏析。</div>
@@ -1178,6 +1220,38 @@ document.getElementById('styles').addEventListener('click',function(ev){
   var a=ev.target.closest('a');if(!a)return;
   document.querySelectorAll('#styles a').forEach(function(x){x.classList.remove('on')});
   a.classList.add('on');styleF=a.dataset.v;rank();
+});
+document.getElementById("qmatch").addEventListener("click",function(){
+  var q=document.getElementById("qtext").value.trim();
+  var note=document.getElementById("qnote");
+  if(!q){note.textContent="先粘贴题面，再点匹配";return;}
+  var ql=q.toLowerCase();
+  // 中文 2-gram
+  var grams=[],runs=q.match(/[一-鿿]{2,}/g)||[];
+  runs.forEach(function(run){for(var i=0;i<run.length-1;i++)grams.push(run.slice(i,i+2));});
+  var rows=PROBS.map(function(p){
+    var s=0,hits=[];
+    p.tags.forEach(function(t){if(sel[t]&&q.toLowerCase().indexOf(t)>=0){s+=1;hits.push(t);}});
+    p.kw.forEach(function(k){
+      var c=ql.split(k).length-1;
+      if(c){s+=3+2*(c-1);hits.push(k+(c>1?"×"+c:""));}
+      else if(k.indexOf(" ")>0&&ql.indexOf(k.split(" ")[0])>=0){s+=1;hits.push(k.split(" ")[0]+"?");}
+    });
+    if(p.cn){grams.forEach(function(g){if(p.cn.indexOf(g)>=0){s+=2;hits.push(g);}});}
+    return {p:p,s:s,why:hits.slice(0,6)};
+  }).sort(function(a,b){return b.s-a.s;});
+  var top=rows.slice(0,8),max=top.length?top[0].s:0;
+  note.textContent="已按关键词命中排序（满分参考 "+max+"）";
+  document.getElementById("rank").innerHTML='<div class="note" style="margin:0 0 10px;font-size:12px;color:var(--dim)">按题面关键词命中排序：</div>'+top.map(function(r){
+    return '<div class="card" style="margin-bottom:10px;'+(r.s>=6?'border-color:var(--acc);border-width:1.5px':'')+'">'+
+      '<div style="display:flex;gap:9px;flex-wrap:wrap;align-items:baseline">'+
+      '<b style="font-family:var(--mono);color:var(--acc);font-size:13px">'+r.p.y+' 题'+r.p.p+'</b>'+
+      '<b style="font-family:var(--serif);font-size:15px">'+escHtml(r.p.cn)+'</b>'+
+      (r.s?'<span style="margin-left:auto;font-size:11px;color:var(--acc);font-family:var(--mono)">命中 '+r.s+'</span>':'')+'</div>'+
+      (r.why.length?'<p style="margin:4px 0;font-size:12px;color:var(--mut)">命中：'+escHtml(r.why.join("、"))+'</p>':'')+
+      '<p style="margin:4px 0 8px;font-size:13px;color:var(--mut)">'+escHtml(r.p.line)+'</p>'+
+      '<a class="btn sm solid" href="'+r.p.u+'" target="_blank">题目深度解读 →</a></div>';
+  }).join('');
 });
 function rank(){
   var rows=PROBS.map(function(p){

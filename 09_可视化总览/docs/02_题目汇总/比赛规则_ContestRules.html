@@ -49,6 +49,18 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
 .topbar .clock:hover{border-color:var(--acc);color:var(--acc-d);background:rgba(156,63,46,.12)}
 .topbar .clock[data-s="live"]{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
 .topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
+/* ---- 顶栏全库搜索 ---- */
+.srwrap{position:relative;flex-shrink:0;margin-left:8px}
+#dsq{width:132px;height:28px;border:1px solid var(--line2);border-radius:3px;background:var(--sheet);color:var(--ink);padding:0 9px;font-size:12px;outline:none;font-family:inherit;transition:border-color .15s,width .2s}
+#dsq:focus{width:200px;border-color:var(--acc)}
+#dsq::placeholder{color:var(--dim)}
+#dsres{position:absolute;top:33px;right:0;width:360px;max-width:86vw;max-height:62vh;overflow:auto;background:var(--sheet);border:1px solid var(--line2);border-radius:4px;box-shadow:0 14px 40px rgba(70,58,38,.16);display:none;z-index:40}
+#dsres a{display:block;padding:7px 12px;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--ink)}
+#dsres a:last-child{border-bottom:none}
+#dsres a:hover{background:#F3EEE2}
+#dsres .d{color:var(--dim);font-size:11px;margin-right:8px}
+#dsres .hint{padding:8px 12px;color:var(--dim);font-size:12px}
+@media(max-width:900px){#dsq{width:104px}#dsq:focus{width:150px}}
 .layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
 .content{flex:0 1 780px;min-width:0}
 .sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
@@ -137,6 +149,10 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   
   <a class="tag" href="../../../02_%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB/%E6%AF%94%E8%B5%9B%E8%A7%84%E5%88%99_ContestRules.md">Markdown</a>
   <span class="crumb">02_题目汇总 · UPC 比赛规则（Contest Rules · 官方整理）</span>
+  <div class="srwrap">
+    <input id="dsq" type="search" placeholder="全库搜索" autocomplete="off">
+    <div id="dsres"></div>
+  </div>
   <a class="clock" id="clock" href="../../../index.html#race" hidden aria-label="第 17 届 UPC 赛程"></a>
 </div></div>
 <div class="layout">
@@ -249,10 +265,33 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <li>摘要 300 词上限与"必须带数字"的写法见 <code>11_论文模板与工具/写作句库.md</code> 第 1 节；英文润色见 <code>11_论文模板与工具/中译英润色库.md</code>。</li>
 <li>逐题怎么选题读题见 <code>07_题目解读/</code>；48 小时怎么排程见 <code>11_论文模板与工具/48小时作战手册.md</code>。</li>
 </ul>
+<h2 id="附ai-使用披露英文模板可直接粘贴进论文">附：AI 使用披露英文模板（可直接粘贴进论文）</h2>
+<blockquote>
+<p>对应规则第 5.1 节。占位符 &lt; &gt; 替换为实际内容；Query/Full output 按次数重复。</p>
+</blockquote>
+<pre><code class="language-text">Report on the Use of AI
+
+System used: &lt;name and version, e.g. GLM / ChatGPT (GPT-4o), accessed via web&gt;
+Scope of use: &lt;e.g., language polishing of Sections 3 and 5; brainstorming
+verification approaches; debugging a plotting script. All physics modeling,
+derivations, numerical results and conclusions are our own work.&gt;
+
+Query 1 (verbatim): &quot;&lt;exact wording input into the AI tool&gt;&quot;
+Full output: &quot;&lt;copy the complete output of the AI tool&gt;&quot;
+
+Query 2 (verbatim): &quot;&lt;exact wording&gt;&quot;
+Full output: &quot;&lt;complete output&gt;&quot;
+
+We checked all AI-assisted content for hallucinations and plagiarism, and
+verified each statement against our own derivations and the cited sources.
+</code></pre>
+<blockquote>
+<p>句式级模板（开头声明 / 逐条引用 / 核验收尾）见《<a href="../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E5%86%99%E4%BD%9C%E5%8F%A5%E5%BA%93.html">写作句库</a>》第 10 节；中译英润色流程见《<a href="../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E4%B8%AD%E8%AF%91%E8%8B%B1%E6%B6%A6%E8%89%B2%E5%BA%93.html">中译英润色库</a>》。</p>
+</blockquote>
 </div>
 
 </div>
-<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟合规卡中国队伍最容易踩的-8-条">0. 一分钟合规卡（中国队伍最容易踩的 8 条）</a></li><li class="l2"><a href="#1-指导教师faculty-sponsor">1. 指导教师（Faculty Sponsor）</a></li><li class="l2"><a href="#2-报名registration">2. 报名（Registration）</a></li><li class="l2"><a href="#3-队伍the-team">3. 队伍（The Team）</a></li><li class="l2"><a href="#4-赛题the-problems">4. 赛题（The Problems）</a></li><li class="l2"><a href="#5-解答论文solution-papers">5. 解答论文（Solution Papers）</a></li><li class="l3"><a href="#51-生成式-ai-的特别规定">5.1 生成式 AI 的特别规定</a></li><li class="l2"><a href="#6-提交submit-solutions">6. 提交（Submit Solutions）</a></li><li class="l2"><a href="#7-评审与奖项results">7. 评审与奖项（Results）</a></li><li class="l2"><a href="#8-争议裁决the-director">8. 争议裁决（The Director）</a></li><li class="l2"><a href="#附与本库工具的对应关系">附：与本库工具的对应关系</a></li></ul></aside>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟合规卡中国队伍最容易踩的-8-条">0. 一分钟合规卡（中国队伍最容易踩的 8 条）</a></li><li class="l2"><a href="#1-指导教师faculty-sponsor">1. 指导教师（Faculty Sponsor）</a></li><li class="l2"><a href="#2-报名registration">2. 报名（Registration）</a></li><li class="l2"><a href="#3-队伍the-team">3. 队伍（The Team）</a></li><li class="l2"><a href="#4-赛题the-problems">4. 赛题（The Problems）</a></li><li class="l2"><a href="#5-解答论文solution-papers">5. 解答论文（Solution Papers）</a></li><li class="l3"><a href="#51-生成式-ai-的特别规定">5.1 生成式 AI 的特别规定</a></li><li class="l2"><a href="#6-提交submit-solutions">6. 提交（Submit Solutions）</a></li><li class="l2"><a href="#7-评审与奖项results">7. 评审与奖项（Results）</a></li><li class="l2"><a href="#8-争议裁决the-director">8. 争议裁决（The Director）</a></li><li class="l2"><a href="#附与本库工具的对应关系">附：与本库工具的对应关系</a></li><li class="l2"><a href="#附ai-使用披露英文模板可直接粘贴进论文">附：AI 使用披露英文模板（可直接粘贴进论文）</a></li></ul></aside>
 </div>
 <footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
@@ -349,6 +388,35 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
+/* ---------- 顶栏全库搜索（懒加载 search-index，链接以本页为基准换算） ---------- */
+var RELROOT="../../../",dsq=document.getElementById('dsq'),dsres=document.getElementById('dsres');
+var DSIDX=null,dsLoading=false;
+function dsEsc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function dsEnsure(){return new Promise(function(ok){if(DSIDX){ok();return;}if(dsLoading)return;dsLoading=true;
+  dsres.style.display='block';dsres.innerHTML='<div class="hint">载入全库索引…</div>';
+  var s=document.createElement('script');s.src=RELROOT+"search-index.js";
+  s.onload=function(){DSIDX=window.UPC_SEARCH||[];dsLoading=false;ok();};
+  s.onerror=function(){DSIDX=[];dsLoading=false;dsres.innerHTML='<div class="hint">索引载入失败，刷新重试</div>';};
+  document.head.appendChild(s);});}
+function dsRun(){var kw=dsq.value.trim().toLowerCase();if(!kw){dsres.style.display='none';return;}
+  if(!DSIDX)return;var hits=[];
+  for(var i=0;i<DSIDX.length;i++){var x=DSIDX[i],sc=0;
+    if((x.t||'').toLowerCase().indexOf(kw)>=0)sc+=6;
+    if((x.d||'').toLowerCase().indexOf(kw)>=0)sc+=2;
+    if((x.c||'').toLowerCase().indexOf(kw)>=0)sc+=3;
+    if(sc)hits.push({x:x,sc:sc});}
+  hits.sort(function(a,b){return b.sc-a.sc;});
+  var shown=hits.slice(0,12);
+  dsres.innerHTML=shown.length?shown.map(function(h){return '<a href="'+RELROOT+h.x.u+'"><span class="d">'+dsEsc(h.x.d)+'</span>'+dsEsc(h.x.t)+'</a>';}).join('')
+    :'<div class="hint">全库正文中都没有「'+dsEsc(kw)+'」</div>';
+  dsres.style.display='block';}
+dsq.addEventListener('input',function(){dsEnsure().then(dsRun);});
+dsq.addEventListener('focus',function(){dsEnsure();});
+document.addEventListener('click',function(e){if(!e.target.closest('.srwrap'))dsres.style.display='none';});
+document.addEventListener('keydown',function(e){
+  if(e.key==='/'&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){e.preventDefault();dsq.focus();}
+  if(e.key==='Escape'){dsres.style.display='none';dsq.blur();}});
+
 /* ---------- giscus 讨论区（可选，零默认请求）：四个字段都填好后重建即启用 ---------- */
 /* 获取方式见 README「讨论区」：giscus.app 选本仓库 → 依次开启 Discussions、安装 giscus App → 复制四个值 */
 var GISCUS={repo:"L-zer0Coder/upc-archive",repoId:"",category:"",categoryId:""};
