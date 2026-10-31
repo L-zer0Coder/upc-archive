@@ -397,6 +397,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
   </div>
 </div></div>
 <div id="mdrawer">
+  <a href="12_赛时工具/tutorial.html"><span class="mk">00</span>🎓 新手课堂</a>
   <a href="12_赛时工具/warroom.html"><span class="mk">00</span>⚡ 48 小时作战室</a>
   <a href="#guide"><span class="mk">01</span>使用指南</a>
   <a href="#progress"><span class="mk">02</span>我的打卡</a>

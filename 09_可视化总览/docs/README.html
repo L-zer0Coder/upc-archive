@@ -213,8 +213,8 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </tr>
 <tr>
 <td><code>09_可视化总览/</code></td>
-<td><code>index.html</code> 交互式总览页面</td>
-<td>图文并茂浏览全部年份、题目、论文、模型</td>
+<td>站点构建产物：<code>docs/</code> 下 235 个文档页 + 本地化前端依赖</td>
+<td>由 <code>_build_site.py</code> 生成，GitHub Pages 直接托管</td>
 </tr>
 <tr>
 <td><code>12_赛时工具/</code></td>
@@ -241,7 +241,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <blockquote>
 <p>⚠️ <strong>关于 2024 年</strong>：官网当年只发布了成绩公告，未公开金牌论文 PDF（全网亦无公开渠道），故 2024 年收录了 12（题A）+ 3（题B）共 15 支金牌队伍名单但无论文文本。
 ⚠️ <strong>关于 2013 年</strong>：官方同时挂出 <code>2013-GM-B-611.pdf</code> 与 <code>611a.pdf</code> 两个版本（同一论文的不同导出版），赏析以 611a 为准，全库计 74 个 PDF、73 篇独立论文。
-⚠️ <strong>关于 2026 年</strong>：截至 2026-10-24，第 17 届比赛（2026 年 11 月）尚未举行，官网无题目与论文。</p>
+⚠️ <strong>关于 2026 年</strong>：第 17 届比赛 2026-11-07 开赛（北京时间，见站点赛事时钟），截至建档日官网尚未发布题目与论文。</p>
 </blockquote>
 <hr>
 <h2 id="历年赛题与论文速览">🗓 历年赛题与论文速览</h2>
@@ -384,7 +384,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <li><strong>想看某年考了什么</strong> → <code>02_题目汇总/年份_题目与官方信息.md</code></li>
 <li><strong>想读懂某道题</strong> → <code>07_题目解读/…</code></li>
 <li><strong>想手把手吃透一篇金牌论文</strong> → <code>10_论文精读/…</code>（逐句表述、每图绘法、每式推导）</li>
-<li><strong>零基础/第一次参赛</strong> → <code>12_赛时工具/tutorial.html</code> 新手课堂：三门宝宝级幻灯课（建模/编程/论文）用 2023-A 跳伞一道题贯穿；配《零基础起步卡》系列（现 9 道直觉友好题：跳伞/蹦床/过山车/投篮/堆肥堆/恐龙体型/空气逃逸/投石机/喷泉，每张卡教一种「骨架」的选法）</li>
+<li><strong>零基础/第一次参赛</strong> → <code>12_赛时工具/tutorial.html</code> 新手课堂：三门零基础入门幻灯课（建模/编程/论文）用 2023-A 跳伞一道题贯穿；配《零基础起步卡》系列（现 9 道直觉友好题：跳伞/蹦床/过山车/投篮/堆肥堆/恐龙体型/空气逃逸/投石机/喷泉，每张卡教一种「骨架」的选法）</li>
 <li><strong>想自己写一篇参赛</strong> → <code>11_论文模板与工具/README.md</code>（模板+句库+手册+checklist）</li>
 <li><strong>中文草稿改英文</strong> → <code>11_论文模板与工具/中译英润色库.md</code>（五步润色法；或作战室「中译英」标签即查即搜）</li>
 <li><strong>想知道官方规则/合规要求</strong> → <code>02_题目汇总/比赛规则_ContestRules.md</code>（中文导读 + 一分钟合规卡）</li>
@@ -412,17 +412,17 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <li><code>search-index.js</code> —— 235 份文档的全文索引（约 312 KB，首次输入搜索时才加载，不拖慢首屏）</li>
 <li><code>.gitignore</code> —— <strong>白名单模式</strong>：只提交十二个档案目录、赛时工具、知识提炼、AI 技能、站点资源与 README，忽略本目录下的其他个人文件（LaTeX 安装包、视频、课件等约 6.5 GB）</li>
 </ul>
-<p>外部依赖已全部本地化：KaTeX / Mermaid 存放在 <code>09_可视化总览/vendor/</code>，由 <code>_工具脚本/_fetch_vendor.py</code> 一次性拉取（默认 unpkg，可用 <code>VENDOR_MIRROR</code> 换源）。站点运行时<strong>不再请求任何境外 CDN</strong>，国内网络下公式与流程图都能正常渲染。</p>
+<p>外部依赖已全部本地化：KaTeX / Mermaid 存放在 <code>09_可视化总览/vendor/</code>，由 <code>_工具脚本/_fetch_vendor.py</code> 一次性拉取（默认 unpkg，可用 <code>VENDOR_MIRROR</code> 换源）。站点运行时不请求任何外部资源（唯一例外：数值实验台按需加载 Pyodide 运行时），国内网络下公式与流程图都能正常渲染。</p>
 <blockquote>
 <p>注意：档案内容约 155 MB（论文 PDF 118 MB + 页面图 23 MB + 前端依赖 3.7 MB），远低于 GitHub 单文件 100 MB / 站点 1 GB 的限制，可直接托管；论文原为官网公开物，注明来源即可。</p>
 </blockquote>
-<p>部署三步（详见与档案库同期的对话教程）：① 在 GitHub 新建 Public 仓库 → ② 本目录 <code>git init &amp;&amp; git add -A &amp;&amp; git commit -m "UPC archive" &amp;&amp; git branch -M main &amp;&amp; git remote add origin &lt;你的仓库地址&gt; &amp;&amp; git push -u origin main</code> → ③ 仓库 Settings → Pages → Source 选 <code>Deploy from a branch</code> + <code>main</code> + <code>/ (root)</code> → 保存，1–3 分钟后访问 <code>https://&lt;用户名&gt;.github.io/&lt;仓库名&gt;/</code>。</p>
+<p>部署三步：① 在 GitHub 新建 Public 仓库 → ② 本目录 <code>git init &amp;&amp; git add -A &amp;&amp; git commit -m "UPC archive" &amp;&amp; git branch -M main &amp;&amp; git remote add origin &lt;你的仓库地址&gt; &amp;&amp; git push -u origin main</code> → ③ 仓库 Settings → Pages → Source 选 <code>Deploy from a branch</code> + <code>main</code> + <code>/ (root)</code> → 保存，1–3 分钟后访问 <code>https://&lt;用户名&gt;.github.io/&lt;仓库名&gt;/</code>。</p>
 <h3 id="重建站点">重建站点</h3>
 <pre><code class="language-bash">python _工具脚本/_fetch_vendor.py   # 仅首次，或升级 KaTeX/Mermaid 时
 python _工具脚本/_build_site.py      # 重新渲染 235 个文档页 + 6 个赛时工具页 + 首页 + 404 + 搜索索引
 python _工具脚本/_site_check.py      # 独立体检（断链/大小写/未入库/索引同步；--external 附加外链抽查）
 </code></pre>
-<p><code>_build_site.py</code> 结束时会做<strong>大小写敏感 + git 跟踪感知</strong>的链接校验（静态 href/src、DATA 里运行时注入的 URL、赛时工具页的链接都查）。任何一处断链（包括「文件存在但没进 git」这种只在 Linux 上才炸的情况）都会让构建以非零码退出并列出行号级别的清单，不会再出现"本地一切正常、线上全 404"。提交时 <code>.git/hooks/pre-commit</code> 还会再跑一次快速体检拦截。</p>
+<p><code>_build_site.py</code> 结束时会做<strong>大小写敏感 + git 跟踪感知</strong>的链接校验（静态 href/src、DATA 里运行时注入的 URL、赛时工具页的链接都查）。任何一处断链（包括「文件存在但没进 git」这种只在 Linux 服务器上才会暴露的情况）都会让构建以非零码退出并列出行号级别的清单，不会再出现"本地一切正常、线上全 404"。提交时 <code>.git/hooks/pre-commit</code> 还会再跑一次快速体检拦截。</p>
 <h3 id="赛时工具12_赛时工具">赛时工具（12_赛时工具/）</h3>
 <p>六个纯前端工具页，为第 17 届比赛（2026-11-07）而建，数据只存浏览器 localStorage、可导出：</p>
 <table>

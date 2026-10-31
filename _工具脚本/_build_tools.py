@@ -1290,6 +1290,13 @@ async function ensurePy(){
   loading=true;runBtn.disabled=true;
   setStatus('正在加载 Pyodide 运行时（约 10 MB，首次 30–60 秒）…',true);
   try{
+    await new Promise(function(res,rej){
+      if(window.loadPyodide)return res();
+      var s=document.createElement('script');
+      s.src='https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js';
+      s.onload=res;s.onerror=rej;
+      document.head.appendChild(s);
+    });
     pyodide=await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.26.4/full/'});
     setStatus('运行时就绪 ✓',true);
     runBtn.disabled=false;runBtn.textContent='运行';
@@ -1347,7 +1354,7 @@ function draw(r){
     '<div class="note" style="margin-top:8px;font-size:12px;color:var(--dim)">试试：把 h₀ 拉到 60 km 看最大速度出现在哪个高度；把 Cd·A 调到 3 模拟开伞后的急剧减速。完整版判据（15 g 反冲、驻点温度双档）见 2023-A 题目解读。</div>';
 }
 """
-    pyodide_head = '<script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>'
+    pyodide_head = ''   # pyodide.js 改为点击「运行」时动态注入，消除首屏 CDN 依赖
     return page(ctx, "数值实验台", "实战工具 · 平时开放",
                 "UPC 数值实验台：浏览器里直接运行 Python 物理模型（Pyodide），v1 内置 2023-A 太空跳伞简化模型，参数可调、代码可改。",
                 "不用装 Python 也能跑物理：滑杆调参数、代码框改模型，点运行立刻出曲线。示范模型来自 2023-A《近太空跳伞》精读。",
