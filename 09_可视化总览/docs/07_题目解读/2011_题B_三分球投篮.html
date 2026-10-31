@@ -311,7 +311,7 @@ $$\ddot{\vec r}=\vec g+\frac1m\Big(\underbrace{F_L\,\hat{(\vec\omega\times\vec v
 <li><strong>FIBA Official Basketball Rules 2010 / Basketball Equipment</strong> — 金牌队全部几何与恢复系数的出处。自己复现时先建"官方参数表"，实现零自由常数建模。</li>
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
-<p>本题金牌：<strong>Team 379（欧林工学院，"The Physics of a Three Point Shot"）</strong>。路线：FIBA 官方参数全表（几何 + 恢复系数，零自由常数）→ "空中（重力+阻力+Magnus，ode45）+ 碰撞（恢复系数冲量、无摩擦）+ 空中"事件驱动框架 → $(v_0,\varphi)$、$(\theta,\varphi)$ 灰度命中区域图 → 结论：无旋最优 ~9 m/s @ 0.85 rad；2 转/s 后旋使命中带整体向低速低角平移；45° 站位下出手方位 ~0.825 rad 的打板球成功区显著大于直接瞄准区、且没有擦筐"混沌"边缘，故<strong>打板更稳</strong>；与 Silverberg 罚球研究交叉验证。亮点是参数官方化与解集合呈现；短板是碰撞无摩擦、正文拼写错误多（"Figure ??"断链）。详见 ](05_论文赏析/2011/2011-GM-B-379.md)(../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2011/2011-GM-B-379.html)。</p>
+<p>本题金牌：<strong>Team 379（欧林工学院，"The Physics of a Three Point Shot"）</strong>。路线：FIBA 官方参数全表（几何 + 恢复系数，零自由常数）→ "空中（重力+阻力+Magnus，ode45）+ 碰撞（恢复系数冲量、无摩擦）+ 空中"事件驱动框架 → $(v_0,\varphi)$、$(\theta,\varphi)$ 灰度命中区域图 → 结论：无旋最优 ~9 m/s @ 0.85 rad；2 转/s 后旋使命中带整体向低速低角平移；45° 站位下出手方位 ~0.825 rad 的打板球成功区显著大于直接瞄准区、且没有擦筐"混沌"边缘，故<strong>打板更稳</strong>；与 Silverberg 罚球研究交叉验证。亮点是参数官方化与解集合呈现；短板是碰撞无摩擦、正文拼写错误多（"Figure ??"断链）。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2011/2011-GM-B-379.html">05_论文赏析/2011/2011-GM-B-379.md</a>。</p>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] 45° 正确理解为站位约束（影响打板几何），出手仰角/方位角是独立扫描变量。</li>

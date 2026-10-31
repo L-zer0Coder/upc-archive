@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>零基础起步卡 · 2010-题B 投石机动力学（从"一句话"到"方程"） · UPC 全档案库</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
-<meta name="description" content="零基础起步卡 · 2010-题B 投石机动力学（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《](题目深度解读)(2010_%E9%A2%98B_%E6%8A%95%E7%9F%B3%E6%9C%BA%E5%8A%A8%E5%8A%9B%E…">
+<meta name="description" content="零基础起步卡 · 2010-题B 投石机动力学（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《 题目深度解读 》（可行域/量级表/金牌对比）。一句话题面： 5000 kg 配重举高 2 m 的投石机，臂长与吊索取多少才能把弹丸扔得最狠？ 本…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="零基础起步卡 · 2010-题B 投石机动力学（从"一句话"到"方程"） · UPC 全档案库">
-<meta property="og:description" content="零基础起步卡 · 2010-题B 投石机动力学（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《](题目深度解读)(2010_%E9%A2%98B_%E6%8A%95%E7%9F%B3%E6%9C%BA%E5%8A%A8%E5%8A%9B%E…">
+<meta property="og:description" content="零基础起步卡 · 2010-题B 投石机动力学（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《 题目深度解读 》（可行域/量级表/金牌对比）。一句话题面： 5000 kg 配重举高 2 m 的投石机，臂长与吊索取多少才能把弹丸扔得最狠？ 本…">
 <meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
@@ -142,7 +142,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <div class="content"><div class="sheet">
 <h1 id="零基础起步卡-2010-题b-投石机动力学从一句话到方程">零基础起步卡 · 2010-题B 投石机动力学（从"一句话"到"方程"）</h1>
 <blockquote>
-<p>配套阅读：本题《](题目深度解读)(2010_%E9%A2%98B_%E6%8A%95%E7%9F%B3%E6%9C%BA%E5%8A%A8%E5%8A%9B%E5%AD%A6.html)》（可行域/量级表/金牌对比）。一句话题面：<strong>5000 kg 配重举高 2 m 的投石机，臂长与吊索取多少才能把弹丸扔得最狠？</strong> 本卡示范：一道"机器"题怎么从几何描述走到能积分的方程。</p>
+<p>配套阅读：本题《<a href="2010_%E9%A2%98B_%E6%8A%95%E7%9F%B3%E6%9C%BA%E5%8A%A8%E5%8A%9B%E5%AD%A6.html">题目深度解读</a>》（可行域/量级表/金牌对比）。一句话题面：<strong>5000 kg 配重举高 2 m 的投石机，臂长与吊索取多少才能把弹丸扔得最狠？</strong> 本卡示范：一道"机器"题怎么从几何描述走到能积分的方程。</p>
 </blockquote>
 <h2 id="第-0-层-你会冒出的朴素想法全部没错">第 0 层 · 你会冒出的朴素想法（全部没错）</h2>
 <ul>
@@ -208,7 +208,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <h2 id="第-2-层-选骨架">第 2 层 · 选骨架</h2>
 <p>筛选问题：<strong>机构怎么运动？</strong> 整根臂绕支点定轴转动。平动的三件套（$m$、$v$、$F$）在转动里各有对应（$I$、$\omega$、$\tau$），牛顿第二定律换装成</p>
 <p>$$I\,\frac{d\omega}{dt}=\Sigma\tau$$</p>
-<p><strong>为什么转动的题要把 $m\,dv/dt$ 换成 $I\,d\omega/dt$</strong>：梁上每一点速度都不一样（正比于到支点的距离），逐点写牛顿定律等于自找一堆未知内力（轴上支撑力、索中张力）；换成"绕定轴"视角，一个 $I$（各部件 $\Sigma mr^2$）打包全部惯性，一个 $\omega$ 描述全部运动。速度的标尺另由<strong>能量守恒</strong>给出：只有重力做功，配重落多少势能，系统就得多少动能。这就是<strong>刚体转动骨架</strong>：能量守恒定上限，$I\,d\omega/dt$ 定过程（《](建模决策树)(../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E5%BB%BA%E6%A8%A1%E5%86%B3%E7%AD%96%E6%A0%91.html)》"刚体与多体"一支）。</p>
+<p><strong>为什么转动的题要把 $m\,dv/dt$ 换成 $I\,d\omega/dt$</strong>：梁上每一点速度都不一样（正比于到支点的距离），逐点写牛顿定律等于自找一堆未知内力（轴上支撑力、索中张力）；换成"绕定轴"视角，一个 $I$（各部件 $\Sigma mr^2$）打包全部惯性，一个 $\omega$ 描述全部运动。速度的标尺另由<strong>能量守恒</strong>给出：只有重力做功，配重落多少势能，系统就得多少动能。这就是<strong>刚体转动骨架</strong>：能量守恒定上限，$I\,d\omega/dt$ 定过程（《<a href="../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E5%BB%BA%E6%A8%A1%E5%86%B3%E7%AD%96%E6%A0%91.html">建模决策树</a>》"刚体与多体"一支）。</p>
 <h2 id="第-3-层-插零件">第 3 层 · 插零件</h2>
 <p>逐项问：<strong>能量从哪来、惯性藏在哪、约束在哪？</strong></p>
 <table>
@@ -246,7 +246,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <h2 id="第-4-层-怎么解-怎么验证">第 4 层 · 怎么解 + 怎么验证</h2>
 <ul>
 <li><strong>解析基准（锚数字）</strong>：能量守恒给硬上限——金牌构型落差 $\Delta h\approx1.0$ m，$\Delta U\approx50$ kJ，若全部进弹丸则 $v_{max}=\sqrt{2\Delta U/m_3}\approx31.5$ m/s；实际 $v_3=17.5$ m/s ↔ 效率 ~31%（固定配重的合理水平）</li>
-<li><strong>数值</strong>：两个耦合角方程交给 RK4（[实验台](../../12_赛时工具/lab.html)可跑）；优化 = $r_1,r_2,r_3$ 三维网格穷举，先粗（0.05 m）后细（0.01 m）</li>
+<li><strong>数值</strong>：两个耦合角方程交给 RK4（<a href="../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/lab.html">实验台</a>可跑）；优化 = $r_1,r_2,r_3$ 三维网格穷举，先粗（0.05 m）后细（0.01 m）</li>
 <li><strong>验证三件套</strong>：能量守恒自检（总能量漂移 &lt; 0.1%，一行代码抓住积分器 bug）；步长减半看 $v_3$ 稳不稳；检查最优解贴不贴约束边</li>
 <li><strong>判据</strong>："破坏力最大"已翻译成"释放瞬间弹丸动能最大"——这是定义选择，文中必须声明（也可选射程，含义不同）</li>
 <li><strong>贴边发现</strong>：最优解 $r_2+r_3=1.49$ m ≈ 支点高 1.5 m——"臂+索尽量长"其实是"抛掷端恰好擦地"这条约束的影子</li>
@@ -260,7 +260,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </ol>
 <h2 id="下一步">下一步</h2>
 <ul>
-<li>本题《](题目深度解读)(2010_%E9%A2%98B_%E6%8A%95%E7%9F%B3%E6%9C%BA%E5%8A%A8%E5%8A%9B%E5%AD%A6.html)》第 5 节：寻优策略、释放机构与"2:3 法则"的适用边界</li>
+<li>本题《<a href="2010_%E9%A2%98B_%E6%8A%95%E7%9F%B3%E6%9C%BA%E5%8A%A8%E5%8A%9B%E5%AD%A6.html">题目深度解读</a>》第 5 节：寻优策略、释放机构与"2:3 法则"的适用边界</li>
 <li>《新手课堂》课程三：耦合 ODE 怎么积分、怎么自检</li>
 <li>赛时记住：<strong>先立能量账本算出上限，再让数值去找能兑现多少</strong></li>
 </ul>

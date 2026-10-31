@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>零基础起步卡 · 2011-题B 三分球投篮（从"一句话"到"方程"） · UPC 全档案库</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
-<meta name="description" content="零基础起步卡 · 2011-题B 三分球投篮（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《](题目深度解读)(2011_%E9%A2%98B_%E4%B8%89%E5%88%86%E7%90%83%E6%8A%95%E7%AF%AE.ht…">
+<meta name="description" content="零基础起步卡 · 2011-题B 三分球投篮（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《 题目深度解读 》、《 新手课堂 》。一句话题面：球员站在距篮筐 6.2 m 的三分线上（站位与场地主轴成 45°），问哪些初速度与自旋组合能命中。…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="零基础起步卡 · 2011-题B 三分球投篮（从"一句话"到"方程"） · UPC 全档案库">
-<meta property="og:description" content="零基础起步卡 · 2011-题B 三分球投篮（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《](题目深度解读)(2011_%E9%A2%98B_%E4%B8%89%E5%88%86%E7%90%83%E6%8A%95%E7%AF%AE.ht…">
+<meta property="og:description" content="零基础起步卡 · 2011-题B 三分球投篮（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《 题目深度解读 》、《 新手课堂 》。一句话题面：球员站在距篮筐 6.2 m 的三分线上（站位与场地主轴成 45°），问哪些初速度与自旋组合能命中。…">
 <meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
@@ -142,17 +142,16 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <div class="content"><div class="sheet">
 <h1 id="零基础起步卡-2011-题b-三分球投篮从一句话到方程">零基础起步卡 · 2011-题B 三分球投篮（从"一句话"到"方程"）</h1>
 <blockquote>
-<p>配套阅读：本题《](题目深度解读)(2011_%E9%A2%98B_%E4%B8%89%E5%88%86%E7%90%83%E6%8A%95%E7%AF%AE.html)》（命中区域图/金牌复现指南）、《](新手课堂)(../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/tutorial.html)》。一句话题面：球员站在距篮筐 6.2 m 的三分线上（站位与场地主轴成 45°），问哪些初速度与自旋组合能命中。本卡示范怎么把它翻译成方程。</p>
+<p>配套阅读：本题《<a href="2011_%E9%A2%98B_%E4%B8%89%E5%88%86%E7%90%83%E6%8A%95%E7%AF%AE.html">题目深度解读</a>》、《<a href="../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/tutorial.html">新手课堂</a>》。一句话题面：球员站在距篮筐 6.2 m 的三分线上（站位与场地主轴成 45°），问哪些初速度与自旋组合能命中。本卡示范怎么把它翻译成方程。</p>
 </blockquote>
 <h2 id="第-0-层-你会冒出的朴素想法全部没错">第 0 层 · 你会冒出的朴素想法（全部没错）</h2>
 <ul>
 <li>球离手后走的是一条抛物线——这是全题的地基</li>
 <li>力气大不等于准：太用力的球砸在筐上弹飞</li>
 <li>弧线高一些更容易进：下落角度陡，筐的"有效开口"更大</li>
-<li>球带着后旋飞，会在空中稍微"多浮一会儿"</li>
-<li>碰筐弹一下再进、打板进，都算进球</li>
+<li>球带着后旋会稍微"多浮一会儿"；碰筐弹一下再进、打板进，都算进球</li>
 </ul>
-<p><strong>先确认：这五条直觉全部正确。</strong> 最后两条尤其值钱——"都算进球"意味着答案不止一条轨迹；"后旋"意味着题面要你处理旋转。下面每一步都从它们出发。</p>
+<p><strong>先确认：这些直觉全部正确。</strong>"都算进球"意味着答案不止一条轨迹，"后旋"意味着要处理旋转——两条都不能丢。</p>
 <h2 id="第-1-层-直觉-变量表">第 1 层 · 直觉 → 变量表</h2>
 <table>
 <thead>
@@ -203,12 +202,12 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </tbody>
 </table>
 <blockquote>
-<p><strong>新手要点</strong>：几何参数先抄官方——筐高 3.05 m、筐内径 0.45 m、球半径 0.119 m（FIBA 规则），参数注出处，模型才零自由常数。另记一个数：筐半径减球半径 = <strong>0.106 m</strong>，这是全题一切"容差"的源头。</p>
+<p><strong>新手要点</strong>：几何参数先抄官方——筐高 3.05 m、筐内径 0.45 m、球半径 0.119 m（FIBA 规则），参数注出处，模型才零自由常数。再记一个数：筐半径减球半径 = <strong>0.106 m</strong>，全题一切"容差"的源头。</p>
 </blockquote>
 <h2 id="第-2-层-选骨架">第 2 层 · 选骨架</h2>
-<p>问一个筛选问题：出手之后，<strong>什么在支配球的命运？</strong> 球同时携带水平与竖直速度，两个方向服从不同规律（水平被空气拖慢、竖直被重力拉弯）→ 骨架 = <strong>抛体运动，即牛顿第二定律的分量形式</strong>：</p>
+<p>问一个筛选问题：出手之后，<strong>什么在支配球的命运？</strong> 球同时携带水平与竖直速度，两个方向规律不同（水平被空气拖慢、竖直被重力拉弯）→ 骨架 = <strong>抛体运动，即牛顿第二定律的分量形式</strong>：</p>
 <p>$$m\,\frac{d^2x}{dt^2}=F_x\,,\qquad m\,\frac{d^2y}{dt^2}=F_y-mg$$</p>
-<p>为什么不用能量守恒一步算：空气阻力沿途耗散，能量不守恒；但每个瞬间的受力清清楚楚——逐时刻列分量方程最朴素。策略是<strong>先真空、后修正</strong>：先只留重力项拿解析基准，再把空气的两个效应（阻力、马格努斯）逐个插回分量里。骨架选型完整逻辑见《](建模决策树)(../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E5%BB%BA%E6%A8%A1%E5%86%B3%E7%AD%96%E6%A0%91.html)》。</p>
+<p>为何不用能量守恒一步算：阻力沿途耗散，能量不守恒；每个瞬间受力却清清楚楚——逐时刻列分量方程最朴素。策略是<strong>先真空、后修正</strong>：先只留重力项拿解析基准，再把阻力与马格努斯逐个插回分量里（选型逻辑见《<a href="../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E5%BB%BA%E6%A8%A1%E5%86%B3%E7%AD%96%E6%A0%91.html">建模决策树</a>》）。</p>
 <h2 id="第-3-层-插零件">第 3 层 · 插零件</h2>
 <table>
 <thead>
@@ -248,25 +247,24 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </table>
 <p>组装主方程：</p>
 <p>$$m\,\frac{d^2\vec r}{dt^2}=m\vec g-\tfrac12 C_d\rho A\,v\,\vec v+\tfrac12 C_L\rho A v^2\,\hat{(\vec\omega\times\vec v)}$$</p>
-<p><strong>零件来源与适用条件</strong>：平方阻力是实验规律，适用于连续气流中的球速（本题 &lt;12 m/s 全程满足）；马格努斯项用经验关联式定标，代入前先做量级检验（~5% 重力，量级对了再用）；恢复系数反弹后重置速度继续积分，直到球心落进目标圆或出局。</p>
+<p><strong>零件来源与适用条件</strong>：平方阻力是实验规律，本题球速全程适用；马格努斯用经验关联式定标，先做量级检验（~5% 重力）；碰撞后重置速度续算，直到球心落进目标圆或出局。</p>
 <h2 id="第-4-层-怎么解-怎么验证">第 4 层 · 怎么解 + 怎么验证</h2>
 <ul>
 <li><strong>解析基准（锚数字，真空无旋）</strong>：出手高 2.0 m、水平距 6.2 m、筐高 3.05 m → 最小速度抛体 $v_{min}\approx8.5$ m/s、仰角约 50°，入筐下落角约 40°。金牌最优工作点（9 m/s @ 48.7°）紧贴着它——阻力把它轻轻抬高了一点。</li>
-<li><strong>数值</strong>：分量 ODE + 事件检测（过筐平面/触筐/触板/落地），碰撞即重置速度续算；扫 $(v_0,\varphi)$ 画命中区域灰度图——本题要的是<strong>解集合</strong>（哪些组合能进），不是一条最优轨迹。在](数值实验台)(../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/lab.html)跑。</li>
-<li><strong>验证三件套</strong>：① 令 $C_d,C_L\to0$，结果应回到真空抛体解析解；② 无旋结果与已发表罚球仿真对照；③ 单位自检——rad 与度全文统一（0.85 rad = 48.7°）。</li>
-<li><strong>判据</strong>：命中 = 球心最终落进距筐心 0.106 m 的目标圆（含反弹后），覆盖空心/擦筐/打板三类；45° 是<strong>站位角</strong>（决定篮板相对出手的取向、打板是否可行），不是出手仰角。打板区为何反而更大，见《](题目深度解读)(2011_%E9%A2%98B_%E4%B8%89%E5%88%86%E7%90%83%E6%8A%95%E7%AF%AE.html)》。</li>
+<li><strong>数值</strong>：分量 ODE + 事件检测（过筐平面/触筐/触板/落地），碰撞即重置速度续算；扫 $(v_0,\varphi)$ 画命中区域灰度图——本题要的是<strong>解集合</strong>，不是一条最优轨迹。在<a href="../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/lab.html">数值实验台</a>跑。</li>
+<li><strong>验证三件套</strong>：① 令 $C_d,C_L\to0$，回到真空抛体解析解；② 无旋结果与已发表罚球仿真对照；③ 单位自检——rad 与度全文统一（0.85 rad = 48.7°）。</li>
+<li><strong>判据</strong>：命中 = 球心最终落进距筐心 0.106 m 的目标圆（含反弹后），覆盖空心/擦筐/打板三类；45° 是<strong>站位角</strong>（决定篮板取向、打板是否可行），不是出手仰角。打板区为何反而更大，见《<a href="2011_%E9%A2%98B_%E4%B8%89%E5%88%86%E7%90%83%E6%8A%95%E7%AF%AE.html">题目深度解读</a>》。</li>
 </ul>
 <h2 id="常见第一次的错起步卡专属提醒">常见第一次的错（起步卡专属提醒）</h2>
 <ol>
 <li>把 45° 站位角当出手仰角——几何 setup 从第一页就错</li>
 <li>只算空心入筐——漏掉打板那半边解集，等于交了半张卷子</li>
-<li>自旋当装饰——题面点名 spins，马格努斯至少要摆上台面并给量级（~5% 重力）</li>
+<li>自旋当装饰——题面点名 spins，马格努斯至少要摆上台面并给量级</li>
 <li>判据写成"球心过筐心"——过严，擦筐入网被全数误杀</li>
 </ol>
 <h2 id="下一步">下一步</h2>
 <ul>
-<li>兄弟卡练手：](2023-B 蹦床)(2023_%E9%A2%98B_%E4%B8%89%E4%BA%BA%E8%B9%A6%E5%BA%8A_%E9%9B%B6%E5%9F%BA%E7%A1%80%E8%B5%B7%E6%AD%A5%E5%8D%A1.html)（同为"逐时刻列力"的路线）、](2018-B 堆肥堆)(2018_%E9%A2%98B_%E5%A0%86%E8%82%A5%E5%A0%86%E5%B0%BA%E5%AF%B8_%E9%9B%B6%E5%9F%BA%E7%A1%80%E8%B5%B7%E6%AD%A5%E5%8D%A1.html)（换骨架样本：温度在变）</li>
-<li>《](新手课堂)(../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/tutorial.html)》把这道题从分量方程走到代码再走到论文</li>
+<li>兄弟卡练手：<a href="2023_%E9%A2%98B_%E4%B8%89%E4%BA%BA%E8%B9%A6%E5%BA%8A_%E9%9B%B6%E5%9F%BA%E7%A1%80%E8%B5%B7%E6%AD%A5%E5%8D%A1.html">2023-B 蹦床</a>（同为"逐时刻列力"）、<a href="2018_%E9%A2%98B_%E5%A0%86%E8%82%A5%E5%A0%86%E5%B0%BA%E5%AF%B8_%E9%9B%B6%E5%9F%BA%E7%A1%80%E8%B5%B7%E6%AD%A5%E5%8D%A1.html">2018-B 堆肥堆</a>（换骨架样本）</li>
 <li>赛时记住：<strong>问"哪些组合"就交解集合，问"最优"才给单点。</strong></li>
 </ul>
 </div>

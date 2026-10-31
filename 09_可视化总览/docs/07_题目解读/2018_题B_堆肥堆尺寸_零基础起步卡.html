@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>零基础起步卡 · 2018-题B 堆肥堆尺寸（从"一句话"到"方程"） · UPC 全档案库</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
-<meta name="description" content="零基础起步卡 · 2018-题B 堆肥堆尺寸（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《](题目深度解读)(2018_%E9%A2%98B_%E5%A0%86%E8%82%A5%E5%A0%86%E5%B0%BA%E5%AF%B8.ht…">
+<meta name="description" content="零基础起步卡 · 2018-题B 堆肥堆尺寸（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《 题目深度解读 》、《 新手课堂 》。一句话题面：5–20 °C 的气候下堆厨余垃圾，多大的堆效率最高？最优尺寸如何随环境温度与进料变化？本卡示范怎…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="零基础起步卡 · 2018-题B 堆肥堆尺寸（从"一句话"到"方程"） · UPC 全档案库">
-<meta property="og:description" content="零基础起步卡 · 2018-题B 堆肥堆尺寸（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《](题目深度解读)(2018_%E9%A2%98B_%E5%A0%86%E8%82%A5%E5%A0%86%E5%B0%BA%E5%AF%B8.ht…">
+<meta property="og:description" content="零基础起步卡 · 2018-题B 堆肥堆尺寸（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《 题目深度解读 》、《 新手课堂 》。一句话题面：5–20 °C 的气候下堆厨余垃圾，多大的堆效率最高？最优尺寸如何随环境温度与进料变化？本卡示范怎…">
 <meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
@@ -142,17 +142,16 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <div class="content"><div class="sheet">
 <h1 id="零基础起步卡-2018-题b-堆肥堆尺寸从一句话到方程">零基础起步卡 · 2018-题B 堆肥堆尺寸（从"一句话"到"方程"）</h1>
 <blockquote>
-<p>配套阅读：本题《](题目深度解读)(2018_%E9%A2%98B_%E5%A0%86%E8%82%A5%E5%A0%86%E5%B0%BA%E5%AF%B8.html)》（量级表/两金奖对照）、《](新手课堂)(../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/tutorial.html)》。一句话题面：5–20 °C 的气候下堆厨余垃圾，多大的堆堆肥效率最高？最优尺寸如何随环境温度与进料变化？本卡示范怎么把它翻译成方程——它也是这套起步卡里<strong>换骨架</strong>的样本。</p>
+<p>配套阅读：本题《<a href="2018_%E9%A2%98B_%E5%A0%86%E8%82%A5%E5%A0%86%E5%B0%BA%E5%AF%B8.html">题目深度解读</a>》、《<a href="../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/tutorial.html">新手课堂</a>》。一句话题面：5–20 °C 的气候下堆厨余垃圾，多大的堆效率最高？最优尺寸如何随环境温度与进料变化？本卡示范怎么翻译成方程，也是这套卡里<strong>换骨架</strong>的样本。</p>
 </blockquote>
 <h2 id="第-0-层-你会冒出的朴素想法全部没错">第 0 层 · 你会冒出的朴素想法（全部没错）</h2>
 <ul>
 <li>堆肥堆会自己发热：微生物分解有机质在放热</li>
-<li>堆越大越保温，核心热量散不出去，温度容易维持</li>
-<li>但堆太大，底下的料被自身重量压实，空气进不去，微生物"憋住"了</li>
-<li>夜里降到 5 °C，表面散热快，太小的堆存不住热</li>
-<li>太小存不住热、太大缺氧——中间应该有个"刚刚好"</li>
+<li>堆越大越保温，核心温度容易维持</li>
+<li>但堆太大，底下的料被自重压实，空气进不去，微生物"憋住"了</li>
+<li>天冷时表面散热快，太小的堆存不住热</li>
 </ul>
-<p><strong>先确认：这五条直觉全部正确。</strong> 而且"大小各有一罚"正是答案的形状：最优尺寸是两种惩罚的平衡点，不是单调的"越大越好"。</p>
+<p><strong>先确认：这些直觉全部正确。</strong> "大小各有一罚"正是答案的形状：最优尺寸是两种惩罚的平衡点。</p>
 <h2 id="第-1-层-直觉-变量表">第 1 层 · 直觉 → 变量表</h2>
 <table>
 <thead>
@@ -213,7 +212,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <p><strong>新手要点</strong>：进 Arrhenius 这类指数公式前，温度必须换开尔文——°C 直接代入会错出天文数字。本题一半的单位坑在这里。</p>
 </blockquote>
 <h2 id="第-2-层-选骨架本卡教学重点什么时候换骨架">第 2 层 · 选骨架（本卡教学重点：什么时候换骨架）</h2>
-<p>问一个筛选问题：<strong>什么量在变？</strong> 堆是静止的——没有速度可问；在变的是<strong>温度 $T$</strong>（还有氧含量、剩余物料量）。口诀：<strong>物体在动、问快慢 → 牛顿第二定律</strong>（太空跳伞、三人蹦床）；<strong>物体不动、问冷热与积累 → 收支平衡</strong>（产热速率 − 散热速率 = 堆内热量的变化率）。这是与跳伞完全不同的一条骨架：那边"力"是主角，这边"收支"是主角；而收支平衡允许出现<strong>稳态</strong>——温度停在某点不动，正对应跳伞里的终末速度。本题要的正是那个稳定的"嗜热运行点"（骨架选型完整逻辑见《](建模决策树)(../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E5%BB%BA%E6%A8%A1%E5%86%B3%E7%AD%96%E6%A0%91.html)》）。</p>
+<p>问一个筛选问题：<strong>什么量在变？</strong> 堆是静止的，没有速度可问；在变的是<strong>温度 $T$</strong>。口诀：<strong>物体在动、问快慢 → 牛顿第二定律</strong>（跳伞、蹦床）；<strong>物体不动、问冷热与积累 → 收支平衡</strong>（产热 − 散热 = 堆内热量的变化率）。那边"力"是主角，这边"收支"是主角；收支平衡允许<strong>稳态</strong>——温度停在某点不动，正对应跳伞的终末速度。本题要的正是稳定的"嗜热运行点"（选型逻辑见《<a href="../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E5%BB%BA%E6%A8%A1%E5%86%B3%E7%AD%96%E6%A0%91.html">建模决策树</a>》）。</p>
 <p>$$\rho c\,V\,\frac{dT}{dt}=\underbrace{q\,V}_{\text{微生物产热}}-\underbrace{h_{eff}\,S\,(T-T_a)}_{\text{表面散热}}$$</p>
 <h2 id="第-3-层-插零件">第 3 层 · 插零件</h2>
 <table>
@@ -230,13 +229,13 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <td>收入</td>
 <td>微生物产热</td>
 <td>$q\propto k(T)\,[O_2]\,[B]$</td>
-<td>双 Arrhenius 动力学（文献参数）；高温抑制项让 $k(T)$ 在 70–90 °C 见顶回落，防失控</td>
+<td>双 Arrhenius 动力学（文献参数）；高温抑制项让 $k(T)$ 在 70–90 °C 见顶回落</td>
 </tr>
 <tr>
 <td>支出</td>
 <td>表面散热</td>
 <td>$h_{eff}\,S(T-T_a)$</td>
-<td>牛顿冷却定律；自然对流 $h\sim8$，覆盖/结壳可降到 1–2</td>
+<td>牛顿冷却；自然对流 $h\sim8$，覆盖/结壳降到 1–2</td>
 </tr>
 <tr>
 <td>罚项</td>
@@ -247,38 +246,36 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <tr>
 <td>罚项</td>
 <td>自重压实</td>
-<td>密度随深度按 $\rho g h/E$ 增大 → $D_{eff}$ 塌缩</td>
-<td>弹性压缩估算，$E\sim20$ kPa 时每米压密 ~25%</td>
+<td>深处密度按 $\rho g h/E$ 增 → $D_{eff}$ 塌缩</td>
+<td>弹性压缩估算，$E\sim20$ kPa</td>
 </tr>
 <tr>
 <td>几何</td>
 <td>形状浓缩</td>
 <td>$S/V$：半球 $4.5/R$、立方 $6/a$</td>
-<td>纯几何；形状与尺寸折成一个参数进方程</td>
+<td>纯几何；只在堆内均匀（集总）假设下成立</td>
 </tr>
 </tbody>
 </table>
-<p>组装：产热、散热、供氧三行账 + 半径 $R$ 扫描 = 全题骨架；氧还需要一条自己的收支方程（消耗 = 渗入），与温度方程并排跑。<strong>零件来源与适用条件</strong>一句：双 Arrhenius 是堆肥动力学的文献标准形，含高温抑制项才不会把模型跑成自燃事故；$S/V$ 只在"堆内参数均匀"的集总假设下成立，场分布版本是后续扩展。</p>
+<p>组装：产热、散热、供氧三行账，对 $R$ 扫描取效率峰值；氧另有一条收支方程（消耗 = 渗入），与温度方程并排跑。<strong>适用条件</strong>：$S/V$ 仅集总假设下成立，场分布版本是扩展。</p>
 <h2 id="第-4-层-怎么解-怎么验证">第 4 层 · 怎么解 + 怎么验证</h2>
 <ul>
-<li><strong>解析基准（三个 30 秒手算的锚数字）</strong>：① 日变趋肤深度 $\sqrt{\alpha\tau_{day}/\pi}\approx0.12$ m → 堆芯只"看见"日均温 12.5 °C，不必写时变边界；② 氧渗透深度 $\delta\approx0.2$–0.5 m → 比这更深必然缺氧，"大堆受罚"的定量版；③ 收支对撞——维持 60 °C 核心约需 140 W/m³，氧扩散恰好撑得起 ~150 W/m³，两条线交叠出最优区 $R\sim0.8$–1.6 m（约 2–10 m³）。</li>
-<li><strong>数值</strong>：温度/氧/物料三条 ODE 用刚性求解器（Arrhenius 的 $E/R\sim10^4$ K 会把普通欧拉法打溢出），对 $R$ 扫描取效率峰值；在](数值实验台)(../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/lab.html)跑。</li>
-<li><strong>验证三件套</strong>：① 验收即验证——$T(t)$ 必须落进题给 40–60 °C 区间；② $k(T)$ 峰位与题给温区对照（文献峰在 80–100 °C 就要明说并重标定）；③ 升温—嗜热—衰减三相曲线与已发表堆肥实验形态对比。</li>
-<li><strong>判据</strong>："most efficient" 必须先定义成可积分的标量（如 100 天累计已分解物质量 $\int k(T)[O_2][B]\,dt$）——两支金奖队因定义不同得 9.2 与 1.6 m³，定义本身就是答案的一部分。对照见《](题目深度解读)(2018_%E9%A2%98B_%E5%A0%86%E8%82%A5%E5%A0%86%E5%B0%BA%E5%AF%B8.html)》。</li>
+<li><strong>解析基准（三个 30 秒手算的锚数字）</strong>：① 趋肤深度 $\sqrt{\alpha\tau_{day}/\pi}\approx0.12$ m → 堆芯只"看见"日均温 12.5 °C，不用时变边界；② 氧渗透深度 $\delta\approx0.2$–0.5 m → 比这更深必然缺氧，"大堆受罚"的定量版；③ 收支对撞——维持 60 °C 核心约需 140 W/m³，氧扩散恰撑得起 ~150 W/m³，两条线交叠出最优区 $R\sim0.8$–1.6 m（约 2–10 m³）。</li>
+<li><strong>数值</strong>：三条 ODE 用刚性求解器（Arrhenius 的 $E/R\sim10^4$ K 会打溢普通欧拉法）；在<a href="../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/lab.html">数值实验台</a>跑。</li>
+<li><strong>验证三件套</strong>：① 验收即验证——$T(t)$ 必须落进题给 40–60 °C；② $k(T)$ 峰位与题给温区对照（文献峰 80–100 °C 就明说并重标定）；③ 升温—嗜热—衰减三相曲线与已发表堆肥实验形态对比。</li>
+<li><strong>判据</strong>："most efficient" 必须先定义成可积分的标量（如 100 天累计已分解物质量 $\int k(T)[O_2][B]\,dt$）——两金奖因定义不同得 9.2 与 1.6 m³，定义本身就是答案的一部分。对照见《<a href="2018_%E9%A2%98B_%E5%A0%86%E8%82%A5%E5%A0%86%E5%B0%BA%E5%AF%B8.html">题目深度解读</a>》。</li>
 </ul>
 <h2 id="常见第一次的错起步卡专属提醒">常见第一次的错（起步卡专属提醒）</h2>
 <ol>
 <li>只算热不算氧——做成"最大保温尺寸"题，题面第二句提示白扔，答案必然偏大</li>
 <li>Arrhenius 里代 °C 不换 K——指数项错一个量级，整条曲线错位</li>
-<li>用空气扩散系数 $2\times10^{-5}$ 冒充堆料里的 $D_{eff}$——虚高 20 倍，氧渗透深度虚胖 4 倍多</li>
-<li>温度一路冲上 100 °C 不刹车——漏了高温抑制项，模型跑成自燃事故而不是堆肥</li>
+<li>用空气扩散系数 $2\times10^{-5}$ 冒充堆料里的 $D_{eff}$——虚高 20 倍，渗透深度虚胖 4 倍</li>
+<li>温度一路冲上 100 °C 不刹车——漏了高温抑制项，模型跑成自燃而非堆肥</li>
 </ol>
 <h2 id="下一步">下一步</h2>
 <ul>
-<li>回看第 2 层口诀——"在动还是不动、问快慢还是问冷热"是选骨架的第一岔路口</li>
-<li>兄弟卡对照：](2023-A 太空跳伞)(2023_%E9%A2%98A_%E5%A4%AA%E7%A9%BA%E8%B7%B3%E4%BC%9E_%E9%9B%B6%E5%9F%BA%E7%A1%80%E8%B5%B7%E6%AD%A5%E5%8D%A1.html)（牛顿第二定律骨架的样本）、](2019-B 过山车)(2019_%E9%A2%98B_%E8%BF%87%E5%B1%B1%E8%BD%A6%E8%AE%BE%E8%AE%A1_%E9%9B%B6%E5%9F%BA%E7%A1%80%E8%B5%B7%E6%AD%A5%E5%8D%A1.html)（能量守恒骨架）</li>
-<li>《](新手课堂)(../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/tutorial.html)》把这道题从三行账走到代码再走到论文</li>
-<li>赛时记住：<strong>先立验收区间，再谈最优尺寸。</strong></li>
+<li>兄弟卡对照：<a href="2023_%E9%A2%98A_%E5%A4%AA%E7%A9%BA%E8%B7%B3%E4%BC%9E_%E9%9B%B6%E5%9F%BA%E7%A1%80%E8%B5%B7%E6%AD%A5%E5%8D%A1.html">2023-A 太空跳伞</a>（牛顿第二定律骨架）、<a href="2019_%E9%A2%98B_%E8%BF%87%E5%B1%B1%E8%BD%A6%E8%AE%BE%E8%AE%A1_%E9%9B%B6%E5%9F%BA%E7%A1%80%E8%B5%B7%E6%AD%A5%E5%8D%A1.html">2019-B 过山车</a>（能量守恒骨架）</li>
+<li>赛时记住：<strong>"在动还是不动、问快慢还是问冷热"——先选对骨架，再立验收区间，最后谈最优尺寸。</strong></li>
 </ul>
 </div>
 

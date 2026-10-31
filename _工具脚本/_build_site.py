@@ -401,7 +401,7 @@ def render_docs():
             if os.path.exists(abs_t):
                 if abs_t.lower().endswith(".md"):
                     abs_t = doc_html_abs(abs_t)
-                return f"]({label})({link_from(page_dir, abs_t)})"
+                return f"[{label}]({link_from(page_dir, abs_t)})"
             return "\\[" + label + "\\](" + tgt + ")"
         text = re.sub(r"\[([^\]]*)\]\(([^)\s]+)\)", sub, text)
 

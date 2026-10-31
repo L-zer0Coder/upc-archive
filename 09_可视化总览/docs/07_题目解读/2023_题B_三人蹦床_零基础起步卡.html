@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>零基础起步卡 · 2023-题B 三人蹦床（从"一句话"到"方程"） · UPC 全档案库</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
-<meta name="description" content="零基础起步卡 · 2023-题B 三人蹦床（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《](题目深度解读)(2023_%E9%A2%98B_%E4%B8%89%E4%BA%BA%E8%B9%A6%E5%BA%8A.html)》（去模糊化/…">
+<meta name="description" content="零基础起步卡 · 2023-题B 三人蹦床（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《 题目深度解读 》、《 新手课堂 》。一句话题面：25/40/50 kg 三个孩子单独跳最高 0.5/0.8/1.2 m，三人同床时每人最高能到多高？…">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="零基础起步卡 · 2023-题B 三人蹦床（从"一句话"到"方程"） · UPC 全档案库">
-<meta property="og:description" content="零基础起步卡 · 2023-题B 三人蹦床（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《](题目深度解读)(2023_%E9%A2%98B_%E4%B8%89%E4%BA%BA%E8%B9%A6%E5%BA%8A.html)》（去模糊化/…">
+<meta property="og:description" content="零基础起步卡 · 2023-题B 三人蹦床（从&quot;一句话&quot;到&quot;方程&quot;） 配套阅读：本题《 题目深度解读 》、《 新手课堂 》。一句话题面：25/40/50 kg 三个孩子单独跳最高 0.5/0.8/1.2 m，三人同床时每人最高能到多高？…">
 <meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
@@ -142,17 +142,16 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <div class="content"><div class="sheet">
 <h1 id="零基础起步卡-2023-题b-三人蹦床从一句话到方程">零基础起步卡 · 2023-题B 三人蹦床（从"一句话"到"方程"）</h1>
 <blockquote>
-<p>配套阅读：本题《](题目深度解读)(2023_%E9%A2%98B_%E4%B8%89%E4%BA%BA%E8%B9%A6%E5%BA%8A.html)》（去模糊化/量级表/三金奖对照）、《](新手课堂)(../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/tutorial.html)》。一句话题面：25/40/50 kg 三个孩子，单独跳最高 0.5/0.8/1.2 m；三人同床时每人最高能到多高？本卡只示范一件事：<strong>把游乐场的直觉一步步翻译成可算的方程</strong>。五层结构，每层不超高中~大一数学。</p>
+<p>配套阅读：本题《<a href="2023_%E9%A2%98B_%E4%B8%89%E4%BA%BA%E8%B9%A6%E5%BA%8A.html">题目深度解读</a>》、《<a href="../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/tutorial.html">新手课堂</a>》。一句话题面：25/40/50 kg 三个孩子单独跳最高 0.5/0.8/1.2 m，三人同床时每人最高能到多高？本卡示范<strong>把游乐场直觉翻译成可算的方程</strong>。五层结构，每层不超高中~大一数学。</p>
 </blockquote>
 <h2 id="第-0-层-你会冒出的朴素想法全部没错">第 0 层 · 你会冒出的朴素想法（全部没错）</h2>
 <ul>
-<li>蹦床就是一张大弹簧床，人压下去、它再把人弹上来</li>
-<li>越重的孩子把网压得越深，单独跳时反而弹得越高</li>
-<li>一人正下落时另一人猛地压网，第一个人会被"颠飞"——游乐场里真有这招（double bounce）</li>
-<li>网每次回弹都泄掉一部分劲，不会百分之百还回来</li>
-<li>三个孩子里最轻的最容易被颠到最高</li>
+<li>蹦床是张大弹簧床：压下去，弹上来</li>
+<li>越重的孩子把网压得越深，单独跳反而弹得越高</li>
+<li>一人正下落时另一人猛地压网，第一个人会被"颠飞"——游乐场的 double bounce</li>
+<li>网每次回弹都泄掉一部分劲，不会全还回来；最轻的孩子最容易被颠到最高</li>
 </ul>
-<p><strong>先确认：这些直觉方向全部正确。</strong> 尤其最后两条——"泄劲"与"错相借力"，恰好是本题全部物理的两端。下面每一步都从它们出发。</p>
+<p><strong>先确认：这些直觉方向全部正确。</strong>"泄劲"与"错相借力"正是本题物理的两端。</p>
 <h2 id="第-1-层-直觉-变量表">第 1 层 · 直觉 → 变量表</h2>
 <table>
 <thead>
@@ -210,12 +209,12 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </tbody>
 </table>
 <blockquote>
-<p><strong>新手要点</strong>：$x$ 是网面下陷、$h$ 是离网高度，两个"高度"别混用——本题一半的量级错误出在这里。题给"单人最高 0.5/0.8/1.2 m"不是约束，是全题唯一的动力学数据，第一步就把它换算成能量（见第 4 层）。</p>
+<p><strong>新手要点</strong>：$x$ 是网面下陷、$h$ 是离网高度，两个"高度"别混。题给"单人最高 0.5/0.8/1.2 m"不是约束，是全题唯一的动力学数据——第一步先换成能量（见第 4 层）。</p>
 </blockquote>
 <h2 id="第-2-层-选骨架">第 2 层 · 选骨架</h2>
-<p>问一个筛选问题：<strong>什么量在变？</strong> 每个孩子的速度不停在变（压网、弹起、腾空、落下）→ 骨架 = <strong>牛顿第二定律</strong>：$m\dfrac{dv}{dt}=\Sigma F$。为什么不是能量守恒一步算完：弹力只在触网时出现、人还持续做功、能量一路漏损，唯一稳妥的做法是逐时刻把力列全。本题的特殊结构是<strong>分段</strong>——腾空段只有重力，触网段多一个弹力，两段拼成一个周期运动；三人没有身体接触，唯一耦合通道是同一张网（骨架选型的完整逻辑见《](建模决策树)(../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E5%BB%BA%E6%A8%A1%E5%86%B3%E7%AD%96%E6%A0%91.html)》）。</p>
+<p>问一个筛选问题：<strong>什么量在变？</strong> 每个孩子的速度不停在变 → 骨架 = <strong>牛顿第二定律</strong>：$m\dfrac{dv}{dt}=\Sigma F$。为什么不是能量守恒一步算完：弹力只在触网时出现、人持续做功、能量一路漏损，只能逐时刻把力列全。本题特殊在<strong>分段</strong>——腾空只有重力，触网多一个弹力，两段拼成周期运动；三人唯一耦合通道是同一张网（选型逻辑见《<a href="../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E5%BB%BA%E6%A8%A1%E5%86%B3%E7%AD%96%E6%A0%91.html">建模决策树</a>》）。</p>
 <p>$$m\,\frac{dv}{dt}=\Sigma F\qquad\text{（腾空：只有重力；触网：再＋弹力）}$$</p>
-<p>骨架立住了，接下来逐项填力。</p>
+<p>骨架立住，接下来逐项填力。</p>
 <h2 id="第-3-层-插零件">第 3 层 · 插零件</h2>
 <table>
 <thead>
@@ -243,13 +242,13 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <td>网与弹簧内耗</td>
 <td>线性阻尼</td>
 <td>$c\,v$</td>
-<td>触网期与速度反向；用回弹保持率定标</td>
+<td>触网期反向；用回弹保持率定标</td>
 </tr>
 <tr>
 <td>孩子自己</td>
 <td>蹬伸做功</td>
 <td>触网期恒力 $F_{leg}$</td>
-<td>与体重同量级（0.5–1 倍体重）</td>
+<td>与体重同量级</td>
 </tr>
 <tr>
 <td>空气</td>
@@ -261,25 +260,24 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </table>
 <p>组装触网段主方程（$x$ 为下陷、向上为正；腾空段退回竖直上抛）：</p>
 <p>$$m\,\frac{dv}{dt}=Nk_s\,\frac{x^3}{2R^2}-mg-c\,v+F_{leg}$$</p>
-<p><strong>零件来源与适用条件</strong>：立方律由弹簧伸长的几何关系 $\Delta L=\sqrt{R^2+x^2}-R\approx x^2/2R$ 推出，下陷远小于半径时成立（本题 $x\lesssim1$ m、$R=2.5$ m 已是边界情形，大形变需回到精确式）；线性阻尼等效"网+弹簧内耗"，按实测每跳只回 60–70% 反推；腿部恒力让"人主动发力"进入动力学方程，而不是只进初始条件。</p>
+<p><strong>零件来源与适用条件</strong>：立方律由弹簧伸长几何 $\Delta L=\sqrt{R^2+x^2}-R\approx x^2/2R$ 推出，下陷远小于半径时成立（大形变需回精确式）；线性阻尼按实测"每跳只回 60–70%"反推；腿部恒力让"人发力"进入方程而非只进初始条件。</p>
 <h2 id="第-4-层-怎么解-怎么验证">第 4 层 · 怎么解 + 怎么验证</h2>
 <ul>
-<li><strong>解析基准（锚数字，一行能量守恒）</strong>：单人高度换能量 $E_i=m_igh_i$ = 122.5 / 313.6 / 588 J，合计 1024 J；理想上限——全部能量无损耗汇给最轻的孩子，$h=1024/(25\times9.8)\approx4.2$ m。此后每个结果都拿它对照："2.7 m 是上限的六折"。</li>
-<li><strong>数值</strong>：分段 ODE + 事件检测（触网/离网自动衔接），在](数值实验台)(../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/lab.html)直接跑；核心操作是<strong>相位扫描</strong>——扫"另外两人何时落下"的时延，目标函数多峰，别指望解析极值。</li>
-<li><strong>验证三件套</strong>：① 步长减半看稳定；② 退化检查——阻尼与腿做功归零，结果不得超过 4.2 m 上限；③ 能量审计——每周期注入的 $\Delta E$ 加总与系统能量增量对账，对不上就是模型在偷偷造能量。</li>
-<li><strong>判据</strong>：题面 "could reach" = 允许另外两人最佳配合，"三人同时各跳各的"不是候选解。三支金奖队 1.7–3.7 m 的分歧来自损耗口径，见《](题目深度解读)(2023_%E9%A2%98B_%E4%B8%89%E4%BA%BA%E8%B9%A6%E5%BA%8A.html)》。</li>
+<li><strong>解析基准（锚数字）</strong>：单人高度换能量 $E_i=m_igh_i$ = 122.5 / 313.6 / 588 J，合计 1024 J；理想上限——全部能量无损耗汇给最轻的孩子：$h=1024/(25\times9.8)\approx4.2$ m。此后每个结果都拿它对照折扣。</li>
+<li><strong>数值</strong>：分段 ODE + 事件检测（触网/离网自动衔接），在<a href="../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/lab.html">数值实验台</a>跑；核心操作是<strong>相位扫描</strong>——扫"另外两人何时落下"的时延，目标函数多峰，别指望解析极值。</li>
+<li><strong>验证三件套</strong>：① 步长减半；② 退化检查——阻尼与腿做功归零，结果不得超 4.2 m 上限；③ 能量审计——注入 $\Delta E$ 与系统能量增量对账，对不上即模型在造能量。</li>
+<li><strong>判据</strong>："could reach" = 允许另外两人最佳配合，"三人同时各跳各的"不是候选解；三金奖 1.7–3.7 m 的分歧来自损耗口径，见《<a href="2023_%E9%A2%98B_%E4%B8%89%E4%BA%BA%E8%B9%A6%E5%BA%8A.html">题目深度解读</a>》。</li>
 </ul>
 <h2 id="常见第一次的错起步卡专属提醒">常见第一次的错（起步卡专属提醒）</h2>
 <ol>
-<li>把蹦床当线性弹簧 $F=kx$——小形变下真实是立方律 $F\propto x^3$，单一 $k$ 会同时错掉周期与储能</li>
-<li>只发"一次性发射"——单人高度是每跳注入能量的标定，触网期人还能继续做功，漏掉会系统性偏低</li>
+<li>把蹦床当线性弹簧 $F=kx$——小形变下真实是立方律 $F\propto x^3$，单一 $k$ 同时错掉周期与储能</li>
+<li>只发"一次性发射"——单人高度是每跳注入能量的标定，漏掉会系统性偏低</li>
 <li>拿"三人同时起跳"当答案——最优解必然是错相接力：一人压底存能，下一人触网放能</li>
-<li>不做能量审计——注入与增量不对照，就发现不了模型高估</li>
+<li>不做能量审计——注入与增量不对照，发现不了模型高估</li>
 </ol>
 <h2 id="下一步">下一步</h2>
 <ul>
-<li>兄弟卡练手：](2019-B 过山车)(2019_%E9%A2%98B_%E8%BF%87%E5%B1%B1%E8%BD%A6%E8%AE%BE%E8%AE%A1_%E9%9B%B6%E5%9F%BA%E7%A1%80%E8%B5%B7%E6%AD%A5%E5%8D%A1.html)（同属力学题，但换能量守恒记账）、](2018-B 堆肥堆)(2018_%E9%A2%98B_%E5%A0%86%E8%82%A5%E5%A0%86%E5%B0%BA%E5%AF%B8_%E9%9B%B6%E5%9F%BA%E7%A1%80%E8%B5%B7%E6%AD%A5%E5%8D%A1.html)（彻底换骨架：温度在变）</li>
-<li>《](新手课堂)(../../../12_%E8%B5%9B%E6%97%B6%E5%B7%A5%E5%85%B7/tutorial.html)》把这道题从方程走到代码再走到论文</li>
+<li>兄弟卡练手：<a href="2019_%E9%A2%98B_%E8%BF%87%E5%B1%B1%E8%BD%A6%E8%AE%BE%E8%AE%A1_%E9%9B%B6%E5%9F%BA%E7%A1%80%E8%B5%B7%E6%AD%A5%E5%8D%A1.html">2019-B 过山车</a>（换能量守恒记账）、<a href="2018_%E9%A2%98B_%E5%A0%86%E8%82%A5%E5%A0%86%E5%B0%BA%E5%AF%B8_%E9%9B%B6%E5%9F%BA%E7%A1%80%E8%B5%B7%E6%AD%A5%E5%8D%A1.html">2018-B 堆肥堆</a>（彻底换骨架）</li>
 <li>赛时记住：<strong>先算能量上限，再谈损耗——上限给结论画了天花板。</strong></li>
 </ul>
 </div>
