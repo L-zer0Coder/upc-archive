@@ -457,7 +457,13 @@ python _工具脚本/_site_check.py      # 独立体检（断链/大小写/未�
 <p><code>.agents/skills/</code> 下 7 个 ZCode 技能（同仓库协作时自动触发，换机器随仓库走）：<strong>upc-modeling</strong>（建模教练，按判据→基准→量级表→主模型→验证流程带练）、<strong>upc-writing</strong>（按金牌句库改写/翻译）、<strong>upc-figures</strong>（图表教练，配方库+73 篇图型库）、<strong>upc-review</strong>（评委视角审查+分档预判）、<strong>upc-site-check</strong>（站点体检解读与修复）、<strong>upc-new-edition</strong>（新一届赛事入库 SOP）、<strong>upc-content-style</strong>（库内内容体例规范）。</p>
 <p>技能的知识底座是<strong>模式卡片管线</strong>：<code>_extract_knowledge.py</code>（抽取 73 篇赏析的「获奖密码/可借鉴清单」与精读的「骨架/决策链/可复用模板」）→ 多智能体逐篇提炼为结构化卡片（<code>_知识提炼/卡片/</code>，schema 见 <code>_知识提炼/卡片任务说明.md</code>）→ <code>_aggregate_cards.py</code> 聚合为 4 份知识库（<code>_知识提炼/汇总/</code>）。新一届论文入库后重跑一遍即可让教练知识库同步更新。</p>
 <h3 id="讨论区giscus可选">讨论区（giscus，可选）</h3>
-<p>文档页已预留评论区挂载点（零默认请求）。启用方法：到 <a href="https://giscus.app">giscus.app</a> 用本仓库生成配置，然后打开 <code>_工具脚本/_build_site.py</code>，把文档页模板脚本里的 <code>var GISCUS={repo:"",repoId:"",category:"",categoryId:""};</code> 四个空串填上，重建即可。评论数据存在 GitHub Discussions，无后端。</p>
+<p>文档页已预留评论区挂载点（零默认请求；<code>repo</code> 字段已预填）。启用剩三步：</p>
+<ol>
+<li>打开 <a href="https://giscus.app/zh-CN">giscus.app/zh-CN</a>，输入仓库 <code>L-zer0Coder/upc-archive</code>——它会引导你：① 仓库 Settings → General → Features 勾选 <strong>Discussions</strong>；② 安装 <a href="https://github.com/apps/giscus">giscus App</a> 到该仓库；③ 选一个分类（建议 <strong>Announcements</strong>，只有维护者能开帖）。</li>
+<li>把生成配置里的 <code>data-repo-id</code> 与 <code>data-category-id</code> 两个值（以及分类名）填进 <code>_工具脚本/_build_site.py</code> 的 <code>GISCUS={...}</code> 四字段。</li>
+<li><code>python _工具脚本/_build_site.py</code> 重建推送。四个字段齐备前评论区不加载，站点零外部请求。</li>
+</ol>
+<p>评论数据存 GitHub Discussions，无后端。</p>
 <h3 id="赛事时钟">赛事时钟</h3>
 <p>首页 hero 下方与每个文档页顶栏都有赛事时钟，三态自动切换：<strong>赛前倒计时 → 赛中计时（已用/剩余/进度条/当前阶段）→ 赛后归档</strong>。赛中会把当前时间落到 <code>48小时作战手册.md</code> 的 T0–T9 阶段上，直接告诉你"现在该干什么、还剩几小时"。</p>
 <p>时间点只在 <code>_工具脚本/_build_site.py</code> 顶部改这两行即可，改完重建：</p>
@@ -567,9 +573,10 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   upd();setInterval(upd,30000);
 })();
-/* ---------- giscus 讨论区（可选，零默认请求）：填好仓库配置后重建即启用 ---------- */
-var GISCUS={repo:"",repoId:"",category:"",categoryId:""};
-if(GISCUS.repo){
+/* ---------- giscus 讨论区（可选，零默认请求）：四个字段都填好后重建即启用 ---------- */
+/* 获取方式见 README「讨论区」：giscus.app 选本仓库 → 依次开启 Discussions、安装 giscus App → 复制四个值 */
+var GISCUS={repo:"L-zer0Coder/upc-archive",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo&&GISCUS.repoId&&GISCUS.categoryId){
   var gbox=document.getElementById('giscus-thread');
   if(gbox){
     gbox.hidden=false;

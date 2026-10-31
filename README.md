@@ -128,7 +128,13 @@ python _工具脚本/_site_check.py      # 独立体检（断链/大小写/未�
 
 ### 讨论区（giscus，可选）
 
-文档页已预留评论区挂载点（零默认请求）。启用方法：到 [giscus.app](https://giscus.app) 用本仓库生成配置，然后打开 `_工具脚本/_build_site.py`，把文档页模板脚本里的 `var GISCUS={repo:"",repoId:"",category:"",categoryId:""};` 四个空串填上，重建即可。评论数据存在 GitHub Discussions，无后端。
+文档页已预留评论区挂载点（零默认请求；`repo` 字段已预填）。启用剩三步：
+
+1. 打开 [giscus.app/zh-CN](https://giscus.app/zh-CN)，输入仓库 `L-zer0Coder/upc-archive`——它会引导你：① 仓库 Settings → General → Features 勾选 **Discussions**；② 安装 [giscus App](https://github.com/apps/giscus) 到该仓库；③ 选一个分类（建议 **Announcements**，只有维护者能开帖）。
+2. 把生成配置里的 `data-repo-id` 与 `data-category-id` 两个值（以及分类名）填进 `_工具脚本/_build_site.py` 的 `GISCUS={...}` 四字段。
+3. `python _工具脚本/_build_site.py` 重建推送。四个字段齐备前评论区不加载，站点零外部请求。
+
+评论数据存 GitHub Discussions，无后端。
 
 ### 赛事时钟
 
