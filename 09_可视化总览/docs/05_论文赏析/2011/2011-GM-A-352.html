@@ -177,14 +177,14 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <h1 id="space-tower-launch-costs2011-题a-队伍352">Space Tower Launch Costs（2011 题A 队伍352）</h1>
 <p><strong>页数</strong>: 14 页 ｜ <strong>对应题目</strong>: Space Tower Launch Costs（太空塔发射成本）</p>
 <h2 id="1-论文速览">1. 论文速览</h2>
-<p>中佛罗里达大学队（Frye, Liang, Hardy）把"从不同高度塔顶发射 10,000 kg 载荷入轨的成本"拆成两个物理上截然不同的 regime：100 km Kármán 线以下用"仿真 F9 Surrogate（对标 Falcon 9 的虚构两级火箭）"做含阻力、推力与重力转向的全轨迹数值积分；100 km 以上改用切向点火的理想火箭做 Hohmann 转移，只算所需 $\Delta v$ 与燃料质量。再配一个成本模型 $C_T=C_0+C_{\Delta v}+C_m+C_{\Delta h}$ 把 $\Delta v$ 与"每提升一公里的电费"折算成美元。结论：低于 Kármán 线的塔不省钱（提升成本 \$17,000/km 大于 $\Delta v$ 节省 \$5,000/km，净亏 \$12,000/km）；而 100–300 km 的天基水平发射因火箭总质量骤降至约 51,000 kg（仅为地面发射 407,000 kg 的约 12%），成本约 \$19M，即 \$1,900/kg，比 \$15,000/kg 的基准便宜约 87%。</p>
+<p>中佛罗里达大学队（Frye, Liang, Hardy）把"从不同高度塔顶发射 10,000 kg 载荷入轨的成本"拆成两个物理上截然不同的 regime：100 km Kármán 线以下用"仿真 F9 Surrogate（对标 Falcon 9 的虚构两级火箭）"做含阻力、推力与重力转向的全轨迹数值积分；100 km 以上改用切向点火的理想火箭做 Hohmann 转移，只算所需 $\Delta v$ 与燃料质量。再配一个成本模型 $C_T=C_0+C_{\Delta v}+C_m+C_{\Delta h}$ 把 $\Delta v$ 与"每提升一公里的电费"折算成美元。结论：低于 Kármán 线的塔不省钱（提升成本 <span class="nocatex">$</span>17,000/km 大于 $\Delta v$ 节省 <span class="nocatex">$</span>5,000/km，净亏 <span class="nocatex">$</span>12,000/km）；而 100–300 km 的天基水平发射因火箭总质量骤降至约 51,000 kg（仅为地面发射 407,000 kg 的约 12%），成本约 <span class="nocatex">$</span>19M，即 <span class="nocatex">$</span>1,900/kg，比 <span class="nocatex">$</span>15,000/kg 的基准便宜约 87%。</p>
 <h2 id="2-建模体系逐层拆解">2. 建模体系逐层拆解</h2>
 <ul>
-<li><strong>问题转译（第 1 节）</strong>：把"成本"锚定在题目给的 \$15,000/kg → \$1.5×10⁸ 基准上，成本模型以"推进剂质量 ∝ $\Delta v$ ∝ 钱"为主线，这是全文的经济学骨架。</li>
+<li><strong>问题转译（第 1 节）</strong>：把"成本"锚定在题目给的 <span class="nocatex">$</span>15,000/kg → <span class="nocatex">$</span>1.5×10⁸ 基准上，成本模型以"推进剂质量 ∝ $\Delta v$ ∝ 钱"为主线，这是全文的经济学骨架。</li>
 <li><strong>载具与环境（第 2 节）</strong>：从 SpaceX 官方用户手册取 Falcon 9 参数构造"Falcon 9 Surrogate"（Table 1：$A_f=\pi(2.3)^2$ m²、$C_D=0.3$、一级满/空 342,859/20,000 kg、二级满/空 54,000/3,000 kg）；大气密度用指数模型 $\rho=\rho_0\exp\!\big(\frac{r-R_E}{H}\big)$（式 1，$H=8$ km、$\rho_0=1.225$ kg/m³），并乘以阶跃函数 $\Theta(h)$ 在 100 km 处硬性截断，与"Kármán 线以上忽略阻力"的假设自洽。</li>
 <li><strong>大气段动力学（第 3 节）</strong>：极坐标下重力 $\vec F_g=-\frac{\mu m}{r^2}\hat r$（式 2）、变质量 $m(t)=m_0+\int\dot m\,dt$（式 3）、考虑大气随地球共转的相对速度 $\vec v_{rel}=v_r\hat r+(v_\theta-r\Omega_E)\hat\theta$（式 4）、阻力 $\vec D=-\frac12\rho A_f C_D v_{rel}^2\hat v_{rel}$（式 5）、推力火箭方程（式 6）与理想 $\Delta v=v_e\ln(m_i/m_f)$（式 7），还有重力转向自转率 $\dot\alpha=\frac{\mu\sin\alpha}{vr^2}$（式 8）。分三个力学期写出运动方程：大气内燃烧（式 9）、大气外燃烧（式 10）、惯性滑行（式 11），并给出椭圆轨道的活力公式（式 12）、偏心率与远地点 $r_a=(1+e)a$（式 13）以及 Hohmann 公式（式 14–15）——公式体系完整覆盖了真实运载火箭的上升流程。</li>
 <li><strong>发射程序设计（第 4 节）</strong>：一级垂直起飞 10 s → 程序转弯 0.5°/s 至天顶角 8.5° → 自由重力转向；一级关机条件写成状态量判据"$E,L$ 使得远地点达 300 km"；二级简化为脉冲圆化。高于 Kármán 线时把式 14 修正为含塔随地球自转线速度 $(R_E+h)\Omega_E$ 的 $\Delta v_1$，再直接套用式 15。<strong>"不同 regime 用不同发射策略"是本文最亮的物理判断</strong>：塔顶切向发射显然比垂直起飞省力。</li>
-<li><strong>成本层（5.2 节）</strong>：$\Delta v$ 边际成本 \$1500/(m/s) 由&quot;LEO 与 GEO 发射差 \$6.1M、$\Delta v$ 差约 4 km/s"反推；提升单价 \$4.4×10⁻⁶/J 取自太空电梯文献 [6]（\$220/kg 对应 ~50 MJ/kg）。所有经济参数都有出处或推算依据。</li>
+<li><strong>成本层（5.2 节）</strong>：$\Delta v$ 边际成本 <span class="nocatex">$</span>1500/(m/s) 由&quot;LEO 与 GEO 发射差 <span class="nocatex">$</span>6.1M、$\Delta v$ 差约 4 km/s"反推；提升单价 <span class="nocatex">$</span>4.4×10⁻⁶/J 取自太空电梯文献 [6]（<span class="nocatex">$</span>220/kg 对应 ~50 MJ/kg）。所有经济参数都有出处或推算依据。</li>
 </ul>
 <h2 id="3-数学方法与算法">3. 数学方法与算法</h2>
 <ul>
@@ -196,15 +196,15 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <h2 id="4-排版与图表赏析">4. 排版与图表赏析</h2>
 <ul>
 <li><strong>LaTeX 标准排版</strong>（从 p1 渲染图可见 Computer Modern 字体、居中大标题），页眉 "Team 352" + 页码。结构为编号章节：1 Interpretation → 2 Assumptions → 3 Launch Mechanics（3.1–3.4）→ 4 Launch Design（4.1、4.2）→ 5 Numerical Analysis（5.1、5.2）→ 6 Discussion（6.1 Weaknesses / 6.2 Strengths）→ 7 Closing Remarks → References，是现代 UPC 论文的成熟模板。</li>
-<li><strong>摘要</strong>一页写完：方法两分支 + 结论数值（\$19M、\$1,900/kg），信息密度高；但首句"from an from an"有重复词的小瑕疵。</li>
+<li><strong>摘要</strong>一页写完：方法两分支 + 结论数值（<span class="nocatex">$</span>19M、<span class="nocatex">$</span>1,900/kg），信息密度高；但首句"from an from an"有重复词的小瑕疵。</li>
 <li><strong>图表 6 幅 + 1 表</strong>：Figure 1 是 Falcon 9 发射实照（氛围图）；Figure 2/3 双参考系轨迹图（彩色、带图例说明）；Figure 4 五联时序图（蓝/绿区 分径向/切向分量）；Figure 5 是全文核心综合图（多种 $\Delta v$ 随高度变化，图注 8 行详细解释每条曲线含义）；Figure 6（图注在文本提取中缺失，推测为成本相关图，此处不确定）。公式 (1)–(17) 全文统一编号，Table 1 规范三线表。视觉水平显著高于 2010 年论文。</li>
 </ul>
 <h2 id="5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</h2>
 <ol>
 <li><strong>按物理本质分 regime 建模</strong>：Kármán 线两侧采用完全不同的发射方案与数学工具（数值积分 vs 解析 Hohmann），而不是一个模型硬套到底——这正是评委眼中"物理洞察力"的体现。</li>
 <li><strong>高度写实</strong>：真实 Falcon 9 参数、真实发射程序（垂直段-程序转弯-重力转向-远地点圆化）、WGS84 常数与共转大气，论文在 Strengths 中自证"与真实卫星入轨流程一致，结果可与现行成本直接对比"。</li>
-<li><strong>经济学闭环</strong>：不只答"省多少 $\Delta v$"，而是把 $\Delta v$、提升能耗、载具质量全部折成美元，并用边际成本反推法（\$6.1M/4 km/s）为无法直接定价的量定标——问题问的是 cost，论文回答的就是 cost。</li>
-<li><strong>中间结论也有物理判断</strong>："低于 100 km 的塔不划算（\$12,000/km 净亏）"是个负结果，但恰恰证明模型在回答"哪种塔值得建"这个真问题，而非只报喜。</li>
+<li><strong>经济学闭环</strong>：不只答"省多少 $\Delta v$"，而是把 $\Delta v$、提升能耗、载具质量全部折成美元，并用边际成本反推法（<span class="nocatex">$</span>6.1M/4 km/s）为无法直接定价的量定标——问题问的是 cost，论文回答的就是 cost。</li>
+<li><strong>中间结论也有物理判断</strong>："低于 100 km 的塔不划算（<span class="nocatex">$</span>12,000/km 净亏）"是个负结果，但恰恰证明模型在回答"哪种塔值得建"这个真问题，而非只报喜。</li>
 <li><strong>图 5 的沟通设计</strong>：burnout $\Delta v$ 与 burnout $v$ 两条曲线之差把"重力+阻力损耗"可视化，让外行也能看懂节省从何而来。</li>
 <li><strong>规范的 Weaknesses/Strengths 自评章节</strong>，逐条给出改进方向（3D、变质量），展示对模型边界的清醒认知。</li>
 </ol>
@@ -222,7 +222,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 19:23<br><a href="../../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 19:44<br><a href="../../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -370,7 +370,7 @@ document.addEventListener("DOMContentLoaded", function(){
   })();
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
-    ignoredTags:["script","style","textarea","pre","code"]});
+    ignoredTags:["script","style","textarea","pre","code"],ignoredClasses:["nocatex"]});
   if (window.mermaid){
     mermaid.initialize({startOnLoad:false,theme:"neutral",securityLevel:"loose"});
     document.querySelectorAll('pre code.language-mermaid').forEach(function(el){

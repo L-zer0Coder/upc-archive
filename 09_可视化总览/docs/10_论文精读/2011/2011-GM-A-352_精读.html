@@ -176,7 +176,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <div class="content"><div class="sheet">
 <h1 id="精读-space-tower-launch-costs2011-题a-金牌-队伍-352">精读 · Space Tower Launch Costs（2011 题A 金牌 · 队伍 352）</h1>
 <blockquote>
-<p><strong>这份精读怎么用</strong>：左手边开论文 PDF（<code>03_优秀论文PDF/2011/Problem A/2011-GM-A-352.PDF</code>），右手边开本篇。每节按「它写了什么 → 为什么这样写 → 你要学什么」三层展开；每个公式给「物理直觉 → 完整推导 → 适用边界」。本篇 LaTeX 源、公式 (1)–(17) 编号清晰，文本提取质量高；唯一缺图注的是 Figure 6（推测为成本图，⚠ 不确定处已注明）。另注意：本文参数存在一处内在矛盾（§1.4 会讲），这本身就是极好的批判性阅读素材。读完你应当能复现"低于卡门线净亏 \$12,000/km、高于卡门线省 87%"的双分支结论。</p>
+<p><strong>这份精读怎么用</strong>：左手边开论文 PDF（<code>03_优秀论文PDF/2011/Problem A/2011-GM-A-352.PDF</code>），右手边开本篇。每节按「它写了什么 → 为什么这样写 → 你要学什么」三层展开；每个公式给「物理直觉 → 完整推导 → 适用边界」。本篇 LaTeX 源、公式 (1)–(17) 编号清晰，文本提取质量高；唯一缺图注的是 Figure 6（推测为成本图，⚠ 不确定处已注明）。另注意：本文参数存在一处内在矛盾（§1.4 会讲），这本身就是极好的批判性阅读素材。读完你应当能复现"低于卡门线净亏 <span class="nocatex">$</span>12,000/km、高于卡门线省 87%"的双分支结论。</p>
 </blockquote>
 <hr>
 <h2 id="0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</h2>
@@ -191,11 +191,11 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <hr>
 <h2 id="1-逐节导读">1. 逐节导读</h2>
 <h3 id="11-abstract第-1-页">1.1 Abstract（第 1 页）</h3>
-<p><strong>它写了什么</strong>：两分支方法概述（大气段仿真 Falcon 9 Surrogate / 天基段 Hohmann）+ 成本结论：塔高 100–300 km 时发射成本约 <strong>\$19 million，即 \$1,900/kg</strong>（对比基准 \$15,000/kg）。</p>
+<p><strong>它写了什么</strong>：两分支方法概述（大气段仿真 Falcon 9 Surrogate / 天基段 Hohmann）+ 成本结论：塔高 100–300 km 时发射成本约 <strong><span class="nocatex">$</span>19 million，即 <span class="nocatex">$</span>1,900/kg</strong>（对比基准 <span class="nocatex">$</span>15,000/kg）。</p>
 <p><strong>为什么这样写</strong>：摘要里给"每公斤多少钱"这个唯一可比的市场化指标。评委读完第一段就知道答案的量级与比较基准。</p>
-<p><strong>你要学什么</strong>：摘要用"单价"（\$/kg）而非总额来表达成本——它是跨方案比较的通用语言。顺带一个反面教材：首句 "from an from an" 重复词——48 小时末尾务必留出校对时间。</p>
+<p><strong>你要学什么</strong>：摘要用"单价"（<span class="nocatex">$</span>/kg）而非总额来表达成本——它是跨方案比较的通用语言。顺带一个反面教材：首句 "from an from an" 重复词——48 小时末尾务必留出校对时间。</p>
 <h3 id="12-1-interpretation-2-assumptions第-13-页">1.2 §1 Interpretation + §2 Assumptions（第 1–3 页）</h3>
-<p><strong>它写了什么</strong>：先把成本锚定在题目给的 \$15,000/kg × 10,000 kg = \$1.5×10⁸；然后构造"虚拟对标载具"Falcon 9 Surrogate（Table 1：A_f=π(2.3)²、C_D=0.3、一级满/空 342,859/20,000 kg、二级满/空 54,000/3,000 kg，取自 SpaceX 用户手册）；大气密度用式 (1) ρ=ρ₀exp[(r−R_E)/H]（H=8 km、ρ₀=1.225 kg/m³），并乘阶跃函数 Θ(h) 在 100 km 硬截断。</p>
+<p><strong>它写了什么</strong>：先把成本锚定在题目给的 <span class="nocatex">$</span>15,000/kg × 10,000 kg = <span class="nocatex">$</span>1.5×10⁸；然后构造"虚拟对标载具"Falcon 9 Surrogate（Table 1：A_f=π(2.3)²、C_D=0.3、一级满/空 342,859/20,000 kg、二级满/空 54,000/3,000 kg，取自 SpaceX 用户手册）；大气密度用式 (1) ρ=ρ₀exp[(r−R_E)/H]（H=8 km、ρ₀=1.225 kg/m³），并乘阶跃函数 Θ(h) 在 100 km 硬截断。</p>
 <p><strong>为什么这样写</strong>：注意那个 Θ(h)——<strong>它把"卡门线以上忽略阻力"这条假设直接焊进了公式</strong>，代码里不用再写 if。假设、公式、代码三者自洽，这是工程化建模的标志。</p>
 <p><strong>你要学什么</strong>：<strong>Surrogate（替身载具）法</strong>：不虚构参数、也不照抄实弹，而是"对标真实型号构造一个可自由修改的替身"，既保留真实性又保留灵活性。</p>
 <h3 id="13-3-launch-mechanics第-36-页先建公式库再谈方案">1.3 §3 Launch Mechanics（第 3–6 页）：先建"公式库"再谈方案</h3>
@@ -212,7 +212,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <p><strong>它写了什么</strong>：Python 积分器、Δt=0.1 s 的 for-loop；俯仰率 0.5°/s 与 8.5° 门限"由人工微调"（manual fine tuning）；Figure 2/3 双参考系轨迹（南视共转系 / 北视惯性系——后者专门展示地球自转给火箭的初速）、Figure 4 五联时序图（a、v、h、α、m）；天基火箭平均总质量 51,000 kg。</p>
 <p><strong>你要学什么</strong>：① 双参考系画同一组轨迹是聪明的可视化决策——共转系看"弹道形状"，惯性系看"自转白送了多少速度"；② "manual fine tuning" 直说不装——比虚构一个"优化算法"诚实得多；③ 积分器粗糙（0.1 s for-loop）也照实写进 Weaknesses。</p>
 <h3 id="16-52-cost-analysis第-912-页全文的经济学闭环">1.6 §5.2 Cost Analysis（第 9–12 页）：全文的经济学闭环</h3>
-<p><strong>它写了什么</strong>：C_T=C₀+C_Δv+C_m+C_Δh。三个标定动作：(a) Δv 边际成本：LEO/GEO 发射差价 \$6.1 M 对应 Δv 差约 4 km/s → **\$1500 per m/s<strong>；(b) 提升成本：太空电梯文献给 \$220/kg 对应 50 MJ/kg → **\$4.4×10⁻⁶/J</strong>；(c) 结论对账：低于卡门线，每升高 1 km 省 Δv 约 3 m/s（值 \$5,000）但提升费 \$17,000 → <strong>净亏 \$12,000/km，塔不划算**；高于卡门线，载具缩到 51 t（12%），提升费降到 \$2,000/km 且高度引起总成本变化 &lt;\$2 M → 干脆删掉 C_m、C_Δh 项，按 \$368/kg×51,000 kg≈</strong>\$19 M**（13%）收尾。</p>
+<p><strong>它写了什么</strong>：C_T=C₀+C_Δv+C_m+C_Δh。三个标定动作：(a) Δv 边际成本：LEO/GEO 发射差价 <span class="nocatex">$</span>6.1 M 对应 Δv 差约 4 km/s → **<span class="nocatex">$</span>1500 per m/s<strong>；(b) 提升成本：太空电梯文献给 <span class="nocatex">$</span>220/kg 对应 50 MJ/kg → **<span class="nocatex">$</span>4.4×10⁻⁶/J</strong>；(c) 结论对账：低于卡门线，每升高 1 km 省 Δv 约 3 m/s（值 <span class="nocatex">$</span>5,000）但提升费 <span class="nocatex">$</span>17,000 → <strong>净亏 <span class="nocatex">$</span>12,000/km，塔不划算**；高于卡门线，载具缩到 51 t（12%），提升费降到 <span class="nocatex">$</span>2,000/km 且高度引起总成本变化 &lt;<span class="nocatex">$</span>2 M → 干脆删掉 C_m、C_Δh 项，按 <span class="nocatex">$</span>368/kg×51,000 kg≈</strong><span class="nocatex">$</span>19 M**（13%）收尾。</p>
 <p><strong>为什么这样写</strong>：三个无法直接定价的量（Δv、势能、质量）全部锚定到可查证的市场/文献数据，然后用一个不等式论证"哪一项小于不确定度、可以删"——<strong>成本模型也要做量级论证</strong>。</p>
 <p><strong>你要学什么</strong>：负结果照写（"The tower thus does not save money below the Kármán line"）——证明某种塔不值得建，同样是完整答案。</p>
 <h3 id="17-6-discussion-7-closing第-1214-页">1.7 §6 Discussion + §7 Closing（第 12–14 页）</h3>
@@ -263,7 +263,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <tr>
 <td>Figure 6（图注缺失，⚠ 推测为成本对比图）</td>
 <td>§5.2 末</td>
-<td>承接 "\$19 M vs \$150 M" 的结论</td>
+<td>承接 "<span class="nocatex">$</span>19 M vs <span class="nocatex">$</span>150 M" 的结论</td>
 <td>—</td>
 </tr>
 <tr>
@@ -323,7 +323,7 @@ ax.legend(loc='upper right', fontsize=8); plt.tight_layout(); plt.show()
 <p>$$\vec T=-v_e\dot m(\cos\alpha\,\hat r+\sin\alpha\,\hat\theta),\qquad \Delta v=v_e\ln\frac{m_i}{m_f}$$</p>
 <ul>
 <li><strong>怎么想到</strong>：推力沿弹体轴，弹体轴与矢径成 α 角；ṁ&lt;0 使 T 沿 +弹体方向。对 m v̇=T 从点火到关机积分（无外力时）得 Δv 公式（完整动量守恒推导见本系列 2010-A 精读 §3.3）。</li>
-<li><strong>本文用法</strong>：式 (7) 在成本层反向使用——由 Δv 配额反推质量比，这正是"$368/kg × 51,000 kg"那笔账的物理引擎。</li>
+<li><strong>本文用法</strong>：式 (7) 在成本层反向使用——由 Δv 配额反推质量比，这正是"<span class="nocatex">$</span>368/kg × 51,000 kg"那笔账的物理引擎。</li>
 </ul>
 <h3 id="34-重力转弯式-8">3.4 重力转弯（式 8）</h3>
 <p>$$\dot\alpha=\frac{\mu\sin\alpha}{v\,r^2}$$</p>
@@ -357,9 +357,9 @@ $$\Delta v_1=\sqrt{\frac{\mu}{R_E+h}}\sqrt{\frac{2r_f}{R_E+h+r_f}}-(R_E+h)\Omega
 <p>$$v_i=\sqrt{\mu\left(\frac{2}{r_a}-\frac1a\right)}\;\to\; v_f=\sqrt{\frac{\mu}{r_a}}\;\to\; \Delta v=v_f-v_i$$</p>
 <p>vis-viva 在 r=r_a 处取值减圆速度——式 (12) 的第三次复用。<strong>一篇论文把 vis-viva 用成"万能钥匙"</strong>：关机判据、远地点速度、圆化预算。</p>
 <h3 id="39-成本模型与两项删除">3.9 成本模型与两项删除</h3>
-<p>$$C_T=C_0+C_{\Delta v}+C_m+C_{\Delta h},\qquad \frac{dC}{d\Delta v}=\$1500/(\text{m/s}),\qquad C_{\Delta h}=\$4.4\times10^{-6}/\text{J}$$</p>
+<p>$$C_T=C_0+C_{\Delta v}+C_m+C_{\Delta h},\qquad \frac{dC}{d\Delta v}=<span class="nocatex">$</span>1500/(\text{m/s}),\qquad C_{\Delta h}=<span class="nocatex">$</span>4.4\times10^{-6}/\text{J}$$</p>
 <ul>
-<li><strong>怎么想到</strong>：Δv 无法直接标价 → 用 LEO/GEO 差价反推边际成本；势能无法标价 → 借太空电梯文献的 \$/J；最后用&quot;高度项总变化 &lt;\$2 M ≪ 成本不确定度"论证删除 C_m、C_Δh 的合法性。</li>
+<li><strong>怎么想到</strong>：Δv 无法直接标价 → 用 LEO/GEO 差价反推边际成本；势能无法标价 → 借太空电梯文献的 <span class="nocatex">$</span>/J；最后用&quot;高度项总变化 &lt;<span class="nocatex">$</span>2 M ≪ 成本不确定度"论证删除 C_m、C_Δh 的合法性。</li>
 <li><strong>适用边界</strong>：固定成本与塔的建造费全部记为 sunk cost——这是题意允许的简化，但结论里必须重申（论文确实重申了）。</li>
 </ul>
 <hr>
@@ -424,7 +424,7 @@ $$\Delta v_1=\sqrt{\frac{\mu}{R_E+h}}\sqrt{\frac{2r_f}{R_E+h+r_f}}-(R_E+h)\Omega
 </tr>
 <tr>
 <td>成本表达</td>
-<td>Δv、势能、质量全部折 \$/kg | 只报告 Δv 节省 | 题目问 cost；且 \$/kg 可与市场数据互检</td>
+<td>Δv、势能、质量全部折 <span class="nocatex">$</span>/kg | 只报告 Δv 节省 | 题目问 cost；且 <span class="nocatex">$</span>/kg 可与市场数据互检</td>
 <td></td>
 <td></td>
 </tr>
@@ -432,7 +432,7 @@ $$\Delta v_1=\sqrt{\frac{\mu}{R_E+h}}\sqrt{\frac{2r_f}{R_E+h+r_f}}-(R_E+h)\Omega
 <td>项的删除</td>
 <td>天基情形删 C_m、C_Δh</td>
 <td>保留全部四项</td>
-<td>两项总变化 &lt;\$2 M，小于定标不确定度——量级论证支持的简化</td>
+<td>两项总变化 &lt;<span class="nocatex">$</span>2 M，小于定标不确定度——量级论证支持的简化</td>
 </tr>
 </tbody>
 </table>
@@ -455,7 +455,7 @@ $$\Delta v_1=\sqrt{\frac{\mu}{R_E+h}}\sqrt{\frac{2r_f}{R_E+h+r_f}}-(R_E+h)\Omega
 - "we chose to base our model on SpaceX's Falcon 9 ... We name our fictitious spacecraft Falcon 9 Surrogate"（替身载具法）
 - "The tower thus does not save money below the Kármán line."（负结果一句话定论）
 - "Although the incredible costs and engineering challenges of building a tower extending into space cannot be understated, the savings of nearly 90% ..."（结论不忘现实约束）</p>
-<p><strong>图表配方</strong>：混合 regime 问题 → "双分支同图 + regime 边界竖线 + 每条曲线注明方法来源"；轨迹族 → "双参考系各画一张（共转系看形状、惯性系看自转贡献）"；飞行剖面 → "a/v/h/α/m 五联时序图"；成本结论 → "统一折算 \$/kg 再对比"。</p>
+<p><strong>图表配方</strong>：混合 regime 问题 → "双分支同图 + regime 边界竖线 + 每条曲线注明方法来源"；轨迹族 → "双参考系各画一张（共转系看形状、惯性系看自转贡献）"；飞行剖面 → "a/v/h/α/m 五联时序图"；成本结论 → "统一折算 <span class="nocatex">$</span>/kg 再对比"。</p>
 <hr>
 <p><em>精读完这篇后，建议对照 <code>05_论文赏析/2011/2011-GM-A-352.md</code>（宏观赏析）与 <code>07_题目解读/2011_题A_太空塔发射成本.md</code>（题目全解）形成三位一体。姊妹篇：<code>10_论文精读/2010/2010-GM-A-160_精读.md</code>（火箭方程的完整动量守恒推导）。</em></p>
 </div>
@@ -463,7 +463,7 @@ $$\Delta v_1=\sqrt{\frac{\mu}{R_E+h}}\sqrt{\frac{2r_f}{R_E+h+r_f}}-(R_E+h)\Omega
 </div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-1-interpretation-2-assumptions第-13-页">1.2 §1 Interpretation + §2 Assumptions（第 1–3 页）</a></li><li class="l3"><a href="#13-3-launch-mechanics第-36-页先建公式库再谈方案">1.3 §3 Launch Mechanics（第 3–6 页）：先建"公式库"再谈方案</a></li><li class="l3"><a href="#14-4-launch-design第-68-页两套方案">1.4 §4 Launch Design（第 6–8 页）：两套方案</a></li><li class="l3"><a href="#15-51-simulation第-89-页">1.5 §5.1 Simulation（第 8–9 页）</a></li><li class="l3"><a href="#16-52-cost-analysis第-912-页全文的经济学闭环">1.6 §5.2 Cost Analysis（第 9–12 页）：全文的经济学闭环</a></li><li class="l3"><a href="#17-6-discussion-7-closing第-1214-页">1.7 §6 Discussion + §7 Closing（第 12–14 页）</a></li><li class="l2"><a href="#2-图表深析每张图为什么放为什么这样画怎么画">2. 图表深析（每张图：为什么放、为什么这样画、怎么画）</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-指数大气-阶跃截断式-1-与其-θh-修正">3.1 指数大气 + 阶跃截断（式 1 与其 Θ(h) 修正）</a></li><li class="l3"><a href="#32-共转大气的相对速度式-4">3.2 共转大气的相对速度（式 4）</a></li><li class="l3"><a href="#33-推力与理想火箭方程式-67">3.3 推力与理想火箭方程（式 6、7）</a></li><li class="l3"><a href="#34-重力转弯式-8">3.4 重力转弯（式 8）</a></li><li class="l3"><a href="#35-三力学期运动方程式-911">3.5 三力学期运动方程（式 9–11）</a></li><li class="l3"><a href="#36-vis-viva-与远地点式-1213">3.6 vis-viva 与远地点（式 12、13）</a></li><li class="l3"><a href="#37-hohmann-双脉冲式-1415与本题修正-δv₁">3.7 Hohmann 双脉冲（式 14、15）与本题修正 Δv₁</a></li><li class="l3"><a href="#38-远地点圆化式-1617">3.8 远地点圆化（式 16、17）</a></li><li class="l3"><a href="#39-成本模型与两项删除">3.9 成本模型与两项删除</a></li><li class="l2"><a href="#4-建模决策链为什么这么建放弃了什么">4. 建模决策链（为什么这么建、放弃了什么）</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 19:23<br><a href="../../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 19:44<br><a href="../../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -611,7 +611,7 @@ document.addEventListener("DOMContentLoaded", function(){
   })();
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
-    ignoredTags:["script","style","textarea","pre","code"]});
+    ignoredTags:["script","style","textarea","pre","code"],ignoredClasses:["nocatex"]});
   if (window.mermaid){
     mermaid.initialize({startOnLoad:false,theme:"neutral",securityLevel:"loose"});
     document.querySelectorAll('pre code.language-mermaid').forEach(function(el){

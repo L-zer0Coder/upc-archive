@@ -192,7 +192,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <tbody>
 <tr>
 <td>基准成本</td>
-<td>\$15,000/kg（→ 10,000 kg = \$1.5×10⁸）</td>
+<td><span class="nocatex">$</span>15,000/kg（→ 10,000 kg = <span class="nocatex">$</span>1.5×10⁸）</td>
 <td>题面</td>
 </tr>
 <tr>
@@ -224,7 +224,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </table>
 <h2 id="2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</h2>
 <ol>
-<li><strong>"cost"怎么算？</strong> 这是本题的核心模糊点：物理 $\Delta v$ 必须折成美元。金牌队的成本模型 $C_T=C_0+C_{\Delta v}+C_m+C_{\Delta h}$，锚点两条：$\Delta v$ 边际价 **\$1,500/(m/s)**（由公开的 LEO 与 GEO 发射差价 \$6.1M、$\Delta v$ 差约 4 km/s 反推）；提升能价 **\$4.4×10⁻⁶/J**（引自太空电梯文献，\$220/kg 对应 ~50 MJ/kg）。任何经济参数都必须有出处或推算——这是本题与纯物理题最大的不同。</li>
+<li><strong>"cost"怎么算？</strong> 这是本题的核心模糊点：物理 $\Delta v$ 必须折成美元。金牌队的成本模型 $C_T=C_0+C_{\Delta v}+C_m+C_{\Delta h}$，锚点两条：$\Delta v$ 边际价 **<span class="nocatex">$</span>1,500/(m/s)**（由公开的 LEO 与 GEO 发射差价 <span class="nocatex">$</span>6.1M、$\Delta v$ 差约 4 km/s 反推）；提升能价 **<span class="nocatex">$</span>4.4×10⁻⁶/J**（引自太空电梯文献，<span class="nocatex">$</span>220/kg 对应 ~50 MJ/kg）。任何经济参数都必须有出处或推算——这是本题与纯物理题最大的不同。</li>
 <li><strong>"different heights"</strong> 不只是扫一个数：塔高跨过 <strong>Kármán 线（100 km）时物理机制切换</strong>（大气内垂直起飞 vs 大气外切向脉冲入轨），低塔与高塔要用不同的发射方案与数学工具——regime 划分本身就是答案的一部分。</li>
 <li><strong>隐含问题</strong>：塔到底值不值得建？低于 100 km 可能"净亏"（负结果也要写），100–300 km 才有数量级优势。只报"省了多少"不报"哪一段不值得"是不完整的答案。</li>
 </ol>
@@ -297,7 +297,7 @@ $$\Delta v_1=\sqrt{\frac{\mu}{R_E+h}}-\Omega_E(R_E+h),$$
 </tr>
 <tr>
 <td>每公里高度的 Δv 节省（&lt;100 km）</td>
-<td>~3 (m/s)/km ↔ \$5,000/km | 必须（低塔结论） | $\mathrm{d}v_{\rm circ}/\mathrm{d}h\approx-0.6$ (m/s)/km + 损失随高度下降；\$5,000 ÷ \$1,500/(m/s) ≈ 3.3 (m/s)/km，两套账自洽</td>
+<td>~3 (m/s)/km ↔ <span class="nocatex">$</span>5,000/km | 必须（低塔结论） | $\mathrm{d}v_{\rm circ}/\mathrm{d}h\approx-0.6$ (m/s)/km + 损失随高度下降；<span class="nocatex">$</span>5,000 ÷ <span class="nocatex">$</span>1,500/(m/s) ≈ 3.3 (m/s)/km，两套账自洽</td>
 <td></td>
 <td></td>
 </tr>
@@ -305,7 +305,7 @@ $$\Delta v_1=\sqrt{\frac{\mu}{R_E+h}}-\Omega_E(R_E+h),$$
 <td>提升能耗 mgh</td>
 <td>10 t × 9.8 × 1 km = 9.8×10⁷ J = 27 kWh ≈ <strong>几美元电费</strong></td>
 <td>必须算出来再说</td>
-<td>纯电费可忽略；金牌队的 \$17,000/km 显然含 power-system 摊销等（太空电梯文献口径）——<strong>成本结论对该定标极其敏感，务必交代出处</strong>：这正是"经济模糊词"的陷阱所在</td>
+<td>纯电费可忽略；金牌队的 <span class="nocatex">$</span>17,000/km 显然含 power-system 摊销等（太空电梯文献口径）——<strong>成本结论对该定标极其敏感，务必交代出处</strong>：这正是"经济模糊词"的陷阱所在</td>
 </tr>
 <tr>
 <td>塔本身</td>
@@ -329,17 +329,17 @@ $$\Delta v_1=\sqrt{\frac{\mu}{R_E+h}}-\Omega_E(R_E+h),$$
 <li>只回答"省多少 $\Delta v$"不折算美元：题目问的是 <strong>cost</strong>，必须建立有出处的成本模型。</li>
 <li>经济参数（$/\mathrm{m/s}$、$/\mathrm{J}$）无来源、无敏感性讨论，结论随假设任意摆动。</li>
 <li>忽略载荷与载具的耦合：塔越高火箭可以造得越小（金牌队自列为 weakness——固定 400 t 级火箭去接 2 km/s 的便宜，本身是保守假设）。</li>
-<li>只报正面结果：其实"低于 100 km 净亏 \$12,000/km"这类<strong>负结果</strong>同样是完整答案。</li>
+<li>只报正面结果：其实"低于 100 km 净亏 <span class="nocatex">$</span>12,000/km"这类<strong>负结果</strong>同样是完整答案。</li>
 </ol>
 <h2 id="7-全网参考与延伸">7. 全网参考与延伸</h2>
 <ol>
 <li><strong>Wikipedia: "Non-rocket spacelaunch"</strong> — https://en.wikipedia.org/wiki/Non-rocket_spacelaunch 。系统梳理发射塔/太空电梯/发射环等方案的 Δv 动机与成本逻辑，是"塔为什么可能省钱"的一页式综述。</li>
-<li><strong>NASA NTRS: H. Jones, "The Recent Large Reduction in Space Launch Cost" (2018)</strong> — https://ntrs.nasa.gov/api/citations/20200001093/downloads/20200001093.pdf 。历史发射成本数据（早期 $100k–$1M/kg → 现代 ~$3k/kg），可用来讨论题面 \$15,000/kg 的年代语境与现代对照。</li>
-<li><strong>OrbitalRadar: "Rocket Launch Cost Trends"</strong> — https://orbitalradar.com/space-economy/launch-cost-trends 。\$54,000/kg（航天飞机）→ \$3,000/kg（Falcon 9）的趋势图表，做成本模型敏感性时的现实锚点。</li>
+<li><strong>NASA NTRS: H. Jones, "The Recent Large Reduction in Space Launch Cost" (2018)</strong> — https://ntrs.nasa.gov/api/citations/20200001093/downloads/20200001093.pdf 。历史发射成本数据（早期 $100k–$1M/kg → 现代 ~$3k/kg），可用来讨论题面 <span class="nocatex">$</span>15,000/kg 的年代语境与现代对照。</li>
+<li><strong>OrbitalRadar: "Rocket Launch Cost Trends"</strong> — https://orbitalradar.com/space-economy/launch-cost-trends 。<span class="nocatex">$</span>54,000/kg（航天飞机）→ <span class="nocatex">$</span>3,000/kg（Falcon 9）的趋势图表，做成本模型敏感性时的现实锚点。</li>
 <li><strong>SpaceX Falcon 9 User Guide</strong> — 金牌队 surrogate 载具参数（直径、级质量）的直接出处；自己复现时应取同源数据，保证"成本结论可与公开报价对照"。</li>
 </ol>
 <h2 id="8-金牌论文思路对比">8. 金牌论文思路对比</h2>
-<p>本题金牌：<strong>Team 352（中佛罗里达大学，"Space Tower Launch Costs"）</strong>。路线：以 \$15,000/kg 锚定成本模型 → Kármán 线两侧分 regime（大气内：Falcon 9 surrogate 全轨迹数值积分 + 重力转向程序；大气外：切向脉冲 + Hohmann 解析）→ 每升高 1 km 省 ~3 m/s 的拟合 → 成本闭环（\$1,500/(m/s) 反推边际价、\$4.4×10⁻⁶/J 提升能价）→ 结论：低塔净亏 \$12,000/km；100–300 km 塔顶发射级堆仅 51 t（地面的 12%），总成本 ~\$19M 即 **\$1,900/kg**，比基准省 ~87%。亮点是 regime 划分的物理判断与"负结果照写"。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2011/2011-GM-A-352.html">05_论文赏析/2011/2011-GM-A-352.md</a>。</p>
+<p>本题金牌：<strong>Team 352（中佛罗里达大学，"Space Tower Launch Costs"）</strong>。路线：以 <span class="nocatex">$</span>15,000/kg 锚定成本模型 → Kármán 线两侧分 regime（大气内：Falcon 9 surrogate 全轨迹数值积分 + 重力转向程序；大气外：切向脉冲 + Hohmann 解析）→ 每升高 1 km 省 ~3 m/s 的拟合 → 成本闭环（<span class="nocatex">$</span>1,500/(m/s) 反推边际价、<span class="nocatex">$</span>4.4×10⁻⁶/J 提升能价）→ 结论：低塔净亏 <span class="nocatex">$</span>12,000/km；100–300 km 塔顶发射级堆仅 51 t（地面的 12%），总成本 ~<span class="nocatex">$</span>19M 即 **<span class="nocatex">$</span>1,900/kg**，比基准省 ~87%。亮点是 regime 划分的物理判断与"负结果照写"。详见 <a href="../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2011/2011-GM-A-352.html">05_论文赏析/2011/2011-GM-A-352.md</a>。</p>
 <h2 id="9-评分要点评委想看什么">9. 评分要点：评委想看什么</h2>
 <ul>
 <li>[ ] "cost"被翻译为有出处、可复算的成本模型（$\Delta v$ 边际价、提升能价各注明来源或反推过程）。</li>
@@ -354,7 +354,7 @@ $$\Delta v_1=\sqrt{\frac{\mu}{R_E+h}}-\Omega_E(R_E+h),$$
 </div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#1-题目原文与关键数据">1. 题目原文与关键数据</a></li><li class="l2"><a href="#2-题目到底在问什么去模糊化">2. 题目到底在问什么（去模糊化）</a></li><li class="l2"><a href="#3-物理建模路线图">3. 物理建模路线图</a></li><li class="l2"><a href="#4-关键物理效应量级表">4. 关键物理效应量级表</a></li><li class="l2"><a href="#5-求解算法与数值要点">5. 求解算法与数值要点</a></li><li class="l2"><a href="#6-常见错误与陷阱">6. 常见错误与陷阱</a></li><li class="l2"><a href="#7-全网参考与延伸">7. 全网参考与延伸</a></li><li class="l2"><a href="#8-金牌论文思路对比">8. 金牌论文思路对比</a></li><li class="l2"><a href="#9-评分要点评委想看什么">9. 评分要点：评委想看什么</a></li></ul></aside>
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 19:23<br><a href="../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 19:44<br><a href="../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -502,7 +502,7 @@ document.addEventListener("DOMContentLoaded", function(){
   })();
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
-    ignoredTags:["script","style","textarea","pre","code"]});
+    ignoredTags:["script","style","textarea","pre","code"],ignoredClasses:["nocatex"]});
   if (window.mermaid){
     mermaid.initialize({startOnLoad:false,theme:"neutral",securityLevel:"loose"});
     document.querySelectorAll('pre code.language-mermaid').forEach(function(el){

@@ -419,7 +419,7 @@ document.addEventListener("DOMContentLoaded", function(){
   })();
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
-    ignoredTags:["script","style","textarea","pre","code"]});
+    ignoredTags:["script","style","textarea","pre","code"],ignoredClasses:["nocatex"]});
   if (window.mermaid){
     mermaid.initialize({startOnLoad:false,theme:"neutral",securityLevel:"loose"});
     document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
@@ -725,6 +725,10 @@ def render_docs():
                 related = ('<div class="realted-wrap"><div class="realted">'
                            f'<div class="tt">{yr} 题{prob} · 同年同题金牌论文（{len(siblings)} 篇）</div>'
                            '<ul>' + "".join(rows) + '</ul></div></div>')
+
+        # 货币 $ 保护：源 md 用 \$ 表示货币（区别于数学 $），转换后包进 nocatex 类，
+        # KaTeX auto-render 经 ignoredClasses 跳过——既显示 $ 又不被误配对成公式
+        body = body.replace(chr(92) + "$", '<span class="nocatex">$</span>')
 
         # Mermaid 只在该页真的含流程图时才引入（省掉 115 个页面各 3MB 的无谓下载）
         has_mermaid = 'class="language-mermaid"' in body
