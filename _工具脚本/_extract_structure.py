@@ -135,6 +135,7 @@ def main():
     with open(P("04_论文文本", "_meta.json"), encoding="utf-8") as f:
         papers = json.load(f)
     struct, abstracts = [], []
+    _abs_seen = set()
     for p in papers:
         base = os.path.splitext(p["file"])[0]
         if base == "2013-GM-B-611":
@@ -173,6 +174,9 @@ def main():
             if m3 and len(m3.group(1)) > 120:
                 am = m3
         if am and len(am.group(1)) > 120:
+            if base in _abs_seen:      # 611/611a 同文：摘要只收一次（结构图谱保持 74 口径）
+                continue
+            _abs_seen.add(base)
             body = re.sub(r"\s+", " ", am.group(1)).strip()
             sents = [x.strip() for x in SENT_SPLIT.split(body) if len(x.strip()) > 15]
             abstracts.append({"id": base, "year": int(p["year"]), "problem": p["problem"],

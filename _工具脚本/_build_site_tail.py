@@ -9,8 +9,8 @@ from urllib.parse import quote, unquote
 
 
 def render_index(ctx):
-    TIMELINE_SVG, BARS_SVG, MODEL_SVG, RULES_HTML = (ctx[k] for k in
-        ("timeline", "bars", "model", "rules"))
+    TIMELINE_SVG, BARS_SVG, MODEL_SVG, RULES_HTML, RULESCO_HTML = (ctx[k] for k in
+        ("timeline", "bars", "model", "rules", "rulesco"))
     DATA_JS, NDOCS = ctx["data"], ctx["ndocs"]
     TEX_JS, JOURNEY_URL = ctx["tex"], ctx["journey"]
 
@@ -607,6 +607,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
     <p class="lead">从 74 篇金牌论文反复验证的七条共性；每条标注「n/73 篇赏析正文显式提及」（构建期扫描口径，关键词宁漏勿错）。逐题详解见题目解读，逐篇实证见论文赏析。</p>
   </div>
   <div class="rules-grid">__RULES__</div>
+  __RULESCO__
   <p class="note" style="margin-top:14px">一句话：<span class="em">UPC 评的不是答案，是"判据—方程—数值—检验"这条链的完整与诚实。</span></p>
 </section>
 
@@ -1190,7 +1191,7 @@ if('serviceWorker' in navigator){try{navigator.serviceWorker.register('sw.js');}
     html = (INDEX_TPL.replace("__TIMELINE__", TIMELINE_SVG)
             .replace("__BUILD__", datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
             .replace("__BARS__", BARS_SVG).replace("__MODEL__", MODEL_SVG)
-            .replace("__RULES__", RULES_HTML).replace("__DATA__", DATA_JS)
+            .replace("__RULES__", RULES_HTML).replace("__RULESCO__", RULESCO_HTML).replace("__DATA__", DATA_JS)
             .replace("__TEX__", TEX_JS).replace("__JOURNEY__", JOURNEY_URL)
             .replace("__MODEL_URL__", ctx.get("model_url", ""))
             .replace("__MANUAL__", ctx.get("manual_url", ""))

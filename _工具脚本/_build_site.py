@@ -361,6 +361,24 @@ document.addEventListener("DOMContentLoaded", function(){
     pb.addEventListener('click',function(){document.body.classList.add('pcard');window.print();});
   })();
   addEventListener('afterprint',function(){document.body.classList.remove('pcard');});
+  // 10 分钟自测（07 解读页）：先写自己的路线再对照，状态存 upcDrill.v1
+  (function(){
+    var card=document.getElementById('drill');if(!card)return;
+    var key=card.dataset.pkey,ta=document.getElementById('drillIn'),
+        st=document.getElementById('drillState'),gold=document.getElementById('drillGold');
+    var K='upcDrill.v1';
+    function load(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+    var it=(load()[key]||{});
+    if(it.txt)ta.value=it.txt;
+    if(it.done){gold.hidden=false;st.textContent='已练 ✓ '+new Date(it.ts).toLocaleDateString();}
+    document.getElementById('drillGo').addEventListener('click',function(){
+      var all=load();all[key]={txt:ta.value,done:Date.now()};
+      try{localStorage.setItem(K,JSON.stringify(all))}catch(e){}
+      gold.hidden=false;st.textContent='已练 ✓ 记入本浏览器——对照上方要点逐条自评';
+    });
+    ta.addEventListener('input',function(){var all=load();all[key]=all[key]||{};all[key].txt=ta.value;
+      try{localStorage.setItem(K,JSON.stringify(all))}catch(e){}});
+  })();
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
     ignoredTags:["script","style","textarea","pre","code"]});
@@ -585,6 +603,39 @@ def render_docs():
             if mi:
                 pkey, pkind = f"{mi.group(1)}-{mi.group(2).upper()}", "interp"
 
+        # 见解四：10 分钟自测（07 解读页）——先写自己的路线再对照「物理建模路线图」要点。
+        # 对照要点构建期从本文 §3 提取（粗体标签优先、列表行兜底），练习状态存 upcDrill.v1
+        drill_html = ""
+        if pkind == "interp":
+            mrt = re.search(r"##\s*3\.[^\n]*\n((?:.|\n)*?)(?=\n##\s*4\.|\Z)", text)
+            items = []
+            if mrt:
+                seg = mrt.group(1)
+                items = re.findall(r"\*\*(.+?)\*\*[：:]", seg)
+                if len(items) < 2:
+                    items = [ln.lstrip(" -*•").strip() for ln in seg.split("\n")
+                             if re.match(r"^\s*(?:[-*•]|\d{1,2}[.、)])\s*\S", ln)]
+            items = [re.sub(r"\s+", " ", x).strip() for x in items if len(x.strip()) > 4][:5]
+            if items and pkey:
+                lis = "".join("<li>{}</li>".format(html.escape(b[:110])) for b in items)
+                drill_html = (
+                    '<div class="card" id="drill" data-pkey="{k}" style="margin:0 0 18px">'
+                    '<b style="font-family:var(--serif)">⏱ 10 分钟自测——先做再读</b>'
+                    '<p style="font-size:12.5px;color:var(--dim);margin:6px 0">遮住下文，凭题面把你的三步建模路线写进框里'
+                    '（① 判据 ② 主模型 ③ 验证），写完点「对照金牌路线」逐条自评。内容只存本浏览器。</p>'
+                    '<textarea id="drillIn" rows="4" style="width:100%;border:1px solid var(--line2);border-radius:3px;'
+                    'background:var(--paper);padding:8px 10px;font-size:13px;font-family:inherit;line-height:1.9;outline:none" '
+                    'placeholder="① 判据：把模糊词操作化为…&#10;② 主模型：分层/方程…&#10;③ 验证：三件套怎么跑…"></textarea>'
+                    '<div style="display:flex;gap:10px;align-items:center;margin-top:8px">'
+                    '<button id="drillGo" class="tag" type="button">对照金牌路线</button>'
+                    '<span id="drillState" style="font-size:12px;color:var(--dim)"></span></div>'
+                    '<div id="drillGold" hidden style="border-top:1px dashed var(--line);margin-top:10px;padding-top:10px">'
+                    '<b style="font-size:13px">本文「物理建模路线图」要点（对照用）</b>'
+                    '<ol style="font-size:13px;line-height:2;margin:6px 0;padding-left:20px">' + lis + '</ol>'
+                    '<span style="font-size:12px;color:var(--dim)">想到了吗？漏的那条在哪一节（§4 量级表 / §6 陷阱）——'
+                    '这就是你读下文时该带着的问题。</span></div></div>')
+                drill_html = (drill_html.replace("{k}", pkey))
+
         # 同年同题的其他金牌论文：UPC 学习里最核心的动作就是横向对比同题解法
         related = ""
         if m and pkind == "paper":
@@ -624,7 +675,7 @@ def render_docs():
         relroot = quote(posix(os.path.relpath(ROOT, page_dir))) + "/"
         page_html = (DOC_TPL.replace("__TITLE__", title).replace("__CRUMB__", crumb).replace("__RELROOT__", relroot)
                      .replace("__HOME__", home).replace("__RAWMD__", raw)
-                     .replace("__PAPERTAG__", papertag).replace("__BODY__", pos_note + pcard_btn + body)
+                     .replace("__PAPERTAG__", papertag).replace("__BODY__", pos_note + pcard_btn + drill_html + body)
                      .replace("__PKEY__", pkey).replace("__PKIND__", pkind)
                      .replace("__DESC__", desc).replace("__RELATED__", related)
                      .replace("__BUILD__", __import__("datetime").datetime.now().strftime("%Y-%m-%d %H:%M"))
@@ -919,7 +970,7 @@ RULES = [
 ]
 
 def _rule_counts():
-    """七条密码的实证计数：构建期扫描 73 篇赏析正文（仅按 GM 编号匹配的逐篇文件，
+    """七条密码的实证计数：构建期扫描 05_论文赏析 全部正文（仅按 GM 编号匹配的逐篇文件，
     批次对比表不计入分母），统计显式提及篇数。关键词宁宽勿漏但避开结构性用语，
     页面口径为「n/73 篇赏析正文显式提及」，可复算。"""
     files = [f for f in sorted(glob.glob(P("05_论文赏析", "**", "*.md"), recursive=True))
@@ -930,10 +981,32 @@ def _rule_counts():
             texts.append(open(f, encoding="utf-8").read())
         except OSError:
             pass
-    return {t: sum(1 for x in texts if any(w in x for w in keys))
-            for (t, d, keys) in RULES}, len(texts)
+    counts = {t: sum(1 for x in texts if any(w in x for w in keys))
+              for (t, d, keys) in RULES}
+    # 见解二：共现——两密码同现于同一篇赏析正文的篇数（验证是否为枢纽、最强组合是哪对）
+    import itertools
+    presence = []
+    for x in texts:
+        presence.append({t for (t, d, keys) in RULES if any(w in x for w in keys)})
+    co = {}
+    for s in presence:
+        for a, b in itertools.combinations(sorted(s), 2):
+            co[(a, b)] = co.get((a, b), 0) + 1
+    return counts, len(texts), co
 
-_pwd_n, _pwd_total = _rule_counts()
+_pwd_n, _pwd_total, _pwd_co = _rule_counts()
+_hub = max(_pwd_n, key=lambda k: _pwd_n.get(k, 0))
+_top_pair = max(_pwd_co.items(), key=lambda kv: kv[1]) if _pwd_co else None
+_pwd_pairs = "".join(
+    '<span class="lg"><b>{}×{}</b>{} 篇</span>'.format(a, b, n)
+    for (a, b), n in sorted(_pwd_co.items(), key=lambda kv: -kv[1])[:6])
+RULESCO_HTML = ('<div class="legend" style="margin-top:12px">'
+                '<span class="lg"><b>共现洞察</b>「{hub}」以 {hubn}/73 篇成为枢纽，与其余六条全部强共现；'
+                '最强组合「{a}×{b}」{n} 篇——新手先练「判据操作化 → 验证三件套」这对组合拳。</span>'
+                '<span class="lg">两两同现篇数：{pairs}（口径同上，构建期扫描）</span></div>').format(
+    hub=_hub, hubn=_pwd_n.get(_hub, 0),
+    a=_top_pair[0][0] if _top_pair else "", b=_top_pair[0][1] if _top_pair else "",
+    n=_top_pair[1] if _top_pair else 0, pairs=_pwd_pairs)
 RULES_HTML = "".join(
     '<div class="rule"><div class="rule-n">{}</div><div><div class="rule-t">{}'
     '<span style="color:var(--dim);font-weight:400;font-size:11px;margin-left:8px">'
@@ -954,7 +1027,7 @@ _build_tools.render_tools({"root": ROOT, "ev_start": EVENT_START_MS,
                            "ev_end": EVENT_END_MS, "phases": PHASES})
 
 render_index({"timeline": TIMELINE_SVG, "bars": BARS_SVG, "model": MODEL_SVG,
-              "rules": RULES_HTML, "data": DATA_JS, "ndocs": len(search_docs),
+              "rules": RULES_HTML, "rulesco": RULESCO_HTML, "data": DATA_JS, "ndocs": len(search_docs),
               "site": SITE, "root": ROOT,
               "model_url": site_rel(doc_html_abs(P("08_物理模型综述", "00_总览.md"))),
               "manual_url": site_rel(doc_html_abs(P("11_论文模板与工具", "48小时作战手册.md"))),

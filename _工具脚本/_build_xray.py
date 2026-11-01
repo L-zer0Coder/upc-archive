@@ -113,11 +113,70 @@ def _coverage_html(ctx):
             '</tbody></table></div>' + summary)
 
 
+def _divergence_html():
+    """分歧类型学：16 组多金牌题的人工提炼（2026-11-01 逐组读完卡片 core_idea/models 归类）。
+    人工结论入库为代码常量——这是该结论的唯一来源，更新需重读卡片。"""
+    rows = [
+        ("2016-A", "方案空间展开", "双方案深挖+渐近线挖出第三方案 vs 六方案决策树再收敛——方案枚举宽度不同"),
+        ("2017-A", "求解范式", "网格搜索 / 庞特里亚金间接法 / SLSQP 双目标 NLP——同一控制问题的三种数值范式"),
+        ("2018-A", "问题分解", "解耦筛选矩阵 / 单模型贯穿全部子题 / 反问题反解容差"),
+        ("2018-B", "代理量选择", "以已反应氧质量为效率代理 vs 自重压实 ρ(h) 作枢纽闭式解"),
+        ("2019-A", "技术路线取舍", "三因子分解 / 押注主动磁屏蔽 / 8 构型枚举排名——48.3 吨 vs 16.53 吨的系统级分歧"),
+        ("2019-B", "验证策略", "文献判据+数值积分 vs 解析递推+商业仿真器双轨互证（94.26% 吻合）"),
+        ("2020-A", "问题形式化", "策略先于方程 / 贴真实任务借力链 / trade study / 最优控制形式化——四档谱系"),
+        ("2020-B", "不确定性建模", "Dryden 随机风+闭环仿真 vs 单参数 ε 闭式解+理论仿真互验"),
+        ("2021-A", "模型约化", "三通道并行+贡献排序 vs 砍到单通道实测锚定"),
+        ("2021-B", "判据来源与正逆链", "文献波高阈值 / 10 m 浪倒推动能 / 四效应排除定理化 / Ward 波场 FFT 真跑"),
+        ("2022-A", "解析-数值光谱", "递进证伪链 / 参数化数值搜索 / 反问题+DART 锚定 / 全程解析零数值——光谱极宽"),
+        ("2022-B", "策略层反转", "概率场死角必进 / 规划解偏差 1.18 cm / 用世界杯统计反转题面主张射下角"),
+        ("2023-A", "判据集设计", "三判据取最严 / 出舱即开伞消解问题 / 排除法锁定热积累 / 原创积分判据 / 双档分人群"),
+        ("2023-B", "保真度与互证", "理想+修正双模型 / 自研物理引擎+视频实测闭环 / 解析稳态-数值吸引子双轨互证"),
+        ("2025-A", "判据先行程度", "七域验证矩阵 / 敏感性第一性论证选型 / 判据闭环到 MIPS 与成本"),
+        ("2025-B", "交付形式蒸馏", "13 金牌同一物理骨架，交付从拟合式/查表/列线图/心算口诀到历史走廊——七种降维形态"),
+    ]
+    trs = "".join('<tr><td style="white-space:nowrap"><b>{}</b></td>'
+                  '<td style="white-space:nowrap;color:var(--acc)">{}</td><td>{}</td></tr>'.format(k, t, d)
+                  for (k, t, d) in rows)
+    return ('<div class="card" style="margin-top:14px">'
+            '<b style="font-family:var(--serif);font-size:15px">分歧类型学 · 16 组多金牌题的人工提炼</b>'
+            '<p style="font-size:12.5px;color:var(--dim);margin:6px 0 8px">同一道题的多篇金牌论文在哪里分歧？逐组读完 16 组的核心思路与模型链后归类，'
+            '分歧集中在五类：<b>问题形式化 / 解析-数值光谱 / 判据来源 / 交付形式蒸馏 / 验证策略</b>——'
+            '而基础物理层几乎不分歧：物理立住之后，评审奖励的是形式化与交付层的个性决策。这就是"不设标准答案"的可教版本。</p>'
+            '<table style="border-collapse:collapse;width:100%;font-size:12.5px"><tbody>' + trs + '</tbody></table>'
+            '<div class="note" style="margin-top:8px;font-size:12px;color:var(--dim)">口径：人工逐组归类（2026-11-01，基于 73 张模式卡片的 core_idea/models 字段），主观归类、可复核——数据在 _知识提炼/卡片/。</div></div>')
+
+
 def render_xray(ctx):
     CMP = collect_compare(ctx)
     ST = load_json(ctx, "_知识提炼", "汇总", "结构图谱.json") or {"papers": [], "names": {}}
     AB = load_json(ctx, "_知识提炼", "汇总", "摘要解剖.json") or {"papers": [], "names": {}}
     COV = _coverage_html(ctx)
+
+    # 见解一：金牌摘要真实配方（73 篇逐句标注的统计基线）——教数据不教感觉
+    from collections import Counter as _C
+    _fc = _C()
+    _lens = []
+    for _p in AB.get("papers", []):
+        _lens.append(_p.get("n", len(_p.get("sents", []))))
+        _fc.update(s["f"] for s in _p.get("sents", []))
+    _tot = sum(_fc.values()) or 1
+    _lens.sort()
+    _med = _lens[len(_lens) // 2] if _lens else 0
+    _bars = "".join(
+        '<div style="display:flex;align-items:center;gap:8px;margin:3px 0">'
+        '<span style="width:58px;font-size:12px;color:var(--dim)">{}</span>'
+        '<i style="flex:1;height:10px;background:var(--paper);border:1px solid var(--line);border-radius:5px;overflow:hidden">'
+        '<em style="display:block;height:100%;width:{}%;background:var(--acc)"></em></i>'
+        '<b style="width:120px;font-size:11.5px;font-family:var(--mono);color:var(--ink)">{} 句 · {}%</b></div>'.format(
+            _k, round(_fc.get(_k, 0) / _tot * 100, 1), _fc.get(_k, 0), round(_fc.get(_k, 0) / _tot * 100, 1))
+        for _k in ["叙述", "数字", "方法", "num结论", "定义", "建议", "两难"])
+    ABSTAT = ('<div class="card" style="margin-bottom:12px">'
+              '<b style="font-family:var(--serif);font-size:15px">金牌摘要真实配方（{} 篇 · {} 句逐句标注）</b>'
+              + _bars +
+              '<div class="note" style="margin-top:8px;font-size:12.5px">读法：摘要以<b>叙述铺陈 + 数字结论</b>为骨架（带数字句约 1/3，'
+              '其中明确的数字结论句另有 6%）；<b>"建议"句全库仅 7 句、"两难"句仅 5 句</b>——两难不必写、建议 ≤1 句；'
+              '篇幅锚点：中位 {} 句（3–24 句）。写摘要时对照此配比，不凭感觉。</div></div>').format(
+                  len(AB.get("papers", [])), _tot, _med)
 
     body = r"""
 <nav class="tabs" id="xtabs">
@@ -134,6 +193,7 @@ def render_xray(ctx):
   </div>
   <div style="overflow:auto"><div id="cmptable"></div></div>
   <div class="notebox" style="margin-top:12px">矩阵数据来自 <b>73 张模式卡片</b>（赏析「获奖密码」+ 精读「决策链」的结构化提炼）。用法：先纵向读每队的「核心思路」找分歧点，再横向看「模型链/数值/图表」四行的同与不同——同一道题的合法解法谱系，就是评审"不设标准答案"的实证。</div>
+  __TYPOLOGY__
 </section>
 
 <section class="pane" id="pane-atlas">
@@ -147,6 +207,7 @@ def render_xray(ctx):
 </section>
 
 <section class="pane" id="pane-abs">
+  __ABSTAT__
   <div class="card" style="margin-bottom:12px" id="abstats"></div>
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px" id="ablegend"></div>
   <div style="margin-bottom:10px"><input id="abq" type="search" placeholder="筛：年份/题号/队伍号/句中关键词…" style="width:min(420px,100%);height:32px;border:1px solid var(--line2);border-radius:3px;background:var(--sheet);padding:0 10px;font-size:13px;outline:none"></div>
@@ -271,7 +332,8 @@ renderAbs();
     return page(ctx, "论文透视", "实战工具 · 平时开放",
                 "UPC 论文透视：同题对比矩阵、结构图谱、摘要解剖室与覆盖地图——跨论文横向分析金牌论文的判据、模型、验证与摘要配方。",
                 "单篇精读之上的一层：横向看 74 篇金牌论文。同题对比看合法解法谱系，结构图谱看章节配比规律，摘要解剖看逐句功能配方，覆盖地图看全库对 32 题的覆盖实况。",
-                body.replace("__COV__", COV),
+                body.replace("__COV__", COV).replace("__TYPOLOGY__", _divergence_html())
+                     .replace("__ABSTAT__", ABSTAT),
                 script.replace("__CMP__", json.dumps(CMP, ensure_ascii=False))
                       .replace("__ST__", json.dumps(ST, ensure_ascii=False))
                       .replace("__AB__", json.dumps(AB, ensure_ascii=False))
@@ -342,8 +404,8 @@ document.getElementById('f-gen').addEventListener('click',function(){
     '\\usepackage{amsmath,graphicx,booktabs}\n'+
     '\\begin{document}\n'+
     '\\begin{center}{\\large\\bf Team '+team+' --- Problem '+prob+'}\\\\[4pt]{\\Large\\bf '+title+'}\\end{center}\n'+
-    '\\section*{Abstract}\n[TODO: 一页摘要——符号定义 → 两难 → 方法一句话 → 数字结论 → 建议与适用域；'+
-    '逐句配方见「摘要解剖室」，必须含至少一个数字]\n\n'+
+    '\\section*{Abstract}\n[TODO: 一页摘要——符号定义 → 方法一句话 → 数字结论（≥2 句，带数字与精度）→ 建议（可选 ≤1 句）与适用域；'+
+    '金牌统计：叙述≈55%、带数字≈33%，两难/长篇建议近乎缺席——配比数据见「摘要解剖室」配方卡]\n\n'+
     '\\section{Introduction and Criteria}\n[TODO: 用自己的话复述题目与建模路线]\n\n'+
     'Criteria (operationalized):\n\\begin{itemize}\n'+items(crit,'把题面模糊词翻译成可计算判据')+'\\end{itemize}\n\n'+
     '\\section{Baseline}\n'+(base||'[TODO: 解析基准与锚数字——评审的对照起点]')+'\n\n'+

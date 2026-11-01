@@ -425,67 +425,6 @@
    ]
   },
   {
-   "id": "2013-GM-B-611a",
-   "year": 2013,
-   "problem": "B",
-   "team": "611a",
-   "n": 13,
-   "sents": [
-    {
-     "t": "In this paper, we produce an analysis of how life would evolve differently on a planet with a mass eight times that of earth and a radius two times that of earth.",
-     "f": "叙述"
-    },
-    {
-     "t": "We address this analysis by considering the effects of increased gravity on the dynamics and mechanics of the cardiovascular and musculoskeletal systems.",
-     "f": "叙述"
-    },
-    {
-     "t": "We investigate the cardiovascular system by considering laminar flow in large and medium sized vessels, using the Navier-Stokes equations to model the blood pressure gradient.",
-     "f": "叙述"
-    },
-    {
-     "t": "Additionally, we use scaling arguments of allometry to estimate how blood volume and capillary dimensions vary with gravity.",
-     "f": "方法"
-    },
-    {
-     "t": "We investigate the musculoskeletal system by considering a single bone and muscle extending from the animal body.",
-     "f": "叙述"
-    },
-    {
-     "t": "We decompose bone stress into normal and shear components and treat muscle stress through equilibrium arguments to estimate changes in bone cross sectional area.",
-     "f": "叙述"
-    },
-    {
-     "t": "This model is then used to constrain possible values of bone length and attachment angle.",
-     "f": "叙述"
-    },
-    {
-     "t": "Additionally, we analyze the dynamics of legged locomotion using Froude numbers to demonstrate changes in gait as a function of gravitational acceleration.",
-     "f": "叙述"
-    },
-    {
-     "t": "Finally, the effects additional factors including changes in atmospheric pressure and temperature are considered.",
-     "f": "叙述"
-    },
-    {
-     "t": "Given these considerations, we propose that animals that evolve in this environment would be characterized by bones with twice the cross sectional area and approximately 30% less length than their earth counterparts.",
-     "f": "数字"
-    },
-    {
-     "t": "Leg bones would attach to the body at shallower angles, blood volume would approximately double and capillary size would increase, organ and heart size would increase, and animals would be shorter and more compact to compensate for higher blood pressure gradie",
-     "f": "叙述"
-    },
-    {
-     "t": "Additionally, we model gait as a function of gravitational acceleration to demonstrate that it would be increasingly difficult for animals to reach the most efficient modes of transportation, likely decreasing maximum speed.",
-     "f": "方法"
-    },
-    {
-     "t": "A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 2",
-     "f": "数字"
-    }
-   ]
-  },
-  {
    "id": "2014-GM-A-726",
    "year": 2014,
    "problem": "A",

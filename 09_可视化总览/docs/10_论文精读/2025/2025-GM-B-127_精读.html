@@ -435,7 +435,7 @@ plt.legend(fontsize=9); plt.grid(alpha=.3); plt.tight_layout(); plt.show()
 </div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract">1.1 Abstract</a></li><li class="l3"><a href="#12-2-assumptions-and-analysis">1.2 §2 Assumptions and Analysis</a></li><li class="l3"><a href="#13-4142-真空与阻力模型式-17">1.3 §4.1–4.2 真空与阻力模型（式 1–7）</a></li><li class="l3"><a href="#14-4344-变目标与风式-811">1.4 §4.3–4.4 变目标与风（式 8–11）</a></li><li class="l3"><a href="#15-45-数值方法规范写法的范本">1.5 §4.5 数值方法（规范写法的范本）</a></li><li class="l3"><a href="#16-5-结果与讨论含两个招牌表">1.6 §5 结果与讨论（含两个招牌表）</a></li><li class="l3"><a href="#17-6-四步口诀-7-强弱">1.7 §6 四步口诀 + §7 强弱</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-真空双解与最小速度式-12">3.1 真空双解与最小速度（式 1–2）</a></li><li class="l3"><a href="#32-指数大气阻力式-37">3.2 指数大气阻力（式 3–7）</a></li><li class="l3"><a href="#33-横风侧偏解析式式-1011">3.3 横风侧偏解析式（式 10–11）</a></li><li class="l3"><a href="#34-命中区间与拟合式式-12-审计-a全库最严重的公式-数据断裂">3.4 命中区间与拟合式（式 12）⚠ 审计 A（全库最严重的"公式-数据"断裂）</a></li><li class="l3"><a href="#35-敏感度律与-table-3-的矛盾-审计-b">3.5 敏感度律与 Table 3 的矛盾 ⚠ 审计 B</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 11:45<br><a href="../../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 12:26<br><a href="../../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -528,6 +528,24 @@ document.addEventListener("DOMContentLoaded", function(){
     pb.addEventListener('click',function(){document.body.classList.add('pcard');window.print();});
   })();
   addEventListener('afterprint',function(){document.body.classList.remove('pcard');});
+  // 10 分钟自测（07 解读页）：先写自己的路线再对照，状态存 upcDrill.v1
+  (function(){
+    var card=document.getElementById('drill');if(!card)return;
+    var key=card.dataset.pkey,ta=document.getElementById('drillIn'),
+        st=document.getElementById('drillState'),gold=document.getElementById('drillGold');
+    var K='upcDrill.v1';
+    function load(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+    var it=(load()[key]||{});
+    if(it.txt)ta.value=it.txt;
+    if(it.done){gold.hidden=false;st.textContent='已练 ✓ '+new Date(it.ts).toLocaleDateString();}
+    document.getElementById('drillGo').addEventListener('click',function(){
+      var all=load();all[key]={txt:ta.value,done:Date.now()};
+      try{localStorage.setItem(K,JSON.stringify(all))}catch(e){}
+      gold.hidden=false;st.textContent='已练 ✓ 记入本浏览器——对照上方要点逐条自评';
+    });
+    ta.addEventListener('input',function(){var all=load();all[key]=all[key]||{};all[key].txt=ta.value;
+      try{localStorage.setItem(K,JSON.stringify(all))}catch(e){}});
+  })();
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
     ignoredTags:["script","style","textarea","pre","code"]});

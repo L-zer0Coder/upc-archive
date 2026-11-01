@@ -144,7 +144,7 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
 <div class="card" style="margin-top:14px"><textarea id="f-out" rows="18" readonly placeholder="点「组装」后这里出现完整 LaTeX……" style="width:100%;box-sizing:border-box;border:none;background:transparent;font-family:var(--mono);font-size:12px;line-height:1.8;outline:none;resize:vertical"></textarea></div>
 
 </div>
-<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份 · 站点构建于 2026-11-01 11:45<br><a href="../copyright.html">版权与致谢</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错</a> · <a href="../upc-offline-kit.zip" download>赛时离线包</a></footer>
+<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份 · 站点构建于 2026-11-01 12:26<br><a href="../copyright.html">版权与致谢</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错</a> · <a href="../upc-offline-kit.zip" download>赛时离线包</a></footer>
 <script>
 var EV_START0=1794013200000,RACE_DUR=1794186000000-1794013200000;
 function raceT0(){try{var v=parseInt(localStorage.getItem('upcRaceT0')||"",10);return v>0?v:0}catch(e){return 0}}
@@ -210,8 +210,8 @@ document.getElementById('f-gen').addEventListener('click',function(){
     '\\usepackage{amsmath,graphicx,booktabs}\n'+
     '\\begin{document}\n'+
     '\\begin{center}{\\large\\bf Team '+team+' --- Problem '+prob+'}\\\\[4pt]{\\Large\\bf '+title+'}\\end{center}\n'+
-    '\\section*{Abstract}\n[TODO: 一页摘要——符号定义 → 两难 → 方法一句话 → 数字结论 → 建议与适用域；'+
-    '逐句配方见「摘要解剖室」，必须含至少一个数字]\n\n'+
+    '\\section*{Abstract}\n[TODO: 一页摘要——符号定义 → 方法一句话 → 数字结论（≥2 句，带数字与精度）→ 建议（可选 ≤1 句）与适用域；'+
+    '金牌统计：叙述≈55%、带数字≈33%，两难/长篇建议近乎缺席——配比数据见「摘要解剖室」配方卡]\n\n'+
     '\\section{Introduction and Criteria}\n[TODO: 用自己的话复述题目与建模路线]\n\n'+
     'Criteria (operationalized):\n\\begin{itemize}\n'+items(crit,'把题面模糊词翻译成可计算判据')+'\\end{itemize}\n\n'+
     '\\section{Baseline}\n'+(base||'[TODO: 解析基准与锚数字——评审的对照起点]')+'\n\n'+
