@@ -35,7 +35,9 @@ mark.qhit{background:rgba(156,63,46,.18);color:inherit;border-radius:2px;padding
 #nightT:hover{color:var(--acc);border-color:var(--acc)}
 body.night{--paper:#26231E;--sheet:#2D2A24;--ink:#EAE4D8;--mut:#B7AE9E;--dim:#9C9382;--line:#45403A;--line2:#565047;--acc:#E2907C;--acc-d:#F0B4A4;--acc-soft:rgba(226,144,124,.14)}
 body.night .topbar{background:rgba(38,35,30,.94)}
-body.night img{opacity:.88}
+body.night img{background:#FDFCF8;border-radius:3px}
+body.night .mermaid{background:#FDFCF8;border-radius:4px;padding:6px}
+body.night #shelf.on{color:var(--acc);border-color:var(--acc)}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
@@ -161,6 +163,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <a class="tag" href="../../README.md">Markdown</a>
   <button id="fz" class="tag" type="button" title="正文字号：小 / 标准 / 大 / 特大">字号</button>
   <button id="prt" class="tag" type="button" title="打印本文（自动隐藏顶栏与目录）">打印</button>
+  <button id="shelf" class="tag" type="button" title="收进书架，首页「我的打卡」可回看" aria-label="收进书架">⭐ 收藏</button>
   <button id="nightT" type="button" title="夜间 / 日间模式" aria-label="切换夜间模式">🌙</button>
   <span class="crumb">档案库说明 · UPC（University Physics Competition）国际大学生物理竞赛 · 2010–2025 全档案库</span>
   <div class="srwrap">
@@ -240,7 +243,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <tr>
 <td><code>11_论文模板与工具/</code></td>
 <td>从 73 篇金牌提炼的实战工具包</td>
-<td>LaTeX 论文模板、8 类图表 matplotlib 配方库、写作句库、<strong>中译英润色库</strong>（五步法+中式表达对照+语料实证）、<strong>AI 提示词包</strong>（0 号总指挥+平台接入卡）、建模决策树、48 小时作战手册、提交前终检 checklist</td>
+<td>LaTeX 论文模板、8 类图表 matplotlib 配方库、写作句库、<strong>中译英润色库</strong>（五步法+中式表达对照+语料实证）、<strong>AI 提示词包</strong>（0 号总指挥+平台接入卡）、<strong>术语速查表</strong>、建模决策树、48 小时作战手册、提交前终检 checklist</td>
 </tr>
 <tr>
 <td><code>09_可视化总览/</code></td>
@@ -424,7 +427,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <li><strong>用 AI 备赛</strong> → <code>11_论文模板与工具/AI提示词包.md</code>（0 号「总指挥·全程完赛」+ 11 条分任务提示词 + GPT/Codex 与 DeepSeek 接入卡）或 <code>12_赛时工具/prompts.html</code>；装了 ZCode 的话，<code>.agents/skills/</code> 里的 7 个技能会自动触发</li>
 <li><strong>想学金牌论文怎么写</strong> → 先看 <code>06_论文页面图/</code> 直观感受排版，再读 <code>05_论文赏析/</code> 对应赏析，最后精读 <code>03_优秀论文PDF/</code> 原文</li>
 <li><strong>想系统补物理模型</strong> → <code>08_物理模型综述/</code>，再用 <code>12_赛时工具/flashcards.html</code> 自测</li>
-<li><strong>想记录学习进度</strong> → 首页「我的打卡」：73 篇论文 + 32 篇解读的浏览/打卡进度，存本浏览器，可导出导入换设备</li>
+<li><strong>想记录学习进度</strong> → 首页「我的打卡」（73 论文 + 32 解读的浏览/打卡，可导出导入）+ <strong>书架</strong>（文档页顶栏 ⭐ 收藏"回头细看"）+ 闪卡今日回顾</li>
 <li><strong>想要全站地图与说明书</strong> → <code>12_赛时工具/manual.html</code>（树状导航覆盖全部可跳转节点 + 八节详细说明书）；任何页面找不着北时，点左右两缘的「☰ 目录 / 📖 说明」挂件</li>
 <li><strong>想图文并茂地总览</strong> → 直接访问<a href="https://l-zer0coder.github.io/upc-archive/">线上站点</a>，或本地打开根目录 <code>index.html</code></li>
 </ul>
@@ -521,6 +524,7 @@ python _工具脚本/_site_check.py      # 独立体检（断链/大小写/未�
 <li><strong>首页减负</strong>：使用指南里可选身份（新手/备赛/赛时/查阅），无关板块自动收起；打卡面板默认折叠（有过记录自动展开）；论文库默认先展示 10 篇 + 筛选状态进 URL（<code>#papers?y=2022&amp;p=A</code>）可直接分享。</li>
 <li><strong>搜索落地高亮</strong>：搜索结果点开后自动滚动到文档页首个命中处并高亮（URL 带 <code>#q=</code>，可分享带命中的链接）。</li>
 <li><strong>全站夜间模式</strong>：首页、文档页、工具页顶栏均有 🌙 开关（同一记忆键）。</li>
+<li><strong>数据驱动的教学层</strong>：获奖密码带 n/73 实证计数与<strong>共现洞察</strong>（验证是枢纽、最强对"操作化×验证"）；摘要解剖室有<strong>金牌摘要真实配方</strong>统计卡（建议句 73 篇仅 7 句——按配比写不凭感觉）；对比矩阵下有<strong>分歧类型学</strong>（16 组金牌分歧集中在五类决策）；32 篇题目解读页首有 <strong>10 分钟自测</strong>（先写自己的路线再对照金牌路线，按题存本浏览器）。</li>
 <li><strong>内容生成与校验方式</strong>：见 <code>copyright.html</code> 的如实披露表（哪些机械提取、哪些 AI 生成、核查到什么程度）。</li>
 <li><strong>口径对账</strong>：构建末尾自动断言 README 手写数字与实际产物一致（文档页数/工具页数/论文数），失配即构建失败。</li>
 </ul>
@@ -532,7 +536,7 @@ python _工具脚本/_site_check.py      # 独立体检（断链/大小写/未�
 </div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#目录结构">📁 目录结构</a></li><li class="l2"><a href="#历年赛题与论文速览">🗓 历年赛题与论文速览</a></li><li class="l2"><a href="#快速上手">🚀 快速上手</a></li><li class="l2"><a href="#upc-竞赛小档案">🏅 UPC 竞赛小档案</a></li><li class="l2"><a href="#部署为网站github-pages">🌐 部署为网站（GitHub Pages）</a></li><li class="l3"><a href="#重建站点">重建站点</a></li><li class="l3"><a href="#赛时工具12_赛时工具">赛时工具（12_赛时工具/）</a></li><li class="l3"><a href="#ai-技能与模式卡片管线">AI 技能与模式卡片管线</a></li><li class="l3"><a href="#站点体验与可信度设施">站点体验与可信度设施</a></li><li class="l3"><a href="#可选功能评论区等">可选功能（评论区等）</a></li></ul></aside>
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 12:26<br><a href="../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 12:49<br><a href="../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -573,6 +577,21 @@ document.addEventListener("DOMContentLoaded", function(){
   if(!(fzi>=0&&fzi<FZ.length))fzi=1;applyFz(fzi);
   fzBtn.addEventListener('click',function(){applyFz((fzi=(fzi+1)%FZ.length));});
   document.getElementById('prt').addEventListener('click',function(){window.print();});
+  // 收藏书架（upcShelf.v1）：与打卡互补——打卡记"读过"，书架记"回头细看"
+  (function(){
+    var b=document.getElementById('shelf');if(!b||!PKEY)return;
+    var K='upcShelf.v1';
+    function load(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+    function paint(){var it=load()[PKEY];
+      b.textContent=it?'★ 已收藏':'⭐ 收藏';b.classList.toggle('on',!!it);}
+    paint();
+    b.addEventListener('click',function(){
+      var all=load();
+      if(all[PKEY]){delete all[PKEY];}else{all[PKEY]={t:document.title.split(' · ')[0],k:PKIND,ts:Date.now()};}
+      try{localStorage.setItem(K,JSON.stringify(all))}catch(e){}
+      paint();
+    });
+  })();
   if('serviceWorker' in navigator){try{navigator.serviceWorker.register('../../sw.js');}catch(e){}}
   // 夜间模式（与全站共用 upcNight）
   (function(){

@@ -126,7 +126,9 @@ mark.qhit{background:rgba(156,63,46,.18);color:inherit;border-radius:2px;padding
 #nightT:hover{color:var(--acc);border-color:var(--acc)}
 body.night{--paper:#26231E;--sheet:#2D2A24;--ink:#EAE4D8;--mut:#B7AE9E;--dim:#9C9382;--line:#45403A;--line2:#565047;--acc:#E2907C;--acc-d:#F0B4A4;--acc-soft:rgba(226,144,124,.14)}
 body.night .topbar{background:rgba(38,35,30,.94)}
-body.night img{opacity:.88}
+body.night img{background:#FDFCF8;border-radius:3px}
+body.night .mermaid{background:#FDFCF8;border-radius:4px;padding:6px}
+body.night #shelf.on{color:var(--acc);border-color:var(--acc)}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
@@ -252,6 +254,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <a class="tag" href="__RAWMD__">Markdown</a>
   <button id="fz" class="tag" type="button" title="正文字号：小 / 标准 / 大 / 特大">字号</button>
   <button id="prt" class="tag" type="button" title="打印本文（自动隐藏顶栏与目录）">打印</button>
+  <button id="shelf" class="tag" type="button" title="收进书架，首页「我的打卡」可回看" aria-label="收进书架">⭐ 收藏</button>
   <button id="nightT" type="button" title="夜间 / 日间模式" aria-label="切换夜间模式">🌙</button>
   <span class="crumb">__CRUMB__ · __TITLE__</span>
   <div class="srwrap">
@@ -309,6 +312,21 @@ document.addEventListener("DOMContentLoaded", function(){
   if(!(fzi>=0&&fzi<FZ.length))fzi=1;applyFz(fzi);
   fzBtn.addEventListener('click',function(){applyFz((fzi=(fzi+1)%FZ.length));});
   document.getElementById('prt').addEventListener('click',function(){window.print();});
+  // 收藏书架（upcShelf.v1）：与打卡互补——打卡记"读过"，书架记"回头细看"
+  (function(){
+    var b=document.getElementById('shelf');if(!b||!PKEY)return;
+    var K='upcShelf.v1';
+    function load(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+    function paint(){var it=load()[PKEY];
+      b.textContent=it?'★ 已收藏':'⭐ 收藏';b.classList.toggle('on',!!it);}
+    paint();
+    b.addEventListener('click',function(){
+      var all=load();
+      if(all[PKEY]){delete all[PKEY];}else{all[PKEY]={t:document.title.split(' · ')[0],k:PKIND,ts:Date.now()};}
+      try{localStorage.setItem(K,JSON.stringify(all))}catch(e){}
+      paint();
+    });
+  })();
   if('serviceWorker' in navigator){try{navigator.serviceWorker.register('__RELROOT__sw.js');}catch(e){}}
   // 夜间模式（与全站共用 upcNight）
   (function(){

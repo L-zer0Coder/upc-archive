@@ -513,6 +513,11 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
     <p class="lead">点格子 = 手动打卡「已吃透」；打开论文的赏析或精读页停留 3 秒，会自动记为「浏览过」。数据只存在本浏览器，换设备用导出 / 导入搬运。</p>
     <button class="btn sm" id="ckfold" type="button">收起</button>
   </div>
+  <div class="card" id="shelfbox" style="margin-bottom:14px">
+    <b style="font-family:var(--serif)">我的书架</b>
+    <span class="note" style="font-size:12px;color:var(--dim);margin-left:8px">文档页顶栏 ⭐ 收藏的"回头细看"清单（存本浏览器，与打卡互补：打卡记读过、书架记要精读）</span>
+    <div id="shelflist" style="margin-top:8px;font-size:13px;line-height:2.1"></div>
+  </div>
   <div id="ckbody">
   <div class="ck-summary">
     <div class="ck-big"><b id="ckpct">0%</b><span>论文打卡进度</span></div>
@@ -885,8 +890,9 @@ let probF='';
     else if(ab[0]==='p'){probF=ab[1];document.querySelectorAll('#fp a').forEach(function(x){x.classList.toggle('on',x.dataset.v===probF);});}
     else if(ab[0]==='q')document.getElementById('q2').value=decodeURIComponent(ab[1]||'');
   });})();
-let PFULL=false;
+let PFULL=false,P_READY=false;
 function renderPapers(){
+  if(!P_READY&&location.hash.indexOf('#papers')!==0)return;   // 懒渲染：进视口前不建 74 行 DOM
   const s=document.getElementById('q2').value.trim().toLowerCase();
   const yv=fy.value;
   const list=all.filter(p=>(!yv||String(p.y)===yv)&&(!probF||p.prob===probF)&&
@@ -916,6 +922,17 @@ document.querySelectorAll('#fp a').forEach(a=>a.addEventListener('click',()=>{
 renderPapers();
 document.getElementById('q2').addEventListener('input',renderPapers);
 fy.addEventListener('change',renderPapers);
+/* 懒渲染：论文表进视口才首次渲染（C 层减负；#papers 直达/hash 筛选时立即渲染） */
+(function(){
+  var sec=document.getElementById('papers');
+  function paint(){ if(P_READY)return; P_READY=true; renderPapers(); }
+  if(!sec || location.hash.indexOf('#papers')===0){ paint(); return; }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){paint();io.disconnect();} }); },
+      {rootMargin:'400px 0px'});
+    io.observe(sec);
+  } else paint();
+})();
 function setFull(f){PFULL=f;
   try{localStorage.setItem('upcPapersFull',f?'1':'0')}catch(e){}
   document.getElementById('pmore').textContent=f?'收起，只看前 10 篇':'显示全部 '+all.length+' 篇';
@@ -1182,6 +1199,25 @@ ckRefresh();
   set(s);
   var t=document.getElementById('nightT');
   if(t)t.addEventListener('click',function(){set(!document.body.classList.contains('night'));});
+})();
+/* ---------- 我的书架（upcShelf.v1，文档页 ⭐ 写入） ---------- */
+(function(){
+  var box=document.getElementById('shelflist');if(!box)return;
+  function render(){
+    var s=(function(){try{return JSON.parse(localStorage.getItem('upcShelf.v1')||'{}')}catch(e){return{}}})();
+    var items=Object.entries(s).sort((a,b)=>(b[1].ts||0)-(a[1].ts||0));
+    if(!items.length){box.innerHTML='<span style="color:var(--dim)">书架还是空的——在任意文档页顶栏点「⭐ 收藏」，它就会出现在这里。</span>';return;}
+    box.innerHTML=items.slice(0,8).map(([k,v])=>{
+      var href='';
+      if(v.k==='paper'){DATA.years.forEach(y=>y.probs.forEach(p=>p.papers.forEach(pp=>{
+        if(pp.file.replace(/\.pdf$/i,'')===k)href=pp.ana;})));}
+      else if(v.k==='interp'){DATA.years.forEach(y=>y.probs.forEach(p=>{
+        if(y.year+'-'+p.prob===k)href=p.interp;}));}
+      return '<div>★ '+(href?'<a href="'+href+'">'+escHtml(v.t||k)+'</a>':escHtml(v.t||k))+'</div>';
+    }).join('')+(items.length>8?'<div style="color:var(--dim);font-size:12px">等共 '+items.length+' 条……</div>':'');
+  }
+  render();
+  addEventListener('storage',render);
 })();
 if('serviceWorker' in navigator){try{navigator.serviceWorker.register('sw.js');}catch(e){}}
 </script>

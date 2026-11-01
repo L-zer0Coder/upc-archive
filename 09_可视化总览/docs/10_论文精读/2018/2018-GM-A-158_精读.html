@@ -35,7 +35,9 @@ mark.qhit{background:rgba(156,63,46,.18);color:inherit;border-radius:2px;padding
 #nightT:hover{color:var(--acc);border-color:var(--acc)}
 body.night{--paper:#26231E;--sheet:#2D2A24;--ink:#EAE4D8;--mut:#B7AE9E;--dim:#9C9382;--line:#45403A;--line2:#565047;--acc:#E2907C;--acc-d:#F0B4A4;--acc-soft:rgba(226,144,124,.14)}
 body.night .topbar{background:rgba(38,35,30,.94)}
-body.night img{opacity:.88}
+body.night img{background:#FDFCF8;border-radius:3px}
+body.night .mermaid{background:#FDFCF8;border-radius:4px;padding:6px}
+body.night #shelf.on{color:var(--acc);border-color:var(--acc)}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
@@ -161,6 +163,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <a class="tag" href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2018/2018-GM-A-158_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
   <button id="fz" class="tag" type="button" title="正文字号：小 / 标准 / 大 / 特大">字号</button>
   <button id="prt" class="tag" type="button" title="打印本文（自动隐藏顶栏与目录）">打印</button>
+  <button id="shelf" class="tag" type="button" title="收进书架，首页「我的打卡」可回看" aria-label="收进书架">⭐ 收藏</button>
   <button id="nightT" type="button" title="夜间 / 日间模式" aria-label="切换夜间模式">🌙</button>
   <span class="crumb">10_论文精读/2018 · 精读 04 · Lasercraft Dynamics and Design for Proxima Centauri b Flyby（2018 题A 金牌 · 队伍 158）</span>
   <div class="srwrap">
@@ -447,7 +450,7 @@ Appendix       对比表（数值底座）
 </div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-1-introduction-2-notations第-3-页">1.2 §1 Introduction + §2 Notations（第 3 页）</a></li><li class="l3"><a href="#13-3-laser-array-specifications第-4-页">1.3 §3 Laser Array Specifications（第 4 页）</a></li><li class="l3"><a href="#14-4-sail-fabrication第-47-页组合淘汰赛">1.4 §4 Sail Fabrication（第 4–7 页）——组合淘汰赛</a></li><li class="l3"><a href="#15-5-physics-of-laser-propulsion第-812-页全文数学主体">1.5 §5 Physics of Laser Propulsion（第 8–12 页）——全文数学主体</a></li><li class="l3"><a href="#16-6-acceleration-dynamics第-1314-页">1.6 §6 Acceleration Dynamics（第 13–14 页）</a></li><li class="l3"><a href="#17-7-laser-precision第-15-页两级判据">1.7 §7 Laser Precision（第 15 页）——两级判据</a></li><li class="l3"><a href="#18-8-conclusions-附录第-1618-页">1.8 §8 Conclusions + 附录（第 16–18 页）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-发散角式-1">3.1 发散角（式 1）</a></li><li class="l3"><a href="#32-光压合力与力矩式-23">3.2 光压合力与力矩（式 2、3）</a></li><li class="l3"><a href="#33-刚体姿态方程式-4">3.3 刚体姿态方程（式 4）</a></li><li class="l3"><a href="#34-推力与加速度式-56">3.4 推力与加速度（式 5、6）</a></li><li class="l3"><a href="#35-帆质量与尺寸式-79">3.5 帆质量与尺寸（式 7–9）</a></li><li class="l3"><a href="#36-三个特征量-v₀l₀t₀式-1012">3.6 三个特征量 v₀、L₀、t₀（式 10–12）</a></li><li class="l3"><a href="#37-极限速度与最优质量比式-13">3.7 极限速度与最优质量比（式 13）</a></li><li class="l3"><a href="#38-相对论三连式-1416">3.8 相对论三连（式 14–16）</a></li><li class="l3"><a href="#39-精度三角式-1719">3.9 精度三角（式 17–19）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 12:26<br><a href="../../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 12:49<br><a href="../../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -488,6 +491,21 @@ document.addEventListener("DOMContentLoaded", function(){
   if(!(fzi>=0&&fzi<FZ.length))fzi=1;applyFz(fzi);
   fzBtn.addEventListener('click',function(){applyFz((fzi=(fzi+1)%FZ.length));});
   document.getElementById('prt').addEventListener('click',function(){window.print();});
+  // 收藏书架（upcShelf.v1）：与打卡互补——打卡记"读过"，书架记"回头细看"
+  (function(){
+    var b=document.getElementById('shelf');if(!b||!PKEY)return;
+    var K='upcShelf.v1';
+    function load(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+    function paint(){var it=load()[PKEY];
+      b.textContent=it?'★ 已收藏':'⭐ 收藏';b.classList.toggle('on',!!it);}
+    paint();
+    b.addEventListener('click',function(){
+      var all=load();
+      if(all[PKEY]){delete all[PKEY];}else{all[PKEY]={t:document.title.split(' · ')[0],k:PKIND,ts:Date.now()};}
+      try{localStorage.setItem(K,JSON.stringify(all))}catch(e){}
+      paint();
+    });
+  })();
   if('serviceWorker' in navigator){try{navigator.serviceWorker.register('../../../../sw.js');}catch(e){}}
   // 夜间模式（与全站共用 upcNight）
   (function(){

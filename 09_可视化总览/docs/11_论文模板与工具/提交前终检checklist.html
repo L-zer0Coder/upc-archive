@@ -35,7 +35,9 @@ mark.qhit{background:rgba(156,63,46,.18);color:inherit;border-radius:2px;padding
 #nightT:hover{color:var(--acc);border-color:var(--acc)}
 body.night{--paper:#26231E;--sheet:#2D2A24;--ink:#EAE4D8;--mut:#B7AE9E;--dim:#9C9382;--line:#45403A;--line2:#565047;--acc:#E2907C;--acc-d:#F0B4A4;--acc-soft:rgba(226,144,124,.14)}
 body.night .topbar{background:rgba(38,35,30,.94)}
-body.night img{opacity:.88}
+body.night img{background:#FDFCF8;border-radius:3px}
+body.night .mermaid{background:#FDFCF8;border-radius:4px;padding:6px}
+body.night #shelf.on{color:var(--acc);border-color:var(--acc)}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
@@ -161,6 +163,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <a class="tag" href="../../../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E6%8F%90%E4%BA%A4%E5%89%8D%E7%BB%88%E6%A3%80checklist.md">Markdown</a>
   <button id="fz" class="tag" type="button" title="正文字号：小 / 标准 / 大 / 特大">字号</button>
   <button id="prt" class="tag" type="button" title="打印本文（自动隐藏顶栏与目录）">打印</button>
+  <button id="shelf" class="tag" type="button" title="收进书架，首页「我的打卡」可回看" aria-label="收进书架">⭐ 收藏</button>
   <button id="nightT" type="button" title="夜间 / 日间模式" aria-label="切换夜间模式">🌙</button>
   <span class="crumb">11_论文模板与工具 · 提交前终检 Checklist —— 按 7 条评审不变量逐项打勾</span>
   <div class="srwrap">
@@ -235,7 +238,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#a-判据与去模糊化">A. 判据与去模糊化</a></li><li class="l2"><a href="#b-基准与锚点">B. 基准与锚点</a></li><li class="l2"><a href="#c-模型与推导">C. 模型与推导</a></li><li class="l2"><a href="#d-数值与验证三件套缺一不可">D. 数值与验证（三件套缺一不可）</a></li><li class="l2"><a href="#e-图表用-11_论文模板与工具图表配方库-对照">E. 图表（用 11_论文模板与工具/图表配方库 对照）</a></li><li class="l2"><a href="#f-写作与结构">F. 写作与结构</a></li><li class="l2"><a href="#g-提交合规">G. 提交合规</a></li><li class="l2"><a href="#评委三分钟视角模拟">评委三分钟视角模拟</a></li></ul></aside>
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 12:26<br><a href="../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 12:49<br><a href="../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -276,6 +279,21 @@ document.addEventListener("DOMContentLoaded", function(){
   if(!(fzi>=0&&fzi<FZ.length))fzi=1;applyFz(fzi);
   fzBtn.addEventListener('click',function(){applyFz((fzi=(fzi+1)%FZ.length));});
   document.getElementById('prt').addEventListener('click',function(){window.print();});
+  // 收藏书架（upcShelf.v1）：与打卡互补——打卡记"读过"，书架记"回头细看"
+  (function(){
+    var b=document.getElementById('shelf');if(!b||!PKEY)return;
+    var K='upcShelf.v1';
+    function load(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+    function paint(){var it=load()[PKEY];
+      b.textContent=it?'★ 已收藏':'⭐ 收藏';b.classList.toggle('on',!!it);}
+    paint();
+    b.addEventListener('click',function(){
+      var all=load();
+      if(all[PKEY]){delete all[PKEY];}else{all[PKEY]={t:document.title.split(' · ')[0],k:PKIND,ts:Date.now()};}
+      try{localStorage.setItem(K,JSON.stringify(all))}catch(e){}
+      paint();
+    });
+  })();
   if('serviceWorker' in navigator){try{navigator.serviceWorker.register('../../../sw.js');}catch(e){}}
   // 夜间模式（与全站共用 upcNight）
   (function(){
