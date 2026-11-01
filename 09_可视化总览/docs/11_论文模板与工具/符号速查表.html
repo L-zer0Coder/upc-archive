@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>符号速查表 —— 看不懂公式里的符号？从这里查 · UPC 全档案库</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<meta name="description" content="符号速查表 —— 看不懂公式里的符号？从这里查 本文定位 ：全库公式中符号的&quot;翻译层&quot;。术语速查表管 词 （aerobraking 是什么），本表管 符 （ρ、σ、Δv 怎么读、是什么）。配合阅读路径：公式怎么从无到有——新手课堂课程一…">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="UPC 全档案库">
+<meta property="og:title" content="符号速查表 —— 看不懂公式里的符号？从这里查 · UPC 全档案库">
+<meta property="og:description" content="符号速查表 —— 看不懂公式里的符号？从这里查 本文定位 ：全库公式中符号的&quot;翻译层&quot;。术语速查表管 词 （aerobraking 是什么），本表管 符 （ρ、σ、Δv 怎么读、是什么）。配合阅读路径：公式怎么从无到有——新手课堂课程一…">
+<meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="../../../manifest.webmanifest">
+<link rel="stylesheet" href="../../vendor/katex/katex.min.css">
+<script>window.UPC_UI_ROOT="../../../";</script><script src="../../../global-ui.js" defer></script>
+<script defer src="../../vendor/katex/katex.min.js"></script>
+<script defer src="../../vendor/katex/contrib/auto-render.min.js"></script>
+
+<style>
+:root{
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
+ --line:#E7E0D1;--line2:#D9D0BD;
+ --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
+ --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+ --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
+html.fz-s body{font-size:15px}html.fz-l body{font-size:17.5px}html.fz-xl body{font-size:19px}
+mark.qhit{background:rgba(156,63,46,.18);color:inherit;border-radius:2px;padding:0 1px}
+#nightT{cursor:pointer;font-size:13px;background:none;border:1px solid var(--line2);border-radius:3px;height:26px;min-width:30px;color:var(--mut)}
+#nightT:hover{color:var(--acc);border-color:var(--acc)}
+body.night{--paper:#26231E;--sheet:#2D2A24;--ink:#EAE4D8;--mut:#B7AE9E;--dim:#9C9382;--line:#45403A;--line2:#565047;--acc:#E2907C;--acc-d:#F0B4A4;--acc-soft:rgba(226,144,124,.14)}
+body.night .topbar{background:rgba(38,35,30,.94)}
+body.night img{background:#FDFCF8;border-radius:3px}
+body.night .mermaid{background:#FDFCF8;border-radius:4px;padding:6px}
+body.night #shelf.on{color:var(--acc);border-color:var(--acc)}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
+.topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
+.topbar a{color:var(--mut);text-decoration:none;font-size:12.5px;white-space:nowrap}
+.topbar a:hover{color:var(--acc)}
+.topbar .tag{border:1px solid var(--line2);border-radius:3px;padding:2px 10px}
+.topbar .tag:hover{border-color:var(--acc)}
+.topbar .ck{cursor:pointer;font-family:inherit;background:var(--sheet);color:var(--mut);font-size:12.5px;white-space:nowrap}
+.topbar .ck:hover{border-color:var(--acc);color:var(--acc)}
+.topbar .ck.done{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.topbar .ck.done:hover{background:var(--acc-d);color:#FDFCF8}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:600;font-size:13.5px;margin-right:4px}
+.brand:hover{color:var(--ink)}
+.brand .seal{width:24px;height:24px;border-radius:5px;background:var(--acc);color:#FDFCF8;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700}
+.crumb{color:var(--dim);font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+/* 赛事时钟徽章：赛前显示 D-天数，赛中显示已用时长 */
+.topbar .clock{margin-left:12px;flex-shrink:0;font-family:var(--mono);font-size:11px;line-height:1.9;
+ letter-spacing:.02em;padding:1px 8px;border:1px solid rgba(156,63,46,.28);border-radius:3px;
+ color:var(--acc);background:var(--acc-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+.topbar .clock:hover{border-color:var(--acc);color:var(--acc-d);background:rgba(156,63,46,.12)}
+.topbar .clock[data-s="live"]{background:var(--acc);border-color:var(--acc);color:#FDFCF8}
+.topbar .clock[data-s="post"]{color:var(--dim);border-color:var(--line2);background:transparent}
+/* ---- 顶栏全库搜索 ---- */
+.srwrap{position:relative;flex-shrink:0;margin-left:8px}
+#dsq{width:132px;height:28px;border:1px solid var(--line2);border-radius:3px;background:var(--sheet);color:var(--ink);padding:0 9px;font-size:12px;outline:none;font-family:inherit;transition:border-color .15s,width .2s}
+#dsq:focus{width:200px;border-color:var(--acc)}
+#dsq::placeholder{color:var(--dim)}
+#dsres{position:absolute;top:33px;right:0;width:360px;max-width:86vw;max-height:62vh;overflow:auto;background:var(--sheet);border:1px solid var(--line2);border-radius:4px;box-shadow:0 14px 40px rgba(70,58,38,.16);display:none;z-index:40}
+#dsres a{display:block;padding:7px 12px;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--ink)}
+#dsres a:last-child{border-bottom:none}
+#dsres a:hover{background:#F3EEE2}
+#dsres .d{color:var(--dim);font-size:11px;margin-right:8px}
+#dsres .hint{padding:8px 12px;color:var(--dim);font-size:12px}
+@media(max-width:900px){#dsq{width:104px}#dsq:focus{width:150px}}
+.layout{display:flex;justify-content:center;gap:46px;max-width:1200px;margin:0 auto;padding:34px 22px 90px;align-items:flex-start}
+.content{flex:0 1 780px;min-width:0}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:44px 52px 54px;overflow-x:hidden}
+/* 行内 KaTeX 的隐藏 MathML 副本会把页面撑宽（390px 实测 +35px），内容栏裁掉横向溢出 */
+.sheet h1{font-family:var(--serif);font-size:27px;line-height:1.55;margin:.15em 0 .8em;font-weight:700}
+.sheet h2{font-family:var(--serif);font-size:21px;line-height:1.6;margin:1.9em 0 .6em;scroll-margin-top:74px;font-weight:700;padding-bottom:.3em;border-bottom:1px solid var(--line)}
+.sheet h3{font-family:var(--serif);font-size:17.5px;margin:1.5em 0 .4em;scroll-margin-top:74px;font-weight:700}
+.sheet h4{font-size:15.5px;margin:1.2em 0 .4em;font-weight:600}
+.sheet p{margin:.85em 0}
+.sheet a{color:var(--acc)}
+.sheet a:hover{color:var(--acc-d);text-decoration:underline;text-underline-offset:3px}
+.sheet ul,.sheet ol{padding-left:1.6em;margin:.7em 0}
+.sheet li{margin:.3em 0}
+.sheet li::marker{color:var(--dim)}
+code{background:#F2EDE2;border:1px solid var(--line);border-radius:3px;padding:.5px 6px;font-size:.86em;font-family:var(--mono)}
+pre{background:#F9F6EF;border:1px solid var(--line);border-radius:4px;padding:14px 17px;overflow:auto;line-height:1.75;font-size:13.5px}
+pre code{border:none;background:none;padding:0}
+blockquote{margin:1.1em 0;padding:2px 0 2px 18px;border-left:2px solid var(--acc);color:var(--mut)}
+blockquote p{margin:.5em 0}
+table{border-collapse:collapse;width:100%;margin:1em 0;font-size:13.8px;display:block;overflow-x:auto;line-height:1.8}
+th,td{border-bottom:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:12px;letter-spacing:.05em;border-bottom:1px solid var(--line2);background:var(--sheet);white-space:nowrap}
+td:first-child,th:first-child{white-space:nowrap}
+tbody tr:nth-child(2n) td{background:#F8F5EE}
+hr{border:none;border-top:1px solid var(--line);margin:2.2em 0}
+.sheet img{max-width:100%;border:1px solid var(--line);border-radius:3px}
+.mermaid{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:12px;margin:1em 0;display:flex;justify-content:center}
+.mermaid svg{max-width:100%;height:auto}
+.katex-display{overflow-x:auto;padding:6px 0}.katex{font-size:1.03em}
+footer{text-align:center;color:var(--dim);font-size:12px;padding:28px 20px}
+#top{position:fixed;right:26px;bottom:26px;z-index:30;background:var(--sheet);border:1px solid var(--line2);color:var(--mut);
+ border-radius:50%;width:40px;height:40px;font-size:16px;cursor:pointer;opacity:0;pointer-events:none;transition:.2s}
+#top.on{opacity:1;pointer-events:auto}
+#top:hover{color:var(--acc);border-color:var(--acc)}
+aside.toc{position:sticky;top:74px;width:214px;flex-shrink:0;max-height:calc(100vh - 100px);overflow-y:auto;padding:4px 0}
+aside.toc .tt{font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.12em;padding:0 0 8px 14px}
+aside.toc ul{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+aside.toc li a{display:block;padding:4px 12px;margin-left:-1px;color:var(--mut);text-decoration:none;border-left:2px solid transparent;line-height:1.75;font-size:12.5px}
+aside.toc li.l3 a{padding-left:26px;font-size:12px}
+aside.toc li a:hover{color:var(--ink)}
+aside.toc li a.on{color:var(--acc);border-left-color:var(--acc)}
+aside.toc::-webkit-scrollbar{width:5px}
+aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
+@media(max-width:1100px){aside.toc{display:none}.sheet{padding:26px 20px 34px}}
+/* ---- 窄屏：顶栏折行，避免整页横向溢出 ---- */
+@media(max-width:760px){
+ .topbar .in{flex-wrap:wrap;row-gap:6px;padding:8px 16px;gap:6px}
+ .topbar .brand{margin-right:2px}
+ .crumb{display:none}
+ .layout{padding:18px 14px 64px}
+ .sheet{padding:22px 18px 28px}
+ .sheet h1{font-size:22px}
+ body{font-size:15px;line-height:1.95}
+ .sheet h2{font-size:19px}
+ .realted-wrap{padding:0 4px}
+}
+/* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
+@media print{
+ .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body.pcard .sheet>*{display:none!important}
+ body.pcard .sheet>.pcard-zone{display:block!important}
+ body{background:#fff;font-size:11pt;line-height:1.7}
+ .layout{display:block;padding:0;max-width:none}
+ .content{flex:none;max-width:none}
+ .sheet{border:none;background:#fff;padding:0;border-radius:0}
+ .sheet h1,.sheet h2,.sheet h3{page-break-after:avoid}
+ .sheet table,.sheet pre,.sheet .mermaid{page-break-inside:avoid}
+ a{color:#000;text-decoration:none}
+}
+/* ---- 同题对比块 ---- */
+.realted-wrap{margin-top:26px}
+.realted{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:16px 20px}
+.realted .tt{font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}
+.realted ul{list-style:none;margin:0;padding:0;display:block}
+.realted li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.realted li:last-child{border-bottom:none}
+.realted li.self{color:var(--acc);font-weight:600}
+.realted .t{font-family:var(--mono);font-size:11.5px;color:var(--dim);flex-shrink:0;min-width:46px}
+.realted .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../../../index.html"><span class="seal">U</span>UPC 全档案库</a>
+  <a href="../../../index.html#guide">使用指南</a>
+  <button id="ck" class="tag ck" type="button" hidden></button>
+  
+  <a class="tag" href="../../../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E7%AC%A6%E5%8F%B7%E9%80%9F%E6%9F%A5%E8%A1%A8.md">Markdown</a>
+  <button id="fz" class="tag" type="button" title="正文字号：小 / 标准 / 大 / 特大">字号</button>
+  <button id="prt" class="tag" type="button" title="打印本文（自动隐藏顶栏与目录）">打印</button>
+  <button id="shelf" class="tag" type="button" title="收进书架，首页「我的打卡」可回看" aria-label="收进书架">⭐ 收藏</button>
+  <button id="nightT" type="button" title="夜间 / 日间模式" aria-label="切换夜间模式">🌙</button>
+  <span class="crumb">11_论文模板与工具 · 符号速查表 —— 看不懂公式里的符号？从这里查</span>
+  <div class="srwrap">
+    <input id="dsq" type="search" placeholder="全库搜索" autocomplete="off">
+    <div id="dsres"></div>
+  </div>
+  <a class="clock" id="clock" href="../../../index.html#race" hidden aria-label="第 17 届 UPC 赛程"></a>
+</div></div>
+<div class="layout">
+  <div class="content"><div class="sheet">
+<h1 id="符号速查表-看不懂公式里的符号从这里查">符号速查表 —— 看不懂公式里的符号？从这里查</h1>
+<p><strong>本文定位</strong>：全库公式中符号的"翻译层"。术语速查表管<strong>词</strong>（aerobraking 是什么），本表管<strong>符</strong>（ρ、σ、Δv 怎么读、是什么）。配合阅读路径：公式怎么从无到有——新手课堂课程一（圈三样→变量表→选骨架→插零件）→ 零基础起步卡（五层）→ 本文查符号。</p>
+<p><strong>最大陷阱先说</strong>：<strong>同一个符号在不同论文里意思不同</strong>。物理符号没有国家标准，每支队伍自己定义——所以读任何公式前，先找该论文的符号表（规范论文必有）。本表给的是 <strong>UPC 语料中的高频含义</strong>，按出现频次排序；⚠ 标记 = 一词多义重灾区。</p>
+<h2 id="1-希腊字母小写-按阅读频次排序">1. 希腊字母（小写 · 按阅读频次排序）</h2>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>读法</th>
+<th>UPC 高频含义（按频次）</th>
+<th>出没处</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>θ</td>
+<td>theta（西塔）</td>
+<td>角度（入射角/帆角/俯仰角/射击角）</td>
+<td>几乎全部题目</td>
+</tr>
+<tr>
+<td>ρ</td>
+<td>rho（柔）</td>
+<td><strong>密度</strong>（大气/水/材料）；⚠ 也可指电阻率、曲率半径</td>
+<td>2010A、2023A、2018B…</td>
+</tr>
+<tr>
+<td>σ</td>
+<td>sigma（西格玛）</td>
+<td>⚠⚠ 重灾区：应力（2013B）/ 组合参数（2010A 把 C_dM_H₂A/2k_B 打包成 σ）/ 标准差 / 斯特藩-玻尔兹曼常数 5.67×10⁻⁸ / 电导率</td>
+<td>2010A、2013B、2012A…</td>
+</tr>
+<tr>
+<td>μ</td>
+<td>mu（谬/米尤）</td>
+<td>⚠⚠ 重灾区：摩擦系数（2019B）/ 约化质量 / 化学势 / 动力黏度（2011B 的 η 另说）/ 天体引力常数 GM 也常记作 μ</td>
+<td>2013A、2016A、2019A/B</td>
+</tr>
+<tr>
+<td>α</td>
+<td>alpha（阿尔法）</td>
+<td>角度（帆角/附着角/发射相位角）/ 热扩散率 / 吸收系数 / 指数系数</td>
+<td>2015A、2017A、2020A、2021A</td>
+</tr>
+<tr>
+<td>β</td>
+<td>beta（贝塔）</td>
+<td>速度比 v/c（相对论，2018A）/ 角度 / 指数拟合系数（大气标高 β）/ 动量增强因子（2022A 的 β≈8.4 是另一回事）</td>
+<td>2017A、2018A、2022A</td>
+</tr>
+<tr>
+<td>γ</td>
+<td>gamma（伽马）</td>
+<td>比热比 C_p/C_v（空气 ≈1.4）/ 洛伦兹因子 1/√(1−β²) / 品质因子权重（辐射）</td>
+<td>2018A、2023A、2019A</td>
+</tr>
+<tr>
+<td>Δ（大写）</td>
+<td>delta（德尔塔）</td>
+<td><strong>差分/变化量</strong>——Δv 速度增量、ΔT 温差、Δθ 角度窗口。UPC 第一符号（统一货币就是 Δv）</td>
+<td>全部题目</td>
+</tr>
+<tr>
+<td>η</td>
+<td>eta（伊塔）</td>
+<td><strong>效率</strong>（热效率/推进效率/屏蔽占比）；⚠ 也可指动力黏度</td>
+<td>2012A、2024B、2019A</td>
+</tr>
+<tr>
+<td>ε</td>
+<td>epsilon（艾普西隆）</td>
+<td>发射率（辐射，εσT⁴）/ 应变 / 修复系数（2022A 的 β 是动量增强，有的论文用 ε）；⚠ 恢复系数多写 e</td>
+<td>2015A、2018A、2021B</td>
+</tr>
+<tr>
+<td>λ</td>
+<td>lambda（拉姆达）</td>
+<td>波长 / 衰减常数（dN/dt=−λN）/ 大气标高（2016B 的 λ≈7.46 km 是另一用法）/ Jeans 参数衍生</td>
+<td>2021A、2023A、2025A</td>
+</tr>
+<tr>
+<td>ω</td>
+<td>omega（欧米伽，小写）</td>
+<td><strong>角速度</strong>（自旋/姿态/轨道角速度）</td>
+<td>2010B、2022B、2023A</td>
+</tr>
+<tr>
+<td>τ</td>
+<td>tau（套）</td>
+<td>时间常数 / 剪切应力 / 扭矩 / 耐受积分（2023-A-355 的 S=∫k dt 是自创）</td>
+<td>2023A、2018B</td>
+</tr>
+<tr>
+<td>φ / ϕ</td>
+<td>phi（费/佛爱）</td>
+<td>相位角 / 方位角 / 通量</td>
+<td>2014A、2022B</td>
+</tr>
+<tr>
+<td>δ</td>
+<td>delta（小写）</td>
+<td>小量/偏转角/损失系数</td>
+<td>2013A、2017A</td>
+</tr>
+<tr>
+<td>Ω（大写）</td>
+<td>Omega（欧米伽，大写）</td>
+<td><strong>大天体的角速度</strong>（地球自转 Ω=7.29×10⁻⁵ rad/s——科氏力里的那个）</td>
+<td>科氏力、轨道</td>
+</tr>
+<tr>
+<td>ν</td>
+<td>nu（纽）</td>
+<td>泊松比 / 频率（辐射的光子频率）/ 运动黏度 ⚠ 与 velocity v 手写易混</td>
+<td>少</td>
+</tr>
+<tr>
+<td>ξ</td>
+<td>xi（克西）</td>
+<td>随机扰动项 / 无量纲坐标</td>
+<td>少</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-拉丁字母高频含义含一词多义">2. 拉丁字母高频含义（含一词多义）</h2>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>UPC 高频含义</th>
+<th>⚠ 歧义警告</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>m / M</td>
+<td>质量（小写=小物体，大写=大天体/行星）</td>
+<td>同一论文里大小写必须不同义</td>
+</tr>
+<tr>
+<td>v / V</td>
+<td>速度 / 体积或电压</td>
+<td></td>
+</tr>
+<tr>
+<td>h / H</td>
+<td>高度 / 标高或磁场强度</td>
+<td>H 也常作哈密顿量（2017A-699）</td>
+</tr>
+<tr>
+<td>g</td>
+<td>重力加速度（9.81 或 g_eff）</td>
+<td></td>
+</tr>
+<tr>
+<td>c</td>
+<td>⚠ 比热 / 光速（3×10⁸）/ 声速 c_s</td>
+<td>三义，看上下文</td>
+</tr>
+<tr>
+<td>e</td>
+<td>⚠⚠ 恢复系数（碰撞）/ 自然底数 2.718 / 轨道偏心率</td>
+<td>三义之王</td>
+</tr>
+<tr>
+<td>k</td>
+<td>⚠ 弹簧刚度 / 玻尔兹曼常数 k_B / 热导率 / 反应速率常数 k(T)</td>
+<td>四义</td>
+</tr>
+<tr>
+<td>R</td>
+<td>半径 / 气体常数 R=8.314 / 电阻</td>
+<td></td>
+</tr>
+<tr>
+<td>T</td>
+<td>温度 / 周期 / 张力</td>
+<td></td>
+</tr>
+<tr>
+<td>u</td>
+<td>排气速度（火箭方程 v_e 的别名）/ 控制输入</td>
+<td></td>
+</tr>
+<tr>
+<td>C_d</td>
+<td>阻力系数（下标 d=drag）；C_L 升力系数</td>
+<td></td>
+</tr>
+<tr>
+<td>E</td>
+<td>能量 / 弹性模量（杨氏模量）</td>
+<td></td>
+</tr>
+<tr>
+<td>F</td>
+<td>力；FMR 野外代谢率（生物题）</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-上下标与记号惯例">3. 上下标与记号惯例</h2>
+<table>
+<thead>
+<tr>
+<th>记号</th>
+<th>读法</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x₀</td>
+<td>下标 0 = 初始值/基准值</td>
+<td>v₀ 初速、h₀ 起跳高</td>
+</tr>
+<tr>
+<td>x∞</td>
+<td>下标 ∞ = 远场/无穷远</td>
+<td>v∞ 引力辅助时的双曲线超速</td>
+</tr>
+<tr>
+<td>x_max / x_min</td>
+<td>最大 / 最小（临界往往由这两个夹逼）</td>
+<td>θ_max−θ_min=窗口</td>
+</tr>
+<tr>
+<td>x_eff</td>
+<td>有效值（把复杂效应打包成一个参数）</td>
+<td>C_dA 有效迎风面积、D_eff 有效扩散率</td>
+</tr>
+<tr>
+<td>Δx</td>
+<td>末值 − 初值（差分）</td>
+<td>Δv、Δθ</td>
+</tr>
+<tr>
+<td>d x/d t</td>
+<td>对时间的导数（变化率）</td>
+<td>dv/dt=加速度</td>
+</tr>
+<tr>
+<td>∂</td>
+<td>偏导数（多元函数只对一个变量求导）</td>
+<td>∂T/∂t</td>
+</tr>
+<tr>
+<td>Σ</td>
+<td>求和（ΣF=所有力加起来）</td>
+<td>牛顿第二定律 ΣF=ma</td>
+</tr>
+<tr>
+<td>∝</td>
+<td>正比于（读"正比"）</td>
+<td>全力 ∝ 1/r²</td>
+</tr>
+<tr>
+<td>≈ / ≈10ⁿ</td>
+<td>近似 / 量级是</td>
+<td>on the order of</td>
+</tr>
+<tr>
+<td>×10ⁿ</td>
+<td>科学计数法（10⁴=一万）</td>
+<td>中文"万/亿"一律换算成这个</td>
+</tr>
+<tr>
+<td>v̂（帽子）</td>
+<td>单位向量（方向）</td>
+<td>阻力 −½ρC_dAv²·v̂</td>
+</tr>
+<tr>
+<td>x̄（横线）</td>
+<td>平均值</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-三步读懂一条公式教学口诀">4. 三步读懂一条公式（教学口诀）</h2>
+<ol>
+<li><strong>先读符号</strong>：每个符号是什么量、什么单位——不认识的回本表或该论文符号表；</li>
+<li><strong>再读结构</strong>：等号两边各是什么（力=力？能量入=能量出？）——物理方程都是"收支/平衡/变化率"三句话之一；</li>
+<li><strong>最后读量级</strong>：把数字代入粗算一遍（费米估算），确认公式说的是人话。</li>
+</ol>
+<blockquote>
+<p>公式不是天书，是<strong>压缩的实验记录</strong>：每一个符号都是一个被测量过的量，每一项都是一个被论证过"必须建模"的物理效应。看不懂时，缺的从来不是数学，是<strong>这个符号背后的那句话</strong>——回变量表和解读里找它。</p>
+</blockquote>
+</div>
+
+</div>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#1-希腊字母小写-按阅读频次排序">1. 希腊字母（小写 · 按阅读频次排序）</a></li><li class="l2"><a href="#2-拉丁字母高频含义含一词多义">2. 拉丁字母高频含义（含一词多义）</a></li><li class="l2"><a href="#3-上下标与记号惯例">3. 上下标与记号惯例</a></li><li class="l2"><a href="#4-三步读懂一条公式教学口诀">4. 三步读懂一条公式（教学口诀）</a></li></ul></aside>
+</div>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 19:57<br><a href="../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
+<div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
+<button id="top" aria-label="回到顶部">↑</button>
+<script>
+/* ---------- 打卡：浏览自动标记 + 手动打卡（localStorage） ---------- */
+var PKEY="",PKIND="",CKS="upcProgress.v1";
+function ckLoad(){try{return JSON.parse(localStorage.getItem(CKS)||"{}")}catch(e){return{}}}
+function ckSave(s){try{localStorage.setItem(CKS,JSON.stringify(s))}catch(e){}}
+function ckPush(s,st){(s.log=s.log||[]).unshift({k:PKEY,t:PKIND,s:st,ts:Date.now()});if(s.log.length>80)s.log.length=80;}
+function ckSet(state){
+  var s=ckLoad();
+  var bag=PKIND==="paper"?(s.p=s.p||{}):(s.i=s.i||{});
+  var it=bag[PKEY]||{},now=Date.now();
+  if(state==="v"){if(!it.v){it.v=now;ckPush(s,"v");}}
+  else if(state==="t"){if(it.d){delete it.d;ckPush(s,"u");}else{it.d=now;ckPush(s,"d");}}
+  bag[PKEY]=it;ckSave(s);ckUI();
+}
+function ckUI(){
+  var b=document.getElementById('ck');if(!b||!PKEY)return;
+  var s=ckLoad(),it=(PKIND==="paper"?(s.p||{}):(s.i||{}))[PKEY]||{};
+  var done=!!it.d;
+  b.textContent=done?"已打卡 ✓":"打卡 · 标记已吃透";
+  b.classList.toggle('done',done);
+}
+document.addEventListener("DOMContentLoaded", function(){
+  if(PKEY){
+    var b=document.getElementById('ck');b.hidden=false;
+    b.addEventListener('click',function(){ckSet("t")});
+    ckUI();
+    setTimeout(function(){ckSet("v")},3000);  // 停留 3 秒 = 浏览过（自动标记）
+  }
+  // 字号档位（s/m/l/xl，记忆在本地）；打印按钮走既有 @media print 样式
+  var FZ=["fz-s","","fz-l","fz-xl"],fzs=["小","标准","大","特大"];
+  var fzBtn=document.getElementById('fz');
+  function applyFz(i){document.documentElement.classList.remove('fz-s','fz-l','fz-xl');
+    if(FZ[i])document.documentElement.classList.add(FZ[i]);
+    fzBtn.textContent='字号·'+fzs[i];try{localStorage.setItem('upcFz',String(i))}catch(e){}}
+  var fzi=parseInt((function(){try{return localStorage.getItem('upcFz')||"1"}catch(e){return "1"}})(),10);
+  if(!(fzi>=0&&fzi<FZ.length))fzi=1;applyFz(fzi);
+  fzBtn.addEventListener('click',function(){applyFz((fzi=(fzi+1)%FZ.length));});
+  document.getElementById('prt').addEventListener('click',function(){window.print();});
+  // 收藏书架（upcShelf.v1）：与打卡互补——打卡记"读过"，书架记"回头细看"
+  (function(){
+    var b=document.getElementById('shelf');if(!b||!PKEY)return;
+    var K='upcShelf.v1';
+    function load(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+    function paint(){var it=load()[PKEY];
+      b.textContent=it?'★ 已收藏':'⭐ 收藏';b.classList.toggle('on',!!it);}
+    paint();
+    b.addEventListener('click',function(){
+      var all=load();
+      if(all[PKEY]){delete all[PKEY];}else{all[PKEY]={t:document.title.split(' · ')[0],k:PKIND,ts:Date.now()};}
+      try{localStorage.setItem(K,JSON.stringify(all))}catch(e){}
+      paint();
+    });
+  })();
+  if('serviceWorker' in navigator){try{navigator.serviceWorker.register('../../../sw.js');}catch(e){}}
+  // 夜间模式（与全站共用 upcNight）
+  (function(){
+    function set(n){document.body.classList.toggle('night',n);
+      var t=document.getElementById('nightT');if(t)t.textContent=n?'☀️':'🌙';
+      try{localStorage.setItem('upcNight',n?'1':'0')}catch(e){}}
+    var s=false;try{s=localStorage.getItem('upcNight')==='1'}catch(e){}
+    set(s);
+    var t=document.getElementById('nightT');
+    if(t)t.addEventListener('click',function(){set(!document.body.classList.contains('night'));});
+  })();
+  // 搜索落地高亮：首页结果链接带 #q=关键词，进入文档页后逐命中包裹 mark 并滚动到首个
+  (function(){
+    var mq=location.hash.match(/^#q=(.+)$/);if(!mq)return;
+    var kw;try{kw=decodeURIComponent(mq[1])}catch(e){kw=mq[1]}
+    if(!kw)return;
+    var root=document.querySelector('.sheet');if(!root)return;
+    var lower=kw.toLowerCase(),count=0,first=null;
+    (function walk(node){
+      if(count>=40)return;
+      var kids=[].slice.call(node.childNodes);
+      for(var i=0;i<kids.length;i++){
+        var n=kids[i];
+        if(n.nodeType===3&&n.nodeValue.trim()){
+          var idx=n.nodeValue.toLowerCase().indexOf(lower);
+          if(idx<0)continue;
+          var rg=document.createRange();rg.setStart(n,idx);rg.setEnd(n,idx+kw.length);
+          var mr=document.createElement('mark');mr.className='qhit';
+          try{rg.surroundContents(mr);}catch(e){continue;}
+          if(!first)first=mr;count++;
+          kids=[].slice.call(node.childNodes);i=-1;
+        }else if(n.nodeType===1&&!/^(SCRIPT|STYLE|MARK)$/.test(n.tagName)){
+          walk(n);
+        }
+        if(count>=40)break;
+      }
+    })(root);
+    if(first)first.scrollIntoView({block:'center'});
+  })();
+  // 合规卡专项打印（仅规则页有 #pcard-btn）：把该小节包进 .pcard-zone
+  (function(){
+    var pb=document.getElementById('pcard-btn');if(!pb)return;
+    var h=null;[].slice.call(document.querySelectorAll('.sheet h2')).forEach(function(x){
+      if(!h&&x.textContent.indexOf('一分钟合规卡')>=0)h=x;});
+    if(!h)return;
+    var zone=document.createElement('div');zone.className='pcard-zone';
+    h.parentNode.insertBefore(zone,h);zone.appendChild(h);
+    var n=zone.nextSibling;
+    while(n&&!(n.nodeType===1&&/^H2$/i.test(n.tagName))){var nx=n.nextSibling;zone.appendChild(n);n=nx;}
+    pb.addEventListener('click',function(){document.body.classList.add('pcard');window.print();});
+  })();
+  addEventListener('afterprint',function(){document.body.classList.remove('pcard');});
+  // 完整解题流程手册：九阶段进度（upcFlow.v1）
+  (function(){
+    var f=document.getElementById('flow');if(!f)return;
+    var boxes=[].slice.call(f.querySelectorAll('input[data-fs]'));
+    var K='upcFlow.v1';
+    function load(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+    function paint(){
+      var s=load(),n=0;
+      boxes.forEach(function(b){b.checked=!!s[b.dataset.fs];if(b.checked)n++;});
+      document.getElementById('flowbar').style.width=(n/boxes.length*100)+'%';
+      document.getElementById('flowpct').textContent=n+'/'+boxes.length;
+      document.getElementById('flowdone').hidden=(n<boxes.length);
+    }
+    boxes.forEach(function(b){b.addEventListener('change',function(){
+      var s=load();if(b.checked)s[b.dataset.fs]=Date.now();else delete s[b.dataset.fs];
+      try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}
+      paint();});});
+    document.getElementById('flowreset').addEventListener('click',function(){try{localStorage.removeItem(K)}catch(e){}paint();});
+    paint();
+  })();
+  // 10 分钟自测（07 解读页）：先写自己的路线再对照，状态存 upcDrill.v1
+  (function(){
+    var card=document.getElementById('drill');if(!card)return;
+    var key=card.dataset.pkey,ta=document.getElementById('drillIn'),
+        st=document.getElementById('drillState'),gold=document.getElementById('drillGold');
+    var K='upcDrill.v1';
+    function load(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+    var it=(load()[key]||{});
+    if(it.txt)ta.value=it.txt;
+    if(it.done){gold.hidden=false;st.textContent='已练 ✓ '+new Date(it.ts).toLocaleDateString();}
+    document.getElementById('drillGo').addEventListener('click',function(){
+      var all=load();all[key]={txt:ta.value,done:Date.now()};
+      try{localStorage.setItem(K,JSON.stringify(all))}catch(e){}
+      gold.hidden=false;st.textContent='已练 ✓ 记入本浏览器——对照上方要点逐条自评';
+    });
+    ta.addEventListener('input',function(){var all=load();all[key]=all[key]||{};all[key].txt=ta.value;
+      try{localStorage.setItem(K,JSON.stringify(all))}catch(e){}});
+  })();
+  if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
+    delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
+    ignoredTags:["script","style","textarea","pre","code"],ignoredClasses:["nocatex"]});
+  if (window.mermaid){
+    mermaid.initialize({startOnLoad:false,theme:"neutral",securityLevel:"loose"});
+    document.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+      var d=document.createElement('div');d.className='mermaid';d.textContent=el.textContent;
+      el.parentElement.replaceWith(d);});
+    mermaid.run({querySelector:'.mermaid'});
+  }
+  // back-to-top (window.scrollTo explicitly — inline scrollTo gets shadowed)
+  document.getElementById('top').addEventListener('click',function(){
+    try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}
+    setTimeout(function(){document.documentElement.scrollTop=0;},450);
+  });
+  // reading progress
+  var pb=document.getElementById('pbar');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pb.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';
+    document.getElementById('top').classList.toggle('on',scrollY>600);
+  },{passive:true});
+  // toc scroll-spy + click-highlight
+  var links=[].slice.call(document.querySelectorAll('aside.toc a'));
+  if(links.length){
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    links.forEach(function(a){a.addEventListener('click',function(){
+      links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');
+    });});
+    var heads=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+    var spy=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        map[e.target.id]&&map[e.target.id].classList.add('on');
+      }});
+    },{rootMargin:'-5% 0px -65% 0px'});
+    heads.forEach(function(h){spy.observe(h);});
+    // keep last heading lit when scrolled to page bottom
+    addEventListener('scroll',function(){
+      if(innerHeight+scrollY>=document.documentElement.scrollHeight-40){
+        links.forEach(function(a){a.classList.remove('on');});
+        links[links.length-1]&&links[links.length-1].classList.add('on');
+      }
+    },{passive:true});
+  }
+});
+/* ---------- 赛事时钟徽章：赛前 D-天数，赛中已用时长，点回首页赛程 ---------- */
+(function(){
+  var S=1794013200000,E=1794186000000,el=document.getElementById('clock');
+  if(!el)return;
+  function p2(n){return n<10?'0'+n:''+n;}
+  function upd(){
+    var t=Date.now();
+    if(t<S){var ms=S-t,dd=Math.floor(ms/864e5);
+      if(dd>=1){el.textContent='赛前 D-'+dd;el.dataset.s='pre';}
+      else{var hh=Math.floor(ms/36e5),mm=Math.floor(ms%36e5/6e4);
+        el.textContent='赛前 '+p2(hh)+':'+p2(mm);el.dataset.s='pre';}}
+    else if(t<E){var u=Math.floor((t-S)/1000);
+      el.textContent='赛中 '+p2(Math.floor(u/3600))+':'+p2(Math.floor(u%3600/60));el.dataset.s='live';}
+    else{el.textContent='第 17 届已结束';el.dataset.s='post';}
+    el.hidden=false;
+  }
+  upd();setInterval(upd,30000);
+})();
+/* ---------- 顶栏全库搜索（懒加载 search-index，链接以本页为基准换算） ---------- */
+var RELROOT="../../../",dsq=document.getElementById('dsq'),dsres=document.getElementById('dsres');
+var DSIDX=null,dsLoading=false;
+function dsEsc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function dsEnsure(){return new Promise(function(ok){if(DSIDX){ok();return;}if(dsLoading)return;dsLoading=true;
+  dsres.style.display='block';dsres.innerHTML='<div class="hint">载入全库索引…</div>';
+  var s=document.createElement('script');s.src=RELROOT+"search-index.js";
+  s.onload=function(){DSIDX=window.UPC_SEARCH||[];dsLoading=false;ok();};
+  s.onerror=function(){DSIDX=[];dsLoading=false;dsres.innerHTML='<div class="hint">索引载入失败，刷新重试</div>';};
+  document.head.appendChild(s);});}
+function dsRun(){var kw=dsq.value.trim().toLowerCase();if(!kw){dsres.style.display='none';return;}
+  if(!DSIDX)return;var hits=[];
+  for(var i=0;i<DSIDX.length;i++){var x=DSIDX[i],sc=0;
+    if((x.t||'').toLowerCase().indexOf(kw)>=0)sc+=6;
+    if((x.d||'').toLowerCase().indexOf(kw)>=0)sc+=2;
+    if((x.c||'').toLowerCase().indexOf(kw)>=0)sc+=3;
+    if(sc)hits.push({x:x,sc:sc});}
+  hits.sort(function(a,b){return b.sc-a.sc;});
+  var shown=hits.slice(0,12);
+  dsres.innerHTML=shown.length?shown.map(function(h){return '<a href="'+RELROOT+h.x.u+'"><span class="d">'+dsEsc(h.x.d)+'</span>'+dsEsc(h.x.t)+'</a>';}).join('')
+    :'<div class="hint">全库正文中都没有「'+dsEsc(kw)+'」</div>';
+  dsres.style.display='block';}
+dsq.addEventListener('input',function(){dsEnsure().then(dsRun);});
+dsq.addEventListener('focus',function(){dsEnsure();});
+document.addEventListener('click',function(e){if(!e.target.closest('.srwrap'))dsres.style.display='none';});
+document.addEventListener('keydown',function(e){
+  if(e.key==='/'&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){e.preventDefault();dsq.focus();}
+  if(e.key==='Escape'){dsres.style.display='none';dsq.blur();}});
+
+/* ---------- giscus 讨论区（可选，零默认请求）：四个字段都填好后重建即启用 ---------- */
+/* 获取方式见 README「讨论区」：giscus.app 选本仓库 → 依次开启 Discussions、安装 giscus App → 复制四个值 */
+var GISCUS={repo:"L-zer0Coder/upc-archive",repoId:"",category:"",categoryId:""};
+if(GISCUS.repo&&GISCUS.repoId&&GISCUS.categoryId){
+  var gbox=document.getElementById('giscus-thread');
+  if(gbox){
+    gbox.hidden=false;
+    var gs=document.createElement('script');
+    gs.src='https://giscus.app/client.js';
+    gs.setAttribute('data-repo',GISCUS.repo);gs.setAttribute('data-repo-id',GISCUS.repoId);
+    gs.setAttribute('data-category',GISCUS.category);gs.setAttribute('data-category-id',GISCUS.categoryId);
+    gs.setAttribute('data-mapping','pathname');gs.setAttribute('data-strict','0');
+    gs.setAttribute('data-reactions-enabled','1');gs.setAttribute('data-emit-metadata','0');
+    gs.setAttribute('data-theme','light');gs.setAttribute('data-lang','zh-CN');
+    gs.setAttribute('crossorigin','anonymous');gs.async=true;
+    gbox.appendChild(gs);
+  }
+}
+</script>
+</body>
+</html>
