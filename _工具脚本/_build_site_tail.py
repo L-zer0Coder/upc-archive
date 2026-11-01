@@ -175,6 +175,13 @@ h2.st .no{font-size:15px;letter-spacing:.14em}
 h2.st .no{font-family:var(--mono);font-size:11.5px;color:var(--acc);letter-spacing:.08em;font-weight:400}
 .lead{color:var(--mut);font-size:13.5px;margin:6px 0 0;max-width:860px}
 .svgbox{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:18px;margin:14px 0}
+/* 夜间模式（首页）：变量换肤；图表区保持浅色卡以保证 SVG 可读 */
+body.night{--paper:#26231E;--sheet:#2D2A24;--ink:#EAE4D8;--mut:#B7AE9E;--dim:#9C9382;--line:#45403A;--line2:#565047;--acc:#E2907C;--acc-d:#F0B4A4;--acc-soft:rgba(226,144,124,.14)}
+body.night #bar{background:rgba(38,35,30,.94)}
+body.night img{opacity:.88}
+body.night .svgbox{background:#FDFCF8;border-color:#565047}
+#nightT{cursor:pointer;font-size:13px;background:none;border:1px solid var(--line2);border-radius:3px;height:28px;min-width:30px;color:var(--mut)}
+#nightT:hover{color:var(--acc);border-color:var(--acc)}
 .svgbox svg{width:100%;height:auto;display:block}
 .note{color:var(--dim);font-size:12.5px}
 .notebox{border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:0 3px 3px 0;background:var(--sheet);
@@ -394,6 +401,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
     <a href="12_赛时工具/manual.html">说明书</a>
   </nav>
   <button id="mnb" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="mdrawer"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+  <button id="nightT" type="button" title="夜间 / 日间模式" aria-label="切换夜间模式">🌙</button>
   <div class="swrap">
     <input id="q" type="search" placeholder="搜索 __NDOCS__ 份文档…" autocomplete="off">
     <span class="kbd">/</span>
@@ -962,7 +970,7 @@ function runSearch(){
   res.innerHTML=shown.length
     ? shown.map(h=>{
         const s2=h.cHit?snip(h.x.c,kw):'';
-        return `<a href="${h.x.u}"><span class="d">${escHtml(h.x.d)}</span><span><span>${hl(h.x.t,kw)}</span>`+
+        return `<a href="${h.x.u}#q=${encodeURIComponent(kw)}"><span class="d">${escHtml(h.x.d)}</span><span><span>${hl(h.x.t,kw)}</span>`+
                (s2?`<span class="sn">${hl(s2,kw)}</span>`:'')+`</span></a>`;
       }).join('')+(hits.length>shown.length?`<div class="hint">另有 ${hits.length-shown.length} 条，输入更具体的关键词可缩小范围</div>`:'')
     : `<div class="hint">全库正文中都没有「${escHtml(q.value)}」</div>`;
@@ -1054,16 +1062,26 @@ addEventListener('keydown',e=>{if(e.key==='Escape'&&mdl.classList.contains('on')
   function p2(n){return n<10?'0'+n:''+n;}
   function hms(ms){var s=Math.max(0,Math.floor(ms/1000));
     return p2(Math.floor(s/3600))+':'+p2(Math.floor(s%3600/60))+':'+p2(s%60);}
-  var last='';
+  function fmt(ms){var d=new Date(ms);function q(n){return n<10?'0'+n:''+n;}
+    return d.getFullYear()+'-'+q(d.getMonth()+1)+'-'+q(d.getDate())+'T'+q(d.getHours())+':'+q(d.getMinutes());}
+  function titleFor(st){
+    if(raceT0())return st==='pre'?('第 17 届 UPC · 校准后开赛 '+fmt(S).replace('T',' ')+'（本机时区）')
+      :st==='live'?'第 17 届 UPC · 比赛进行中（按校准时间计时）'
+      :'第 17 届 UPC · 已按校准时间归档';
+    return st==='pre'?'第 17 届 UPC · 2026.11.07 09:00 开赛（北京时间 UTC+8）'
+      :st==='live'?'第 17 届 UPC · 2026.11.09 09:00 截止（北京时间 UTC+8）'
+      :'第 17 届 UPC · 2026.11.07 09:00 — 11.09 09:00';
+  }
+  var last='',lastO=null;
   function tick(){
+    var o=raceT0();
+    if(o!==lastO){lastO=o;S=o||S0;E=S+DUR;last='';}   // 校准值变化（含他页修改）即重算起止并强制刷新
     var t=Date.now(),st;
     if(t<S)st='pre';else if(t<E)st='live';else st='post';
     if(st!==last){
       last=st;root.dataset.state=st;
       pill.textContent=st==='pre'?'赛前':(st==='live'?'比赛进行中':'已结束');
-      title.textContent=st==='pre'?'第 17 届 UPC · 2026.11.07 09:00 开赛（北京时间 UTC+8）'
-        :st==='live'?'第 17 届 UPC · 2026.11.09 09:00 截止（北京时间 UTC+8）'
-        :'第 17 届 UPC · 2026.11.07 09:00 — 11.09 09:00';
+      title.textContent=titleFor(st);
     }
     if(st==='pre'){
       var ms=S-t,d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),
@@ -1093,13 +1111,11 @@ addEventListener('keydown',e=>{if(e.key==='Escape'&&mdl.classList.contains('on')
   if(calT){
     var calBody=document.getElementById('calBody'),calIn=document.getElementById('calIn'),
         calNote=document.getElementById('calNote');
-    function fmt(ms){var d=new Date(ms);function p2(n){return n<10?'0'+n:''+n;}
-      return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())+'T'+p2(d.getHours())+':'+p2(d.getMinutes());}
     function refreshNote(){var o=raceT0();
       calNote.textContent=o?('已校准：实际开始 '+fmt(o)+'（按本机时区，截止随之平移）')
                             :'当前使用官方时间 2026-11-07 09:00（北京时间）';}
-    calT.addEventListener('click',function(){calBody.hidden=!calBody.hidden;
-      if(!calBody.hidden){var o=raceT0();if(o)calIn.value=fmt(o);refreshNote();}});
+  calT.addEventListener('click',function(){calBody.hidden=!calBody.hidden;
+    if(!calBody.hidden){var o=raceT0();if(o)calIn.value=fmt(o);refreshNote();}});
     document.getElementById('calSave').addEventListener('click',function(){
       if(!calIn.value){calNote.textContent='先选择实际开始时间';return;}
       var ms=new Date(calIn.value).getTime();
@@ -1146,6 +1162,16 @@ ckRefresh();
     var s=document.getElementById(a.getAttribute('href').slice(1));
     if(s&&s.hidden)s.hidden=false;
   });
+})();
+/* ---------- 首页夜间模式（与全站共用 upcNight） ---------- */
+(function(){
+  function set(n){document.body.classList.toggle('night',n);
+    var t=document.getElementById('nightT');if(t)t.textContent=n?'☀️':'🌙';
+    try{localStorage.setItem('upcNight',n?'1':'0')}catch(e){}}
+  var s=false;try{s=localStorage.getItem('upcNight')==='1'}catch(e){}
+  set(s);
+  var t=document.getElementById('nightT');
+  if(t)t.addEventListener('click',function(){set(!document.body.classList.contains('night'));});
 })();
 if('serviceWorker' in navigator){try{navigator.serviceWorker.register('sw.js');}catch(e){}}
 </script>
@@ -1348,7 +1374,11 @@ def write_deploy_helpers(root, site):
                 '</style></head><body><div class="b"><p class="n">404</p><h1>这一页不在档案库里</h1>'
                 '<p>可能是链接拼写有误，或该文档尚未收录。<br>档案库覆盖 2010–2025 共 16 届的全部题目、74 篇金牌论文与解读。</p>'
                 f'<a href="{base}">回到总览</a><a href="{base}#papers">金牌论文库</a>'
-                '<a href="javascript:history.back()">返回上一页</a></div></body></html>')
+                '<a href="javascript:history.back()">返回上一页</a>'
+                f'<p style="margin-top:20px;font-size:12px;color:#786E60">'
+                f'<a href="{base}copyright.html" style="display:inline;border:none;background:none;padding:0;color:#9C3F2E">版权与致谢</a> · '
+                '<a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener" '
+                'style="display:inline;border:none;background:none;padding:0;color:#9C3F2E">提反馈 / 纠错</a></p></div></body></html>')
     # .gitignore 白名单：只提交档案库，不提交 6.6GB 的个人文件
     gi = """# UPC 档案库部署白名单：只上传档案内容，忽略其余个人文件（LaTeX 安装包/视频/课件等）
 /*

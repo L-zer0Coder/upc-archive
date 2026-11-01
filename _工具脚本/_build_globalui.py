@@ -140,7 +140,8 @@ def _root_tree(n):
 def write_global_ui(ctx):
     import _build_manual as bm
     tree = _root_tree(bm.build_tree(ctx))
-    manual_html = bm.rootify(bm.md_fragment(bm.MANUAL_MD))
+    manual_md = bm.MANUAL_MD.replace("__TREECNT__", str(tree.get("cnt", 0)))
+    manual_html = bm.rootify(bm.md_fragment(manual_md))
 
     data = DATA_HEAD + json.dumps({"tree": tree, "manual": manual_html}, ensure_ascii=False) + ";"
     logic = LOGIC.replace("__UIG_CSS__", json.dumps(GLOBAL_CSS, ensure_ascii=False))

@@ -1450,13 +1450,19 @@ def simulate(v0=62.0, spin=0.12, tree_x=110.0, tree_y=3.0, tree_r=1.5):
                 return ya[i]
         return None
     y_tree = y_at(tree_x, xs, ys)
+    # 全程最近距离：对轨迹逐点取到树心的最小欧氏距离，再减树半径（比单截面差更严格）
+    dmin = None
+    for i in range(len(xs)):
+        d = math.hypot(xs[i] - tree_x, ys[i] - tree_y)
+        if dmin is None or d < dmin:
+            dmin = d
     miss = None
-    if y_tree is None:
+    if dmin is None or xs[-1] < tree_x:
         verdict = "球在到达树之前就停了——加大初速 v0 再试"
     else:
-        miss = y_tree - tree_y - tree_r
-        verdict = ("成功绕过树：横向余量 %.1f m" % miss) if miss > 0 else \
-                  ("撞树：还差 %.1f m——调大 spin 或 v0" % (-miss))
+        miss = dmin - tree_r
+        verdict = ("成功绕过树：全程最近余量 %.1f m" % miss) if miss > 0 else \
+                  ("撞树：最近处还差 %.1f m——调大 spin 或 v0" % (-miss))
     return {"xs": xs, "ys": ys, "xs0": xs0, "ys0": ys0,
             "x_end": xs[-1], "y_end": ys[-1], "verdict": verdict,
             "miss": miss, "tree": [tree_x, tree_y, tree_r]}

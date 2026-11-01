@@ -121,6 +121,12 @@ __MERMAID_TAG__
 html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
 html.fz-s body{font-size:15px}html.fz-l body{font-size:17.5px}html.fz-xl body{font-size:19px}
+mark.qhit{background:rgba(156,63,46,.18);color:inherit;border-radius:2px;padding:0 1px}
+#nightT{cursor:pointer;font-size:13px;background:none;border:1px solid var(--line2);border-radius:3px;height:26px;min-width:30px;color:var(--mut)}
+#nightT:hover{color:var(--acc);border-color:var(--acc)}
+body.night{--paper:#26231E;--sheet:#2D2A24;--ink:#EAE4D8;--mut:#B7AE9E;--dim:#9C9382;--line:#45403A;--line2:#565047;--acc:#E2907C;--acc-d:#F0B4A4;--acc-soft:rgba(226,144,124,.14)}
+body.night .topbar{background:rgba(38,35,30,.94)}
+body.night img{opacity:.88}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
@@ -214,6 +220,8 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 /* ---- 打印：48h 手册/checklist 可直接出纸质版 ---- */
 @media print{
  .topbar,#pbar,#top,aside.toc,footer,.ck,.tcard .btns,.realted-wrap{display:none!important}
+ body.pcard .sheet>*{display:none!important}
+ body.pcard .sheet>.pcard-zone{display:block!important}
  body{background:#fff;font-size:11pt;line-height:1.7}
  .layout{display:block;padding:0;max-width:none}
  .content{flex:none;max-width:none}
@@ -244,6 +252,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <a class="tag" href="__RAWMD__">Markdown</a>
   <button id="fz" class="tag" type="button" title="正文字号：小 / 标准 / 大 / 特大">字号</button>
   <button id="prt" class="tag" type="button" title="打印本文（自动隐藏顶栏与目录）">打印</button>
+  <button id="nightT" type="button" title="夜间 / 日间模式" aria-label="切换夜间模式">🌙</button>
   <span class="crumb">__CRUMB__ · __TITLE__</span>
   <div class="srwrap">
     <input id="dsq" type="search" placeholder="全库搜索" autocomplete="off">
@@ -301,6 +310,57 @@ document.addEventListener("DOMContentLoaded", function(){
   fzBtn.addEventListener('click',function(){applyFz((fzi=(fzi+1)%FZ.length));});
   document.getElementById('prt').addEventListener('click',function(){window.print();});
   if('serviceWorker' in navigator){try{navigator.serviceWorker.register('__RELROOT__sw.js');}catch(e){}}
+  // 夜间模式（与全站共用 upcNight）
+  (function(){
+    function set(n){document.body.classList.toggle('night',n);
+      var t=document.getElementById('nightT');if(t)t.textContent=n?'☀️':'🌙';
+      try{localStorage.setItem('upcNight',n?'1':'0')}catch(e){}}
+    var s=false;try{s=localStorage.getItem('upcNight')==='1'}catch(e){}
+    set(s);
+    var t=document.getElementById('nightT');
+    if(t)t.addEventListener('click',function(){set(!document.body.classList.contains('night'));});
+  })();
+  // 搜索落地高亮：首页结果链接带 #q=关键词，进入文档页后逐命中包裹 mark 并滚动到首个
+  (function(){
+    var mq=location.hash.match(/^#q=(.+)$/);if(!mq)return;
+    var kw;try{kw=decodeURIComponent(mq[1])}catch(e){kw=mq[1]}
+    if(!kw)return;
+    var root=document.querySelector('.sheet');if(!root)return;
+    var lower=kw.toLowerCase(),count=0,first=null;
+    (function walk(node){
+      if(count>=40)return;
+      var kids=[].slice.call(node.childNodes);
+      for(var i=0;i<kids.length;i++){
+        var n=kids[i];
+        if(n.nodeType===3&&n.nodeValue.trim()){
+          var idx=n.nodeValue.toLowerCase().indexOf(lower);
+          if(idx<0)continue;
+          var rg=document.createRange();rg.setStart(n,idx);rg.setEnd(n,idx+kw.length);
+          var mr=document.createElement('mark');mr.className='qhit';
+          try{rg.surroundContents(mr);}catch(e){continue;}
+          if(!first)first=mr;count++;
+          kids=[].slice.call(node.childNodes);i=-1;
+        }else if(n.nodeType===1&&!/^(SCRIPT|STYLE|MARK)$/.test(n.tagName)){
+          walk(n);
+        }
+        if(count>=40)break;
+      }
+    })(root);
+    if(first)first.scrollIntoView({block:'center'});
+  })();
+  // 合规卡专项打印（仅规则页有 #pcard-btn）：把该小节包进 .pcard-zone
+  (function(){
+    var pb=document.getElementById('pcard-btn');if(!pb)return;
+    var h=null;[].slice.call(document.querySelectorAll('.sheet h2')).forEach(function(x){
+      if(!h&&x.textContent.indexOf('一分钟合规卡')>=0)h=x;});
+    if(!h)return;
+    var zone=document.createElement('div');zone.className='pcard-zone';
+    h.parentNode.insertBefore(zone,h);zone.appendChild(h);
+    var n=zone.nextSibling;
+    while(n&&!(n.nodeType===1&&/^H2$/i.test(n.tagName))){var nx=n.nextSibling;zone.appendChild(n);n=nx;}
+    pb.addEventListener('click',function(){document.body.classList.add('pcard');window.print();});
+  })();
+  addEventListener('afterprint',function(){document.body.classList.remove('pcard');});
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
     ignoredTags:["script","style","textarea","pre","code"]});
@@ -485,6 +545,11 @@ def render_docs():
         # 定位声明：构建期注入（源 md 不动）。02 汇总 17 份年文件与缺「赛题来源」行的
         # 旧版 07 解读，页首补一枚 notebox，保证每类页三行内说清「这是什么、怎么读」
         pos_note = ""
+        pcard_btn = ""
+        if rel == "02_题目汇总/比赛规则_ContestRules.md":
+            pcard_btn = ('<div style="text-align:right;margin:6px 0 10px">'
+                         '<button id="pcard-btn" class="tag" type="button" '
+                         'title="只打印「一分钟合规卡」一节（自动隐藏页面其余部分）">🖨 打印合规卡</button></div>')
         if rel.startswith("02_题目汇总/") and rel.endswith("_题目与官方信息.md"):
             y2 = os.path.basename(rel)[:4]
             pos_note = ('<div class="notebox"><b>本文定位</b>：{} 年 UPC《题目与官方信息》——当届赛程要点、'
@@ -559,7 +624,7 @@ def render_docs():
         relroot = quote(posix(os.path.relpath(ROOT, page_dir))) + "/"
         page_html = (DOC_TPL.replace("__TITLE__", title).replace("__CRUMB__", crumb).replace("__RELROOT__", relroot)
                      .replace("__HOME__", home).replace("__RAWMD__", raw)
-                     .replace("__PAPERTAG__", papertag).replace("__BODY__", pos_note + body)
+                     .replace("__PAPERTAG__", papertag).replace("__BODY__", pos_note + pcard_btn + body)
                      .replace("__PKEY__", pkey).replace("__PKIND__", pkind)
                      .replace("__DESC__", desc).replace("__RELATED__", related)
                      .replace("__CSS_KATEX__", link_from(page_dir, KATEX_CSS))
@@ -951,6 +1016,12 @@ def audit_readme_numbers(ndocs):
         gtxt = open(gui, encoding="utf-8").read()
         if '"u": "../' in gtxt:
             errs.append("global-ui-data.js 出现 ../ 前缀（树 URL 必须根相对）")
+        nlinks = len(re.findall(r'"u": "', gtxt))
+        mmanual = re.search(r"(\d+)\s*个可点节点", open(P("12_赛时工具", "manual.html"), encoding="utf-8").read())
+        if not mmanual:
+            errs.append("manual 缺「N 个可点节点」口径（应构建期注入）")
+        elif int(mmanual.group(1)) != nlinks:
+            errs.append("manual「{} 个可点节点」应为 {}（global-ui-data 实数）".format(mmanual.group(1), nlinks))
     if errs:
         print("[口径对账] 失败：")
         for e in errs:
