@@ -278,7 +278,6 @@ P5 终检 —— 按 K8 终检清单逐项打分 + 评委三分钟模拟
 </code></pre>
 <p>上下文包：按上表分段内联；组装机 forge 在 P4 之后使用（把 V3 产出的各节 LaTeX 组装成整稿）。</p>
 <h2 id="1-选题与读题t0t1">1. 选题与读题（T0–T1）</h2>
-<h2 id="1-选题与读题t0t1_1">1. 选题与读题（T0–T1）</h2>
 <blockquote>
 <p>开赛 0–4 小时用。目标：15 分钟内判断两道题哪道离你们的主场模型更近，并把模糊词全部翻译成可计算判据。</p>
 </blockquote>
@@ -349,9 +348,9 @@ P5 终检 —— 按 K8 终检清单逐项打分 + 评委三分钟模拟
 <blockquote>
 <p>第 36–46 小时用。摘要最后写但必须带数值结论；逐节成文当天完成。</p>
 </blockquote>
-<h3 id="提示词摘要打磨数字ocracy">提示词：摘要打磨（数字ocracy）</h3>
+<h3 id="提示词摘要打磨数字结论优先">提示词：摘要打磨（数字结论优先）</h3>
 <pre><code class="language-text">你是 UPC 金牌论文的英文编辑。这是我队的摘要草稿。按金牌标准逐句审查并改写：
-1. 结构是否是：符号与关键定义 → 问题的两难（trade-off）→ 方法一句话 → 带区间/阈值/百分比的数值结论 → 建议与适用域；
+1. 结构是否是：符号与关键定义 → 方法一句话 → 带区间/阈值/百分比的数值结论（≥2 处）→ 建议（可选 ≤1 句）与适用域；两难（trade-off）一句带过即可——金牌统计里&quot;建议&quot;句全库仅 7 句、&quot;两难&quot;仅 5 句；
 2. 有没有至少一个硬数字（2010-A 金牌摘要直接给 8.8296° &lt; θ &lt; 8.8549°，允许误差 0.0253°）？没有数字的摘要在 UPC 等于没写；
 3. 是否存在自夸词（accurate / great / obviously）——全部改成精度声明或引用式号；
 4. 每句信息密度：删掉所有不承载信息的词。
@@ -408,9 +407,9 @@ E 呈现：图是否结论进图题、轴带单位、配色语义一致。
 </div>
 
 </div>
-<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-总指挥-全程完赛主提示词-平台接入">0. 总指挥 · 全程完赛（主提示词 + 平台接入）</a></li><li class="l3"><a href="#提示词通用主控六阶段流水线-平台无关核心">提示词：通用主控（六阶段流水线 · 平台无关核心）</a></li><li class="l3"><a href="#提示词gpt-codex-平台接入可执行代理版">提示词：GPT / Codex 平台接入（可执行代理版）</a></li><li class="l3"><a href="#提示词deepseek-平台接入内联知识包版">提示词：DeepSeek 平台接入（内联知识包版）</a></li><li class="l2"><a href="#1-选题与读题t0t1">1. 选题与读题（T0–T1）</a></li><li class="l2"><a href="#1-选题与读题t0t1_1">1. 选题与读题（T0–T1）</a></li><li class="l3"><a href="#提示词15-分钟读题评估">提示词：15 分钟读题评估</a></li><li class="l3"><a href="#提示词模糊词操作化判据立军令状">提示词：模糊词操作化（判据立军令状）</a></li><li class="l2"><a href="#2-建模设计t2t3">2. 建模设计（T2–T3）</a></li><li class="l3"><a href="#提示词基准方案与量级表">提示词：基准方案与量级表</a></li><li class="l3"><a href="#提示词主模型推导陪练">提示词：主模型推导陪练</a></li><li class="l2"><a href="#3-数值与验证t4t6">3. 数值与验证（T4–T6）</a></li><li class="l3"><a href="#提示词积分器与代码审查">提示词：积分器与代码审查</a></li><li class="l3"><a href="#提示词验证三件套设计与精度声明">提示词：验证三件套设计与精度声明</a></li><li class="l2"><a href="#4-写作t7t8">4. 写作（T7–T8）</a></li><li class="l3"><a href="#提示词摘要打磨数字ocracy">提示词：摘要打磨（数字ocracy）</a></li><li class="l3"><a href="#提示词逐节中译英与句式升级">提示词：逐节中译英与句式升级</a></li><li class="l2"><a href="#5-模拟评审t9">5. 模拟评审（T9）</a></li><li class="l3"><a href="#提示词评委三分钟模拟">提示词：评委三分钟模拟</a></li><li class="l2"><a href="#6-赛后复盘">6. 赛后复盘</a></li><li class="l3"><a href="#提示词结构化复盘访谈">提示词：结构化复盘访谈</a></li><li class="l3"><a href="#提示词与历届金牌对比找差距">提示词：与历届金牌对比找差距</a></li></ul></aside>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-总指挥-全程完赛主提示词-平台接入">0. 总指挥 · 全程完赛（主提示词 + 平台接入）</a></li><li class="l3"><a href="#提示词通用主控六阶段流水线-平台无关核心">提示词：通用主控（六阶段流水线 · 平台无关核心）</a></li><li class="l3"><a href="#提示词gpt-codex-平台接入可执行代理版">提示词：GPT / Codex 平台接入（可执行代理版）</a></li><li class="l3"><a href="#提示词deepseek-平台接入内联知识包版">提示词：DeepSeek 平台接入（内联知识包版）</a></li><li class="l2"><a href="#1-选题与读题t0t1">1. 选题与读题（T0–T1）</a></li><li class="l3"><a href="#提示词15-分钟读题评估">提示词：15 分钟读题评估</a></li><li class="l3"><a href="#提示词模糊词操作化判据立军令状">提示词：模糊词操作化（判据立军令状）</a></li><li class="l2"><a href="#2-建模设计t2t3">2. 建模设计（T2–T3）</a></li><li class="l3"><a href="#提示词基准方案与量级表">提示词：基准方案与量级表</a></li><li class="l3"><a href="#提示词主模型推导陪练">提示词：主模型推导陪练</a></li><li class="l2"><a href="#3-数值与验证t4t6">3. 数值与验证（T4–T6）</a></li><li class="l3"><a href="#提示词积分器与代码审查">提示词：积分器与代码审查</a></li><li class="l3"><a href="#提示词验证三件套设计与精度声明">提示词：验证三件套设计与精度声明</a></li><li class="l2"><a href="#4-写作t7t8">4. 写作（T7–T8）</a></li><li class="l3"><a href="#提示词摘要打磨数字结论优先">提示词：摘要打磨（数字结论优先）</a></li><li class="l3"><a href="#提示词逐节中译英与句式升级">提示词：逐节中译英与句式升级</a></li><li class="l2"><a href="#5-模拟评审t9">5. 模拟评审（T9）</a></li><li class="l3"><a href="#提示词评委三分钟模拟">提示词：评委三分钟模拟</a></li><li class="l2"><a href="#6-赛后复盘">6. 赛后复盘</a></li><li class="l3"><a href="#提示词结构化复盘访谈">提示词：结构化复盘访谈</a></li><li class="l3"><a href="#提示词与历届金牌对比找差距">提示词：与历届金牌对比找差距</a></li></ul></aside>
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 19:20<br><a href="../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 19:23<br><a href="../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
