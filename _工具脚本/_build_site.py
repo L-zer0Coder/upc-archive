@@ -746,8 +746,16 @@ def render_docs():
                      .replace("__MERMAID_TAG__", mermaid_tag)
                      .replace("__TOC__", toc_html(MD)))
         os.makedirs(page_dir, exist_ok=True)
-        with open(html_abs, "w", encoding="utf-8") as f:
-            f.write(page_html)
+        import time as _t
+        for _attempt in range(3):   # Windows 下偶发文件锁（杀软/索引器）：短暂重试
+            try:
+                with open(html_abs, "w", encoding="utf-8") as f:
+                    f.write(page_html)
+                break
+            except OSError:
+                if _attempt == 2:
+                    raise
+                _t.sleep(0.4)
         built.append((md_abs, html_abs, title, plain[:600]))
     return built
 
@@ -1093,7 +1101,8 @@ render_index({"timeline": TIMELINE_SVG, "bars": BARS_SVG, "model": MODEL_SVG,
               "rules_url": site_rel(doc_html_abs(P("02_题目汇总", "比赛规则_ContestRules.md"))),
               "ev_start": EVENT_START_MS, "ev_end": EVENT_END_MS,
               "phases": json.dumps(PHASES, ensure_ascii=False),
-              "tex": TEX_JS, "journey": JOURNEY_URL})
+              "tex": TEX_JS, "journey": JOURNEY_URL,
+              "flow_url": site_rel(doc_html_abs(P("11_论文模板与工具", "完整解题流程手册.md")))})
 write_deploy_helpers(ROOT, SITE)
 
 # 运行时注入的 URL 也要校验（静态扫描看不到 DATA blob 里的字段）

@@ -387,17 +387,9 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
 <div id="bar"><div class="in">
   <a class="brand" href="#hero"><span class="seal">U</span>UPC 全档案库<small>2010–2025</small></a>
   <nav>
-    <a href="12_赛时工具/tutorial.html" style="color:var(--acc);font-weight:600">🎓 新手课堂</a>
-    <a href="12_赛时工具/warroom.html" style="color:var(--acc);font-weight:600">⚡ 作战室</a>
-    <a href="#guide">指南</a>
-    <a href="#progress">打卡</a>
-    <a href="#timeline">图谱</a>
+    <a href="__FLOW_URL__" style="color:var(--acc);font-weight:600">🧭 开始</a>
     <a href="#years">年鉴</a>
-    <a href="#models">模型</a>
     <a href="#papers">论文库</a>
-    <a href="#templates">模板</a>
-    <a href="#rules">密码</a>
-    <a href="#library">全库</a>
     <a href="12_赛时工具/manual.html">说明书</a>
   </nav>
   <button id="mnb" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="mdrawer"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
@@ -436,8 +428,9 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
     </div>
     <div class="hero-act">
       <a class="btn solid" href="12_赛时工具/tutorial.html">🎓 新手课堂（零基础入门）</a>
+      <a class="btn solid" style="background:var(--acc-d);border-color:var(--acc-d)" href="__FLOW_URL__">🧭 从这里开始：完整解题流程（一道题 5–6 小时）</a>
       <a class="btn" href="12_赛时工具/warroom.html">⚡ 48 小时作战室</a>
-      <a class="btn" href="#guide">开始使用</a>
+      <a class="btn" href="__FLOW_URL__">开始使用</a>
       <a class="btn" href="#papers">金牌论文库</a>
       <a class="btn" href="__MODEL_URL__">物理模型综述</a>
     </div>
@@ -1156,39 +1149,59 @@ addEventListener('keydown',e=>{if(e.key==='Escape'&&mdl.classList.contains('on')
   }
 })();
 ckRefresh();
-/* ---------- 首页减负：身份视角 + 打卡面板折叠（选择与状态都只存本浏览器） ---------- */
+/* ---------- 首页减负：身份视角 + 打卡面板折叠（选择与状态都只存本浏览器） ----------
+   渐进披露（NN/g）：首次访客默认只展开 指南/年鉴/论文库（guest 视角），其余板块收进
+   "更多板块"折叠条（可见提示，不藏没了）；点名字展开、选身份聚焦、"显示全部"记住。 */
 (function(){
   var pick=document.getElementById('rolepick');
   var ALL=['guide','progress','timeline','years','models','papers','templates','rules','library'];
-  var HIDES={newbie:['progress','timeline','templates','rules'],prep:['timeline','library'],
+  var HIDES={guest:['progress','timeline','models','templates','rules','library'],
+             newbie:['progress','timeline','templates','rules'],prep:['timeline','library'],
              race:['progress','timeline','models','templates','library'],lookup:[]};
-  if(pick){
-    function applyRole(r){
-      var hide=HIDES[r]||[];
-      ALL.forEach(function(id){var s=document.getElementById(id);if(s)s.hidden=hide.indexOf(id)>=0;});
-      [].forEach.call(pick.querySelectorAll('a'),function(a){a.classList.toggle('on',a.dataset.r===r);});
-      try{localStorage.setItem('upcRole',r)}catch(e){}
-    }
-    var saved='';try{saved=localStorage.getItem('upcRole')||''}catch(e){}
-    if(saved)applyRole(saved);
-    pick.addEventListener('click',function(ev){
-      var a=ev.target.closest('a');if(!a)return;applyRole(a.dataset.r);});
+  var NAMES={progress:'打卡',timeline:'图谱',models:'模型',templates:'模板',rules:'密码',library:'全库'};
+  var saved=null;try{saved=localStorage.getItem('upcRole')}catch(e){}
+  function applyRole(r,persist){
+    var hide=HIDES[r]||[];
+    ALL.forEach(function(id){var s=document.getElementById(id);if(s)s.hidden=hide.indexOf(id)>=0;});
+    if(pick)[].forEach.call(pick.querySelectorAll('a'),function(a){a.classList.toggle('on',a.dataset.r===r);});
+    renderBar(hide);
+    if(persist){try{localStorage.setItem('upcRole',r)}catch(e){}}
   }
-  var ckb=document.getElementById('ckbody'),ckbBtn=document.getElementById('ckfold');
-  if(ckb&&ckbBtn){
-    function setFold(f){ckb.hidden=f;ckbBtn.textContent=f?'展开面板':'收起';
-      try{localStorage.setItem('upcCkFold',f?'1':'0')}catch(e){}}
-    var saved2=null;try{saved2=localStorage.getItem('upcCkFold')}catch(e){}
-    var fresh=true;try{fresh=!localStorage.getItem('upcProgress.v1')}catch(e){}
-    setFold(saved2==null?fresh:saved2==='1');
-    ckbBtn.addEventListener('click',function(){setFold(ckb.hidden);});
+  function renderBar(hide){
+    var old=document.getElementById('morebar');if(old)old.remove();
+    if(!hide.length)return;
+    var bar=document.createElement('div');bar.id='morebar';bar.className='notebox';
+    bar.style.cssText='margin:16px 0 0;text-align:center;font-size:13px;line-height:2.2';
+    var links=hide.map(function(id){return '<a href="#'+id+'" data-more="'+id+'" style="margin:0 7px">'+NAMES[id]+'</a>';}).join('<span style="color:var(--dim)"> · </span>');
+    bar.innerHTML='<b>还有 '+hide.length+' 个板块</b>　'+links+
+      '　<button class="btn sm" id="showall" type="button">显示全部板块（记住）</button>';
+    var guide=document.getElementById('guide');
+    if(guide&&guide.parentNode)guide.parentNode.insertBefore(bar,guide.nextSibling);
+    bar.addEventListener('click',function(ev){
+      var s=ev.target.closest('a');if(s){var t=document.getElementById(s.dataset.more);if(t)t.hidden=false;return;}
+      if(ev.target.id==='showall'){applyRole('',true);}
+    });
   }
+  applyRole(saved==null?'guest':saved,false);
+  if(pick)pick.addEventListener('click',function(ev){
+    var a=ev.target.closest('a');if(!a)return;applyRole(a.dataset.r,true);});
   /* 锚点跳到被折叠板块时自动恢复显示 */
   document.addEventListener('click',function(ev){
     var a=ev.target.closest('a[href^="#"]');if(!a)return;
     var s=document.getElementById(a.getAttribute('href').slice(1));
     if(s&&s.hidden)s.hidden=false;
   });
+})();
+/* ---------- 打卡面板折叠（新访客默认收起） ---------- */
+(function(){
+  var ckb=document.getElementById('ckbody'),ckbBtn=document.getElementById('ckfold');
+  if(!ckb||!ckbBtn)return;
+  function setFold(f){ckb.hidden=f;ckbBtn.textContent=f?'展开面板':'收起';
+    try{localStorage.setItem('upcCkFold',f?'1':'0')}catch(e){}}
+  var saved2=null;try{saved2=localStorage.getItem('upcCkFold')}catch(e){}
+  var fresh=true;try{fresh=!localStorage.getItem('upcProgress.v1')}catch(e){}
+  setFold(saved2==null?fresh:saved2==='1');
+  ckbBtn.addEventListener('click',function(){setFold(ckb.hidden);});
 })();
 /* ---------- 首页夜间模式（与全站共用 upcNight） ---------- */
 (function(){
@@ -1229,6 +1242,7 @@ if('serviceWorker' in navigator){try{navigator.serviceWorker.register('sw.js');}
             .replace("__BARS__", BARS_SVG).replace("__MODEL__", MODEL_SVG)
             .replace("__RULES__", RULES_HTML).replace("__RULESCO__", RULESCO_HTML).replace("__DATA__", DATA_JS)
             .replace("__TEX__", TEX_JS).replace("__JOURNEY__", JOURNEY_URL)
+            .replace("__FLOW_URL__", ctx.get("flow_url", "#guide"))
             .replace("__MODEL_URL__", ctx.get("model_url", ""))
             .replace("__MANUAL__", ctx.get("manual_url", ""))
             .replace("__RULES_URL__", ctx.get("rules_url", ""))
