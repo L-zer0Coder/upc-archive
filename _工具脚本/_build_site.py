@@ -553,6 +553,45 @@ def toc_html(md_obj):
 MATH_RE = re.compile(r"\$\$.*?(?:\$\$|\n\n)|\$[^$\n]+?\$", re.S)
 TOK = "MATHPH{:06d}ENDPH"
 
+# 页内符号卡的数据源：UPC 语料高频符号 → 高频含义（一词多义标 ⚠）。
+# 与 11_/符号速查表.md 同口径；速查表是权威全文，这里是逐页提取用的精简映射。
+# tokens = LaTeX 命令与 Unicode 字符两种形态（正文两处都会出现）。
+SYM_TABLE = [
+    ("θ", ["\\theta", "θ"], "角度（入射角/帆角/姿态角/射击角）"),
+    ("ρ", ["\\rho", "ρ"], "密度（大气/水/材料）"),
+    ("Δv", ["\\Delta v", "Δv"], "速度增量——UPC 的统一货币"),
+    ("μ", ["\\mu", "μ"], "⚠ 摩擦系数 / 约化质量 / 化学势 / 引力常数 GM——一词多义，先查该论文定义"),
+    ("σ", ["\\sigma", "σ"], "⚠ 应力 / 组合参数 / 标准差 / 斯特藩-玻尔兹曼常数——一词多义"),
+    ("α", ["\\alpha", "α"], "角度（帆角/附着角/相位角）/ 热扩散率 / 系数"),
+    ("β", ["\\beta", "β"], "速度比 v/c / 拟合系数 / 动量增强因子"),
+    ("γ", ["\\gamma", "γ"], "比热比（空气≈1.4）/ 洛伦兹因子 / 剂量权重"),
+    ("λ", ["\\lambda", "λ"], "波长 / 衰减常数 / 大气标高"),
+    ("ω", ["\\omega", "ω"], "角速度（自旋/姿态/轨道）"),
+    ("τ", ["\\tau", "τ"], "时间常数 / 剪切应力 / 扭矩"),
+    ("η", ["\\eta", "η"], "效率（热/推进/屏蔽）"),
+    ("ε", ["\\varepsilon", "\\epsilon", "ε"], "发射率 / 应变 / 修复系数"),
+    ("δ", ["\\delta", "δ"], "小量 / 偏转角 / 损失系数"),
+]
+
+def _sym_card(text, page_dir):
+    """07 解读页首的「本页符号」卡：扫描该篇实际用到的符号（LaTeX 命令与
+    Unicode 两种形态），查 SYM_TABLE 给高频含义。查不到含义的符号不列——
+    宁缺勿错；完整歧义辨析在符号速查表。"""
+    used = [(ch, mean) for (ch, tokens, mean) in SYM_TABLE
+            if any(tok in text for tok in tokens)]
+    if not used:
+        return ""
+    items = "　".join(
+        '<span style="white-space:nowrap"><b style="font-family:var(--mono);color:var(--acc)">{}</b> {}</span>'.format(
+            html.escape(ch), html.escape(mean))
+        for ch, mean in used)
+    symurl = link_from(page_dir, doc_html_abs(P("11_论文模板与工具", "符号速查表.md")))
+    return ('<div class="card" id="symcard" style="margin:0 0 14px;font-size:13px;line-height:2.1">'
+            '<b style="font-family:var(--serif)">📐 本页符号</b>'
+            '<span style="font-size:12px;color:var(--dim)">　高频含义速查；⚠ 一词多义——以该论文定义为准，'
+            '完整辨析见 <a href="' + symurl + '">符号速查表</a></span>'
+            '<div style="margin-top:4px">' + items + '</div></div>')
+
 def render_docs():
     os.makedirs(DOCS, exist_ok=True)
     built = []   # (md_abs, html_abs, title)
@@ -563,6 +602,7 @@ def render_docs():
         text = open(md_abs, encoding="utf-8").read()
 
         # 1) stash math spans so markdown can't mangle them (false "[x](y)" links, _emphasis_)
+        raw_md = text   # 原始 md（含数学段）——符号卡等构建期分析用这份
         spans = []
         def stash(m):
             spans.append(m.group(0))
@@ -644,7 +684,9 @@ def render_docs():
         # 见解四：10 分钟自测（07 解读页）——先写自己的路线再对照「物理建模路线图」要点。
         # 对照要点构建期从本文 §3 提取（粗体标签优先、列表行兜底），练习状态存 upcDrill.v1
         drill_html = ""
+        sym_html = ""
         if pkind == "interp":
+            sym_html = _sym_card(raw_md, page_dir)
             mrt = re.search(r"##\s*3\.[^\n]*\n((?:.|\n)*?)(?=\n##\s*4\.|\Z)", text)
             items = []
             if mrt:
@@ -738,7 +780,7 @@ def render_docs():
         relroot = quote(posix(os.path.relpath(ROOT, page_dir))) + "/"
         page_html = (DOC_TPL.replace("__TITLE__", title).replace("__CRUMB__", crumb).replace("__RELROOT__", relroot)
                      .replace("__HOME__", home).replace("__RAWMD__", raw)
-                     .replace("__PAPERTAG__", papertag).replace("__BODY__", pos_note + pcard_btn + drill_html + flow_html + body)
+                     .replace("__PAPERTAG__", papertag).replace("__BODY__", pos_note + pcard_btn + sym_html + drill_html + flow_html + body)
                      .replace("__PKEY__", pkey).replace("__PKIND__", pkind)
                      .replace("__DESC__", desc).replace("__RELATED__", related)
                      .replace("__BUILD__", __import__("datetime").datetime.now().strftime("%Y-%m-%d %H:%M"))
