@@ -268,7 +268,7 @@ __RELATED__
 </div>
 __TOC__
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）<br><a href="__RELROOT__copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 __BUILD__<br><a href="__RELROOT__copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -627,6 +627,7 @@ def render_docs():
                      .replace("__PAPERTAG__", papertag).replace("__BODY__", pos_note + pcard_btn + body)
                      .replace("__PKEY__", pkey).replace("__PKIND__", pkind)
                      .replace("__DESC__", desc).replace("__RELATED__", related)
+                     .replace("__BUILD__", __import__("datetime").datetime.now().strftime("%Y-%m-%d %H:%M"))
                      .replace("__CSS_KATEX__", link_from(page_dir, KATEX_CSS))
                      .replace("__JS_KATEX__", link_from(page_dir, KATEX_JS))
                      .replace("__JS_AUTORENDER__", link_from(page_dir, KATEX_AUTORENDER))

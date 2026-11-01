@@ -1,0 +1,29 @@
+{
+ "captured": "2026-11-01 11:06",
+ "note": "基线由会话建立；首页正文当时已被注入垃圾 SEO（见 spam 标记），监测时首页出现 casino 类注入应单独告警而非当作官方变化。",
+ "pages": {
+  "home": {
+   "url": "http://www.uphysicsc.com/",
+   "sha1": "025e46c66886",
+   "flags": [
+    "SPAM-INJECTED: 首页正文含 casino/mostbet 等注入段落（2026-11-01 发现）"
+   ]
+  },
+  "2026contest": {
+   "url": "http://www.uphysicsc.com/2026contest.html",
+   "sha1": "ef0edaf0c8c9",
+   "keyfacts": [
+    "Registration now open",
+    " begins Friday November 6 2026 6pm MST = 北京时间 11-07 09:00（与站点时钟一致）"
+   ]
+  },
+  "rules": {
+   "url": "http://www.uphysicsc.com/Contest-Rules.html（待监测任务首次发现确切 URL 后回填）",
+   "sha1": null
+  },
+  "register": {
+   "url": "待发现",
+   "sha1": null
+  }
+ }
+}

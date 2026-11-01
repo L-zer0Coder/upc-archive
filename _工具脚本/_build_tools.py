@@ -203,7 +203,7 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
 <p class="pt-lead">__LEAD__</p>
 __BODY__
 </div>
-<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份<br><a href="../copyright.html">版权与致谢</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错</a> · <a href="../upc-offline-kit.zip" download>赛时离线包</a></footer>
+<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份 · 站点构建于 __BUILD__<br><a href="../copyright.html">版权与致谢</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错</a> · <a href="../upc-offline-kit.zip" download>赛时离线包</a></footer>
 <script>
 var EV_START0=__EV_START__,RACE_DUR=__EV_END__-__EV_START__;
 function raceT0(){try{var v=parseInt(localStorage.getItem('upcRaceT0')||"",10);return v>0?v:0}catch(e){return 0}}
@@ -252,12 +252,14 @@ __SCRIPT__
 
 
 def page(ctx, title, crumb, desc, lead, body, script, extra_head=""):
+    import datetime as _dt
     tpl = PAGE_HEAD
     home = "../index.html"
     return (tpl.replace("__TITLE__", title).replace("__CRUMB__", crumb)
               .replace("__DESC__", desc).replace("__LEAD__", lead)
               .replace("__BODY__", body).replace("__SCRIPT__", script)
               .replace("__HOME__", home).replace("__EXTRA_HEAD__", extra_head)
+              .replace("__BUILD__", _dt.datetime.now().strftime("%Y-%m-%d %H:%M"))
               .replace("__EV_START__", str(ctx["ev_start"]))
               .replace("__EV_END__", str(ctx["ev_end"])))
 

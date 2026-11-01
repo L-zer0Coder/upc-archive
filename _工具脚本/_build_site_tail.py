@@ -4,7 +4,7 @@
 设计语言「文献阅读室」：暖纸底 / 墨色字 / 朱砂点缀，衬线标题 + 无衬线正文，
 发丝线表格，克制交互。总览页第一个板块即「使用指南」，集中说明全站内容与按钮含义。
 """
-import os, re, json
+import os, re, json, datetime
 from urllib.parse import quote, unquote
 
 
@@ -620,7 +620,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
 
 </main>
 <button id="top" aria-label="回到顶部">↑</button>
-<footer>UPC 2010–2025 全档案库 · 抓取与多智能体整理于 2026-10-24 · 数据源 uphysicsc.com<br><a href="copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错</a> · <a href="upc-offline-kit.zip" download>下载赛时离线包</a></footer>
+<footer>UPC 2010–2025 全档案库 · 抓取与多智能体整理于 2026-10-24 · 数据源 uphysicsc.com · 站点构建于 __BUILD__<br><a href="copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错</a> · <a href="upc-offline-kit.zip" download>下载赛时离线包</a></footer>
 <script>
 const DATA = __DATA__;
 const D = DATA.domains;
@@ -980,6 +980,15 @@ q.addEventListener('input',()=>{ensureIdx().then(runSearch);});
 q.addEventListener('focus',()=>{ensureIdx();});
 document.addEventListener('click',e=>{if(!e.target.closest('.swrap'))res.style.display='none'});
 
+/* ---------- 404 页/外链带入的搜索：#s=关键词 → 预填并触发全库搜索 ---------- */
+(function(){
+  var ms=location.hash.match(/^#s=(.+)$/);if(!ms)return;
+  var kw;try{kw=decodeURIComponent(ms[1])}catch(e){kw=ms[1]}
+  if(!kw)return;
+  q.value=kw;
+  ensureIdx().then(function(){runSearch();window.scrollTo({top:0,behavior:'smooth'});});
+})();
+
 /* ---------- 论文模板工坊 ---------- */
 const TEX=__TEX__;
 const TPLMETA={
@@ -1179,6 +1188,7 @@ if('serviceWorker' in navigator){try{navigator.serviceWorker.register('sw.js');}
 </html>"""
 
     html = (INDEX_TPL.replace("__TIMELINE__", TIMELINE_SVG)
+            .replace("__BUILD__", datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
             .replace("__BARS__", BARS_SVG).replace("__MODEL__", MODEL_SVG)
             .replace("__RULES__", RULES_HTML).replace("__DATA__", DATA_JS)
             .replace("__TEX__", TEX_JS).replace("__JOURNEY__", JOURNEY_URL)
@@ -1299,8 +1309,8 @@ def write_deploy_helpers(root, site):
     cp.append('<h2>三、内容生成与校验方式（如实披露）</h2>'
               '<table><tr><th>内容层</th><th>怎么来的</th><th>校验到什么程度</th></tr>'
               '<tr><td>原件层（PDF / 文本 / 页面图 / 官网页）</td><td>脚本抓取与提取</td><td>机械转换，无人工改写；构建期全量链接校验</td></tr>'
-              '<tr><td>题目解读 / 论文赏析 / 精读教程</td><td>AI 生成初稿，按库内体例规范成文</td><td>结构化规范约束 + 构建期校验；<b>未逐篇人工复核</b>——发现错误请提 issue，会记入巡检清单</td></tr>'
-              '<tr><td>官方口径数据</td><td>浏览器实抓官网</td><td>2026-10-31 人工逐页核查；接入每日自动监测</td></tr>'
+              '<tr><td>题目解读 / 论文赏析 / 精读教程</td><td>AI 生成初稿，按库内体例规范成文</td><td>结构化规范约束 + 构建期校验；<b>抽样核查</b>：2026-11-01 抽 8 篇、60 条数值论断 58 条原文可证 + 2 条出自论文附录代码（AI 对照原文执行，记录见仓库 <code>_工具脚本/抽样核查记录.md</code>）；未逐篇复核——发现错误请提 issue</td></tr>'
+              '<tr><td>官方口径数据</td><td>浏览器实抓官网</td><td>2026-10-31 人工逐页核查；每日自动化对比官网页面正文（变化记录见仓库 <code>_工具脚本/_官网快照/CHANGELOG.md</code>）</td></tr>'
               '<tr><td>获奖密码计数（n/73）</td><td>构建期扫描 73 篇赏析正文</td><td>统计口径公开、可复算；关键词宁漏勿错</td></tr>'
               '<tr><td>打卡 / 进度 / 工具数据</td><td>只存你的浏览器</td><td>不上传服务器，可导出导入</td></tr></table>')
     cp.append('<h2>四、反馈与纠错</h2>'
@@ -1375,10 +1385,40 @@ def write_deploy_helpers(root, site):
                 '<p>可能是链接拼写有误，或该文档尚未收录。<br>档案库覆盖 2010–2025 共 16 届的全部题目、74 篇金牌论文与解读。</p>'
                 f'<a href="{base}">回到总览</a><a href="{base}#papers">金牌论文库</a>'
                 '<a href="javascript:history.back()">返回上一页</a>'
+                '<form onsubmit="location.href=this.action+\'#s=\'+encodeURIComponent(this.elements[0].value);return false" '
+                f'action="{base}index.html" style="margin-top:24px">'
+                '<input type="search" placeholder="或直接搜全库：年份 / 题号 / 关键词…" required '
+                'style="width:min(320px,80vw);height:34px;border:1px solid #D9D0BD;border-radius:3px;'
+                'background:#FDFCF8;padding:0 10px;font-size:13px;outline:none">'
+                '<button type="submit" style="height:34px;margin-left:6px;border:1px solid #D9D0BD;border-radius:3px;'
+                'background:#FDFCF8;color:#2A251E;font-size:13px;cursor:pointer">搜索</button></form>'
                 f'<p style="margin-top:20px;font-size:12px;color:#786E60">'
                 f'<a href="{base}copyright.html" style="display:inline;border:none;background:none;padding:0;color:#9C3F2E">版权与致谢</a> · '
                 '<a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener" '
                 'style="display:inline;border:none;background:none;padding:0;color:#9C3F2E">提反馈 / 纠错</a></p></div></body></html>')
+    # sitemap.xml + robots.txt：搜索引擎收录（绝对 URL 基准与 og:image 同源约定）
+    from urllib.parse import quote as _uq
+    SITE_URL = "https://l-zer0coder.github.io/upc-archive/"
+    build_day = datetime.date.today().isoformat()
+    urls = [("", "daily"), ("copyright.html", "monthly"), ("404.html", "monthly")]
+    urls += [("12_赛时工具/" + n, "weekly")
+             for n in sorted(os.listdir(os.path.join(root, "12_赛时工具"))) if n.endswith(".html")]
+    docs_dir = os.path.join(site, "docs")
+    for dp, _dn, fns in os.walk(docs_dir):
+        for fn in sorted(fns):
+            if fn.endswith(".html"):
+                rel = os.path.relpath(os.path.join(dp, fn), root).replace("\\", "/")
+                urls.append((rel, "monthly"))
+    sm = ['<?xml version="1.0" encoding="UTF-8"?>',
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for rel, freq in sorted(urls):
+        sm.append("<url><loc>" + SITE_URL + _uq(rel, safe="/") + "</loc>"
+                  "<lastmod>" + build_day + "</lastmod><changefreq>" + freq + "</changefreq></url>")
+    sm.append("</urlset>")
+    with open(os.path.join(root, "sitemap.xml"), "w", encoding="utf-8", newline="\n") as f:
+        f.write("".join(sm))
+    with open(os.path.join(root, "robots.txt"), "w", encoding="utf-8", newline="\n") as f:
+        f.write("User-agent: *\nAllow: /\n\nSitemap: " + SITE_URL + "sitemap.xml\n")
     # .gitignore 白名单：只提交档案库，不提交 6.6GB 的个人文件
     gi = """# UPC 档案库部署白名单：只上传档案内容，忽略其余个人文件（LaTeX 安装包/视频/课件等）
 /*
@@ -1395,6 +1435,8 @@ def write_deploy_helpers(root, site):
 !/sw.js
 !/icon.svg
 !/upc-offline-kit.zip
+!/sitemap.xml
+!/robots.txt
 !/.agents
 !/plugins
 !/README.md
@@ -1418,7 +1460,7 @@ __pycache__/
 """
     with open(os.path.join(root, ".gitignore"), "w", encoding="utf-8", newline="\n") as f:
         f.write(gi)
-    print("deploy helpers written: .nojekyll / 404.html / legacy index / .gitignore / manifest+sw+icon / copyright / offline-kit")
+    print("deploy helpers written: .nojekyll / 404.html / legacy index / .gitignore / manifest+sw+icon / copyright / offline-kit / sitemap+robots")
 
 
 # ---------------- 大小写敏感 + git 感知的链接校验 ----------------

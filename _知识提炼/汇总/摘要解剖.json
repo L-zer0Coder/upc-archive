@@ -630,6 +630,55 @@
    ]
   },
   {
+   "id": "2016-GM-A-331",
+   "year": 2016,
+   "problem": "A",
+   "team": "331",
+   "n": 10,
+   "sents": [
+    {
+     "t": "In this report, we analyse and compare two methods of space-based nuclear waste disposal, disposal via solar deorbiting and disposal via asteroid belt storage.",
+     "f": "叙述"
+    },
+    {
+     "t": "Disposal via solar deorbiting was performed by going sufﬁciently far out into the solar system after launch, and then performing a Hohmann transfer to fall into the sun.",
+     "f": "叙述"
+    },
+    {
+     "t": "It was found that the further out the second burn was performed, the smaller the required change in velocity.",
+     "f": "叙述"
+    },
+    {
+     "t": "At 10AU, it took a ∆v of 14106.2ms−1 to deorbit.Disposal in the asteroid belt was performed via an initial launch and a Hohmann transfer at the asteroid belt to enter orbit.",
+     "f": "数字"
+    },
+    {
+     "t": "This method was found to require a change of velocity of 10977.4ms−1 if the target orbit was at 2.7AU.",
+     "f": "数字"
+    },
+    {
+     "t": "Additionally, a probabilistic model was constructed.",
+     "f": "叙述"
+    },
+    {
+     "t": "This model was used to compute the probability of a collision in the ﬁrst 1000 years of orbiting in the asteroid belt.",
+     "f": "数字"
+    },
+    {
+     "t": "It was found to be 0.0001%, so the odds of failure after launch were found to be negligible.",
+     "f": "数字"
+    },
+    {
+     "t": "These methods were compared with regards to their cost and efﬁciency.",
+     "f": "叙述"
+    },
+    {
+     "t": "It was found that to dispose of the",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
    "id": "2016-GM-A-412",
    "year": 2016,
    "problem": "A",
@@ -1931,6 +1980,27 @@
    ]
   },
   {
+   "id": "2022-GM-A-395",
+   "year": 2022,
+   "problem": "A",
+   "team": "395",
+   "n": 3,
+   "sents": [
+    {
+     "t": "In this article, we according to the topic given by spacecraft kinetic energy of impact aster- oid planetary defense program, to carry on the reasonable guess assumptions, analyses the asteroid in the universe may have special properties, explores the possible",
+     "f": "叙述"
+    },
+    {
+     "t": "We found that, depending on how asteroids are formed, asteroids can be divided into those made of rubble and those that can be regarded as compact balls of rock.",
+     "f": "叙述"
+    },
+    {
+     "t": "After a brief analysis of the first case, this paper mainly explores the second case where the spacecraft and the asteroid can be regarded as a completely inelastic collision, the spacecraft needs from 58 days to 139 days to make the Earth miss the asteroid.",
+     "f": "数字"
+    }
+   ]
+  },
+  {
    "id": "2022-GM-A-425",
    "year": 2022,
    "problem": "A",
@@ -2074,6 +2144,95 @@
    ]
   },
   {
+   "id": "2022-GM-B-471",
+   "year": 2022,
+   "problem": "B",
+   "team": "471",
+   "n": 20,
+   "sents": [
+    {
+     "t": "This paper establishes a physical model to perform a force analysis on the football in a penalty kick and uses the Newton’s Second Law and Magnus Effect to introduce the dynamic and kinematic differential equations.",
+     "f": "叙述"
+    },
+    {
+     "t": "To obtain appropriate ball flight charac- teristics including initial velocity and spin, we use Euler Method to perform a computer numerical simulation of the state of movement in football.",
+     "f": "方法"
+    },
+    {
+     "t": "In problem 1, the variable step search method is employed to obtain acceptable solutions which can result in the foot- ball hitting the upper corner.",
+     "f": "num结论"
+    },
+    {
+     "t": "In problem 2, we propose a Goalkeeper Save-ball Model to pose an extra time limit to initial velocity and angular velocity of spin.",
+     "f": "数字"
+    },
+    {
+     "t": "To polish our model, we take the rough surface of the football into account, which makes our model closer to reality and improves the performance in accuracy.",
+     "f": "叙述"
+    },
+    {
+     "t": "Problem One requires the value of the initial velocity and spin of a football, which can make the ball hit the upper corner.",
+     "f": "叙述"
+    },
+    {
+     "t": "We establish differential equations to describe the motions of the football, based on the force analysis process.",
+     "f": "叙述"
+    },
+    {
+     "t": "Since there is no possibility of figuring out an analytical solution, we choose the Euler Method to simulate the whole process.",
+     "f": "方法"
+    },
+    {
+     "t": "With the movement control formula, we construct a univariate optimization model with the initial value of speed, direction, and rotation angular velocity as the decision variables.",
+     "f": "方法"
+    },
+    {
+     "t": "When the distance between the ball and the center of the upper corner is less than 0.05m, it is regarded as a success.",
+     "f": "数字"
+    },
+    {
+     "t": "Applying our model to simulate, we find several strategies to achieve the goal, with the best one being (initial speed, pitch angle, direction angle, spin angular velocity) = (19, 1.2566, 1.2566, 14.9095).",
+     "f": "num结论"
+    },
+    {
+     "t": "The distance is 0.0363m.",
+     "f": "数字"
+    },
+    {
+     "t": "Problem Two takes the factor of the goalkeeper into account, which means there is a time limit for a ball to hit the goal.",
+     "f": "叙述"
+    },
+    {
+     "t": "It is assumed that the goalkeeper in our model is completely rational to make the optimal decision for saving the ball.",
+     "f": "叙述"
+    },
+    {
+     "t": "Therefore, only the ball whose flight time is less than the reaction time of the goalkeeper has the opportunity to win.",
+     "f": "叙述"
+    },
+    {
+     "t": "In this model, we obtain three types of feasible strategies (1108 strategies in total), mainly concentrated in the lower right corner (Only think about the right side; the left one is symmetrical).",
+     "f": "数字"
+    },
+    {
+     "t": "For optimization, we perform a correction to them by adding the air resistance moment caused by the rough surface, which will make the angular velocity decrease rather than hold a constant.",
+     "f": "叙述"
+    },
+    {
+     "t": "Applying the modified model, we can obtain the best solution that makes the ball hit the goal with only 0.0118m deviating from the center of the upper corner.",
+     "f": "数字"
+    },
+    {
+     "t": "The initial conditions can be observed as (initial speed, pitch angle, direction angle, spin angular velocity) = (17, 0.5236, 1.3963, 32.2593).",
+     "f": "数字"
+    },
+    {
+     "t": "Finally, we do a case study to verify the plausibility and validity of the model.",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
    "id": "2022-GM-B-480",
    "year": 2022,
    "problem": "B",
@@ -2184,6 +2343,59 @@
    ]
   },
   {
+   "id": "2023-GM-A-227",
+   "year": 2023,
+   "problem": "A",
+   "team": "227",
+   "n": 11,
+   "sents": [
+    {
+     "t": "Space diving, an exhilarating extreme sport, has gained immense popularity worldwide.",
+     "f": "叙述"
+    },
+    {
+     "t": "This paper aims to analyze the challenges and risks involved in a skydiver’s process of descenting back to Earth in a space suit with a parachute.",
+     "f": "叙述"
+    },
+    {
+     "t": "In addition, we also try to determine the maximum altitude at which a space dive can be safely performed.",
+     "f": "叙述"
+    },
+    {
+     "t": "In this study, we consider the skydiver in a space suit and the parachute as a cohesive \"system\".",
+     "f": "叙述"
+    },
+    {
+     "t": "By making appropriate assumptions, we begin by analyzing the four forces acting on this system.",
+     "f": "叙述"
+    },
+    {
+     "t": "Next, we examine how atmospheric density varies with altitude to derive the motion equations governing the descent process.",
+     "f": "叙述"
+    },
+    {
+     "t": "Then, we thoroughly evaluate the four primary challenges and dangers that the system encounters.",
+     "f": "叙述"
+    },
+    {
+     "t": "Through the numerical solution of multiple differential equations, we establish the limitations imposed by each factor on the maximum altitude for parachute jumping.",
+     "f": "叙述"
+    },
+    {
+     "t": "These factors include the fast landing velocity, large acceleration, death spiral and high temperature.",
+     "f": "叙述"
+    },
+    {
+     "t": "While the limitation on maximum initial altitude imposed by the first factor is negligible, the second, third, fourth factors restrict the maximum initial altitude to 255km,510km,153km,respectively.",
+     "f": "数字"
+    },
+    {
+     "t": "Consequently, our findings indicate that the highest attainable altitude for parachute jumping in this context is 153km.",
+     "f": "num结论"
+    }
+   ]
+  },
+  {
    "id": "2023-GM-A-244",
    "year": 2023,
    "problem": "A",
@@ -2216,6 +2428,39 @@
     },
     {
      "t": "Key Words: Skydive, 61270m, Velocity, Acceleration, Heat Problem A The University Physics Competition, Team 244",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2023-GM-A-355",
+   "year": 2023,
+   "problem": "A",
+   "team": "355",
+   "n": 6,
+   "sents": [
+    {
+     "t": "After comprehensively evaluating the feasibility of practical operation and combining with Felix Baumgartner’s skydiving process, this paper limits the possible maximum altitude of skydiving to the intermediate level (80km).",
+     "f": "数字"
+    },
+    {
+     "t": "After fully evaluating the influence of various factors such as oxygen reserve, opening process and friction heat generation, this paper believes that the key to limit the maximum altitude of skydiving is whether the jumper can maintain a good posture under th",
+     "f": "叙述"
+    },
+    {
+     "t": "In the first part, this paper firstly makes the v −h images when jumping from different heights through numerical simulation and corrects them by considering the change of drag coeﬀicient of supersonic speed.",
+     "f": "叙述"
+    },
+    {
+     "t": "Through the images, it is found that no matter how high the height of the jump is, the speed is the same when approaching the ground, which shows that the position of the parachute opening can be fixed, which also indicates that the determination of the maximu",
+     "f": "叙述"
+    },
+    {
+     "t": "Finally, this paper describes the maximum capacity of a skydiver not to fall unconscious after uncontrolled spinning by defining a new physical quantity, the rotational endurance eigenvalue S, and then finds the maximum jumping altitude h = 57km.",
+     "f": "num结论"
+    },
+    {
+     "t": "In the third part, this paper analyzes the effects including the opening process, the landing process and the friction heat generation aspects, and makes a rough estimation of their order of magnitude, proving that these factors do not have an effect at the ma",
      "f": "数字"
     }
    ]
@@ -2755,6 +3000,55 @@
     },
     {
      "t": "This method achieves an organic combination of high-precision physical modeling and a field-usable approximation algorithm, empowering mathematically trained artillery officers to achieve precise aiming in diverse combat scenarios.",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2025-GM-B-204",
+   "year": 2025,
+   "problem": "B",
+   "team": "204",
+   "n": 10,
+   "sents": [
+    {
+     "t": "This paper develops a two-dimensional exterior-ballistics model which aims to determine, under the constraint of a maximum muzzle velocity of 450 �/�, the multiple combinations of muzzle velocity and firing angle that allow cannons from 150 −200 years ago to h",
+     "f": "num结论"
+    },
+    {
+     "t": "In Problem Ⅰ, starting from a rigid-body trajectory, we use dimensional analysis and order-of-magnitude estimates to demonstrate that buoyancy, Magnus force, and the Coriolis force are negligible, thereby reducing the dynamics to a particle ballistic model.",
+     "f": "方法"
+    },
+    {
+     "t": "For air resistance, we introduce an exponentially decaying air-density profile with altitude and construct a piecewise model that explicitly captures the rapid rise of shock wave drag in the transonic regime, so that the deceleration of the projectile more clo",
+     "f": "叙述"
+    },
+    {
+     "t": "We then build a solution framework combining inner Runge–Kutta numerical integration, outer nonlinear root finding, multi-initial-value search, and duplicate-solution elimination, which yields in a single run several physically distinct firing solutions.",
+     "f": "方法"
+    },
+    {
+     "t": "Among these, by balancing flight time, wind sensitivity, and engineering practicality, we select the small-angle limiting solution with firing angle 4° and muzzle velocity 450 �/�as the recommended optimal solution.",
+     "f": "建议"
+    },
+    {
+     "t": "In Problem Ⅱ, within the same exterior-ballistics framework, we explicitly include horizontal tailwinds and headwinds, and reduce the hit condition for targets at 1000 − 1500 �with different altitude differences and wind speeds to a linear wind correction for ",
+     "f": "建议"
+    },
+    {
+     "t": "Numerical experiments show that, near the preferred solutions with small firing angle and short time of flight, the required muzzle velocity depends almost perfectly linearly on the wind speed.",
+     "f": "叙述"
+    },
+    {
+     "t": "By reintegrating the trajectories and collecting the distribution of altitude errors, we quantitatively evaluate the error of this first-order linear approximation and confirm its validity.",
+     "f": "叙述"
+    },
+    {
+     "t": "Exploiting this property, we precompute three firing tables on a range–altitude grid.",
+     "f": "叙述"
+    },
+    {
+     "t": "An artillery officer needs only to look up the estimated range, altitude difference, and wind speed, and then perform simple calculations to obtain firing parameters.",
      "f": "叙述"
     }
    ]

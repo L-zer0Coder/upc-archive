@@ -151,6 +151,27 @@ def main():
         # 摘要：Abstract 行 → 首个「编号标题/keywords/nomenclature」前瞻（独立于锚点系统）
         am = re.search(r"^\s*abstract\b[^\n]*$((?:.|\n)*?)(?=^\s*(?:\d{1,2}[.。\t ]+[A-Z]|\d{1,2}\s*$|keywords|nomenclature|acknowledg)|\Z)",
                        text, re.I | re.M)
+        if not (am and len(am.group(1)) > 120):
+            # MCM/ICM 风格：摘要节标题为 Summary（如 2022-A-395 / 2023-A-227 / 2025-B-204）。
+            # 封面 Summary Sheet 会与真摘要在同一次匹配里（真 Summary 行不是独立起点）——
+            # 取匹配体、按独立 Summary 行切分拿最后段，再过滤封面垃圾
+            best = None
+            for mm in re.finditer(r"^\s*summary\b[^\n]*$((?:.|\n)*?)(?=^\s*(?:\d{1,2}[.。\t ]+[A-Z]|\d{1,2}\s*$|keywords|nomenclature|acknowledg)|\Z)",
+                                  text, re.I | re.M):
+                if len(mm.group(1)) > 120:
+                    best = mm
+            if best:
+                seg = best.group(1)
+                parts = re.split(r"^\s*summary\s*$", seg, flags=re.I | re.M)
+                if len(parts) > 1:
+                    seg = parts[-1]
+                if len(seg) > 120 and "Team Control Number" not in seg[:200]:
+                    am = re.match(r"(.+)", seg, re.S)
+        if not (am and len(am.group(1)) > 120):
+            # 期刊风无摘要标题（如 2016-A-331）：题记行 "(Received …)" 之后到首个编号标题
+            m3 = re.search(r"\(Received[^\n]*\n((?:.|\n)+?)(?=^\s*\d{1,2}[.。][^\n]*$|\Z)", text, re.M)
+            if m3 and len(m3.group(1)) > 120:
+                am = m3
         if am and len(am.group(1)) > 120:
             body = re.sub(r"\s+", " ", am.group(1)).strip()
             sents = [x.strip() for x in SENT_SPLIT.split(body) if len(x.strip()) > 15]

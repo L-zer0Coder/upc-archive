@@ -1,0 +1,3224 @@
+{
+ "papers": [
+  {
+   "id": "2010-GM-A-160",
+   "year": 2010,
+   "problem": "A",
+   "team": "160",
+   "n": 24,
+   "sents": [
+    {
+     "t": "Our spacecraft, the Poseidon, is traveling at 30 km/s upon reaching the outer atmosphere of Neptune.",
+     "f": "数字"
+    },
+    {
+     "t": "We deﬁne the radius of Neptune, RN, as the distance from the center of mass at which pressure is equal to 1 bar; that is, RN ≈24764 km.",
+     "f": "数字"
+    },
+    {
+     "t": "We deﬁne the outer edge of the atmosphere to be at an altitude of approximately 700 km [1].",
+     "f": "数字"
+    },
+    {
+     "t": "We call this altitude the atmospheric radius, Ratm ≈25464 km.",
+     "f": "定义"
+    },
+    {
+     "t": "To clarify, the Poseidon is traveling at 30 km/s at a distance of 25464 km from the center of mass of Neptune.",
+     "f": "数字"
+    },
+    {
+     "t": "We wish to enter a circular orbit.",
+     "f": "叙述"
+    },
+    {
+     "t": "Speciﬁcally, we wish to enter an orbit of relatively small radius, i.e., radius approximately equal to Ratm.",
+     "f": "叙述"
+    },
+    {
+     "t": "To achieve this orbit, the Poseidon must decelerate signiﬁcantly.",
+     "f": "叙述"
+    },
+    {
+     "t": "If the only forces acting on the spacecraft are gravity and thrust, then the amount of fuel required to decelerate suﬃciently is a signiﬁcant percentage of the initial mass, m0 = 2500 kg.",
+     "f": "数字"
+    },
+    {
+     "t": "We calculate a rough estimate of this percentage in Section 1.",
+     "f": "数字"
+    },
+    {
+     "t": "Another way to achieve the appropriate deceleration is to enter the Neptunian atmosphere where the resulting drag will decrease the velocity of the spacecraft at no fuel cost.",
+     "f": "叙述"
+    },
+    {
+     "t": "This is, however, a potentially dangerous maneuver.",
+     "f": "叙述"
+    },
+    {
+     "t": "If the drag force is too strong, the Poseidon might decelerate too quickly and be unable to escape the Neptunian atmosphere.",
+     "f": "两难"
+    },
+    {
+     "t": "On the other hand, if the drag force is too weak, the Poseidon will exit the Neptunian atmosphere without a signiﬁcant decrease in velocity leaving the original problem unsolved.",
+     "f": "两难"
+    },
+    {
+     "t": "In Section 2.1 we derive the equations of motion for a spacecraft experiencing drag and gravitational attraction in the atmosphere of Neptune.",
+     "f": "方法"
+    },
+    {
+     "t": "As the outer regions of Neptune are better understood than the inner regions, our equations of motion are only valid between RN and Ratm.",
+     "f": "叙述"
+    },
+    {
+     "t": "Consequently, we require the Poseidon to remain at distances above RN.",
+     "f": "叙述"
+    },
+    {
+     "t": "Additionally, we require the exit speed, ve, to be such that the spacecraft is able to enter a circular orbit at Ratm at a fuel cost of at most 20% of m0.",
+     "f": "数字"
+    },
+    {
+     "t": "We compute the trajectories numerically.",
+     "f": "方法"
+    },
+    {
+     "t": "We ﬁnd that the acceptable range of ve does not allow for a trajectory falling below RN; that is, although only valid between RN and Ratm, our equations of motion suﬃce for this problem.",
+     "f": "叙述"
+    },
+    {
+     "t": "Now, the trajectories depend on the angle, θ, at which the Poseidon enters the Neptunian atmosphere.",
+     "f": "叙述"
+    },
+    {
+     "t": "We solve for the range of θ in which the Poseidon is able to emerge from the atmosphere with a velocity that allows for a transition to circular orbit at Ratm at a fuel cost of at most 0.2m0.",
+     "f": "num结论"
+    },
+    {
+     "t": "We conclude 8.8296◦< θ < 8.8549◦ yielding an allowed margin of error of 0.0253◦.",
+     "f": "num结论"
+    },
+    {
+     "t": "Consequently, we would advise against the employment of such a maneuver.",
+     "f": "建议"
+    }
+   ]
+  },
+  {
+   "id": "2010-GM-B-210",
+   "year": 2010,
+   "problem": "B",
+   "team": "210",
+   "n": 18,
+   "sents": [
+    {
+     "t": "Our task for this problem was to design a trebuchet that does maximum damage, given that its counterweight has a mass of 5,000 kilograms and is released from a height of 2 meters above the ground.",
+     "f": "数字"
+    },
+    {
+     "t": "To that end, we first modeled the trebuchet as a uniform, frictionless beam, pinned at its fulcrum, with the counterweight (taken to be a point mass) on one end of the beam, and a sling of fixed length and negligible mass attached to the other end.",
+     "f": "叙述"
+    },
+    {
+     "t": "The projectile (located on the far end of the sling) was also taken to be a point mass.",
+     "f": "叙述"
+    },
+    {
+     "t": "We assumed that the beam could make a full revolution about the fulcrum with neither the counterweight nor the projectile touching the ground, and that the beam would not fail during operation.",
+     "f": "叙述"
+    },
+    {
+     "t": "Moreover, we interpreted maximizing the damage done by the projectile as maximizing its speed upon release, which we assumed to occur when the counterweight reached its lowest point for the first time.",
+     "f": "叙述"
+    },
+    {
+     "t": "Lagrangian mechanics was used to find the governing differential equations for this system, and an algorithm for solving said differential equations using first-order Taylor series approximations was developed and translated into C++ code.",
+     "f": "叙述"
+    },
+    {
+     "t": "Finally, the speed of the projectile upon release was calculated for all allowed dimensions of the trebuchet (for a chosen set of parameters), and the dimensions corresponding to the maximum observed speed were recorded.",
+     "f": "定义"
+    },
+    {
+     "t": "For a steel beam with square cross sections of side length 10 centimeters whose fulcrum was located 1.5 meters above the ground, and a 100-kilogram projectile, we found that the optimum lengths of the arm of the counterweight, the opposing arm, and the sling, ",
+     "f": "数字"
+    },
+    {
+     "t": "We conclude that, for the parameters we chose, the ratio of the length of the sling to that of the arm to which the sling is attached should Team # 210 – Page 2 be about 2:3, that together these should be as long as possible, and that the lever arm of the coun",
+     "f": "num结论"
+    },
+    {
+     "t": "To find out whether this works as a general rule-of-thumb would require further investigation.",
+     "f": "叙述"
+    },
+    {
+     "t": "The strengths of our approach include that it takes into account the beam’s size and shape.",
+     "f": "叙述"
+    },
+    {
+     "t": "It is also quite general, in the sense that it makes very few simplifications beyond the idealized model of the system and the approximate numerical methods used to solve for the motion of the system.",
+     "f": "叙述"
+    },
+    {
+     "t": "The weaknesses of this approach are that it fails to account for friction between the beam and the fulcrum, the mass of the sling, and the sling’s elasticity.",
+     "f": "叙述"
+    },
+    {
+     "t": "In addition, we have made no attempt here to determine whether or not the trebuchet we have designed will withstand operation conditions.",
+     "f": "叙述"
+    },
+    {
+     "t": "Nevertheless, as a first approximation, our approach appears to do very well.",
+     "f": "叙述"
+    },
+    {
+     "t": "An actual trebuchet would need to be built to check the predictions of our model.",
+     "f": "叙述"
+    },
+    {
+     "t": "Team # 210 – Page 3 Problem Definition Consider the trebuchet represented in Figure 1.",
+     "f": "数字"
+    },
+    {
+     "t": "It consists of a beam of mass",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2011-GM-A-352",
+   "year": 2011,
+   "problem": "A",
+   "team": "352",
+   "n": 7,
+   "sents": [
+    {
+     "t": "We determine the eﬀects of changing launch altitude on the total cost of launching a 10,000 kg payload on a traditional rocket into low-earth orbit from an from an arbitrarily high tower.",
+     "f": "数字"
+    },
+    {
+     "t": "We address two aspects of this problem: vertical atmospheric launch and space-based launch tangent to Earth’s surface.",
+     "f": "叙述"
+    },
+    {
+     "t": "In the former case, we simulate the atmospheric ﬂight of a representative two-stage medium-launch rocket based on SpaceX’s Falcon 9 on the way to a circular orbit with an altitude of 300 km, and we compute the savings in ∆v as a function of launch height.",
+     "f": "方法"
+    },
+    {
+     "t": "In the latter case, we compute the requisite fuel mass to take the 10,000 kg payload from the tower to a Hohmann transfer orbit terminating in a circular orbit at an altitude of 300 km.",
+     "f": "数字"
+    },
+    {
+     "t": "In both cases, we also compute the cost of lifting the space vehicle to various launch heights.",
+     "f": "叙述"
+    },
+    {
+     "t": "We conclude that because the space-based launcher, with a tower height between 100 and 300 km, has a mass and ∆v much lower than the atmospheric rocket, its elevation costs and ∆v savings add up to a monetary cost considerably less than the atmospheric launche",
+     "f": "num结论"
+    },
+    {
+     "t": "Assuming total mission cost is proportional to the mass of the launcher and elevation costs are negligible, at a payload launch cost of $15,000/kg we estimate that the cost of launching a rocket from a tower above 100 km is only about $19 million, or about $1,",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2011-GM-B-379",
+   "year": 2011,
+   "problem": "B",
+   "team": "379",
+   "n": 4,
+   "sents": [
+    {
+     "t": "as it interacts with a rim and a backboard, poses several interesting problems.",
+     "f": "叙述"
+    },
+    {
+     "t": "Solving these problems requires an understanding of the eﬀects of lift and drag on the ball as well as the outcomes of collisions between the basketball and the backboard and the rim.",
+     "f": "叙述"
+    },
+    {
+     "t": "We have developed a simulation to predict the trajectory of a basketball as it navigates these obstacles and explored the set of velocities and spins that a basketball can have as it is thrown from the three-point line.",
+     "f": "定义"
+    },
+    {
+     "t": "Our results indicate that backspin on a basketball allows shots to be made with smaller initial velocities; these results also indicate that it is more favorable to bank the ball oﬀof the backboard into the net.",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2012-GM-A-449",
+   "year": 2012,
+   "problem": "A",
+   "team": "449",
+   "n": 6,
+   "sents": [
+    {
+     "t": "In this problem, we are required to predict the volcanic activities on the super- earths.",
+     "f": "叙述"
+    },
+    {
+     "t": "To solve the problem, we set up a model based on the conservation of energy, the heat conduction law and the decay law of isotopes.",
+     "f": "定义"
+    },
+    {
+     "t": "Then we give the simulation of the volcanic activities using MATLAB and Mathematica, and the results show an approximated relationship between the volcanic activities and the mass of the super-earth clearly.",
+     "f": "叙述"
+    },
+    {
+     "t": "After optimizing the model and discussing the strengths and weaknesses, we derived the conclusion: the volcanic activities become intenser gradually at the beginning and slow down after some time.",
+     "f": "方法"
+    },
+    {
+     "t": "The larger mass a super-earth possesses, the longer the volcanic activities can last.",
+     "f": "叙述"
+    },
+    {
+     "t": "449: Page 2 of 17",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2012-GM-B-414",
+   "year": 2012,
+   "problem": "B",
+   "team": "414",
+   "n": 10,
+   "sents": [
+    {
+     "t": "In the year 2000, the International Table Tennis Federation changed the official ball diameters from 38mm to 40mm to make it a better spectator sport.",
+     "f": "数字"
+    },
+    {
+     "t": "The International Table Tennis Federation (ITTF) had done so to decrease the overall speed of the ball and increase the average rally count, so as to turn table tennis into a more fun spectator sport.",
+     "f": "叙述"
+    },
+    {
+     "t": "In this study, the effect of changing ball diameters on television spectator enjoyment is analysed.",
+     "f": "叙述"
+    },
+    {
+     "t": "The effect of increasing ball size on the overall horizontal velocity of the ball will be investigated for each of three kinds of ball strokes; The direct smash, the loop stroke and the chop stroke.",
+     "f": "叙述"
+    },
+    {
+     "t": "These horizontal velocities will be compared with the desired optimal velocity of 11.88m/s, which is based on the visual tracking speed of television spectators.",
+     "f": "数字"
+    },
+    {
+     "t": "The optimal ball size to yield the most fun for spectators is also determined.",
+     "f": "叙述"
+    },
+    {
+     "t": "For the direct smash, the ball speed decreases with increasing ball diameter as expected, indicating that the 44mm ball was most fun to watch.",
+     "f": "数字"
+    },
+    {
+     "t": "For the loop stroke ball, the 44mm diameter ball had a velocity closest to that of the optimal velocity.",
+     "f": "数字"
+    },
+    {
+     "t": "For the chop stroke ball, the analysis was less useful due to the nature of the stroke, but the displacement graph still followed expected results.",
+     "f": "叙述"
+    },
+    {
+     "t": "Overall, the 44mm ball was found to be closest to the optimal size, and the analysis proved accurate for predicting table tennis ball behaviour.",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2013-GM-A-538",
+   "year": 2013,
+   "problem": "A",
+   "team": "538",
+   "n": 6,
+   "sents": [
+    {
+     "t": "In this investigation of whether the gravity assist maneuver generates signiﬁcant fuel savings for a space probe approaching Jupiter at 20 km/s, we calculate the amount of fuel needed the slow the probe down to enter Jupiter’s orbit at an orbital radius of 1.2",
+     "f": "数字"
+    },
+    {
+     "t": "In both cases (with and without the gravity assist maneuver), the speed at the optimal point for the probe to release its thrusters (consume its fuel) is calculated, and then the diﬀerence between the result and the orbital speed required is computed.",
+     "f": "叙述"
+    },
+    {
+     "t": "These results are then placed into Tsiolkovsky’s Rocket Equation [4] to determine the amount of mass lost (fuel consumed) in each case.",
+     "f": "num结论"
+    },
+    {
+     "t": "The ﬁndings show that without the gravity assist maneuver, the probe would need to spend 98.5% of its mass as fuel while it only needs to spend 96.8% of its mass as fuel with the gravity assist maneuver around Jupiter’s moon Io.",
+     "f": "数字"
+    },
+    {
+     "t": "In a practical sense, this means that the probe can now carry twice the amount of non-fuel material to complete the same task by implementing this method.",
+     "f": "叙述"
+    },
+    {
+     "t": "Thus we conclude that the gravity assist maneuver can produce signiﬁcant fuel savings for the space probe.",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2013-GM-B-611a",
+   "year": 2013,
+   "problem": "B",
+   "team": "611",
+   "n": 13,
+   "sents": [
+    {
+     "t": "In this paper, we produce an analysis of how life would evolve differently on a planet with a mass eight times that of earth and a radius two times that of earth.",
+     "f": "叙述"
+    },
+    {
+     "t": "We address this analysis by considering the effects of increased gravity on the dynamics and mechanics of the cardiovascular and musculoskeletal systems.",
+     "f": "叙述"
+    },
+    {
+     "t": "We investigate the cardiovascular system by considering laminar flow in large and medium sized vessels, using the Navier-Stokes equations to model the blood pressure gradient.",
+     "f": "叙述"
+    },
+    {
+     "t": "Additionally, we use scaling arguments of allometry to estimate how blood volume and capillary dimensions vary with gravity.",
+     "f": "方法"
+    },
+    {
+     "t": "We investigate the musculoskeletal system by considering a single bone and muscle extending from the animal body.",
+     "f": "叙述"
+    },
+    {
+     "t": "We decompose bone stress into normal and shear components and treat muscle stress through equilibrium arguments to estimate changes in bone cross sectional area.",
+     "f": "叙述"
+    },
+    {
+     "t": "This model is then used to constrain possible values of bone length and attachment angle.",
+     "f": "叙述"
+    },
+    {
+     "t": "Additionally, we analyze the dynamics of legged locomotion using Froude numbers to demonstrate changes in gait as a function of gravitational acceleration.",
+     "f": "叙述"
+    },
+    {
+     "t": "Finally, the effects additional factors including changes in atmospheric pressure and temperature are considered.",
+     "f": "叙述"
+    },
+    {
+     "t": "Given these considerations, we propose that animals that evolve in this environment would be characterized by bones with twice the cross sectional area and approximately 30% less length than their earth counterparts.",
+     "f": "数字"
+    },
+    {
+     "t": "Leg bones would attach to the body at shallower angles, blood volume would approximately double and capillary size would increase, organ and heart size would increase, and animals would be shorter and more compact to compensate for higher blood pressure gradie",
+     "f": "叙述"
+    },
+    {
+     "t": "Additionally, we model gait as a function of gravitational acceleration to demonstrate that it would be increasingly difficult for animals to reach the most efficient modes of transportation, likely decreasing maximum speed.",
+     "f": "方法"
+    },
+    {
+     "t": "A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 2",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2013-GM-B-611a",
+   "year": 2013,
+   "problem": "B",
+   "team": "611a",
+   "n": 13,
+   "sents": [
+    {
+     "t": "In this paper, we produce an analysis of how life would evolve differently on a planet with a mass eight times that of earth and a radius two times that of earth.",
+     "f": "叙述"
+    },
+    {
+     "t": "We address this analysis by considering the effects of increased gravity on the dynamics and mechanics of the cardiovascular and musculoskeletal systems.",
+     "f": "叙述"
+    },
+    {
+     "t": "We investigate the cardiovascular system by considering laminar flow in large and medium sized vessels, using the Navier-Stokes equations to model the blood pressure gradient.",
+     "f": "叙述"
+    },
+    {
+     "t": "Additionally, we use scaling arguments of allometry to estimate how blood volume and capillary dimensions vary with gravity.",
+     "f": "方法"
+    },
+    {
+     "t": "We investigate the musculoskeletal system by considering a single bone and muscle extending from the animal body.",
+     "f": "叙述"
+    },
+    {
+     "t": "We decompose bone stress into normal and shear components and treat muscle stress through equilibrium arguments to estimate changes in bone cross sectional area.",
+     "f": "叙述"
+    },
+    {
+     "t": "This model is then used to constrain possible values of bone length and attachment angle.",
+     "f": "叙述"
+    },
+    {
+     "t": "Additionally, we analyze the dynamics of legged locomotion using Froude numbers to demonstrate changes in gait as a function of gravitational acceleration.",
+     "f": "叙述"
+    },
+    {
+     "t": "Finally, the effects additional factors including changes in atmospheric pressure and temperature are considered.",
+     "f": "叙述"
+    },
+    {
+     "t": "Given these considerations, we propose that animals that evolve in this environment would be characterized by bones with twice the cross sectional area and approximately 30% less length than their earth counterparts.",
+     "f": "数字"
+    },
+    {
+     "t": "Leg bones would attach to the body at shallower angles, blood volume would approximately double and capillary size would increase, organ and heart size would increase, and animals would be shorter and more compact to compensate for higher blood pressure gradie",
+     "f": "叙述"
+    },
+    {
+     "t": "Additionally, we model gait as a function of gravitational acceleration to demonstrate that it would be increasingly difficult for animals to reach the most efficient modes of transportation, likely decreasing maximum speed.",
+     "f": "方法"
+    },
+    {
+     "t": "A n a l y s i s o f B i o l o g i c a l S t r u c t u r e s i n H y p e r g r a v i t y E n v i r o n m e n t s | 2",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2014-GM-A-726",
+   "year": 2014,
+   "problem": "A",
+   "team": "726",
+   "n": 4,
+   "sents": [
+    {
+     "t": "This paper investigates the stability of planetary orbits around a binary star system.",
+     "f": "叙述"
+    },
+    {
+     "t": "We constructed a simulation of the system’s behavior over time based on Kepler’s and Newton’s laws of mechan- ics and gravitation.",
+     "f": "方法"
+    },
+    {
+     "t": "The resulting system of equations was solved numerically using Mathematica and the results were analyzed using Mathematica and Matlab.",
+     "f": "方法"
+    },
+    {
+     "t": "From the results, we can conclude that the shortest distance from the center of mass of the given system where orbits are still consistently stable after 1000 years is 0.6 AU.",
+     "f": "num结论"
+    }
+   ]
+  },
+  {
+   "id": "2014-GM-B-807",
+   "year": 2014,
+   "problem": "B",
+   "team": "807",
+   "n": 5,
+   "sents": [
+    {
+     "t": "Our task for the problem was to determine the probability density that any molecule ejected from the fountain hits the pond at the point (x, y), then the relevant problems can be solved.",
+     "f": "叙述"
+    },
+    {
+     "t": "To achieve the goal,we ﬁrst modeled the water ﬂux as discrete small drops(with radius 10−3m ∼10−2m), and ﬁnally got the analytic solutions.",
+     "f": "数字"
+    },
+    {
+     "t": "In this simple model, we ignored the air resistance and interaction between water drops.",
+     "f": "叙述"
+    },
+    {
+     "t": "We then considered the correction of drops’ interaction by correcting ejection function E.",
+     "f": "叙述"
+    },
+    {
+     "t": "Then we added a correction for the drag, After rough estimate of Reynolds number, we found that the air resistance acted on the water drops satisﬁes a quadratic form, we got numerical solutions to this problem with the help of MatLab.",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2015-GM-A-190",
+   "year": 2015,
+   "problem": "A",
+   "team": "190",
+   "n": 4,
+   "sents": [
+    {
+     "t": "In this report we investigate the e\u001bectiveness of asteroid bombardment on Mars in creating a stable atmosphere which allows for the existence of liquid water.",
+     "f": "叙述"
+    },
+    {
+     "t": "The impacts release thermal energy which temporarily raises the average temperature of the Martian atmosphere, thereby allowing carbon dioxide frozen in the poles to be released.",
+     "f": "叙述"
+    },
+    {
+     "t": "We found total mass of the impactors to be 1.225 × 1013kg, based on a required energy for atmospheric heating and CO2 sublimation of 2.14 × 1021J.",
+     "f": "数字"
+    },
+    {
+     "t": "The impulse required to move these asteroids such that they collide with Mars is on the order of 1016 N*s.",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2015-GM-B-108",
+   "year": 2015,
+   "problem": "B",
+   "team": "108",
+   "n": 14,
+   "sents": [
+    {
+     "t": "In this solution, we investigate the feasible club/ball interactions that eventually lead the golf ball to go around the tree (cylinder) and land in the given circular region.",
+     "f": "叙述"
+    },
+    {
+     "t": "The presence of the Magnus force is concluded to be the main reason that drives the ball to fly in a circuitous trajectory around the tree.",
+     "f": "叙述"
+    },
+    {
+     "t": "To clarify all the interactions within the process, the motion of the ball is divided into two stages—the Free-flight Stage and the Bouncing Stage.",
+     "f": "叙述"
+    },
+    {
+     "t": "For the Free-flight Stage, four parameters (the loft angle, the drift angle, the azimuthal angle and the initial speed) are introduced to determine the initial interaction between the club and the ball.",
+     "f": "叙述"
+    },
+    {
+     "t": "For the Bouncing Stage, we introduce the restitution coefficient and the frictional coefficient to describe the interaction between the ball and the ground.",
+     "f": "叙述"
+    },
+    {
+     "t": "The dynamic model is established using the Newtonian approach.",
+     "f": "叙述"
+    },
+    {
+     "t": "On a basic level, the trajectory of the ball is numerically solved with a particular set of parameters.",
+     "f": "定义"
+    },
+    {
+     "t": "To further specify the criteria that lead to satisfying shots, we study the feasible regions in parametric spaces—those regions that incorporate all parameters which result in successful shots—to present a detailed instruction on the golfers’ controls.",
+     "f": "叙述"
+    },
+    {
+     "t": "Therefore, the task presented by the problem is accomplished on a technical level.",
+     "f": "叙述"
+    },
+    {
+     "t": "However, given the fact that absolute accuracies never exist (especially in human controls), we evaluate the margin values of the system.",
+     "f": "叙述"
+    },
+    {
+     "t": "The results reveals that, although some sets of the parameters are viable, the margin values of them are so small that allow for very little deviations in order to lead to the ultimate successful shots.",
+     "f": "叙述"
+    },
+    {
+     "t": "Subsequently, an optimization on margin values is presented, hoping to enhance golfers’ chances of success.",
+     "f": "叙述"
+    },
+    {
+     "t": "Finally, some preliminary results in the presence of wind force are also studies as an extended model.",
+     "f": "叙述"
+    },
+    {
+     "t": "Team 108 University Physics Competition Page 1 of 24 Contents",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2016-GM-A-412",
+   "year": 2016,
+   "problem": "A",
+   "team": "412",
+   "n": 11,
+   "sents": [
+    {
+     "t": "In this paper, extraterrestrial disposal is proposed as a solution to the problem of nuclear residuals.",
+     "f": "叙述"
+    },
+    {
+     "t": "We start analyzing six diﬀerent ways of extraterrestrial disposal comparing them, based on their cost and on their security.",
+     "f": "叙述"
+    },
+    {
+     "t": "After concluding that the optimal disposal method consists on sending the nuclear waste on an heliocentric orbit we start our modeling work.",
+     "f": "叙述"
+    },
+    {
+     "t": "Both deterministic and stochastic modeling techniques have been used to solve diﬀerent stages of the problem.",
+     "f": "叙述"
+    },
+    {
+     "t": "The dangers involved in leaving the planet with radioactive waste have been analyzed together with the probability of this dangers to actually become true, comparing debri collision and ﬂight failure using a pertinent ﬁgure of merit.",
+     "f": "叙述"
+    },
+    {
+     "t": "Our model studies two possible heliocentric orbits where the radioactive waste could be stored and methods for reaching these destinations are proposed.",
+     "f": "叙述"
+    },
+    {
+     "t": "We have studied and compared the possible dangers that radioactive waste could encounter in their new location (such as unwanted asteroid collision with unpredictable results) as well as the energetic costs involved in bringing them there.",
+     "f": "叙述"
+    },
+    {
+     "t": "According to our model, the asteroid belt represents the best option when considering storage or disposal of radioactive waste during the 250 000 years that it takes for them to become innocuous again.",
+     "f": "数字"
+    },
+    {
+     "t": "State of the art techniques have been used to develop our models, like Lagrangian points, libration oscillations and the Hoﬀman maneuver.",
+     "f": "叙述"
+    },
+    {
+     "t": "Rkf45 integration has been used to obtain high precision on our computations, which is important as our system is highly chaotic.",
+     "f": "数字"
+    },
+    {
+     "t": "Team 412 Page 1 of 23 Contents",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2016-GM-B-441",
+   "year": 2016,
+   "problem": "B",
+   "team": "441",
+   "n": 4,
+   "sents": [
+    {
+     "t": "As suggested by recent publications on vertebrate’s maximal size [1], we have worked on a mathematical model based on resources and energy considerations that can be ap- plied in order to account for the diﬀerences in mass between dinosaurs and mammals and tha",
+     "f": "建议"
+    },
+    {
+     "t": "In this paper we analyze the model, apply it with real biological/- paleontological data and use it to give explanations to the maximal body size for land mammals and dinosaurs.",
+     "f": "叙述"
+    },
+    {
+     "t": "Furthermore, other implications of the model are explored in order to give answers to other important questions about dinosaur’s nature.",
+     "f": "叙述"
+    },
+    {
+     "t": "In partic- ular, we have found that dinosaurs having similar characteristics to varanids in terms of energy expenditure when extrapolated to larger mass successfully explains observed mass ratios of one order of magnitude between dinosaurs and mammals.",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2017-GM-A-670",
+   "year": 2017,
+   "problem": "A",
+   "team": "670",
+   "n": 8,
+   "sents": [
+    {
+     "t": "Solar sails became reality lately, being far more aﬀordable then most of modern methods of propulsion in space.",
+     "f": "叙述"
+    },
+    {
+     "t": "They obviously have some limitations, as they can work eﬀectively only in close proximity of the Sun and can not propel spacecrafts towards the Sun.",
+     "f": "叙述"
+    },
+    {
+     "t": "Using such solar sails for missions to the Mars has been discussed previously by many groups and seem to have a lot of potential, especially if time is not the most limiting factor.",
+     "f": "叙述"
+    },
+    {
+     "t": "Our limiting factor was a mass of an entire ship ﬁxed at 2000kg.",
+     "f": "数字"
+    },
+    {
+     "t": "In our work we suggest a heuristic approach to optimize an angle of incidence during ﬂight, while keeping this angle ﬁxed for ﬁxed periods of time.",
+     "f": "建议"
+    },
+    {
+     "t": "With numerical simulations we found optimal routes for diﬀerent ratio (q) of sail to ship mass.",
+     "f": "叙述"
+    },
+    {
+     "t": "With such an optimization we concluded, that most promising is to have q ratio equal to 0.46, what gives 1080 kg of payload.",
+     "f": "num结论"
+    },
+    {
+     "t": "Such a spaceship would reach Mars in about 532 days.",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2017-GM-A-699",
+   "year": 2017,
+   "problem": "A",
+   "team": "699",
+   "n": 3,
+   "sents": [
+    {
+     "t": "This paper analyzed the voyage of the solar sail from Earth to Mars.",
+     "f": "叙述"
+    },
+    {
+     "t": "Three partial models were established to describe the process: Solar Sail Thrust Model, Ideal Solar Sail Time Optimal Transfer Orbit Model and Orbital Transfer Optimization Model Based on PSO.",
+     "f": "叙述"
+    },
+    {
+     "t": "In the Solar Sail Thrust Model, the formula (",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2017-GM-A-744",
+   "year": 2017,
+   "problem": "A",
+   "team": "744",
+   "n": 11,
+   "sents": [
+    {
+     "t": "We study Logarithmically Spiral Trajectories and, in particular, we look for a solution to minimize the transit time of a Spacecraft propelled by a Solar Sail, while simultaneously minimizing the area of the Solar Sail, which would allow us to carry more paylo",
+     "f": "叙述"
+    },
+    {
+     "t": "We start by analyzing the forces that act on the Spacecraft taking into account that its propellant is a Solar Sail; we use the studied forces to deduce the motion equations.",
+     "f": "方法"
+    },
+    {
+     "t": "We then solve this motion equation with a Runge- Kutta 4 method and transform the problem of minimizing time and area to a Non-linear Optimization problem.",
+     "f": "方法"
+    },
+    {
+     "t": "When solving the NLP we also try to minimize the relative ﬁnal speed of th spacecraft with the destination planet in order to guarantee the possibility of a safe landing on its surface.",
+     "f": "叙述"
+    },
+    {
+     "t": "The model improves when an angle parameter α (describing the angle formed by the Solar Sail with the colliding photons) is deﬁned as a piecewise constant function and optimized whose values are optimized in every interval to minimize transit time and Area.",
+     "f": "叙述"
+    },
+    {
+     "t": "Using the developed model to optimize the trajectory to be followed for sending from Earth to Mars a 2000 kg-spacecraft propelled by a Solar Sail, subject to the condition that at trajectory start Mars and Earth were at their closest approach, and the Arrival ",
+     "f": "数字"
+    },
+    {
+     "t": "Compared with diﬀerent number of partitions of α, the optimum stays stable.",
+     "f": "叙述"
+    },
+    {
+     "t": "This gives a solid optimal trajectory and a great result for the numerical method used.",
+     "f": "叙述"
+    },
+    {
+     "t": "Actually, waiting until the best moment to throw the Spacecraft, id est, Mars is at 1.14 radians respectively to Earth initial position, the minimal sail area 145950 m2 and, therefore, ables to transport until 978 kg of payload with the same transit time.",
+     "f": "num结论"
+    },
+    {
+     "t": "In addition and to conclude we tried the model to optimize the inverse trajectory.",
+     "f": "叙述"
+    },
+    {
+     "t": "Team 744 Page 1 of 34 Contents",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2017-GM-B-609",
+   "year": 2017,
+   "problem": "B",
+   "team": "609",
+   "n": 8,
+   "sents": [
+    {
+     "t": "This paper considers the feasibility of using a magnetic ﬁeld to conﬁne the trajectories of dispelled ions from an electric ion thruster.",
+     "f": "叙述"
+    },
+    {
+     "t": "We considered the physical demands of designing a magnetic plume collimator at two locations relative to the ion thruster: directly at the end of the grate accelerator, and at reasonable distances beyond the thruster.",
+     "f": "叙述"
+    },
+    {
+     "t": "The demands were developed under the pretext that the ﬁrst priority in these deliberations was to increase thrust to propellant eﬃciency.",
+     "f": "叙述"
+    },
+    {
+     "t": "A second priority, which is not treated extensively in this paper due to its dependence on speciﬁc spacecraft designs, is to mitigate sputter eﬀects associated with ware on the spacecraft.",
+     "f": "叙述"
+    },
+    {
+     "t": "In lieu of laboratory data, this paper seeks to develop a rigorous physical understanding of the diﬃculties associated with creating such an apparatus, and discuss the issues one might face given speciﬁc design possibilities.",
+     "f": "叙述"
+    },
+    {
+     "t": "We also develop a simple model of an ideal magnetic lens in order to estimate the strength, position, and size of such a lens.",
+     "f": "叙述"
+    },
+    {
+     "t": "The paper mathematically develops a set of physical constraints a magnetic collimator must abide by to be deemed a reasonable design option.",
+     "f": "定义"
+    },
+    {
+     "t": "The physical constraints we developed indicated magnetic ﬁelds were an impractical mechanism for reducing beam divergence in electric ion thrusters.",
+     "f": "方法"
+    }
+   ]
+  },
+  {
+   "id": "2018-GM-A-158",
+   "year": 2018,
+   "problem": "A",
+   "team": "158",
+   "n": 10,
+   "sents": [
+    {
+     "t": "This paper analyses the combinations among various kinds of sail shapes, materials and laser beam shapes to be used in a laser propelled spacecraft meant to reach relativistic speeds.",
+     "f": "叙述"
+    },
+    {
+     "t": "It is an attempt to ﬁnd the best possible conﬁguration for sending a probe on a ﬂyby mission to the exoplanet Proxima Centauri b.",
+     "f": "叙述"
+    },
+    {
+     "t": "The best conﬁguration is taken to be one that allows for stability, directional precision and maximum speed for a given mass.",
+     "f": "叙述"
+    },
+    {
+     "t": "An attempt to explain the dynamics of the sail and its underlying physics has been made.",
+     "f": "叙述"
+    },
+    {
+     "t": "Analysis of the motion through the parameter space has been done to determine the possibility of a successful mission.",
+     "f": "叙述"
+    },
+    {
+     "t": "Various parameters have been identiﬁed and diﬀerent iterations of combinations of them have been considered.",
+     "f": "叙述"
+    },
+    {
+     "t": "We have tried to optimize these parameters under the constraints of the problem statement so that our spacecraft may reach high enough speeds required for interstellar travel.",
+     "f": "叙述"
+    },
+    {
+     "t": "In terms of stability, disregarding power eﬃciency and material limitations, a spherical sail with a multimodal Gaussian beam appears to be the best option.",
+     "f": "叙述"
+    },
+    {
+     "t": "However, we conduct an analysis of dynamics using a uniform beam, with the square sail performing best in this limited comparison.",
+     "f": "叙述"
+    },
+    {
+     "t": "We also attempt to make estimations about the kind of error that would be permitted in the laser beam precision arriving at a value of the order of 10-10 radians.",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2018-GM-A-258",
+   "year": 2018,
+   "problem": "A",
+   "team": "258",
+   "n": 11,
+   "sents": [
+    {
+     "t": "The stability of the sail, the precision of the initial trajectory, and the materials necessary for the design are all analyzed in an attempt to model a nanocraft's journey to Proxima Centauri B.",
+     "f": "叙述"
+    },
+    {
+     "t": "Approximations and assumptions are made to simplify the issue of sail stability, which is the most di cult part of the analysis.",
+     "f": "叙述"
+    },
+    {
+     "t": "Materials that are suitable for the sail \u0015 at least partially \u0015 are currently available.",
+     "f": "叙述"
+    },
+    {
+     "t": "The requirements on the sail are that its emissivity, ϵ, re ectance, η, and absorptance, α, meet the following condition: ϵη α ≥6.6·103.",
+     "f": "数字"
+    },
+    {
+     "t": "The sail is assumed to be a rigid body with high re ectance, so that Newton's Laws and Euler's equation can be used to describe its motion.",
+     "f": "方法"
+    },
+    {
+     "t": "Assuming a constant laser beam shape over the area of the sail, these di\u001berential equations can be found analytically.",
+     "f": "叙述"
+    },
+    {
+     "t": "Numerical simulations are performed to analyze the stability of the craft, suggesting stability for angular perturbations on the order of 2·10−6 rad.",
+     "f": "建议"
+    },
+    {
+     "t": "The maximum initial transverse perturbation is 10 µm.",
+     "f": "数字"
+    },
+    {
+     "t": "If Proxima Centauri b is to be reached within the Earth-Moon distance, a 10 nrad maximum angular perturbation is needed.",
+     "f": "数字"
+    },
+    {
+     "t": "The laser beam would have to be aligned with the sail according to these speci cations.",
+     "f": "叙述"
+    },
+    {
+     "t": "Although these results suggest that highly accurate trajectories are necessary, the model proposed is conservative, in the sense that it does not allow the laser beam to stabilize the sail.",
+     "f": "建议"
+    }
+   ]
+  },
+  {
+   "id": "2018-GM-A-295",
+   "year": 2018,
+   "problem": "A",
+   "team": "295",
+   "n": 16,
+   "sents": [
+    {
+     "t": "This paper studied the influencing factors during the process that a light sail propelled nanocraft fly the Proxima Centauri b at a distance closer than Earth-Moon distance.",
+     "f": "叙述"
+    },
+    {
+     "t": "The dynamics analysis was given in the paper.",
+     "f": "叙述"
+    },
+    {
+     "t": "Four partial models were established to describe such analysis: Laser Transmission Model, Acceleration Dynamics Model, Stability Analysis Model and Track Model.",
+     "f": "叙述"
+    },
+    {
+     "t": "In the Laser Transmission Model, the function ) , ( p m f P    was given to calculate the laser intensity after crossing the atmosphere.",
+     "f": "叙述"
+    },
+    {
+     "t": "In the Acceleration Dynamics Model, based on the assumption that sail was a rigid plate, we discretized the sail into 10000 area elements whose attribute could be shown bydA ,dm ,dP , i r  .",
+     "f": "数字"
+    },
+    {
+     "t": "And each element corresponds to a transmitter.",
+     "f": "叙述"
+    },
+    {
+     "t": "In the model, a fixed coordinate system and a Lysol coordinate system was built.",
+     "f": "叙述"
+    },
+    {
+     "t": "First we got the center of mass of the sail by summing all elements up.",
+     "f": "叙述"
+    },
+    {
+     "t": "Then the torque matrix and inertia tensor matrix around the center of mass was given.",
+     "f": "叙述"
+    },
+    {
+     "t": "Followed was the calculation of angular acceleration through the theorem of moment of momentum.",
+     "f": "叙述"
+    },
+    {
+     "t": "Finally, Euler dynamical equations were applied to solve out the angular velocity and thus the angle shift could be described.",
+     "f": "方法"
+    },
+    {
+     "t": "In the Stability Analysis Model, accuracy of the beam from the laser array was shown as P P/  , margin of error in the fabrication of the light sail was described by m  and the uniformity of the laser beam was given by d .",
+     "f": "叙述"
+    },
+    {
+     "t": "Apply these small perturbations into the dynamics model.",
+     "f": "叙述"
+    },
+    {
+     "t": "These small perturbations were uneven and in random.",
+     "f": "叙述"
+    },
+    {
+     "t": "As a consequence, it was nearly impossible to get an analytical solution of the Euler equations.",
+     "f": "方法"
+    },
+    {
+     "t": "In the Track Model, under the consideration of the gravitation of the Proxima Centauri and Proxima Centauri b, we calculated two possible maximum angles deviation and found ) / ( sin ) / ( sin orbit",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2018-GM-B-240",
+   "year": 2018,
+   "problem": "B",
+   "team": "240",
+   "n": 13,
+   "sents": [
+    {
+     "t": "In this paper, we present a model for a compost pile made of kitchen waste.",
+     "f": "方法"
+    },
+    {
+     "t": "Our main objectives are ﬁnding the volume that maximizes the composting rate and analyzing its dependence on the ambient temperature and the input organic materials.",
+     "f": "叙述"
+    },
+    {
+     "t": "A set of initials conditions and metabolic parameters are taken into account, which determine the evolution of the system during a period of 100 days.",
+     "f": "定义"
+    },
+    {
+     "t": "The system is described using diﬀerential equations from Semenov’s formulation and mass and energy conservation.",
+     "f": "叙述"
+    },
+    {
+     "t": "In order to analyze the composting rate, the mass of reacted oxygen was used as a reference.",
+     "f": "叙述"
+    },
+    {
+     "t": "The results were obtained using a numerical integration method and optimized by variation of the input volume and surface of the pile.",
+     "f": "叙述"
+    },
+    {
+     "t": "Once the optimal value was determined, its dependence with the ambient temperature and input organic composition was analyzed.",
+     "f": "叙述"
+    },
+    {
+     "t": "The simulations showed an optimal volume of 6.33m3 and 9.20m3 for a semi-sphere and a four-sided truncated pyramid pile, respectively.",
+     "f": "数字"
+    },
+    {
+     "t": "These results indicate that the oxygen concentration is a priority over insulation in composting.",
+     "f": "叙述"
+    },
+    {
+     "t": "Also, the optimal volume increases with the ambient temperature and decreases with the input biomass concentration.",
+     "f": "叙述"
+    },
+    {
+     "t": "Finally, we have compared the evolution of our system with results from other models and they shared a similar pattern.",
+     "f": "叙述"
+    },
+    {
+     "t": "Thus, our model and optimal volumes are acceptable.",
+     "f": "叙述"
+    },
+    {
+     "t": "Team 240 Page 1 of 15",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2018-GM-B-285",
+   "year": 2018,
+   "problem": "B",
+   "team": "285",
+   "n": 14,
+   "sents": [
+    {
+     "t": "This paper mainly considers the effect of physical effects on composting efficiency.",
+     "f": "叙述"
+    },
+    {
+     "t": "First, we need to strip out the issues that need to be considered.",
+     "f": "叙述"
+    },
+    {
+     "t": "Since a series of chemical reactions and biological changes in the composting process are independent of the physical model, only the effects of temperature and oxygen content can be considered.",
+     "f": "叙述"
+    },
+    {
+     "t": "Further abstraction corresponds to the active heat transfer process and the oxygen flow process.",
+     "f": "叙述"
+    },
+    {
+     "t": "For the active heat conduction process, the law of conservation of heat and Fourier's law can be used to establish the differential equation; for the oxygen circulation process, since it follows the law of heat transfer, it can be similarly solved.",
+     "f": "叙述"
+    },
+    {
+     "t": "In order to facilitate the analysis, we determined the shape of the compost pile as a common and regular cylinder, which was cut into a fan slice by symmetrical cutting, and then the area micro-element was taken on the sheet for analysis.",
+     "f": "叙述"
+    },
+    {
+     "t": "Another problem that needs to be considered is the fact that compaction is caused by its own gravity.",
+     "f": "叙述"
+    },
+    {
+     "t": "This is reflected in the physical quantity of density.",
+     "f": "叙述"
+    },
+    {
+     "t": "The density distribution function under self-weight is an essential element in the heat conduction and oxygen flow equations.",
+     "f": "叙述"
+    },
+    {
+     "t": "Therefore, research is needed.",
+     "f": "叙述"
+    },
+    {
+     "t": "The density distribution of the compost under its own weight.",
+     "f": "叙述"
+    },
+    {
+     "t": "We use the spring self-weight compression model to simplify the compost material into a spring that cannot be ignored by gravity.",
+     "f": "方法"
+    },
+    {
+     "t": "Through the Hooke's law and the calculus idea, the amount of compression is obtained, and then the density distribution is determined by the density definition.",
+     "f": "叙述"
+    },
+    {
+     "t": "Team#285 Page 2 of 11 Contents",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2019-GM-A-105",
+   "year": 2019,
+   "problem": "A",
+   "team": "105",
+   "n": 4,
+   "sents": [
+    {
+     "t": "This paper analyses and evaluates a possible flight plan from Earth to Mars such that the radiation dosage absorbed by the spacecraft passengers is the least by launching the spacecraft between 43.64 to 55.31 deg relative to the magnetic axis of the Earth (to ",
+     "f": "数字"
+    },
+    {
+     "t": "There is also an attempt to find the best possible and practical radiation shielding method for sending a 1000 cubic metres habitat along with the extra mass of the faraday cage and all the radiation proof materials like lead, plexiglass, and kevlar, to Mars w",
+     "f": "num结论"
+    },
+    {
+     "t": "Parameters like, shape of habitat, permitted solar radiation levels and different shielding materials, dosage and exposure rate reduction are taken into consideration while designing a shield for the habitat.",
+     "f": "叙述"
+    },
+    {
+     "t": "Protecting travellers to Mars Team 105",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2019-GM-A-289",
+   "year": 2019,
+   "problem": "A",
+   "team": "289",
+   "n": 8,
+   "sents": [
+    {
+     "t": "Long duration manned mission in space needs yet to overcome a lot of enabling and enhancing technologies.",
+     "f": "叙述"
+    },
+    {
+     "t": "One of the challenges encountered in deep space missions is harmful radiation from solar flares and galactic cosmic radiation.",
+     "f": "叙述"
+    },
+    {
+     "t": "In the early days of manned space mission around low earth orbit and moon, radiation encounter was not a major issue, since earth’s magnetic field is strong enough in this region to deflect a considerable amount of radiation flux.",
+     "f": "叙述"
+    },
+    {
+     "t": "But long-duration manned mission to mars needs further technologies.",
+     "f": "叙述"
+    },
+    {
+     "t": "The main constraint to use conventional passive shielding with absorbing material to block these radiations is extra mass, as an increase of payload comes with a greater trade-off with fuel.",
+     "f": "两难"
+    },
+    {
+     "t": "Another natural approach to attack this problem is to use active magnetic shields mimicking the earth’s role toward space radiation.",
+     "f": "叙述"
+    },
+    {
+     "t": "But this approach presents another set of complexity, like maintaining a stable static magnetic field, energy dissipation, effects of magnetic field on on-board crews.",
+     "f": "定义"
+    },
+    {
+     "t": "A thorough investigation of possible shortcomings and challenges associated with active shielding is considered in this paper, and possible mass needed to build the shield is estimated to be 48.346 tons.",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2019-GM-A-343",
+   "year": 2019,
+   "problem": "A",
+   "team": "343",
+   "n": 9,
+   "sents": [
+    {
+     "t": "This paper analyzes various options for spacecraft to prevent radiation in deep space (the spacecraft is set to a cylindrical shape with a base radius of 5.42m, a height of 10.84m, and a volume of approximately 1000m3).",
+     "f": "定义"
+    },
+    {
+     "t": "We propose a solution based on both superconducting magnetic shielding and passive protection, which has a total weight of 16.53 tons, and the super- conducting material is BSCCO-2212 with a density of 1.8954g/cm3.",
+     "f": "数字"
+    },
+    {
+     "t": "It is an attempt to ﬁnd the relatively feasible conﬁguration for block- ing high energy particles, which can be deﬂected by electromagnetic ﬁeld.",
+     "f": "叙述"
+    },
+    {
+     "t": "Computer simulation was used to calculate the efﬁciency of possible mag- netic ﬁeld structures in 8 plans, and one of the schemes is considered to be superior (80% of high-energy particles can be shielded by superconducting magnetic ﬁeld with strength B=10T, t",
+     "f": "数字"
+    },
+    {
+     "t": "The blind zone of the magnetic ﬁeld structure is considered, and an aluminum plate with a radius of 2 m and a thickness of 10 mm is mounted on the top of the space- craft.",
+     "f": "数字"
+    },
+    {
+     "t": "In addition to setting the superconducting magnetic shielding ﬁeld to deﬂect high-energy particles, we cover the spacecraft with a 3.75 mm aluminum plate to absorb gamma rays.",
+     "f": "数字"
+    },
+    {
+     "t": "The ﬁndings show that in this scheme can block 94% of high-energy electrons with energy not exceeding 4Gev/n and 98% of γ-rays with a fre- quency of 1020 Hz.",
+     "f": "数字"
+    },
+    {
+     "t": "In addition, possible problems such as the damage of the strong magnetic ﬁeld to the human body and the explosion of SCRs are also considered.",
+     "f": "叙述"
+    },
+    {
+     "t": "Team # 343 Page 1 of 24 Contents",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2019-GM-B-190",
+   "year": 2019,
+   "problem": "B",
+   "team": "190",
+   "n": 9,
+   "sents": [
+    {
+     "t": "In this problem, we are required to design a safe and exciting roller coaster.",
+     "f": "叙述"
+    },
+    {
+     "t": "To solve the problem, we set up a design model of the trajectory with Solid-works and Planet Coaster.",
+     "f": "定义"
+    },
+    {
+     "t": "Then we derive the equations of motion based on basic dynamic laws.",
+     "f": "方法"
+    },
+    {
+     "t": "Next with Euler’s method, we estimate the solutions and simulate of the roller coaster’s motion using MATLAB.",
+     "f": "方法"
+    },
+    {
+     "t": "For safety and excitement judgement, we deﬁne several parameters related to position, velocity, and acceleration to represent the degree of safety and excitement.",
+     "f": "叙述"
+    },
+    {
+     "t": "The value of these parameters and their simulation with time are also obtained with MATLAB.",
+     "f": "叙述"
+    },
+    {
+     "t": "Finally we come to the conclusion that the designed roller coaster is safe and exciting.",
+     "f": "叙述"
+    },
+    {
+     "t": "CONTENTS Team No.",
+     "f": "叙述"
+    },
+    {
+     "t": "190 Page 2 of 29 Contents",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2019-GM-B-389",
+   "year": 2019,
+   "problem": "B",
+   "team": "389",
+   "n": 14,
+   "sents": [
+    {
+     "t": "This paper analyses the track and motion of a roller coaster.Our main task can be divided into three parts: (1)Design a roller coaster that meets both security and stimulation.",
+     "f": "数字"
+    },
+    {
+     "t": "We make the following analysis: While riding a roller coaster, however, being overweight or weightless and changing direction can cause changes in acceleration, resulting in a sense of excitement.",
+     "f": "叙述"
+    },
+    {
+     "t": "However, excessive acceleration is bound to cause damage to the health of passengers.",
+     "f": "叙述"
+    },
+    {
+     "t": "Normal adults can withstand 4~5g vertical acceleration with a duration of no more than 0.1s.According to the theoretical calculation, the maximum vertical acceleration in this design scheme is 4.1g, and the duration is 0.01s, which occurs at the first downhill",
+     "f": "数字"
+    },
+    {
+     "t": "The rest of the vertical acceleration is less than 4g.",
+     "f": "数字"
+    },
+    {
+     "t": "The time of overweight and weightlessness accounts for 87% of the total time.",
+     "f": "数字"
+    },
+    {
+     "t": "Therefore, this design scheme can continuously bring passengers a sense of tension and stimulation under the premise of ensuring safety.",
+     "f": "叙述"
+    },
+    {
+     "t": "(2)Analyze the dynamics of roller coaster and calculate the total duration.",
+     "f": "数字"
+    },
+    {
+     "t": "The roller coaster track is divided into 9 segments.",
+     "f": "数字"
+    },
+    {
+     "t": "In each segment, we use Kinetic energy theorem to analyse its motion, and then obtain velocities between every two adjacent segments.",
+     "f": "方法"
+    },
+    {
+     "t": "These velocities correspond well with results of simulation.",
+     "f": "叙述"
+    },
+    {
+     "t": "With the help of simulation softwares, we figure out the total duration of the ride is 1 minute and 2.67seconds.",
+     "f": "数字"
+    },
+    {
+     "t": "(3)Accurately describe the motion trajectory of roller coaster in three dimensions.",
+     "f": "数字"
+    },
+    {
+     "t": "According to (1) and (2), we can precisely describe the path that the roller coaster track would follow.",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2020-GM-A-340",
+   "year": 2020,
+   "problem": "A",
+   "team": "340",
+   "n": 14,
+   "sents": [
+    {
+     "t": "This paper analysed the voyage of a spacecraft powered by ion thrusters from Earth to Saturn.",
+     "f": "叙述"
+    },
+    {
+     "t": "A Conic Section Splicing Model was established to describe the process.",
+     "f": "叙述"
+    },
+    {
+     "t": "We divided the entire process into five stages, including Earth-Sun Transfer Phase, First Orbit Sun Phase, Venus Swing by Phase, Second Orbit Sun Phase and Sun-Saturn Transfer Phase.",
+     "f": "叙述"
+    },
+    {
+     "t": "In Earth-Sun Transfer Phase, we established 5 equations to obtain the kinetic differential equation of the spacecraft.",
+     "f": "数字"
+    },
+    {
+     "t": "Since it is a higher order nonlinear non-homogeneous equation with no analytic solution, we could only derive the numerical solution using MATLAB.",
+     "f": "叙述"
+    },
+    {
+     "t": "In First and Second Orbit Sun Phase, using law of conservation of angular momentum, law of conservation of mechanical energy and the geometric relationship of orbits, we find the velocities when the spacecraft has just escaped Planet A and has just interacted ",
+     "f": "叙述"
+    },
+    {
+     "t": "In Venus Swing by Phase, instead of studying the gravitational slingshot effect of Venus in dynamics, we chose to easily calculate the velocities of the spacecraft before and after swinging by Venus directly from the geometric relationships of the first and se",
+     "f": "叙述"
+    },
+    {
+     "t": "In Sun-Saturn Transfer Phase, aim at saving fuel, we firstly let the spacecraft perform free motion under the gravity of Jupiter, then turn on the ion thrusters to slow it down until reaching the prescribed orbit.",
+     "f": "叙述"
+    },
+    {
+     "t": "Use MATLAB to find the trajectory of the spacecraft's motion.",
+     "f": "叙述"
+    },
+    {
+     "t": "In summary, the minimum amount of fuel it takes is 2402.77kg.",
+     "f": "数字"
+    },
+    {
+     "t": "The duration of the trip is 4923.89 days (13.49 years).",
+     "f": "数字"
+    },
+    {
+     "t": "During Stage 1 ,turn on the ion thrusters in the same direction with the angular velocity for 65452.66 hours.",
+     "f": "数字"
+    },
+    {
+     "t": "While during Stage 5 , turn on the ion thrusters in the opposite direction of the angular velocity for 0.43 hours.",
+     "f": "数字"
+    },
+    {
+     "t": "TEAM#340 ION THRUSTERS TO SATURN",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2020-GM-A-354",
+   "year": 2020,
+   "problem": "A",
+   "team": "354",
+   "n": 5,
+   "sents": [
+    {
+     "t": "This paper investigates the optimization of the trajectory of spacecraft equipped with low-thrust ion engine which provides the constant thrust FT of 400 mN, with the speciﬁc impulse Isp of 4000 s.",
+     "f": "数字"
+    },
+    {
+     "t": "The main goal is to eﬃciently send the spacecraft from the circular orbit of radius 6650.32 km (equivalent to the time period of 90 minutes) around the earth to the circular orbit of radius 271033.49 km (equivalent to the time period of 40 hours) around the Sa",
+     "f": "数字"
+    },
+    {
+     "t": "This was done using the combined method of ion propulsion and Gravity Assist (GA).",
+     "f": "叙述"
+    },
+    {
+     "t": "We constructed the model which simulates the trajectory of the spacecraft based on Newton’s and Kepler’s law of gravitation.",
+     "f": "方法"
+    },
+    {
+     "t": "With this model, the spacecraft took",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2020-GM-A-426",
+   "year": 2020,
+   "problem": "A",
+   "team": "426",
+   "n": 8,
+   "sents": [
+    {
+     "t": "The use of ion thruster electric propulsion has seen considerable attention recently for its application in long-distance space travel.",
+     "f": "叙述"
+    },
+    {
+     "t": "Electric propulsion achieves much higher fuel efﬁciency due to higher effective exhaust velocities and is therefore ideal for conserving payload space and minimizing fuel requirements.",
+     "f": "叙述"
+    },
+    {
+     "t": "In this project, we an- alyze the parameters of the trajectory of an ion thruster-boosted spacecraft as it makes an orbit transfer from low Earth orbit to orbit around Saturn.",
+     "f": "叙述"
+    },
+    {
+     "t": "We estimate the min- imum fuel required to make a journey and the duration of the journey by dividing the trajectory into three regions, each of which are treated as a microthrust two-body problem: escape from Earth’s orbit, orbit transfer from Earth to Saturn",
+     "f": "叙述"
+    },
+    {
+     "t": "In each region, spiral dynamics are explored and justiﬁcations are given for a fuel-minimizing trajec- tory.",
+     "f": "叙述"
+    },
+    {
+     "t": "Time of ﬂight, fuel required, and velocities are obtained for the boundaries at each region by numerically integrating their respective equations of motion.",
+     "f": "方法"
+    },
+    {
+     "t": "For the heliocentric region, in which the spacecraft traverses from Earth to Saturn, different thrusting strategies are investigated to determine a most fuel-efﬁcient strategy.",
+     "f": "叙述"
+    },
+    {
+     "t": "Finally, we estimate a fuel requirement of approximately 58.5% of the total mass and a total trajectory duration of 20.92 years.",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2020-GM-A-447",
+   "year": 2020,
+   "problem": "A",
+   "team": "447",
+   "n": 8,
+   "sents": [
+    {
+     "t": "With the latest expanses in the electrical propulsion systems, it is now possible to think about the interplanetary low-thrust travel with the ion thrusters.",
+     "f": "叙述"
+    },
+    {
+     "t": "It is called low thrust because the acceleration that given by this engine’s force is very small compared to other forces but its sustainability comes from long time usage of the engine.",
+     "f": "叙述"
+    },
+    {
+     "t": "In this paper, we carefully investigate the feasibility of Earth to Saturn travel only using ion thrusters.",
+     "f": "叙述"
+    },
+    {
+     "t": "The problem is the optimum control of the thrust to reach Saturn with the maximum mass and minimum time elapsed.",
+     "f": "叙述"
+    },
+    {
+     "t": "After implementing a solar system simulator we ﬁrst investigate the escaping from the earth gravitational ﬁeld using different methods of thrust control and after we escape from the earth we use gravity assist from Jupiter to get faster and reach Saturn.",
+     "f": "方法"
+    },
+    {
+     "t": "The propulsion system applies constant thrust in the direction of the orbital velocity to increase the semimajor axis at the fastest rate.",
+     "f": "叙述"
+    },
+    {
+     "t": "After the ﬂyby to Jupiter, the thrusters are ﬁred back to slow down so that minimizes the velocity relative to Saturn at arrival, thus facilitating the orbit insertion.",
+     "f": "叙述"
+    },
+    {
+     "t": "We show that with our proposed method, it’s possible to reach Saturn in approximately 8 years with a loss of 1.3 tons of fuel.The amount of fuel we propose is feasible compared to mass of the spaceshuttle being send.",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2020-GM-B-335",
+   "year": 2020,
+   "problem": "B",
+   "team": "335",
+   "n": 8,
+   "sents": [
+    {
+     "t": "Recently, quadcopter has become one of the most popular machines world-widely.",
+     "f": "叙述"
+    },
+    {
+     "t": "It’s smaller and lighter than other UAV but still good in maneuverability.",
+     "f": "叙述"
+    },
+    {
+     "t": "Now it acts an indispensable role in many ﬁelds like emergency treatment, dispatch, etc.",
+     "f": "叙述"
+    },
+    {
+     "t": "So how to control a quadcopter and make it as stable as possible is what people want to know.",
+     "f": "叙述"
+    },
+    {
+     "t": "Because of the lighter weight, wind becomes a kind of severe inﬂuence which may damage the stability of a quadcopter.",
+     "f": "叙述"
+    },
+    {
+     "t": "Real nature wind never shows symmetry and changeless, which makes a big trouble in quadcopter control method.",
+     "f": "叙述"
+    },
+    {
+     "t": "This thesis describes a model based on Newton-Euler function and PID controller, to ﬁnd a better control strategy under turbulence wind based on Dryden model.",
+     "f": "方法"
+    },
+    {
+     "t": "Finally, by simulation based on our model, the distance between the quadcopter and the target will reach 20cm when the velocity of wind is 10.63 m/s.",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2020-GM-B-380",
+   "year": 2020,
+   "problem": "B",
+   "team": "380",
+   "n": 7,
+   "sents": [
+    {
+     "t": "In order to find the maximum wind speed for the safe operation of the quadcopter UAV, so that it can stay within 20cm of the target position, this paper establishes a wind field model composed of basic wind, gust, gradual wind, and random wind to simulate the ",
+     "f": "num结论"
+    },
+    {
+     "t": "This paper improves the relevant parameters of the quadcopter UAV, and gives the definition of the maximum wind speed and the wind speed change factor.",
+     "f": "叙述"
+    },
+    {
+     "t": "Through the random simulation of the unstable wind, the relationship between the wind speed of the unstable wind and the time is obtained, as shown in the figure (11).",
+     "f": "数字"
+    },
+    {
+     "t": "Based on the above parameter settings and wind speed simulation, the maximum wind speed under different wind speed change factors is solved, and the time change of the distance of the UAV from the target position is given.",
+     "f": "叙述"
+    },
+    {
+     "t": "For different wind speed change factors, this paper calculates that the expected value of the maximum wind speed for safe operation of the quadcopter is 5.3678m/s.",
+     "f": "数字"
+    },
+    {
+     "t": "At the same time, this paper also conducts a numerical simulation experiment of the wind speed, and the average value of the simulated maximum wind speed is 5.3487m/s.",
+     "f": "数字"
+    },
+    {
+     "t": "Key Words: quadcopter UAV, disturbance of unstable wind, feedback contorl, simulation experiment Team#380 Page 2 of 39 Content",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2021-GM-A-200",
+   "year": 2021,
+   "problem": "A",
+   "team": "200",
+   "n": 3,
+   "sents": [
+    {
+     "t": "In this paper, the mechanisms of thermal escape, solar wind sputtering and photochemical reaction are studied based on Atmospheric stratification model, and the evolution of Martian atmosphere is predicted.",
+     "f": "叙述"
+    },
+    {
+     "t": "Using Monte Carlo dynamics simulation and other calculation meth- ods, we find that due to the strong ultraviolet radiation of the sun, the photochemical reaction in the upper atmosphere is the main reason for gas escape.",
+     "f": "叙述"
+    },
+    {
+     "t": "At the initial atmospheric pressure of 0.2bar, after 70-90 million years, the pressure dropped to 0.1bar.",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2021-GM-A-349",
+   "year": 2021,
+   "problem": "A",
+   "team": "349",
+   "n": 4,
+   "sents": [
+    {
+     "t": "For a long time, as the solar wind and particles escape, the atmosphere is decreasing.Suppose we can by evaporation polar ice cap and the underground, to increase the air pressure on the surface of Mars to 0.2 bar.In the process, the polar ice cap and the unde",
+     "f": "数字"
+    },
+    {
+     "t": "Through thermodynamics and statistical physics, we establish a model of atmospheric pressure decreasing with time.According to the relationship between pressure and microscopic quantity,the law of atmospheric pressure changing with time is revealed.",
+     "f": "叙述"
+    },
+    {
+     "t": "Based on the estimated polar cap and subsurface ice area, it is estimated that it will take about 700 million years for atmospheric pressure to decrease from 0.2bar to 0.1bar.Based on estimates of polar caps and subsurface ice and their composition, we model t",
+     "f": "方法"
+    },
+    {
+     "t": "After establishing the model, we further modified the model for the change of air temperature and g with the increase of altitude.",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2021-GM-B-216",
+   "year": 2021,
+   "problem": "B",
+   "team": "216",
+   "n": 8,
+   "sents": [
+    {
+     "t": "In this paper, we find the minimum mass of an asteroid required to cause substantial damage to a coastal city from an impact on an oceanic surface 1, 000km away.",
+     "f": "num结论"
+    },
+    {
+     "t": "With a range of asteroid masses, we investigate the final impact velocity of an asteroid when it hits the surface of the ocean with an initial starting velocity at atmospheric entry.",
+     "f": "叙述"
+    },
+    {
+     "t": "In addition, the total energy lost due to air friction during this interval is determined to better quantify the energy efficiency of the asteroid’s impact.",
+     "f": "叙述"
+    },
+    {
+     "t": "From the impact velocity, equations describing the cavitation and resulting wave propagation in the ocean after the collision are used to find the final wave height once they reach the coastal city.",
+     "f": "叙述"
+    },
+    {
+     "t": "When an asteroid above a certain mass impacts the ocean, the waves reaching the city amounts to the damage caused by a tsunami.",
+     "f": "叙述"
+    },
+    {
+     "t": "Using data relating tsunami height and structural damage, the threshold for substantial damage from the asteroid impact is defined to be a wave with a height that is greater than or equal to 2m when reaching the city.",
+     "f": "定义"
+    },
+    {
+     "t": "From this threshold and the calculated wave heights (for different asteroid masses) 1, 000km away from the impact center, we find that the minimum mass of the asteroid must be 109kg to cause substantial damage.",
+     "f": "num结论"
+    },
+    {
+     "t": "Team 216 Contents",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2021-GM-B-385",
+   "year": 2021,
+   "problem": "B",
+   "team": "385",
+   "n": 16,
+   "sents": [
+    {
+     "t": "Among the plentiful effects caused by asteroids hitting the ocean, tsunami is probably the most devastating type of damage for asteroids. [1]We suppose that the biggest factor causing urban substantial damage is tsunami.",
+     "f": "数字"
+    },
+    {
+     "t": "Then we divide the course of asteroid hitting the ocean into three processes.",
+     "f": "叙述"
+    },
+    {
+     "t": "Based on the processes, we build physical models to solve the minimum mass of an asteroid that causes substantial damage to a city.",
+     "f": "叙述"
+    },
+    {
+     "t": "The first process is that the asteroid travels through the Earth’s atmosphere to the sea surface.",
+     "f": "叙述"
+    },
+    {
+     "t": "During this process, its speed and mass will be slightly lost.",
+     "f": "叙述"
+    },
+    {
+     "t": "Establishing a physical model can calculate the speed and mass loss of the asteroid.",
+     "f": "叙述"
+    },
+    {
+     "t": "The second process is that the asteroid hitting the sea causes a tsunami wave.",
+     "f": "叙述"
+    },
+    {
+     "t": "Establishing a physical model can create a connection between the asteroid's kinetic energy and the amplitude of the tsunami wave.",
+     "f": "叙述"
+    },
+    {
+     "t": "The third process is the propagation of tsunami waves from the deep sea area to the shore.",
+     "f": "叙述"
+    },
+    {
+     "t": "Since the tsunami wave propagates from the deep sea area to the shallow sea area, there is a \"Shallow Water Effect\", that is, the tsunami wave will increase as it propagates.",
+     "f": "叙述"
+    },
+    {
+     "t": "Establishing a physical model can calculate the amplitude of the tsunami wave reaching the shore.",
+     "f": "叙述"
+    },
+    {
+     "t": "Finally, we solve the problem in reverse based on the physical models.",
+     "f": "方法"
+    },
+    {
+     "t": "First, we get the amplitude of the tsunami wave reaching the shore from the level of the tsunami that caused substantial damage.",
+     "f": "叙述"
+    },
+    {
+     "t": "Then we calculate the amplitude of the tsunami wave at 1,000 kilometers.",
+     "f": "数字"
+    },
+    {
+     "t": "Then we calculate the kinetic energy of the asteroid.",
+     "f": "叙述"
+    },
+    {
+     "t": "Finally we calculate the minimum mass of the asteroid is 4.046 × 1010kg.",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2021-GM-B-442",
+   "year": 2021,
+   "problem": "B",
+   "team": "442",
+   "n": 8,
+   "sents": [
+    {
+     "t": "Asteroid and space debris impacts have been considered one of the greatest threats to human life and land structures for centuries.",
+     "f": "叙述"
+    },
+    {
+     "t": "Though many are too small to cause any significant damage, there have been incidents which inspired researchers to create more accurate numerical and sim- ulation models describing the effects of such an impact on nearby land.",
+     "f": "两难"
+    },
+    {
+     "t": "In our work, we present a simplified model of an oceanic impact 1000 km from a coastal city.",
+     "f": "方法"
+    },
+    {
+     "t": "Using data derived from numerical simulations and wave mechanics theory, we estimate the minimal height of a tsunami wave causing substantial damage to equal 7 m.",
+     "f": "数字"
+    },
+    {
+     "t": "To cause such a wave, the asteroid would need to weigh 1.7 · 1011 kg.",
+     "f": "数字"
+    },
+    {
+     "t": "We are also assuming the most favorable conditions, that is: the maximal angle of approach (θ = 90°) and the asteroid to be made of iron (ρa = 8000 kg/m3).",
+     "f": "数字"
+    },
+    {
+     "t": "The damage may also be inflicted through thermal radiation, air burst or seismic effects, though the mass needed to cause them greatly exceeds the previously mentioned minimum.",
+     "f": "叙述"
+    },
+    {
+     "t": "Team 442 CONTENTS Contents",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2021-GM-B-445",
+   "year": 2021,
+   "problem": "B",
+   "team": "445",
+   "n": 10,
+   "sents": [
+    {
+     "t": "In this paper the relationship between an asteroid impact into water and mass of the asteroid was discussed.",
+     "f": "叙述"
+    },
+    {
+     "t": "The main goal was to find the smallest mass of the asteroid whose impact could threaten remote coastal city.",
+     "f": "叙述"
+    },
+    {
+     "t": "To achieve this goal the theoretic model was discussed.",
+     "f": "叙述"
+    },
+    {
+     "t": "Because of the conclusion that the leading factor of causing damage to the city were tsunami waves, only their propagation was modelled and the model was also discussed.",
+     "f": "叙述"
+    },
+    {
+     "t": "The smallest possible asteroid mass for generating tsunami waves about 10 metres was estimated to be about 1010 kg.",
+     "f": "数字"
+    },
+    {
+     "t": "Such mass corresponds to an asteroid with radius of about 97 metres.",
+     "f": "数字"
+    },
+    {
+     "t": "To show the scale of damage caused also range of the tsunami was calculated.",
+     "f": "叙述"
+    },
+    {
+     "t": "This value was estimated at about 715 metres.",
+     "f": "数字"
+    },
+    {
+     "t": "These results have been considered to be possible.",
+     "f": "叙述"
+    },
+    {
+     "t": "Possible ways to increase accuracy of the model were also discussed.",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2022-GM-A-346",
+   "year": 2022,
+   "problem": "A",
+   "team": "346",
+   "n": 8,
+   "sents": [
+    {
+     "t": "In this paper, we find the minimum time before impact with the Earth at which an asteroid with a 100 meter diameter can be deflected by a 20 000 kg spacecraft.",
+     "f": "num结论"
+    },
+    {
+     "t": "We investigate the feasibility and effectiveness of several differ- ent deflection methods through theoretical physical approaches to determine the shortest distance from the Earth, and thus the shortest time, achievable.",
+     "f": "叙述"
+    },
+    {
+     "t": "We show, using conservation of energy, conservation of momentum, the Ideal Rocket Equation, and Newton’s Law of Universal Gravitation, that deflection through kinetic impact is achievable only at large distance from the Earth and time frame of several years, e",
+     "f": "叙述"
+    },
+    {
+     "t": "For a C-type asteroid of average density, liquid hydrogen fuel, and a momentum transfer efficiency of unity, the distance required would be about 3.8 · 109 km, with a corresponding time of 4.8 years.",
+     "f": "数字"
+    },
+    {
+     "t": "Therefore, we also consider the approach of splitting the asteroid through impact with the spacecraft.",
+     "f": "叙述"
+    },
+    {
+     "t": "The scenario of symmetrical fragmentation into two pieces yields a much smaller distance from Earth and time frame of approximately 1.3 · 106 km and 15 hours, respectively.",
+     "f": "num结论"
+    },
+    {
+     "t": "Though this approach allows for deflection within a shorter time frame, we risk some fragments hitting the Earth rather than being deflected, with that probability increasing as the collision occurs closer to the Earth.",
+     "f": "叙述"
+    },
+    {
+     "t": "Problem A The University Physics Competition, Team 346",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2022-GM-A-425",
+   "year": 2022,
+   "problem": "A",
+   "team": "425",
+   "n": 10,
+   "sents": [
+    {
+     "t": "In our work we considered an asteroid with a diameter of 100 m on a trajectory to directly impact the Earth at a speed of 25 km/s.",
+     "f": "数字"
+    },
+    {
+     "t": "With proper assumptions we managed to parameterize with one parame- ter – impact angle orbits that such asteroids can have.",
+     "f": "叙述"
+    },
+    {
+     "t": "We restricted ourselves to asteroids that are bounded to Solar System.",
+     "f": "叙述"
+    },
+    {
+     "t": "Further we considered the disturbance of asteroid’s trajectory after adding certain momenta to it (collision with spacecraft), we found the optimal way of momenta transfer to be: to hit asteroid, parallel to its own velocity, in the asteroid’s perihelion.",
+     "f": "叙述"
+    },
+    {
+     "t": "We found also that disturbance in asteroid’s period is greater than disturbance of its orbit’s axes, and we focused on the first value neglecting the later.",
+     "f": "叙述"
+    },
+    {
+     "t": "We estimated value of momenta that we can transfer to asteroid with our spacecraft.",
+     "f": "叙述"
+    },
+    {
+     "t": "Having that we calculated the disturbance of the period for 20 different asteroid’s or- bits (characterized by impact angle).",
+     "f": "数字"
+    },
+    {
+     "t": "Further we obtained condition on minimal time difference, that has to result from spacecraft’s col- lision, to prevent Earth-asteroid collision.",
+     "f": "叙述"
+    },
+    {
+     "t": "That together with values of orbit’s periods allowed as to get final results.",
+     "f": "叙述"
+    },
+    {
+     "t": "We obtained that we have to hit asteroid between 0.1 to 0.7 year before its possible collision with Earth.",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2022-GM-A-460",
+   "year": 2022,
+   "problem": "A",
+   "team": "460",
+   "n": 8,
+   "sents": [
+    {
+     "t": "In this essay, we explore the scenario where we need to deploy a spacecraft, whose initial total mass is 20, 000kg, to collide with a coming asteroid, so as to deflect it from our Earth, and we aim to find the time t before Earth impact when our spacecraft sho",
+     "f": "num结论"
+    },
+    {
+     "t": "To do this, we first divide the whole process into three major stages to clarify our model: launching the Spacecraft, collision between the asteroid and the spacecraft, drifting of the asteroid.",
+     "f": "叙述"
+    },
+    {
+     "t": "Before investigation into these stages, we discuss about the scales of important physical quantities to simplify our model, and to take the influence of the atmosphere into account.",
+     "f": "叙述"
+    },
+    {
+     "t": "Afterwards, we study the three stages one by one, and acquire our result, that the spacecraft should hit the asteroid 14 years before it hits Earth, if we take the effective exhaust velocity vr of the spacecraft as 4.4 × 103m/s.",
+     "f": "num结论"
+    },
+    {
+     "t": "Finally, we evaluate the result’s feasibility, and point out the decisive effect of vr on t: for vr = 5.0 × 104m/s, t = 0.67year.",
+     "f": "num结论"
+    },
+    {
+     "t": "Our model is based on physical principles and is simplified based on the scales of quantities.",
+     "f": "叙述"
+    },
+    {
+     "t": "Therefore, our model is strong in generalizability and clarity.",
+     "f": "叙述"
+    },
+    {
+     "t": "However, it may cost our model accuracy due to some rough estimations and presumptions.",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2022-GM-B-358",
+   "year": 2022,
+   "problem": "B",
+   "team": "358",
+   "n": 11,
+   "sents": [
+    {
+     "t": "Exploring the optimal penalty kicks strategies has practical significance for football players.",
+     "f": "叙述"
+    },
+    {
+     "t": "In this paper, we study the motion of a spinning soccer ball based on aerodynamics during its flight.",
+     "f": "叙述"
+    },
+    {
+     "t": "Taking air buoyancy, gravity, air resistance and Magnus force into consideration, we provide the motion equations of the ball and solve the set of ordinary differential equations numerically.",
+     "f": "定义"
+    },
+    {
+     "t": "Given any initial velocity value and initial angular velocity value and direction, we can obtain the trajectory of soccer.",
+     "f": "叙述"
+    },
+    {
+     "t": "We can also calculate the range of the reasonable direction angles θ and ϕ in the spherical coordinate system which can reach upper corners.",
+     "f": "叙述"
+    },
+    {
+     "t": "Taking v0 = 25m/s,⃗ω = 15⃗k as an example, we find the the range of θ is [76.7◦, 79.8◦] and the range of ϕ is [75.5◦, 84.5◦] and [100.0◦, 110.5◦].",
+     "f": "num结论"
+    },
+    {
+     "t": "Fixing⃗ω, we gain the minimum value of initial velocity v0min = 20.17m/s.",
+     "f": "数字"
+    },
+    {
+     "t": "We then consider two modes of defense of the goalkeeper:vertical movement defense and diving save.",
+     "f": "叙述"
+    },
+    {
+     "t": "We firstly present the success probability distribution of defense by Monte Carlo Simulation.",
+     "f": "叙述"
+    },
+    {
+     "t": "Subsequently we analysis the cases that the shooting player will definitely avoid the goalkeeper by finding the dead angles.It’s found that the dead angle area is two symmetrical rectangles.",
+     "f": "叙述"
+    },
+    {
+     "t": "Taking v0 = 25m/s,⃗ω = 15⃗k as an example again, the range of θ is [76.95◦, 78.95◦]and the range of ϕ is [75.5◦, 75.9◦] and [110.3◦, 110.6◦].",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2022-GM-B-480",
+   "year": 2022,
+   "problem": "B",
+   "team": "480",
+   "n": 15,
+   "sents": [
+    {
+     "t": "Among the plentiful factors effecting the moving motion of the ball, gravity, air resistance, and Magnus force are the three most important factors.",
+     "f": "叙述"
+    },
+    {
+     "t": "In the course of the goalkeeper's defense, the judgment of the direction of the shot, the defensive area and the start time of the attack are the main factors that affect the success or failure of the penalty kick saving.",
+     "f": "叙述"
+    },
+    {
+     "t": "We divided the process into two parts: the soccer moving through the air and the defense of the goalkeeper.",
+     "f": "叙述"
+    },
+    {
+     "t": "The first part is to find initial velocities and spins that will result in a successful shot to an upper corner.",
+     "f": "叙述"
+    },
+    {
+     "t": "During this process, the gravity, air resistance, and Magnus force working together, formulating the curve of the ball.",
+     "f": "叙述"
+    },
+    {
+     "t": "Distinguish from the common theory, we take the multi-directional axis of rotation and air resistance moment into account and establish a physical model that can calculate and judge whether the input initial velocities and spins can match our request of distan",
+     "f": "叙述"
+    },
+    {
+     "t": "We assume that the distance from the top corner of the crossbar and goalpost from 1 soccer radius to 2 soccer radius is the upper corner, and the maximum velocity is 31m/s.",
+     "f": "数字"
+    },
+    {
+     "t": "So that we solve out the value range of initial velocities and spins that will result in a successful shot.",
+     "f": "方法"
+    },
+    {
+     "t": "The second part is built on the model of part 1.",
+     "f": "数字"
+    },
+    {
+     "t": "To figure out the initial ball velocity and spin should the shooting player attempt to create to have the best chance of avoiding the goalkeeper and making the goal, among the three factors --- the judgment of the direction of the shot, the defensive area and ",
+     "f": "叙述"
+    },
+    {
+     "t": "We simulate the maximum defending area of the goalkeeper and finally calculate the best initial velocity is 21.245 m/s with elevation of 0.2057 rad, declination of 1.4182 rad and the spin is 15.255 rad/s with elevation of 1.417 rad and declination of -0.752 ra",
+     "f": "方法"
+    },
+    {
+     "t": "Key words: Penalty Kicks; initial velocities; spins; Magnus force Team 480 Contents Analysis of the optimal initial velocities and spins of soccer in Penalty Kicks .......................",
+     "f": "数字"
+    },
+    {
+     "t": "1 Problem B: FIFA Penalty Kicks ..............................................................................................................",
+     "f": "数字"
+    },
+    {
+     "t": "1 Team 480 ..................................................................................................................................................",
+     "f": "数字"
+    },
+    {
+     "t": "1 Abstract .........................................................................................................................................................",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2023-GM-A-131",
+   "year": 2023,
+   "problem": "A",
+   "team": "131",
+   "n": 8,
+   "sents": [
+    {
+     "t": "In our study, we investigate the critical initial altitude for safe skydiving operations.",
+     "f": "叙述"
+    },
+    {
+     "t": "Employing a rigorous set of assumptions, our focus centers on pinpointing the maxi- mum altitude that can induce hazardous levels of acceleration leading to potential harm.",
+     "f": "定义"
+    },
+    {
+     "t": "We construct a comprehensive model, accounting for supersonic phenomena, and rig- orously validate its accuracy using empirical data gathered from Felix Baumgartner’s remarkable 39-kilometer jump.",
+     "f": "方法"
+    },
+    {
+     "t": "Through our model, we derive intricate relationships between velocity, acceleration, and the corresponding descent distances.",
+     "f": "方法"
+    },
+    {
+     "t": "Subsequently, we assess the upper bounds of acceleration associated with different initial altitudes, thereby determining the maximum altitude at which a skydiver can descend without facing life-threatening levels of acceleration.",
+     "f": "叙述"
+    },
+    {
+     "t": "Considering these insights in conjunction with other pertinent factors, we unveil our ultimate ﬁndings.",
+     "f": "叙述"
+    },
+    {
+     "t": "Our analysis culminates in the critical revelation that the safety threshold for initial jump height in skydiving must not exceed 94 kilometers to ensure the successful return of the diver to Earth’s surface, thus mitigating the risks associated with excessive",
+     "f": "num结论"
+    },
+    {
+     "t": "Key Words: Supersonic, Acceleration, Initial height, skydive Problem A The University Physics Competition, Team 131",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2023-GM-A-244",
+   "year": 2023,
+   "problem": "A",
+   "team": "244",
+   "n": 7,
+   "sents": [
+    {
+     "t": "This paper investigates the effects of velocity, acceleration and heat on the maxi- mum height of skydiving.",
+     "f": "叙述"
+    },
+    {
+     "t": "We consider variable factors such as external temperature, pressure, gas density, parachute resistance and heat exchange, and use the equation of state of human motion to model the speed, acceleration and height of the skydiver as functions of time.",
+     "f": "叙述"
+    },
+    {
+     "t": "We compare our model with former world records and find that it is accurate and feasible.",
+     "f": "叙述"
+    },
+    {
+     "t": "We concluded that the main factor that limits the maximum height of skydiving is not velocity or acceleration, but the heat generated by the friction with the air during the descent, which can raise the temperature inside the suit to levels beyond human tolera",
+     "f": "叙述"
+    },
+    {
+     "t": "Finally, based on the temperature limit that the human body can withstand, we calculated the maximum height of skydive, which is 61,270 m.",
+     "f": "数字"
+    },
+    {
+     "t": "The modeling fits the reality quite well and based on the real data from skydivers, the model fits quite well with the velocity and time.",
+     "f": "叙述"
+    },
+    {
+     "t": "Key Words: Skydive, 61270m, Velocity, Acceleration, Heat Problem A The University Physics Competition, Team 244",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2023-GM-A-447",
+   "year": 2023,
+   "problem": "A",
+   "team": "447",
+   "n": 14,
+   "sents": [
+    {
+     "t": "The landing process of a skydiver can be divided into three stages: falling without a par- achute, falling with the secondary parachute and falling with the main parachute.",
+     "f": "叙述"
+    },
+    {
+     "t": "Based on these three stages, the possible dangers to skydivers are fast rotation, high temperatures, and high acceleration.",
+     "f": "叙述"
+    },
+    {
+     "t": "To address these three questions, the atmospheric density distribution is calculated first (Figure 3).",
+     "f": "数字"
+    },
+    {
+     "t": "On this basis, firstly, we considered one of the biggest challenges: the skydiver's spin (which can occur at any altitude).",
+     "f": "叙述"
+    },
+    {
+     "t": "According to the data and torque bal- ance equation (equation 5), the relationship between velocity loss and angular velocity in- crease is calculated.",
+     "f": "数字"
+    },
+    {
+     "t": "It is concluded that compared with the free fall speed, the actual angular velocity of the skydiver increases by 2.2 rad/s for every 1 m/s lost, and a method to deal with the spin is proposed.",
+     "f": "num结论"
+    },
+    {
+     "t": "Secondly, just considering the dangers posed by acceleration, the sky- diver’s vertical motion equation is obtained (equation 14) and solved numerically (Figure 16).",
+     "f": "方法"
+    },
+    {
+     "t": "In order to avoid the harm caused by the human body acceleration exceeding 8g in the instant of opening the parachute, we adopted the way of opening the auxiliary parachute first and then the main parachute and analyzed the opening process of the main parachut",
+     "f": "数字"
+    },
+    {
+     "t": "The result shows that the maximum height that can be reached is 162.7km.",
+     "f": "num结论"
+    },
+    {
+     "t": "Thirdly, consid- ering the effects of high temperatures on skydivers, the concepts of stagnation temperature and stagnation point are introduced.",
+     "f": "叙述"
+    },
+    {
+     "t": "Its temperature was calculated from the basic adiabatic flow equation (equation 13).",
+     "f": "数字"
+    },
+    {
+     "t": "The surface temperature of the spacesuit can be expressed through its temperature.",
+     "f": "叙述"
+    },
+    {
+     "t": "Combined with the maximum temperature that a spacesuit can with- stand, this gives a maximum drop height of 63.78km.",
+     "f": "数字"
+    },
+    {
+     "t": "Team 447 UPC2023",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2023-GM-A-464",
+   "year": 2023,
+   "problem": "A",
+   "team": "464",
+   "n": 10,
+   "sents": [
+    {
+     "t": "To investigate the maximal feasible altitude for space skydiving while ensuring the safe return of the skydiver to the ground, this paper developed two models: a skydiving model and a parachute model, to analyze the dynamic behavior and force conditions of the",
+     "f": "叙述"
+    },
+    {
+     "t": "In sky diving model, we used isothermal atmosphere to calculate the motion of the skydiver.",
+     "f": "方法"
+    },
+    {
+     "t": "In this process, the study innovatively intro- duces the Specific Velocity Altitude (SVA) as one of the evaluative met- rics.",
+     "f": "叙述"
+    },
+    {
+     "t": "In order to maximize the SVA, the maximum sky diving altitude is 19.46 km.",
+     "f": "数字"
+    },
+    {
+     "t": "Jumping from this altitude ensures absolute safety for the sky- diver, as it eliminates the risk of encountering severe instabilities cased by supersonic flight.",
+     "f": "叙述"
+    },
+    {
+     "t": "To challenge the limits of human free-fall, the skydiver must fly at supersonic speeds.",
+     "f": "叙述"
+    },
+    {
+     "t": "But aerodynamic heat at supersonic speeds would be a major danger.",
+     "f": "叙述"
+    },
+    {
+     "t": "To avoid being burned, the maximum sky diving al- titude is 60.675 km.",
+     "f": "数字"
+    },
+    {
+     "t": "In parachute opening and landing model, we found that the veloc- ity change at the end of the free fall is independent of the take-off height.",
+     "f": "叙述"
+    },
+    {
+     "t": "To landing safely, the parachute should be opened at the altitude be- tween 3.64km and 19.93m. keyword: Space Diving Runge-Kutta Supersonic Flight Aero- dynamic Heat Specific Velocity Altitude Team 464 Problem A:Space Diving Content",
+     "f": "方法"
+    }
+   ]
+  },
+  {
+   "id": "2023-GM-B-102",
+   "year": 2023,
+   "problem": "B",
+   "team": "102",
+   "n": 8,
+   "sents": [
+    {
+     "t": "Trampoline is a competitive sport that uses the bouncing power of a trampo- line to perform acrobatic tricks in the air.",
+     "f": "叙述"
+    },
+    {
+     "t": "It can also be a popular recreation for children.",
+     "f": "叙述"
+    },
+    {
+     "t": "To begin with, we built a model of a trampoline and calculated its ex- pressions for elastic force, air resistance, friction force, and damping force.",
+     "f": "叙述"
+    },
+    {
+     "t": "In order to calculate the maximum height that each child can achieve, we first established an ideal model, regarded each child as a Particle, did not do external work, used Hooke’s law to represent the elasticity of the trampoline, ignored various resistance f",
+     "f": "叙述"
+    },
+    {
+     "t": "When each child compresses the lowest point of the trampoline and is bounced, the next child just arrives and continues to bring the trampoline down, then the third child repeats the process, in this way, the energy of the first two children is transferred to ",
+     "f": "叙述"
+    },
+    {
+     "t": "Then we improved the model, in this new model we introduced the pre- vious trampoline model, and estimate each child’s jumping ability by their maximum height when jumping individually.",
+     "f": "叙述"
+    },
+    {
+     "t": "Again, we listed the corre- sponding differential equations and calculated them in MATLAB, but in- stead of directly calculating the theoretical maximum value that each child could reach, we controlled for different initial conditions and found the high- est h",
+     "f": "叙述"
+    },
+    {
+     "t": "The end result was the 25kg child could jump to 3.67 meters, the 40kg child could jump to 2.54 meters, and the 50kg child could jump to 2.09 meters.",
+     "f": "num结论"
+    }
+   ]
+  },
+  {
+   "id": "2023-GM-B-138",
+   "year": 2023,
+   "problem": "B",
+   "team": "138",
+   "n": 10,
+   "sents": [
+    {
+     "t": "In this paper, we find the maximum height that each of the kids can reach under the condition that they jump simultaneously on the trampoline.",
+     "f": "叙述"
+    },
+    {
+     "t": "We set up the basic model of the trampoline based on the real-life trampolines on the market with the similar pa- rameters like diameter and shape as the trampoline used in this problem.",
+     "f": "定义"
+    },
+    {
+     "t": "We investigate the time length during which the kids are in contact with the trampoline, helping to cal- culate the leaving speed of the kids.",
+     "f": "叙述"
+    },
+    {
+     "t": "We discussed the influence of the air resistance on the surface of the trampoline, tying the model to the realistic conditions.",
+     "f": "叙述"
+    },
+    {
+     "t": "We created a physics engine that can calculate the height of a kid with respect to the jumping time delay of the other two kids, using the python and Matlab coding.",
+     "f": "叙述"
+    },
+    {
+     "t": "We analyze the motion from a rough trend to an accurate numerical level.",
+     "f": "叙述"
+    },
+    {
+     "t": "The results show that the kid of 25kg can reach a maximum height of 1.6890m; the kid of 40kg can reach a maximum height of 1.2810m; for the 50kg kid, the height is 1.3668m.",
+     "f": "num结论"
+    },
+    {
+     "t": "The maximum height of each kid are found when two kid reaches the lowest point with the target kid exactly falling on the trampoline.",
+     "f": "叙述"
+    },
+    {
+     "t": "This study offers the producers and designers an approach to test the feasibility of a trampoline, ensuring the safety of the users.",
+     "f": "叙述"
+    },
+    {
+     "t": "Key Words: Trampoline, Physics Engine, Simulation, Real Life Application Problem B The University Physics Competition, Team 144",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2023-GM-B-471",
+   "year": 2023,
+   "problem": "B",
+   "team": "471",
+   "n": 6,
+   "sents": [
+    {
+     "t": "In this paper we have found a solution to a problem regarding three people jumping on a trampoline.",
+     "f": "叙述"
+    },
+    {
+     "t": "We have created a theoretical model using which we have found approximations of the parameters required for each person to reach their maximum height jump.",
+     "f": "叙述"
+    },
+    {
+     "t": "Afterwards we have created a numerical simulation of the problem which we used to get an even better approximation of the parameters.",
+     "f": "方法"
+    },
+    {
+     "t": "To analyse the three body on the trampoline problem we have used these parameters and we have found the optimal strategy of jumping in order to launch one person as high as it is possible.",
+     "f": "叙述"
+    },
+    {
+     "t": "Simulating three people jumping on the trampoline according to our strategy, we have found out that the person of mass 25 kg could jump as high as 3.2 m, around 2.7 meters higher than by themselves.",
+     "f": "数字"
+    },
+    {
+     "t": "For the person of mass 40 kg it was 2.74 m, around 2 meters higher than by themselves and accordingly for the heaviest person – 50 kg – it was 2.39 m, the lowest height of them all despite being the best jumper on their own.",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2025-GM-A-112",
+   "year": 2025,
+   "problem": "A",
+   "team": "112",
+   "n": 10,
+   "sents": [
+    {
+     "t": "This paper addresses the preservation challenge of the sasando, a traditional Indonesian stringed instrument featuring a unique lontar leaf resonator that naturally amplifies frequen- cies between 98–1047 Hz.",
+     "f": "数字"
+    },
+    {
+     "t": "We develop a digital resonator model using higher-order IIR filter synthesis, bilinear transformation, and second-order section (SOS) decomposition to trans- form electric pickup signals into authentic acoustic tones.",
+     "f": "方法"
+    },
+    {
+     "t": "The implemented bandpass filter architecture achieves passband flatness <0.1 dB with uniform quality factor Q = 8 across four precisely positioned resonant peaks at 245 Hz, 490 Hz, 735 Hz, and 980 Hz, successfully replicating the sasando’s distinctive sonic si",
+     "f": "数字"
+    },
+    {
+     "t": "Comprehensive multi-domain validation demonstrates exceptional performance metrics: frequency-domain characterization confirms sharp transition bands with stopband atten- uation exceeding 50 dB; impulse response analysis reveals characteristic envelope decay t",
+     "f": "数字"
+    },
+    {
+     "t": "Performance evaluation reveals outstanding real-time processing capa- bility: computational efficiency factor of 2778×, algorithmic latency of 0.27 ms, and memory footprint of only 0.58 KB, confirming production readiness for embedded applications.",
+     "f": "数字"
+    },
+    {
+     "t": "Total harmonic distortion (THD) remains below 0.4033% across the operational frequency range, validating high-fidelity acoustic transformation.",
+     "f": "数字"
+    },
+    {
+     "t": "Stability analysis through pole-zero mapping confirms all system poles lie within the unit circle with substantial margin (0.0479 from bound- ary), guaranteeing bounded-input bounded-output (BIBO) stability.",
+     "f": "num结论"
+    },
+    {
+     "t": "Key innovations include: (1) parametric resonator modeling framework capturing complex acoustic behavior with minimal computational cost; (2) optimized SOS cascade structure ensuring numerical stability and efficient implementation; (3) comprehensive vali- dat",
+     "f": "数字"
+    },
+    {
+     "t": "This research establishes a robust framework for digital preservation of endangered musical instrument acoustics, demonstrating that authentic acoustic character can be captured with minimal computational burden suitable for embedded systems.",
+     "f": "叙述"
+    },
+    {
+     "t": "The methodology is gen- eralizable to other cultural heritage preservation challenges in musical acoustics, offer- ing practical pathways for documentation and reproduction of traditional instrument timbres worldwide, enabling both preservation of cultural leg",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2025-GM-A-182",
+   "year": 2025,
+   "problem": "A",
+   "team": "182",
+   "n": 13,
+   "sents": [
+    {
+     "t": "This paper presents a method for reproducing the authentic acoustic sound of a tra- ditional sasando instrument for its electric counterpart.",
+     "f": "叙述"
+    },
+    {
+     "t": "The study assumed a gong-type sasando with a closed bamboo tube and one string per bridge.",
+     "f": "叙述"
+    },
+    {
+     "t": "Three types of pickups, magnetic, piezoelectric, and optical, were investigated and compared on the basis of preservation of tone, sensitivity, noise immunity, and invasiveness.",
+     "f": "叙述"
+    },
+    {
+     "t": "Optical pickups were determined to be the most optimal, being displacement-sensitive with minimal interference.",
+     "f": "叙述"
+    },
+    {
+     "t": "The string motion was derived from the one-dimensional wave equation under fixed boundary conditions to determine the optimal pickup location.",
+     "f": "叙述"
+    },
+    {
+     "t": "Analysis shows that the pickup should be placed as close to the bridge as possible to preserve clarity in tone and greater headroom.",
+     "f": "叙述"
+    },
+    {
+     "t": "To emulate the natural resonance of the leaf resonator, a digital biquad band-pass filter with constant 0 db peak gain was designed, with cutoff frequencies of 98 Hz and 1047 Hz.",
+     "f": "数字"
+    },
+    {
+     "t": "The resulting coefficients for the biquad transfer function were b = [0.059, 0.0, −0.059] and a = [1.0, −1.9, 0.88].",
+     "f": "num结论"
+    },
+    {
+     "t": "Resonances of the 70 cm closed bamboo tube within the leaf resonance range were modeled with har- monics at 245 Hz, 490 Hz, 735 Hz, and 980 Hz.",
+     "f": "数字"
+    },
+    {
+     "t": "The quality factor of the bamboo tube were calculated to be 19 ± 2 from the internal friction of tan δ = 0.053 ± 0.005.",
+     "f": "数字"
+    },
+    {
+     "t": "Cor- responding band-pass filters were determined to reproduce the combined resonance profile.",
+     "f": "叙述"
+    },
+    {
+     "t": "Three types of amplifiers were looked into and comparisons show that Class AB type amplifier was selected for having the highest efficiency.",
+     "f": "叙述"
+    },
+    {
+     "t": "The final system in- cluding optical pickups place immediate below the bridge, digital biquad band-pass filters, Class AB amplifier, and a moving-coil loudspeaker successfully retains the am- plified range of the leaf resonator and reproduces the authentic aco",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2025-GM-A-485",
+   "year": 2025,
+   "problem": "A",
+   "team": "485",
+   "n": 12,
+   "sents": [
+    {
+     "t": "The sasando, a traditional Indonesian string instrument, derives its unique tonal char- acter from a hand-formed lontar leaf resonator that selectively amplifies frequencies between 98 and 1047 Hz.",
+     "f": "数字"
+    },
+    {
+     "t": "Modern electric versions, replacing this resonator with elec- tromagnetic pickups, sacrifice acoustic authenticity for portability.",
+     "f": "叙述"
+    },
+    {
+     "t": "This study inves- tigates whether digital signal processing (DSP) can authentically reproduce the tradi- tional acoustic characteristics while retaining electric instrument advantages.",
+     "f": "叙述"
+    },
+    {
+     "t": "The lontar resonator is modeled as a coupled Helmholtz cavity-bamboo tube system, assumed linear and time-invariant under typical dynamics.",
+     "f": "叙述"
+    },
+    {
+     "t": "Environmental conditions correspond to 500 m altitude (air density 1.167 kg/m³, sound speed 346.1 m/s).",
+     "f": "数字"
+    },
+    {
+     "t": "From cavity volume 1062 cm³, opening radius 2.0 cm, and tube length 70 cm (diameter 8 cm), the derived frequency response exhibits three formants: 120 Hz (Q = 2.0, +8 dB), 300 Hz (Q = 1.5, +10 dB), and 850 Hz (Q = 2.5, +6 dB).",
+     "f": "数字"
+    },
+    {
+     "t": "The acoustic transfer function is digitally implemented through cascaded IIR filters: a second-order Butterworth high-pass (98 Hz), three parametric equalizers (RBJ formu- lae), and a third-order Butterworth low-pass (1047 Hz).",
+     "f": "数字"
+    },
+    {
+     "t": "Running at 8 kHz sampling, it requires 0.25 MIPS and operates in real time (< 0.5 ms latency).",
+     "f": "数字"
+    },
+    {
+     "t": "Validation using Karplus-Strong synthesized strings yields 0.73 dB RMS response error, 97.3% waveform correlation, and 1.3% spectral centroid deviation.",
+     "f": "num结论"
+    },
+    {
+     "t": "The full system achieves authentic tonal replication on <25 hardware with >6 h battery life.",
+     "f": "数字"
+    },
+    {
+     "t": "Digital domain transformation successfully preserves the sasando’s traditional tonal identity while enabling modern electric performance, providing a replicable framework for culturally sensitive acoustic preservation.",
+     "f": "叙述"
+    },
+    {
+     "t": "Key: Sasando; acoustic resonator modeling; digital signal processing; IIR filter de- sign; parametric equalization; Team485 Contents",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2025-GM-B-127",
+   "year": 2025,
+   "problem": "B",
+   "team": "127",
+   "n": 9,
+   "sents": [
+    {
+     "t": "For artillery officers, how to rapidly target and engage objectives is a crucial matter.This paper aims to explore the ballistic calculation of muzzle-loading smoothbore cannons before the 19th century.",
+     "f": "数字"
+    },
+    {
+     "t": "Focusing on spherical projectiles of 5 kilograms mass and 11-cm diameter , it investigates the relationship between required initial velocity and firing angle for target hits under specific coordinate and environmental conditions.",
+     "f": "数字"
+    },
+    {
+     "t": "Models were successively established for four scenarios: ideal conditions, incorporating air resistance, varying target positions, and wind speed effects.",
+     "f": "叙述"
+    },
+    {
+     "t": "The RK45 numerical method was employed to solve the equations of motion, determining the requisite initial velocity and firing angle.",
+     "f": "数字"
+    },
+    {
+     "t": "To ensure sufficient impact energy,firing should occur at a low angle.",
+     "f": "叙述"
+    },
+    {
+     "t": "The relationship between firing angle and initial velocity when striking the reference point is θL = 0.0001v02 −0.1145v0 + 29.312.",
+     "f": "数字"
+    },
+    {
+     "t": "Horizontal distance causes an angular deviation of 0.2 degrees per 50 meters.",
+     "f": "数字"
+    },
+    {
+     "t": "Altitude causes an angular deviation of 1.1° to 1.2° per 25 meters.",
+     "f": "数字"
+    },
+    {
+     "t": "Wind speed causes an angular deviation of 0.01 degrees per 1 meter per second.Finally, we developed a set of simple quick-aiming mnemonics for artillery officers.",
+     "f": "定义"
+    }
+   ]
+  },
+  {
+   "id": "2025-GM-B-155",
+   "year": 2025,
+   "problem": "B",
+   "team": "155",
+   "n": 12,
+   "sents": [
+    {
+     "t": "This paper investigates the motion of a projectile during flight from an aerody- namic perspective, considering the effects of air resistance, gravity, and wind speed.",
+     "f": "叙述"
+    },
+    {
+     "t": "The dynamic equations for the projectile were established and solved numerically.",
+     "f": "方法"
+    },
+    {
+     "t": "By analyzing the initial state of the artillery shell, all feasible solutions were deter- mined for stationary targets.",
+     "f": "叙述"
+    },
+    {
+     "t": "Subsequent discussions focused on estimating wind speeds for non-stationary targets, establishing empirical formulas that enable ar- tillery units to achieve precise and rapid strikes without relying on computers or calculators.",
+     "f": "叙述"
+    },
+    {
+     "t": "When the target is fixed, using the scenario set in the first question with a horizontal range difference of 1200 meters between the target and artillery at the same elevation, the feasible solution ranges for θ and v are (3, 77) degrees and (147, 450) m/s, re",
+     "f": "定义"
+    },
+    {
+     "t": "The minimum time required is 3.7 seconds, corresponding to v = 450 m/s and θ = 3°.Then incorporate the effect of wind speed on air resistance.",
+     "f": "数字"
+    },
+    {
+     "t": "Investigate how the selection of initial angle is influenced by varying wind speeds at different heights and locations, while keeping the initial velocity fixed at 250 m/s.",
+     "f": "数字"
+    },
+    {
+     "t": "An empirical formula for estimation was fitted using the least squares method.",
+     "f": "叙述"
+    },
+    {
+     "t": "The R-squared values are 0.99, 0.99, and 0.687, respectively, indicating excellent model fit.",
+     "f": "数字"
+    },
+    {
+     "t": "After testing the empirical formula using randomly generated targets and wind speeds, the initial angle prediction deviated by approximately 0.05 degrees from the actual value under windless conditions.",
+     "f": "数字"
+    },
+    {
+     "t": "Under windy conditions, the initial angle prediction deviated by approximately 4 degrees from the actual value.",
+     "f": "数字"
+    },
+    {
+     "t": "Key Words: Ballistics; Artillery; Launch Angle Estimation; Air Resistance; Wind Correction; Linear Fitting",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2025-GM-B-188",
+   "year": 2025,
+   "problem": "B",
+   "team": "188",
+   "n": 6,
+   "sents": [
+    {
+     "t": "This article focuses on the historical ballistics challenge faced by pre-modern artillery firing spherical projectiles of mass 5 kg and diameter 11 cm, with a maximum muzzle velocity of up to 450 m/s.",
+     "f": "数字"
+    },
+    {
+     "t": "The study aims to solve the aiming problem for targets at horizontal distances between 1,000 and 1,500 meters, accommodating complex operational conditions like varying target altitudes and wind interference, all without relying on modern computing equipment.",
+     "f": "数字"
+    },
+    {
+     "t": "The core methodology integrates a high- precision physical model with simplified correction coefficients for manual estimation, featuring three key modules: a dynamic International Standard Atmosphere (ISA) model to calculate altitude-dependent air density, sp",
+     "f": "叙述"
+    },
+    {
+     "t": "To enable practical field use, the study derived three categories of correction coefficients—the Range Correction Factor, the Altitude Correction Factor, and the Wind Correction Factor—which quantify the necessary adjustment magnitude for the cannon's firing a",
+     "f": "叙述"
+    },
+    {
+     "t": "By using pre-calculated parameter correlation tables and linear interpolation, artillery personnel can quickly optimize initial estimates for shell initial velocity and firing angle using these factors, thereby eliminating the need for complex numerical integr",
+     "f": "叙述"
+    },
+    {
+     "t": "This method achieves an organic combination of high-precision physical modeling and a field-usable approximation algorithm, empowering mathematically trained artillery officers to achieve precise aiming in diverse combat scenarios.",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2025-GM-B-207",
+   "year": 2025,
+   "problem": "B",
+   "team": "207",
+   "n": 11,
+   "sents": [
+    {
+     "t": "Our study develops a ballistic model for spherical artillery projectiles consistent with mid- 19th century technology.",
+     "f": "数字"
+    },
+    {
+     "t": "The model integrates gravity, air resistance, and atmospheric varia- tions, employing the Loth drag coefficient model valid from subsonic to supersonic speeds.",
+     "f": "叙述"
+    },
+    {
+     "t": "Its primary contribution is a practical artillery firing table system, providing baseline firing data for three discrete propellant charges and two firing modes, alongside corrections for wind, alti- tude, and elevation difference.",
+     "f": "叙述"
+    },
+    {
+     "t": "Designed for simplicity and ease of use, this firing table enables commanders to rapidly determine firing solutions under operational conditions where compu- tational equipment is unavailable.",
+     "f": "叙述"
+    },
+    {
+     "t": "Detailed sections of the table and application examples are provided in the appendix.",
+     "f": "叙述"
+    },
+    {
+     "t": "During the compilation of the tables, the R-squared values for all fitted models exceeded 0.95, with some approaching 1.0.",
+     "f": "数字"
+    },
+    {
+     "t": "Numerical simulation and validation demonstrated that the model's error is less than 0.1% within standard engagement ranges, with no discernible trend of error amplification.",
+     "f": "数字"
+    },
+    {
+     "t": "These simulation results collectively indicate that the proposed artillery firing table possesses high accuracy and robustness.",
+     "f": "叙述"
+    },
+    {
+     "t": "Calculations suc- cessfully demonstrated multiple firing solutions for a 1200-meter target under different charges, proving the table's reliability for rapid battlefield aiming.",
+     "f": "数字"
+    },
+    {
+     "t": "This work reconstructs historical fir- ing procedures, merging historical authenticity with computational analysis, and highlights the method's utility in resource-limited contexts.",
+     "f": "叙述"
+    },
+    {
+     "t": "Key Words: Artillery, Loth models, Artillery firing tables, Aerodynamics The University Physics Competition, Team 207, Problem B -2- Contents",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2025-GM-B-264",
+   "year": 2025,
+   "problem": "B",
+   "team": "264",
+   "n": 9,
+   "sents": [
+    {
+     "t": "This study presents a systematic analysis and modeling of the ballistic characteristics of typical 19th-century artillery.",
+     "f": "数字"
+    },
+    {
+     "t": "The research focuses on three main aspects: (1) Development of a two-dimensional ballistic model considering air resistance and altitude variation.",
+     "f": "数字"
+    },
+    {
+     "t": "By accounting for the change of air density with altitude and the Reynolds-number-dependent drag coeﬀicient, the projectile motion equations were solved using the fourth-order Runge–Kutta method.",
+     "f": "方法"
+    },
+    {
+     "t": "Under calm-air conditions, the minimum launch velocity was found to be 117.55 m/s with an optimal elevation angle of 43.5◦.",
+     "f": "数字"
+    },
+    {
+     "t": "Compared with the ideal vacuum model (108.5 m/s, 45◦), air resistance slightly reduces the optimal angle and increases the required launch velocity by ap- proximately 8.3%, demonstrating its significant impact on range and stability.",
+     "f": "数字"
+    },
+    {
+     "t": "(2) Construction of a three-dimensional ballistic model incorporating wind field and terrain elevation effects.",
+     "f": "数字"
+    },
+    {
+     "t": "The model describes projectile motion under vary- ing wind components, horizontal distances, and target altitudes, analyzing the corre- sponding minimum initial velocity and optimal launch angle for headwind, tailwind, and crosswind conditions.",
+     "f": "叙述"
+    },
+    {
+     "t": "Numerical simulations confirmed that the vertical wind component can be neglected with negligible error, enabling a substantial simplification of the model.",
+     "f": "叙述"
+    },
+    {
+     "t": "Based on this, a semi-empirical formula suitable for manual estimation by historical artillery oﬀicers was derived, linking wind speed, wind direction, terrain elevation difference, and horizontal distance with the launch parameters.",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2025-GM-B-311",
+   "year": 2025,
+   "problem": "B",
+   "team": "311",
+   "n": 12,
+   "sents": [
+    {
+     "t": "This study addresses the precise strike problem of a 5-kg spherical projectile with an 11-cm diameter, focusing on the hit requirement for a 1200-meter horizontal distance when both the artillery and the target are located at an altitude of 500 meters.",
+     "f": "数字"
+    },
+    {
+     "t": "A ballistic calculation model incorporating air resistance, gravity, and environmental interference is established to provide practical technical solutions for artillery operations under varying environmental conditions within the 1000-1500 meter range.",
+     "f": "数字"
+    },
+    {
+     "t": "The research first clarifies the model assumptions and parameter system.",
+     "f": "叙述"
+    },
+    {
+     "t": "Based on engineering prac- tice, a piecewise empirical formula for the drag coeﬀicient is adopted.",
+     "f": "叙述"
+    },
+    {
+     "t": "Combined with Newton’s sec- ond law and fluid mechanics principles, the motion equations of the projectile in a three-dimensional coordinate system are derived.",
+     "f": "叙述"
+    },
+    {
+     "t": "An exponential model for air density varying with altitude and a calculation formula for the frontal area are introduced, and the Euler method with a time step of 0.01 seconds is used to achieve discrete numerical solution of the ballistics.",
+     "f": "方法"
+    },
+    {
+     "t": "In the baseline scenario without wind influence, a trajectory search algorithm with a step size of 0.1° for launch angle and 1 m/s for initial velocity is employed to screen multiple sets of optimal launch parameters, all of which can achieve precise hits on t",
+     "f": "数字"
+    },
+    {
+     "t": "To address environmental variable interference, the research is further extended to a three-dimensional scenario.",
+     "f": "叙述"
+    },
+    {
+     "t": "The effects of wind speed and direction along the x/y/z axes, as well as changes in the target’s horizontal distance and altitude on the ballistics, are quantitatively analyzed to form clear gun barrel angle correction rules.",
+     "f": "叙述"
+    },
+    {
+     "t": "Model evaluation shows that this method balances computational eﬀiciency and reliability in medium- range ballistic estimation under standard atmospheric conditions, and can provide decision support for rapid artillery deployment.",
+     "f": "叙述"
+    },
+    {
+     "t": "However, it has limitations such as the static wind assumption, neglect of the Coriolis force, and cumulative errors of the Euler method, making it suitable for non- extreme environments and scenarios that do not require ultra-high-precision correction.",
+     "f": "方法"
+    },
+    {
+     "t": "Through the combination of theoretical derivation and numerical simulation, the research results provide a com- plete technical framework for trajectory prediction and parameter optimization of artillery spherical projectiles, and have important reference valu",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2025-GM-B-392",
+   "year": 2025,
+   "problem": "B",
+   "team": "392",
+   "n": 11,
+   "sents": [
+    {
+     "t": "This study tackles the ballistic challenges of 19th-century artillery by developing a method to determine the muzzle velocity and firing angle for spherical projectiles (5 kg mass, 11 cm di- ameter) under variable conditions.",
+     "f": "数字"
+    },
+    {
+     "t": "A high-fidelity ballistic model was established, incorporating air resistance which depend on altitude-varying air density and Mach number.",
+     "f": "叙述"
+    },
+    {
+     "t": "Gravity changes is also included.",
+     "f": "叙述"
+    },
+    {
+     "t": "For the core scenario—a target at 1200m horizontal distance with both cannon and target at 500m altitude—a bidirectional search algorithm (initial velocity range: 100–450 m/s) identified multiple valid parameter sets.",
+     "f": "数字"
+    },
+    {
+     "t": "Results show the minimum energy solution as 141.0 m/s at 39.6°, while an optimal balanced solution (considering economy and eﬀiciency) is 165.0 m/s at 21.8°.",
+     "f": "num结论"
+    },
+    {
+     "t": "The model was extended to ranges of 1000–1500m, varying altitudes, and wind conditions.",
+     "f": "数字"
+    },
+    {
+     "t": "A logarithmic wind profile simulated altitude-dependent wind speed, and a hierarchical opti- mization algorithm minimized impact errors.",
+     "f": "叙述"
+    },
+    {
+     "t": "This yielded a practical calculator that inputs wind speed/direction, distance, altitudes, and muzzle velocity to output elevation and azimuth angles (e.g., input: 20 m/s wind, 60° direction, 1000m distance, 500m cannon altitude, 600m target altitude, 450 m/s ",
+     "f": "num结论"
+    },
+    {
+     "t": "For the last practical problem, in order to enable artillery oﬀicers who have received math- ematical training but do not have access to computers or calculators to quickly estimate the successful muzzle velocity and firing angle, we have designed two simple m",
+     "f": "叙述"
+    },
+    {
+     "t": "They can choose the more accurate or simpler method according to their needs.",
+     "f": "叙述"
+    },
+    {
+     "t": "The function for the function calculation method is as follows: elevation = β0 + ∑4 i=1 βixi + ∑4 i=1 ∑4 j=i βijxixj azimuth = γ0 + ∑4 i=1 γixi.",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2025-GM-B-428",
+   "year": 2025,
+   "problem": "B",
+   "team": "428",
+   "n": 10,
+   "sents": [
+    {
+     "t": "This paper addresses exterior ballistics of historical artillery by developing a motion model for spherical projectiles (mass 5 kg, diameter 11 cm, maximum muzzle velocity 450 m/s) accounting for quadratic air resistance and exponential atmospheric density.",
+     "f": "数字"
+    },
+    {
+     "t": "Fourth-order Runge-Kutta integration determines ﬁring parameters for hitting a 1200 m horizontal target under various conditions.",
+     "f": "方法"
+    },
+    {
+     "t": "At 500 m altitude under windless conditions, full charge (450 m/s) requires 2.723◦ elevation with 3.78 s ﬂight time and 233 m/s terminal velocity.",
+     "f": "数字"
+    },
+    {
+     "t": "Alternatively, high-arc trajectory (40◦elevation) achieves the same range with only 145.4 m/s initial velocity.",
+     "f": "数字"
+    },
+    {
+     "t": "Wind analysis shows 20 m/s tailwind reduces elevation by 0.4◦, while 25 m/s crosswind produces 300 m lateral drift.",
+     "f": "数字"
+    },
+    {
+     "t": "For ranges of 1000–1500 m under varying environmental conditions, a “calculator- free” rapid solution method is proposed, combining standard ﬁring table lookup with three linear corrections: altitude (±4%/km), tailwind (coeﬃcient 0.8), and crosswind drift (0.3",
+     "f": "数字"
+    },
+    {
+     "t": "Using only pencil and paper, accurate ﬁring parameters are obtained within 1–2 iterations.",
+     "f": "数字"
+    },
+    {
+     "t": "Numerical validation demonstrates range errors <0.2% and angular errors <0.01◦( 0.16 mil), fully meeting ﬁeld operational requirements.",
+     "f": "数字"
+    },
+    {
+     "t": "The paper discusses model applicability, constant drag coeﬃcient limitations, and po- tential improvements toward Mach-dependent CD(M) or G1/G7 ballistic models.",
+     "f": "数字"
+    },
+    {
+     "t": "This research provides theoretical support and practical tools for historical artillery eﬀective- ness analysis and rapid ﬁre planning under calculator-free conditions.",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2025-GM-B-460",
+   "year": 2025,
+   "problem": "B",
+   "team": "460",
+   "n": 8,
+   "sents": [
+    {
+     "t": "This study examines the external ballistics of a mid-19th-century field cannon firing a spheri- cal projectile (mass ≈5 kg, diameter ≈11 cm) with muzzle speeds up to 450 m/s, with the goal of identifying practical muzzle-velocity and elevation-angle pairs for ",
+     "f": "数字"
+    },
+    {
+     "t": "The modelling framework progresses from an ideal parabolic model to a physically realistic external-ballistics model that includes quadratic aerody- namic drag, Mach-dependent drag coefficient Cd(M), and altitude-dependent air density.",
+     "f": "叙述"
+    },
+    {
+     "t": "For the baseline scenario R = 1200 m (launch and target altitude 500 m), numerical simu- lations produce a continuum of feasible (v0, θ) solutions spanning approximately 143–450 m/s.",
+     "f": "数字"
+    },
+    {
+     "t": "Consistent with historical field practice, the low-elevation band θ ∈[5◦, 8◦] is identified as partic- ularly practical: within this band each elevation corresponds to a unique muzzle speed .A launch elevation of 5◦requires a muzzle velocity of approximately 3",
+     "f": "两难"
+    },
+    {
+     "t": "Building on the baseline analysis, the model is extended across target distances 1000–1500 m and a range of impact altitudes to generate a no-wind master lookup table that lists baseline elevation and time-of-flight for several representative muzzle velocities",
+     "f": "数字"
+    },
+    {
+     "t": "Wind effects are then incorporated by using the relative airspeed in the drag computation and decomposing wind into longitudinal, crosswind and vertical components.",
+     "f": "叙述"
+    },
+    {
+     "t": "Based on these results a field-feasible one-step correction procedure is proposed: starting from the no-wind baseline ta- ble, apply an effective-range correction for head/tail wind, convert lateral drift into an azimuth correction, and apply a first-order fli",
+     "f": "叙述"
+    },
+    {
+     "t": "Comparative evaluation against high-fidelity numerical simulations indicates that, under typical tactical condi- tions (moderate winds and short flight times), the lookup-table plus one-step correction method yields small relative errors—elevation-angle relati",
+     "f": "num结论"
+    }
+   ]
+  },
+  {
+   "id": "2025-GM-B-496",
+   "year": 2025,
+   "problem": "B",
+   "team": "496",
+   "n": 9,
+   "sents": [
+    {
+     "t": "We present a dual study that (1) computes precise firing solutions for a historical cannon and (2) converts that detailed solution into a compact, practical estimation method usable by a nineteenth-century artillery officer without modern computation.",
+     "f": "方法"
+    },
+    {
+     "t": "Beginning with an idealized vacuum trajectory to establish an analytical baseline, we then construct a realistic, force-based model founded on Newton’s second law.",
+     "f": "叙述"
+    },
+    {
+     "t": "The model is a three-degree-of-freedom (3-DOF) point-mass trajectory simulator that incorporates a variable atmosphere (ICAO standard) and an aerodynamic drag force with a Mach-dependent drag coefficient Cd(M).",
+     "f": "数字"
+    },
+    {
+     "t": "Numerical integration is performed with a classical fourth-order Runge–Kutta scheme and coupled to a root-finding routine to obtain precise firing solutions to a target at 1200 m.",
+     "f": "num结论"
+    },
+    {
+     "t": "From ensembles of simulations we generate firing tables and distill the physics into simple additive correction rules for altitude and wind suitable for field use.",
+     "f": "叙述"
+    },
+    {
+     "t": "Our results show that aerodynamic drag is the dominant effect, reducing range by over 70% in extreme cases and producing firing-angle corrections far larger than vacuum predictions.",
+     "f": "num结论"
+    },
+    {
+     "t": "For a 1200 m target we find a supersonic projectile (muzzle speed 450 m/s) requires a firing angle of 3.36◦, while a subsonic projectile (250 m/s) requires 8.73◦.",
+     "f": "num结论"
+    },
+    {
+     "t": "The resultant “Artillery Officer’s Field Manual” translates the model into a lightweight procedure that achieves an estimated field accuracy of ±25 m, substantially improving on historical trial-and-error methods.",
+     "f": "num结论"
+    },
+    {
+     "t": "Key Words: Supersonic, Drag coefficient, Point-mass trajectory, Muzzle velocity Problem B — Team 496 The Artillery Trajectory Problem Contents",
+     "f": "数字"
+    }
+   ]
+  },
+  {
+   "id": "2025-GM-B-765",
+   "year": 2025,
+   "problem": "B",
+   "team": "765",
+   "n": 12,
+   "sents": [
+    {
+     "t": "This study establishes a theoretical framework for artillery projec- tile trajectory modeling based on simplified aerodynamic and kinematic assumptions, systematically describing projectile flight behavior under con- strained conditions.",
+     "f": "叙述"
+    },
+    {
+     "t": "For the first Question, we built a 2D planar motion-based ODE system, integrating key trajectory-influencing physical models (atmo- spheric model, dynamic drag-coefficient model).",
+     "f": "数字"
+    },
+    {
+     "t": "With the Dormand- Prince numerical integration algorithm, we simulated the projectile’s flight.",
+     "f": "方法"
+    },
+    {
+     "t": "Via parameter scanning and optimization, we obtained 100 elevation angle (θ)-initial velocity pairs ensuring target impact, and extracted three typ- ical solutions.",
+     "f": "数字"
+    },
+    {
+     "t": "Among these, the minimum initial velocity is 122 m/s (at θ = 41.8◦).",
+     "f": "数字"
+    },
+    {
+     "t": "Overall, θ and initial velocity show a U-shaped relationship: the latter is smallest at 40◦-50◦, consistent with ballistics’ minimum energy principle, verifying the model’s rationality.",
+     "f": "数字"
+    },
+    {
+     "t": "For the second Question,within 1000–1500 meters (varying alti- tudes/wind), we built a physical model incorporating gravity, air resistance, sphere damping coefficient, and air density variations.",
+     "f": "数字"
+    },
+    {
+     "t": "Ignoring Coriolis force and Magnus effect, we used Runge-Kutta (ODEs), Levenberg- Marquardt (least squares) with three-point finite difference Jacobian ap- proximation to get optimal launch angle/velocity.",
+     "f": "方法"
+    },
+    {
+     "t": "Wind affects azimuth, distance impacts initial velocity, and relative altitude influences pitch an- gle—these interrelated factors induce complex nonlinear changes, requiring precise adjustments in actual combat.",
+     "f": "叙述"
+    },
+    {
+     "t": "For the third Question, this paper first derives a preliminary base ballistic table for idealized scenarios via real-world simplification, then obtains correction tables from the final practical projectile flight model developed in Question 2.",
+     "f": "数字"
+    },
+    {
+     "t": "Additionally, it develops a nomogram suitable for artillery officers’ manual plotting from initial firing tables.",
+     "f": "叙述"
+    },
+    {
+     "t": "Finally, it derives scenario-specific simplified formulas from the simplified model to assist officers in mental calculations, with results corrected via practical experience and the correction tables.",
+     "f": "叙述"
+    }
+   ]
+  },
+  {
+   "id": "2025-GM-B-796",
+   "year": 2025,
+   "problem": "B",
+   "team": "796",
+   "n": 10,
+   "sents": [
+    {
+     "t": "We conceive a vintage artillery piece from roughly two centuries ago and, under multiple physical factors (aerodynamic drag, wind, projectile spin, and target elevation), investigate the optimal launch angle and optimal muzzle velocity.",
+     "f": "叙述"
+    },
+    {
+     "t": "We employ the embedded Runge–Kutta– Fehlberg method (RK45) to numerically integrate the governing equations of motion and derive simplified, easy-to-use approximation formulas.",
+     "f": "方法"
+    },
+    {
+     "t": "First, with the gun and target at the same elevation, no wind, and no spin, and with aerodynamic drag proportional to the square of speed, we formulate the ordinary differential equations and solve them numerically using Python’s ODE routines.",
+     "f": "方法"
+    },
+    {
+     "t": "We plot the launch-angle–velocity relationships and introduce performance metrics such as flight time and terminal kinetic energy in order to identify an optimal launch angle.",
+     "f": "叙述"
+    },
+    {
+     "t": "For a representative case, we find that at a muzzle velocity of approximately 450 m/s and a launch angle of 2.5–2.8°, performance is near-optimal.",
+     "f": "num结论"
+    },
+    {
+     "t": "Next, we incorporate wind by replacing the speed in the drag term with the relative air–projectile speed.",
+     "f": "叙述"
+    },
+    {
+     "t": "We find that for shallow angles (<10°) the wind has only a minor influence on the trajectory (percent differences under 3%), whereas for steeper angles (>40°) the discrepancy grows significantly.",
+     "f": "num结论"
+    },
+    {
+     "t": "We then include projectile spin and the associated Magnus force.",
+     "f": "叙述"
+    },
+    {
+     "t": "The influence of spin likewise grows with launch angle.",
+     "f": "叙述"
+    },
+    {
+     "t": "Fixing the muzzle velocity at 450 m/s, we fit the range–angle curve and obtain a compact regression model，reaching the function θ0≈ x 282 +1.016。 Team 796 Problem B November 9, 2025",
+     "f": "数字"
+    }
+   ]
+  }
+ ],
+ "names": {
+  "front": "标题页",
+  "abstract": "摘要",
+  "intro": "引言",
+  "model": "建模",
+  "numerics": "数值",
+  "results": "结果与验证",
+  "conclusion": "结论",
+  "references": "参考文献",
+  "appendix": "附录",
+  "other": "其他"
+ }
+}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://l-zer0coder.github.io/upc-archive/sitemap.xml
