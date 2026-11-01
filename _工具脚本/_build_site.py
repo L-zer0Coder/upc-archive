@@ -379,6 +379,26 @@ document.addEventListener("DOMContentLoaded", function(){
     pb.addEventListener('click',function(){document.body.classList.add('pcard');window.print();});
   })();
   addEventListener('afterprint',function(){document.body.classList.remove('pcard');});
+  // 完整解题流程手册：九阶段进度（upcFlow.v1）
+  (function(){
+    var f=document.getElementById('flow');if(!f)return;
+    var boxes=[].slice.call(f.querySelectorAll('input[data-fs]'));
+    var K='upcFlow.v1';
+    function load(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+    function paint(){
+      var s=load(),n=0;
+      boxes.forEach(function(b){b.checked=!!s[b.dataset.fs];if(b.checked)n++;});
+      document.getElementById('flowbar').style.width=(n/boxes.length*100)+'%';
+      document.getElementById('flowpct').textContent=n+'/'+boxes.length;
+      document.getElementById('flowdone').hidden=(n<boxes.length);
+    }
+    boxes.forEach(function(b){b.addEventListener('change',function(){
+      var s=load();if(b.checked)s[b.dataset.fs]=Date.now();else delete s[b.dataset.fs];
+      try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}
+      paint();});});
+    document.getElementById('flowreset').addEventListener('click',function(){try{localStorage.removeItem(K)}catch(e){}paint();});
+    paint();
+  })();
   // 10 分钟自测（07 解读页）：先写自己的路线再对照，状态存 upcDrill.v1
   (function(){
     var card=document.getElementById('drill');if(!card)return;
@@ -654,6 +674,27 @@ def render_docs():
                     '这就是你读下文时该带着的问题。</span></div></div>')
                 drill_html = (drill_html.replace("{k}", pkey))
 
+        # 完整解题流程手册：注入九阶段进度组件（upcFlow.v1，与 drill/pcard 同款按 rel 特判）
+        flow_html = ""
+        if rel == "11_论文模板与工具/完整解题流程手册.md":
+            stages = ["备位与选题", "裸脑试解", "路线对照", "精读一篇金牌", "横向对比",
+                      "模型归域", "动手写", "终检与复盘", "归档"]
+            boxes = "".join(
+                '<label style="display:flex;gap:8px;align-items:baseline;padding:3px 0;cursor:pointer">'
+                '<input type="checkbox" data-fs="{i}" style="accent-color:#9C3F2E">'
+                '<span style="font-size:13px">阶段 {i} · {n}</span></label>'.format(i=i, n=n)
+                for i, n in enumerate(stages))
+            flow_html = (
+                '<div class="card" id="flow" style="margin:0 0 18px">'
+                '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">'
+                '<b style="font-family:var(--serif)">训练进度</b>'
+                '<i style="flex:1;min-width:160px;height:10px;background:var(--paper);border:1px solid var(--line);border-radius:5px;overflow:hidden">'
+                '<em id="flowbar" style="display:block;height:100%;width:0;background:var(--acc)"></em></i>'
+                '<b id="flowpct" style="font-family:var(--mono);font-size:12px">0/9</b>'
+                '<button id="flowreset" class="tag" type="button">重置</button></div>'
+                '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:2px 14px;margin-top:8px">' + boxes + '</div>'
+                '<div id="flowdone" class="notebox" hidden style="margin-top:10px"><b>训练闭环 ✓</b>　九阶段全部完成——这道题已经从「读过」变成「练过」。重置进度，换下一道题再来一轮。</div></div>')
+
         # 同年同题的其他金牌论文：UPC 学习里最核心的动作就是横向对比同题解法
         related = ""
         if m and pkind == "paper":
@@ -693,7 +734,7 @@ def render_docs():
         relroot = quote(posix(os.path.relpath(ROOT, page_dir))) + "/"
         page_html = (DOC_TPL.replace("__TITLE__", title).replace("__CRUMB__", crumb).replace("__RELROOT__", relroot)
                      .replace("__HOME__", home).replace("__RAWMD__", raw)
-                     .replace("__PAPERTAG__", papertag).replace("__BODY__", pos_note + pcard_btn + drill_html + body)
+                     .replace("__PAPERTAG__", papertag).replace("__BODY__", pos_note + pcard_btn + drill_html + flow_html + body)
                      .replace("__PKEY__", pkey).replace("__PKIND__", pkind)
                      .replace("__DESC__", desc).replace("__RELATED__", related)
                      .replace("__BUILD__", __import__("datetime").datetime.now().strftime("%Y-%m-%d %H:%M"))

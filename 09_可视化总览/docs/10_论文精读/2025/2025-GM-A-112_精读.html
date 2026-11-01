@@ -424,7 +424,7 @@ $$b_0=\frac{\alpha}{1+\alpha}=0.002177,\quad a_1=-\frac{2\cos\omega_0}{1+\alpha}
 </div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract工程摘要的范本">1.1 Abstract（工程摘要的范本）</a></li><li class="l3"><a href="#12-1-introduction问题去模糊化的信号处理版">1.2 §1 Introduction（问题去模糊化的信号处理版）</a></li><li class="l3"><a href="#13-2-notation-贡献清单">1.3 §2 Notation + 贡献清单</a></li><li class="l3"><a href="#14-3-声学表征物理模型层">1.4 §3 声学表征（物理模型层）</a></li><li class="l3"><a href="#15-4-数字滤波器设计方法层主体">1.5 §4 数字滤波器设计（方法层主体）</a></li><li class="l3"><a href="#16-57-实现验证与音乐信号交付层">1.6 §5–§7 实现、验证与音乐信号（交付层）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-弦谐波与共振腔模型式-12">3.1 弦谐波与共振腔模型（式 1–2）</a></li><li class="l3"><a href="#32-品质因数式-3">3.2 品质因数（式 3）</a></li><li class="l3"><a href="#33-双线性变换与频率畸变式-46">3.3 双线性变换与频率畸变（式 4–6）</a></li><li class="l3"><a href="#34-sos-系数式-911与-审计-b系数表验证本篇精华">3.4 SOS 系数（式 9–11）与 ⚠ 审计 B（系数表验证——本篇精华）</a></li><li class="l3"><a href="#35-min-max-通带平坦度优化式-13">3.5 min-max 通带平坦度优化（式 13）</a></li><li class="l3"><a href="#36-算力与延迟账本式-16">3.6 算力与延迟账本（式 16）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 12:49<br><a href="../../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 18:46<br><a href="../../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -532,6 +532,26 @@ document.addEventListener("DOMContentLoaded", function(){
     pb.addEventListener('click',function(){document.body.classList.add('pcard');window.print();});
   })();
   addEventListener('afterprint',function(){document.body.classList.remove('pcard');});
+  // 完整解题流程手册：九阶段进度（upcFlow.v1）
+  (function(){
+    var f=document.getElementById('flow');if(!f)return;
+    var boxes=[].slice.call(f.querySelectorAll('input[data-fs]'));
+    var K='upcFlow.v1';
+    function load(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+    function paint(){
+      var s=load(),n=0;
+      boxes.forEach(function(b){b.checked=!!s[b.dataset.fs];if(b.checked)n++;});
+      document.getElementById('flowbar').style.width=(n/boxes.length*100)+'%';
+      document.getElementById('flowpct').textContent=n+'/'+boxes.length;
+      document.getElementById('flowdone').hidden=(n<boxes.length);
+    }
+    boxes.forEach(function(b){b.addEventListener('change',function(){
+      var s=load();if(b.checked)s[b.dataset.fs]=Date.now();else delete s[b.dataset.fs];
+      try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}
+      paint();});});
+    document.getElementById('flowreset').addEventListener('click',function(){try{localStorage.removeItem(K)}catch(e){}paint();});
+    paint();
+  })();
   // 10 分钟自测（07 解读页）：先写自己的路线再对照，状态存 upcDrill.v1
   (function(){
     var card=document.getElementById('drill');if(!card)return;

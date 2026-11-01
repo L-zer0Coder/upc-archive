@@ -178,7 +178,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <blockquote>
 <p>本资料库系统收录 <strong>国际大学生物理竞赛（University Physics Competition, UPC，官网 <a href="http://www.uphysicsc.com/">uphysicsc.com</a>）2010–2025 年</strong> 全部赛事资料：16 届赛事、32 道官方题目、<strong>74 篇官方公开的金牌论文</strong>（PDF 全文 + 提取文本 + 排版页面图），并为每道题目撰写深度物理解读、为每篇论文撰写赏析（建模体系 / 算法 / 排版 / 获奖密码），最后汇总历年物理模型全景综述与交互式总览页面。</p>
 </blockquote>
-<p><strong>📖 在线阅读（免克隆）：<a href="https://l-zer0coder.github.io/upc-archive/">l-zer0coder.github.io/upc-archive</a></strong> —— 已部署为 GitHub Pages：首页总览 + 236 个文档页 + 9 个实战工具页；每页左右两缘有「☰ 目录 / 📖 说明」全局挂件，顶栏可全库搜索（快捷键 <code>/</code>）。</p>
+<p><strong>📖 在线阅读（免克隆）：<a href="https://l-zer0coder.github.io/upc-archive/">l-zer0coder.github.io/upc-archive</a></strong> —— 已部署为 GitHub Pages：首页总览 + 237 个文档页 + 9 个实战工具页；每页左右两缘有「☰ 目录 / 📖 说明」全局挂件，顶栏可全库搜索（快捷键 <code>/</code>）。</p>
 <hr>
 <h2 id="目录结构">📁 目录结构</h2>
 <table>
@@ -247,7 +247,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </tr>
 <tr>
 <td><code>09_可视化总览/</code></td>
-<td>站点构建产物：<code>docs/</code> 下 236 个文档页 + 本地化前端依赖</td>
+<td>站点构建产物：<code>docs/</code> 下 237 个文档页 + 本地化前端依赖</td>
 <td>由 <code>_build_site.py</code> 生成，GitHub Pages 直接托管</td>
 </tr>
 <tr>
@@ -416,6 +416,8 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <hr>
 <h2 id="快速上手">🚀 快速上手</h2>
 <ul>
+<li><strong>想完整练一道题（九阶段流水线）</strong> → <code>11_论文模板与工具/完整解题流程手册.md</code>——每阶段用什么板块、怎么用、完成标准，进度可勾选</li>
+<li><strong>想完整练一道题（九阶段流水线）</strong> → <code>11_论文模板与工具/完整解题流程手册.md</code>——每阶段用什么板块、怎么用、完成标准，进度可勾选</li>
 <li><strong>想看某年考了什么</strong> → <code>02_题目汇总/年份_题目与官方信息.md</code></li>
 <li><strong>想读懂某道题</strong> → <code>07_题目解读/…</code></li>
 <li><strong>想手把手吃透一篇金牌论文</strong> → <code>10_论文精读/…</code>（逐句表述、每图绘法、每式推导）</li>
@@ -442,12 +444,12 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </ul>
 <hr>
 <h2 id="部署为网站github-pages">🌐 部署为网站（GitHub Pages）</h2>
-<p>本档案库自带一个纯静态站点：根目录 <code>index.html</code>（总览导航 + 全文搜索 + 打卡系统 + 三态赛事时钟）+ <code>09_可视化总览/docs/</code>（236 个 Markdown 文档渲染成的网页，公式用 KaTeX、流程图用 mermaid）。仓库根目录已备好部署辅助文件：</p>
+<p>本档案库自带一个纯静态站点：根目录 <code>index.html</code>（总览导航 + 全文搜索 + 打卡系统 + 三态赛事时钟）+ <code>09_可视化总览/docs/</code>（237 个 Markdown 文档渲染成的网页，公式用 KaTeX、流程图用 mermaid）。仓库根目录已备好部署辅助文件：</p>
 <ul>
 <li><code>.nojekyll</code> —— 关闭 GitHub Pages 的 Jekyll 处理（否则 <code>_工具脚本</code> 等下划线目录会被忽略）</li>
 <li><code>index.html</code> —— <strong>站点首页本体</strong>（访问 <code>/</code> 直接打开，不再做跳转，分享出去的 URL 干净）</li>
 <li><code>404.html</code> —— 自定义 404 页（GitHub Pages 会对任何缺失路径返回它）</li>
-<li><code>search-index.js</code> —— 236 份文档的全文索引（约 312 KB，首次输入搜索时才加载，不拖慢首屏）</li>
+<li><code>search-index.js</code> —— 237 份文档的全文索引（约 312 KB，首次输入搜索时才加载，不拖慢首屏）</li>
 <li><code>global-ui.js</code> + <code>global-ui-data.js</code> —— <strong>全局挂件</strong>（每页左右两缘「☰ 目录 / 📖 说明」面板）的逻辑与数据；数据由构建期从 manual 同源生成，约 103 KB，首次点开面板时才加载</li>
 <li><code>manifest.webmanifest</code> + <code>sw.js</code> + <code>icon.svg</code> —— PWA 三件套：支持「添加到主屏」，Service Worker 让最近访问过的页面在断网时也能打开（导航请求网络优先、静态资源缓存优先）</li>
 <li><code>copyright.html</code> —— <strong>版权与致谢页</strong>：收录范围、版权与下架通道、各内容层的生成与校验方式披露（含 2026-11-01 抽样核查结果）、新一届入库时效承诺</li>
@@ -462,7 +464,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <p>部署三步：① 在 GitHub 新建 Public 仓库 → ② 本目录 <code>git init &amp;&amp; git add -A &amp;&amp; git commit -m "UPC archive" &amp;&amp; git branch -M main &amp;&amp; git remote add origin &lt;你的仓库地址&gt; &amp;&amp; git push -u origin main</code> → ③ 仓库 Settings → Pages → Source 选 <code>Deploy from a branch</code> + <code>main</code> + <code>/ (root)</code> → 保存，1–3 分钟后访问 <code>https://&lt;用户名&gt;.github.io/&lt;仓库名&gt;/</code>。</p>
 <h3 id="重建站点">重建站点</h3>
 <pre><code class="language-bash">python _工具脚本/_fetch_vendor.py   # 仅首次，或升级 KaTeX/Mermaid 时
-python _工具脚本/_build_site.py      # 重新渲染 236 个文档页 + 9 个赛时工具页 + 全局挂件数据 + 首页 + 404 + 搜索索引
+python _工具脚本/_build_site.py      # 重新渲染 237 个文档页 + 9 个赛时工具页 + 全局挂件数据 + 首页 + 404 + 搜索索引
 python _工具脚本/_site_check.py      # 独立体检（断链/大小写/未入库/索引同步；--external 附加外链抽查）
 </code></pre>
 <p><code>_build_site.py</code> 结束时会做<strong>大小写敏感 + git 跟踪感知</strong>的链接校验（静态 href/src、DATA 里运行时注入的 URL、赛时工具页的链接都查）。任何一处断链（包括「文件存在但没进 git」这种只在 Linux 服务器上才会暴露的情况）都会让构建以非零码退出并列出行号级别的清单，不会再出现"本地一切正常、线上全 404"。提交时 <code>.git/hooks/pre-commit</code> 还会再跑一次快速体检拦截。</p>
@@ -536,7 +538,7 @@ python _工具脚本/_site_check.py      # 独立体检（断链/大小写/未�
 </div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#目录结构">📁 目录结构</a></li><li class="l2"><a href="#历年赛题与论文速览">🗓 历年赛题与论文速览</a></li><li class="l2"><a href="#快速上手">🚀 快速上手</a></li><li class="l2"><a href="#upc-竞赛小档案">🏅 UPC 竞赛小档案</a></li><li class="l2"><a href="#部署为网站github-pages">🌐 部署为网站（GitHub Pages）</a></li><li class="l3"><a href="#重建站点">重建站点</a></li><li class="l3"><a href="#赛时工具12_赛时工具">赛时工具（12_赛时工具/）</a></li><li class="l3"><a href="#ai-技能与模式卡片管线">AI 技能与模式卡片管线</a></li><li class="l3"><a href="#站点体验与可信度设施">站点体验与可信度设施</a></li><li class="l3"><a href="#可选功能评论区等">可选功能（评论区等）</a></li></ul></aside>
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 12:49<br><a href="../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）· 站点构建于 2026-11-01 18:46<br><a href="../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -644,6 +646,26 @@ document.addEventListener("DOMContentLoaded", function(){
     pb.addEventListener('click',function(){document.body.classList.add('pcard');window.print();});
   })();
   addEventListener('afterprint',function(){document.body.classList.remove('pcard');});
+  // 完整解题流程手册：九阶段进度（upcFlow.v1）
+  (function(){
+    var f=document.getElementById('flow');if(!f)return;
+    var boxes=[].slice.call(f.querySelectorAll('input[data-fs]'));
+    var K='upcFlow.v1';
+    function load(){try{return JSON.parse(localStorage.getItem(K)||'{}')}catch(e){return{}}}
+    function paint(){
+      var s=load(),n=0;
+      boxes.forEach(function(b){b.checked=!!s[b.dataset.fs];if(b.checked)n++;});
+      document.getElementById('flowbar').style.width=(n/boxes.length*100)+'%';
+      document.getElementById('flowpct').textContent=n+'/'+boxes.length;
+      document.getElementById('flowdone').hidden=(n<boxes.length);
+    }
+    boxes.forEach(function(b){b.addEventListener('change',function(){
+      var s=load();if(b.checked)s[b.dataset.fs]=Date.now();else delete s[b.dataset.fs];
+      try{localStorage.setItem(K,JSON.stringify(s))}catch(e){}
+      paint();});});
+    document.getElementById('flowreset').addEventListener('click',function(){try{localStorage.removeItem(K)}catch(e){}paint();});
+    paint();
+  })();
   // 10 分钟自测（07 解读页）：先写自己的路线再对照，状态存 upcDrill.v1
   (function(){
     var card=document.getElementById('drill');if(!card)return;
