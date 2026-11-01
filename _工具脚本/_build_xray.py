@@ -60,16 +60,71 @@ def collect_compare(ctx):
     return out
 
 
+def _coverage_html(ctx):
+    """覆盖地图：每道题 ×（解读 / 起步卡 / 赏析 / 精读）实扫矩阵。
+    文件系统即事实——每格都能在仓库里找到对应实体，构建期生成、永不过期。"""
+    root = ctx["root"]
+    P = lambda *a: os.path.join(root, *a)
+    jd = {}
+    for f in glob.glob(P("07_题目解读", "*_题[AB]_*.md")):
+        b = os.path.basename(f)
+        if "起步卡" in b:
+            continue
+        m = re.match(r"(\d{4})_题([AB])_", b)
+        if m:
+            jd[(m.group(1), m.group(2))] = re.sub(r"^\d{4}_题[AB]_", "", b[:-3])
+    start = set()
+    for f in glob.glob(P("07_题目解读", "*起步卡.md")):
+        m = re.match(r"(\d{4})_题([AB])_", os.path.basename(f))
+        if m:
+            start.add((m.group(1), m.group(2)))
+    ana = {}
+    for f in glob.glob(P("05_论文赏析", "*", "*.md")):
+        m = re.match(r"(\d{4})-GM-([AB])-", os.path.basename(f)[:-3])
+        if m:
+            ana[(m.group(1), m.group(2))] = ana.get((m.group(1), m.group(2)), 0) + 1
+
+    def dot(b):
+        return '<b style="color:var(--acc)">✓</b>' if b else '<span style="color:var(--dim)">—</span>'
+
+    rows = []
+    tot = {"start": 0, "ana": 0, "read": 0}
+    for (yr, pb) in sorted(jd):
+        n_ana = ana.get((yr, pb), 0)
+        n_read = len([f for f in glob.glob(P("10_论文精读", yr, "*.md"))
+                      if re.match(r"\d{4}-GM-" + pb + "-", os.path.basename(f))])
+        has_start = (yr, pb) in start
+        tot["ana"] += n_ana
+        tot["read"] += n_read
+        tot["start"] += 1 if has_start else 0
+        rows.append(
+            '<tr><td>{} 题{}</td><td>{}</td><td style="text-align:center">{}</td>'
+            '<td style="text-align:center">{}</td><td style="text-align:center">{}</td>'
+            '<td style="text-align:center">{}</td></tr>'.format(
+                yr, pb, jd[(yr, pb)], dot(True), dot(has_start), n_ana, n_read))
+    head = ('<tr><th>题</th><th>题名（来自解读文件）</th><th>解读</th><th>起步卡</th>'
+            '<th>赏析</th><th>精读</th></tr>')
+    summary = ('<div class="notebox" style="margin-top:12px">总计：<b>{n} 题</b> · 解读 {n}/{n} · '
+               '起步卡 {s}/{n} · 赏析 {a} 篇 · 精读 {r} 篇。'
+               '缺口坦然列出：起步卡与部分批次精读仍在补齐（见维护路线图）。</div>').format(
+        n=len(jd), s=tot["start"], a=tot["ana"], r=tot["read"])
+    return ('<div style="overflow:auto"><table style="border-collapse:collapse;width:100%;'
+            'font-size:13px"><thead>' + head + '</thead><tbody>' + "".join(rows) +
+            '</tbody></table></div>' + summary)
+
+
 def render_xray(ctx):
     CMP = collect_compare(ctx)
     ST = load_json(ctx, "_知识提炼", "汇总", "结构图谱.json") or {"papers": [], "names": {}}
     AB = load_json(ctx, "_知识提炼", "汇总", "摘要解剖.json") or {"papers": [], "names": {}}
+    COV = _coverage_html(ctx)
 
     body = r"""
 <nav class="tabs" id="xtabs">
   <a data-t="cmp" class="on">同题对比矩阵</a>
   <a data-t="atlas">结构图谱</a>
   <a data-t="abs">摘要解剖室</a>
+  <a data-t="cov">覆盖地图</a>
 </nav>
 
 <section class="pane on" id="pane-cmp">
@@ -96,6 +151,12 @@ def render_xray(ctx):
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px" id="ablegend"></div>
   <div style="margin-bottom:10px"><input id="abq" type="search" placeholder="筛：年份/题号/队伍号/句中关键词…" style="width:min(420px,100%);height:32px;border:1px solid var(--line2);border-radius:3px;background:var(--sheet);padding:0 10px;font-size:13px;outline:none"></div>
   <div id="ablist"></div>
+</section>
+
+<section class="pane" id="pane-cov">
+  <div class="notebox" style="margin-bottom:12px"><b>覆盖地图</b>：全库内容对 16 年 32 道题的覆盖实况——
+  每一格都对应仓库里的真实文件，构建期扫描生成。哪些题有起步卡、哪篇论文还没精读，一目了然。</div>
+  __COV__
 </section>
 """
 
@@ -208,9 +269,9 @@ renderAbs();
     katex = ('<link rel="stylesheet" href="../09_可视化总览/vendor/katex/katex.min.css">'
              '<script defer src="../09_可视化总览/vendor/katex/katex.min.js"></script>')
     return page(ctx, "论文透视", "实战工具 · 平时开放",
-                "UPC 论文透视：同题对比矩阵、74 篇结构图谱、摘要解剖室——跨论文横向分析金牌论文的判据、模型、验证与摘要配方。",
-                "单篇精读之上的一层：横向看 74 篇金牌论文。同题对比看合法解法谱系，结构图谱看章节配比规律，摘要解剖看逐句功能配方。",
-                body,
+                "UPC 论文透视：同题对比矩阵、结构图谱、摘要解剖室与覆盖地图——跨论文横向分析金牌论文的判据、模型、验证与摘要配方。",
+                "单篇精读之上的一层：横向看 74 篇金牌论文。同题对比看合法解法谱系，结构图谱看章节配比规律，摘要解剖看逐句功能配方，覆盖地图看全库对 32 题的覆盖实况。",
+                body.replace("__COV__", COV),
                 script.replace("__CMP__", json.dumps(CMP, ensure_ascii=False))
                       .replace("__ST__", json.dumps(ST, ensure_ascii=False))
                       .replace("__AB__", json.dumps(AB, ensure_ascii=False))

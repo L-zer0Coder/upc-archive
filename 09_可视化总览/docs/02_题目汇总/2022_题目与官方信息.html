@@ -12,6 +12,7 @@
 <meta property="og:description" content="2022 年 University Physics Competition（UPC）题目与官方信息 赛事概况 In this year’s competition 417 teams submitted papers for judgi…">
 <meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="../../../manifest.webmanifest">
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
 <script>window.UPC_UI_ROOT="../../../";</script><script src="../../../global-ui.js" defer></script>
 <script defer src="../../vendor/katex/katex.min.js"></script>
@@ -28,6 +29,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
+html.fz-s body{font-size:15px}html.fz-l body{font-size:17.5px}html.fz-xl body{font-size:19px}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
@@ -149,6 +151,8 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <button id="ck" class="tag ck" type="button" hidden></button>
   
   <a class="tag" href="../../../02_%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB/2022_%E9%A2%98%E7%9B%AE%E4%B8%8E%E5%AE%98%E6%96%B9%E4%BF%A1%E6%81%AF.md">Markdown</a>
+  <button id="fz" class="tag" type="button" title="正文字号：小 / 标准 / 大 / 特大">字号</button>
+  <button id="prt" class="tag" type="button" title="打印本文（自动隐藏顶栏与目录）">打印</button>
   <span class="crumb">02_题目汇总 · 2022 年 University Physics Competition（UPC）题目与官方信息</span>
   <div class="srwrap">
     <input id="dsq" type="search" placeholder="全库搜索" autocomplete="off">
@@ -158,7 +162,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </div></div>
 <div class="layout">
   <div class="content"><div class="sheet">
-<h1 id="2022-年-university-physics-competitionupc题目与官方信息">2022 年 University Physics Competition（UPC）题目与官方信息</h1>
+<div class="notebox"><b>本文定位</b>：2022 年 UPC《题目与官方信息》——当届赛程要点、奖牌统计、金牌队伍名单与全部论文直达。查英文原题全文用对应论文的「文本」入口；解题思路见 07_题目解读 同年文件。</div><h1 id="2022-年-university-physics-competitionupc题目与官方信息">2022 年 University Physics Competition（UPC）题目与官方信息</h1>
 <h2 id="赛事概况">赛事概况</h2>
 <p>In this year’s competition 417 teams submitted
 papers for judging.</p>
@@ -254,7 +258,7 @@ In the game of FIFA football/soccer, when a penalty kick is taken, one player ta
 </div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#赛事概况">赛事概况</a></li><li class="l2"><a href="#problem-a">Problem A</a></li><li class="l2"><a href="#problem-b">Problem B</a></li><li class="l2"><a href="#problem-a-金牌队伍">Problem A 金牌队伍</a></li><li class="l2"><a href="#problem-a-官方公开论文已下载至-03_优秀论文pdf2022">Problem A 官方公开论文（已下载至 03_优秀论文PDF/2022/）</a></li><li class="l2"><a href="#problem-b-金牌队伍">Problem B 金牌队伍</a></li><li class="l2"><a href="#problem-b-官方公开论文已下载至-03_优秀论文pdf2022">Problem B 官方公开论文（已下载至 03_优秀论文PDF/2022/）</a></li></ul></aside>
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）<br><a href="../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -285,6 +289,17 @@ document.addEventListener("DOMContentLoaded", function(){
     ckUI();
     setTimeout(function(){ckSet("v")},3000);  // 停留 3 秒 = 浏览过（自动标记）
   }
+  // 字号档位（s/m/l/xl，记忆在本地）；打印按钮走既有 @media print 样式
+  var FZ=["fz-s","","fz-l","fz-xl"],fzs=["小","标准","大","特大"];
+  var fzBtn=document.getElementById('fz');
+  function applyFz(i){document.documentElement.classList.remove('fz-s','fz-l','fz-xl');
+    if(FZ[i])document.documentElement.classList.add(FZ[i]);
+    fzBtn.textContent='字号·'+fzs[i];try{localStorage.setItem('upcFz',String(i))}catch(e){}}
+  var fzi=parseInt((function(){try{return localStorage.getItem('upcFz')||"1"}catch(e){return "1"}})(),10);
+  if(!(fzi>=0&&fzi<FZ.length))fzi=1;applyFz(fzi);
+  fzBtn.addEventListener('click',function(){applyFz((fzi=(fzi+1)%FZ.length));});
+  document.getElementById('prt').addEventListener('click',function(){window.print();});
+  if('serviceWorker' in navigator){try{navigator.serviceWorker.register('../../../sw.js');}catch(e){}}
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
     ignoredTags:["script","style","textarea","pre","code"]});

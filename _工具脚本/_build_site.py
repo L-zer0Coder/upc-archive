@@ -103,6 +103,7 @@ DOC_TPL = r"""<!DOCTYPE html>
 <meta property="og:description" content="__DESC__">
 <meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="__RELROOT__manifest.webmanifest">
 <link rel="stylesheet" href="__CSS_KATEX__">
 <script>window.UPC_UI_ROOT="__RELROOT__";</script><script src="__RELROOT__global-ui.js" defer></script>
 <script defer src="__JS_KATEX__"></script>
@@ -119,6 +120,7 @@ __MERMAID_TAG__
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
+html.fz-s body{font-size:15px}html.fz-l body{font-size:17.5px}html.fz-xl body{font-size:19px}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
@@ -240,6 +242,8 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <button id="ck" class="tag ck" type="button" hidden></button>
   __PAPERTAG__
   <a class="tag" href="__RAWMD__">Markdown</a>
+  <button id="fz" class="tag" type="button" title="正文字号：小 / 标准 / 大 / 特大">字号</button>
+  <button id="prt" class="tag" type="button" title="打印本文（自动隐藏顶栏与目录）">打印</button>
   <span class="crumb">__CRUMB__ · __TITLE__</span>
   <div class="srwrap">
     <input id="dsq" type="search" placeholder="全库搜索" autocomplete="off">
@@ -255,7 +259,7 @@ __RELATED__
 </div>
 __TOC__
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）<br><a href="__RELROOT__copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -286,6 +290,17 @@ document.addEventListener("DOMContentLoaded", function(){
     ckUI();
     setTimeout(function(){ckSet("v")},3000);  // 停留 3 秒 = 浏览过（自动标记）
   }
+  // 字号档位（s/m/l/xl，记忆在本地）；打印按钮走既有 @media print 样式
+  var FZ=["fz-s","","fz-l","fz-xl"],fzs=["小","标准","大","特大"];
+  var fzBtn=document.getElementById('fz');
+  function applyFz(i){document.documentElement.classList.remove('fz-s','fz-l','fz-xl');
+    if(FZ[i])document.documentElement.classList.add(FZ[i]);
+    fzBtn.textContent='字号·'+fzs[i];try{localStorage.setItem('upcFz',String(i))}catch(e){}}
+  var fzi=parseInt((function(){try{return localStorage.getItem('upcFz')||"1"}catch(e){return "1"}})(),10);
+  if(!(fzi>=0&&fzi<FZ.length))fzi=1;applyFz(fzi);
+  fzBtn.addEventListener('click',function(){applyFz((fzi=(fzi+1)%FZ.length));});
+  document.getElementById('prt').addEventListener('click',function(){window.print();});
+  if('serviceWorker' in navigator){try{navigator.serviceWorker.register('__RELROOT__sw.js');}catch(e){}}
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
     ignoredTags:["script","style","textarea","pre","code"]});
@@ -467,6 +482,21 @@ def render_docs():
         # per-paper pages (赏析/精读) get cross-links: PDF 原件 + 姊妹篇
         m = GM_RE.search(rel)
         papertag = ""
+        # 定位声明：构建期注入（源 md 不动）。02 汇总 17 份年文件与缺「赛题来源」行的
+        # 旧版 07 解读，页首补一枚 notebox，保证每类页三行内说清「这是什么、怎么读」
+        pos_note = ""
+        if rel.startswith("02_题目汇总/") and rel.endswith("_题目与官方信息.md"):
+            y2 = os.path.basename(rel)[:4]
+            pos_note = ('<div class="notebox"><b>本文定位</b>：{} 年 UPC《题目与官方信息》——当届赛程要点、'
+                        '奖牌统计、金牌队伍名单与全部论文直达。查英文原题全文用对应论文的「文本」入口；'
+                        '解题思路见 07_题目解读 同年文件。</div>').format(y2)
+        elif (rel.startswith("07_题目解读/") and "起步卡" not in rel
+              and "赛题来源" not in text[:600]):
+            mi2 = re.match(r"(\d{4})_题([AB])_", os.path.basename(rel))
+            if mi2:
+                pos_note = ('<div class="notebox"><b>本文定位</b>：{} 年题 {} 深度解读——物理本质、建模路线图、'
+                            '常见陷阱与金牌论文思路对比；零基础可先看配套起步卡（如已收录）。</div>'
+                            ).format(mi2.group(1), mi2.group(2))
         if m:
             base = m.group(0)
             yr, prob = m.group(1), m.group(2).upper()
@@ -529,7 +559,7 @@ def render_docs():
         relroot = quote(posix(os.path.relpath(ROOT, page_dir))) + "/"
         page_html = (DOC_TPL.replace("__TITLE__", title).replace("__CRUMB__", crumb).replace("__RELROOT__", relroot)
                      .replace("__HOME__", home).replace("__RAWMD__", raw)
-                     .replace("__PAPERTAG__", papertag).replace("__BODY__", body)
+                     .replace("__PAPERTAG__", papertag).replace("__BODY__", pos_note + body)
                      .replace("__PKEY__", pkey).replace("__PKIND__", pkind)
                      .replace("__DESC__", desc).replace("__RELATED__", related)
                      .replace("__CSS_KATEX__", link_from(page_dir, KATEX_CSS))
@@ -806,17 +836,44 @@ mm.append('</svg>')
 MODEL_SVG = "".join(mm)
 
 RULES = [
- ("统一货币","把不可比的方案变成可比标量：Δv、能量、剂量、裕度、起飞质量。"),
- ("端点锚定再外推","先用已知情形校准（水星/地球、MAVEN、Baumgartner 实测、FIBA 数据），再外推到题设区域。"),
- ("模糊词操作化","damage→末速度、successful→命中窗口、safe→概率阈值；先立判据再动手。"),
- ("模型分层递进","理想（真空/点质量）→ 关键修正（阻力/大气/转动）→ 扩展（风/海拔/失效），每层给量级论证。"),
- ("验证三件套","收敛性（步长减半）、极限情形（退化为解析解）、灵敏度（参数扫描）。"),
- ("负结果显式报告","论据扎实的反直觉结论（放弃气动制动、太空塔不经济）恰是高分项。"),
- ("降维交付","交付“可用的东西”：射表、列线图、修正公式、心算口诀、设计准则。"),
+ ("统一货币","把不可比的方案变成可比标量：Δv、能量、剂量、裕度、起飞质量。",
+  ("统一货币","Δv","比冲","换算成可比","同一量纲","统一量纲")),
+ ("端点锚定再外推","先用已知情形校准（水星/地球、MAVEN、Baumgartner 实测、FIBA 数据），再外推到题设区域。",
+  ("锚定","校准","实测数据")),
+ ("模糊词操作化","damage→末速度、successful→命中窗口、safe→概率阈值；先立判据再动手。",
+  ("模糊词","操作化","可判定","翻译成")),
+ ("模型分层递进","理想（真空/点质量）→ 关键修正（阻力/大气/转动）→ 扩展（风/海拔/失效），每层给量级论证。",
+  ("分层递进","理想化","关键修正")),
+ ("验证三件套","收敛性（步长减半）、极限情形（退化为解析解）、灵敏度（参数扫描）。",
+  ("三件套","收敛性","灵敏度")),
+ ("负结果显式报告","论据扎实的反直觉结论（放弃气动制动、太空塔不经济）恰是高分项。",
+  ("负结果","反直觉","劝退","放弃","不经济")),
+ ("降维交付","交付“可用的东西”：射表、列线图、修正公式、心算口诀、设计准则。",
+  ("降维","射表","列线图","心算","口诀","可用的东西","设计准则")),
 ]
+
+def _rule_counts():
+    """七条密码的实证计数：构建期扫描 73 篇赏析正文（仅按 GM 编号匹配的逐篇文件，
+    批次对比表不计入分母），统计显式提及篇数。关键词宁宽勿漏但避开结构性用语，
+    页面口径为「n/73 篇赏析正文显式提及」，可复算。"""
+    files = [f for f in sorted(glob.glob(P("05_论文赏析", "**", "*.md"), recursive=True))
+             if re.search(r"\d{4}-GM-[AB]-", f)]
+    texts = []
+    for f in files:
+        try:
+            texts.append(open(f, encoding="utf-8").read())
+        except OSError:
+            pass
+    return {t: sum(1 for x in texts if any(w in x for w in keys))
+            for (t, d, keys) in RULES}, len(texts)
+
+_pwd_n, _pwd_total = _rule_counts()
 RULES_HTML = "".join(
-    f'<div class="rule"><div class="rule-n">{i+1}</div><div><div class="rule-t">{t}</div><div class="rule-d">{d}</div></div></div>'
-    for i,(t,d) in enumerate(RULES))
+    '<div class="rule"><div class="rule-n">{}</div><div><div class="rule-t">{}'
+    '<span style="color:var(--dim);font-weight:400;font-size:11px;margin-left:8px">'
+    '{}/{} 篇赏析显式提及</span></div><div class="rule-d">{}</div></div></div>'.format(
+        i + 1, t, _pwd_n[t], _pwd_total, d)
+    for i, (t, d, keys) in enumerate(RULES))
 
 # ---------------- index.html ----------------
 
@@ -871,5 +928,36 @@ for _s in search_docs:
     _extra.append((ROOT, _s["u"], f"搜索索引 {_s['t']}"))
 
 validate(ROOT, SITE, _extra)
+
+# ---------------- 口径对账断言（README 手写数字 vs 实际构建产物；失配即构建失败） ----------------
+def audit_readme_numbers(ndocs):
+    txt = open(P("README.md"), encoding="utf-8").read()
+    ntools = len(glob.glob(P("12_赛时工具", "*.html")))
+    errs = []
+    m = re.search(r"(\d+)\s*个文档页", txt)
+    if not m:
+        errs.append("README 缺「N 个文档页」口径")
+    elif int(m.group(1)) != ndocs:
+        errs.append("README「{} 个文档页」应为 {}（以本次构建为准）".format(m.group(1), ndocs))
+    m = re.search(r"(\d+)\s*个实战工具页", txt)
+    if not m:
+        errs.append("README 缺「N 个实战工具页」口径")
+    elif int(m.group(1)) != ntools:
+        errs.append("README「{} 个实战工具页」应为 {}（12_赛时工具/*.html 实数）".format(m.group(1), ntools))
+    if "74 篇金牌论文" not in txt:
+        errs.append("README 缺「74 篇金牌论文」口径")
+    gui = P("global-ui-data.js")
+    if os.path.exists(gui):
+        gtxt = open(gui, encoding="utf-8").read()
+        if '"u": "../' in gtxt:
+            errs.append("global-ui-data.js 出现 ../ 前缀（树 URL 必须根相对）")
+    if errs:
+        print("[口径对账] 失败：")
+        for e in errs:
+            print("  - " + e)
+        raise SystemExit(1)
+    print("[口径对账] ok：文档页 {} · 工具页 {} · 论文 74".format(ndocs, ntools))
+
+audit_readme_numbers(len(built_docs))
 
 print(f"docs built: {len(built_docs)} | papers: {len(papers)} | all done")

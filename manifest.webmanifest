@@ -1,0 +1,1 @@
+{"name": "UPC 全档案库（国际大学生物理竞赛 2010–2025）", "short_name": "UPC 档案库", "start_url": "./index.html", "scope": "./", "display": "standalone", "background_color": "#F7F4ED", "theme_color": "#9C3F2E", "description": "16 届 32 题与 74 篇金牌论文全档案：解读/赏析/精读/工具页。", "icons": [{"src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}]}

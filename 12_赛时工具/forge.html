@@ -10,6 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="论文组装机 · UPC 全档案库">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#9C3F2E">
 
 <style>
 :root{
@@ -19,6 +21,17 @@
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
  --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
  --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+/* 夜间模式：变量整组换肤；个别硬编码浅色在此一并压暗 */
+body.night{--paper:#26231E;--sheet:#2D2A24;--ink:#EAE4D8;--mut:#B7AE9E;--dim:#9C9382;
+ --line:#45403A;--line2:#565047;--acc:#E2907C;--acc-d:#F0B4A4;--acc-soft:rgba(226,144,124,.14)}
+body.night .topbar{background:rgba(38,35,30,.94)}
+body.night .tabs{background:rgba(38,35,30,.96)}
+body.night .btn{background:#37332C;border-color:#565047;color:var(--ink)}
+body.night .btn.solid{background:var(--acc);border-color:var(--acc);color:#26231E}
+body.night img{opacity:.88}
+#nightT{background:none;border:1px solid var(--line2);border-radius:3px;height:26px;min-width:30px;
+ cursor:pointer;color:var(--mut);font-size:13px;padding:0 6px}
+#nightT:hover{border-color:var(--acc);color:var(--acc)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.85}
@@ -72,6 +85,9 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
  .wrap{max-width:none;padding:0}
  .card{border:none;padding:0}
  .pane{display:block!important;page-break-inside:auto}
+ /* 终检清单专项打印：body.pcheck 时只打印 pane-check */
+ body.pcheck .topbar,body.pcheck .tabs,body.pcheck .pane,body.pcheck footer{display:none!important}
+ body.pcheck #pane-check{display:block!important}
 }
 </style>
 </head>
@@ -80,7 +96,18 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
   <a class="brand" href="../index.html"><span class="seal">U</span>UPC 全档案库</a>
   <span class="crumb">实战工具 · 平时开放</span>
   <span class="clock" id="clock" aria-label="第 17 届 UPC 赛程"></span>
+  <button id="nightT" type="button" title="夜间 / 日间模式" aria-label="切换夜间模式">🌙</button>
 </div></div>
+<script>(function(){
+  function set(n){document.body.classList.toggle('night',n);
+    var t=document.getElementById('nightT');if(t)t.textContent=n?'☀️':'🌙';
+    try{localStorage.setItem('upcNight',n?'1':'0')}catch(e){}}
+  var s=false;try{s=localStorage.getItem('upcNight')==='1'}catch(e){}
+  set(s);
+  document.getElementById('nightT').addEventListener('click',function(){
+    set(!document.body.classList.contains('night'));});
+  if('serviceWorker' in navigator){try{navigator.serviceWorker.register('../sw.js');}catch(e){}}
+})();</script>
 <div class="wrap">
 <h1 class="pt">论文组装机</h1>
 <p class="pt-lead">六阶段流水线（AI 提示词工坊第 0 号）产出各节内容后，本页把成果组装成整稿 LaTeX。自动化的只是排版；物理与思考必须你自己完成——若再用 AI 润色，按官方规则附 AI 使用披露。</p>
@@ -117,9 +144,11 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
 <div class="card" style="margin-top:14px"><textarea id="f-out" rows="18" readonly placeholder="点「组装」后这里出现完整 LaTeX……" style="width:100%;box-sizing:border-box;border:none;background:transparent;font-family:var(--mono);font-size:12px;line-height:1.8;outline:none;resize:vertical"></textarea></div>
 
 </div>
-<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份</footer>
+<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份<br><a href="../copyright.html">版权与致谢</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错</a> · <a href="../upc-offline-kit.zip" download>赛时离线包</a></footer>
 <script>
-var EV_START=1794013200000,EV_END=1794186000000;
+var EV_START0=1794013200000,RACE_DUR=1794186000000-1794013200000;
+function raceT0(){try{var v=parseInt(localStorage.getItem('upcRaceT0')||"",10);return v>0?v:0}catch(e){return 0}}
+var EV_START=raceT0()||EV_START0,EV_END=EV_START+RACE_DUR;
 function p2(n){return n<10?'0'+n:''+n;}
 (function(){
   var el=document.getElementById('clock');

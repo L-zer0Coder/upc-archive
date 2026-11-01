@@ -12,6 +12,7 @@
 <meta property="og:description" content="Problem A: Sending a Light Sail Propelled Nanocraft to Alpha Centauri（2018 题A 队伍258） 页数 : 11 页 ｜ 对应题目 : 光帆纳米飞行器飞掠比邻星（S…">
 <meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="../../../../manifest.webmanifest">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script>window.UPC_UI_ROOT="../../../../";</script><script src="../../../../global-ui.js" defer></script>
 <script defer src="../../../vendor/katex/katex.min.js"></script>
@@ -28,6 +29,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
+html.fz-s body{font-size:15px}html.fz-l body{font-size:17.5px}html.fz-xl body{font-size:19px}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
@@ -149,6 +151,8 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <button id="ck" class="tag ck" type="button" hidden></button>
   <a class="tag" href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2018/Problem%20A/2018-GM-A-258.pdf">论文 PDF</a><a class="tag" href="../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2018/2018-GM-A-258_%E7%B2%BE%E8%AF%BB.html">手把手精读</a>
   <a class="tag" href="../../../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2018/2018-GM-A-258.md">Markdown</a>
+  <button id="fz" class="tag" type="button" title="正文字号：小 / 标准 / 大 / 特大">字号</button>
+  <button id="prt" class="tag" type="button" title="打印本文（自动隐藏顶栏与目录）">打印</button>
   <span class="crumb">05_论文赏析/2018 · Problem A: Sending a Light Sail Propelled Nanocraft to Alpha Centauri（2018 题A 队伍258）</span>
   <div class="srwrap">
     <input id="dsq" type="search" placeholder="全库搜索" autocomplete="off">
@@ -198,7 +202,7 @@ $$m\ddot X=F_{rad}\theta_y-\frac{F_{rad}}{2}\frac{X+L_r\theta_y}{R},\qquad I\ddo
 </div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#1-论文速览">1. 论文速览</a></li><li class="l2"><a href="#2-建模体系逐层拆解">2. 建模体系逐层拆解</a></li><li class="l2"><a href="#3-数学方法与算法">3. 数学方法与算法</a></li><li class="l2"><a href="#4-排版与图表赏析">4. 排版与图表赏析</a></li><li class="l2"><a href="#5-获奖密码为什么能拿金牌">5. 获奖密码：为什么能拿金牌</a></li><li class="l2"><a href="#6-可借鉴清单">6. 可借鉴清单</a></li></ul></aside>
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）<br><a href="../../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -229,6 +233,17 @@ document.addEventListener("DOMContentLoaded", function(){
     ckUI();
     setTimeout(function(){ckSet("v")},3000);  // 停留 3 秒 = 浏览过（自动标记）
   }
+  // 字号档位（s/m/l/xl，记忆在本地）；打印按钮走既有 @media print 样式
+  var FZ=["fz-s","","fz-l","fz-xl"],fzs=["小","标准","大","特大"];
+  var fzBtn=document.getElementById('fz');
+  function applyFz(i){document.documentElement.classList.remove('fz-s','fz-l','fz-xl');
+    if(FZ[i])document.documentElement.classList.add(FZ[i]);
+    fzBtn.textContent='字号·'+fzs[i];try{localStorage.setItem('upcFz',String(i))}catch(e){}}
+  var fzi=parseInt((function(){try{return localStorage.getItem('upcFz')||"1"}catch(e){return "1"}})(),10);
+  if(!(fzi>=0&&fzi<FZ.length))fzi=1;applyFz(fzi);
+  fzBtn.addEventListener('click',function(){applyFz((fzi=(fzi+1)%FZ.length));});
+  document.getElementById('prt').addEventListener('click',function(){window.print();});
+  if('serviceWorker' in navigator){try{navigator.serviceWorker.register('../../../../sw.js');}catch(e){}}
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
     ignoredTags:["script","style","textarea","pre","code"]});

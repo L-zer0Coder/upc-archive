@@ -5,11 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>数值实验台 · UPC 全档案库</title>
 <script>window.UPC_UI_ROOT="../";</script><script src="../global-ui.js" defer></script>
-<meta name="description" content="UPC 数值实验台：浏览器里直接运行 Python 物理模型（Pyodide），v1 内置 2023-A 太空跳伞简化模型，参数可调、代码可改。">
+<meta name="description" content="UPC 数值实验台：浏览器里直接运行 Python 物理模型（Pyodide），内置 2023-A 太空跳伞、2015-B 绕树高尔夫、2019-B 过山车三个可调参模型。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="数值实验台 · UPC 全档案库">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#9C3F2E">
 
 <style>
 :root{
@@ -19,6 +21,17 @@
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
  --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
  --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+/* 夜间模式：变量整组换肤；个别硬编码浅色在此一并压暗 */
+body.night{--paper:#26231E;--sheet:#2D2A24;--ink:#EAE4D8;--mut:#B7AE9E;--dim:#9C9382;
+ --line:#45403A;--line2:#565047;--acc:#E2907C;--acc-d:#F0B4A4;--acc-soft:rgba(226,144,124,.14)}
+body.night .topbar{background:rgba(38,35,30,.94)}
+body.night .tabs{background:rgba(38,35,30,.96)}
+body.night .btn{background:#37332C;border-color:#565047;color:var(--ink)}
+body.night .btn.solid{background:var(--acc);border-color:var(--acc);color:#26231E}
+body.night img{opacity:.88}
+#nightT{background:none;border:1px solid var(--line2);border-radius:3px;height:26px;min-width:30px;
+ cursor:pointer;color:var(--mut);font-size:13px;padding:0 6px}
+#nightT:hover{border-color:var(--acc);color:var(--acc)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.85}
@@ -72,6 +85,9 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
  .wrap{max-width:none;padding:0}
  .card{border:none;padding:0}
  .pane{display:block!important;page-break-inside:auto}
+ /* 终检清单专项打印：body.pcheck 时只打印 pane-check */
+ body.pcheck .topbar,body.pcheck .tabs,body.pcheck .pane,body.pcheck footer{display:none!important}
+ body.pcheck #pane-check{display:block!important}
 }
 </style>
 </head>
@@ -80,37 +96,52 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
   <a class="brand" href="../index.html"><span class="seal">U</span>UPC 全档案库</a>
   <span class="crumb">实战工具 · 平时开放</span>
   <span class="clock" id="clock" aria-label="第 17 届 UPC 赛程"></span>
+  <button id="nightT" type="button" title="夜间 / 日间模式" aria-label="切换夜间模式">🌙</button>
 </div></div>
+<script>(function(){
+  function set(n){document.body.classList.toggle('night',n);
+    var t=document.getElementById('nightT');if(t)t.textContent=n?'☀️':'🌙';
+    try{localStorage.setItem('upcNight',n?'1':'0')}catch(e){}}
+  var s=false;try{s=localStorage.getItem('upcNight')==='1'}catch(e){}
+  set(s);
+  document.getElementById('nightT').addEventListener('click',function(){
+    set(!document.body.classList.contains('night'));});
+  if('serviceWorker' in navigator){try{navigator.serviceWorker.register('../sw.js');}catch(e){}}
+})();</script>
 <div class="wrap">
 <h1 class="pt">数值实验台</h1>
 <p class="pt-lead">不用装 Python 也能跑物理：滑杆调参数、代码框改模型，点运行立刻出曲线。示范模型来自 2023-A《近太空跳伞》精读。</p>
 
 <section class="pane on" id="pane-lab" style="display:block">
-  <div class="notebox" style="margin-bottom:14px"><b>数值实验台 v1</b>：在浏览器里直接跑 Python 物理模型（Pyodide/WASM，与本库精读里的代码同款风格）。
-  首次使用需联网加载约 10 MB 运行时（约 30–60 秒，之后浏览器有缓存）；修改代码后点「运行」即时重算。本页是示范：2023-A 太空跳伞的 1D 竖直下落（指数大气＋平方阻力）。</div>
+  <div class="notebox" style="margin-bottom:14px"><b>数值实验台 v2</b>：在浏览器里直接跑 Python 物理模型（Pyodide/WASM，与本库精读里的代码同款风格）。
+  现有三道示范：2023-A 太空跳伞（1D 竖直下落）、2015-B 绕树高尔夫（侧旋拐弯）、2019-B 过山车（回环判据）。
+  首次使用需联网加载约 10 MB 运行时（约 30–60 秒，之后浏览器有缓存）；修改代码后点「运行」即时重算。均为简化演示模型，完整判据见对应题目解读。</div>
   <div class="card">
     <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;margin-bottom:10px">
-      <label style="font-size:12.5px;color:var(--mut)">初始高度 h₀ = <b id="lh0" style="color:var(--ink);font-family:var(--mono)">30.0</b> km
-        <input id="h0" type="range" min="5" max="60" step="0.5" value="30" style="display:block;width:180px;margin-top:4px;accent-color:#9C3F2E"></label>
-      <label style="font-size:12.5px;color:var(--mut)">质量 m = <b id="lm" style="color:var(--ink);font-family:var(--mono)">90</b> kg
-        <input id="m" type="range" min="50" max="160" step="1" value="90" style="display:block;width:180px;margin-top:4px;accent-color:#9C3F2E"></label>
-      <label style="font-size:12.5px;color:var(--mut)">Cd·A = <b id="lca" style="color:var(--ink);font-family:var(--mono)">0.90</b> m²
-        <input id="ca" type="range" min="0.2" max="3" step="0.05" value="0.9" style="display:block;width:180px;margin-top:4px;accent-color:#9C3F2E"></label>
+      <label style="font-size:12.5px;color:var(--mut)">示范模型
+        <select id="mselect" style="display:block;margin-top:4px;height:30px;border:1px solid var(--line2);border-radius:3px;background:var(--sheet);color:var(--ink);padding:0 8px">
+          <option value="skydive">2023-A 太空跳伞（1D 下落）</option>
+          <option value="golf">2015-B 绕树高尔夫（侧旋）</option>
+          <option value="coaster">2019-B 过山车（回环）</option>
+        </select></label>
+      <div id="sliders" style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end"></div>
       <button class="btn solid" id="run" type="button">运行（首次需加载运行时）</button>
     </div>
     <div id="status" style="font-size:12.5px;color:var(--dim);margin-bottom:8px">等待启动：点击「运行」后开始加载 Pyodide。</div>
   </div>
   <div class="card" style="margin-top:14px" id="resultbox"></div>
   <details class="card" style="margin-top:14px">
-    <summary style="cursor:pointer;font-weight:600;font-size:14px">查看 / 编辑 Python 源码（这就是 2023-A 精读同款的建模骨架）</summary>
+    <summary style="cursor:pointer;font-weight:600;font-size:14px">查看 / 编辑当前模型的 Python 源码（与精读同款建模骨架）</summary>
     <textarea id="pysrc" spellcheck="false" style="width:100%;margin-top:10px;border:1px solid var(--line2);border-radius:3px;background:var(--paper);padding:10px 12px;font-size:12.8px;font-family:var(--mono);line-height:1.7;outline:none;resize:vertical" rows="26"></textarea>
   </details>
 </section>
 
 </div>
-<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份</footer>
+<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份<br><a href="../copyright.html">版权与致谢</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错</a> · <a href="../upc-offline-kit.zip" download>赛时离线包</a></footer>
 <script>
-var EV_START=1794013200000,EV_END=1794186000000;
+var EV_START0=1794013200000,RACE_DUR=1794186000000-1794013200000;
+function raceT0(){try{var v=parseInt(localStorage.getItem('upcRaceT0')||"",10);return v>0?v:0}catch(e){return 0}}
+var EV_START=raceT0()||EV_START0,EV_END=EV_START+RACE_DUR;
 function p2(n){return n<10?'0'+n:''+n;}
 (function(){
   var el=document.getElementById('clock');
@@ -149,19 +180,53 @@ function tLabel(ts){
   return 'T+'+p2(Math.floor(s/3600))+':'+p2(Math.floor(s%3600/60));
 }
 
-var PY0="# 2023-A \u8fd1\u592a\u7a7a\u8df3\u4f1e\uff08\u7b80\u5316\u793a\u8303\u6a21\u578b\uff09\n# \u72b6\u6001: v \u5782\u76f4\u901f\u5ea6(\u5411\u4e0b\u4e3a\u6b63), h \u9ad8\u5ea6; \u5927\u6c14: \u6307\u6570\u6a21\u578b rho = 1.225*exp(-h/8500)\nimport math\n\ng     = 9.81      # m/s^2\nRHO0  = 1.225     # kg/m^3 \u6d77\u5e73\u9762\u5bc6\u5ea6\nHSC   = 8500.0    # m     \u6807\u9ad8\nH_GROUND = 0.0\n\ndef rho(h):\n    return RHO0 * math.exp(-h / HSC)\n\ndef simulate(h0=30000.0, v0=0.0, m=90.0, cd_a=0.9, dt=0.05, g_override=None):\n    \"\"\"\u6b27\u62c9\u79ef\u5206\uff1a\u8fd4\u56de (ts, hs, vs) \u4e0e\u5173\u952e\u6307\u6807\"\"\"\n    gloc = g if g_override is None else g_override\n    ts, hs, vs = [0.0], [h0], [v0]\n    v, h, t = v0, h0, 0.0\n    vmax, h_vmax = v0, h0\n    while h > H_GROUND and t < 1200:\n        a = gloc - 0.5 * rho(h) * v * abs(v) * cd_a / m   # \u963b\u529b\u4e0e\u901f\u5ea6\u53cd\u5411\n        v += a * dt\n        h -= v * dt\n        t += dt\n        if v > vmax: vmax, h_vmax = v, h\n        ts.append(t); hs.append(max(h, 0.0)); vs.append(v)\n    return {\"t\": ts, \"h\": hs, \"v\": vs, \"vmax\": vmax, \"h_vmax\": h_vmax,\n            \"v_terminal_ground\": math.sqrt(2*m*gloc/(rho(0)*cd_a)),\n            \"t_ground\": ts[-1]}\n";
-var ta=document.getElementById('pysrc');
-ta.value=localStorage.getItem('upcLab.src')||PY0;
-ta.addEventListener('input',function(){localStorage.setItem('upcLab.src',ta.value)});
-var h0=document.getElementById('h0'),m=document.getElementById('m'),ca=document.getElementById('ca');
-[['h0','lh0',function(v){return (+v).toFixed(1)+' km';},10],['m','lm',function(v){return v+' kg';},1],['ca','lca',function(v){return (+v).toFixed(2)+' m²';},100]]
-.forEach(function(cfg){
-  var el=document.getElementById(cfg[0]);
-  function upd(){document.getElementById(cfg[1]).textContent=cfg[2](el.value);}
-  el.addEventListener('input',function(){upd();cfg[3]&&live();});
-  upd();
-});
-var pyodide=null,loading=false;
+var MODELS={
+skydive:{py:"# 2023-A \u8fd1\u592a\u7a7a\u8df3\u4f1e\uff08\u7b80\u5316\u793a\u8303\u6a21\u578b\uff09\n# \u72b6\u6001: v \u5782\u76f4\u901f\u5ea6(\u5411\u4e0b\u4e3a\u6b63), h \u9ad8\u5ea6; \u5927\u6c14: \u6307\u6570\u6a21\u578b rho = 1.225*exp(-h/8500)\nimport math\n\ng     = 9.81      # m/s^2\nRHO0  = 1.225     # kg/m^3 \u6d77\u5e73\u9762\u5bc6\u5ea6\nHSC   = 8500.0    # m     \u6807\u9ad8\nH_GROUND = 0.0\n\ndef rho(h):\n    return RHO0 * math.exp(-h / HSC)\n\ndef simulate(h0=30000.0, v0=0.0, m=90.0, cd_a=0.9, dt=0.05, g_override=None):\n    \"\"\"\u6b27\u62c9\u79ef\u5206\uff1a\u8fd4\u56de (ts, hs, vs) \u4e0e\u5173\u952e\u6307\u6807\"\"\"\n    gloc = g if g_override is None else g_override\n    ts, hs, vs = [0.0], [h0], [v0]\n    v, h, t = v0, h0, 0.0\n    vmax, h_vmax = v0, h0\n    while h > H_GROUND and t < 1200:\n        a = gloc - 0.5 * rho(h) * v * abs(v) * cd_a / m   # \u963b\u529b\u4e0e\u901f\u5ea6\u53cd\u5411\n        v += a * dt\n        h -= v * dt\n        t += dt\n        if v > vmax: vmax, h_vmax = v, h\n        ts.append(t); hs.append(max(h, 0.0)); vs.append(v)\n    return {\"t\": ts, \"h\": hs, \"v\": vs, \"vmax\": vmax, \"h_vmax\": h_vmax,\n            \"v_terminal_ground\": math.sqrt(2*m*gloc/(rho(0)*cd_a)),\n            \"t_ground\": ts[-1]}\n",steps:function(r){return r.t.length+' 步';},draw:function(r){return drawSky(r);},
+  sliders:[
+  {id:'h0',label:'初始高度 h₀ = ',fmt:function(v){return (+v).toFixed(1)+' km'},min:5,max:60,step:0.5,val:30},
+  {id:'m',label:'质量 m = ',fmt:function(v){return v+' kg'},min:50,max:160,step:1,val:90},
+  {id:'ca',label:'Cd·A = ',fmt:function(v){return (+v).toFixed(2)+' m²'},min:0.2,max:3,step:0.05,val:0.9}],
+  call:function(v){return 'simulate(h0='+(+v.h0*1000).toFixed(1)+', m='+(+v.m).toFixed(0)+', cd_a='+(+v.ca).toFixed(2)+')';}},
+golf:{py:"# 2015-B \u7ed5\u6811\u9ad8\u5c14\u592b\u7403\uff08\u4fef\u89c6\u7b80\u5316\u6f14\u793a\uff09\uff1a\u7403\u6cbf +x \u6253\u51fa\uff0c\u4fa7\u65cb\u8ba9\u5b83\u6a2a\u5411\u62d0\u5f2f\u7ed5\u8fc7\u6811\n# \u7269\u7406\uff1a\u963b\u529b\u6cbf\u901f\u5ea6\u53cd\u5411 a_d = 0.5\u00b7\u03c1\u00b7Cd\u00b7A\u00b7v\u00b2/m\uff1b\u4fa7\u5411 Magnus a_l = 0.5\u00b7\u03c1\u00b7A\u00b7CL\u00b7v\u00b2/m\uff0c\n#       CL \u2248 1.1\u00b7S\uff08S = r\u03c9/v \u65cb\u53c2\u6570\uff0c\u6f14\u793a\u53e3\u5f84\uff09\u3002\u4e24\u6b21\u79ef\u5206\uff1a\u6709\u65cb\uff08\u5b9e\u7ebf\uff09\u4e0e\u65e0\u65cb\u5bf9\u7167\uff08\u865a\u7ebf\uff09\u3002\nimport math\nRHO = 1.225\nM   = 0.0459          # kg  \u9ad8\u5c14\u592b\u7403\u8d28\u91cf\nR   = 0.02135         # m   \u7403\u534a\u5f84\nA   = math.pi*R*R     # m\u00b2  \u8fce\u98ce\u9762\u79ef\nCD  = 0.25            # \u51f9\u5751\u7403\u963b\u529b\u7cfb\u6570\uff08\u91cf\u7ea7\uff09\n\ndef _run(v0, spin, dt=0.004):\n    x, y, vx, vy = 0.0, 0.0, v0, 0.0\n    xs, ys = [x], [y]\n    t = 0.0\n    while t < 20.0:\n        v = math.hypot(vx, vy)\n        if v < 0.2:\n            break\n        ad = 0.5*RHO*CD*A*v*v/M\n        al = 0.5*RHO*A*1.1*spin*v*v/M\n        ux, uy = vx/v, vy/v\n        ax = -ad*ux - al*uy\n        ay = -ad*uy + al*ux\n        vx += ax*dt; vy += ay*dt\n        x += vx*dt; y += vy*dt\n        t += dt\n        xs.append(x); ys.append(y)\n        if len(xs) > 12000:\n            break\n    return xs, ys\n\ndef simulate(v0=62.0, spin=0.12, tree_x=110.0, tree_y=3.0, tree_r=1.5):\n    \"\"\"v0 \u521d\u901f m/s\uff1bspin \u65cb\u53c2\u6570 0~0.25\uff08\u6b63=\u5411 +y \u4fa7\u62d0\uff09\u3002\u6811\u5fc3 (tree_x, tree_y) \u534a\u5f84 tree_r\u3002\"\"\"\n    S = max(0.0, min(spin, 0.3))\n    xs, ys = _run(v0, S)\n    xs0, ys0 = _run(v0, 0.0)\n    def y_at(xq, xa, ya):\n        for i in range(1, len(xa)):\n            if xa[i] >= xq:\n                return ya[i]\n        return None\n    y_tree = y_at(tree_x, xs, ys)\n    miss = None\n    if y_tree is None:\n        verdict = \"\u7403\u5728\u5230\u8fbe\u6811\u4e4b\u524d\u5c31\u505c\u4e86\u2014\u2014\u52a0\u5927\u521d\u901f v0 \u518d\u8bd5\"\n    else:\n        miss = y_tree - tree_y - tree_r\n        verdict = (\"\u6210\u529f\u7ed5\u8fc7\u6811\uff1a\u6a2a\u5411\u4f59\u91cf %.1f m\" % miss) if miss > 0 else \\\n                  (\"\u649e\u6811\uff1a\u8fd8\u5dee %.1f m\u2014\u2014\u8c03\u5927 spin \u6216 v0\" % (-miss))\n    return {\"xs\": xs, \"ys\": ys, \"xs0\": xs0, \"ys0\": ys0,\n            \"x_end\": xs[-1], \"y_end\": ys[-1], \"verdict\": verdict,\n            \"miss\": miss, \"tree\": [tree_x, tree_y, tree_r]}\n",steps:function(r){return r.xs.length+' 点';},draw:function(r){return drawGolf(r);},
+  sliders:[
+  {id:'v0',label:'初速 v₀ = ',fmt:function(v){return v+' m/s'},min:40,max:90,step:1,val:62},
+  {id:'spin',label:'侧旋参数 S = ',fmt:function(v){return (+v).toFixed(2)},min:0,max:0.25,step:0.01,val:0.12}],
+  call:function(v){return 'simulate(v0='+(+v.v0).toFixed(0)+', spin='+(+v.spin).toFixed(2)+')';}},
+coaster:{py:"# 2019-B \u8fc7\u5c71\u8f66\uff08\u7b80\u5316\u6f14\u793a\uff09\uff1a\u65e0\u6469\u64e6\u80fd\u91cf\u5b88\u6052 + \u7ad6\u76f4\u5706\u56de\u73af\u5224\u636e\n# \u8f68\u9053\uff1a\u9ad8\u53f0 h0 \u2192 \u8c37\u5e95 0 \u2192 \u7ad6\u76f4\u5706\u73af\uff08\u534a\u5f84 R\uff0c\u5e95\u5728 0\u3001\u9876\u5728 2R\uff09\u3002\n# \u80fd\u91cf\uff1av\u00b2(y) = 2g(h0 \u2212 y)\uff1b\u56de\u73af\u5224\u636e\uff1a\u73af\u9876 v\u00b2 \u2265 gR\uff08\u6cd5\u5411\u8fc7\u8f7d \u2265 0 \u624d\u538b\u5f97\u4f4f\u8f68\uff09\u3002\nimport math\ng = 9.81\n\ndef simulate(h0=22.0, R=8.0):\n    v_bottom = math.sqrt(max(0.0, 2*g*h0))\n    v2_top = max(0.0, 2*g*(h0 - 2*R))\n    v_top = math.sqrt(v2_top)\n    done = v2_top >= g*R\n    n_bottom = 2*g*h0/(g*R) + 1\n    n_top = v2_top/(g*R) - 1\n    h_min = 2.5*R\n    pts = []\n    for i in range(41):                      # \u4e0b\u5761\u6bb5\uff08\u76f4\u5761\u7b80\u5316\uff09\n        x = 40.0*i/40\n        y = h0*(1 - i/40)\n        v = math.sqrt(max(0.0, 2*g*(h0 - y)))\n        pts.append([x, y, v])\n    cx = 50.0\n    for k in range(73):                      # \u5706\u73af\u4e00\u6574\u5708\uff1a\u5e95\u90e8\u8d77\uff0c\u9006\u65f6\u9488\n        th = math.radians(-90 + 360*k/72)\n        px = cx + R*math.cos(th)\n        py = R + R*math.sin(th)\n        v = math.sqrt(max(0.0, 2*g*(h0 - py)))\n        pts.append([px, py, v])\n    return {\"v_bottom\": v_bottom, \"v_top\": v_top, \"done\": done,\n            \"n_bottom\": n_bottom, \"n_top\": n_top, \"h_min\": h_min,\n            \"pts\": pts, \"R\": R, \"h0\": h0}\n",steps:function(r){return r.pts.length+' 点';},draw:function(r){return drawCoaster(r);},
+  sliders:[
+  {id:'h0',label:'出发高差 h₀ = ',fmt:function(v){return v+' m'},min:5,max:40,step:0.5,val:22},
+  {id:'R',label:'回环半径 R = ',fmt:function(v){return v+' m'},min:3,max:15,step:0.5,val:8}],
+  call:function(v){return 'simulate(h0='+(+v.h0).toFixed(1)+', R='+(+v.R).toFixed(1)+')';}}
+};
+var cur='skydive',ta=document.getElementById('pysrc'),pyodide=null,loading=false;
+var statusEl=document.getElementById('status'),runBtn=document.getElementById('run');
+function setStatus(s,hot){statusEl.innerHTML=hot?'<b style="color:var(--acc)">'+s+'</b>':s;}
+function srcKey(){return 'upcLab.src.'+cur;}
+function buildSliders(){
+  var box=document.getElementById('sliders');box.innerHTML='';
+  MODELS[cur].sliders.forEach(function(s){
+    var lab=document.createElement('label');
+    lab.style.cssText='font-size:12.5px;color:var(--mut)';
+    lab.innerHTML=s.label+'<b style="color:var(--ink);font-family:var(--mono)"></b>'+
+      '<input type="range" min="'+s.min+'" max="'+s.max+'" step="'+s.step+'" value="'+s.val+'" style="display:block;width:180px;margin-top:4px;accent-color:#9C3F2E">';
+    var b=lab.querySelector('b'),inp=lab.querySelector('input');
+    function upd(){b.textContent=s.fmt(inp.value);}
+    inp.addEventListener('input',function(){upd();if(pyodide)runAll();});
+    upd();box.appendChild(lab);
+  });
+}
+function getVals(){var v={},inputs=document.getElementById('sliders').querySelectorAll('input');
+  MODELS[cur].sliders.forEach(function(s,i){v[s.id]=inputs[i].value;});return v;}
+function setModel(k){
+  cur=k;
+  try{ta.value=localStorage.getItem(srcKey())||MODELS[cur].py;}catch(e){ta.value=MODELS[cur].py;}
+  buildSliders();
+  document.getElementById('resultbox').innerHTML='';
+  setStatus('等待启动：点击「运行」后开始加载 Pyodide。');
+}
+document.getElementById('mselect').addEventListener('change',function(){setModel(this.value);});
+ta.addEventListener('input',function(){try{localStorage.setItem(srcKey(),ta.value)}catch(e){}});
+setModel('skydive');
 var statusEl=document.getElementById('status'),runBtn=document.getElementById('run');
 function setStatus(s,hot){statusEl.innerHTML=hot?'<b style="color:var(--acc)">'+s+'</b>':s;}
 async function ensurePy(){
@@ -195,17 +260,17 @@ runBtn.addEventListener('click',async function(){
 async function runAll(){
   var t0=performance.now();
   setStatus('计算中…',true);
-  var code=ta.value+`\n__res = simulate(h0=${(+h0.value*1000).toFixed(1)}, m=${(+m.value).toFixed(0)}, cd_a=${(+ca.value).toFixed(2)})\nimport json\njson.dumps(__res)`;
+  var code=ta.value+'\n__res = '+MODELS[cur].call(getVals())+'\nimport json\njson.dumps(__res)';
   try{
     var resJson=await pyodide.runPythonAsync(code);
     var r=JSON.parse(resJson);
-    draw(r);
-    setStatus('完成 · '+(performance.now()-t0).toFixed(0)+' ms · '+r.t.length+' 步');
+    document.getElementById('resultbox').innerHTML=MODELS[cur].draw(r);
+    setStatus('完成 · '+(performance.now()-t0).toFixed(0)+' ms · '+MODELS[cur].steps(r));
   }catch(e){
     setStatus('运行出错：'+String(e).slice(0,300));
   }
 }
-function draw(r){
+function drawSky(r){
   var W=900,H=300,pad=44;
   var n=r.t.length;
   function px(i){return pad+(W-2*pad)*i/(n-1);}
@@ -232,6 +297,55 @@ function draw(r){
     '<div><b style="font-family:var(--serif);font-size:22px;color:var(--ink)">'+r.v_terminal_ground.toFixed(0)+' m/s</b><span style="font-size:11.5px;color:var(--dim)">　海平面终末速度（解析 √(2mg/ρ₀C)）</span></div>'+
     '<div><b style="font-family:var(--serif);font-size:22px;color:var(--ink)">'+r.t_ground.toFixed(0)+' s</b><span style="font-size:11.5px;color:var(--dim)">　落地总时长</span></div></div>'+s+
     '<div class="note" style="margin-top:8px;font-size:12px;color:var(--dim)">试试：把 h₀ 拉到 60 km 看最大速度出现在哪个高度；把 Cd·A 调到 3 模拟开伞后的急剧减速。完整版判据（15 g 反冲、驻点温度双档）见 2023-A 题目解读。</div>';
+}
+function drawGolf(r){
+  var W=900,H=320,pad=46;
+  var tx=r.tree[0],ty=r.tree[1],tr=r.tree[2];
+  var xmax=Math.max(r.x_end,tx+30,60),ymin=-3,ymax=Math.max(12,r.ys.reduce(function(a,b){return Math.max(a,b);},0)+4);
+  function px(x){return pad+(W-2*pad)*x/xmax;}
+  function py(y){return (H-pad)-(H-2*pad)*(y-ymin)/(ymax-ymin);}
+  function path(xs,ys){var d='';for(var i=0;i<xs.length;i+=3){d+=(i?'L':'M')+px(xs[i]).toFixed(1)+' '+py(ys[i]).toFixed(1)+' ';}return d;}
+  var s='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">';
+  s+='<text x="'+pad+'" y="18" font-size="12" fill="#6E6557">俯视图：发球点在左缘 · 朱线=侧旋轨迹 · 蓝虚线=无旋对照 · 灰圈=树</text>';
+  s+='<line x1="'+pad+'" y1="'+(H-pad)+'" x2="'+(W-pad)+'" y2="'+(H-pad)+'" stroke="#D9D0BD"/>';
+  s+='<path d="'+path(r.xs0,r.ys0)+'" fill="none" stroke="#3A5A8C" stroke-width="1.6" stroke-dasharray="5 4"/>';
+  s+='<path d="'+path(r.xs,r.ys)+'" fill="none" stroke="#9C3F2E" stroke-width="2"/>';
+  s+='<circle cx="'+px(tx).toFixed(1)+'" cy="'+py(ty).toFixed(1)+'" r="'+(tr/xmax*(W-2*pad)).toFixed(1)+'" fill="#D9D0BD" fill-opacity=".8" stroke="#6E6557"/>';
+  s+='<text x="'+px(tx).toFixed(1)+'" y="'+(py(ty)-14).toFixed(1)+'" font-size="11" fill="#6E6557" text-anchor="middle">树</text>';
+  s+='<circle cx="'+px(r.x_end).toFixed(1)+'" cy="'+py(r.y_end).toFixed(1)+'" r="4" fill="#9C3F2E"/>';
+  s+='<text x="'+(W-pad)+'" y="'+(H-pad+16)+'" font-size="11" fill="#9A9080" text-anchor="end">前向 x / m（max '+xmax.toFixed(0)+'）</text>';
+  s+='</svg>';
+  var ok=r.miss!==null&&r.miss>0;
+  return '<div style="display:flex;gap:26px;flex-wrap:wrap;margin-bottom:10px">'+
+    '<div><b style="font-family:var(--serif);font-size:20px;color:'+(ok?'var(--acc)':'#B0543B')+'">'+r.verdict+'</b></div>'+
+    '<div><b style="font-family:var(--serif);font-size:20px;color:var(--ink)">'+r.x_end.toFixed(0)+' m</b><span style="font-size:11.5px;color:var(--dim)">　滚停前总前进距离</span></div></div>'+s+
+    '<div class="note" style="margin-top:8px;font-size:12px;color:var(--dim)">试试：S=0 看无旋对照（直线撞树）；加大 S 观察“拐弯半径随速度衰减变化”；v0 拉满看能不能一杆绕树到底。演示口径：CL≈1.1·S、Cd=0.25——完整题面（多棵树、风）见 2015-B 题目解读。</div>';
+}
+function drawCoaster(r){
+  var W=900,H=340,pad=46;
+  var xmax=60,ymax=Math.max(r.h0,2*r.R)+6;
+  function px(x){return pad+(W-2*pad)*x/xmax;}
+  function py(y){return (H-pad)-(H-2*pad)*y/ymax;}
+  var d='';for(var i=0;i<r.pts.length;i++){d+=(i?'L':'M')+px(r.pts[i][0]).toFixed(1)+' '+py(r.pts[i][1]).toFixed(1)+' ';}
+  var topX=50,topY=2*r.R;
+  var s='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">';
+  s+='<text x="'+pad+'" y="18" font-size="12" fill="#6E6557">侧视图：高台 → 谷底 → 竖直圆环（半径 R）· 环顶标 ★ 为脱离风险点</text>';
+  s+='<line x1="'+pad+'" y1="'+(H-pad)+'" x2="'+(W-pad)+'" y2="'+(H-pad)+'" stroke="#D9D0BD"/>';
+  s+='<path d="'+d+'" fill="none" stroke="#9C3F2E" stroke-width="2.2"/>';
+  s+='<circle cx="'+px(topX).toFixed(1)+'" cy="'+py(topY).toFixed(1)+'" r="5" fill="#3A5A8C"/>';
+  s+='<text x="'+(px(topX)+9).toFixed(1)+'" y="'+(py(topY)+4).toFixed(1)+'" font-size="11" fill="#3A5A8C">环顶 ★</text>';
+  s+='<text x="'+(W-pad)+'" y="'+(H-pad+16)+'" font-size="11" fill="#9A9080" text-anchor="end">侧视 x / m</text>';
+  s+='</svg>';
+  var banner=r.done
+    ?'<div style="display:flex;gap:26px;flex-wrap:wrap;margin-bottom:10px">'+
+     '<div><b style="font-family:var(--serif);font-size:20px;color:var(--acc)">✓ 能完成回环</b></div>'+
+     '<div><b style="font-family:var(--serif);font-size:20px;color:var(--ink)">'+r.v_top.toFixed(1)+' m/s</b><span style="font-size:11.5px;color:var(--dim)">　环顶速度（≥√(gR) 才压得住轨）</span></div>'+
+     '<div><b style="font-family:var(--serif);font-size:20px;color:var(--ink)">'+r.n_top.toFixed(2)+' g</b><span style="font-size:11.5px;color:var(--dim)">　环顶过载（≥0 压轨，越小越“贴背”）</span></div>'+
+     '<div><b style="font-family:var(--serif);font-size:20px;color:var(--ink)">'+r.n_bottom.toFixed(1)+' g</b><span style="font-size:11.5px;color:var(--dim)">　环底过载（人体耐受 ≈ 5–6 g）</span></div></div>'
+    :'<div style="margin-bottom:10px"><b style="font-family:var(--serif);font-size:20px;color:#B0543B">✗ 环顶脱离：v²='+ (2*9.81*(r.h0-2*r.R)).toFixed(1)+' &lt; gR='+ (9.81*r.R).toFixed(1)+'</b>'+
+     '<span style="font-size:12px;color:var(--dim)">　理论最小高差 h₀ ≥ 2.5R = '+r.h_min.toFixed(1)+' m</span></div>';
+  return banner+s+
+    '<div class="note" style="margin-top:8px;font-size:12px;color:var(--dim)">试试：h₀=2.5R 的临界情形（环顶过载恰好 0）；R 拉到 12 看环底过载会不会超出人体耐受。演示口径：无摩擦、刚性轨——完整题面（摩擦/风阻/多环）见 2019-B 题目解读。</div>';
 }
 
 </script>

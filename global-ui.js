@@ -8,7 +8,14 @@ function openPanel(side){
 function ensureData(cb){
   if(window.UPC_UI_DATA)return cb();
   var s=document.createElement("script");s.src=R+"global-ui-data.js";
-  s.onload=cb;s.onerror=function(){alert("全局导航数据加载失败");};
+  s.onload=cb;
+  s.onerror=function(){
+    var d=document.createElement("div");d.id="uig-toast";
+    d.style.cssText="position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:99;background:#9C3F2E;color:#FDFCF8;padding:10px 16px;border-radius:4px;font-size:13px;box-shadow:0 6px 20px rgba(0,0,0,.25)";
+    d.textContent="导航数据加载失败——请检查网络后刷新重试";
+    document.body.appendChild(d);
+    setTimeout(function(){d.remove()},6000);
+  };
   document.head.appendChild(s);
 }
 function buildPanel(side){

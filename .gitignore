@@ -8,6 +8,11 @@
 !/og-image.png
 !/global-ui.js
 !/global-ui-data.js
+!/copyright.html
+!/manifest.webmanifest
+!/sw.js
+!/icon.svg
+!/upc-offline-kit.zip
 !/.agents
 !/plugins
 !/README.md

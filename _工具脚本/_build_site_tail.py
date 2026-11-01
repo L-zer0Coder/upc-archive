@@ -30,11 +30,12 @@ def render_index(ctx):
 <meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
 <script>window.UPC_UI_ROOT="";</script><script src="global-ui.js" defer></script>
 <meta name="theme-color" content="#9C3F2E">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
 <style>
 :root{
- --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#786E60;
+ --paper:#F7F4ED;--sheet:#FDFCF8;--ink:#2A251E;--mut:#6E6557;--dim:#6B6254;
  --line:#E7E0D1;--line2:#D9D0BD;
  --acc:#9C3F2E;--acc-d:#7E3225;--acc-soft:rgba(156,63,46,.07);
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
@@ -167,9 +168,10 @@ a:hover{color:var(--acc-d)}
 
 /* ---- 板块 ---- */
 main{padding-bottom:40px}
-section{margin:62px 0 0;scroll-margin-top:66px}
-.sec-h{border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:22px}
-h2.st{font-family:var(--serif);font-size:22px;font-weight:700;display:flex;align-items:baseline;gap:12px;margin:0}
+section{margin:72px 0 0;scroll-margin-top:66px}
+.sec-h{border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:26px}
+h2.st{font-family:var(--serif);font-size:26px;font-weight:700;display:flex;align-items:baseline;gap:12px;margin:0}
+h2.st .no{font-size:15px;letter-spacing:.14em}
 h2.st .no{font-family:var(--mono);font-size:11.5px;color:var(--acc);letter-spacing:.08em;font-weight:400}
 .lead{color:var(--mut);font-size:13.5px;margin:6px 0 0;max-width:860px}
 .svgbox{background:var(--sheet);border:1px solid var(--line);border-radius:4px;padding:18px;margin:14px 0}
@@ -459,6 +461,10 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
         <p>第 17 届已于 2026 年 11 月 9 日 09:00（北京时间）截止；第 18 届信息待官网公布。</p>
         <p class="race-note">赛后复盘最有效的动作：把本年 A/B 两题与 <a href="#years">历届同域金牌论文</a> 并排放，逐条对「判据—方程—数值—检验」。</p>
       </div>
+      <div class="race-cal">
+        <a href="javascript:void(0)" id="calToggle">比赛实际开始时间与官方时钟不符？校准 →</a>
+        <span id="calBody" hidden>　实际开始：<input type="datetime-local" id="calIn"><button class="btn sm" id="calSave" type="button">保存校准</button><button class="btn sm" id="calClear" type="button">还原官方时间</button><span class="note" id="calNote"></span></span>
+      </div>
       <noscript><p class="race-note">2026 年 11 月 7 日 09:00 开赛，11 月 9 日 09:00 截止（北京时间）。</p></noscript>
     </div>
   </div>
@@ -469,7 +475,10 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
 <section id="guide">
   <div class="sec-h">
     <h2 class="st"><span class="no">01</span>使用指南</h2>
-    <p class="lead">这个站里有什么、从哪里开始、每个按钮是什么意思——都在这一节。</p>
+    <p class="lead">这个站里有什么、从哪里开始、每个按钮是什么意思——都在这一节。选一个身份，首页只突出与你相关的板块（数据只存本浏览器）。</p>
+    <div class="segs" id="rolepick">
+      <a data-r="" class="on">全部</a><a data-r="newbie">新手</a><a data-r="prep">备赛</a><a data-r="race">赛时</a><a data-r="lookup">查阅</a>
+    </div>
   </div>
   <div class="paths">
     <div class="path"><span class="pn">一</span><div><b>备赛，想写出一篇金牌论文</b>
@@ -494,7 +503,9 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
   <div class="sec-h">
     <h2 class="st"><span class="no">02</span>我的打卡</h2>
     <p class="lead">点格子 = 手动打卡「已吃透」；打开论文的赏析或精读页停留 3 秒，会自动记为「浏览过」。数据只存在本浏览器，换设备用导出 / 导入搬运。</p>
+    <button class="btn sm" id="ckfold" type="button">收起</button>
   </div>
+  <div id="ckbody">
   <div class="ck-summary">
     <div class="ck-big"><b id="ckpct">0%</b><span>论文打卡进度</span></div>
     <div class="ck-bars">
@@ -509,6 +520,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
     <button class="btn sm" id="ckimport" type="button">导入记录</button>
     <input type="file" id="ckfile" accept=".json,application/json" hidden>
     <button class="btn sm" id="ckreset" type="button">清空</button>
+    <span class="note" id="ckmsg" style="margin-left:10px"></span>
   </div>
   <div class="ck-grid" id="ckgrid"></div>
   <div class="legend">
@@ -518,6 +530,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
     <span class="lg">格子按队伍号标号，悬停看论文；每行末尾的虚线格（如 25A）= 该年 A / B 题深度解读</span>
   </div>
   <div class="ck-recent"><div class="tt">最近动态</div><ul id="ckrecent"></ul></div>
+  </div>
 </section>
 
 <section id="timeline">
@@ -565,6 +578,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
     <th>标题页</th><th>年·题</th><th>题目</th><th>队伍</th><th>论文标题（PDF 首行）</th><th>页</th><th>直达</th>
   </tr></thead><tbody></tbody></table>
   </div>
+  <div style="text-align:center;margin-top:12px"><button class="btn sm" id="pmore" type="button">显示全部 74 篇</button></div>
 </section>
 
 <section id="templates">
@@ -582,7 +596,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
 <section id="rules">
   <div class="sec-h">
     <h2 class="st"><span class="no">08</span>获奖密码 · 贯穿 16 年的评审不变量</h2>
-    <p class="lead">从 74 篇金牌论文中反复验证的七条共性，逐题详解见题目解读，逐篇实证见论文赏析。</p>
+    <p class="lead">从 74 篇金牌论文反复验证的七条共性；每条标注「n/73 篇赏析正文显式提及」（构建期扫描口径，关键词宁漏勿错）。逐题详解见题目解读，逐篇实证见论文赏析。</p>
   </div>
   <div class="rules-grid">__RULES__</div>
   <p class="note" style="margin-top:14px">一句话：<span class="em">UPC 评的不是答案，是"判据—方程—数值—检验"这条链的完整与诚实。</span></p>
@@ -598,7 +612,7 @@ footer{margin-top:80px;border-top:1px solid var(--line);text-align:center;color:
 
 </main>
 <button id="top" aria-label="回到顶部">↑</button>
-<footer>UPC 2010–2025 全档案库 · 抓取与多智能体整理于 2026-10-24 · 数据源 uphysicsc.com · 可部署于 GitHub Pages</footer>
+<footer>UPC 2010–2025 全档案库 · 抓取与多智能体整理于 2026-10-24 · 数据源 uphysicsc.com<br><a href="copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错</a> · <a href="upc-offline-kit.zip" download>下载赛时离线包</a></footer>
 <script>
 const DATA = __DATA__;
 const D = DATA.domains;
@@ -838,7 +852,7 @@ document.getElementById('ckfile').addEventListener('change',ev=>{
       });});
     if(Array.isArray(inc.log))s.log=inc.log.concat(s.log||[]).slice(0,80);
     ckSave(s);ckRefresh();ev.target.value='';
-  }catch(err){alert('导入失败：不是有效的打卡记录 JSON');}};
+  }catch(err){var cm=document.getElementById('ckmsg');if(cm)cm.textContent='导入失败：不是有效的打卡记录 JSON';}};
   r.readAsText(f);
 });
 document.getElementById('ckreset').addEventListener('click',()=>{
@@ -855,16 +869,21 @@ all.sort((a,b)=>a.y-b.y||a.prob.localeCompare(b.prob)||(+a.team)-(+b.team));
 const fy=document.getElementById('fy');
 DATA.years.forEach(y=>{const o=document.createElement('option');o.value=y.year;o.textContent=y.year+' 年';fy.appendChild(o);});
 let probF='';
-document.querySelectorAll('#fp a').forEach(a=>a.addEventListener('click',()=>{
-  document.querySelectorAll('#fp a').forEach(x=>x.classList.remove('on'));
-  a.classList.add('on');probF=a.dataset.v;renderPapers();
-}));
+/* 筛选状态进 URL：#papers?y=2022&p=A&q=… —— 分享链接给队友时对方看到同一筛选项 */
+(function(){var mh=location.hash.match(/^#papers\?(.*)/);if(!mh)return;
+  mh[1].split('&').forEach(function(kv){var ab=kv.split('=');
+    if(ab[0]==='y')fy.value=ab[1];
+    else if(ab[0]==='p'){probF=ab[1];document.querySelectorAll('#fp a').forEach(function(x){x.classList.toggle('on',x.dataset.v===probF);});}
+    else if(ab[0]==='q')document.getElementById('q2').value=decodeURIComponent(ab[1]||'');
+  });})();
+let PFULL=false;
 function renderPapers(){
   const s=document.getElementById('q2').value.trim().toLowerCase();
   const yv=fy.value;
   const list=all.filter(p=>(!yv||String(p.y)===yv)&&(!probF||p.prob===probF)&&
     (!s||`${p.y} ${p.prob} ${p.team} ${p.cn} ${p.title} ${D[p.dom].name}`.toLowerCase().includes(s)));
-  tbody.innerHTML=list.map(p=>{
+  const shown=PFULL?list:list.slice(0,10);
+  tbody.innerHTML=shown.map(p=>{
     const k=pkeyOf(p.file);
     const e=k?ckEntry(k,'paper'):{};
     const mark=e.d?'<b style="color:var(--acc)">✓</b> ':(e.v?'<span style="color:var(--dim)">·</span> ':'');
@@ -875,11 +894,25 @@ function renderPapers(){
     <td>#${p.team}</td><td><span class="ttl" title="${p.title.replace(/"/g,'&quot;')}">${p.title}</span></td><td class="num">${p.pages}</td>
     <td><div class="btns"><a class="btn sm solid" href="${p.ana}">赏析</a>${p.jd?`<a class="tlink" href="${p.jd}">精读</a>`:`<span class="tlink off">精读</span>`}<a class="tlink" href="${p.pdf}">PDF</a><a class="tlink" href="${p.txt}">文本</a><a class="tlink" href="${p.pngf}">图页</a></div></td>
   </tr>`;}).join('');
-  document.getElementById('cnt').textContent=`${list.length} / ${all.length} 篇`;
+  document.getElementById('cnt').textContent=`${list.length} / ${all.length} 篇`+(!PFULL&&list.length>10?`（先展示 10 篇）`:'');
+  try{var h='#papers',ps=[];
+    if(yv)ps.push('y='+yv);if(probF)ps.push('p='+probF);if(s)ps.push('q='+encodeURIComponent(s));
+    if(ps.length)h+='?'+ps.join('&');
+    history.replaceState(null,'',h);}catch(e){}
 }
+document.querySelectorAll('#fp a').forEach(a=>a.addEventListener('click',()=>{
+  document.querySelectorAll('#fp a').forEach(x=>x.classList.remove('on'));
+  a.classList.add('on');probF=a.dataset.v;renderPapers();
+}));
 renderPapers();
 document.getElementById('q2').addEventListener('input',renderPapers);
 fy.addEventListener('change',renderPapers);
+function setFull(f){PFULL=f;
+  try{localStorage.setItem('upcPapersFull',f?'1':'0')}catch(e){}
+  document.getElementById('pmore').textContent=f?'收起，只看前 10 篇':'显示全部 '+all.length+' 篇';
+  renderPapers();}
+document.getElementById('pmore').addEventListener('click',function(){setFull(!PFULL);});
+setFull((function(){try{return localStorage.getItem('upcPapersFull')==='1'}catch(e){return false}})());
 
 /* ---------- 全站搜索（标题 + 正文全文，索引按需加载） ---------- */
 const q=document.getElementById('q'),res=document.getElementById('sres');
@@ -1008,7 +1041,9 @@ addEventListener('keydown',e=>{if(e.key==='Escape'&&mdl.classList.contains('on')
 })();
 /* ---------- 第 17 届赛事时钟：赛前倒计时 / 赛中计时 + 阶段定位 ---------- */
 (function(){
-  var S=__EV_START__,E=__EV_END__,P=__PHASES__;
+  var S0=__EV_START__,E0=__EV_END__,DUR=E0-S0,P=__PHASES__;
+  function raceT0(){try{var v=parseInt(localStorage.getItem('upcRaceT0')||"",10);return v>0?v:0}catch(e){return 0}}
+  var S=raceT0()||S0,E=S+DUR;
   var root=document.getElementById('race');if(!root)return;
   var pill=document.getElementById('rpill'),title=document.getElementById('rtitle');
   var rd=document.getElementById('rd'),rh=document.getElementById('rh'),
@@ -1053,8 +1088,66 @@ addEventListener('keydown',e=>{if(e.key==='Escape'&&mdl.classList.contains('on')
     if(document.hidden){clearInterval(timer);timer=0;}
     else{tick();if(!timer)timer=setInterval(tick,1000);}
   });
+  /* 时钟校准（赛时自救）：官方推迟/提前开赛时，本地改实际开始时间，截止随之平移 */
+  var calT=document.getElementById('calToggle');
+  if(calT){
+    var calBody=document.getElementById('calBody'),calIn=document.getElementById('calIn'),
+        calNote=document.getElementById('calNote');
+    function fmt(ms){var d=new Date(ms);function p2(n){return n<10?'0'+n:''+n;}
+      return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())+'T'+p2(d.getHours())+':'+p2(d.getMinutes());}
+    function refreshNote(){var o=raceT0();
+      calNote.textContent=o?('已校准：实际开始 '+fmt(o)+'（按本机时区，截止随之平移）')
+                            :'当前使用官方时间 2026-11-07 09:00（北京时间）';}
+    calT.addEventListener('click',function(){calBody.hidden=!calBody.hidden;
+      if(!calBody.hidden){var o=raceT0();if(o)calIn.value=fmt(o);refreshNote();}});
+    document.getElementById('calSave').addEventListener('click',function(){
+      if(!calIn.value){calNote.textContent='先选择实际开始时间';return;}
+      var ms=new Date(calIn.value).getTime();
+      if(!(ms>0)){calNote.textContent='时间格式无效';return;}
+      try{localStorage.setItem('upcRaceT0',String(ms))}catch(e){}
+      S=ms;E=S+DUR;last='';tick();refreshNote();});
+    document.getElementById('calClear').addEventListener('click',function(){
+      try{localStorage.removeItem('upcRaceT0')}catch(e){}
+      S=S0;E=S+DUR;last='';tick();refreshNote();});
+    if(raceT0()){calBody.hidden=false;refreshNote();}
+  }
 })();
 ckRefresh();
+/* ---------- 首页减负：身份视角 + 打卡面板折叠（选择与状态都只存本浏览器） ---------- */
+(function(){
+  var pick=document.getElementById('rolepick');
+  var ALL=['guide','progress','timeline','years','models','papers','templates','rules','library'];
+  var HIDES={newbie:['progress','timeline','templates','rules'],prep:['timeline','library'],
+             race:['progress','timeline','models','templates','library'],lookup:[]};
+  if(pick){
+    function applyRole(r){
+      var hide=HIDES[r]||[];
+      ALL.forEach(function(id){var s=document.getElementById(id);if(s)s.hidden=hide.indexOf(id)>=0;});
+      [].forEach.call(pick.querySelectorAll('a'),function(a){a.classList.toggle('on',a.dataset.r===r);});
+      try{localStorage.setItem('upcRole',r)}catch(e){}
+    }
+    var saved='';try{saved=localStorage.getItem('upcRole')||''}catch(e){}
+    if(saved)applyRole(saved);
+    pick.addEventListener('click',function(ev){
+      var a=ev.target.closest('a');if(!a)return;applyRole(a.dataset.r);});
+  }
+  var ckb=document.getElementById('ckbody'),ckbBtn=document.getElementById('ckfold');
+  if(ckb&&ckbBtn){
+    function setFold(f){ckb.hidden=f;ckbBtn.textContent=f?'展开面板':'收起';
+      try{localStorage.setItem('upcCkFold',f?'1':'0')}catch(e){}}
+    var saved2=null;try{saved2=localStorage.getItem('upcCkFold')}catch(e){}
+    var fresh=true;try{fresh=!localStorage.getItem('upcProgress.v1')}catch(e){}
+    setFold(saved2==null?fresh:saved2==='1');
+    ckbBtn.addEventListener('click',function(){setFold(ckb.hidden);});
+  }
+  /* 锚点跳到被折叠板块时自动恢复显示 */
+  document.addEventListener('click',function(ev){
+    var a=ev.target.closest('a[href^="#"]');if(!a)return;
+    var s=document.getElementById(a.getAttribute('href').slice(1));
+    if(s&&s.hidden)s.hidden=false;
+  });
+})();
+if('serviceWorker' in navigator){try{navigator.serviceWorker.register('sw.js');}catch(e){}}
 </script>
 </body>
 </html>"""
@@ -1094,6 +1187,141 @@ def _repo_base(root):
 def write_deploy_helpers(root, site):
     # .nojekyll（关闭 Jekyll：_ 开头目录也能被服务、部署更快）
     open(os.path.join(root, ".nojekyll"), "w").close()
+    # PWA：manifest + 图标（添加到主屏用）
+    with open(os.path.join(root, "manifest.webmanifest"), "w", encoding="utf-8") as f:
+        f.write(json.dumps({
+            "name": "UPC 全档案库（国际大学生物理竞赛 2010–2025）",
+            "short_name": "UPC 档案库",
+            "start_url": "./index.html", "scope": "./",
+            "display": "standalone", "background_color": "#F7F4ED",
+            "theme_color": "#9C3F2E",
+            "description": "16 届 32 题与 74 篇金牌论文全档案：解读/赏析/精读/工具页。",
+            "icons": [{"src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}],
+        }, ensure_ascii=False))
+    with open(os.path.join(root, "icon.svg"), "w", encoding="utf-8") as f:
+        f.write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">'
+                '<rect width="64" height="64" rx="12" fill="#9C3F2E"/>'
+                '<text x="32" y="46" font-family="Georgia,serif" font-size="38" font-weight="700" '
+                'fill="#FDFCF8" text-anchor="middle">U</text></svg>')
+    # Service Worker：导航请求 network-first（在线最新 / 离线兜底），静态资源 cache-first 后台更新
+    sw = (
+        "const V='upc-offline-v1';\n"
+        "self.addEventListener('install',function(e){\n"
+        "  var B=self.registration.scope;\n"
+        "  var pre=['index.html','12_赛时工具/warroom.html','12_赛时工具/manual.html',\n"
+        "    '12_赛时工具/prompts.html','12_赛时工具/flashcards.html','12_赛时工具/selector.html',\n"
+        "    '12_赛时工具/tutorial.html','12_赛时工具/lab.html','12_赛时工具/forge.html','12_赛时工具/xray.html',\n"
+        "    'global-ui.js','global-ui-data.js','manifest.webmanifest','icon.svg',\n"
+        "    '09_可视化总览/docs/02_题目汇总/比赛规则_ContestRules.html'].map(function(p){return new URL(p,B).href;});\n"
+        "  e.waitUntil(caches.open(V).then(function(c){\n"
+        "    return Promise.allSettled(pre.map(function(u){return c.add(u);}));\n"
+        "  }).then(function(){return self.skipWaiting();}));\n"
+        "});\n"
+        "self.addEventListener('activate',function(e){\n"
+        "  e.waitUntil(caches.keys().then(function(ks){\n"
+        "    return Promise.all(ks.filter(function(k){return k!==V;}).map(function(k){return caches.delete(k);}));\n"
+        "  }).then(function(){return self.clients.claim();}));\n"
+        "});\n"
+        "self.addEventListener('fetch',function(e){\n"
+        "  var u=new URL(e.request.url);\n"
+        "  if(e.request.method!=='GET'||u.origin!==location.origin)return;\n"
+        "  if(u.pathname.endsWith('/sw.js'))return;\n"
+        "  var isNav=e.request.mode==='navigate';\n"
+        "  e.respondWith((async function(){\n"
+        "    var c=await caches.open(V);\n"
+        "    var hit=await c.match(e.request,{ignoreSearch:true});\n"
+        "    if(isNav){\n"
+        "      try{var r=await fetch(e.request);if(r&&r.ok)c.put(e.request,r.clone());return r;}\n"
+        "      catch(_){return hit||Response.error();}\n"
+        "    }\n"
+        "    if(hit){fetch(e.request).then(function(r){if(r&&r.ok)c.put(e.request,r.clone());}).catch(function(){});\n"
+        "      return hit;}\n"
+        "    try{var r2=await fetch(e.request);if(r2&&r2.ok)c.put(e.request,r2.clone());return r2;}\n"
+        "    catch(_){return Response.error();}\n"
+        "  })());\n"
+        "});\n")
+    with open(os.path.join(root, "sw.js"), "w", encoding="utf-8", newline="\n") as f:
+        f.write(sw)
+    # 版权与致谢页：收录范围 / 版权与下架 / 生成与校验方式 / 反馈 / 时效承诺 / 离线包
+    base = _repo_base(root)
+    cp = []
+    cp.append('<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">')
+    cp.append('<meta name="viewport" content="width=device-width,initial-scale=1">')
+    cp.append('<title>版权与致谢 · 内容生成与校验方式 · UPC 全档案库</title>')
+    cp.append('<meta name="description" content="UPC 档案库的收录范围、版权与下架通道、AI 内容生成与校验方式披露、反馈渠道与新一届入库时效承诺。">')
+    cp.append('<style>body{margin:0;background:#F7F4ED;color:#2A251E;line-height:2;'
+              'font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}'
+              '.w{max-width:780px;margin:0 auto;padding:46px 22px 60px}'
+              'h1{font-family:Georgia,"Songti SC",serif;font-size:26px;margin:8px 0 4px}'
+              '.sub{color:#6B6254;font-size:13px;margin-bottom:26px}'
+              'h2{font-family:Georgia,"Songti SC",serif;font-size:18px;border-bottom:1px solid #D9D0BD;padding-bottom:6px;margin:30px 0 10px}'
+              'table{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0}'
+              'th,td{border:1px solid #D9D0BD;padding:7px 10px;text-align:left;vertical-align:top}'
+              'th{background:#FDFCF8}'
+              'a{color:#9C3F2E}.note{background:#FDFCF8;border:1px solid #D9D0BD;border-left:3px solid #9C3F2E;'
+              'padding:10px 14px;border-radius:3px;font-size:13px;margin:10px 0}</style></head><body><div class="w">')
+    cp.append('<h1>版权与致谢</h1><div class="sub">UPC 全档案库 · 2026-10-24 抓取建档 · 2026-10-31 官方口径核查</div>')
+    cp.append('<h2>一、收录范围与来源</h2>'
+              '<p>本库收录 2010–2025 年国际大学生物理竞赛（UPC，<a href="http://www.uphysicsc.com/" target="_blank" rel="noopener">uphysicsc.com</a>）'
+              '公开发布的题目、成绩公告与 74 篇金牌论文，全部于 2026-10-24 抓取自官网或由官网原件提取；'
+              '解读 / 赏析 / 精读为本库原创整理。官方口径（奖牌比例、报名费 $50/$70、2026 报名状态）于 2026-10-31 浏览器实抓官网核对，并接入每日官网变化监测。</p>')
+    cp.append('<h2>二、版权与下架</h2>'
+              '<p>论文著作权归原参赛队伍与 UPC 官方；题目与成绩公告版权归官方。本站仅作学习交流用途，'
+              '所有论文均保留官方原件并注明来源。若你是论文作者或权利人，希望调整收录方式或下架某篇内容，'
+              '请在 <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">GitHub Issues</a> 留言，'
+              '我们会在 72 小时内响应处理。</p>')
+    cp.append('<h2>三、内容生成与校验方式（如实披露）</h2>'
+              '<table><tr><th>内容层</th><th>怎么来的</th><th>校验到什么程度</th></tr>'
+              '<tr><td>原件层（PDF / 文本 / 页面图 / 官网页）</td><td>脚本抓取与提取</td><td>机械转换，无人工改写；构建期全量链接校验</td></tr>'
+              '<tr><td>题目解读 / 论文赏析 / 精读教程</td><td>AI 生成初稿，按库内体例规范成文</td><td>结构化规范约束 + 构建期校验；<b>未逐篇人工复核</b>——发现错误请提 issue，会记入巡检清单</td></tr>'
+              '<tr><td>官方口径数据</td><td>浏览器实抓官网</td><td>2026-10-31 人工逐页核查；接入每日自动监测</td></tr>'
+              '<tr><td>获奖密码计数（n/73）</td><td>构建期扫描 73 篇赏析正文</td><td>统计口径公开、可复算；关键词宁漏勿错</td></tr>'
+              '<tr><td>打卡 / 进度 / 工具数据</td><td>只存你的浏览器</td><td>不上传服务器，可导出导入</td></tr></table>')
+    cp.append('<h2>四、反馈与纠错</h2>'
+              '<p>任何事实错误、链接失效、解读存疑，都欢迎在 '
+              '<a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">GitHub Issues</a> 提出；'
+              '每一条都会记入维护清单并在巡检中处理。</p>')
+    cp.append('<h2>五、新一届入库时效承诺</h2>'
+              '<p>第 17 届（2026-11-07 开赛）出分后，按仓库内《新一届赛事入库 SOP》收新：'
+              '<b>目标在官方出分后 14 天内</b>完成新论文 / 成绩 / 题目解读入库并重建上线；赛程变化（如开赛时间调整）以官网为准，'
+              '本站首页时钟支持本地校准。</p>')
+    cp.append('<h2>六、赛时离线包</h2>'
+              '<div class="note">担心赛时网络？页脚可下载 <a href="upc-offline-kit.zip" download>upc-offline-kit.zip</a>'
+              '（核心工具页 + 比赛规则 + 前端依赖的压缩包），解压后双击 index.html 即可离线使用；'
+              '部署版的「添加到主屏」配合 Service Worker 也能在断网时打开最近访问过的页面。</div>')
+    cp.append('<p style="margin-top:26px"><a href="' + base + '">← 回到总览</a></p>')
+    cp.append('</div></body></html>')
+    with open(os.path.join(root, "copyright.html"), "w", encoding="utf-8", newline="\n") as f:
+        f.write("".join(cp))
+    # 赛时离线包：核心工具页 + 比赛规则文档页 + KaTeX 依赖（Pyodide 不含，体积太大）
+    import zipfile
+    zp = os.path.join(root, "upc-offline-kit.zip")
+    kit_files = ["index.html", "404.html", "global-ui.js", "global-ui-data.js",
+                 "manifest.webmanifest", "icon.svg"]
+    kit_files += ["12_赛时工具/" + n for n in sorted(os.listdir(os.path.join(root, "12_赛时工具")))
+                  if n.endswith(".html")]
+    rules_rel = "09_可视化总览/docs/02_题目汇总/比赛规则_ContestRules.html"
+    if os.path.exists(os.path.join(root, rules_rel)):
+        kit_files.append(rules_rel)
+    with zipfile.ZipFile(zp, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as z:
+        for relp in kit_files:
+            fp = os.path.join(root, relp)
+            if os.path.exists(fp):
+                z.write(fp, relp)
+        vd = os.path.join(site, "vendor")
+        if os.path.isdir(vd):
+            for dp, _dn, fns in os.walk(vd):
+                for fn in fns:
+                    full = os.path.join(dp, fn)
+                    z.write(full, os.path.relpath(full, root))
+        z.writestr("使用说明.txt",
+                   "UPC 档案库赛时离线包\n"
+                   "====================\n"
+                   "1. 解压到任意本地目录；\n"
+                   "2. 双击 index.html（总览）或 12_赛时工具/warroom.html（作战室）；\n"
+                   "3. 比赛规则在 09_可视化总览/docs/02_题目汇总/比赛规则_ContestRules.html；\n"
+                   "4. 公式渲染依赖包内 vendor/ 目录，请保持目录结构不要单独移动文件；\n"
+                   "5. 数值实验台（lab）需要联网加载 Pyodide，不在本离线包内。\n")
     # 旧地址兜底：早期分享出去的 /09_可视化总览/index.html 仍可进入（并保留 #锚点）
     with open(os.path.join(site, "index.html"), "w", encoding="utf-8") as f:
         f.write('<!DOCTYPE html><meta charset="utf-8"><title>UPC 全档案库</title>'
@@ -1132,6 +1360,11 @@ def write_deploy_helpers(root, site):
 !/og-image.png
 !/global-ui.js
 !/global-ui-data.js
+!/copyright.html
+!/manifest.webmanifest
+!/sw.js
+!/icon.svg
+!/upc-offline-kit.zip
 !/.agents
 !/plugins
 !/README.md
@@ -1155,7 +1388,7 @@ __pycache__/
 """
     with open(os.path.join(root, ".gitignore"), "w", encoding="utf-8", newline="\n") as f:
         f.write(gi)
-    print("deploy helpers written: .nojekyll / 404.html / legacy index / .gitignore")
+    print("deploy helpers written: .nojekyll / 404.html / legacy index / .gitignore / manifest+sw+icon / copyright / offline-kit")
 
 
 # ---------------- 大小写敏感 + git 感知的链接校验 ----------------

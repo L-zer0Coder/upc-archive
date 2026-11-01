@@ -10,6 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="48 小时作战室 · UPC 全档案库">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#9C3F2E">
 
 <style>
 :root{
@@ -19,6 +21,17 @@
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
  --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
  --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+/* 夜间模式：变量整组换肤；个别硬编码浅色在此一并压暗 */
+body.night{--paper:#26231E;--sheet:#2D2A24;--ink:#EAE4D8;--mut:#B7AE9E;--dim:#9C9382;
+ --line:#45403A;--line2:#565047;--acc:#E2907C;--acc-d:#F0B4A4;--acc-soft:rgba(226,144,124,.14)}
+body.night .topbar{background:rgba(38,35,30,.94)}
+body.night .tabs{background:rgba(38,35,30,.96)}
+body.night .btn{background:#37332C;border-color:#565047;color:var(--ink)}
+body.night .btn.solid{background:var(--acc);border-color:var(--acc);color:#26231E}
+body.night img{opacity:.88}
+#nightT{background:none;border:1px solid var(--line2);border-radius:3px;height:26px;min-width:30px;
+ cursor:pointer;color:var(--mut);font-size:13px;padding:0 6px}
+#nightT:hover{border-color:var(--acc);color:var(--acc)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.85}
@@ -72,6 +85,9 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
  .wrap{max-width:none;padding:0}
  .card{border:none;padding:0}
  .pane{display:block!important;page-break-inside:auto}
+ /* 终检清单专项打印：body.pcheck 时只打印 pane-check */
+ body.pcheck .topbar,body.pcheck .tabs,body.pcheck .pane,body.pcheck footer{display:none!important}
+ body.pcheck #pane-check{display:block!important}
 }
 </style>
 </head>
@@ -80,7 +96,18 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
   <a class="brand" href="../index.html"><span class="seal">U</span>UPC 全档案库</a>
   <span class="crumb">实战工具 · 平时开放</span>
   <span class="clock" id="clock" aria-label="第 17 届 UPC 赛程"></span>
+  <button id="nightT" type="button" title="夜间 / 日间模式" aria-label="切换夜间模式">🌙</button>
 </div></div>
+<script>(function(){
+  function set(n){document.body.classList.toggle('night',n);
+    var t=document.getElementById('nightT');if(t)t.textContent=n?'☀️':'🌙';
+    try{localStorage.setItem('upcNight',n?'1':'0')}catch(e){}}
+  var s=false;try{s=localStorage.getItem('upcNight')==='1'}catch(e){}
+  set(s);
+  document.getElementById('nightT').addEventListener('click',function(){
+    set(!document.body.classList.contains('night'));});
+  if('serviceWorker' in navigator){try{navigator.serviceWorker.register('../sw.js');}catch(e){}}
+})();</script>
 <div class="wrap">
 <h1 class="pt">48 小时作战室</h1>
 <p class="pt-lead">备赛、赛时都可用：句库/中译英/导图/终检现在就能练；开赛后把这一页钉在屏幕上，随手记思路（自动盖阶段戳）、对照手册推进。所有数据只存在本浏览器，可导出备份。</p>
@@ -97,6 +124,12 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
 
 <section class="pane on" id="pane-log">
   <div class="card" id="logclock" style="margin-bottom:14px"></div>
+  <div class="notebox" style="font-size:12.5px">
+    ⏱ 时钟校准（赛时自救）：官方推迟或提前开赛时，<a href="javascript:void(0)" id="wcalToggle">改用实际开始时间 →</a>
+    <span id="wcalBody" hidden>　实际开始：<input type="datetime-local" id="wcalIn" style="border:1px solid var(--line2);border-radius:3px;background:var(--paper);color:var(--ink)">
+    <button class="btn sm" id="wcalSave" type="button">保存</button><button class="btn sm" id="wcalClear" type="button">还原官方时间</button><span id="wcalNote" style="color:var(--dim)"></span></span>
+    <span id="wmsg" style="color:var(--acc);font-size:12px"></span>
+  </div>
   <div class="card">
     <textarea id="note" rows="3" style="width:100%;border:1px solid var(--line2);border-radius:3px;background:var(--paper);
       padding:10px 12px;font-size:14px;outline:none;resize:vertical" placeholder="随手记：判据、假设、算出的数、分工变化、踩的坑…（Ctrl+Enter 快速记一条）"></textarea>
@@ -248,6 +281,7 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
     <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
       <div><b style="font-family:var(--serif);font-size:26px;color:var(--acc)" id="ckpct">0%</b>
       <span style="font-size:12px;color:var(--dim)">总完成度</span></div>
+      <button class="btn sm" id="ckprint" type="button" style="margin-left:auto" title="打印本清单（自动隐藏页面其他部分）">🖨 打印清单</button>
       <div style="flex:1;min-width:220px;height:8px;background:#EFEADC;border-radius:4px;overflow:hidden">
         <i id="ckbar" style="display:block;height:100%;width:0;background:var(--acc);transition:width .3s"></i></div>
       <button class="btn" id="ckreset" type="button">重置勾选</button>
@@ -298,9 +332,11 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
 </section>
 
 </div>
-<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份</footer>
+<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份<br><a href="../copyright.html">版权与致谢</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错</a> · <a href="../upc-offline-kit.zip" download>赛时离线包</a></footer>
 <script>
-var EV_START=1794013200000,EV_END=1794186000000;
+var EV_START0=1794013200000,RACE_DUR=1794186000000-1794013200000;
+function raceT0(){try{var v=parseInt(localStorage.getItem('upcRaceT0')||"",10);return v>0?v:0}catch(e){return 0}}
+var EV_START=raceT0()||EV_START0,EV_END=EV_START+RACE_DUR;
 function p2(n){return n<10?'0'+n:''+n;}
 (function(){
   var el=document.getElementById('clock');
@@ -428,7 +464,7 @@ document.getElementById('logfile').addEventListener('change',function(ev){
       s.notes.sort(function(a,b){return a.ts-b.ts}).forEach(function(n){
         var k=n.ts+'|'+n.text;if(!seen[k]){seen[k]=1;out.push(n);}});
       s.notes=out;wSave(s);renderLog();ev.target.value='';
-    }catch(e){alert('导入失败：不是有效的作战室 JSON');}
+    }catch(e){var wm=document.getElementById('wmsg');if(wm)wm.textContent='导入失败：不是有效的作战室 JSON';}
   };
   r.readAsText(f);
 });
@@ -462,9 +498,34 @@ function tickLog(){
   }
 }
 tickLog();setInterval(tickLog,1000);
+/* 时钟校准（与首页同用 upcRaceT0；官方推迟/提前时本地改实际开始时间，截止随之平移） */
+(function(){
+  var tog=document.getElementById('wcalToggle');if(!tog)return;
+  var body=document.getElementById('wcalBody'),inp=document.getElementById('wcalIn'),
+      note=document.getElementById('wcalNote');
+  function fmt(ms){var d=new Date(ms);return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+
+    ('0'+d.getDate()).slice(-2)+'T'+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
+  function refresh(){var o=raceT0();
+    note.textContent=o?('已校准：实际开始 '+fmt(o)+'（按本机时区，截止随之平移）'):'当前使用官方时间 2026-11-07 09:00（北京时间）';}
+  tog.addEventListener('click',function(){body.hidden=!body.hidden;
+    if(!body.hidden){var o=raceT0();if(o)inp.value=fmt(o);refresh();}});
+  document.getElementById('wcalSave').addEventListener('click',function(){
+    if(!inp.value){note.textContent='先选择实际开始时间';return;}
+    var ms=new Date(inp.value).getTime();
+    if(!(ms>0)){note.textContent='时间格式无效';return;}
+    try{localStorage.setItem('upcRaceT0',String(ms))}catch(e){}
+    EV_START=ms;EV_END=EV_START+RACE_DUR;tickLog();refresh();});
+  document.getElementById('wcalClear').addEventListener('click',function(){
+    try{localStorage.removeItem('upcRaceT0')}catch(e){}
+    EV_START=EV_START0;EV_END=EV_START+RACE_DUR;tickLog();refresh();});
+  if(raceT0()){body.hidden=false;refresh();}
+})();
 
 /* ---------- 提交终检 ---------- */
 function ckKey(si,ii){return 'c'+si+'_'+ii;}
+document.getElementById('ckprint').addEventListener('click',function(){
+  document.body.classList.add('pcheck');window.print();});
+addEventListener('afterprint',function(){document.body.classList.remove('pcheck');});
 function renderCk(){
   var st=cLoad(),total=0,done=0,html='';
   CK.forEach(function(sec,si){

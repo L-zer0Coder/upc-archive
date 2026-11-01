@@ -10,6 +10,8 @@
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="物理模型闪卡 · UPC 全档案库">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#9C3F2E">
 <link rel="stylesheet" href="../09_可视化总览/vendor/katex/katex.min.css"><script defer src="../09_可视化总览/vendor/katex/katex.min.js"></script><script defer src="../09_可视化总览/vendor/katex/contrib/auto-render.min.js"></script>
 <style>
 :root{
@@ -19,6 +21,17 @@
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
  --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
  --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+/* 夜间模式：变量整组换肤；个别硬编码浅色在此一并压暗 */
+body.night{--paper:#26231E;--sheet:#2D2A24;--ink:#EAE4D8;--mut:#B7AE9E;--dim:#9C9382;
+ --line:#45403A;--line2:#565047;--acc:#E2907C;--acc-d:#F0B4A4;--acc-soft:rgba(226,144,124,.14)}
+body.night .topbar{background:rgba(38,35,30,.94)}
+body.night .tabs{background:rgba(38,35,30,.96)}
+body.night .btn{background:#37332C;border-color:#565047;color:var(--ink)}
+body.night .btn.solid{background:var(--acc);border-color:var(--acc);color:#26231E}
+body.night img{opacity:.88}
+#nightT{background:none;border:1px solid var(--line2);border-radius:3px;height:26px;min-width:30px;
+ cursor:pointer;color:var(--mut);font-size:13px;padding:0 6px}
+#nightT:hover{border-color:var(--acc);color:var(--acc)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.85}
@@ -72,6 +85,9 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
  .wrap{max-width:none;padding:0}
  .card{border:none;padding:0}
  .pane{display:block!important;page-break-inside:auto}
+ /* 终检清单专项打印：body.pcheck 时只打印 pane-check */
+ body.pcheck .topbar,body.pcheck .tabs,body.pcheck .pane,body.pcheck footer{display:none!important}
+ body.pcheck #pane-check{display:block!important}
 }
 </style>
 </head>
@@ -80,7 +96,18 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
   <a class="brand" href="../index.html"><span class="seal">U</span>UPC 全档案库</a>
   <span class="crumb">实战工具 · 平时开放</span>
   <span class="clock" id="clock" aria-label="第 17 届 UPC 赛程"></span>
+  <button id="nightT" type="button" title="夜间 / 日间模式" aria-label="切换夜间模式">🌙</button>
 </div></div>
+<script>(function(){
+  function set(n){document.body.classList.toggle('night',n);
+    var t=document.getElementById('nightT');if(t)t.textContent=n?'☀️':'🌙';
+    try{localStorage.setItem('upcNight',n?'1':'0')}catch(e){}}
+  var s=false;try{s=localStorage.getItem('upcNight')==='1'}catch(e){}
+  set(s);
+  document.getElementById('nightT').addEventListener('click',function(){
+    set(!document.body.classList.contains('night'));});
+  if('serviceWorker' in navigator){try{navigator.serviceWorker.register('../sw.js');}catch(e){}}
+})();</script>
 <div class="wrap">
 <h1 class="pt">物理模型闪卡</h1>
 <p class="pt-lead">考前把模型库过一遍：翻卡自测「这个场景该上什么模型、方程长什么样、金牌怎么用、常见错误是什么」。标记存在本浏览器。</p>
@@ -89,6 +116,8 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
     <select id="fdom" style="height:32px;border:1px solid var(--line2);border-radius:3px;background:var(--sheet);font-family:inherit;font-size:12.5px;padding:0 8px;color:var(--mut)"></select>
     <button class="btn" id="fshuffle" type="button">随机打乱</button>
+    <button class="btn solid" id="fdaily" type="button" title="从你打卡过的论文对应年份的域里，按日期种子抽 5 张未掌握卡">今日回顾</button>
+    <span id="dailyinfo" class="note" style="color:var(--dim);font-size:12px"></span>
     <div class="segs" id="ffilter" style="display:flex;border:1px solid var(--line2);border-radius:3px;overflow:hidden">
       <a data-v="all" class="on" style="padding:6px 12px;font-size:12.5px;color:var(--mut);cursor:pointer;background:var(--sheet)">全部</a>
       <a data-v="todo" style="padding:6px 12px;font-size:12.5px;color:var(--mut);cursor:pointer;background:var(--sheet)">未掌握</a>
@@ -101,9 +130,11 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
 </section>
 
 </div>
-<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份</footer>
+<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份<br><a href="../copyright.html">版权与致谢</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错</a> · <a href="../upc-offline-kit.zip" download>赛时离线包</a></footer>
 <script>
-var EV_START=1794013200000,EV_END=1794186000000;
+var EV_START0=1794013200000,RACE_DUR=1794186000000-1794013200000;
+function raceT0(){try{var v=parseInt(localStorage.getItem('upcRaceT0')||"",10);return v>0?v:0}catch(e){return 0}}
+var EV_START=raceT0()||EV_START0,EV_END=EV_START+RACE_DUR;
 function p2(n){return n<10?'0'+n:''+n;}
 (function(){
   var el=document.getElementById('clock');
@@ -152,6 +183,33 @@ var doms=[];CARDS.forEach(function(c){if(doms.indexOf(c.d)<0)doms.push(c.d)});
 doms.forEach(function(d){var o=document.createElement('option');o.value=d;o.textContent=d;dsel.appendChild(o);});
 dsel.addEventListener('change',function(){fdom=dsel.value;render();});
 document.getElementById('fshuffle').addEventListener('click',function(){order.sort(function(){return Math.random()-0.5});render();});
+document.getElementById('fdaily').addEventListener('click',dailyPick);
+/* 今日回顾：读打卡记录（upcProgress.v1）里已打卡论文的年份 → 同年份域的未掌握卡，
+   按日期种子固定抽 5 张；无打卡记录则退化为「未掌握卡中抽 5 张」 */
+function dailyPick(){
+  var prog=(function(){try{return JSON.parse(localStorage.getItem('upcProgress.v1')||'{}')}catch(e){return{}}})();
+  var years=[];Object.keys(prog.p||{}).forEach(function(k){
+    var m=k.match(/^(\\d{4})-GM/);if(m&&years.indexOf(m[1])<0)years.push(m[1]);});
+  var mastery=fLoad();
+  var pool=CARDS.map(function(_,i){return i;}).filter(function(i){
+    if(mastery[CARDS[i].n])return false;
+    if(years.length){var ys=CARDS[i].y||'';return years.some(function(y){return ys.indexOf(y)>=0;});}
+    return true;});
+  if(pool.length<5){CARDS.forEach(function(_,i){
+    if(pool.indexOf(i)<0&&!mastery[CARDS[i].n])pool.push(i);});}
+  var d=new Date(),seed=d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();
+  function rnd(){seed=(seed*9301+49297)%233280;return seed/233280;}
+  pool.sort(function(){return rnd()-0.5;});
+  var pick=pool.slice(0,5),rest=order.filter(function(i){return pick.indexOf(i)<0;});
+  order=pick.concat(rest);
+  fdom='__ALL__';dsel.value='__ALL__';
+  ffil='todo';document.querySelectorAll('#ffilter a').forEach(function(x){x.classList.toggle('on',x.dataset.v==='todo');});
+  render();
+  document.getElementById('dailyinfo').textContent=years.length
+    ?('今日 '+pick.length+' 张 · 来自你打卡论文的年份（'+years.join(' / ')+'）对应域')
+    :'今日 '+pick.length+' 张 · 尚无打卡记录，从未掌握卡中抽取';
+  document.getElementById('fbox').scrollIntoView({behavior:'smooth',block:'start'});
+}
 document.getElementById('ffilter').addEventListener('click',function(ev){
   var a=ev.target.closest('a');if(!a)return;
   document.querySelectorAll('#ffilter a').forEach(function(x){x.classList.remove('on')});

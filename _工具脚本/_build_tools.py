@@ -100,6 +100,8 @@ PAGE_HEAD = r"""<!DOCTYPE html>
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="__TITLE__ · UPC 全档案库">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#9C3F2E">
 __EXTRA_HEAD__
 <style>
 :root{
@@ -109,6 +111,17 @@ __EXTRA_HEAD__
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
  --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
  --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+/* 夜间模式：变量整组换肤；个别硬编码浅色在此一并压暗 */
+body.night{--paper:#26231E;--sheet:#2D2A24;--ink:#EAE4D8;--mut:#B7AE9E;--dim:#9C9382;
+ --line:#45403A;--line2:#565047;--acc:#E2907C;--acc-d:#F0B4A4;--acc-soft:rgba(226,144,124,.14)}
+body.night .topbar{background:rgba(38,35,30,.94)}
+body.night .tabs{background:rgba(38,35,30,.96)}
+body.night .btn{background:#37332C;border-color:#565047;color:var(--ink)}
+body.night .btn.solid{background:var(--acc);border-color:var(--acc);color:#26231E}
+body.night img{opacity:.88}
+#nightT{background:none;border:1px solid var(--line2);border-radius:3px;height:26px;min-width:30px;
+ cursor:pointer;color:var(--mut);font-size:13px;padding:0 6px}
+#nightT:hover{border-color:var(--acc);color:var(--acc)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.85}
@@ -162,6 +175,9 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
  .wrap{max-width:none;padding:0}
  .card{border:none;padding:0}
  .pane{display:block!important;page-break-inside:auto}
+ /* 终检清单专项打印：body.pcheck 时只打印 pane-check */
+ body.pcheck .topbar,body.pcheck .tabs,body.pcheck .pane,body.pcheck footer{display:none!important}
+ body.pcheck #pane-check{display:block!important}
 }
 </style>
 </head>
@@ -170,15 +186,28 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
   <a class="brand" href="__HOME__"><span class="seal">U</span>UPC 全档案库</a>
   <span class="crumb">__CRUMB__</span>
   <span class="clock" id="clock" aria-label="第 17 届 UPC 赛程"></span>
+  <button id="nightT" type="button" title="夜间 / 日间模式" aria-label="切换夜间模式">🌙</button>
 </div></div>
+<script>(function(){
+  function set(n){document.body.classList.toggle('night',n);
+    var t=document.getElementById('nightT');if(t)t.textContent=n?'☀️':'🌙';
+    try{localStorage.setItem('upcNight',n?'1':'0')}catch(e){}}
+  var s=false;try{s=localStorage.getItem('upcNight')==='1'}catch(e){}
+  set(s);
+  document.getElementById('nightT').addEventListener('click',function(){
+    set(!document.body.classList.contains('night'));});
+  if('serviceWorker' in navigator){try{navigator.serviceWorker.register('../sw.js');}catch(e){}}
+})();</script>
 <div class="wrap">
 <h1 class="pt">__TITLE__</h1>
 <p class="pt-lead">__LEAD__</p>
 __BODY__
 </div>
-<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份</footer>
+<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份<br><a href="../copyright.html">版权与致谢</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错</a> · <a href="../upc-offline-kit.zip" download>赛时离线包</a></footer>
 <script>
-var EV_START=__EV_START__,EV_END=__EV_END__;
+var EV_START0=__EV_START__,RACE_DUR=__EV_END__-__EV_START__;
+function raceT0(){try{var v=parseInt(localStorage.getItem('upcRaceT0')||"",10);return v>0?v:0}catch(e){return 0}}
+var EV_START=raceT0()||EV_START0,EV_END=EV_START+RACE_DUR;
 function p2(n){return n<10?'0'+n:''+n;}
 (function(){
   var el=document.getElementById('clock');
@@ -299,6 +328,12 @@ def render_warroom(ctx):
 
 <section class="pane on" id="pane-log">
   <div class="card" id="logclock" style="margin-bottom:14px"></div>
+  <div class="notebox" style="font-size:12.5px">
+    ⏱ 时钟校准（赛时自救）：官方推迟或提前开赛时，<a href="javascript:void(0)" id="wcalToggle">改用实际开始时间 →</a>
+    <span id="wcalBody" hidden>　实际开始：<input type="datetime-local" id="wcalIn" style="border:1px solid var(--line2);border-radius:3px;background:var(--paper);color:var(--ink)">
+    <button class="btn sm" id="wcalSave" type="button">保存</button><button class="btn sm" id="wcalClear" type="button">还原官方时间</button><span id="wcalNote" style="color:var(--dim)"></span></span>
+    <span id="wmsg" style="color:var(--acc);font-size:12px"></span>
+  </div>
   <div class="card">
     <textarea id="note" rows="3" style="width:100%;border:1px solid var(--line2);border-radius:3px;background:var(--paper);
       padding:10px 12px;font-size:14px;outline:none;resize:vertical" placeholder="随手记：判据、假设、算出的数、分工变化、踩的坑…（Ctrl+Enter 快速记一条）"></textarea>
@@ -322,6 +357,7 @@ def render_warroom(ctx):
     <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
       <div><b style="font-family:var(--serif);font-size:26px;color:var(--acc)" id="ckpct">0%</b>
       <span style="font-size:12px;color:var(--dim)">总完成度</span></div>
+      <button class="btn sm" id="ckprint" type="button" style="margin-left:auto" title="打印本清单（自动隐藏页面其他部分）">🖨 打印清单</button>
       <div style="flex:1;min-width:220px;height:8px;background:#EFEADC;border-radius:4px;overflow:hidden">
         <i id="ckbar" style="display:block;height:100%;width:0;background:var(--acc);transition:width .3s"></i></div>
       <button class="btn" id="ckreset" type="button">重置勾选</button>
@@ -459,7 +495,7 @@ document.getElementById('logfile').addEventListener('change',function(ev){
       s.notes.sort(function(a,b){return a.ts-b.ts}).forEach(function(n){
         var k=n.ts+'|'+n.text;if(!seen[k]){seen[k]=1;out.push(n);}});
       s.notes=out;wSave(s);renderLog();ev.target.value='';
-    }catch(e){alert('导入失败：不是有效的作战室 JSON');}
+    }catch(e){var wm=document.getElementById('wmsg');if(wm)wm.textContent='导入失败：不是有效的作战室 JSON';}
   };
   r.readAsText(f);
 });
@@ -493,9 +529,34 @@ function tickLog(){
   }
 }
 tickLog();setInterval(tickLog,1000);
+/* 时钟校准（与首页同用 upcRaceT0；官方推迟/提前时本地改实际开始时间，截止随之平移） */
+(function(){
+  var tog=document.getElementById('wcalToggle');if(!tog)return;
+  var body=document.getElementById('wcalBody'),inp=document.getElementById('wcalIn'),
+      note=document.getElementById('wcalNote');
+  function fmt(ms){var d=new Date(ms);return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+
+    ('0'+d.getDate()).slice(-2)+'T'+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
+  function refresh(){var o=raceT0();
+    note.textContent=o?('已校准：实际开始 '+fmt(o)+'（按本机时区，截止随之平移）'):'当前使用官方时间 2026-11-07 09:00（北京时间）';}
+  tog.addEventListener('click',function(){body.hidden=!body.hidden;
+    if(!body.hidden){var o=raceT0();if(o)inp.value=fmt(o);refresh();}});
+  document.getElementById('wcalSave').addEventListener('click',function(){
+    if(!inp.value){note.textContent='先选择实际开始时间';return;}
+    var ms=new Date(inp.value).getTime();
+    if(!(ms>0)){note.textContent='时间格式无效';return;}
+    try{localStorage.setItem('upcRaceT0',String(ms))}catch(e){}
+    EV_START=ms;EV_END=EV_START+RACE_DUR;tickLog();refresh();});
+  document.getElementById('wcalClear').addEventListener('click',function(){
+    try{localStorage.removeItem('upcRaceT0')}catch(e){}
+    EV_START=EV_START0;EV_END=EV_START+RACE_DUR;tickLog();refresh();});
+  if(raceT0()){body.hidden=false;refresh();}
+})();
 
 /* ---------- 提交终检 ---------- */
 function ckKey(si,ii){return 'c'+si+'_'+ii;}
+document.getElementById('ckprint').addEventListener('click',function(){
+  document.body.classList.add('pcheck');window.print();});
+addEventListener('afterprint',function(){document.body.classList.remove('pcheck');});
 function renderCk(){
   var st=cLoad(),total=0,done=0,html='';
   CK.forEach(function(sec,si){
@@ -1010,6 +1071,8 @@ def render_flashcards(ctx):
   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
     <select id="fdom" style="height:32px;border:1px solid var(--line2);border-radius:3px;background:var(--sheet);font-family:inherit;font-size:12.5px;padding:0 8px;color:var(--mut)"></select>
     <button class="btn" id="fshuffle" type="button">随机打乱</button>
+    <button class="btn solid" id="fdaily" type="button" title="从你打卡过的论文对应年份的域里，按日期种子抽 5 张未掌握卡">今日回顾</button>
+    <span id="dailyinfo" class="note" style="color:var(--dim);font-size:12px"></span>
     <div class="segs" id="ffilter" style="display:flex;border:1px solid var(--line2);border-radius:3px;overflow:hidden">
       <a data-v="all" class="on" style="padding:6px 12px;font-size:12.5px;color:var(--mut);cursor:pointer;background:var(--sheet)">全部</a>
       <a data-v="todo" style="padding:6px 12px;font-size:12.5px;color:var(--mut);cursor:pointer;background:var(--sheet)">未掌握</a>
@@ -1032,6 +1095,33 @@ var doms=[];CARDS.forEach(function(c){if(doms.indexOf(c.d)<0)doms.push(c.d)});
 doms.forEach(function(d){var o=document.createElement('option');o.value=d;o.textContent=d;dsel.appendChild(o);});
 dsel.addEventListener('change',function(){fdom=dsel.value;render();});
 document.getElementById('fshuffle').addEventListener('click',function(){order.sort(function(){return Math.random()-0.5});render();});
+document.getElementById('fdaily').addEventListener('click',dailyPick);
+/* 今日回顾：读打卡记录（upcProgress.v1）里已打卡论文的年份 → 同年份域的未掌握卡，
+   按日期种子固定抽 5 张；无打卡记录则退化为「未掌握卡中抽 5 张」 */
+function dailyPick(){
+  var prog=(function(){try{return JSON.parse(localStorage.getItem('upcProgress.v1')||'{}')}catch(e){return{}}})();
+  var years=[];Object.keys(prog.p||{}).forEach(function(k){
+    var m=k.match(/^(\\d{4})-GM/);if(m&&years.indexOf(m[1])<0)years.push(m[1]);});
+  var mastery=fLoad();
+  var pool=CARDS.map(function(_,i){return i;}).filter(function(i){
+    if(mastery[CARDS[i].n])return false;
+    if(years.length){var ys=CARDS[i].y||'';return years.some(function(y){return ys.indexOf(y)>=0;});}
+    return true;});
+  if(pool.length<5){CARDS.forEach(function(_,i){
+    if(pool.indexOf(i)<0&&!mastery[CARDS[i].n])pool.push(i);});}
+  var d=new Date(),seed=d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();
+  function rnd(){seed=(seed*9301+49297)%233280;return seed/233280;}
+  pool.sort(function(){return rnd()-0.5;});
+  var pick=pool.slice(0,5),rest=order.filter(function(i){return pick.indexOf(i)<0;});
+  order=pick.concat(rest);
+  fdom='__ALL__';dsel.value='__ALL__';
+  ffil='todo';document.querySelectorAll('#ffilter a').forEach(function(x){x.classList.toggle('on',x.dataset.v==='todo');});
+  render();
+  document.getElementById('dailyinfo').textContent=years.length
+    ?('今日 '+pick.length+' 张 · 来自你打卡论文的年份（'+years.join(' / ')+'）对应域')
+    :'今日 '+pick.length+' 张 · 尚无打卡记录，从未掌握卡中抽取';
+  document.getElementById('fbox').scrollIntoView({behavior:'smooth',block:'start'});
+}
 document.getElementById('ffilter').addEventListener('click',function(ev){
   var a=ev.target.closest('a');if(!a)return;
   document.querySelectorAll('#ffilter a').forEach(function(x){x.classList.remove('on')});
@@ -1318,45 +1408,167 @@ def simulate(h0=30000.0, v0=0.0, m=90.0, cd_a=0.9, dt=0.05, g_override=None):
             "t_ground": ts[-1]}
 '''
 
+GOLF_PY = r'''# 2015-B 绕树高尔夫球（俯视简化演示）：球沿 +x 打出，侧旋让它横向拐弯绕过树
+# 物理：阻力沿速度反向 a_d = 0.5·ρ·Cd·A·v²/m；侧向 Magnus a_l = 0.5·ρ·A·CL·v²/m，
+#       CL ≈ 1.1·S（S = rω/v 旋参数，演示口径）。两次积分：有旋（实线）与无旋对照（虚线）。
+import math
+RHO = 1.225
+M   = 0.0459          # kg  高尔夫球质量
+R   = 0.02135         # m   球半径
+A   = math.pi*R*R     # m²  迎风面积
+CD  = 0.25            # 凹坑球阻力系数（量级）
+
+def _run(v0, spin, dt=0.004):
+    x, y, vx, vy = 0.0, 0.0, v0, 0.0
+    xs, ys = [x], [y]
+    t = 0.0
+    while t < 20.0:
+        v = math.hypot(vx, vy)
+        if v < 0.2:
+            break
+        ad = 0.5*RHO*CD*A*v*v/M
+        al = 0.5*RHO*A*1.1*spin*v*v/M
+        ux, uy = vx/v, vy/v
+        ax = -ad*ux - al*uy
+        ay = -ad*uy + al*ux
+        vx += ax*dt; vy += ay*dt
+        x += vx*dt; y += vy*dt
+        t += dt
+        xs.append(x); ys.append(y)
+        if len(xs) > 12000:
+            break
+    return xs, ys
+
+def simulate(v0=62.0, spin=0.12, tree_x=110.0, tree_y=3.0, tree_r=1.5):
+    """v0 初速 m/s；spin 旋参数 0~0.25（正=向 +y 侧拐）。树心 (tree_x, tree_y) 半径 tree_r。"""
+    S = max(0.0, min(spin, 0.3))
+    xs, ys = _run(v0, S)
+    xs0, ys0 = _run(v0, 0.0)
+    def y_at(xq, xa, ya):
+        for i in range(1, len(xa)):
+            if xa[i] >= xq:
+                return ya[i]
+        return None
+    y_tree = y_at(tree_x, xs, ys)
+    miss = None
+    if y_tree is None:
+        verdict = "球在到达树之前就停了——加大初速 v0 再试"
+    else:
+        miss = y_tree - tree_y - tree_r
+        verdict = ("成功绕过树：横向余量 %.1f m" % miss) if miss > 0 else \
+                  ("撞树：还差 %.1f m——调大 spin 或 v0" % (-miss))
+    return {"xs": xs, "ys": ys, "xs0": xs0, "ys0": ys0,
+            "x_end": xs[-1], "y_end": ys[-1], "verdict": verdict,
+            "miss": miss, "tree": [tree_x, tree_y, tree_r]}
+'''
+
+COASTER_PY = r'''# 2019-B 过山车（简化演示）：无摩擦能量守恒 + 竖直圆回环判据
+# 轨道：高台 h0 → 谷底 0 → 竖直圆环（半径 R，底在 0、顶在 2R）。
+# 能量：v²(y) = 2g(h0 − y)；回环判据：环顶 v² ≥ gR（法向过载 ≥ 0 才压得住轨）。
+import math
+g = 9.81
+
+def simulate(h0=22.0, R=8.0):
+    v_bottom = math.sqrt(max(0.0, 2*g*h0))
+    v2_top = max(0.0, 2*g*(h0 - 2*R))
+    v_top = math.sqrt(v2_top)
+    done = v2_top >= g*R
+    n_bottom = 2*g*h0/(g*R) + 1
+    n_top = v2_top/(g*R) - 1
+    h_min = 2.5*R
+    pts = []
+    for i in range(41):                      # 下坡段（直坡简化）
+        x = 40.0*i/40
+        y = h0*(1 - i/40)
+        v = math.sqrt(max(0.0, 2*g*(h0 - y)))
+        pts.append([x, y, v])
+    cx = 50.0
+    for k in range(73):                      # 圆环一整圈：底部起，逆时针
+        th = math.radians(-90 + 360*k/72)
+        px = cx + R*math.cos(th)
+        py = R + R*math.sin(th)
+        v = math.sqrt(max(0.0, 2*g*(h0 - py)))
+        pts.append([px, py, v])
+    return {"v_bottom": v_bottom, "v_top": v_top, "done": done,
+            "n_bottom": n_bottom, "n_top": n_top, "h_min": h_min,
+            "pts": pts, "R": R, "h0": h0}
+'''
+
 
 def render_lab(ctx):
     body = r"""
 <section class="pane on" id="pane-lab" style="display:block">
-  <div class="notebox" style="margin-bottom:14px"><b>数值实验台 v1</b>：在浏览器里直接跑 Python 物理模型（Pyodide/WASM，与本库精读里的代码同款风格）。
-  首次使用需联网加载约 10 MB 运行时（约 30–60 秒，之后浏览器有缓存）；修改代码后点「运行」即时重算。本页是示范：2023-A 太空跳伞的 1D 竖直下落（指数大气＋平方阻力）。</div>
+  <div class="notebox" style="margin-bottom:14px"><b>数值实验台 v2</b>：在浏览器里直接跑 Python 物理模型（Pyodide/WASM，与本库精读里的代码同款风格）。
+  现有三道示范：2023-A 太空跳伞（1D 竖直下落）、2015-B 绕树高尔夫（侧旋拐弯）、2019-B 过山车（回环判据）。
+  首次使用需联网加载约 10 MB 运行时（约 30–60 秒，之后浏览器有缓存）；修改代码后点「运行」即时重算。均为简化演示模型，完整判据见对应题目解读。</div>
   <div class="card">
     <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;margin-bottom:10px">
-      <label style="font-size:12.5px;color:var(--mut)">初始高度 h₀ = <b id="lh0" style="color:var(--ink);font-family:var(--mono)">30.0</b> km
-        <input id="h0" type="range" min="5" max="60" step="0.5" value="30" style="display:block;width:180px;margin-top:4px;accent-color:#9C3F2E"></label>
-      <label style="font-size:12.5px;color:var(--mut)">质量 m = <b id="lm" style="color:var(--ink);font-family:var(--mono)">90</b> kg
-        <input id="m" type="range" min="50" max="160" step="1" value="90" style="display:block;width:180px;margin-top:4px;accent-color:#9C3F2E"></label>
-      <label style="font-size:12.5px;color:var(--mut)">Cd·A = <b id="lca" style="color:var(--ink);font-family:var(--mono)">0.90</b> m²
-        <input id="ca" type="range" min="0.2" max="3" step="0.05" value="0.9" style="display:block;width:180px;margin-top:4px;accent-color:#9C3F2E"></label>
+      <label style="font-size:12.5px;color:var(--mut)">示范模型
+        <select id="mselect" style="display:block;margin-top:4px;height:30px;border:1px solid var(--line2);border-radius:3px;background:var(--sheet);color:var(--ink);padding:0 8px">
+          <option value="skydive">2023-A 太空跳伞（1D 下落）</option>
+          <option value="golf">2015-B 绕树高尔夫（侧旋）</option>
+          <option value="coaster">2019-B 过山车（回环）</option>
+        </select></label>
+      <div id="sliders" style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end"></div>
       <button class="btn solid" id="run" type="button">运行（首次需加载运行时）</button>
     </div>
     <div id="status" style="font-size:12.5px;color:var(--dim);margin-bottom:8px">等待启动：点击「运行」后开始加载 Pyodide。</div>
   </div>
   <div class="card" style="margin-top:14px" id="resultbox"></div>
   <details class="card" style="margin-top:14px">
-    <summary style="cursor:pointer;font-weight:600;font-size:14px">查看 / 编辑 Python 源码（这就是 2023-A 精读同款的建模骨架）</summary>
+    <summary style="cursor:pointer;font-weight:600;font-size:14px">查看 / 编辑当前模型的 Python 源码（与精读同款建模骨架）</summary>
     <textarea id="pysrc" spellcheck="false" style="width:100%;margin-top:10px;border:1px solid var(--line2);border-radius:3px;background:var(--paper);padding:10px 12px;font-size:12.8px;font-family:var(--mono);line-height:1.7;outline:none;resize:vertical" rows="26"></textarea>
   </details>
 </section>
 """
     script = r"""
-var PY0=__PYSRC__;
-var ta=document.getElementById('pysrc');
-ta.value=localStorage.getItem('upcLab.src')||PY0;
-ta.addEventListener('input',function(){localStorage.setItem('upcLab.src',ta.value)});
-var h0=document.getElementById('h0'),m=document.getElementById('m'),ca=document.getElementById('ca');
-[['h0','lh0',function(v){return (+v).toFixed(1)+' km';},10],['m','lm',function(v){return v+' kg';},1],['ca','lca',function(v){return (+v).toFixed(2)+' m²';},100]]
-.forEach(function(cfg){
-  var el=document.getElementById(cfg[0]);
-  function upd(){document.getElementById(cfg[1]).textContent=cfg[2](el.value);}
-  el.addEventListener('input',function(){upd();cfg[3]&&live();});
-  upd();
-});
-var pyodide=null,loading=false;
+var MODELS={
+skydive:{py:__PYSKY__,steps:function(r){return r.t.length+' 步';},draw:function(r){return drawSky(r);},
+  sliders:[
+  {id:'h0',label:'初始高度 h₀ = ',fmt:function(v){return (+v).toFixed(1)+' km'},min:5,max:60,step:0.5,val:30},
+  {id:'m',label:'质量 m = ',fmt:function(v){return v+' kg'},min:50,max:160,step:1,val:90},
+  {id:'ca',label:'Cd·A = ',fmt:function(v){return (+v).toFixed(2)+' m²'},min:0.2,max:3,step:0.05,val:0.9}],
+  call:function(v){return 'simulate(h0='+(+v.h0*1000).toFixed(1)+', m='+(+v.m).toFixed(0)+', cd_a='+(+v.ca).toFixed(2)+')';}},
+golf:{py:__PYGOLF__,steps:function(r){return r.xs.length+' 点';},draw:function(r){return drawGolf(r);},
+  sliders:[
+  {id:'v0',label:'初速 v₀ = ',fmt:function(v){return v+' m/s'},min:40,max:90,step:1,val:62},
+  {id:'spin',label:'侧旋参数 S = ',fmt:function(v){return (+v).toFixed(2)},min:0,max:0.25,step:0.01,val:0.12}],
+  call:function(v){return 'simulate(v0='+(+v.v0).toFixed(0)+', spin='+(+v.spin).toFixed(2)+')';}},
+coaster:{py:__PYCOASTER__,steps:function(r){return r.pts.length+' 点';},draw:function(r){return drawCoaster(r);},
+  sliders:[
+  {id:'h0',label:'出发高差 h₀ = ',fmt:function(v){return v+' m'},min:5,max:40,step:0.5,val:22},
+  {id:'R',label:'回环半径 R = ',fmt:function(v){return v+' m'},min:3,max:15,step:0.5,val:8}],
+  call:function(v){return 'simulate(h0='+(+v.h0).toFixed(1)+', R='+(+v.R).toFixed(1)+')';}}
+};
+var cur='skydive',ta=document.getElementById('pysrc'),pyodide=null,loading=false;
+var statusEl=document.getElementById('status'),runBtn=document.getElementById('run');
+function setStatus(s,hot){statusEl.innerHTML=hot?'<b style="color:var(--acc)">'+s+'</b>':s;}
+function srcKey(){return 'upcLab.src.'+cur;}
+function buildSliders(){
+  var box=document.getElementById('sliders');box.innerHTML='';
+  MODELS[cur].sliders.forEach(function(s){
+    var lab=document.createElement('label');
+    lab.style.cssText='font-size:12.5px;color:var(--mut)';
+    lab.innerHTML=s.label+'<b style="color:var(--ink);font-family:var(--mono)"></b>'+
+      '<input type="range" min="'+s.min+'" max="'+s.max+'" step="'+s.step+'" value="'+s.val+'" style="display:block;width:180px;margin-top:4px;accent-color:#9C3F2E">';
+    var b=lab.querySelector('b'),inp=lab.querySelector('input');
+    function upd(){b.textContent=s.fmt(inp.value);}
+    inp.addEventListener('input',function(){upd();if(pyodide)runAll();});
+    upd();box.appendChild(lab);
+  });
+}
+function getVals(){var v={},inputs=document.getElementById('sliders').querySelectorAll('input');
+  MODELS[cur].sliders.forEach(function(s,i){v[s.id]=inputs[i].value;});return v;}
+function setModel(k){
+  cur=k;
+  try{ta.value=localStorage.getItem(srcKey())||MODELS[cur].py;}catch(e){ta.value=MODELS[cur].py;}
+  buildSliders();
+  document.getElementById('resultbox').innerHTML='';
+  setStatus('等待启动：点击「运行」后开始加载 Pyodide。');
+}
+document.getElementById('mselect').addEventListener('change',function(){setModel(this.value);});
+ta.addEventListener('input',function(){try{localStorage.setItem(srcKey(),ta.value)}catch(e){}});
+setModel('skydive');
 var statusEl=document.getElementById('status'),runBtn=document.getElementById('run');
 function setStatus(s,hot){statusEl.innerHTML=hot?'<b style="color:var(--acc)">'+s+'</b>':s;}
 async function ensurePy(){
@@ -1390,17 +1602,17 @@ runBtn.addEventListener('click',async function(){
 async function runAll(){
   var t0=performance.now();
   setStatus('计算中…',true);
-  var code=ta.value+`\n__res = simulate(h0=${(+h0.value*1000).toFixed(1)}, m=${(+m.value).toFixed(0)}, cd_a=${(+ca.value).toFixed(2)})\nimport json\njson.dumps(__res)`;
+  var code=ta.value+'\n__res = '+MODELS[cur].call(getVals())+'\nimport json\njson.dumps(__res)';
   try{
     var resJson=await pyodide.runPythonAsync(code);
     var r=JSON.parse(resJson);
-    draw(r);
-    setStatus('完成 · '+(performance.now()-t0).toFixed(0)+' ms · '+r.t.length+' 步');
+    document.getElementById('resultbox').innerHTML=MODELS[cur].draw(r);
+    setStatus('完成 · '+(performance.now()-t0).toFixed(0)+' ms · '+MODELS[cur].steps(r));
   }catch(e){
     setStatus('运行出错：'+String(e).slice(0,300));
   }
 }
-function draw(r){
+function drawSky(r){
   var W=900,H=300,pad=44;
   var n=r.t.length;
   function px(i){return pad+(W-2*pad)*i/(n-1);}
@@ -1428,12 +1640,63 @@ function draw(r){
     '<div><b style="font-family:var(--serif);font-size:22px;color:var(--ink)">'+r.t_ground.toFixed(0)+' s</b><span style="font-size:11.5px;color:var(--dim)">　落地总时长</span></div></div>'+s+
     '<div class="note" style="margin-top:8px;font-size:12px;color:var(--dim)">试试：把 h₀ 拉到 60 km 看最大速度出现在哪个高度；把 Cd·A 调到 3 模拟开伞后的急剧减速。完整版判据（15 g 反冲、驻点温度双档）见 2023-A 题目解读。</div>';
 }
+function drawGolf(r){
+  var W=900,H=320,pad=46;
+  var tx=r.tree[0],ty=r.tree[1],tr=r.tree[2];
+  var xmax=Math.max(r.x_end,tx+30,60),ymin=-3,ymax=Math.max(12,r.ys.reduce(function(a,b){return Math.max(a,b);},0)+4);
+  function px(x){return pad+(W-2*pad)*x/xmax;}
+  function py(y){return (H-pad)-(H-2*pad)*(y-ymin)/(ymax-ymin);}
+  function path(xs,ys){var d='';for(var i=0;i<xs.length;i+=3){d+=(i?'L':'M')+px(xs[i]).toFixed(1)+' '+py(ys[i]).toFixed(1)+' ';}return d;}
+  var s='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">';
+  s+='<text x="'+pad+'" y="18" font-size="12" fill="#6E6557">俯视图：发球点在左缘 · 朱线=侧旋轨迹 · 蓝虚线=无旋对照 · 灰圈=树</text>';
+  s+='<line x1="'+pad+'" y1="'+(H-pad)+'" x2="'+(W-pad)+'" y2="'+(H-pad)+'" stroke="#D9D0BD"/>';
+  s+='<path d="'+path(r.xs0,r.ys0)+'" fill="none" stroke="#3A5A8C" stroke-width="1.6" stroke-dasharray="5 4"/>';
+  s+='<path d="'+path(r.xs,r.ys)+'" fill="none" stroke="#9C3F2E" stroke-width="2"/>';
+  s+='<circle cx="'+px(tx).toFixed(1)+'" cy="'+py(ty).toFixed(1)+'" r="'+(tr/xmax*(W-2*pad)).toFixed(1)+'" fill="#D9D0BD" fill-opacity=".8" stroke="#6E6557"/>';
+  s+='<text x="'+px(tx).toFixed(1)+'" y="'+(py(ty)-14).toFixed(1)+'" font-size="11" fill="#6E6557" text-anchor="middle">树</text>';
+  s+='<circle cx="'+px(r.x_end).toFixed(1)+'" cy="'+py(r.y_end).toFixed(1)+'" r="4" fill="#9C3F2E"/>';
+  s+='<text x="'+(W-pad)+'" y="'+(H-pad+16)+'" font-size="11" fill="#9A9080" text-anchor="end">前向 x / m（max '+xmax.toFixed(0)+'）</text>';
+  s+='</svg>';
+  var ok=r.miss!==null&&r.miss>0;
+  return '<div style="display:flex;gap:26px;flex-wrap:wrap;margin-bottom:10px">'+
+    '<div><b style="font-family:var(--serif);font-size:20px;color:'+(ok?'var(--acc)':'#B0543B')+'">'+r.verdict+'</b></div>'+
+    '<div><b style="font-family:var(--serif);font-size:20px;color:var(--ink)">'+r.x_end.toFixed(0)+' m</b><span style="font-size:11.5px;color:var(--dim)">　滚停前总前进距离</span></div></div>'+s+
+    '<div class="note" style="margin-top:8px;font-size:12px;color:var(--dim)">试试：S=0 看无旋对照（直线撞树）；加大 S 观察“拐弯半径随速度衰减变化”；v0 拉满看能不能一杆绕树到底。演示口径：CL≈1.1·S、Cd=0.25——完整题面（多棵树、风）见 2015-B 题目解读。</div>';
+}
+function drawCoaster(r){
+  var W=900,H=340,pad=46;
+  var xmax=60,ymax=Math.max(r.h0,2*r.R)+6;
+  function px(x){return pad+(W-2*pad)*x/xmax;}
+  function py(y){return (H-pad)-(H-2*pad)*y/ymax;}
+  var d='';for(var i=0;i<r.pts.length;i++){d+=(i?'L':'M')+px(r.pts[i][0]).toFixed(1)+' '+py(r.pts[i][1]).toFixed(1)+' ';}
+  var topX=50,topY=2*r.R;
+  var s='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">';
+  s+='<text x="'+pad+'" y="18" font-size="12" fill="#6E6557">侧视图：高台 → 谷底 → 竖直圆环（半径 R）· 环顶标 ★ 为脱离风险点</text>';
+  s+='<line x1="'+pad+'" y1="'+(H-pad)+'" x2="'+(W-pad)+'" y2="'+(H-pad)+'" stroke="#D9D0BD"/>';
+  s+='<path d="'+d+'" fill="none" stroke="#9C3F2E" stroke-width="2.2"/>';
+  s+='<circle cx="'+px(topX).toFixed(1)+'" cy="'+py(topY).toFixed(1)+'" r="5" fill="#3A5A8C"/>';
+  s+='<text x="'+(px(topX)+9).toFixed(1)+'" y="'+(py(topY)+4).toFixed(1)+'" font-size="11" fill="#3A5A8C">环顶 ★</text>';
+  s+='<text x="'+(W-pad)+'" y="'+(H-pad+16)+'" font-size="11" fill="#9A9080" text-anchor="end">侧视 x / m</text>';
+  s+='</svg>';
+  var banner=r.done
+    ?'<div style="display:flex;gap:26px;flex-wrap:wrap;margin-bottom:10px">'+
+     '<div><b style="font-family:var(--serif);font-size:20px;color:var(--acc)">✓ 能完成回环</b></div>'+
+     '<div><b style="font-family:var(--serif);font-size:20px;color:var(--ink)">'+r.v_top.toFixed(1)+' m/s</b><span style="font-size:11.5px;color:var(--dim)">　环顶速度（≥√(gR) 才压得住轨）</span></div>'+
+     '<div><b style="font-family:var(--serif);font-size:20px;color:var(--ink)">'+r.n_top.toFixed(2)+' g</b><span style="font-size:11.5px;color:var(--dim)">　环顶过载（≥0 压轨，越小越“贴背”）</span></div>'+
+     '<div><b style="font-family:var(--serif);font-size:20px;color:var(--ink)">'+r.n_bottom.toFixed(1)+' g</b><span style="font-size:11.5px;color:var(--dim)">　环底过载（人体耐受 ≈ 5–6 g）</span></div></div>'
+    :'<div style="margin-bottom:10px"><b style="font-family:var(--serif);font-size:20px;color:#B0543B">✗ 环顶脱离：v²='+ (2*9.81*(r.h0-2*r.R)).toFixed(1)+' &lt; gR='+ (9.81*r.R).toFixed(1)+'</b>'+
+     '<span style="font-size:12px;color:var(--dim)">　理论最小高差 h₀ ≥ 2.5R = '+r.h_min.toFixed(1)+' m</span></div>';
+  return banner+s+
+    '<div class="note" style="margin-top:8px;font-size:12px;color:var(--dim)">试试：h₀=2.5R 的临界情形（环顶过载恰好 0）；R 拉到 12 看环底过载会不会超出人体耐受。演示口径：无摩擦、刚性轨——完整题面（摩擦/风阻/多环）见 2019-B 题目解读。</div>';
+}
 """
     pyodide_head = ''   # pyodide.js 改为点击「运行」时动态注入，消除首屏 CDN 依赖
     return page(ctx, "数值实验台", "实战工具 · 平时开放",
-                "UPC 数值实验台：浏览器里直接运行 Python 物理模型（Pyodide），v1 内置 2023-A 太空跳伞简化模型，参数可调、代码可改。",
+                "UPC 数值实验台：浏览器里直接运行 Python 物理模型（Pyodide），内置 2023-A 太空跳伞、2015-B 绕树高尔夫、2019-B 过山车三个可调参模型。",
                 "不用装 Python 也能跑物理：滑杆调参数、代码框改模型，点运行立刻出曲线。示范模型来自 2023-A《近太空跳伞》精读。",
-                body, script.replace("__PYSRC__", json.dumps(SKYDIVING_PY)),
+                body, script.replace("__PYSKY__", json.dumps(SKYDIVING_PY))
+                            .replace("__PYGOLF__", json.dumps(GOLF_PY))
+                            .replace("__PYCOASTER__", json.dumps(COASTER_PY)),
                 extra_head=pyodide_head)
 
 

@@ -12,6 +12,7 @@
 <meta property="og:description" content="UPC（University Physics Competition）国际大学生物理竞赛 · 2010–2025 全档案库 本资料库系统收录 国际大学生物理竞赛（University Physics Competition, UPC，官…">
 <meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="../../manifest.webmanifest">
 <link rel="stylesheet" href="../vendor/katex/katex.min.css">
 <script>window.UPC_UI_ROOT="../../";</script><script src="../../global-ui.js" defer></script>
 <script defer src="../vendor/katex/katex.min.js"></script>
@@ -28,6 +29,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
+html.fz-s body{font-size:15px}html.fz-l body{font-size:17.5px}html.fz-xl body{font-size:19px}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
@@ -149,6 +151,8 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <button id="ck" class="tag ck" type="button" hidden></button>
   
   <a class="tag" href="../../README.md">Markdown</a>
+  <button id="fz" class="tag" type="button" title="正文字号：小 / 标准 / 大 / 特大">字号</button>
+  <button id="prt" class="tag" type="button" title="打印本文（自动隐藏顶栏与目录）">打印</button>
   <span class="crumb">档案库说明 · UPC（University Physics Competition）国际大学生物理竞赛 · 2010–2025 全档案库</span>
   <div class="srwrap">
     <input id="dsq" type="search" placeholder="全库搜索" autocomplete="off">
@@ -162,7 +166,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <blockquote>
 <p>本资料库系统收录 <strong>国际大学生物理竞赛（University Physics Competition, UPC，官网 <a href="http://www.uphysicsc.com/">uphysicsc.com</a>）2010–2025 年</strong> 全部赛事资料：16 届赛事、32 道官方题目、<strong>74 篇官方公开的金牌论文</strong>（PDF 全文 + 提取文本 + 排版页面图），并为每道题目撰写深度物理解读、为每篇论文撰写赏析（建模体系 / 算法 / 排版 / 获奖密码），最后汇总历年物理模型全景综述与交互式总览页面。</p>
 </blockquote>
-<p><strong>📖 在线阅读（免克隆）：<a href="https://l-zer0coder.github.io/upc-archive/">l-zer0coder.github.io/upc-archive</a></strong> —— 已部署为 GitHub Pages：首页总览 + 235 个文档页 + 9 个实战工具页；每页左右两缘有「☰ 目录 / 📖 说明」全局挂件，顶栏可全库搜索（快捷键 <code>/</code>）。</p>
+<p><strong>📖 在线阅读（免克隆）：<a href="https://l-zer0coder.github.io/upc-archive/">l-zer0coder.github.io/upc-archive</a></strong> —— 已部署为 GitHub Pages：首页总览 + 236 个文档页 + 9 个实战工具页；每页左右两缘有「☰ 目录 / 📖 说明」全局挂件，顶栏可全库搜索（快捷键 <code>/</code>）。</p>
 <hr>
 <h2 id="目录结构">📁 目录结构</h2>
 <table>
@@ -231,7 +235,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </tr>
 <tr>
 <td><code>09_可视化总览/</code></td>
-<td>站点构建产物：<code>docs/</code> 下 235 个文档页 + 本地化前端依赖</td>
+<td>站点构建产物：<code>docs/</code> 下 236 个文档页 + 本地化前端依赖</td>
 <td>由 <code>_build_site.py</code> 生成，GitHub Pages 直接托管</td>
 </tr>
 <tr>
@@ -426,13 +430,16 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </ul>
 <hr>
 <h2 id="部署为网站github-pages">🌐 部署为网站（GitHub Pages）</h2>
-<p>本档案库自带一个纯静态站点：根目录 <code>index.html</code>（总览导航 + 全文搜索 + 打卡系统 + 三态赛事时钟）+ <code>09_可视化总览/docs/</code>（235 个 Markdown 文档渲染成的网页，公式用 KaTeX、流程图用 mermaid）。仓库根目录已备好部署辅助文件：</p>
+<p>本档案库自带一个纯静态站点：根目录 <code>index.html</code>（总览导航 + 全文搜索 + 打卡系统 + 三态赛事时钟）+ <code>09_可视化总览/docs/</code>（236 个 Markdown 文档渲染成的网页，公式用 KaTeX、流程图用 mermaid）。仓库根目录已备好部署辅助文件：</p>
 <ul>
 <li><code>.nojekyll</code> —— 关闭 GitHub Pages 的 Jekyll 处理（否则 <code>_工具脚本</code> 等下划线目录会被忽略）</li>
 <li><code>index.html</code> —— <strong>站点首页本体</strong>（访问 <code>/</code> 直接打开，不再做跳转，分享出去的 URL 干净）</li>
 <li><code>404.html</code> —— 自定义 404 页（GitHub Pages 会对任何缺失路径返回它）</li>
-<li><code>search-index.js</code> —— 235 份文档的全文索引（约 312 KB，首次输入搜索时才加载，不拖慢首屏）</li>
-<li><code>global-ui.js</code> + <code>global-ui-data.js</code> —— <strong>全局挂件</strong>（每页左右两缘「☰ 目录 / 📖 说明」面板）的逻辑与数据；数据由构建期从 manual 同源生成，约 63 KB，首次点开面板时才加载</li>
+<li><code>search-index.js</code> —— 236 份文档的全文索引（约 312 KB，首次输入搜索时才加载，不拖慢首屏）</li>
+<li><code>global-ui.js</code> + <code>global-ui-data.js</code> —— <strong>全局挂件</strong>（每页左右两缘「☰ 目录 / 📖 说明」面板）的逻辑与数据；数据由构建期从 manual 同源生成，约 103 KB，首次点开面板时才加载</li>
+<li><code>manifest.webmanifest</code> + <code>sw.js</code> + <code>icon.svg</code> —— PWA 三件套：支持「添加到主屏」，Service Worker 让最近访问过的页面在断网时也能打开（导航请求网络优先、静态资源缓存优先）</li>
+<li><code>copyright.html</code> —— <strong>版权与致谢页</strong>：收录范围、版权与下架通道、各内容层的生成与校验方式披露、新一届入库时效承诺</li>
+<li><code>upc-offline-kit.zip</code> —— <strong>赛时离线包</strong>（约 1.6 MB，构建期自动打包）：核心工具页 + 比赛规则 + 前端依赖，解压双击 index.html 即可用</li>
 <li><code>.gitignore</code> —— <strong>白名单模式</strong>：只提交十二个档案目录、赛时工具、知识提炼、AI 技能、站点资源与 README，忽略本目录下的其他个人文件（LaTeX 安装包、视频、课件等约 6.5 GB）</li>
 </ul>
 <p>外部依赖已全部本地化：KaTeX / Mermaid 存放在 <code>09_可视化总览/vendor/</code>，由 <code>_工具脚本/_fetch_vendor.py</code> 一次性拉取（默认 unpkg，可用 <code>VENDOR_MIRROR</code> 换源）。站点运行时不请求任何外部资源（唯一例外：数值实验台按需加载 Pyodide 运行时），国内网络下公式与流程图都能正常渲染。</p>
@@ -442,7 +449,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 <p>部署三步：① 在 GitHub 新建 Public 仓库 → ② 本目录 <code>git init &amp;&amp; git add -A &amp;&amp; git commit -m "UPC archive" &amp;&amp; git branch -M main &amp;&amp; git remote add origin &lt;你的仓库地址&gt; &amp;&amp; git push -u origin main</code> → ③ 仓库 Settings → Pages → Source 选 <code>Deploy from a branch</code> + <code>main</code> + <code>/ (root)</code> → 保存，1–3 分钟后访问 <code>https://&lt;用户名&gt;.github.io/&lt;仓库名&gt;/</code>。</p>
 <h3 id="重建站点">重建站点</h3>
 <pre><code class="language-bash">python _工具脚本/_fetch_vendor.py   # 仅首次，或升级 KaTeX/Mermaid 时
-python _工具脚本/_build_site.py      # 重新渲染 235 个文档页 + 9 个赛时工具页 + 全局挂件数据 + 首页 + 404 + 搜索索引
+python _工具脚本/_build_site.py      # 重新渲染 236 个文档页 + 9 个赛时工具页 + 全局挂件数据 + 首页 + 404 + 搜索索引
 python _工具脚本/_site_check.py      # 独立体检（断链/大小写/未入库/索引同步；--external 附加外链抽查）
 </code></pre>
 <p><code>_build_site.py</code> 结束时会做<strong>大小写敏感 + git 跟踪感知</strong>的链接校验（静态 href/src、DATA 里运行时注入的 URL、赛时工具页的链接都查）。任何一处断链（包括「文件存在但没进 git」这种只在 Linux 服务器上才会暴露的情况）都会让构建以非零码退出并列出行号级别的清单，不会再出现"本地一切正常、线上全 404"。提交时 <code>.git/hooks/pre-commit</code> 还会再跑一次快速体检拦截。</p>
@@ -462,15 +469,15 @@ python _工具脚本/_site_check.py      # 独立体检（断链/大小写/未�
 </tr>
 <tr>
 <td><code>warroom.html</code></td>
-<td><strong>48 小时作战室</strong>（赛时主控台）：思路时间线（自动盖 T0–T9 阶段戳，导出即决策日志）、交互手册、可勾选提交终检（30 项）、句库检索（38 句式）、中译英润色、思路导图、阶段速查，共 7 标签</td>
+<td><strong>48 小时作战室</strong>（赛时主控台）：思路时间线（自动盖 T0–T9 阶段戳，导出即决策日志）、交互手册、可勾选提交终检（30 项，可一键打印清单）、句库检索（38 句式）、中译英润色、思路导图、阶段速查，共 7 标签；顶栏可切夜间模式，<strong>时钟支持本地校准</strong>（官方推迟开赛时自救）</td>
 </tr>
 <tr>
 <td><code>xray.html</code></td>
-<td><strong>论文透视</strong>：同题对比矩阵（16 组多金牌题 ×6 维）、结构图谱（74 篇章节体量条带）、摘要解剖室（逐句功能标注），共 3 标签</td>
+<td><strong>论文透视</strong>：同题对比矩阵（16 组多金牌题 ×6 维）、结构图谱（74 篇章节体量条带）、摘要解剖室（逐句功能标注）、<strong>覆盖地图</strong>（32 题 × 解读/起步卡/赏析/精读 实扫矩阵），共 4 标签</td>
 </tr>
 <tr>
 <td><code>flashcards.html</code></td>
-<td><strong>物理模型闪卡</strong>：49 张翻卡（适用场景/方程/要点/常见错误），KaTeX 渲染，掌握进度本地保存</td>
+<td><strong>物理模型闪卡</strong>：49 张翻卡（适用场景/方程/要点/常见错误），KaTeX 渲染，掌握进度本地保存；<strong>今日回顾</strong>从你打卡过的论文年份域抽 5 张未掌握卡</td>
 </tr>
 <tr>
 <td><code>selector.html</code></td>
@@ -482,7 +489,7 @@ python _工具脚本/_site_check.py      # 独立体检（断链/大小写/未�
 </tr>
 <tr>
 <td><code>lab.html</code></td>
-<td><strong>数值实验台</strong>：浏览器里跑 Python（Pyodide 按需加载，约 10 MB），内置 2023-A 太空跳伞模型，参数滑杆+代码可改</td>
+<td><strong>数值实验台</strong>：浏览器里跑 Python（Pyodide 按需加载，约 10 MB），内置<strong>三道可调参模型</strong>——2023-A 太空跳伞（1D 下落）、2015-B 绕树高尔夫（侧旋拐弯）、2019-B 过山车（回环判据）</td>
 </tr>
 <tr>
 <td><code>forge.html</code></td>
@@ -497,15 +504,23 @@ python _工具脚本/_site_check.py      # 独立体检（断链/大小写/未�
 <h3 id="ai-技能与模式卡片管线">AI 技能与模式卡片管线</h3>
 <p><code>.agents/skills/</code> 下 7 个 ZCode 技能（同仓库协作时自动触发，换机器随仓库走）：<strong>upc-modeling</strong>（建模教练）、<strong>upc-writing</strong>（按金牌句库改写/翻译）、<strong>upc-figures</strong>（图表教练）、<strong>upc-review</strong>（评委视角审查+分档预判）、<strong>upc-site-check</strong>（站点体检）、<strong>upc-new-edition</strong>（新一届入库 SOP）、<strong>upc-content-style</strong>（内容体例规范）。</p>
 <p>技能的知识底座是模式卡片管线（<code>_知识提炼/</code>：原料 → 逐篇结构化卡片 → 4 份聚合知识库，schema 见 <code>_知识提炼/卡片任务说明.md</code>）。新一届论文入库后重跑 <code>_extract_knowledge.py</code> 与 <code>_aggregate_cards.py</code>，教练知识库即同步更新。</p>
+<h3 id="站点体验与可信度设施">站点体验与可信度设施</h3>
+<ul>
+<li><strong>反馈渠道</strong>：每个页面页脚有「提反馈 / 纠错」（GitHub Issues）与「版权与致谢」入口。</li>
+<li><strong>时钟本地校准</strong>：官方推迟/提前开赛时，首页时钟下方与作战室首卡都能改用实际开始时间（存本浏览器，截止随之平移）。</li>
+<li><strong>首页减负</strong>：使用指南里可选身份（新手/备赛/赛时/查阅），无关板块自动收起；打卡面板默认折叠（有过记录自动展开）；论文库默认先展示 10 篇 + 筛选状态进 URL（<code>#papers?y=2022&amp;p=A</code>）可直接分享。</li>
+<li><strong>内容生成与校验方式</strong>：见 <code>copyright.html</code> 的如实披露表（哪些机械提取、哪些 AI 生成、核查到什么程度）。</li>
+<li><strong>口径对账</strong>：构建末尾自动断言 README 手写数字与实际产物一致（文档页数/工具页数/论文数），失配即构建失败。</li>
+</ul>
 <h3 id="可选功能评论区等">可选功能（评论区等）</h3>
 <p>文档页已预留 giscus 评论区挂载点（零默认请求），赛事时钟的时间点在 <code>_build_site.py</code> 顶部配置——两者的启用/配置步骤见 <code>_工具脚本/网站蓝图与巡检标准.md</code> 第七节「运维备忘」。</p>
 <p><em>本档案库由自动化抓取 + 多智能体协作整理生成，论文版权归原队伍与 UPC 官方，仅作学习交流用途。</em></p>
 </div>
 
 </div>
-<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#目录结构">📁 目录结构</a></li><li class="l2"><a href="#历年赛题与论文速览">🗓 历年赛题与论文速览</a></li><li class="l2"><a href="#快速上手">🚀 快速上手</a></li><li class="l2"><a href="#upc-竞赛小档案">🏅 UPC 竞赛小档案</a></li><li class="l2"><a href="#部署为网站github-pages">🌐 部署为网站（GitHub Pages）</a></li><li class="l3"><a href="#重建站点">重建站点</a></li><li class="l3"><a href="#赛时工具12_赛时工具">赛时工具（12_赛时工具/）</a></li><li class="l3"><a href="#ai-技能与模式卡片管线">AI 技能与模式卡片管线</a></li><li class="l3"><a href="#可选功能评论区等">可选功能（评论区等）</a></li></ul></aside>
+<aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#目录结构">📁 目录结构</a></li><li class="l2"><a href="#历年赛题与论文速览">🗓 历年赛题与论文速览</a></li><li class="l2"><a href="#快速上手">🚀 快速上手</a></li><li class="l2"><a href="#upc-竞赛小档案">🏅 UPC 竞赛小档案</a></li><li class="l2"><a href="#部署为网站github-pages">🌐 部署为网站（GitHub Pages）</a></li><li class="l3"><a href="#重建站点">重建站点</a></li><li class="l3"><a href="#赛时工具12_赛时工具">赛时工具（12_赛时工具/）</a></li><li class="l3"><a href="#ai-技能与模式卡片管线">AI 技能与模式卡片管线</a></li><li class="l3"><a href="#站点体验与可信度设施">站点体验与可信度设施</a></li><li class="l3"><a href="#可选功能评论区等">可选功能（评论区等）</a></li></ul></aside>
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）<br><a href="../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -536,6 +551,17 @@ document.addEventListener("DOMContentLoaded", function(){
     ckUI();
     setTimeout(function(){ckSet("v")},3000);  // 停留 3 秒 = 浏览过（自动标记）
   }
+  // 字号档位（s/m/l/xl，记忆在本地）；打印按钮走既有 @media print 样式
+  var FZ=["fz-s","","fz-l","fz-xl"],fzs=["小","标准","大","特大"];
+  var fzBtn=document.getElementById('fz');
+  function applyFz(i){document.documentElement.classList.remove('fz-s','fz-l','fz-xl');
+    if(FZ[i])document.documentElement.classList.add(FZ[i]);
+    fzBtn.textContent='字号·'+fzs[i];try{localStorage.setItem('upcFz',String(i))}catch(e){}}
+  var fzi=parseInt((function(){try{return localStorage.getItem('upcFz')||"1"}catch(e){return "1"}})(),10);
+  if(!(fzi>=0&&fzi<FZ.length))fzi=1;applyFz(fzi);
+  fzBtn.addEventListener('click',function(){applyFz((fzi=(fzi+1)%FZ.length));});
+  document.getElementById('prt').addEventListener('click',function(){window.print();});
+  if('serviceWorker' in navigator){try{navigator.serviceWorker.register('../../sw.js');}catch(e){}}
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
     ignoredTags:["script","style","textarea","pre","code"]});

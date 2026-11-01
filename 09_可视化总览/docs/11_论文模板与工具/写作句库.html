@@ -12,6 +12,7 @@
 <meta property="og:description" content="写作句库 —— 从 73 篇金牌论文中摘录的英文句式 用法：按论文部位查找，直接套用后替换占位内容。每句注明出处与使用场景。这些句子的共同点： 信息密度高、无废话、自带逻辑连接词 ——评委扫读时靠它们抓住你的思路。 1. 摘要（Abst…">
 <meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="../../../manifest.webmanifest">
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
 <script>window.UPC_UI_ROOT="../../../";</script><script src="../../../global-ui.js" defer></script>
 <script defer src="../../vendor/katex/katex.min.js"></script>
@@ -28,6 +29,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
+html.fz-s body{font-size:15px}html.fz-l body{font-size:17.5px}html.fz-xl body{font-size:19px}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
@@ -149,6 +151,8 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <button id="ck" class="tag ck" type="button" hidden></button>
   
   <a class="tag" href="../../../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/%E5%86%99%E4%BD%9C%E5%8F%A5%E5%BA%93.md">Markdown</a>
+  <button id="fz" class="tag" type="button" title="正文字号：小 / 标准 / 大 / 特大">字号</button>
+  <button id="prt" class="tag" type="button" title="打印本文（自动隐藏顶栏与目录）">打印</button>
   <span class="crumb">11_论文模板与工具 · 写作句库 —— 从 73 篇金牌论文中摘录的英文句式</span>
   <div class="srwrap">
     <input id="dsq" type="search" placeholder="全库搜索" autocomplete="off">
@@ -434,7 +438,7 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
 </div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#1-摘要abstract">1. 摘要（Abstract）</a></li><li class="l2"><a href="#2-基准与动机baseline-motivation">2. 基准与动机（Baseline / Motivation）</a></li><li class="l2"><a href="#3-建模与假设model-assumptions">3. 建模与假设（Model / Assumptions）</a></li><li class="l2"><a href="#4-数值方法numerics">4. 数值方法（Numerics）</a></li><li class="l2"><a href="#5-结果与论证results-reasoning">5. 结果与论证（Results / Reasoning）</a></li><li class="l2"><a href="#6-不确定性与局限uncertainty-limitations">6. 不确定性与局限（Uncertainty / Limitations）</a></li><li class="l2"><a href="#7-结论conclusion">7. 结论（Conclusion）</a></li><li class="l2"><a href="#8-高频逻辑连接词让段落自己会走路">8. 高频逻辑连接词（让段落"自己会走路"）</a></li><li class="l2"><a href="#9-反面清单这些写法在落选论文里高发">9. 反面清单（这些写法在落选论文里高发）</a></li><li class="l2"><a href="#10-ai-使用披露report-on-the-use-of-ai-2026-官方要求">10. AI 使用披露（Report on the Use of AI · 2026 官方要求）</a></li></ul></aside>
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）<br><a href="../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -465,6 +469,17 @@ document.addEventListener("DOMContentLoaded", function(){
     ckUI();
     setTimeout(function(){ckSet("v")},3000);  // 停留 3 秒 = 浏览过（自动标记）
   }
+  // 字号档位（s/m/l/xl，记忆在本地）；打印按钮走既有 @media print 样式
+  var FZ=["fz-s","","fz-l","fz-xl"],fzs=["小","标准","大","特大"];
+  var fzBtn=document.getElementById('fz');
+  function applyFz(i){document.documentElement.classList.remove('fz-s','fz-l','fz-xl');
+    if(FZ[i])document.documentElement.classList.add(FZ[i]);
+    fzBtn.textContent='字号·'+fzs[i];try{localStorage.setItem('upcFz',String(i))}catch(e){}}
+  var fzi=parseInt((function(){try{return localStorage.getItem('upcFz')||"1"}catch(e){return "1"}})(),10);
+  if(!(fzi>=0&&fzi<FZ.length))fzi=1;applyFz(fzi);
+  fzBtn.addEventListener('click',function(){applyFz((fzi=(fzi+1)%FZ.length));});
+  document.getElementById('prt').addEventListener('click',function(){window.print();});
+  if('serviceWorker' in navigator){try{navigator.serviceWorker.register('../../../sw.js');}catch(e){}}
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
     ignoredTags:["script","style","textarea","pre","code"]});

@@ -12,6 +12,7 @@
 <meta property="og:description" content="精读 04 · Solar Sailing to Mars（2017 题A 金牌 · 队伍 670） 这份精读怎么用 ：左手边开论文 PDF，右手边开本篇。这是一篇只有 5 页正文 的金牌论文——它证明 UPC 评分的核心是物理与结论，…">
 <meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="../../../../manifest.webmanifest">
 <link rel="stylesheet" href="../../../vendor/katex/katex.min.css">
 <script>window.UPC_UI_ROOT="../../../../";</script><script src="../../../../global-ui.js" defer></script>
 <script defer src="../../../vendor/katex/katex.min.js"></script>
@@ -28,6 +29,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
+html.fz-s body{font-size:15px}html.fz-l body{font-size:17.5px}html.fz-xl body{font-size:19px}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
@@ -149,6 +151,8 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <button id="ck" class="tag ck" type="button" hidden></button>
   <a class="tag" href="../../../../03_%E4%BC%98%E7%A7%80%E8%AE%BA%E6%96%87PDF/2017/Problem%20A/2017-GM-A-670.pdf">论文 PDF</a><a class="tag" href="../../05_%E8%AE%BA%E6%96%87%E8%B5%8F%E6%9E%90/2017/2017-GM-A-670.html">本篇赏析</a>
   <a class="tag" href="../../../../10_%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/2017/2017-GM-A-670_%E7%B2%BE%E8%AF%BB.md">Markdown</a>
+  <button id="fz" class="tag" type="button" title="正文字号：小 / 标准 / 大 / 特大">字号</button>
+  <button id="prt" class="tag" type="button" title="打印本文（自动隐藏顶栏与目录）">打印</button>
   <span class="crumb">10_论文精读/2017 · 精读 04 · Solar Sailing to Mars（2017 题A 金牌 · 队伍 670）</span>
   <div class="srwrap">
     <input id="dsq" type="search" placeholder="全库搜索" autocomplete="off">
@@ -423,7 +427,7 @@ ax.legend(); plt.tight_layout(); plt.show()
 </div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-一分钟看懂全文骨架">0. 一分钟看懂全文骨架</a></li><li class="l2"><a href="#1-逐节导读">1. 逐节导读</a></li><li class="l3"><a href="#11-abstract第-1-页">1.1 Abstract（第 1 页）</a></li><li class="l3"><a href="#12-1-introduction第-1-页">1.2 §1 Introduction（第 1 页）</a></li><li class="l3"><a href="#13-2-mathematical-model第-12-页">1.3 §2 Mathematical model（第 1–2 页）</a></li><li class="l3"><a href="#14-21-equations-of-motion-续控制参数化第-2-页">1.4 §2.1 Equations of motion 续：控制参数化（第 2 页）</a></li><li class="l3"><a href="#15-2223-flight-optimization-optimization-algorithm第-23-页">1.5 §2.2–2.3 Flight optimization / Optimization Algorithm（第 2–3 页）</a></li><li class="l3"><a href="#16-3-results第-34-页">1.6 §3 Results（第 3–4 页）</a></li><li class="l3"><a href="#17-4-conclusions第-5-页">1.7 §4 Conclusions（第 5 页）</a></li><li class="l2"><a href="#2-图表深析">2. 图表深析</a></li><li class="l2"><a href="#3-公式逐条精讲">3. 公式逐条精讲</a></li><li class="l3"><a href="#31-光压力式-1-前的未编号式">3.1 光压力（式 1 前的未编号式）</a></li><li class="l3"><a href="#32-球坐标分量式-1">3.2 球坐标分量（式 1）</a></li><li class="l3"><a href="#33-运动方程式-2">3.3 运动方程（式 2）</a></li><li class="l3"><a href="#34-帆角约束式-3">3.4 帆角约束（式 3）</a></li><li class="l3"><a href="#35-目标函数-ηmt-与容量曲线13无编号">3.5 目标函数 η=m/T 与容量曲线（§1、§3，无编号）</a></li><li class="l2"><a href="#4-建模决策链">4. 建模决策链</a></li><li class="l2"><a href="#5-从本篇提炼的可复用模板">5. 从本篇提炼的可复用模板</a></li></ul></aside>
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）<br><a href="../../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -454,6 +458,17 @@ document.addEventListener("DOMContentLoaded", function(){
     ckUI();
     setTimeout(function(){ckSet("v")},3000);  // 停留 3 秒 = 浏览过（自动标记）
   }
+  // 字号档位（s/m/l/xl，记忆在本地）；打印按钮走既有 @media print 样式
+  var FZ=["fz-s","","fz-l","fz-xl"],fzs=["小","标准","大","特大"];
+  var fzBtn=document.getElementById('fz');
+  function applyFz(i){document.documentElement.classList.remove('fz-s','fz-l','fz-xl');
+    if(FZ[i])document.documentElement.classList.add(FZ[i]);
+    fzBtn.textContent='字号·'+fzs[i];try{localStorage.setItem('upcFz',String(i))}catch(e){}}
+  var fzi=parseInt((function(){try{return localStorage.getItem('upcFz')||"1"}catch(e){return "1"}})(),10);
+  if(!(fzi>=0&&fzi<FZ.length))fzi=1;applyFz(fzi);
+  fzBtn.addEventListener('click',function(){applyFz((fzi=(fzi+1)%FZ.length));});
+  document.getElementById('prt').addEventListener('click',function(){window.print();});
+  if('serviceWorker' in navigator){try{navigator.serviceWorker.register('../../../../sw.js');}catch(e){}}
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
     ignoredTags:["script","style","textarea","pre","code"]});

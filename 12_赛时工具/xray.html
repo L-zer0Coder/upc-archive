@@ -5,11 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>论文透视 · UPC 全档案库</title>
 <script>window.UPC_UI_ROOT="../";</script><script src="../global-ui.js" defer></script>
-<meta name="description" content="UPC 论文透视：同题对比矩阵、74 篇结构图谱、摘要解剖室——跨论文横向分析金牌论文的判据、模型、验证与摘要配方。">
+<meta name="description" content="UPC 论文透视：同题对比矩阵、结构图谱、摘要解剖室与覆盖地图——跨论文横向分析金牌论文的判据、模型、验证与摘要配方。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="UPC 全档案库">
 <meta property="og:title" content="论文透视 · UPC 全档案库">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%239C3F2E'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='700' text-anchor='middle' fill='%23FDFCF8' font-family='Georgia,serif'%3EU%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#9C3F2E">
 <link rel="stylesheet" href="../09_可视化总览/vendor/katex/katex.min.css"><script defer src="../09_可视化总览/vendor/katex/katex.min.js"></script>
 <style>
 :root{
@@ -19,6 +21,17 @@
  --serif:Georgia,"Times New Roman","Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
  --sans:"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
  --mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+/* 夜间模式：变量整组换肤；个别硬编码浅色在此一并压暗 */
+body.night{--paper:#26231E;--sheet:#2D2A24;--ink:#EAE4D8;--mut:#B7AE9E;--dim:#9C9382;
+ --line:#45403A;--line2:#565047;--acc:#E2907C;--acc-d:#F0B4A4;--acc-soft:rgba(226,144,124,.14)}
+body.night .topbar{background:rgba(38,35,30,.94)}
+body.night .tabs{background:rgba(38,35,30,.96)}
+body.night .btn{background:#37332C;border-color:#565047;color:var(--ink)}
+body.night .btn.solid{background:var(--acc);border-color:var(--acc);color:#26231E}
+body.night img{opacity:.88}
+#nightT{background:none;border:1px solid var(--line2);border-radius:3px;height:26px;min-width:30px;
+ cursor:pointer;color:var(--mut);font-size:13px;padding:0 6px}
+#nightT:hover{border-color:var(--acc);color:var(--acc)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.85}
@@ -72,6 +85,9 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
  .wrap{max-width:none;padding:0}
  .card{border:none;padding:0}
  .pane{display:block!important;page-break-inside:auto}
+ /* 终检清单专项打印：body.pcheck 时只打印 pane-check */
+ body.pcheck .topbar,body.pcheck .tabs,body.pcheck .pane,body.pcheck footer{display:none!important}
+ body.pcheck #pane-check{display:block!important}
 }
 </style>
 </head>
@@ -80,15 +96,27 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
   <a class="brand" href="../index.html"><span class="seal">U</span>UPC 全档案库</a>
   <span class="crumb">实战工具 · 平时开放</span>
   <span class="clock" id="clock" aria-label="第 17 届 UPC 赛程"></span>
+  <button id="nightT" type="button" title="夜间 / 日间模式" aria-label="切换夜间模式">🌙</button>
 </div></div>
+<script>(function(){
+  function set(n){document.body.classList.toggle('night',n);
+    var t=document.getElementById('nightT');if(t)t.textContent=n?'☀️':'🌙';
+    try{localStorage.setItem('upcNight',n?'1':'0')}catch(e){}}
+  var s=false;try{s=localStorage.getItem('upcNight')==='1'}catch(e){}
+  set(s);
+  document.getElementById('nightT').addEventListener('click',function(){
+    set(!document.body.classList.contains('night'));});
+  if('serviceWorker' in navigator){try{navigator.serviceWorker.register('../sw.js');}catch(e){}}
+})();</script>
 <div class="wrap">
 <h1 class="pt">论文透视</h1>
-<p class="pt-lead">单篇精读之上的一层：横向看 74 篇金牌论文。同题对比看合法解法谱系，结构图谱看章节配比规律，摘要解剖看逐句功能配方。</p>
+<p class="pt-lead">单篇精读之上的一层：横向看 74 篇金牌论文。同题对比看合法解法谱系，结构图谱看章节配比规律，摘要解剖看逐句功能配方，覆盖地图看全库对 32 题的覆盖实况。</p>
 
 <nav class="tabs" id="xtabs">
   <a data-t="cmp" class="on">同题对比矩阵</a>
   <a data-t="atlas">结构图谱</a>
   <a data-t="abs">摘要解剖室</a>
+  <a data-t="cov">覆盖地图</a>
 </nav>
 
 <section class="pane on" id="pane-cmp">
@@ -117,10 +145,18 @@ input[type=text],input[type=search],textarea{font-family:inherit;color:var(--ink
   <div id="ablist"></div>
 </section>
 
+<section class="pane" id="pane-cov">
+  <div class="notebox" style="margin-bottom:12px"><b>覆盖地图</b>：全库内容对 16 年 32 道题的覆盖实况——
+  每一格都对应仓库里的真实文件，构建期扫描生成。哪些题有起步卡、哪篇论文还没精读，一目了然。</div>
+  <div style="overflow:auto"><table style="border-collapse:collapse;width:100%;font-size:13px"><thead><tr><th>题</th><th>题名（来自解读文件）</th><th>解读</th><th>起步卡</th><th>赏析</th><th>精读</th></tr></thead><tbody><tr><td>2010 题A</td><td>海王星气动制动</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">1</td><td style="text-align:center">1</td></tr><tr><td>2010 题B</td><td>投石机动力学</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center">1</td><td style="text-align:center">1</td></tr><tr><td>2011 题A</td><td>太空塔发射成本</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">1</td><td style="text-align:center">1</td></tr><tr><td>2011 题B</td><td>三分球投篮</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center">1</td><td style="text-align:center">1</td></tr><tr><td>2012 题A</td><td>超级地球火山</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">1</td><td style="text-align:center">1</td></tr><tr><td>2012 题B</td><td>乒乓球尺寸</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">1</td><td style="text-align:center">1</td></tr><tr><td>2013 题A</td><td>木星引力辅助入轨</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">1</td><td style="text-align:center">1</td></tr><tr><td>2013 题B</td><td>超重力生物结构</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">1</td><td style="text-align:center">1</td></tr><tr><td>2014 题A</td><td>环双星行星</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">1</td><td style="text-align:center">1</td></tr><tr><td>2014 题B</td><td>喷泉优化</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center">1</td><td style="text-align:center">1</td></tr><tr><td>2015 题A</td><td>改造火星定向撞击</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">1</td><td style="text-align:center">1</td></tr><tr><td>2015 题B</td><td>绕树高尔夫</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">1</td><td style="text-align:center">1</td></tr><tr><td>2016 题A</td><td>核废料太空处置</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">2</td><td style="text-align:center">2</td></tr><tr><td>2016 题B</td><td>恐龙哺乳动物体型上限</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center">1</td><td style="text-align:center">1</td></tr><tr><td>2017 题A</td><td>太阳帆去火星</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">3</td><td style="text-align:center">3</td></tr><tr><td>2017 题B</td><td>离子推进器磁导向</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">1</td><td style="text-align:center">1</td></tr><tr><td>2018 题A</td><td>光帆纳米飞行器</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">3</td><td style="text-align:center">3</td></tr><tr><td>2018 题B</td><td>堆肥堆尺寸</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center">2</td><td style="text-align:center">2</td></tr><tr><td>2019 题A</td><td>火星辐射防护</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">3</td><td style="text-align:center">3</td></tr><tr><td>2019 题B</td><td>过山车设计</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center">2</td><td style="text-align:center">2</td></tr><tr><td>2020 题A</td><td>离子推进器去土星</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">4</td><td style="text-align:center">4</td></tr><tr><td>2020 题B</td><td>四旋翼抗风</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">2</td><td style="text-align:center">2</td></tr><tr><td>2021 题A</td><td>火星大气演化</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">2</td><td style="text-align:center">2</td></tr><tr><td>2021 题B</td><td>小行星撞击沿海城市</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">4</td><td style="text-align:center">4</td></tr><tr><td>2022 题A</td><td>偏转小行星</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">4</td><td style="text-align:center">4</td></tr><tr><td>2022 题B</td><td>点球最优策略</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">3</td><td style="text-align:center">3</td></tr><tr><td>2023 题A</td><td>太空跳伞安全高度</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center">6</td><td style="text-align:center">6</td></tr><tr><td>2023 题B</td><td>三人蹦床</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center">3</td><td style="text-align:center">3</td></tr><tr><td>2024 题A</td><td>空间站空气逃逸</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr><tr><td>2024 题B</td><td>火星电源最小质量</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">0</td><td style="text-align:center">0</td></tr><tr><td>2025 题A</td><td>电声沙桑托琴</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">3</td><td style="text-align:center">3</td></tr><tr><td>2025 题B</td><td>火炮弹道射表</td><td style="text-align:center"><b style="color:var(--acc)">✓</b></td><td style="text-align:center"><span style="color:var(--dim)">—</span></td><td style="text-align:center">13</td><td style="text-align:center">13</td></tr></tbody></table></div><div class="notebox" style="margin-top:12px">总计：<b>32 题</b> · 解读 32/32 · 起步卡 9/32 · 赏析 73 篇 · 精读 73 篇。缺口坦然列出：起步卡与部分批次精读仍在补齐（见维护路线图）。</div>
+</section>
+
 </div>
-<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份</footer>
+<footer>UPC 2010–2025 全档案库 · 第 17 届 2026-11-07 09:00 – 11-09 09:00（北京时间）· 数据只存本浏览器，记得导出备份<br><a href="../copyright.html">版权与致谢</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错</a> · <a href="../upc-offline-kit.zip" download>赛时离线包</a></footer>
 <script>
-var EV_START=1794013200000,EV_END=1794186000000;
+var EV_START0=1794013200000,RACE_DUR=1794186000000-1794013200000;
+function raceT0(){try{var v=parseInt(localStorage.getItem('upcRaceT0')||"",10);return v>0?v:0}catch(e){return 0}}
+var EV_START=raceT0()||EV_START0,EV_END=EV_START+RACE_DUR;
 function p2(n){return n<10?'0'+n:''+n;}
 (function(){
   var el=document.getElementById('clock');

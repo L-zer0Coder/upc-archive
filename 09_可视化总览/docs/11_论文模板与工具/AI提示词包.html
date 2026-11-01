@@ -12,6 +12,7 @@
 <meta property="og:description" content="AI 提示词包 —— 把 74 篇金牌的方法论装进任何 AI 对话框 用法：赛时把对应提示词整段复制给任意 AI（GLM / GPT / Kimi / DeepSeek 都行）， 再把题目原文或你的草稿贴在后面。每条提示词都内置了本库从…">
 <meta property="og:image" content="https://l-zer0coder.github.io/upc-archive/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="../../../manifest.webmanifest">
 <link rel="stylesheet" href="../../vendor/katex/katex.min.css">
 <script>window.UPC_UI_ROOT="../../../";</script><script src="../../../global-ui.js" defer></script>
 <script defer src="../../vendor/katex/katex.min.js"></script>
@@ -28,6 +29,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:74px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:2}
+html.fz-s body{font-size:15px}html.fz-l body{font-size:17.5px}html.fz-xl body{font-size:19px}
 #pbar{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--acc);transition:width .1s}
 .topbar{position:sticky;top:0;z-index:9;background:rgba(253,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topbar .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 22px;min-width:0}
@@ -149,6 +151,8 @@ aside.toc::-webkit-scrollbar-thumb{background:var(--line2);border-radius:4px}
   <button id="ck" class="tag ck" type="button" hidden></button>
   
   <a class="tag" href="../../../11_%E8%AE%BA%E6%96%87%E6%A8%A1%E6%9D%BF%E4%B8%8E%E5%B7%A5%E5%85%B7/AI%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%8C%85.md">Markdown</a>
+  <button id="fz" class="tag" type="button" title="正文字号：小 / 标准 / 大 / 特大">字号</button>
+  <button id="prt" class="tag" type="button" title="打印本文（自动隐藏顶栏与目录）">打印</button>
   <span class="crumb">11_论文模板与工具 · AI 提示词包 —— 把 74 篇金牌的方法论装进任何 AI 对话框</span>
   <div class="srwrap">
     <input id="dsq" type="search" placeholder="全库搜索" autocomplete="off">
@@ -394,7 +398,7 @@ E 呈现：图是否结论进图题、轴带单位、配色语义一致。
 </div>
 <aside class="toc"><div class="tt">本页目录</div><ul><li class="l2"><a href="#0-总指挥-全程完赛主提示词-平台接入">0. 总指挥 · 全程完赛（主提示词 + 平台接入）</a></li><li class="l3"><a href="#提示词通用主控六阶段流水线-平台无关核心">提示词：通用主控（六阶段流水线 · 平台无关核心）</a></li><li class="l3"><a href="#提示词gpt-codex-平台接入可执行代理版">提示词：GPT / Codex 平台接入（可执行代理版）</a></li><li class="l3"><a href="#提示词deepseek-平台接入内联知识包版">提示词：DeepSeek 平台接入（内联知识包版）</a></li><li class="l2"><a href="#1-选题与读题t0t1">1. 选题与读题（T0–T1）</a></li><li class="l2"><a href="#1-选题与读题t0t1_1">1. 选题与读题（T0–T1）</a></li><li class="l3"><a href="#提示词15-分钟读题评估">提示词：15 分钟读题评估</a></li><li class="l3"><a href="#提示词模糊词操作化判据立军令状">提示词：模糊词操作化（判据立军令状）</a></li><li class="l2"><a href="#2-建模设计t2t3">2. 建模设计（T2–T3）</a></li><li class="l3"><a href="#提示词基准方案与量级表">提示词：基准方案与量级表</a></li><li class="l3"><a href="#提示词主模型推导陪练">提示词：主模型推导陪练</a></li><li class="l2"><a href="#3-数值与验证t4t6">3. 数值与验证（T4–T6）</a></li><li class="l3"><a href="#提示词积分器与代码审查">提示词：积分器与代码审查</a></li><li class="l3"><a href="#提示词验证三件套设计与精度声明">提示词：验证三件套设计与精度声明</a></li><li class="l2"><a href="#4-写作t7t8">4. 写作（T7–T8）</a></li><li class="l3"><a href="#提示词摘要打磨数字ocracy">提示词：摘要打磨（数字ocracy）</a></li><li class="l3"><a href="#提示词逐节中译英与句式升级">提示词：逐节中译英与句式升级</a></li><li class="l2"><a href="#5-模拟评审t9">5. 模拟评审（T9）</a></li><li class="l3"><a href="#提示词评委三分钟模拟">提示词：评委三分钟模拟</a></li><li class="l2"><a href="#6-赛后复盘">6. 赛后复盘</a></li><li class="l3"><a href="#提示词结构化复盘访谈">提示词：结构化复盘访谈</a></li><li class="l3"><a href="#提示词与历届金牌对比找差距">提示词：与历届金牌对比找差距</a></li></ul></aside>
 </div>
-<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）</footer>
+<footer>UPC 2010–2025 全档案库 · 内容仅供学习交流 · 论文版权归原队伍与 UPC 官方（uphysicsc.com）<br><a href="../../../copyright.html">版权与致谢 · 内容生成与校验方式</a> · <a href="https://github.com/L-zer0Coder/upc-archive/issues" target="_blank" rel="noopener">提反馈 / 纠错（GitHub Issues）</a></footer>
 <div style="max-width:824px;margin:26px auto;padding:0 20px"><div id="giscus-thread" hidden></div></div>
 <button id="top" aria-label="回到顶部">↑</button>
 <script>
@@ -425,6 +429,17 @@ document.addEventListener("DOMContentLoaded", function(){
     ckUI();
     setTimeout(function(){ckSet("v")},3000);  // 停留 3 秒 = 浏览过（自动标记）
   }
+  // 字号档位（s/m/l/xl，记忆在本地）；打印按钮走既有 @media print 样式
+  var FZ=["fz-s","","fz-l","fz-xl"],fzs=["小","标准","大","特大"];
+  var fzBtn=document.getElementById('fz');
+  function applyFz(i){document.documentElement.classList.remove('fz-s','fz-l','fz-xl');
+    if(FZ[i])document.documentElement.classList.add(FZ[i]);
+    fzBtn.textContent='字号·'+fzs[i];try{localStorage.setItem('upcFz',String(i))}catch(e){}}
+  var fzi=parseInt((function(){try{return localStorage.getItem('upcFz')||"1"}catch(e){return "1"}})(),10);
+  if(!(fzi>=0&&fzi<FZ.length))fzi=1;applyFz(fzi);
+  fzBtn.addEventListener('click',function(){applyFz((fzi=(fzi+1)%FZ.length));});
+  document.getElementById('prt').addEventListener('click',function(){window.print();});
+  if('serviceWorker' in navigator){try{navigator.serviceWorker.register('../../../sw.js');}catch(e){}}
   if (window.renderMathInElement) renderMathInElement(document.querySelector(".sheet"), {
     delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],
     ignoredTags:["script","style","textarea","pre","code"]});
